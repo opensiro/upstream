@@ -4,6 +4,7 @@ projects:
     name: Cognee Community
     upstream: https://github.com/topoteretes/cognee-community
     fork: https://github.com/opensiro/cognee-community
+    work_branch: https://github.com/opensiro/cognee-community/tree/feat/opensiro-vsm-source
     contribution:
       id: opensiro-vsm-source
       title: Canonical OpenSiro VSM assessment source
