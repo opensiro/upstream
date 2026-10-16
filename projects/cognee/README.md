@@ -3,7 +3,7 @@
 - **Upstream:** [topoteretes/cognee-community](https://github.com/topoteretes/cognee-community)
 - **Working fork:** [opensiro/cognee-community](https://github.com/opensiro/cognee-community)
 - **Local implementation branch:** [feat/opensiro-vsm-source](https://github.com/opensiro/cognee-community/tree/feat/opensiro-vsm-source)
-- **Latest fork branch commit:** [46b1781](https://github.com/opensiro/cognee-community/commit/46b17818e8c22f38295eccae0747edefb4e6d692) — B13 full 533/533 PASS; B14 graph-stage SIGKILL PASS; B15 early DLT-stage SIGKILL & durable attempt guard PASS; 36 tests, Ruff and wheel build PASS
+- **Latest fork branch commit:** [74e4321](https://github.com/opensiro/cognee-community/commit/74e43217e08411951f0c68cfbf2e9c78ab6227d4) — B13 full 533/533 PASS; B14 graph-stage SIGKILL PASS; B15 precommit DLT guard PASS; B16 partial committed DLT-job SIGKILL PASS; 36 unit tests, Ruff and wheel build PASS
 - **Contribution:** canonical VSM assessment source connector
 - **Upstream status:** **not submitted** (no issue assignment or upstream PR)
 - **Fork lifecycle:** **active**
@@ -30,6 +30,10 @@ The [B14 report](https://github.com/opensiro/cognee-community/blob/feat/opensiro
 ## Precommit DLT SIGKILL and durable retry fence (B15)
 
 The [B15 report](https://github.com/opensiro/cognee-community/blob/feat/opensiro-vsm-source/packages/connector/opensiro-vsm/docs/validation-b15.md) documents a second **real SIGKILL**, now after DLT received the first source item but **before** the Cognee database had committed any Data rows. This exposed a gap: the former nonempty-Data guard would not prevent reusing such an already-attempted dataset. The package now has an exclusive fsynced per-dataset **attempt marker** written before any Cognee operation. Reopen after SIGKILL found **0 source documents and 0 graph nodes**, independent audit rejected the incomplete version, and the new attempt guard rejected reuse even with zero rows. A new clean 3-document dataset independently passed graph audit (69 nodes, 48 edges, 18 literal grades), was activated, and passed fresh-process read-back. The opt-in manual test sequence was repeated in a second scratch folder, all four phases PASS. **This is a local per-process DLT iterator boundary, not an arbitrary mid-DLT commit or distributed crash recovery certification.**
+
+## Partially committed DLT load-job SIGKILL (B16)
+
+The [B16 report](https://github.com/opensiro/cognee-community/blob/feat/opensiro-vsm-source/packages/connector/opensiro-vsm/docs/validation-b16.md) documents a real process kill **after the first of three independent SQLite DLT load jobs committed**. A second read-only connection observed **1/3** committed DLT source rows before SIGKILL and the supervisor observed the same **1/3** after child exit **−9**. Main Cognee `Data` and graph were still **0/0**, showing that a committed DLT staging job need not mean Cognee source admission completed. The pre-Cognee durable attempt marker rejected reuse of the failed dataset; a **new** 3-record dataset independently passed audit (**69 nodes, 48 edges, 18 exact grades**) and CAS activation; a fresh process reopened it as PASS. This deliberately uses **three test-only DLT resources** to produce separately committed jobs and **does not prove partial commit inside one SQL transaction**, distributed consistency, or native DLT auto-resume. Status remains `preparing` and there is no upstream PR.
 
 ## Workflow
 
