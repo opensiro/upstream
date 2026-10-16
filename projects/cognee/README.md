@@ -3,7 +3,7 @@
 - **Upstream:** [topoteretes/cognee-community](https://github.com/topoteretes/cognee-community)
 - **Working fork:** [opensiro/cognee-community](https://github.com/opensiro/cognee-community)
 - **Local implementation branch:** [feat/opensiro-vsm-source](https://github.com/opensiro/cognee-community/tree/feat/opensiro-vsm-source)
-- **Implementation commit:** [5608316](https://github.com/opensiro/cognee-community/commit/560831613e0ce4b45430f784489dfdccb891608e) — 27 local tests PASS, Cognee native three-harness smoke PASS
+- **Latest fork branch commit:** [986fc29](https://github.com/opensiro/cognee-community/commit/986fc296c6dd7c75406dd9fbd616d5fcd528ea8f) — 27 local tests PASS, Ruff lint/format PASS, package wheel build PASS, Cognee native three-harness smoke PASS
 - **Contribution:** canonical VSM assessment source connector
 - **Upstream status:** **not submitted** (no issue assignment or upstream PR)
 - **Fork lifecycle:** **active**
