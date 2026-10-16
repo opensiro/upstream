@@ -5,6 +5,7 @@ projects:
     upstream: https://github.com/topoteretes/cognee-community
     fork: https://github.com/opensiro/cognee-community
     work_branch: https://github.com/opensiro/cognee-community/tree/feat/opensiro-vsm-source
+    review_branch: https://github.com/opensiro/cognee-community/tree/feat/opensiro-vsm-source-review
     contribution:
       id: opensiro-vsm-source
       title: Canonical OpenSiro VSM assessment source
@@ -20,6 +21,7 @@ projects:
       - https://github.com/opensiro/vsm-harness-index/issues/1598
       - https://github.com/opensiro/vsm-oss-organization/issues/271
     notes: >-
-      Local B10/B11 integration validated on pinned VSM Index snapshots.
-      Implementation is not submitted to upstream; only OpenSiro-owned
-      fork development is authorized at this stage.
+      Research branch retains B10-B16 full-corpus and failure evidence.
+      Focused B17 review branch keeps pinned source, native projection,
+      durable stage fencing and independent audit. Upstream not submitted;
+      only OpenSiro-owned development is authorized.
