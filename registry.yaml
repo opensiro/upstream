@@ -1,0 +1,24 @@
+schema_version: 1
+projects:
+  - id: cognee-community
+    name: Cognee Community
+    upstream: https://github.com/topoteretes/cognee-community
+    fork: https://github.com/opensiro/cognee-community
+    contribution:
+      id: opensiro-vsm-source
+      title: Canonical OpenSiro VSM assessment source
+      status: preparing
+      upstream_issue: null
+      upstream_pr: null
+      accepted_at: null
+    maintenance:
+      status: active
+      archived_at: null
+      reason: null
+    evidence:
+      - https://github.com/opensiro/vsm-harness-index/issues/1598
+      - https://github.com/opensiro/vsm-oss-organization/issues/271
+    notes: >-
+      Local B10/B11 integration validated on pinned VSM Index snapshots.
+      Implementation is not submitted to upstream; only OpenSiro-owned
+      fork development is authorized at this stage.
