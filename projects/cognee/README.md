@@ -3,7 +3,7 @@
 - **Upstream:** [topoteretes/cognee-community](https://github.com/topoteretes/cognee-community)
 - **Working fork:** [opensiro/cognee-community](https://github.com/opensiro/cognee-community)
 - **Local implementation branch:** [feat/opensiro-vsm-source](https://github.com/opensiro/cognee-community/tree/feat/opensiro-vsm-source)
-- **Latest fork branch commit:** [986fc29](https://github.com/opensiro/cognee-community/commit/986fc296c6dd7c75406dd9fbd616d5fcd528ea8f) — 27 local tests PASS, Ruff lint/format PASS, package wheel build PASS, Cognee native three-harness smoke PASS
+- **Latest fork branch commit:** [f8f44e7](https://github.com/opensiro/cognee-community/commit/f8f44e7a3109134dee9ae9554c6f77c8277e2e20) — B13 full 533/533 source import, independent audit PASS, 28 tests PASS, Ruff PASS
 - **Contribution:** canonical VSM assessment source connector
 - **Upstream status:** **not submitted** (no issue assignment or upstream PR)
 - **Fork lifecycle:** **active**
@@ -18,6 +18,10 @@ Provide a source-first, read-only import of the accepted OpenSiro VSM harness as
 - [Organization research issue #271](https://github.com/opensiro/vsm-oss-organization/issues/271) — upstream contribution strategy and scope decisions.
 
 B10 demonstrated a CPU-only fresh import of all 533 accepted assessments into an isolated Cognee 1.6.4 dataset. B11 tested a smaller two-generation source update with independent audits and an atomic local selection pointer. These results do **not** establish production-grade interrupted Cognee ingestion recovery, distributed cutover, vector/semantic retrieval, or upstream acceptance.
+
+## Full packaged validation (B13)
+
+The fork's [B13 validation report](https://github.com/opensiro/cognee-community/blob/feat/opensiro-vsm-source/packages/connector/opensiro-vsm/docs/validation-b13.md) verifies **533/533** accepted assessments, **3,198 exact function facts**, **11,201 nodes and 7,470 edges**, and native source provenance. CPU-only retrieval returned expected names at rank 1 for four controlled queries. A controlled interruption produced an incomplete stage which was rejected on reopening; recovery used **another fresh dataset** before pointer publication. This does not establish recovery after hard process termination or production readiness.
 
 ## Workflow
 
