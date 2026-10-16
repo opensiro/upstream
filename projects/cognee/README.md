@@ -3,7 +3,7 @@
 - **Upstream:** [topoteretes/cognee-community](https://github.com/topoteretes/cognee-community)
 - **Working fork:** [opensiro/cognee-community](https://github.com/opensiro/cognee-community)
 - **Local implementation branch:** [feat/opensiro-vsm-source](https://github.com/opensiro/cognee-community/tree/feat/opensiro-vsm-source)
-- **Latest fork branch commit:** [f8f44e7](https://github.com/opensiro/cognee-community/commit/f8f44e7a3109134dee9ae9554c6f77c8277e2e20) — B13 full 533/533 source import, independent audit PASS, 28 tests PASS, Ruff PASS
+- **Latest fork branch commit:** [d019e23](https://github.com/opensiro/cognee-community/commit/d019e23f7bd722b2984b2ac9a753cc58cdb111c6) — B13 full 533/533 source audit PASS; B14 real SIGKILL recovery PASS; 28 unit tests, Ruff and wheel build PASS
 - **Contribution:** canonical VSM assessment source connector
 - **Upstream status:** **not submitted** (no issue assignment or upstream PR)
 - **Fork lifecycle:** **active**
@@ -21,7 +21,11 @@ B10 demonstrated a CPU-only fresh import of all 533 accepted assessments into an
 
 ## Full packaged validation (B13)
 
-The fork's [B13 validation report](https://github.com/opensiro/cognee-community/blob/feat/opensiro-vsm-source/packages/connector/opensiro-vsm/docs/validation-b13.md) verifies **533/533** accepted assessments, **3,198 exact function facts**, **11,201 nodes and 7,470 edges**, and native source provenance. CPU-only retrieval returned expected names at rank 1 for four controlled queries. A controlled interruption produced an incomplete stage which was rejected on reopening; recovery used **another fresh dataset** before pointer publication. This does not establish recovery after hard process termination or production readiness.
+The fork's [B13 validation report](https://github.com/opensiro/cognee-community/blob/feat/opensiro-vsm-source/packages/connector/opensiro-vsm/docs/validation-b13.md) verifies **533/533** accepted assessments, **3,198 exact function facts**, **11,201 nodes and 7,470 edges**, and native source provenance. CPU-only retrieval returned expected names at rank 1 for four controlled queries. A controlled interruption produced an incomplete stage which was rejected on reopening; recovery used **another fresh dataset** before pointer publication. This B13 test alone does not establish hard process termination or production readiness; B14 below tests one exact SIGKILL checkpoint.
+
+## Real SIGKILL checkpoint (B14)
+
+The [B14 report](https://github.com/opensiro/cognee-community/blob/feat/opensiro-vsm-source/packages/connector/opensiro-vsm/docs/validation-b14.md) verifies **actual SIGKILL of a spawned import process** after the first complete graph record, independent read-back of a partial **26-node/19-edge** stage, audit rejection and nonempty-dataset retry refusal. A **new clean dataset** was independently audited (3 assessments, 69 nodes / 48 edges / 18 grades) and activated; a separate process reopened and re-audited it as PASS. The fork includes an opt-in disposable-store [manual reproducibility test](https://github.com/opensiro/cognee-community/blob/feat/opensiro-vsm-source/packages/connector/opensiro-vsm/tests/manual_sigkill_recovery.py) which repeated the experiment in another scratch folder. This **does not prove** power-loss recovery, arbitrary mid-transaction crashes, distributed backend consistency or production readiness.
 
 ## Workflow
 
