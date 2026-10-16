@@ -2,11 +2,17 @@
 
 - **Upstream:** [topoteretes/cognee-community](https://github.com/topoteretes/cognee-community)
 - **Working fork:** [opensiro/cognee-community](https://github.com/opensiro/cognee-community)
-- **Local implementation branch:** [feat/opensiro-vsm-source](https://github.com/opensiro/cognee-community/tree/feat/opensiro-vsm-source)
-- **Latest fork branch commit:** [74e4321](https://github.com/opensiro/cognee-community/commit/74e43217e08411951f0c68cfbf2e9c78ab6227d4) — B13 full 533/533 PASS; B14 graph-stage SIGKILL PASS; B15 precommit DLT guard PASS; B16 partial committed DLT-job SIGKILL PASS; 36 unit tests, Ruff and wheel build PASS
+- **Focused review candidate:** [feat/opensiro-vsm-source-review](https://github.com/opensiro/cognee-community/tree/feat/opensiro-vsm-source-review), [commit 192ef34](https://github.com/opensiro/cognee-community/commit/192ef346526b898b3022c2a52cdf575735ce7ee3) — 26 unit tests PASS, Ruff PASS, wheel build PASS, fresh three-assessment import + independent audit PASS
+- **Full research branch:** [feat/opensiro-vsm-source](https://github.com/opensiro/cognee-community/tree/feat/opensiro-vsm-source), [commit 74e4321](https://github.com/opensiro/cognee-community/commit/74e43217e08411951f0c68cfbf2e9c78ab6227d4) — B13 533/533 included corpus; B14–B16 real SIGKILL cases
 - **Contribution:** canonical VSM assessment source connector
 - **Upstream status:** **not submitted** (no issue assignment or upstream PR)
 - **Fork lifecycle:** **active**
+
+## Review scope decision (B17)
+
+A **separate branch based on the untouched upstream-synchronized main** contains **one source-first connector** with these shipping modules: pinned canonical source reader, native Cognee graph/lexical projection, required single-host stage-attempt claim (created before any Cognee write), and independent read-only source/provenance/grade audit. It contains a minimal CLI, local example, tests and packaging. The Cognee 1.6.4 integration was rerun against a clean three-assessment local dataset: **3/3 documents, 69 nodes, 48 edges, 18/18 literal grades, correct source refs and persisted stage marker; new-process independent audit PASS**. **26/26 unit tests**, Ruff lint/format and wheel build PASS. No upstream CI or maintainer review claimed.
+
+Full B10–B16 experiments, manual destructive SIGKILL scripts, and the B11 atomic active-generation/pointer implementation **remain exclusively on the original research branch**. The review candidate does not ship activation infrastructure, automatic sync, distributed fencing, test-only fault injection, or any hosted runtime. This distinction avoids confusing OpenSiro research evidence with a Cognee-ready production platform. Contribution status stays `preparing` and `upstream_pr: null`.
 
 ## Why this contribution
 
