@@ -73,6 +73,18 @@ Uses existing Cognee ingestion and graph interfaces to preserve six exact S1–S
 
 I affirm that all code in every commit of this pull request conforms to the terms of the Topoteretes Developer Certificate of Origin.
 
+## Three potential contributions — scope disposition (Organization #271)
+
+The [authoritative three-candidate decision](https://github.com/opensiro/vsm-oss-organization/issues/271) is a **decision record, not a plan to open three PRs**.
+
+| Candidate | Current decision | Why |
+| --- | --- | --- |
+| **PR1: Canonical VSM assessment source** | **Prepared**, one coherent OSS PR candidate, with clean Python 3.11 CI PASS. **Not submitted** | The actual source-specific compatibility, literal grade preservation, graph/lexical projection and audit belong together |
+| **PR2: Revision-aware VSM synchronization** | **CONDITIONAL investigation, not yet a PR** | Cognee already supports DLT replace/merge and scoped provenance/update. A separate PR needs an independently demonstrated gap in historical retention, incomplete-fetch safety, current generation selection or material work savings **against Cognee's real baseline**, plus maintainer agreement |
+| **PR3: Evidence-backed VSM graph** | **NO-GO as a separate PR** | Canonical evidence is assessment-scoped; function-to-file evidence links are **not directly supported** and must not be inferred. Current assessment-level evidence is included in PR1 |
+
+The next admissible action for PR2 is an **OpenSiro-only two-real-snapshot experiment** comparing Cognee's native replacement/update behavior with a proposed revision-aware consumer contract. First measure a missing capability; do not split existing primitives to maximize merged PR count. PR3 must remain blocked until claim-level evidence is actually present in the source or a generic Cognee evidence contract has independent users. Neither candidate should be opened as a speculative upstream issue. Keep authored PR1 and its pre-assignment history transparent; competition eligibility is separate from OSS authorship.
+
 ## Publication / governance checklist
 
 - [x] Review branch is based on fork `main`, and fork `main` matches upstream `main` at checked SHA.
