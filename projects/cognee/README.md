@@ -8,6 +8,10 @@
 - **Upstream status:** **not submitted** (no issue assignment or upstream PR)
 - **Fork lifecycle:** **active**
 
+## Maintainer handoff (B21)
+
+[**Prepared handoff / issue inquiry / one-PR draft**](MAINTAINER_HANDOFF.md). This is **OpenSiro-only**, with no submitted upstream PR, issue or comment. It distinguishes ordinary OSS acceptance from **Mergetober 2026**, which requires an issue assignment **before work begins**; OpenSiro implementation was already underway without an assignment, so **contest eligibility must not be claimed**. The contest also requires an original public real-use blog. All prior source/build evidence and the successful B20 Python 3.11 run are linked in that handoff. Future upstream contact requires explicit user authorization.
+
 ## Review scope decision (B17)
 
 A **separate branch based on the untouched upstream-synchronized main** contains **one source-first connector** with these shipping modules: pinned canonical source reader, native Cognee graph/lexical projection, required single-host stage-attempt claim (created before any Cognee write), and independent read-only source/provenance/grade audit. It contains a minimal CLI, local example, tests and packaging. The Cognee 1.6.4 integration was rerun against a clean three-assessment local dataset: **3/3 documents, 69 nodes, 48 edges, 18/18 literal grades, correct source refs and persisted stage marker; new-process independent audit PASS**. **32/32 unit tests**, Ruff lint/format and Apache-2.0 licensed wheel build PASS. B18 additionally verified that a missing dataset is rejected without creating a new one, and that an existing dataset still passes native independent audit. The review commits are DCO-signed off with the same GitHub name and noreply email as their commit authors. No upstream CI or maintainer review claimed.
