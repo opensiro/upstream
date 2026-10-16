@@ -3,7 +3,7 @@
 - **Upstream:** [topoteretes/cognee-community](https://github.com/topoteretes/cognee-community)
 - **Working fork:** [opensiro/cognee-community](https://github.com/opensiro/cognee-community)
 - **Local implementation branch:** [feat/opensiro-vsm-source](https://github.com/opensiro/cognee-community/tree/feat/opensiro-vsm-source)
-- **Latest fork branch commit:** [d019e23](https://github.com/opensiro/cognee-community/commit/d019e23f7bd722b2984b2ac9a753cc58cdb111c6) — B13 full 533/533 source audit PASS; B14 real SIGKILL recovery PASS; 28 unit tests, Ruff and wheel build PASS
+- **Latest fork branch commit:** [46b1781](https://github.com/opensiro/cognee-community/commit/46b17818e8c22f38295eccae0747edefb4e6d692) — B13 full 533/533 PASS; B14 graph-stage SIGKILL PASS; B15 early DLT-stage SIGKILL & durable attempt guard PASS; 36 tests, Ruff and wheel build PASS
 - **Contribution:** canonical VSM assessment source connector
 - **Upstream status:** **not submitted** (no issue assignment or upstream PR)
 - **Fork lifecycle:** **active**
@@ -26,6 +26,10 @@ The fork's [B13 validation report](https://github.com/opensiro/cognee-community/
 ## Real SIGKILL checkpoint (B14)
 
 The [B14 report](https://github.com/opensiro/cognee-community/blob/feat/opensiro-vsm-source/packages/connector/opensiro-vsm/docs/validation-b14.md) verifies **actual SIGKILL of a spawned import process** after the first complete graph record, independent read-back of a partial **26-node/19-edge** stage, audit rejection and nonempty-dataset retry refusal. A **new clean dataset** was independently audited (3 assessments, 69 nodes / 48 edges / 18 grades) and activated; a separate process reopened and re-audited it as PASS. The fork includes an opt-in disposable-store [manual reproducibility test](https://github.com/opensiro/cognee-community/blob/feat/opensiro-vsm-source/packages/connector/opensiro-vsm/tests/manual_sigkill_recovery.py) which repeated the experiment in another scratch folder. This **does not prove** power-loss recovery, arbitrary mid-transaction crashes, distributed backend consistency or production readiness.
+
+## Precommit DLT SIGKILL and durable retry fence (B15)
+
+The [B15 report](https://github.com/opensiro/cognee-community/blob/feat/opensiro-vsm-source/packages/connector/opensiro-vsm/docs/validation-b15.md) documents a second **real SIGKILL**, now after DLT received the first source item but **before** the Cognee database had committed any Data rows. This exposed a gap: the former nonempty-Data guard would not prevent reusing such an already-attempted dataset. The package now has an exclusive fsynced per-dataset **attempt marker** written before any Cognee operation. Reopen after SIGKILL found **0 source documents and 0 graph nodes**, independent audit rejected the incomplete version, and the new attempt guard rejected reuse even with zero rows. A new clean 3-document dataset independently passed graph audit (69 nodes, 48 edges, 18 literal grades), was activated, and passed fresh-process read-back. The opt-in manual test sequence was repeated in a second scratch folder, all four phases PASS. **This is a local per-process DLT iterator boundary, not an arbitrary mid-DLT commit or distributed crash recovery certification.**
 
 ## Workflow
 
