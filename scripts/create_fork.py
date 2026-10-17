@@ -128,6 +128,9 @@ def main():
                      all_branches=args.all_branches)
         message = json.dumps(result, sort_keys=True)
         print(message)
+        if result["status"] == "PENDING_VERIFICATION":
+            print("FORK_ERROR: Creation pending independent verification", file=sys.stderr)
+            return 2
         if os.environ.get("GITHUB_STEP_SUMMARY"):
             with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf8") as f:
                 f.write("### OpenSiro fork lifecycle\n\n" + message + "\n")
