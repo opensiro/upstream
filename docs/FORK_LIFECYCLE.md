@@ -12,12 +12,19 @@ grade, independent publication right or archived-fork policy is implied.
 
 ## Owner setup (mandatory for write mode)
 
-1. Review and merge the implementation PR; the workflow should run only from
-   the default branch. First use **execute=false**, which makes no changes.
+1. Review and merge [implementation PR #5](https://github.com/opensiro/upstream/pull/5);
+   the workflow should run only from the default branch. First use
+   **execute=false**, which makes no changes. Track the owner activation
+   steps in [issue #6](https://github.com/opensiro/upstream/issues/6).
 2. Create an Actions environment named **fork-creation** in
-   opensiro/upstream. Configure **required reviewers** and disallow
-   self-approval if available. Simply mentioning an environment in YAML
-   does *not* configure protection; verify the settings in the GitHub UI.
+   opensiro/upstream. Configure **required reviewers** and verify the
+   protection rule in GitHub. If there is a separate eligible approver,
+   enable prevention of self-review. For a sole maintainer, enabling
+   prevention of self-review without a second eligible reviewer would block
+   all writes; select a workable, explicit approval arrangement instead.
+   Simply mentioning an environment in YAML does *not* configure protection.
+   Record the chosen operating arrangement in the activation
+   [issue #6](https://github.com/opensiro/upstream/issues/6).
 3. Create a fine-grained PAT owned by an authorized organization member,
    scoped to **opensiro-contributions**, with **Contents: read** and
    **Repository creation: write**. Confirm organizational restrictions
@@ -50,7 +57,10 @@ Create mode uses GitHub's official POST /repos/{owner}/{repo}/forks endpoint,
 with the fixed destination organization. It verifies that the returned
 name and owner match the requested target, then checks the direct upstream
 parent of the resulting public fork. It handles asynchronous creation:
-CREATED_VERIFIED only after verification; PENDING_VERIFICATION otherwise.
+CREATED_VERIFIED only after verification (up to roughly five minutes of
+polling); PENDING_VERIFICATION otherwise. A pending result exits nonzero,
+so it cannot be mistaken for a finished workflow. Reconcile by reading
+the actual GitHub repository before retrying or updating the registry.
 An existing repository with the correct direct parent is idempotently
 EXISTS_VERIFIED. A name collision or wrong parent is a hard stop.
 
