@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>OpenSiro — Upstream Impact Dashboard</title>
+<meta name="description" content="Source-backed outcomes and product-native fit across OpenSiro-informed open-source contributions.">
+<style>
+:root{--ink:#172237;--muted:#617189;--line:#e2e9f0;--blue:#325cde;--soft:#f5f8fc;--good:#1b795b;--goodbg:#e7f6ee;--warn:#9a651f;--warnbg:#fff4de;--bad:#a73549;--badbg:#ffedf0}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--soft);color:var(--ink);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,system-ui,sans-serif}a{color:var(--blue);text-underline-offset:3px}a:hover{text-decoration-thickness:2px}a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #7fafff;outline-offset:3px}.skip{position:absolute;left:-999px;top:0;padding:12px;background:#fff;z-index:2}.skip:focus{left:10px}.wrap{max-width:1140px;padding:0 26px;margin:auto}
+header{background:linear-gradient(120deg,#101d36,#263d66 76%,#304d7a);color:#fff;padding:29px 0 80px}nav{display:flex;align-items:center;justify-content:space-between;gap:20px}nav a{color:#e8efff;text-decoration:none}.brand{letter-spacing:.12em;text-transform:uppercase;font-weight:750;font-size:13px}.navlinks{display:flex;gap:20px;font-size:13px;flex-wrap:wrap}.eyebrow{color:#a9c5ff;text-transform:uppercase;letter-spacing:.17em;font-size:11px;font-weight:800;margin-top:68px}h1{font-size:clamp(35px,5.6vw,62px);line-height:1.08;letter-spacing:-.05em;font-weight:790;margin:10px 0 16px;max-width:840px}.intro{font-size:17px;color:#cad8ed;max-width:700px}.meta{display:flex;flex-wrap:wrap;gap:9px;margin:25px 0 0}.meta span{border:1px solid #647b9f;background:#ffffff13;border-radius:30px;padding:5px 12px;color:#e1e9f8;font-size:12px}
+main{margin-top:-48px;position:relative}.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.metric,.panel{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 9px 26px #122b4d09}.metric{padding:23px 22px;min-height:141px}.kpi-name{color:var(--muted);font-size:12px;letter-spacing:.03em;font-weight:680}.number{font-weight:790;font-size:39px;letter-spacing:-.045em;line-height:1.22;margin:10px 0 4px;font-variant-numeric:tabular-nums}.number.highlight{color:var(--blue)}.kpi-foot{color:var(--muted);font-size:12px}section{margin-top:30px}h2{font-size:21px;letter-spacing:-.025em;margin:0 0 9px}p.sub{color:var(--muted);margin:0 0 20px}.insights{display:grid;grid-template-columns:1.1fr 1fr;gap:17px}.panel{padding:25px}.ring-layout{display:flex;align-items:center;gap:26px;margin-top:16px}.ring{width:150px;aspect-ratio:1;border-radius:50%;flex:0 0 auto;background:conic-gradient(#3271e9 0deg 216deg,#e9eff7 216deg 360deg);display:grid;place-items:center}.ring-inner{width:118px;aspect-ratio:1;border-radius:50%;background:white;display:flex;flex-direction:column;align-items:center;justify-content:center}.ring-inner strong{font-size:32px;line-height:1.15;letter-spacing:-.055em}.ring-inner span{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}.legend{display:grid;gap:9px;flex:1}.legend-line{display:flex;align-items:center;gap:9px;font-size:13px;color:#42516a}.dot{width:9px;height:9px;border-radius:50%;display:inline-block;background:var(--blue);flex:0 0 auto}.dot.good{background:var(--good)}.dot.warn{background:#e3a541}.dot.bad{background:#d56b79}.legend-line strong{margin-left:auto;color:var(--ink)}.barrows{margin-top:20px;display:grid;gap:16px}.barlabel{display:flex;justify-content:space-between;gap:10px;font-size:13px;margin-bottom:6px;color:#52647b}.barlabel strong{color:var(--ink)}.track{height:11px;background:#edf1f6;border-radius:20px;overflow:hidden}.fill{height:100%;border-radius:20px}.fill.merged{background:#2aa17b}.fill.open{background:#5b7eec}.fill.closed{background:#d6a25a}.callout{border-left:3px solid #7d99ed;padding-left:16px;color:#4e5f77;font-size:13px;margin-top:24px}
+.toolbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin:20px 0 15px}.filters{display:flex;gap:7px;flex-wrap:wrap}.filters button{cursor:pointer;background:#fff;color:#566780;border:1px solid #d7e1ed;border-radius:10px;padding:8px 11px;font:600 12px/1.3 inherit;font-family:inherit;font-size:12px}.filters button[aria-pressed="true"]{background:#21375e;color:#fff;border-color:#21375e}.search{min-width:190px;max-width:320px;width:100%;background:#fff;border:1px solid #d7e1ed;border-radius:10px;padding:10px 12px;font:inherit;font-size:13px}.table-scroll{overflow:auto}.table-panel{padding:0;overflow:hidden}table{width:100%;border-collapse:collapse;text-align:left}th{background:#f9fbfe;color:#697b91;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:17px 16px;white-space:nowrap}td{padding:18px 16px;border-top:1px solid #eaf0f5;vertical-align:top;font-size:13px}td:first-child{min-width:205px}.project{font-weight:750;color:#1c3262;text-decoration:none;font-size:14px}.intervention{color:var(--muted);font-size:12px;margin-top:3px}.secondary{margin-top:6px}.pill{border-radius:30px;font-weight:750;font-size:11px;padding:5px 9px;display:inline-block;white-space:nowrap}.pill.merged,.pill.fit-pass{background:var(--goodbg);color:var(--good)}.pill.open{background:#eaf0ff;color:#3558a6}.pill.closed,.pill.fit-fail{background:var(--badbg);color:var(--bad)}.pill.fit-pending{background:var(--warnbg);color:var(--warn)}.note{font-size:12px;color:#586b82;min-width:230px}.results{color:var(--muted);font-size:12px}.footnotes{display:grid;grid-template-columns:1fr 1fr;gap:16px}.footnotes p{font-size:13px;color:#57677d}.footnotes strong{color:#26354b}.source{background:#eef3fc;border:1px solid #d9e4f8;border-radius:15px;padding:20px 23px;font-size:13px}.source p{margin:4px 0}.source strong{display:block;margin-bottom:8px}footer{padding:36px 0 50px;color:#758399;font-size:12px}footer .wrap{border-top:1px solid var(--line);padding-top:20px}
+@media(max-width:900px){.metrics{grid-template-columns:repeat(2,1fr)}.insights{grid-template-columns:1fr}.footnotes{grid-template-columns:1fr}}@media(max-width:600px){.wrap{padding:0 16px}header{padding-bottom:74px}.eyebrow{margin-top:46px}.navlinks{gap:11px}.metrics{gap:9px}.metric{padding:18px 14px;min-height:125px}.number{font-size:33px}.panel{padding:19px}.ring-layout{gap:14px}.ring{width:118px}.ring-inner{width:91px}.ring-inner strong{font-size:25px}h1{font-size:39px}.search{max-width:unset}table{min-width:800px}.toolbar{align-items:stretch}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}@media print{header{background:white!important;color:#111;padding:10px 0 50px}.intro,.eyebrow{color:#444}.navlinks,.toolbar,.skip{display:none}.panel,.metric{break-inside:avoid;box-shadow:none}main{margin-top:0}.ring{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to dashboard</a>
+<header><div class="wrap">
+<nav><a class="brand" href="https://github.com/opensiro/upstream">◈ OpenSiro <span style="opacity:.7;font-weight:450">/ upstream</span></a>
+<div class="navlinks"><a href="https://github.com/opensiro/upstream/blob/main/DASHBOARD.md">GitHub dashboard ↗</a><a href="https://github.com/opensiro/upstream/blob/main/cases/README.md">Casebook ↗</a></div></nav>
+<div class="eyebrow">Public impact · source-backed outcomes</div>
+<h1>From assessments<br>to upstream impact.</h1>
+<p class="intro">A transparent look at OpenSiro-shaped contributions to other open-source projects — including accepted work, open proposals, and work that did not fit.</p>
+<div class="meta"><span>Experimental snapshot · 2026-10-12</span><span>Portfolio reviewed · Oct 17, 2026</span><span>Historical, not live telemetry</span></div>
+</div></header>
+<main class="wrap" id="main">
+<section class="metrics" aria-label="Portfolio overview">
+<div class="metric"><div class="kpi-name">Total interventions</div><div class="number">8</div><div class="kpi-foot">Distinct contributions, not PR count</div></div>
+<div class="metric"><div class="kpi-name">Upstream projects</div><div class="number">7</div><div class="kpi-foot">External OSS repositories</div></div>
+<div class="metric"><div class="kpi-name">Merged interventions</div><div class="number">2</div><div class="kpi-foot">Includes credited replacement PR</div></div>
+<div class="metric"><div class="kpi-name">Product-native fit</div><div class="number highlight">60%</div><div class="kpi-foot">3 of 5 completed reviews</div></div>
+</section>
+<section aria-label="Distribution charts" class="insights">
+<div class="panel"><h2>Product-native fit</h2><p class="sub">A real upstream need — even without VSM terminology.</p>
+<div class="ring-layout"><div class="ring" role="img" aria-label="Fit: 60 percent of completed reviews"><div class="ring-inner"><strong>60%</strong><span>fit rate</span></div></div>
+<div class="legend"><div class="legend-line"><span class="dot good"></span>Pass<strong>3</strong></div><div class="legend-line"><span class="dot warn"></span>Pending<strong>3</strong></div><div class="legend-line"><span class="dot bad"></span>Fail<strong>2</strong></div><div class="legend-line"><span class="dot"></span>Reviewed<strong>5 / 8</strong></div></div></div>
+<p class="callout">The 60% rate excludes pending reviews. It is not an upstream acceptance rate, contributor productivity metric, or VSM grade.</p></div>
+<div class="panel"><h2>Upstream outcomes</h2><p class="sub">Observed PR/intervention lifecycle, separately from fit.</p>
+<div class="barrows">
+<div><div class="barlabel"><span>Merged</span><strong>2</strong></div><div class="track"><div class="fill merged" style="width:25.0%"></div></div></div>
+<div><div class="barlabel"><span>Open</span><strong>4</strong></div><div class="track"><div class="fill open" style="width:50.0%"></div></div></div>
+<div><div class="barlabel"><span>Closed without merge</span><strong>2</strong></div><div class="track"><div class="fill closed" style="width:25.0%"></div></div></div>
+</div>
+<p class="callout">An independently adopted idea does not become a merged contributor PR. A merged replacement PR counts as one intervention.</p></div>
+</section>
+<section id="portfolio"><h2>Evidence-linked contributions</h2><p class="sub">Explore the public work and its status. Each row links to an upstream PR and a source-backed case.</p>
+<div class="toolbar">
+<div class="filters" aria-label="Filter by outcome"><button type="button" data-type="outcome" data-value="all" aria-pressed="true">All outcomes</button><button type="button" data-type="outcome" data-value="merged" aria-pressed="false">Merged</button><button type="button" data-type="outcome" data-value="open" aria-pressed="false">Open</button><button type="button" data-type="outcome" data-value="closed_unmerged" aria-pressed="false">Closed</button></div>
+<div class="filters" aria-label="Filter by fit"><button type="button" data-type="fit" data-value="all" aria-pressed="true">All fit</button><button type="button" data-type="fit" data-value="pass" aria-pressed="false">Pass</button><button type="button" data-type="fit" data-value="pending" aria-pressed="false">Pending</button><button type="button" data-type="fit" data-value="fail" aria-pressed="false">Fail</button></div>
+<input class="search" id="search" type="search" aria-label="Search interventions" placeholder="Search projects or contributions…"></div>
+<div class="results" id="results" role="status" aria-live="polite">Showing 8 of 8 interventions</div>
+<div class="panel table-panel" style="margin-top:10px"><div class="table-scroll"><table><thead><tr><th scope="col">Project / change</th><th scope="col">Source</th><th scope="col">Outcome</th><th scope="col">Fit</th><th scope="col">Context</th></tr></thead>
+<tbody id="items"><tr class="item" data-outcome="open" data-fit="pending" data-search="headcount installable security reviewer upstream need and scope pending"><td><a class="project" href="https://github.com/opensiro/upstream/blob/main/cases/headcount.md">Headcount</a><div class="intervention">Installable security reviewer</div></td><td><a href="https://github.com/cbrock84/headcount/pull/47">Original PR ↗</a></td><td><span class="pill open">Open</span></td><td><span class="pill fit-pending">Pending</span></td><td class="note">Upstream need and scope pending</td></tr>
+<tr class="item" data-outcome="merged" data-fit="pending" data-search="henterprise hermes delegation &amp; independent review replacement #3 merged, original author credited"><td><a class="project" href="https://github.com/opensiro/upstream/blob/main/cases/henterprise.md">Henterprise</a><div class="intervention">Hermes delegation &amp; independent review</div></td><td><a href="https://github.com/humbertobellor/henterprise/pull/1">Original PR ↗</a><div class="secondary"><a href="https://github.com/humbertobellor/henterprise/pull/3">Landing PR #3 ↗</a></div></td><td><span class="pill merged">Merged</span></td><td><span class="pill fit-pending">Pending</span></td><td class="note">Replacement #3 merged, original author credited</td></tr>
+<tr class="item" data-outcome="merged" data-fit="pass" data-search="marveen owner-gated skill adoption accepted by maintainer"><td><a class="project" href="https://github.com/opensiro/upstream/blob/main/cases/marveen.md">Marveen</a><div class="intervention">Owner-gated skill adoption</div></td><td><a href="https://github.com/Szotasz/marveen/pull/1516">Original PR ↗</a></td><td><span class="pill merged">Merged</span></td><td><span class="pill fit-pass">Pass</span></td><td class="note">Accepted by maintainer</td></tr>
+<tr class="item" data-outcome="closed_unmerged" data-fit="fail" data-search="oh-my-agent durable organization policy upstream-native need unproven"><td><a class="project" href="https://github.com/opensiro/upstream/blob/main/cases/oh-my-agent.md">oh-my-agent</a><div class="intervention">Durable organization policy</div></td><td><a href="https://github.com/first-fluke/oh-my-agent/pull/819">Original PR ↗</a></td><td><span class="pill closed_unmerged">Closed unmerged</span></td><td><span class="pill fit-fail">Fail</span></td><td class="note">Upstream-native need unproven</td></tr>
+<tr class="item" data-outcome="closed_unmerged" data-fit="fail" data-search="scion independent-review platform skill maintainer prefers solution-level scope"><td><a class="project" href="https://github.com/opensiro/upstream/blob/main/cases/scion.md">Scion</a><div class="intervention">Independent-review platform skill</div></td><td><a href="https://github.com/GoogleCloudPlatform/scion/pull/2047">Original PR ↗</a></td><td><span class="pill closed_unmerged">Closed unmerged</span></td><td><span class="pill fit-fail">Fail</span></td><td class="note">Maintainer prefers solution-level scope</td></tr>
+<tr class="item" data-outcome="open" data-fit="pending" data-search="shep agent-owned workcell coordination new-head ci needs approval; review pending"><td><a class="project" href="https://github.com/opensiro/upstream/blob/main/cases/shep.md">Shep</a><div class="intervention">Agent-owned workcell coordination</div></td><td><a href="https://github.com/shep-ai/shep/pull/933">Original PR ↗</a></td><td><span class="pill open">Open</span></td><td><span class="pill fit-pending">Pending</span></td><td class="note">New-head CI needs approval; review pending</td></tr>
+<tr class="item" data-outcome="open" data-fit="pass" data-search="shep esm worker startup hotfix new-head ci needs approval"><td><a class="project" href="https://github.com/opensiro/upstream/blob/main/cases/shep.md">Shep</a><div class="intervention">ESM worker startup hotfix</div></td><td><a href="https://github.com/shep-ai/shep/pull/934">Original PR ↗</a></td><td><span class="pill open">Open</span></td><td><span class="pill fit-pass">Pass</span></td><td class="note">New-head CI needs approval</td></tr>
+<tr class="item" data-outcome="open" data-fit="pass" data-search="starnet lead station-status tool idea adopted via maintainer&#39;s own commit; pr not merged"><td><a class="project" href="https://github.com/opensiro/upstream/blob/main/cases/starnet.md">StarNet</a><div class="intervention">Lead station-status tool</div></td><td><a href="https://github.com/androoAGI/starnet/pull/56">Original PR ↗</a></td><td><span class="pill open">Open</span></td><td><span class="pill fit-pass">Pass</span></td><td class="note">Idea adopted via maintainer&#39;s own commit; PR not merged</td></tr></tbody></table></div></div></section>
+<section><h2>How to read these numbers</h2><div class="footnotes">
+<div class="panel"><strong>Henterprise ≠ two merged contributions</strong><p>The contributor's original PR #1 was closed, and a maintainer's replacement #3 merged with source authorship preserved. This is one merged intervention, with multiple actors.</p></div>
+<div class="panel"><strong>StarNet ≠ a merged contributor PR</strong><p>The maintainer independently implemented the proposed feature and credited its origin. The original contributor PR #56 remains open. Influence is visible without misattributing code.</p></div>
+<div class="panel"><strong>Shep checks are not green on new SHA</strong><p>Commit messages were repaired without changing code trees. New-head checks currently require maintainer approval. Both PRs remain open and #933 needs a new review.</p></div>
+<div class="panel"><strong>Cognee is outside this cohort</strong><p>The OpenSiro-owned Cognee Community connector is prepared but not submitted upstream. It is tracked separately in the registry and not counted among these eight interventions.</p></div>
+</div></section>
+<section class="source"><strong>Source, provenance & freshness</strong>
+<p>Fit and lifecycle values: <a href="https://github.com/opensiro/vsm-oss-organization/blob/main/experiments/upstream-intervention-fit/snapshot.json">Organization experimental snapshot</a>, dated <strong style="display:inline">2026-10-12</strong>. First-party evidence: <a href="https://github.com/opensiro/upstream/blob/main/cases/README.md">public casebook</a>. No external PR status is claimed to update automatically.</p>
+<p>The HTML and <a href="https://github.com/opensiro/upstream/blob/main/DASHBOARD.md">GitHub dashboard</a> are a frozen, non-authoritative presentation. If the Organization source changes, they must be explicitly refreshed and verified.</p>
+</section>
+</main>
+<footer><div class="wrap">OpenSiro · Public OSS contribution evidence · Experimental, dated figures · No upstream endorsement implied.</div></footer>
+<script>
+(function(){
+  "use strict";
+  var state={outcome:"all",fit:"all"};
+  var buttons=Array.prototype.slice.call(document.querySelectorAll(".filters button"));
+  var lines=Array.prototype.slice.call(document.querySelectorAll(".item"));
+  var search=document.getElementById("search");
+  var results=document.getElementById("results");
+  function update(){
+    var q=search.value.toLocaleLowerCase().trim();
+    var shown=0;
+    lines.forEach(function(row){
+      var hit=(state.outcome==="all"||row.dataset.outcome===state.outcome)&&
+              (state.fit==="all"||row.dataset.fit===state.fit)&&
+              (!q||row.dataset.search.indexOf(q)!==-1);
+      row.hidden=!hit;
+      if(hit)shown++;
+    });
+    results.textContent="Showing "+shown+" of "+lines.length+" interventions";
+  }
+  buttons.forEach(function(b){b.addEventListener("click",function(){
+    var kind=b.dataset.type;
+    state[kind]=b.dataset.value;
+    buttons.filter(function(x){return x.dataset.type===kind}).forEach(function(x){
+      x.setAttribute("aria-pressed",String(x===b));
+    });
+    update();
+  })});
+  search.addEventListener("input",update);
+})();
+</script>
+</body></html>
