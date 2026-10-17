@@ -13,6 +13,7 @@ DEST = "opensiro-contributions"
 API = "https://api.github.com"
 SLUG = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]{0,99}$")
 ATTEMPTS = 30
+POLL_SECONDS = 10  # GitHub documents that asynchronous fork creation may take minutes.
 
 class ForkError(Exception):
     pass
@@ -112,7 +113,7 @@ def run(source, fork_name=None, *, execute=False, all_branches=False,
         if code not in (200, 404):
             raise ForkError("Cannot verify fork creation")
         if n != ATTEMPTS - 1:
-            sleep(2)
+            sleep(POLL_SECONDS)
     return {"status": "PENDING_VERIFICATION", "destination": destination,
             "note": "Creation accepted but parent not verified. Do not register as completed."}
 
