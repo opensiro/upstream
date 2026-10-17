@@ -10,3 +10,9 @@ The registry describes contributions **from** OpenSiro **to** external OSS proje
 - Update `projects/<slug>/README.md` with scope, research receipts, compatibility and next actions. Do not copy entire external repositories here.
 - Before archiving a fork: check unresolved PRs/maintenance obligations, record its final state and archive reason, then archive the public fork intentionally. Do not automate archiving based on a merged PR alone.
 - Do not add a gatekeeping VSM assessment or operational S3–S5 mandates to this lightweight portfolio.
+
+## External intervention casebook
+
+The [casebook](cases/README.md) is a read-only portfolio view of interventions recorded under the [Organization upstream-intervention-fit experiment](https://github.com/opensiro/vsm-oss-organization/tree/main/experiments/upstream-intervention-fit). Include both successes and failures, link first-party PR/review/commit evidence, and distinguish a submitted PR from a merged PR and from an independently landed maintainer implementation.
+
+Do **not** create duplicate `registry.yaml` fork-lifecycle records for personal contributor forks just to track an experiment. Do **not** assign or update a product-native fit gate here independently: change the Organization-owned observation with evidence and then refresh this view. The experimental fit label is neither maintainer approval nor a VSM assessment result.
