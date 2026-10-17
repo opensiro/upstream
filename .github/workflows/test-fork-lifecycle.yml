@@ -1,0 +1,27 @@
+name: Fork lifecycle tests
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/create_fork.py'
+      - 'tests/test_create_fork.py'
+      - '.github/workflows/fork-lifecycle.yml'
+      - '.github/workflows/test-fork-lifecycle.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/create_fork.py'
+      - 'tests/test_create_fork.py'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Offline fork lifecycle tests
+        run: python3 -m unittest discover -s tests -v

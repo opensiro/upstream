@@ -38,6 +38,10 @@ Before archiving an inactive fork, verify that its planned PRs are resolved or i
 
 The archived state is an explicit decision, **not an automatic action triggered by merged PRs**.
 
+## Fork lifecycle automation
+
+[Prepared fork lifecycle workflow](docs/FORK_LIFECYCLE.md) provides read-only planning and a separately protected GitHub API create path for future public forks in [opensiro-contributions](https://github.com/opensiro-contributions). It is **not activated** until owner-configured environment approval and a dedicated token exist; it does not authorize external PR submission or change the current VSM OSS system boundary.
+
 ## Contributions
 
 For a new project, add a record to `registry.yaml` and a short `projects/<slug>/README.md`. See [CONTRIBUTING.md](CONTRIBUTING.md).
