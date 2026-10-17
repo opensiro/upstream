@@ -10,8 +10,8 @@ Would an OpenSiro-shaped contribution be useful to the upstream project **even i
 | --- | --- | --- | --- |
 | [Marveen skill adaptation](marveen.md) | [#1516](https://github.com/Szotasz/marveen/pull/1516) | Merged 2026-09-30 | **pass** |
 | [Henterprise delegation and reviews](henterprise.md) | [#1](https://github.com/humbertobellor/henterprise/pull/1) | Original closed; replacement [#3](https://github.com/humbertobellor/henterprise/pull/3) merged 2026-10-08, source commits preserved | **pending** |
-| [Shep agent coordination](shep.md#933-agent-coordination) | [#933](https://github.com/shep-ai/shep/pull/933) | Open; CI/CD success, separate PR Check failure and review pending | **pending** |
-| [Shep ESM startup fix](shep.md#934-esm-worker-startup) | [#934](https://github.com/shep-ai/shep/pull/934) | Open; CI/CD success, commit-message check failure | **pass** |
+| [Shep agent coordination](shep.md#933-agent-coordination) | [#933](https://github.com/shep-ai/shep/pull/933) | Open; commitlint message fixed, new-head CI awaiting approval; review pending | **pending** |
+| [Shep ESM startup fix](shep.md#934-esm-worker-startup) | [#934](https://github.com/shep-ai/shep/pull/934) | Open; commitlint message fixed, new-head CI awaiting approval | **pass** |
 | [StarNet station snapshot](starnet.md) | [#56](https://github.com/androoAGI/starnet/pull/56) | PR open; equivalent capability independently implemented by maintainer in [`dc9633b`](https://github.com/androoAGI/starnet/commit/dc9633bb05434e236509583cd1b226140f8d3f67) with idea credit | **pass** |
 | [Headcount plugin security review](headcount.md) | [#47](https://github.com/cbrock84/headcount/pull/47) | Open; upstream need and scope not confirmed | **pending** |
 | [Scion independent-review platform skill](scion.md) | [#2047](https://github.com/GoogleCloudPlatform/scion/pull/2047) | Closed without merge; maintainer prefers solution-level asset, not core | **fail** |
