@@ -7,10 +7,12 @@
 > Required reviewers as the user-facing approval mechanism.
 >
 > **STOP: DO NOT PROVISION `UPSTREAM_FORK_TOKEN`.** The deployed `main`
-> currently has a manual `execute=true` route. In
-> [draft PR #7](https://github.com/opensiro/upstream/pull/7), that legacy
-> workflow is changed to read-only, but the separately authorized batch
-> executor has **not** been implemented or accepted.
+> is now **preview-only** since
+> [merged safety PR #8](https://github.com/opensiro/upstream/pull/8).
+> The legacy manual `execute=true` route, privileged job and credential
+> reference have been removed from the workflow. The separately authorized
+> batch executor in [draft PR #7](https://github.com/opensiro/upstream/pull/7)
+> has **not** been implemented or accepted.
 > [Issue #6](https://github.com/opensiro/upstream/issues/6)
 > tracks the actual activation gates.
 
@@ -36,17 +38,17 @@ operational authority. No fork is created merely by merging the code.
 ## Safe source inspection
 
 The only recommended workflow while the approved-batch executor remains
-unavailable is a **read-only preview**, such as:
+unavailable is a **read-only preview** (also available through the preview-only
+manual GitHub workflow merged by PR #8), such as:
 
 ```bash
 python3 scripts/create_fork.py --source OWNER/REPOSITORY
 ```
 
 Do **not** supply `--execute`, provision an environment secret or
-treat a `DRY_RUN` as authorization. The helper API contains a legacy
-creation capability needed for historical review; the entire workflow
-cannot be considered safe to activate until every bypass is disabled
-in deployed `main`.
+treat a `DRY_RUN` as authorization. The helper API still contains the legacy
+creation capability, but the deployed workflow **has no write job**. This
+does not establish the future batch-approval authorization boundary.
 
 ## Current approval model (future implementation)
 
@@ -72,8 +74,10 @@ boundary, without an extra GitHub reviewer click for each fork, but it is
 
 ## Remaining validation before activation
 
-- Replace the legacy manual write path in **deployed** `main` and verify
-  that no arbitrary source can reach a fork-creation credential.
+- [x] Replace the legacy manual write path in **deployed** `main`.
+  [PR #8](https://github.com/opensiro/upstream/pull/8) removed its
+  `execute` input, privileged job and token reference; verify this remains
+  true after any subsequent workflow changes.
 - Finish the approved-batch executor and its dedicated positive/negative
   tests; these are not yet part of CI.
 - Protect `main` and workflow/manifest modification authority.
