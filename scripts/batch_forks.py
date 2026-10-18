@@ -56,12 +56,14 @@ def validate_proposal(proposal):
         if value.strip().casefold() in {"tbd", "todo", "n/a", "unknown"}:
             raise BatchError("Placeholder is not a contribution proposal")
     evidence = proposal["evidence_url"]
-    if not isinstance(evidence, str) or len(evidence) > 2048:
+    if (not isinstance(evidence, str) or len(evidence) > 2048
+            or any(ord(char) <= 32 for char in evidence)):
         raise BatchError("Missing or invalid proposal evidence URL")
     try:
         url = urlsplit(evidence)
-        if url.scheme != "https" or not url.hostname or url.username or url.password:
-            raise BatchError("Proposal evidence must be a public HTTPS URL")
+        if (url.scheme != "https" or not url.hostname or url.username or url.password
+                or url.path in ("", "/")):
+            raise BatchError("Proposal evidence requires a specific HTTPS source URL")
     except ValueError:
         raise BatchError("Malformed proposal evidence URL") from None
 
