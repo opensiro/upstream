@@ -129,6 +129,7 @@ def load_draft(path):
         blockers = item["blockers"]
         if (not isinstance(blockers, list) or len(blockers) > 5
                 or any(not isinstance(x, str) or not 5 <= len(x.strip()) <= 300
+                       or any(ord(char) < 32 for char in x)
                        for x in blockers)):
             raise BatchError("Invalid blockers")
         license_id = item["expected_license"]
