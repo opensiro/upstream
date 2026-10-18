@@ -185,6 +185,10 @@ def preview_draft(path, *, selected_ids=None):
     return {
         "batch_id": data["batch_id"], "revision": data["revision"],
         "proposal_sha256": digest, "status": "PROPOSAL_PREVIEW",
+        "selection_sha256": canonical_digest({
+            "batch_id": data["batch_id"], "revision": data["revision"],
+            "proposal_sha256": digest, "selected_ids": sorted(selected)
+        }),
         "authorization_status": "NOT_APPROVED_NO_WRITES",
         "selected_ids": selected_ids,
         "selection_has_blockers": any(x["selected"] and x["blockers"] for x in entries),
