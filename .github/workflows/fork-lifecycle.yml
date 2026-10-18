@@ -1,4 +1,4 @@
-name: Fork lifecycle (manual)
+name: Fork lifecycle (preview only)
 
 on:
   workflow_dispatch:
@@ -8,24 +8,12 @@ on:
         required: true
         type: string
       fork_name:
-        description: 'Optional fork name (empty = original name)'
+        description: 'Optional destination fork name'
         required: false
         type: string
-      all_branches:
-        description: 'Copy all branches instead of only default branch'
-        type: boolean
-        default: false
-      execute:
-        description: 'Create fork; false only previews'
-        type: boolean
-        default: false
 
 permissions:
   contents: read
-
-concurrency:
-  group: upstream-fork-lifecycle
-  cancel-in-progress: false
 
 jobs:
   preview:
@@ -36,37 +24,12 @@ jobs:
         with:
           persist-credentials: false
           ref: main
-      - name: Validate request (no write)
+      - name: Preview only; this workflow cannot create forks
         env:
           FORK_SOURCE: ${{ inputs.source }}
           FORK_NAME: ${{ inputs.fork_name }}
-          ALL_BRANCHES: ${{ inputs.all_branches }}
         shell: bash
         run: |
           args=(--source "$FORK_SOURCE")
           if [[ -n "$FORK_NAME" ]]; then args+=(--fork-name "$FORK_NAME"); fi
-          if [[ "$ALL_BRANCHES" == "true" ]]; then args+=(--all-branches); fi
-          python3 scripts/create_fork.py "${args[@]}"
-
-  create:
-    needs: preview
-    if: inputs.execute && github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    environment: fork-creation
-    steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-        with:
-          persist-credentials: false
-          ref: main
-      - name: Create and verify fork (protected environment)
-        env:
-          UPSTREAM_FORK_TOKEN: ${{ secrets.UPSTREAM_FORK_TOKEN }}
-          FORK_SOURCE: ${{ inputs.source }}
-          FORK_NAME: ${{ inputs.fork_name }}
-          ALL_BRANCHES: ${{ inputs.all_branches }}
-        shell: bash
-        run: |
-          args=(--source "$FORK_SOURCE" --execute)
-          if [[ -n "$FORK_NAME" ]]; then args+=(--fork-name "$FORK_NAME"); fi
-          if [[ "$ALL_BRANCHES" == "true" ]]; then args+=(--all-branches); fi
           python3 scripts/create_fork.py "${args[@]}"
