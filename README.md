@@ -44,7 +44,7 @@ The archived state is an explicit decision, **not an automatic action triggered 
 
 Every proposed contribution includes a **concrete system improvement card**: target component, observed problem, planned change, expected benefit, verification method and public evidence. The plan is visible before selection and becomes part of the frozen batch scope; predicted benefits are not reported as verified outcomes. See [contribution proposal fields](docs/CHAT_BATCH_APPROVAL.md#required-contribution-proposal--what-the-system-would-gain).
 
-The earlier [single-fork workflow](docs/FORK_LIFECYCLE.md) is merged as source-prepared infrastructure but **not activated** or approved for credential provisioning: it still exposes a direct `execute=true` path. That must be replaced by a fail-closed approved-batch executor before storing `UPSTREAM_FORK_TOKEN`. See [activation issue #6](https://github.com/opensiro/upstream/issues/6). Neither the design nor code authorizes external PR submission or changes the VSM OSS system boundary.
+The former single-fork workflow is now **preview-only on `main`** after [safety PR #8](https://github.com/opensiro/upstream/pull/8). It no longer offers `execute=true`, a privileged `create` job or a token reference. The [historical lifecycle handoff](docs/FORK_LIFECYCLE.md) is not an activation procedure. The [batch proposal and read-only validator](docs/CHAT_BATCH_APPROVAL.md) remain **Draft in PR #7**; no trusted batch-only executor or committed batch-specific CI exists. Do **not** provision `UPSTREAM_FORK_TOKEN`. Track remaining gates in [activation issue #6](https://github.com/opensiro/upstream/issues/6). Neither the design nor code authorizes external PR submission or changes the VSM OSS system boundary.
 
 ## Contributions
 
