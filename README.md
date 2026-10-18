@@ -40,7 +40,7 @@ The archived state is an explicit decision, **not an automatic action triggered 
 
 ## Fork lifecycle automation
 
-[Chat-first batch approval design](docs/CHAT_BATCH_APPROVAL.md) is the selected **provider-agnostic conversational interface**: propose a bounded contribution batch in any compatible agent chat, accept only the owner's selected items, record the decision, and execute only that exact authorized set. GitHub is the executor, not the approval interface. No ChatGPT-specific runtime or service is required.
+[Conversation-first batch approval design](docs/CHAT_BATCH_APPROVAL.md) is the selected **provider-agnostic conversational interface**: propose a bounded contribution batch in any compatible agent chat, accept only the owner's selected items, record the decision, and execute only that exact authorized set. GitHub is the executor, not the approval interface. No ChatGPT-specific runtime or service is required.
 
 Every proposed contribution includes a **concrete system improvement card**: target component, observed problem, planned change, expected benefit, verification method and public evidence. The plan is visible before selection and becomes part of the frozen batch scope; predicted benefits are not reported as verified outcomes. See [contribution proposal fields](docs/CHAT_BATCH_APPROVAL.md#required-contribution-proposal--what-the-system-would-gain).
 
