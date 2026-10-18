@@ -36,10 +36,11 @@ and performs only authorized operations; the conversation is the operator UX.
    Never present this as a GitHub-verified cryptographic signature:
    the agent-controlled GitHub connection alone cannot independently
    attest who approved the batch in any conversational client.
-4. The executor accepts **only a registered approved batch** from
-   a protected `main` branch, not an arbitrary `source` with
-   `execute=true`. It verifies the permitted operations and exact
-   item set *before* using its fork-creation credential.
+4. A **future, separately verified executor** must accept only a
+   registered approved batch from protected `main`, not an arbitrary
+   `source` with `execute=true`. It must verify the selected actions
+   and exact item set *before* using any fork-creation credential.
+   **This enforcement has not yet been implemented.**
 5. Each item gets a separate verifiable result: `CREATED_VERIFIED`,
    `EXISTS_VERIFIED`, `BLOCKED`, or `PENDING_VERIFICATION`.
    Partial failure never authorizes extra items or implicit retries.
@@ -283,14 +284,33 @@ candidates to executable entries.
 - Protected-branch and environment restrictions are verified
   on GitHub **before** adding the token.
 
+## Read-only preview result — not an authorization receipt
+
+The staged `scripts/batch_forks.py` CLI currently returns
+`status: PREFLIGHT_PASS` for a valid source-preview and also writes
+`authorization_status: UNVERIFIED_NOT_EXECUTABLE`. It never performs
+fork creation; `--execute` and programmatic `run_batch(execute=True)`
+both fail closed. No token is needed for this source-preview path.
+
+A client **must not display `PREFLIGHT_PASS` as user authorization**.
+It means only that the manifest passes local shape/expiry checks and that
+the requested source repositories were inspected without write access.
+An `approval_ref` is a public audit pointer, not proof of the human
+operator's authenticated act. True execution receipts and authorization
+verification belong to the **not-yet-implemented** batch runner.
+
 ## Provider-neutral approval metadata
 
 The proposed approved-manifest schema attaches a `proposal` object to each
 item with exactly the six fields above. The field is **descriptive and
 authorization-scoped metadata**, not an instruction to execute a patch.
 The batch digest covers that text and all selected entries; the proposal
-remains stable after approval. The executor can validate scope without
-pretending to verify the truth of a promised improvement.
+remains stable after approval. The **read-only validator** can check syntax,
+declared scope and URL structure; it **cannot prove** that an evidence URL
+is genuinely public, that the cited source supports the claim, that the
+operator really approved, or that the predicted improvement will occur.
+These require source review, independently scoped authorization, real tests,
+and actual upstream outcome evidence.
 
 
 
