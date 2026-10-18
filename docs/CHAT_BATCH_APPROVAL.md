@@ -16,8 +16,10 @@
 
 The approval interface is any conversational agent or chat client: ChatGPT, Claude,
 a custom bot, or another compatible frontend. No particular model, provider,
-application, or hosted runtime is required. GitHub stores the approved batch
-and performs only authorized operations; the conversation is the operator UX.
+application, or OpenSiro-hosted runtime is required. The **operator makes the
+decision in that conversation**. GitHub is an external repository/evidence
+service and, optionally, a workflow runner; GitHub review is not the required
+per-batch approval user experience.
 
 1. The agent prepares a **bounded contribution batch**, normally up to
    ten candidates. Each row includes upstream URL, intended operation,
@@ -29,25 +31,25 @@ and performs only authorized operations; the conversation is the operator UX.
 2. The owner sees the batch in their chosen conversation client and can **approve all, approve
    selected entries, ask for changes, or reject**. The chat response
    must refer to the concrete batch/version and allowed operations.
-3. The agent publishes the **exact approved subset** and an approval
-   receipt to the public Upstream repository. The receipt records
-   the user-facing decision text, operator identity assertion, UTC
-   timestamp, exact approved items and their canonical digest. The
-   machine-readable `approval_medium` is `agent_chat` regardless of client;
-   a provider name is optional provenance and never an authorization gate.
-   Never present this as a GitHub-verified cryptographic signature:
-   the agent-controlled GitHub connection alone cannot independently
-   attest who approved the batch in any conversational client.
-4. A **future, separately verified executor** must accept only a
-   registered approved batch from protected `main`, not an arbitrary
-   `source` with `execute=true`. It must verify the selected actions
-   and exact item set *before* using any fork-creation credential.
-   **This enforcement has not yet been implemented.**
-5. Each item gets a separate verifiable result: `CREATED_VERIFIED`,
-   `EXISTS_VERIFIED`, `BLOCKED`, or `PENDING_VERIFICATION`.
-   Partial failure never authorizes extra items or implicit retries.
-   Results and GitHub run URLs are returned through the originating conversation/client and linked from
-   the public issue/receipt.
+3. The agent records the **exact approved subset** and a minimal
+   public audit receipt when publication is in scope. That record states
+   the decision text/reference, declared operator, time, approved actions
+   and digest of the selected items, including each improvement proposal.
+   The `approval_medium` is `agent_chat` for any compatible provider.
+   Do **not** claim that an agent-written record independently proves who
+   approved the batch.
+4. The executor is **implementation-agnostic**: it may be the same agent
+   using an already authorized repository connector, or a separate
+   restricted GitHub Actions job. In either case it needs an actual scoped
+   credential, must follow the exact approved subset, and must reject
+   unsupported stages, changed plans and missing authorization. A
+   headless runner cannot treat `approved_by` JSON as authenticated chat
+   approval. **Neither write mode is implemented in this prototype.**
+5. Each authorized item eventually receives a separate verified result:
+   `CREATED_VERIFIED`, `EXISTS_VERIFIED`, `BLOCKED`, or
+   `PENDING_VERIFICATION`. Partial failure never authorizes extra
+   items or implicit retries. Return receipts to the originating
+   conversation and link public GitHub evidence when it exists.
 6. `registry.yaml` and project profiles are changed **only from
    verified repositories and recorded contribution scope**, not from
    approvals or API 202 responses.
@@ -291,8 +293,21 @@ eligible for execution**. It may be revised and proposed again with
 updated evidence; an automatic "approve all" must not elevate blocked
 candidates to executable entries.
 
-## GitHub remains an executor, not the approval interface
+## Execution is adapter-agnostic; GitHub is not the approval interface
 
+- **Connected-agent path (optional):** After an explicit real
+  conversational approval, an agent with an authorized GitHub-capable
+  connector may perform only the selected items. The chat host/provider
+  and connector must actually support the requested operation and
+  confirmation. No OpenSiro-hosted runtime or GitHub Actions runner is
+  a prerequisite. If connector authority, provenance or operation scope
+  cannot be established, stop rather than substitute a more powerful token.
+- **Headless runner path (optional):** A restricted GitHub Actions job
+  must independently validate its approved manifest and cannot derive
+  owner identity solely from agent-authored JSON. It may use a protected
+  `main` environment secret, without requiring the operator to click
+  GitHub Required reviewers for each batch. The runner is **not**
+  currently implemented.
 - A GitHub Actions environment may still store a **separate scoped
   secret** and restrict deployments to protected `main`, without
   requesting per-fork or per-batch GitHub **Required reviewers**.
@@ -300,12 +315,11 @@ candidates to executable entries.
   **inside the executor** before granting it the secret.
 - Keep least-privilege fork credentials separate from any conversational
   agent connector. No admin/delete/archive permissions.
-- The approval recording mechanism is a **workflow authorization
-  policy**, not an independent authentication provider. GitHub
-  credentials and branch protection are the actual enforcement
-  boundary. If tamper-resistant owner attribution beyond agent
-  assertions is required, it needs an independent attestation
-  mechanism; do not claim it exists.
+- An approval record is **audit evidence**, not an authentication
+  provider. The connected agent's service identity/scoped permissions,
+  or a separately protected workflow and manifest channel, are the
+  actual technical trust boundaries. Independent owner attribution
+  across clients requires separate attestation; do not pretend it exists.
 - Do not permit a direct single-fork execute path to bypass the
   approved-batch gate. **Merged PR #8 already removed** the privileged
   manual workflow job from `main`; do not reintroduce it. The batch
