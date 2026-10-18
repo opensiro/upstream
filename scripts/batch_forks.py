@@ -54,8 +54,8 @@ def load_manifest(path, *, now=None):
         raise BatchError("Unsupported schema version")
     if data["batch_id"] != path.stem:
         raise BatchError("Batch ID does not match filename")
-    if data["approved_by"] != "xLagerFeuer" or data["approval_medium"] != "ChatGPT":
-        raise BatchError("Declared operator/approval context mismatch")
+    if data["approved_by"] != "xLagerFeuer" or data["approval_medium"] != "agent_chat":
+        raise BatchError("Declared operator/conversational approval context mismatch")
     if not isinstance(data["approval_ref"], str) or not APPROVAL_URL.fullmatch(data["approval_ref"]):
         raise BatchError("Approval reference must be an upstream issue or PR")
     approved, expires = parse_time(data["approved_at"]), parse_time(data["expires_at"])
