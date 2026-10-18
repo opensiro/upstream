@@ -112,15 +112,21 @@ For a local JSON file at `/tmp/upstream-20261018-synthetic.json`:
 ```bash
 python3 scripts/batch_forks.py \
   --manifest /tmp/upstream-20261018-synthetic.json \
-  --draft --select project-a
+  --draft --select project-a --format text
 ```
 
-The output includes `PROPOSAL_PREVIEW`,
+With the default `--format json`, output includes `PROPOSAL_PREVIEW`,
 `authorization_status: NOT_APPROVED_NO_WRITES`, the exact selection,
 target fork name, declared license, all proposed stages, proposal and
 blockers. It also reports distinct `proposal_sha256` (all candidates
 and revision) and `selection_sha256` (selected IDs bound to that
-proposal digest). Neither field authenticates the human operator. It makes **zero GitHub API calls**. An unknown or duplicate
+proposal digest). Neither field authenticates the human operator. The optional `--format text` renders the same preview as a compact,
+client-neutral operator report: selected IDs, requested stages, problem,
+planned change, expected benefit, validation, blockers and evidence. Its
+heading explicitly says **NOT APPROVED — NO GITHUB WRITES**. It does
+not transform selection into authorization.
+
+It makes **zero GitHub API calls**. An unknown or duplicate
 selected ID is rejected; selecting a blocked candidate returns
 `selection_has_blockers: true` but never grants its execution.
 
