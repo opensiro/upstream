@@ -27,6 +27,13 @@ PROPOSAL_FIELDS = {"system_component", "problem", "planned_change",
 class BatchError(Exception):
     pass
 
+def canonical_digest(value):
+    """SHA-256 of stable JSON, so formatting changes do not alter a proposal."""
+    canonical = json.dumps(value, sort_keys=True, ensure_ascii=False,
+                           separators=(",", ":"), allow_nan=False)
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
 def no_duplicate_keys(pairs):
     result = {}
     for key, value in pairs:
@@ -143,7 +150,7 @@ def load_draft(path):
         seen_sources.add((owner + "/" + name).casefold())
         if "create_public_fork" in stages:
             seen_targets.add(target.casefold())
-    return data, hashlib.sha256(raw).hexdigest()
+    return data, canonical_digest(data)
 
 
 def preview_draft(path, *, selected_ids=None):
@@ -244,7 +251,7 @@ def load_manifest(path, *, now=None):
         ids.add(item["id"])
         sources.add(source_key)
         targets.add(name.casefold())
-    return data, hashlib.sha256(raw).hexdigest()
+    return data, canonical_digest(data)
 
 def run_batch(path, *, execute=False, now=None, create_fn=create_fork.run):
     if execute:
