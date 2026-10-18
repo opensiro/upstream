@@ -58,7 +58,7 @@ def verify(data, source):
             "parent": parent}
 
 def run(source, fork_name=None, *, execute=False, all_branches=False,
-        request=api, sleep=time.sleep):
+        expected_license=None, request=api, sleep=time.sleep):
     if source.count("/") != 1:
         raise ForkError("Source must be OWNER/REPOSITORY")
     owner, name = [slug(part) for part in source.split("/")]
@@ -75,6 +75,8 @@ def run(source, fork_name=None, *, execute=False, all_branches=False,
     if upstream.get("forking_allowed") is False:
         raise ForkError("Source forbids forking")
     license_id = (upstream.get("license") or {}).get("spdx_id") or "UNKNOWN"
+    if expected_license is not None and license_id != expected_license:
+        raise ForkError("Upstream license changed; new approval is required")
     code, existing = request("GET", "/repos/" + destination)
     if code == 200:
         result = verify(existing, source)
