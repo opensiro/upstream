@@ -167,6 +167,8 @@ def preview_draft(path, *, selected_ids=None):
         entries.append({
             "id": candidate["id"],
             "source": candidate["source"],
+            "fork_name": candidate["fork_name"],
+            "expected_license": candidate["expected_license"],
             "stages": candidate["stages"],
             "proposal": candidate["proposal"],
             "selected": choice,
