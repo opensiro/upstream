@@ -5,8 +5,10 @@ on:
     paths:
       - 'scripts/create_fork.py'
       - 'scripts/batch_proposals.py'
+      - 'scripts/connected_stage_adapter.py'
       - 'tests/test_create_fork.py'
       - 'tests/test_batch_proposals.py'
+      - 'tests/test_connected_stage_adapter.py'
       - '.github/workflows/fork-lifecycle.yml'
       - '.github/workflows/test-fork-lifecycle.yml'
   push:
@@ -14,8 +16,10 @@ on:
     paths:
       - 'scripts/create_fork.py'
       - 'scripts/batch_proposals.py'
+      - 'scripts/connected_stage_adapter.py'
       - 'tests/test_create_fork.py'
       - 'tests/test_batch_proposals.py'
+      - 'tests/test_connected_stage_adapter.py'
 
 permissions:
   contents: read
