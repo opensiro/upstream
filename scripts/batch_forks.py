@@ -283,12 +283,51 @@ def run_batch(path, *, execute=False, now=None, create_fn=create_fork.run):
     return {**report, "status": "PREFLIGHT_PASS"}
 
 
+
+def render_draft_text(report):
+    """Plain-text operator view, deliberately without approval or execution commands."""
+    if report.get("status") != "PROPOSAL_PREVIEW":
+        raise BatchError("Text view is limited to read-only proposal previews")
+    lines = [
+        "BATCH " + report["batch_id"] + " / revision " + str(report["revision"]),
+        "PROPOSAL ONLY — NOT APPROVED — NO GITHUB WRITES",
+        "Proposal SHA-256: " + report["proposal_sha256"],
+        "Selection SHA-256: " + report["selection_sha256"],
+        "",
+    ]
+    for i, candidate in enumerate(report["candidates"], start=1):
+        selected = "SELECTED FOR PREVIEW" if candidate["selected"] else "not selected"
+        blocked = " / BLOCKED" if candidate["blockers"] else ""
+        detail = candidate["proposal"]
+        lines.extend([
+            str(i) + ". " + candidate["id"] + " (" + selected + blocked + ")",
+            "   Target: " + candidate["source"],
+            "   Requested stages: " + " + ".join(candidate["stages"]),
+            "   Destination fork name: " + candidate["fork_name"],
+            "   Observed license: " + (candidate["expected_license"] or "not reviewed"),
+            "   Problem: " + detail["problem"],
+            "   Change: " + detail["planned_change"],
+            "   Expected benefit: " + detail["expected_improvement"] + " (unverified)",
+            "   Validation: " + detail["validation"],
+            "   Evidence: " + (detail["evidence_url"] or "MISSING"),
+        ])
+        for blocker in candidate["blockers"]:
+            lines.append("   Blocker: " + blocker)
+        lines.append("")
+    if report["selection_has_blockers"]:
+        lines.append("Selected entries include BLOCKED items; do not treat as eligible.")
+    lines.append("This is selection preview only; no operator authorization was recorded.")
+    return "\n".join(lines)
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--manifest", required=True)
     parser.add_argument("--execute", action="store_true")
     parser.add_argument("--draft", action="store_true", help="Preview proposal without approval or GitHub API access")
     parser.add_argument("--select", default="", help="Comma-separated candidate IDs, proposal preview only")
+    parser.add_argument("--format", choices=("json", "text"), default="json",
+                        help="Display format; text is available for --draft only")
     args = parser.parse_args()
     if args.execute:
         print("BATCH_ERROR: executable batch workflow is not integrated or validated; refusing writes", file=sys.stderr)
@@ -296,13 +335,15 @@ def main():
     try:
         if args.select and not args.draft:
             raise BatchError("--select is only valid with --draft")
+        if args.format == "text" and not args.draft:
+            raise BatchError("--format text is only valid with --draft")
         if args.draft:
             selection = [x.strip() for x in args.select.split(",")] if args.select else []
             report = preview_draft(args.manifest, selected_ids=selection)
         else:
             report = run_batch(args.manifest, execute=False)
         serialized = json.dumps(report, sort_keys=True)
-        print(serialized)
+        print(render_draft_text(report) if args.format == "text" else serialized)
         if os.environ.get("GITHUB_STEP_SUMMARY"):
             with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as f:
                 f.write("Read-only batch preview (NOT an authorization): " + serialized + "\n")
