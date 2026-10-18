@@ -80,6 +80,44 @@ expected improvement or validation, it must issue a new batch version and
 obtain fresh approval. The frozen approved manifest includes the exact
 `proposal` object in its SHA-256 digest; it must not be silently rewritten.
 
+### How to derive improvement plans from assessed systems
+
+Public VSM Index assessments and strong practices from other OSS systems
+can be **discovery signals** for candidate changes. A concrete contribution
+proposal must still be grounded in the **target upstream's** own code,
+maintainer expectations, integration surface and tests:
+
+```text
+Source observations / optional VSM assessment
+          ↓
+Identify a concrete upstream-native problem
+          ↓
+Propose a bounded change to the target system
+          ↓
+State expected (not established) improvement
+          ↓
+Specify tests, compatibility checks, and public evidence
+          ↓
+Human selection → scoped batch authorization
+          ↓
+Later: separately verified implementation/upstream outcome
+```
+
+A transferable best practice observed in another system is **not proof**
+that copying it is appropriate or will improve this target. The proposal
+should state what needs adapting to the target architecture and identify
+regression risks when material. It should also distinguish:
+
+- **Target-system benefit**: what the upstream project itself is expected
+  to gain. This is the primary criterion for a proposed contribution.
+- **Reusable insight for OpenSiro**: a pattern OpenSiro might later adopt
+  in its own work, if relevant. This is secondary research context, not
+  a justification for a patch the upstream does not need.
+
+Do not manufacture assessment evidence or change Index ownership labels
+because a contribution proposal sounds promising. Only actual upstream
+validation and maintainer outcomes can support completed-result claims.
+
 ### Example candidate card — illustration, not an executable approval
 
 **Repository:** `example/repo-a` (illustrative)
