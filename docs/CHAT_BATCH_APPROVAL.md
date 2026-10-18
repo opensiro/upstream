@@ -327,6 +327,32 @@ candidates to executable entries.
   manual workflow job from `main`; do not reintroduce it. The batch
   runner remains a separate unimplemented authorization boundary.
 
+### Trust boundary for a one-click conversational decision
+
+A **single operator decision in chat** is the intended UX, but different
+executor adapters have different means of receiving that authority:
+
+- **Same-session connected agent:** the user selects a concrete approved
+  subset in their authenticated conversational session. The authorized
+  connector, not an OpenSiro-created `approved_by` string, provides the
+  permission to perform each supported GitHub action. The agent must
+  apply the exact approved selection and stop if its connector cannot
+  perform that action. An audit summary is useful but is not a
+  separately signed proof of owner identity.
+- **Deferred/headless Actions job:** chat text or a JSON document written
+  by an agent cannot independently authenticate the approving human.
+  Unless a trustworthy, independently verifiable authorization channel
+  is explicitly available and checked, the job must **not execute**.
+  Merely merging a manifest via an agent-controlled GitHub credential
+  is insufficient proof of the operator's personal approval.
+
+The connected-agent path avoids a needless mandatory GitHub approval
+click *for each contribution batch* without inventing a hosted OpenSiro
+service. It requires an actual provider/client integration supporting
+the relevant GitHub write operation. None is asserted to be operational
+by this draft. Both paths keep external PR submission distinct from
+fork creation and patch preparation.
+
 ## Minimal acceptance tests before enabling secrets
 
 - Without an approved batch, no fork-creation POST occurs.
