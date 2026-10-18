@@ -54,6 +54,96 @@ per-batch approval user experience.
    verified repositories and recorded contribution scope**, not from
    approvals or API 202 responses.
 
+## Draft batches: review and select before any approval
+
+The read-only prototype now supports a **separate draft schema** that
+contains **no** `approved_by`, `approved_at`, `approval_ref` or claim of
+operator authorization. The draft has:
+
+- `schema_version: 1`, a unique `batch_id` and integer `revision`;
+- `status: proposal_only` and 1–10 `candidates`;
+- per candidate: stable `id`, source, destination fork name,
+  `stages`, reviewed SPDX observation (or `null` with a blocker),
+  the six-field `proposal` and any `blockers`.
+
+Draft `stages` may describe `create_public_fork`,
+`prepare_contribution` and `submit_external_pr` in their natural
+dependency order. This is **planning syntax only**: neither latter
+stage is executed or approved by the existing read-only validator.
+The future action-specific executor must still implement, authorize
+and verify each stage separately.
+
+Example of the *syntax*, using invented repositories and issue links
+for demonstration only (never real source evidence):
+
+```json
+{
+  "schema_version": 1,
+  "batch_id": "upstream-20261018-synthetic",
+  "revision": 1,
+  "status": "proposal_only",
+  "candidates": [
+    {
+      "id": "project-a",
+      "source": "example/project-a",
+      "fork_name": "project-a",
+      "stages": ["create_public_fork", "prepare_contribution"],
+      "expected_license": "MIT",
+      "proposal": {
+        "system_component": "Task handoff state controller",
+        "problem": "Interrupted handoffs may lose explicit task ownership",
+        "planned_change": "Add a bounded handoff outcome and regression test",
+        "expected_improvement": "More observable task ownership transitions",
+        "validation": "Test rejected and interrupted transfers on exact source",
+        "evidence_url": "https://github.com/example/project-a/issues/1"
+      },
+      "blockers": []
+    }
+  ]
+}
+```
+
+A real candidate requires a real verified upstream link and a real
+license review; the fictional URL and MIT value above are **not**
+evidence for any repository.
+
+For a local JSON file at `/tmp/upstream-20261018-synthetic.json`:
+
+```bash
+python3 scripts/batch_forks.py \
+  --manifest /tmp/upstream-20261018-synthetic.json \
+  --draft --select project-a
+```
+
+The output includes `PROPOSAL_PREVIEW`,
+`authorization_status: NOT_APPROVED_NO_WRITES`, the exact selection
+and original stages, target fork name, declared license, proposal
+and blockers. It makes **zero GitHub API calls**. An unknown or duplicate
+selected ID is rejected; selecting a blocked candidate returns
+`selection_has_blockers: true` but never grants its execution.
+
+The SHA-256 is computed over canonicalized JSON (stable key ordering,
+compact separators and UTF-8), so key order/whitespace changes do not
+change the digest. Revisions, action stages, proposal text, selected
+candidates or substantive values do change it. Selection itself is
+reported separately and is **not** a signed approval or transferable
+permission. A genuine approval receipt and permission check remain
+separate, **unimplemented** steps.
+
+### Example using the prior demo choice
+
+The earlier illustrative choice was:
+
+- Project A: `create_public_fork` + `prepare_contribution`
+- Project B: `create_public_fork` + `prepare_contribution`
+- Project C: `submit_external_pr`
+
+This is only a UI example. Draft schema supports describing these
+three rows, but **nothing was authorized or executed** by that
+demonstration. External PR publication needs its own explicit scope
+and implementation; neither an existing branch nor its destination
+may be invented to complete the example.
+
 ## Default compact operator view
 
 A batch of ten proposals should be **scannable**, not ten walls of text.
