@@ -23,7 +23,7 @@ remains a separate S5 boundary decision.
    [`control_plane_handoff.py`](../scripts/control_plane_handoff.py).
    The packet says `ACTION_PREPARED_NOT_AUTHORIZED`, binds the proposed
    revision/selection digests and the exact working repository, source branch
-   SHA, new branch, `tests/` path and test-content SHA-256.
+   SHA, new branch, root `tests/` or package-local `packages/.../tests/` path and test-content SHA-256.
 4. **Operator decision:** the conversation presents the precise packet and
    asks for a separate explicit **approve or decline** decision on that exact
    action. A generic `continue`, `подтверждаю`, draft JSON field, hash,

@@ -223,6 +223,41 @@ class TestStageAdapter(unittest.TestCase):
             self.run_stage()
         self.assertEqual(self.api.writes(), [])
 
+    def test_package_local_test_file_is_allowed(self):
+        self.intent["file_path"] = "packages/graph/arcadedb/tests/unit/test_has_edges.py"
+        result = self.run_stage()
+        self.assertEqual(result["status"], "CREATED_VERIFIED")
+        self.assertEqual(len(self.api.writes()), 2)
+
+    def test_package_local_test_file_handoff_scope(self):
+        self.intent["file_path"] = "packages/graph/arcadedb/tests/test_contract.py"
+        result = self.run_stage()
+        self.assertEqual(result["file_path"], self.intent["file_path"])
+
+    def test_package_source_path_rejected(self):
+        self.intent["file_path"] = "packages/graph/arcadedb/src/adapter.py"
+        with self.assertRaises(StageBlocked):
+            self.run_stage()
+        self.assertEqual(self.api.writes(), [])
+
+    def test_arbitrary_nested_tests_path_rejected(self):
+        self.intent["file_path"] = "unrelated/tests/test_race.py"
+        with self.assertRaises(StageBlocked):
+            self.run_stage()
+        self.assertEqual(self.api.writes(), [])
+
+    def test_package_tests_path_traversal_rejected(self):
+        self.intent["file_path"] = "packages/graph/arcadedb/tests/../../src/adapter.py"
+        with self.assertRaises(StageBlocked):
+            self.run_stage()
+        self.assertEqual(self.api.writes(), [])
+
+    def test_package_tests_directory_without_file_rejected(self):
+        self.intent["file_path"] = "packages/graph/arcadedb/tests"
+        with self.assertRaises(StageBlocked):
+            self.run_stage()
+        self.assertEqual(self.api.writes(), [])
+
     def test_path_escape_rejected(self):
         self.intent["file_path"] = "tests/../README.md"
         with self.assertRaises(StageBlocked):
