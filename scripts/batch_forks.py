@@ -118,7 +118,8 @@ def load_manifest(path, *, now=None):
             raise BatchError("Source cannot be within destination org")
         validate_proposal(item["proposal"])
         license_id = item["expected_license"]
-        if not isinstance(license_id, str) or not LICENSE.fullmatch(license_id) or license_id == "UNKNOWN":
+        if (not isinstance(license_id, str) or not LICENSE.fullmatch(license_id)
+                or license_id.upper() in {"UNKNOWN", "NOASSERTION"}):
             raise BatchError("Explicit reviewed SPDX license required")
         source_key = (owner + "/" + repository).casefold()
         if item["id"] in ids or source_key in sources or name.casefold() in targets:
