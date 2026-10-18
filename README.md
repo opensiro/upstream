@@ -42,7 +42,13 @@ The archived state is an explicit decision, **not an automatic action triggered 
 
 [Conversation-first batch approval design](docs/CHAT_BATCH_APPROVAL.md) is the selected **provider-agnostic conversational interface**: propose a bounded contribution batch in any compatible agent chat, accept only the owner's selected items, and record the exact permission scope. Once an independently authorized adapter exists, it may be a **connected agent** or **restricted CI runner**; neither GitHub approval clicks per batch nor an OpenSiro-hosted runtime are required. No write adapter is currently active.
 
-Every proposed contribution includes a **concrete system improvement card**: target component, observed problem, planned change, expected benefit, verification method and public evidence. The plan is visible before selection and becomes part of the frozen batch scope; predicted benefits are not reported as verified outcomes. See [contribution proposal fields](docs/CHAT_BATCH_APPROVAL.md#required-contribution-proposal--what-the-system-would-gain).
+Every proposed contribution includes a **concrete system improvement card**: target component, observed problem, planned change, expected benefit, verification method and public evidence. The plan is visible before selection; predicted benefits are not reported as verified outcomes. The current draft schema contains **no invented approval fields**. To inspect a local proposed batch without GitHub API access or any write authorization, use:
+
+```bash
+python3 scripts/batch_forks.py --manifest /path/to/upstream-YYYYMMDD-name.json --draft --select project-a,project-c
+```
+
+The result is `PROPOSAL_PREVIEW` with `NOT_APPROVED_NO_WRITES`, plus hashes for the proposal and selected subset. This source-prepared preview is **not deployed on `main`**; it is part of [draft PR #7](https://github.com/opensiro/upstream/pull/7). See [proposal and preview details](docs/CHAT_BATCH_APPROVAL.md#draft-batches-review-and-select-before-any-approval).
 
 The former single-fork workflow is now **preview-only on `main`** after [safety PR #8](https://github.com/opensiro/upstream/pull/8). It no longer offers `execute=true`, a privileged `create` job or a token reference. The [historical lifecycle handoff](docs/FORK_LIFECYCLE.md) is not an activation procedure. The [batch proposal and read-only validator](docs/CHAT_BATCH_APPROVAL.md) remain **Draft in PR #7**; no trusted batch-only executor or committed batch-specific CI exists. Do **not** provision `UPSTREAM_FORK_TOKEN`. Track remaining gates in [activation issue #6](https://github.com/opensiro/upstream/issues/6). Neither the design nor code authorizes external PR submission or changes the VSM OSS system boundary.
 
