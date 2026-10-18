@@ -141,8 +141,21 @@ the demonstration batch #001 previously shown in chat.
 For the first implementation, the only executable operation is
 `create_public_fork` into `opensiro-contributions`. Developing code,
 opening an *external* upstream pull request, maintainer contact,
-archive/delete, and permissions changes are **distinct decisions**.
+archive/delete, and permissions changes are **distinct permission scopes**.
 An approved fork batch cannot expand itself into external submissions.
+
+**Distinct scopes do not imply one chat approval per operation.** A future
+operator may approve a selected entry as "create fork + prepare the precisely
+described contribution" in **one batch decision**, provided the manifest
+explicitly grants both stage permissions and the executor enforces both.
+Likewise, "submit external PR" may be another explicitly selected stage
+in that same batch decision when supported. No undeclared stage may be
+inferred from the descriptive `proposal` object. The current fork-only
+prototype does **not** implement or grant these later stages.
+
+Every step in the planned change is presented to the operator up front;
+the approval mechanism authorizes explicit scoped stages, not an open-ended
+agent commitment to "improve this repo."
 
 ### Batch selection example — explanatory, not a real batch
 
