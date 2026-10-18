@@ -80,11 +80,12 @@ def load_draft(path):
     if not BATCH_ID.fullmatch(path.stem) or path.suffix != ".json":
         raise BatchError("Invalid draft batch filename")
     try:
-        raw = path.read_bytes()
+        with path.open("rb") as source:
+            raw = source.read(16385)
         if len(raw) > 16384:
             raise BatchError("Draft batch too large")
         data = json.loads(raw, object_pairs_hook=no_duplicate_keys)
-    except (OSError, ValueError, UnicodeDecodeError) as exc:
+    except (OSError, ValueError, UnicodeDecodeError, RecursionError) as exc:
         raise BatchError("Cannot read proposed batch: " + type(exc).__name__) from None
     if not isinstance(data, dict) or set(data) != DRAFT_FIELDS:
         raise BatchError("Draft schema does not accept approval fields")
@@ -208,12 +209,12 @@ def render_draft_text(report):
             "   Target: " + candidate["source"],
             "   Requested stages: " + " + ".join(candidate["stages"]),
             "   Destination fork name: " + candidate["fork_name"],
-            "   Observed license: " + (candidate["expected_license"] or "not reviewed"),
+            "   Declared SPDX license (unverified): " + (candidate["expected_license"] or "not reviewed"),
             "   Problem: " + detail["problem"],
             "   Change: " + detail["planned_change"],
             "   Expected benefit: " + detail["expected_improvement"] + " (unverified)",
             "   Validation: " + detail["validation"],
-            "   Evidence: " + (detail["evidence_url"] or "MISSING"),
+            "   Claimed public evidence URL (unchecked): " + (detail["evidence_url"] or "MISSING"),
         ])
         for blocker in candidate["blockers"]:
             lines.append("   Blocker: " + blocker)
