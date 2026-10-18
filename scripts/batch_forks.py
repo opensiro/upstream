@@ -8,6 +8,7 @@ import os
 from pathlib import Path
 import re
 import sys
+from urllib.parse import urlsplit
 import create_fork
 
 BATCH_ID = re.compile(r"^upstream-[0-9]{8}-[a-z0-9][a-z0-9-]{0,39}$")
@@ -16,7 +17,9 @@ LICENSE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9.+-]{0,49}$")
 APPROVAL_URL = re.compile(r"^https://github[.]com/opensiro/upstream/(issues|pull)/[0-9]+$")
 BATCH_FIELDS = {"schema_version", "batch_id", "approved_by", "approval_medium",
                 "approval_ref", "approved_at", "expires_at", "items"}
-ITEM_FIELDS = {"id", "action", "source", "fork_name", "expected_license"}
+ITEM_FIELDS = {"id", "action", "source", "fork_name", "expected_license", "proposal"}
+PROPOSAL_FIELDS = {"system_component", "problem", "planned_change",
+                   "expected_improvement", "validation", "evidence_url"}
 
 class BatchError(Exception):
     pass
@@ -36,6 +39,29 @@ def parse_time(value):
         return datetime.fromisoformat(value.replace("Z", "+00:00"))
     except ValueError:
         raise BatchError("Invalid timestamp") from None
+
+def validate_proposal(proposal):
+    """Validate the frozen descriptive intent; never treat it as an execution command."""
+    if not isinstance(proposal, dict) or set(proposal) != PROPOSAL_FIELDS:
+        raise BatchError("Contribution proposal must contain every required field")
+    for field in PROPOSAL_FIELDS - {"evidence_url"}:
+        value = proposal[field]
+        if not isinstance(value, str) or not (12 <= len(value.strip()) <= 1000):
+            raise BatchError("Contribution proposal field missing or too long: " + field)
+        if any(ord(char) < 32 and char not in "\\n\\t" for char in value):
+            raise BatchError("Invalid control character in proposal")
+        if value.strip().casefold() in {"tbd", "todo", "n/a", "unknown"}:
+            raise BatchError("Placeholder is not a contribution proposal")
+    evidence = proposal["evidence_url"]
+    if not isinstance(evidence, str) or len(evidence) > 2048:
+        raise BatchError("Missing or invalid proposal evidence URL")
+    try:
+        url = urlsplit(evidence)
+        if url.scheme != "https" or not url.hostname or url.username or url.password:
+            raise BatchError("Proposal evidence must be a public HTTPS URL")
+    except ValueError:
+        raise BatchError("Malformed proposal evidence URL") from None
+
 
 def load_manifest(path, *, now=None):
     path = Path(path)
@@ -85,6 +111,7 @@ def load_manifest(path, *, now=None):
             raise BatchError("Invalid repository identity") from None
         if owner.casefold() == create_fork.DEST.casefold():
             raise BatchError("Source cannot be within destination org")
+        validate_proposal(item["proposal"])
         license_id = item["expected_license"]
         if not isinstance(license_id, str) or not LICENSE.fullmatch(license_id) or license_id == "UNKNOWN":
             raise BatchError("Explicit reviewed SPDX license required")
@@ -109,6 +136,7 @@ def run_batch(path, *, execute=False, now=None, create_fn=create_fork.run):
         if observed["status"] not in ("DRY_RUN", "EXISTS_VERIFIED"):
             raise BatchError("Unexpected preflight status")
         checks.append({"id": item["id"], "source": item["source"],
+                       "proposal": item["proposal"],
                        "destination": create_fork.DEST + "/" + item["fork_name"],
                        "status": observed["status"]})
     report = {"batch_id": data["batch_id"], "sha256": digest,
