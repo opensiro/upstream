@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Execute precisely an approved batch; approval attribution is not a signed identity."""
+"""Read-only validator for proposed conversation-approved batches.
+
+No execution authority or independently authenticated operator identity is established here.
+"""
 import argparse
 from datetime import datetime, timedelta, timezone
 import hashlib
@@ -144,20 +147,9 @@ def run_batch(path, *, execute=False, now=None, create_fn=create_fork.run):
     report = {"batch_id": data["batch_id"], "sha256": digest,
               "approval_ref": data["approval_ref"],
               "approved_by_asserted": data["approved_by"], "preflight": checks}
-    if not execute:
-        return {**report, "status": "PREFLIGHT_PASS"}
-    if not os.environ.get("UPSTREAM_FORK_TOKEN"):
-        raise BatchError("Fork creation token unavailable")
-    receipts = []
-    for item in data["items"]:
-        try:
-            result = create_fn(item["source"], item["fork_name"], execute=True,
-                               expected_license=item["expected_license"])
-            receipts.append({"id": item["id"], **result})
-        except create_fork.ForkError as exc:
-            receipts.append({"id": item["id"], "status": "BLOCKED", "reason": str(exc)})
-    success = all(x["status"] in {"CREATED_VERIFIED", "EXISTS_VERIFIED"} for x in receipts)
-    return {**report, "status": "COMPLETED" if success else "INCOMPLETE", "results": receipts}
+    report["authorization_status"] = "UNVERIFIED_NOT_EXECUTABLE"
+    return {**report, "status": "PREFLIGHT_PASS"}
+
 
 def main():
     parser = argparse.ArgumentParser()
