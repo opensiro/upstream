@@ -289,7 +289,9 @@ Outcome:      proposal / blocked / verified result (never inferred)
 
 A blocked candidate (unclear license, conflicting upstream policy, no
 evidence, duplicate existing fix) is visible for discussion but **not
-eligible for execution**. It may be revised and proposed again with
+eligible for execution**. The read-only manifest validator rejects
+unresolved SPDX observations `UNKNOWN` and `NOASSERTION`; a valid license
+identifier is still **not by itself** a legal compatibility review. It may be revised and proposed again with
 updated evidence; an automatic "approve all" must not elevate blocked
 candidates to executable entries.
 
