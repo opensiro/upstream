@@ -116,18 +116,21 @@ python3 scripts/batch_forks.py \
 ```
 
 The output includes `PROPOSAL_PREVIEW`,
-`authorization_status: NOT_APPROVED_NO_WRITES`, the exact selection
-and original stages, target fork name, declared license, proposal
-and blockers. It makes **zero GitHub API calls**. An unknown or duplicate
+`authorization_status: NOT_APPROVED_NO_WRITES`, the exact selection,
+target fork name, declared license, all proposed stages, proposal and
+blockers. It also reports distinct `proposal_sha256` (all candidates
+and revision) and `selection_sha256` (selected IDs bound to that
+proposal digest). Neither field authenticates the human operator. It makes **zero GitHub API calls**. An unknown or duplicate
 selected ID is rejected; selecting a blocked candidate returns
 `selection_has_blockers: true` but never grants its execution.
 
 The SHA-256 is computed over canonicalized JSON (stable key ordering,
 compact separators and UTF-8), so key order/whitespace changes do not
-change the digest. Revisions, action stages, proposal text, selected
-candidates or substantive values do change it. Selection itself is
-reported separately and is **not** a signed approval or transferable
-permission. A genuine approval receipt and permission check remain
+change the proposal digest. Revision, action stages, plan content or
+candidate membership change `proposal_sha256`. The selected candidate
+IDs change `selection_sha256`; selection order alone does not.
+Neither hash is a signed approval, transferable permission or verified
+identity. A real approval receipt and authorization check remain
 separate, **unimplemented** steps.
 
 ### Example using the prior demo choice
@@ -459,11 +462,13 @@ fork creation and patch preparation.
 
 ## Read-only preview result — not an authorization receipt
 
-The staged `scripts/batch_forks.py` CLI currently returns
-`status: PREFLIGHT_PASS` for a valid source-preview and also writes
-`authorization_status: UNVERIFIED_NOT_EXECUTABLE`. It never performs
-fork creation; `--execute` and programmatic `run_batch(execute=True)`
-both fail closed. No token is needed for this source-preview path.
+The staged `scripts/batch_forks.py` CLI has **two** no-write paths:
+`--draft` provides a pure local `PROPOSAL_PREVIEW` with
+`NOT_APPROVED_NO_WRITES` and **no GitHub API requests**; the legacy
+approved-manifest *shape checker* can perform a read-only source
+`PREFLIGHT_PASS` with `UNVERIFIED_NOT_EXECUTABLE`. Neither
+path constitutes authorization or creates forks. `--execute` and
+programmatic `run_batch(execute=True)` both fail closed.
 
 A client **must not display `PREFLIGHT_PASS` as user authorization**.
 It means only that the manifest passes local shape/expiry checks and that
