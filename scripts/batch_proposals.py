@@ -146,7 +146,25 @@ def load_draft(path):
     return data, canonical_digest(data)
 
 
-def preview_draft(path, *, selected_ids=None):
+def parse_stage_scopes(raw):
+    """Parse optional reduced-permission scope, e.g. a=fork_stage+prepare_stage."""
+    if not raw:
+        return {}
+    result = {}
+    for entry in raw.split(","):
+        if entry.count("=") != 1:
+            raise BatchError("Invalid stage scope; expected candidate=stage+stage")
+        candidate_id, stages_csv = (part.strip() for part in entry.split("=", 1))
+        stages = [stage.strip() for stage in stages_csv.split("+")]
+        if (not ITEM_ID.fullmatch(candidate_id) or candidate_id in result
+                or not stages or any(not stage for stage in stages)
+                or len(stages) != len(set(stages))):
+            raise BatchError("Invalid or duplicate stage selection")
+        result[candidate_id] = stages
+    return result
+
+
+def preview_draft(path, *, selected_ids=None, stage_scopes=None):
     """Pure proposal preview. Selection is not a grant and has no side effects."""
     data, digest = load_draft(path)
     if selected_ids is None:
@@ -161,15 +179,34 @@ def preview_draft(path, *, selected_ids=None):
     if set(selected_ids) - ids:
         raise BatchError("Selection includes unknown candidates")
     selected = set(selected_ids)
+    if stage_scopes is None:
+        stage_scopes = {}
+    if not isinstance(stage_scopes, dict) or any(
+            not isinstance(item_id, str) or not isinstance(stages, list)
+            for item_id, stages in stage_scopes.items()):
+        raise BatchError("Stage scopes must be an ID-to-stage-list mapping")
+    if set(stage_scopes) - selected:
+        raise BatchError("Stage scope for an unselected or unknown candidate")
     entries = []
     for candidate in data["candidates"]:
         choice = candidate["id"] in selected
+        chosen_stages = []
+        if choice:
+            proposed = candidate["stages"]
+            chosen_stages = stage_scopes.get(candidate["id"], proposed)
+            if (not chosen_stages
+                    or any(not isinstance(x, str) or x not in proposed
+                           for x in chosen_stages)
+                    or len(chosen_stages) != len(set(chosen_stages))
+                    or chosen_stages != [x for x in proposed if x in chosen_stages]):
+                raise BatchError("Stage scope must be an ordered, nonempty subset of proposed stages")
         entries.append({
             "id": candidate["id"],
             "source": candidate["source"],
             "fork_name": candidate["fork_name"],
             "expected_license": candidate["expected_license"],
             "stages": candidate["stages"],
+            "selected_stages": chosen_stages,
             "proposal": candidate["proposal"],
             "selected": choice,
             "status": "BLOCKED" if candidate["blockers"] else "PROPOSED_ONLY",
@@ -181,6 +218,14 @@ def preview_draft(path, *, selected_ids=None):
         "selection_sha256": canonical_digest({
             "batch_id": data["batch_id"], "revision": data["revision"],
             "proposal_sha256": digest, "selected_ids": sorted(selected)
+        }),
+        "selection_scope_sha256": canonical_digest({
+            "batch_id": data["batch_id"], "revision": data["revision"],
+            "proposal_sha256": digest,
+            "selected_stage_sets": sorted(
+                ({"id": item["id"], "stages": item["selected_stages"]}
+                 for item in entries if item["selected"]),
+                key=lambda item: item["id"])
         }),
         "authorization_status": "NOT_APPROVED_NO_WRITES",
         "selected_ids": selected_ids,
@@ -198,6 +243,7 @@ def render_draft_text(report):
         "PROPOSAL ONLY — NOT APPROVED — NO GITHUB WRITES",
         "Proposal SHA-256: " + report["proposal_sha256"],
         "Selection SHA-256: " + report["selection_sha256"],
+        "Selected stage scope SHA-256: " + report["selection_scope_sha256"],
         "",
     ]
     for i, candidate in enumerate(report["candidates"], start=1):
@@ -207,7 +253,10 @@ def render_draft_text(report):
         lines.extend([
             str(i) + ". " + candidate["id"] + " (" + selected + blocked + ")",
             "   Target: " + candidate["source"],
-            "   Requested stages: " + " + ".join(candidate["stages"]),
+            "   Proposed stages: " + " + ".join(candidate["stages"]),
+            "   Selected stages for preview: " + (
+                " + ".join(candidate["selected_stages"]) if candidate["selected"]
+                else "(not selected)"),
             "   Destination fork name: " + candidate["fork_name"],
             "   Declared SPDX license (unverified): " + (candidate["expected_license"] or "not reviewed"),
             "   Problem: " + detail["problem"],
@@ -230,6 +279,8 @@ def main(argv=None):
     parser.add_argument("--manifest", required=True, help="Local proposal-only JSON file")
     parser.add_argument("--draft", action="store_true", help="Required; this CLI never accepts approval")
     parser.add_argument("--select", default="", help="Comma-separated IDs; preview only")
+    parser.add_argument("--scope", default="",
+                        help="Optional reduced stages: candidate=stage+stage,candidate2=stage; preview only")
     parser.add_argument("--format", choices=("json", "text"), default="json")
     args = parser.parse_args(argv)
     if not args.draft:
@@ -237,7 +288,8 @@ def main(argv=None):
         return 1
     try:
         selection = [x.strip() for x in args.select.split(",")] if args.select else []
-        report = preview_draft(args.manifest, selected_ids=selection)
+        report = preview_draft(args.manifest, selected_ids=selection,
+                               stage_scopes=parse_stage_scopes(args.scope))
         print(render_draft_text(report) if args.format == "text"
               else json.dumps(report, sort_keys=True, ensure_ascii=False))
         return 0
