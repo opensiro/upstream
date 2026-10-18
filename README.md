@@ -38,9 +38,36 @@ Before archiving an inactive fork, verify that its planned PRs are resolved or i
 
 The archived state is an explicit decision, **not an automatic action triggered by merged PRs**.
 
+## Conversation-first contribution proposals (read-only)
+
+[Batch proposal preview](docs/BATCH_PROPOSALS.md) is a **provider-agnostic,
+local-only** way to review up to ten possible contributions before an owner
+approves anything. Every candidate states the target system's problem,
+planned change, **expected (unverified) benefit**, validation and evidence.
+It can display the operator's **proposed selection** in JSON or plain text.
+
+```bash
+python3 scripts/batch_proposals.py --manifest /path/to/upstream-YYYYMMDD-name.json --draft --select candidate-a,candidate-c --format text
+```
+
+This command never contacts GitHub, creates forks, publishes external PRs
+or records an approval. Selection and SHA-256 identifiers are **not**
+authorization. See [the proposal schema and limitations](docs/BATCH_PROPOSALS.md).
+
 ## Fork lifecycle automation
 
-[Prepared fork lifecycle workflow](docs/FORK_LIFECYCLE.md) provides read-only planning and a separately protected GitHub API create path for future public forks in [opensiro-contributions](https://github.com/opensiro-contributions). It is **not activated** until owner-configured environment approval and a dedicated token exist; it does not authorize external PR submission or change the current VSM OSS system boundary.
+The manually dispatched [fork lifecycle workflow](.github/workflows/fork-lifecycle.yml)
+is **preview-only on `main`** after [PR #8](https://github.com/opensiro/upstream/pull/8).
+It no longer offers an `execute` input, privileged create job or credential
+reference. The old [fork lifecycle handoff](docs/FORK_LIFECYCLE.md) is historical
+and **not** a deployment checklist.
+
+[Activation issue #6](https://github.com/opensiro/upstream/issues/6) and
+[Draft PR #7](https://github.com/opensiro/upstream/pull/7) track the separate
+future owner-authorized execution contract. **Do not provision
+`UPSTREAM_FORK_TOKEN` or execute demonstration batch #001.** Neither
+proposal preview nor fork planning grants external PR publication,
+archiving or a new VSM OSS organizational boundary.
 
 ## Contributions
 
