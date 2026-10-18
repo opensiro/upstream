@@ -59,6 +59,18 @@ This command never contacts GitHub, creates forks, publishes external PRs
 or records an approval. Selection and SHA-256 identifiers are **not**
 authorization. See [the proposal schema and limitations](docs/BATCH_PROPOSALS.md).
 
+## Control Plane preparation handoff (read-only)
+
+The existing [OpenSiro OSS Control Plane](https://github.com/opensiro/vsm-oss-organization/blob/main/docs/AGENT_CONTROL_PLANE.md)
+can present an [exact prepare-stage handoff](docs/CONTROL_PLANE_HANDOFF.md)
+for one selected external contribution. The local
+[`control_plane_handoff.py`](scripts/control_plane_handoff.py) validates
+one candidate and one proposed `prepare_contribution` action, binding its
+selected stage, working fork, pinned base revision, branch, test file and
+content digest. It returns `ACTION_PREPARED_NOT_AUTHORIZED` and performs
+**no GitHub calls or writes**. A distinct current-session operator decision
+and working trusted GitHub port are still required for actual changes.
+
 ## Fork lifecycle automation
 
 The manually dispatched [fork lifecycle workflow](.github/workflows/fork-lifecycle.yml)
