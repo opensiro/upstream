@@ -118,6 +118,13 @@ class HandoffContractTests(unittest.TestCase):
         with self.assertRaises(HandoffError):
             self.invoke(op=a)
 
+    def test_package_local_test_path_is_included_in_packet(self):
+        a = action()
+        a["file_path"] = "packages/graph/arcadedb/tests/unit/test_has_edges.py"
+        packet = self.invoke(op=a)
+        self.assertEqual(packet["action"]["file_path"], a["file_path"])
+        self.assertEqual(packet["status"], "ACTION_PREPARED_NOT_AUTHORIZED")
+
     def test_existing_file_path_rejected(self):
         a = action()
         a["file_path"] = "README.md"
