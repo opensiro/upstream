@@ -50,6 +50,44 @@ and performs only authorized operations; the conversation is the operator UX.
    verified repositories and recorded contribution scope**, not from
    approvals or API 202 responses.
 
+## Default compact operator view
+
+A batch of ten proposals should be **scannable**, not ten walls of text.
+By default show for each candidate one concise problem → change → benefit
+summary, the requested action scope, and the strongest public evidence link.
+Show detailed validation, integration risk, license, and the optional VSM
+context on demand or when a blocker materially affects the choice.
+The complete six-field proposal is retained in the manifest either way.
+
+**Plain-text fallback** (works in any chatbot, even without native buttons):
+
+```text
+Contribution batch <ID>, revision <N> — proposal only
+
+1. Target: <owner/repository>
+   Fix: <what is wrong> → <what would change>
+   Gain: <expected improvement, not yet verified>
+   Scope: create_public_fork
+   Evidence: <public source/issue URL>
+
+2. Target: <owner/repository> [BLOCKED]
+   Reason: <license / native fit / duplicate fix / missing evidence>
+   Scope: not executable
+
+Operator choices:
+- Approve eligible entries
+- Approve selected entries: 1, 3, 5
+- Revise: <which item and why>
+- Reject batch
+```
+
+The agent must acknowledge the **selected IDs and exact permission
+scope** before recording anything. The `BLOCKED` label must not be
+overridden by choosing "all", and approvals for demonstration UI
+examples must never be copied into a real executable manifest.
+No model provider, rich-card renderer, special slash command, or
+OpenSiro-hosted runtime is required.
+
 ## Required contribution proposal — what the system would gain
 
 Every candidate row must carry a **specific, evidence-linked plan**, not just
