@@ -40,7 +40,7 @@ The archived state is an explicit decision, **not an automatic action triggered 
 
 ## Fork lifecycle automation
 
-[Chat-first batch approval design](docs/CHAT_BATCH_APPROVAL.md) is the selected operator interaction: propose a bounded contribution batch in ChatGPT, accept only the owner's selected items, record the decision, and execute only that exact authorized set. GitHub is the executor, not the approval interface.
+[Chat-first batch approval design](docs/CHAT_BATCH_APPROVAL.md) is the selected **provider-agnostic conversational interface**: propose a bounded contribution batch in any compatible agent chat, accept only the owner's selected items, record the decision, and execute only that exact authorized set. GitHub is the executor, not the approval interface. No ChatGPT-specific runtime or service is required.
 
 The earlier [single-fork workflow](docs/FORK_LIFECYCLE.md) is merged as source-prepared infrastructure but **not activated** or approved for credential provisioning: it still exposes a direct `execute=true` path. That must be replaced by a fail-closed approved-batch executor before storing `UPSTREAM_FORK_TOKEN`. See [activation issue #6](https://github.com/opensiro/upstream/issues/6). Neither the design nor code authorizes external PR submission or changes the VSM OSS system boundary.
 
