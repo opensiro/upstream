@@ -75,6 +75,12 @@ conflating chat selection with GitHub permissions. The old
 [Draft PR #7](https://github.com/opensiro/upstream/pull/7) is superseded
 by the merged preview and is **not merge-ready**.
 
+A narrowly limited [connected-stage preparation adapter](docs/CONNECTED_STAGE_ADAPTER.md)
+now supplies **source-prepared, mock-tested** one-file test preparation in an
+existing writable fork, gated by a trusted session authorization callback.
+It is **not connected to a live host** and **not an approved contribution**;
+no fork or external PR execution is enabled. It remains under Issue #6.
+
 **Do not provision `UPSTREAM_FORK_TOKEN` or execute demonstration batch #001.**
 Neither proposal preview nor fork planning grants external PR publication,
 archiving or a new VSM OSS organizational boundary.
