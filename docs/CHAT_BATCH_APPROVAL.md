@@ -6,7 +6,9 @@
 > tested approved-batch write executor or dedicated batch CI. No trusted
 > operator identity proof is provided by the JSON manifest.
 > Tracks [Upstream #6](https://github.com/opensiro/upstream/issues/6).
-> The merged single-fork workflow is **not** a batch authorization gate.
+> The deployed manual workflow is now **preview-only** following
+> [merged safety PR #8](https://github.com/opensiro/upstream/pull/8).
+> It is **not** a batch authorization gate.
 > Do **not** provision `UPSTREAM_FORK_TOKEN` until a verified, bounded
 > executor rejects unapproved requests and bypasses are eliminated.
 
@@ -305,8 +307,9 @@ candidates to executable entries.
   assertions is required, it needs an independent attestation
   mechanism; do not claim it exists.
 - Do not permit a direct single-fork execute path to bypass the
-  approved-batch gate. Keep the current `execute=true` workflow
-  **unprovisioned** until it is removed or made read-only.
+  approved-batch gate. **Merged PR #8 already removed** the privileged
+  manual workflow job from `main`; do not reintroduce it. The batch
+  runner remains a separate unimplemented authorization boundary.
 
 ## Minimal acceptance tests before enabling secrets
 
