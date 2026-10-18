@@ -47,8 +47,13 @@ planned change, **expected (unverified) benefit**, validation and evidence.
 It can display the operator's **proposed selection** in JSON or plain text.
 
 ```bash
-python3 scripts/batch_proposals.py --manifest /path/to/upstream-YYYYMMDD-name.json --draft --select candidate-a,candidate-c --format text
+python3 scripts/batch_proposals.py --manifest /path/to/upstream-YYYYMMDD-name.json --draft --select candidate-a,candidate-c --scope 'candidate-a=create_public_fork' --format text
 ```
+
+The optional `--scope` can **reduce** the stages proposed for each
+selected candidate; it cannot add a new action. Without it, a selected
+candidate retains all proposed stages for preview. The result includes
+`selection_scope_sha256` binding the exact per-candidate stage subset.
 
 This command never contacts GitHub, creates forks, publishes external PRs
 or records an approval. Selection and SHA-256 identifiers are **not**
