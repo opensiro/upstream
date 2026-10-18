@@ -4,14 +4,18 @@ on:
   pull_request:
     paths:
       - 'scripts/create_fork.py'
+      - 'scripts/batch_proposals.py'
       - 'tests/test_create_fork.py'
+      - 'tests/test_batch_proposals.py'
       - '.github/workflows/fork-lifecycle.yml'
       - '.github/workflows/test-fork-lifecycle.yml'
   push:
     branches: [main]
     paths:
       - 'scripts/create_fork.py'
+      - 'scripts/batch_proposals.py'
       - 'tests/test_create_fork.py'
+      - 'tests/test_batch_proposals.py'
 
 permissions:
   contents: read
