@@ -15,8 +15,11 @@ and performs only authorized operations; the conversation is the operator UX.
 
 1. The agent prepares a **bounded contribution batch**, normally up to
    ten candidates. Each row includes upstream URL, intended operation,
-   destination fork name, license/source checks, contribution purpose,
-   and any blocker. This is a proposal, not an action authorization.
+   destination fork name, license/source checks, a **concrete change proposal**,
+   and any blocker. Each candidate must explain the observed upstream problem,
+   targeted system component, planned change, expected system improvement,
+   and how the change would be validated. Evidence links must accompany
+   the proposal. This is a proposal, not an action authorization.
 2. The owner sees the batch in their chosen conversation client and can **approve all, approve
    selected entries, ask for changes, or reject**. The chat response
    must refer to the concrete batch/version and allowed operations.
@@ -42,6 +45,59 @@ and performs only authorized operations; the conversation is the operator UX.
    verified repositories and recorded contribution scope**, not from
    approvals or API 202 responses.
 
+## Required contribution proposal — what the system would gain
+
+Every candidate row must carry a **specific, evidence-linked plan**, not just
+a repository name, a VSM letter, or a generic "improve orchestration" claim.
+The chat UI shows the following human-readable fields:
+
+| Field | Operator question | What it should contain |
+| --- | --- | --- |
+| `system_component` | Where? | The upstream-owned component, workflow, API, documentation or contributor process being changed |
+| `problem` | Why? | The current limitation and the observed evidence supporting it |
+| `planned_change` | What exactly will change? | Concrete files, behaviors or integration path to modify; scoped enough for upstream review |
+| `expected_improvement` | What gets better? | An explicitly **expected**, not measured, downstream system-level benefit |
+| `validation` | How will we know? | Planned tests, regression cases, benchmark or observable acceptance conditions |
+| `evidence_url` | What supports the proposal? | A public upstream source, issue, maintainer discussion or other relevant evidence URL |
+
+For an assessment-informed suggestion, an agent **may** additionally describe
+which Profile-defined VSM function the change appears to touch (e.g., a
+task-level S1 capability or an S2 coordination path) and link the actual
+general VSM assessment. This is explanatory context, **not** a new grade, a
+maturity score, an assertion of autonomy, or proof that the improvement works.
+Absence of an assessment must not block an otherwise viable native upstream
+contribution.
+
+**Authority distinction:** selecting an entry with action
+`create_public_fork` approves only creation of the named fork under the
+stated proposal. It does **not** approve implementation, commit/push of a
+proposed patch, submission of an external PR, or archiving. Those require
+their own explicitly scoped approvals, even if the same candidate card
+explains the longer-term contribution plan.
+
+When an agent revises any substantive part of the proposed problem, plan,
+expected improvement or validation, it must issue a new batch version and
+obtain fresh approval. The frozen approved manifest includes the exact
+`proposal` object in its SHA-256 digest; it must not be silently rewritten.
+
+### Example candidate card — illustration, not an executable approval
+
+**Repository:** `example/repo-a` (illustrative)
+**Proposed authorized action:** Create public fork
+**Target:** Task handoff component
+**Problem:** Failed handoffs may leave a task without a clear accountable owner;
+verify with a pinned source reference before proposing upstream work
+**Planned change:** Add explicit handoff state and a focused regression test
+**Expected improvement:** Fewer ambiguous task ownership transitions; a
+hypothesis to evaluate, not a measured result
+**Validation:** Run the project's task-handoff test suite and a before/after
+regression case for interrupted handoffs
+**Evidence:** The real card must link to a public source; no synthetic
+`example/` link is acceptable as evidence
+
+This illustration does not endorse or assess any actual project and is **not**
+the demonstration batch #001 previously shown in chat.
+
 ### Batch approval does not silently authorize other actions
 
 For the first implementation, the only executable operation is
@@ -50,7 +106,7 @@ opening an *external* upstream pull request, maintainer contact,
 archive/delete, and permissions changes are **distinct decisions**.
 An approved fork batch cannot expand itself into external submissions.
 
-### Example — explanatory, not a real batch
+### Batch selection example — explanatory, not a real batch
 
 ```text
 Batch: upstream-2026-001 (draft v1)
@@ -103,6 +159,15 @@ chat approval** for a new batch/version.
   on GitHub **before** adding the token.
 
 ## Provider-neutral approval metadata
+
+The proposed approved-manifest schema attaches a `proposal` object to each
+item with exactly the six fields above. The field is **descriptive and
+authorization-scoped metadata**, not an instruction to execute a patch.
+The batch digest covers that text and all selected entries; the proposal
+remains stable after approval. The executor can validate scope without
+pretending to verify the truth of a promised improvement.
+
+
 
 Use `approval_medium: agent_chat` for conversational approval from any
 provider. Preserve `approved_by` as a *declared* operator identity, and
