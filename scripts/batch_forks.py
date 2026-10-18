@@ -48,7 +48,7 @@ def validate_proposal(proposal):
         value = proposal[field]
         if not isinstance(value, str) or not (12 <= len(value.strip()) <= 1000):
             raise BatchError("Contribution proposal field missing or too long: " + field)
-        if any(ord(char) < 32 and char not in "\\n\\t" for char in value):
+        if any(ord(char) < 32 for char in value):
             raise BatchError("Invalid control character in proposal")
         if value.strip().casefold() in {"tbd", "todo", "n/a", "unknown"}:
             raise BatchError("Placeholder is not a contribution proposal")
