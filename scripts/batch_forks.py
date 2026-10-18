@@ -124,6 +124,8 @@ def load_manifest(path, *, now=None):
     return data, hashlib.sha256(raw).hexdigest()
 
 def run_batch(path, *, execute=False, now=None, create_fn=create_fork.run):
+    if execute:
+        raise BatchError("Batch execution inactive: verified authorization runner is not installed")
     data, digest = load_manifest(path, now=now)
     checks = []
     # No fork creation begins until every approved item passes preflight.
