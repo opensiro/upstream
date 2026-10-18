@@ -43,7 +43,7 @@ def parse_time(value):
     except ValueError:
         raise BatchError("Invalid timestamp") from None
 
-def validate_proposal(proposal):
+def validate_proposal(proposal, *, allow_missing_evidence=False):
     """Validate the frozen descriptive intent; never treat it as an execution command."""
     if not isinstance(proposal, dict) or set(proposal) != PROPOSAL_FIELDS:
         raise BatchError("Contribution proposal must contain every required field")
@@ -56,6 +56,8 @@ def validate_proposal(proposal):
         if value.strip().casefold() in {"tbd", "todo", "n/a", "unknown"}:
             raise BatchError("Placeholder is not a contribution proposal")
     evidence = proposal["evidence_url"]
+    if evidence is None and allow_missing_evidence:
+        return
     if (not isinstance(evidence, str) or len(evidence) > 2048
             or any(ord(char) <= 32 for char in evidence)):
         raise BatchError("Missing or invalid proposal evidence URL")
@@ -66,6 +68,119 @@ def validate_proposal(proposal):
             raise BatchError("Proposal evidence requires a specific HTTPS source URL")
     except ValueError:
         raise BatchError("Malformed proposal evidence URL") from None
+
+
+DRAFT_FIELDS = {"schema_version", "batch_id", "revision", "status", "candidates"}
+DRAFT_ITEM_FIELDS = {"id", "source", "fork_name", "stages",
+                     "expected_license", "proposal", "blockers"}
+DRAFT_STAGES = ("create_public_fork", "prepare_contribution", "submit_external_pr")
+
+
+def load_draft(path):
+    """Read a proposed batch with no approval assertions and no GitHub API calls."""
+    path = Path(path)
+    if not BATCH_ID.fullmatch(path.stem) or path.suffix != ".json":
+        raise BatchError("Invalid draft batch filename")
+    try:
+        raw = path.read_bytes()
+        if len(raw) > 16384:
+            raise BatchError("Draft batch too large")
+        data = json.loads(raw, object_pairs_hook=no_duplicate_keys)
+    except (OSError, ValueError, UnicodeDecodeError) as exc:
+        raise BatchError("Cannot read proposed batch: " + type(exc).__name__) from None
+    if not isinstance(data, dict) or set(data) != DRAFT_FIELDS:
+        raise BatchError("Draft schema does not accept approval fields")
+    if type(data["schema_version"]) is not int or data["schema_version"] != 1:
+        raise BatchError("Unsupported draft schema version")
+    if data["batch_id"] != path.stem or data["status"] != "proposal_only":
+        raise BatchError("Draft ID or status mismatch")
+    if type(data["revision"]) is not int or not (1 <= data["revision"] <= 1000):
+        raise BatchError("Invalid draft revision")
+    candidates = data["candidates"]
+    if not isinstance(candidates, list) or not (1 <= len(candidates) <= 10):
+        raise BatchError("Draft requires 1 to 10 candidate entries")
+    seen_ids, seen_sources, seen_targets = set(), set(), set()
+    for item in candidates:
+        if not isinstance(item, dict) or set(item) != DRAFT_ITEM_FIELDS:
+            raise BatchError("Unexpected draft candidate fields")
+        cid, source, target = item["id"], item["source"], item["fork_name"]
+        if not isinstance(cid, str) or not ITEM_ID.fullmatch(cid):
+            raise BatchError("Invalid candidate ID")
+        if not isinstance(source, str) or source.count("/") != 1 or not isinstance(target, str):
+            raise BatchError("Invalid draft repository identity")
+        try:
+            owner, name = (create_fork.slug(x) for x in source.split("/"))
+            create_fork.slug(target)
+        except create_fork.ForkError:
+            raise BatchError("Invalid draft repository slug") from None
+        stages = item["stages"]
+        if (not isinstance(stages, list) or not stages
+                or len(stages) > len(DRAFT_STAGES)
+                or any(not isinstance(x, str) or x not in DRAFT_STAGES for x in stages)
+                or stages != [x for x in DRAFT_STAGES if x in stages]):
+            raise BatchError("Invalid or repeated contribution stage")
+        blockers = item["blockers"]
+        if (not isinstance(blockers, list) or len(blockers) > 5
+                or any(not isinstance(x, str) or not 5 <= len(x.strip()) <= 300
+                       for x in blockers)):
+            raise BatchError("Invalid blockers")
+        license_id = item["expected_license"]
+        if license_id is None:
+            if not blockers:
+                raise BatchError("Unreviewed license must block selection")
+        elif (not isinstance(license_id, str) or not LICENSE.fullmatch(license_id)
+              or license_id.upper() in ("UNKNOWN", "NOASSERTION")):
+            raise BatchError("Invalid or unresolved draft SPDX license")
+        if "create_public_fork" in stages and owner.casefold() == create_fork.DEST.casefold():
+            raise BatchError("Cannot fork from destination organization")
+        # Blocked proposals may have no public evidence yet, but never fabricate a URL.
+        validate_proposal(item["proposal"], allow_missing_evidence=bool(blockers))
+        if cid in seen_ids or (owner + "/" + name).casefold() in seen_sources:
+            raise BatchError("Duplicate candidate ID or upstream source")
+        if "create_public_fork" in stages and target.casefold() in seen_targets:
+            raise BatchError("Duplicate destination fork name")
+        seen_ids.add(cid)
+        seen_sources.add((owner + "/" + name).casefold())
+        if "create_public_fork" in stages:
+            seen_targets.add(target.casefold())
+    return data, hashlib.sha256(raw).hexdigest()
+
+
+def preview_draft(path, *, selected_ids=None):
+    """Pure proposal preview. Selection is not a grant and has no side effects."""
+    data, digest = load_draft(path)
+    if selected_ids is None:
+        selected_ids = []
+    if not isinstance(selected_ids, (list, tuple)):
+        raise BatchError("Selected IDs must be a list")
+    if len(set(selected_ids)) != len(selected_ids):
+        raise BatchError("Duplicate selected IDs")
+    if any(not isinstance(x, str) for x in selected_ids):
+        raise BatchError("Invalid selected ID")
+    ids = {x["id"] for x in data["candidates"]}
+    if set(selected_ids) - ids:
+        raise BatchError("Selection includes unknown candidates")
+    selected = set(selected_ids)
+    entries = []
+    for candidate in data["candidates"]:
+        choice = candidate["id"] in selected
+        entries.append({
+            "id": candidate["id"],
+            "source": candidate["source"],
+            "stages": candidate["stages"],
+            "proposal": candidate["proposal"],
+            "selected": choice,
+            "status": "BLOCKED" if candidate["blockers"] else "PROPOSED_ONLY",
+            "blockers": candidate["blockers"]
+        })
+    return {
+        "batch_id": data["batch_id"], "revision": data["revision"],
+        "proposal_sha256": digest, "status": "PROPOSAL_PREVIEW",
+        "authorization_status": "NOT_APPROVED_NO_WRITES",
+        "selected_ids": selected_ids,
+        "selection_has_blockers": any(x["selected"] and x["blockers"] for x in entries),
+        "candidates": entries
+    }
 
 
 def load_manifest(path, *, now=None):
@@ -158,12 +273,20 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--manifest", required=True)
     parser.add_argument("--execute", action="store_true")
+    parser.add_argument("--draft", action="store_true", help="Preview proposal without approval or GitHub API access")
+    parser.add_argument("--select", default="", help="Comma-separated candidate IDs, proposal preview only")
     args = parser.parse_args()
     if args.execute:
         print("BATCH_ERROR: executable batch workflow is not integrated or validated; refusing writes", file=sys.stderr)
         return 1
     try:
-        report = run_batch(args.manifest, execute=False)
+        if args.select and not args.draft:
+            raise BatchError("--select is only valid with --draft")
+        if args.draft:
+            selection = [x.strip() for x in args.select.split(",")] if args.select else []
+            report = preview_draft(args.manifest, selected_ids=selection)
+        else:
+            report = run_batch(args.manifest, execute=False)
         serialized = json.dumps(report, sort_keys=True)
         print(serialized)
         if os.environ.get("GITHUB_STEP_SUMMARY"):
