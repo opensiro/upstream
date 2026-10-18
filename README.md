@@ -67,11 +67,16 @@ It no longer offers an `execute` input, privileged create job or credential
 reference. The old [fork lifecycle handoff](docs/FORK_LIFECYCLE.md) is historical
 and **not** a deployment checklist.
 
-[Activation issue #6](https://github.com/opensiro/upstream/issues/6) and
-[Draft PR #7](https://github.com/opensiro/upstream/pull/7) track the separate
-future owner-authorized execution contract. **Do not provision
-`UPSTREAM_FORK_TOKEN` or execute demonstration batch #001.** Neither
-proposal preview nor fork planning grants external PR publication,
+[Activation issue #6](https://github.com/opensiro/upstream/issues/6)
+tracks future execution. The [non-executable authorization and stage contract](docs/BATCH_EXECUTION_BOUNDARY.md)
+specifies how a same-session connected agent or separately verified
+headless runner could accept **one exact operator decision** without
+conflating chat selection with GitHub permissions. The old
+[Draft PR #7](https://github.com/opensiro/upstream/pull/7) is superseded
+by the merged preview and is **not merge-ready**.
+
+**Do not provision `UPSTREAM_FORK_TOKEN` or execute demonstration batch #001.**
+Neither proposal preview nor fork planning grants external PR publication,
 archiving or a new VSM OSS organizational boundary.
 
 ## Contributions
