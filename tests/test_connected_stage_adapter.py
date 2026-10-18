@@ -229,6 +229,37 @@ class TestStageAdapter(unittest.TestCase):
             self.run_stage()
         self.assertEqual(self.api.writes(), [])
 
+    def test_package_local_unit_test_is_supported(self):
+        self.intent["file_path"] = "packages/graph/arcadedb/tests/unit/test_has_edges_contract.py"
+        result = self.run_stage()
+        self.assertEqual(result["status"], "CREATED_VERIFIED")
+        self.assertEqual(len(self.api.writes()), 2)
+        self.assertEqual(self.authorized[0]["file_path"], self.intent["file_path"])
+
+    def test_package_path_without_tests_directory_rejected(self):
+        self.intent["file_path"] = "packages/graph/arcadedb/README.md"
+        with self.assertRaises(StageBlocked):
+            self.run_stage()
+        self.assertEqual(self.api.writes(), [])
+
+    def test_package_path_with_testlike_directory_rejected(self):
+        self.intent["file_path"] = "packages/graph/arcadedb/testdata/test_contract.py"
+        with self.assertRaises(StageBlocked):
+            self.run_stage()
+        self.assertEqual(self.api.writes(), [])
+
+    def test_package_test_path_escape_rejected(self):
+        self.intent["file_path"] = "packages/graph/arcadedb/tests/../../../../README.md"
+        with self.assertRaises(StageBlocked):
+            self.run_stage()
+        self.assertEqual(self.api.writes(), [])
+
+    def test_nonpackage_nested_test_path_rejected(self):
+        self.intent["file_path"] = "src/features/tests/test_contract.py"
+        with self.assertRaises(StageBlocked):
+            self.run_stage()
+        self.assertEqual(self.api.writes(), [])
+
     def test_arbitrary_existing_file_write_rejected(self):
         self.intent["file_path"] = "README.md"
         with self.assertRaises(StageBlocked):
