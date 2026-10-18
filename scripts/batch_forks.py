@@ -134,8 +134,11 @@ def main():
     parser.add_argument("--manifest", required=True)
     parser.add_argument("--execute", action="store_true")
     args = parser.parse_args()
+    if args.execute:
+        print("BATCH_ERROR: executable batch workflow is not integrated or validated; refusing writes", file=sys.stderr)
+        return 1
     try:
-        report = run_batch(args.manifest, execute=args.execute)
+        report = run_batch(args.manifest, execute=False)
         serialized = json.dumps(report, sort_keys=True)
         print(serialized)
         if os.environ.get("GITHUB_STEP_SUMMARY"):
