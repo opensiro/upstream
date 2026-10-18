@@ -1,10 +1,14 @@
 # Conversation-approved contribution batches (provider-agnostic UX contract)
 
-> **Status: design only — NOT implemented and NOT authorized to execute.**
+> **Status: draft read-only prototype — NOT authorized to execute.**
+> The proposal schema and source preflight are staged in
+> [PR #7](https://github.com/opensiro/upstream/pull/7), but there is no
+> tested approved-batch write executor or dedicated batch CI. No trusted
+> operator identity proof is provided by the JSON manifest.
 > Tracks [Upstream #6](https://github.com/opensiro/upstream/issues/6).
 > The merged single-fork workflow is **not** a batch authorization gate.
-> Do **not** provision `UPSTREAM_FORK_TOKEN` until an executor that rejects
-> unapproved requests is implemented, tested, and merged.
+> Do **not** provision `UPSTREAM_FORK_TOKEN` until a verified, bounded
+> executor rejects unapproved requests and bypasses are eliminated.
 
 ## Operator experience (conversation-first, client-agnostic)
 
@@ -200,6 +204,51 @@ This is an **already recorded historical intervention**, not a new
 candidate, real batch approval, authorization to reopen a PR, or evidence
 of improved VSM grades. Actual future candidates still require specific
 upstream evidence and a validation plan before presentation.
+
+## Reading a candidate card: distinguish intent, evidence and outcome
+
+The operator should be able to compare proposals without conflating three
+different facts:
+
+| Layer | Meaning | Must not be reported as |
+| --- | --- | --- |
+| **Proposal** | Planned change, proposed mechanism, expected target-system benefit, acceptance checks | Implemented patch or measured improvement |
+| **Validation** | Actual test results from the implementation's exact revision (when available) | Upstream maintainer endorsement or merge |
+| **Upstream outcome** | Published issue, review, disposition or merge, attributed to its real authors | Independent product-native fit, VSM grade increase, or automatic maintenance closure |
+
+Additional historical examples already in OpenSiro's
+[product-native fit casebook](../cases/README.md):
+
+| Historical case | System-level idea | Public outcome at portfolio check 2026-10-17 | Selection lesson |
+| --- | --- | --- | --- |
+| [Marveen](../cases/marveen.md) | Adapt external skills as owner-gated proposals using the upstream's existing autonomy levels | [PR #1516](https://github.com/Szotasz/marveen/pull/1516) merged; experimental fit pass | Respect the project's native mechanism and maintainer's explicit restriction of fully autonomous adoption |
+| [Shep ESM startup](../cases/shep.md#934-esm-worker-startup) | Correct `__dirname` usage in an ESM feature worker and add a regression guard | [PR #934](https://github.com/shep-ai/shep/pull/934) open at check; experimental fit pass | A strong, source-backed technical fix is not automatically an accepted PR |
+| [Scion review skill](../cases/scion.md) | Independent-review skill proposed for the shared core | [PR #2047](https://github.com/GoogleCloudPlatform/scion/pull/2047) closed without merge; experimental fit fail | Upstream maintainer placed this in a solution/template rather than core; don't repeat the rejected integration surface |
+
+These are **existing recorded interventions, not a new executable batch**.
+An agent should not recycle them as live suggestions without checking the
+current target project for drift, existing fixes, maintainer constraints
+and duplicate work.
+
+### Operator choice must retain decision context
+
+An approval card should make the scope explicit in plain language:
+
+```text
+Contribution: <upstream URL>
+Problem:      <observed issue + evidence>
+Change:       <exact proposed code / docs / behavior>
+Benefit:      <expected result; not yet measured>
+Validate:     <tests or observable acceptance conditions>
+Authority:    create_public_fork only (first implementation)
+Outcome:      proposal / blocked / verified result (never inferred)
+```
+
+A blocked candidate (unclear license, conflicting upstream policy, no
+evidence, duplicate existing fix) is visible for discussion but **not
+eligible for execution**. It may be revised and proposed again with
+updated evidence; an automatic "approve all" must not elevate blocked
+candidates to executable entries.
 
 ## GitHub remains an executor, not the approval interface
 
