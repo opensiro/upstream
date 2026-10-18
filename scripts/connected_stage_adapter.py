@@ -46,11 +46,21 @@ def _validate_action(action):
           or bool(BRANCH.fullmatch(action["base_branch"])), "Invalid base branch")
     path = action["file_path"]
     parts = PurePosixPath(path).parts
+    # Monorepos commonly keep tests beside the owning package. Preserve the
+    # root tests/ lane while allowing only package-local tests/ subtrees.
+    # Other locations (including src/.../tests/) stay out of scope.
+    in_test_tree = (
+        len(parts) >= 2 and parts[0] == "tests"
+    ) or (
+        len(parts) >= 4 and parts[0] == "packages"
+        and "tests" in parts[2:-1]
+    )
     _need(path == str(PurePosixPath(path))
-          and path.startswith("tests/") and len(parts) >= 2
+          and in_test_tree
           and all(part not in (".", "..") for part in parts)
           and not any(ch in path for ch in ("\\", ":", "\x00"))
-          and len(path) <= 240, "First adapter permits one new tests/ file only")
+          and len(path) <= 240,
+          "First adapter permits only root or packages/.../tests/ new files")
     content = action["content"].encode("utf-8")
     _need(1 <= len(content) <= 49152, "Invalid file size")
     _need(action["working_repo"].split("/")[0].casefold() != "opensiro-contributions"
