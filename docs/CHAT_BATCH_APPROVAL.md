@@ -163,6 +163,31 @@ On selection, the bot reports precisely what will be created and
 what is excluded; a changed item or new action requires **new
 chat approval** for a new batch/version.
 
+## Historical OpenSiro illustration — Henterprise (not a new batch)
+
+The existing [Henterprise casebook entry](../cases/henterprise.md) shows why
+candidate cards must separate proposed value from verified outcomes:
+
+- **Target system:** Henterprise's Hermes delegation and independent review path.
+- **Proposed change:** Cross-department accept/revise/reject responses,
+  task-scoped commitment ledger, fixed-reference reviewer children,
+  blocking-finding return and focused re-review, implemented with the
+  project's existing `delegate_task` skills rather than a new runtime.
+- **Expected improvement:** Clearer task-level coordination and review
+  accountability. This is a *plausible benefit*, not a measured capability gain.
+- **Outcome evidence:** The original [PR #1](https://github.com/humbertobellor/henterprise/pull/1)
+  closed; the maintainer's replacement [PR #3](https://github.com/humbertobellor/henterprise/pull/3)
+  merged on 2026-10-08.
+- **Do not overclaim:** Product-native fit remains **pending** in the
+  referenced experimental ledger. A merge is not proof of the independent
+  counterfactual upstream need, and maintainer-added code is not attributed
+  to the original contributor.
+
+This is an **already recorded historical intervention**, not a new
+candidate, real batch approval, authorization to reopen a PR, or evidence
+of improved VSM grades. Actual future candidates still require specific
+upstream evidence and a validation plan before presentation.
+
 ## GitHub remains an executor, not the approval interface
 
 - A GitHub Actions environment may still store a **separate scoped
