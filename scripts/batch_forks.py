@@ -153,10 +153,10 @@ def preview_draft(path, *, selected_ids=None):
         selected_ids = []
     if not isinstance(selected_ids, (list, tuple)):
         raise BatchError("Selected IDs must be a list")
-    if len(set(selected_ids)) != len(selected_ids):
-        raise BatchError("Duplicate selected IDs")
     if any(not isinstance(x, str) for x in selected_ids):
         raise BatchError("Invalid selected ID")
+    if len(set(selected_ids)) != len(selected_ids):
+        raise BatchError("Duplicate selected IDs")
     ids = {x["id"] for x in data["candidates"]}
     if set(selected_ids) - ids:
         raise BatchError("Selection includes unknown candidates")
@@ -291,8 +291,8 @@ def main():
         print(serialized)
         if os.environ.get("GITHUB_STEP_SUMMARY"):
             with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as f:
-                f.write("Approved batch: " + serialized + "\n")
-        return 0 if report["status"] in ("PREFLIGHT_PASS", "COMPLETED") else 1
+                f.write("Read-only batch preview (NOT an authorization): " + serialized + "\n")
+        return 0 if report["status"] in ("PREFLIGHT_PASS", "PROPOSAL_PREVIEW") else 1
     except BatchError as exc:
         print("BATCH_ERROR: " + str(exc), file=sys.stderr)
         return 1
