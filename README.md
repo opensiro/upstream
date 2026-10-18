@@ -45,7 +45,7 @@ The archived state is an explicit decision, **not an automatic action triggered 
 Every proposed contribution includes a **concrete system improvement card**: target component, observed problem, planned change, expected benefit, verification method and public evidence. The plan is visible before selection; predicted benefits are not reported as verified outcomes. The current draft schema contains **no invented approval fields**. To inspect a local proposed batch without GitHub API access or any write authorization, use:
 
 ```bash
-python3 scripts/batch_forks.py --manifest /path/to/upstream-YYYYMMDD-name.json --draft --select project-a,project-c
+python3 scripts/batch_forks.py --manifest /path/to/upstream-YYYYMMDD-name.json --draft --select project-a,project-c --format text
 ```
 
 The result is `PROPOSAL_PREVIEW` with `NOT_APPROVED_NO_WRITES`, plus hashes for the proposal and selected subset. This source-prepared preview is **not deployed on `main`**; it is part of [draft PR #7](https://github.com/opensiro/upstream/pull/7). See [proposal and preview details](docs/CHAT_BATCH_APPROVAL.md#draft-batches-review-and-select-before-any-approval).
