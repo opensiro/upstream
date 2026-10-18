@@ -95,6 +95,33 @@ is an error. A blocked entry can appear **selected for preview**, but
 `selection_has_blockers: true` remains visible and **never grants
 permission**. Use `--draft` deliberately; `--execute` is unsupported.
 
+### Narrow the planned stages for individual selected candidates
+
+Suppose the draft already proposes `create_public_fork + prepare_contribution`
+for both `project-a` and `project-b`, but the operator wants to **preview**
+only fork creation for A and both stages for B. Use:
+
+```bash
+python3 scripts/batch_proposals.py \
+  --manifest /path/to/upstream-YYYYMMDD-name.json \
+  --draft --select project-a,project-b \
+  --scope 'project-a=create_public_fork,project-b=create_public_fork+prepare_contribution' \
+  --format text
+```
+
+`--scope` is optional; when omitted, selection uses all proposed stages for
+each chosen candidate. It **cannot** add a stage missing from the source
+proposal, reverse the declared order, duplicate a stage, or set permissions
+for unselected candidates. CLI parsing errors fail closed. The result
+contains `selected_stages` for each chosen candidate, and `[]` for the rest.
+Its text report shows both the original proposed stages and the narrowed
+stage subset.
+
+This is **selection-scope preview**, not a privileged action, a stored
+approval, or a signature. A future executor must independently enforce
+the exact item/stage authorization without relying on the preview hash
+as proof of human consent.
+
 ## Integrity and interpretation
 
 The renderer returns:
@@ -102,8 +129,12 @@ The renderer returns:
 - `status: PROPOSAL_PREVIEW`
 - `authorization_status: NOT_APPROVED_NO_WRITES`
 - `proposal_sha256`: canonical JSON digest of the complete draft;
-- `selection_sha256`: canonical digest binding the **set** of selected IDs
-  to that draft and revision, independent of selection order.
+- `selection_sha256`: the existing canonical digest binding the **set**
+  of selected IDs to that draft and revision, independent of selection order;
+- `selection_scope_sha256`: a separate canonical digest binding the exact
+  **candidate ID → selected stage list** to that same proposal digest and revision.
+  Narrowing A from two stages to one changes this second hash while leaving
+  the ID-only selection hash unchanged.
 
 Reformatting JSON does not alter these hashes. Changing the plan, revision,
 candidate list or selected IDs does. They are **unsigned identity keys for
@@ -124,8 +155,10 @@ and its own tests before any writes. Do not turn the older single-fork helper
 into an approval bypass, install `UPSTREAM_FORK_TOKEN`, or interpret
 demonstration batch #001 as approved.
 
-Local validation on this isolated preview implementation: **32/32 offline
-positive/negative cases passed** (including network-disabled invocation,
-selection hashes, bad stages and no `--execute`). These tests have **not**
-been published as dedicated GitHub batch CI, so this claim must not be
+The original isolated preview passed 32 offline checks. The narrowed
+stage-scope implementation was additionally exercised with **33 local
+positive/negative test cases**, including per-item scope reduction,
+digest stability/change, disallowed privilege expansion, CLI JSON/text
+results and no-network/no-write boundaries. These tests have **not**
+been published as dedicated GitHub batch CI, so local success must not be
 confused with a passing batch-specific required check.
