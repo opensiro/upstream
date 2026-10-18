@@ -1,87 +1,102 @@
-# Fork lifecycle MVP — prepared, not activated
+# Fork lifecycle MVP — legacy implementation, not activated
 
-OpenSiro stores contribution facts in [registry.yaml](../registry.yaml).
-New working forks may live in the separate GitHub organization
-[opensiro-contributions](https://github.com/opensiro-contributions).
-Each is a *real GitHub fork*; this repository is not a code monorepo.
+> **The deployed operator proposal preview is
+> [conversation-first and provider-agnostic](BATCH_PROPOSALS.md).**
+> The future owner-authorized execution policy is still only proposed
+> in [draft PR #7](https://github.com/opensiro/upstream/pull/7).
+> This file describes the previously merged single-fork MVP for auditability;
+> it is **not an activation checklist**. Do not configure per-fork GitHub
+> Required reviewers as the user-facing approval mechanism.
+>
+> **STOP: DO NOT PROVISION `UPSTREAM_FORK_TOKEN`.** The deployed `main`
+> is now **preview-only** since
+> [merged safety PR #8](https://github.com/opensiro/upstream/pull/8).
+> The legacy manual `execute=true` route, privileged job and credential
+> reference have been removed from the workflow. The separately authorized
+> batch executor in [draft PR #7](https://github.com/opensiro/upstream/pull/7)
+> has **not** been implemented or accepted.
+> [Issue #6](https://github.com/opensiro/upstream/issues/6)
+> tracks the actual activation gates.
 
-This workflow is deliberately **not an S1 authority grant**.
-[Organization #274](https://github.com/opensiro/vsm-oss-organization/issues/274)
-is still a proposed organizational boundary change. No VSM autonomy
-grade, independent publication right or archived-fork policy is implied.
+## What is already implemented
 
-## Owner setup (mandatory for write mode)
+[Initial PR #5](https://github.com/opensiro/upstream/pull/5) introduced
+`scripts/create_fork.py` and a manual GitHub Actions workflow:
 
-1. Review and merge [implementation PR #5](https://github.com/opensiro/upstream/pull/5);
-   the workflow should run only from the default branch. First use
-   **execute=false**, which makes no changes. Track the owner activation
-   steps in [issue #6](https://github.com/opensiro/upstream/issues/6).
-2. Create an Actions environment named **fork-creation** in
-   opensiro/upstream. Configure **required reviewers** and verify the
-   protection rule in GitHub. If there is a separate eligible approver,
-   enable prevention of self-review. For a sole maintainer, enabling
-   prevention of self-review without a second eligible reviewer would block
-   all writes; select a workable, explicit approval arrangement instead.
-   Simply mentioning an environment in YAML does *not* configure protection.
-   Record the chosen operating arrangement in the activation
-   [issue #6](https://github.com/opensiro/upstream/issues/6).
-3. Create a fine-grained PAT owned by an authorized organization member,
-   scoped to **opensiro-contributions**, with **Contents: read** and
-   **Repository creation: write**. Confirm organizational restrictions
-   and public-repository-creation policy. Do not grant repository
-   deletion, transfer or broader administration permissions.
-4. Store that PAT as the **fork-creation environment secret** named
-   **UPSTREAM_FORK_TOKEN**. Never put a token in a repo secret,
-   registry, issue, PR comment, or chat. Keep it absent until approval
-   protection is configured. Rotation and revocation remain the owner's tasks.
-5. Protect main and workflow changes. Use workflow execution policies
-   to restrict actors who can dispatch privileged runs if available.
-   A workflow_dispatch input such as execute=true is **not** sufficient
-   authorization on its own.
+- Fixed destination GitHub organization:
+  [`opensiro-contributions`](https://github.com/opensiro-contributions).
+- Source is a public, enabled, non-archived `OWNER/REPOSITORY`.
+- Optional destination name; default branch only by default.
+- Read-only source/destination preflight, observed SPDX license reporting.
+- The **underlying API helper** can request a fork and verify its direct
+  GitHub `parent` relationship, with asynchronous polling and a hard
+  stop on collisions or mismatched parent.
+- A completed `CREATED_VERIFIED` receipt is not an upstream submission,
+  acceptance, or VSM assessment improvement.
 
-## Usage
+This helper and the original workflow were *source-prepared*, not granted
+operational authority. No fork is created merely by merging the code.
 
-Actions -> **Fork lifecycle (manual)** -> Run workflow (branch: main):
+## Safe source inspection
 
-- **source:** public GitHub repository as OWNER/REPOSITORY.
-- **fork_name:** optional, defaults to the original repository's name.
-- **all_branches:** false by default, reducing unnecessary history/refs.
-- **execute:** false by default. True requests actual creation; when
-  protected, the create job waits for environment approval.
+While the approved-batch executor remains unavailable, use the
+[local batch proposal preview](BATCH_PROPOSALS.md) for candidate selection.
+For **one actual upstream source**, the manual fork lifecycle workflow,
+made preview-only by PR #8, can perform read-only source/destination
+inspection, equivalent to:
 
-The read-only preview validates the source, checks any existing destination
-and reports declared SPDX license (or UNKNOWN). It does not conclude
-license compatibility or maintainer willingness to accept a PR.
+```bash
+python3 scripts/create_fork.py --source OWNER/REPOSITORY
+```
 
-Create mode uses GitHub's official POST /repos/{owner}/{repo}/forks endpoint,
-with the fixed destination organization. It verifies that the returned
-name and owner match the requested target, then checks the direct upstream
-parent of the resulting public fork. It handles asynchronous creation:
-CREATED_VERIFIED only after verification (up to roughly five minutes of
-polling); PENDING_VERIFICATION otherwise. A pending result exits nonzero,
-so it cannot be mistaken for a finished workflow. Reconcile by reading
-the actual GitHub repository before retrying or updating the registry.
-An existing repository with the correct direct parent is idempotently
-EXISTS_VERIFIED. A name collision or wrong parent is a hard stop.
+Do **not** supply `--execute`, provision an environment secret or
+treat a `DRY_RUN` as authorization. The helper API still contains the legacy
+creation capability, but the deployed workflow **has no write job**. This
+does not establish the future batch-approval authorization boundary.
 
-**No registry entry is automatically created.** After verifying the fork,
-a maintainer updates registry.yaml and projects/<slug>/README.md with
-the fork URL, contribution context, provenance and active/maintained state.
-A created fork is not a submitted PR, acceptance, or upstream merge.
+## Current approval model (future implementation)
 
-## Validation / exclusions
+1. Any compatible agent or conversational client proposes a finite batch
+   with per-system problem, concrete planned change, expected improvement,
+   validation, and public evidence.
+2. The operator selects exactly the allowed entries and **explicit
+   permission stages** within one chat-level batch decision.
+3. A separate, protected authorization boundary must verify the selected
+   set. A JSON `approved_by` assertion alone does **not** authenticate
+   who approved it.
+4. Only a tested batch-specific executor may use a least-privilege fork
+   credential to carry out **approved `create_public_fork` operations**.
+   Contribution preparation, external PR publication and archiving require
+   their own explicitly authorized stages; none are implemented here.
+5. Record per-item GitHub-verified results and maintain separate upstream
+   contribution/outcome and fork maintenance statuses in
+   [`registry.yaml`](../registry.yaml).
 
-Run offline tests: python3 -m unittest discover -s tests -v
+A GitHub Actions environment may eventually be used as a protected secret
+boundary, without an extra GitHub reviewer click for each fork, but it is
+**not** a substitute for batch authorization and restricted workflow edits.
 
-The workflow has no schedule, no PR trigger, no third-party forker action
-and no automatic fork archiving. Only actions/checkout is used, pinned
-to its exact v4.2.2 commit. It does not check out third-party source code
-or write to external upstream repositories.
+## Remaining validation before activation
 
-Archiving must be designed separately with isolated administration rights,
-unresolved-PR/maintenance checks, an explicit archive decision and an
-audit receipt. A merge must **never** automatically cause an archive.
+- [x] Replace the legacy manual write path in **deployed** `main`.
+  [PR #8](https://github.com/opensiro/upstream/pull/8) removed its
+  `execute` input, privileged job and token reference; verify this remains
+  true after any subsequent workflow changes.
+- Finish the approved-batch executor and its dedicated positive/negative
+  tests; these are not yet part of CI.
+- Protect `main` and workflow/manifest modification authority.
+- Configure the environment and scope a separate credential only **after**
+  independent validation of those technical enforcement controls.
+- Preserve exact approval provenance; do not describe agent-authored JSON
+  or an issue link as an independently authenticated operator signature.
+- Verify the first real owner-authorized batch with receipt links and
+  only then update the registry for observed, correctly parented forks.
+
+The [Organization #274](https://github.com/opensiro/vsm-oss-organization/issues/274)
+boundary decision is separate. This infrastructure work does not admit
+Upstream as a fourth S1 domain or authorize a third-party upstream PR.
 
 References:
 - https://docs.github.com/en/rest/repos/forks
-- https://github.blog/changelog/2026-10-13-github-app-improvements-for-least-privilege-and-management/
+- https://github.com/opensiro/upstream/pull/5
+- https://github.com/opensiro/upstream/pull/7
