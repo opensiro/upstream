@@ -116,6 +116,39 @@ cryptographic remote attestation, admission, automatic candidate discovery,
 or connected-host authorization. It does not change the generic batch schema
 or replace the per-stage Upstream #6 gates.
 
+## Composed assessment-driven Control Plane packet (offline)
+
+After the local Index-object preflight, use
+[`assessment_driven_handoff.py`](../scripts/assessment_driven_handoff.py) to
+bind **one exact accepted assessment identity to one Upstream proposal and
+one `prepare_contribution` test-file plan**. The composition calls the
+existing Index-origin preflight and `control_plane_handoff.py`, checks their
+candidate/upstream/proposal digests agree and emits one
+`ASSESSMENT_DRIVEN_HANDOFF_PREVIEW_ONLY` packet. It exposes no `--execute`
+flag and never writes to GitHub.
+
+```bash
+python3 scripts/assessment_driven_handoff.py \\
+  --index-root /path/to/local/vsm-harness-index \\
+  --index-sha <40-hex-index-commit-sha> \\
+  --assessment-path assessments/xx/harness-id.md \\
+  --manifest /path/to/upstream-YYYYMMDD-slug.json \\
+  --candidate exact-candidate-id \\
+  --working-repo contributor/existing-fork \\
+  --base-branch main --base-sha <40-hex-fork-base-sha> \\
+  --new-branch opensiro/test-candidate \\
+  --file-path tests/test_candidate.py \\
+  --content-file /path/to/test_candidate.py
+```
+
+This removes **accidental loss of the Index origin** across two local
+preview stages; it does not authenticate the local checkout against public
+GitHub, establish real product-native fit, guarantee fork identity or grant
+current-session operator consent. The output always lists these still-open
+gates, with `execution_available=false`. The existing
+`connected_stage_adapter.py` remains separately gated and is **not**
+invoked by this command.
+
 ## Minimum test receipt
 
 A human-readable or machine-readable report must contain at least:
