@@ -17,8 +17,9 @@ discovery flow. The broad Upstream portfolio, ordinary GitHub-issue-driven
 contributions and existing casebook remain valid separate work; they must
 **not** be counted as passing this narrower assessment-driven S1 test.
 [Organization #274](https://github.com/opensiro/vsm-oss-organization/issues/274)
-owns the still-unmade S5 choice about the formal fourth-domain scope. This
-document only defines the observable test, not that policy decision.
+owns the still-unmade S5 choice about the formal fourth-domain scope,
+currently `PROPOSED / NOT ADMITTED`. This document only defines the
+observable test, not that policy decision.
 
 ## Ordered assessment-to-contribution intake
 
