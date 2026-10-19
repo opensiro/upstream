@@ -39,14 +39,17 @@ class MultiForkProvider(FakeProvider):
     def __init__(self):
         super().__init__()
         self.created_names = set()
+        self.parents = {}
 
     def repo(self, name):
+        if name == "outside/second":
+            return {**super().repo("outside/example"), "full_name": name}
         if name.startswith("opensiro-contributions/"):
             if name not in self.created_names:
                 raise NotFound()
             return {"full_name": name, "private": self.private_fork,
                     "archived": False, "fork": True,
-                    "parent": {"full_name": self.parent},
+                    "parent": {"full_name": self.parents.get(name, self.parent)},
                     "permissions": {"push": self.push},
                     "html_url": "https://github.com/" + name}
         return super().repo(name)
@@ -56,6 +59,8 @@ class MultiForkProvider(FakeProvider):
             if repository not in self.created_names or self.fork_branch_missing:
                 raise NotFound()
             return {"sha": self.fork_branch_sha or self.source_branch_sha}
+        if repository == "outside/second":
+            return super().branch("outside/example", name)
         return super().branch(repository, name)
 
     def create_public_fork(self, source, owner, name, *, default_branch_only):
@@ -63,6 +68,7 @@ class MultiForkProvider(FakeProvider):
         if self.fail_write:
             raise RuntimeError("simulated failure")
         self.created_names.add(owner + "/" + name)
+        self.parents[owner + "/" + name] = source
         return {"accepted": self.accepted}
 
 
@@ -214,7 +220,7 @@ class BatchTests(unittest.TestCase):
     def test_two_items_one_batch_grant(self):
         self.data["candidates"].append({
             **self.data["candidates"][0], "id": "second",
-            "fork_name": "second",
+            "fork_name": "second", "source": "outside/second",
         })
         self.save()
         self.ids.append("second")
