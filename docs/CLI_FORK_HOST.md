@@ -36,6 +36,37 @@ artifacts or PRs. Do not change a credential helper or reauthorize a
 different principal merely because an earlier diagnostic shell was
 unauthenticated.
 
+## Executable, non-secret VM/host readiness probe
+
+The upstream repository now includes
+[`scripts/cli_host_readiness.py`](../scripts/cli_host_readiness.py), a
+**read-only** standalone diagnostic intended to run on the **actual OS
+account/container that would issue the fork request**:
+
+```bash
+python3 scripts/cli_host_readiness.py \
+  --source HarnessDesk/HarnessDesk \
+  --working-branch development
+```
+
+The probe checks only whether the local `gh` binary is present,
+`gh auth status` succeeds **for this account**, `gh api user` identifies a
+GitHub principal, and an explicit **GET** can retrieve the working branch SHA.
+It also reports only the **presence** of `~/.git-credentials`, configuration of
+the global Git credential helper, and presence of supported token environment
+variables. It never runs `git credential fill`, reads credential-file
+contents, prints a token, changes `gh auth`, posts to GitHub or creates a fork.
+Subprocess stderr and raw `gh auth status` output are suppressed.
+
+- `BLOCKED_GH_CLI_AUTH` means **only** that `gh` is not authenticated under
+  that execution identity. It does not mean the host has no PAT.
+- `CLI_READ_READY_NOT_AUTHORIZED` means **only** that identity and the public
+  source branch are readable from the local CLI session. It does not prove
+  organization repo creation or Control Plane batch authorization.
+- A configured Git credential helper and store may authorize **Git**, but
+  should not be silently exported into `gh` or exposed to a chat/CI log.
+  Resolve the correct authenticated execution context separately.
+
 ## Non-secret CLI discovery — on the actual execution account
 
 Run these from the **same VM/host, OS identity and environment** intended for
