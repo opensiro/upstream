@@ -29,6 +29,26 @@ handoff still requires exact operator decision and trusted connected rights
 before every real write. It does **not** enforce the Index-evidence test gate
 in Python or grant any rights by merely providing a document link.
 
+## Fork creation (separate source-prepared stage)
+
+[Merged fork-stage adapter](../scripts/connected_fork_adapter.py) supports
+an exact, separate `create_public_fork` stage in `opensiro-contributions`.
+It requires an explicit source working branch and pinned SHA, plus a
+provider-supported branch copy strategy. It preflights the source branch
+again after host authorization and verifies the target branch at the pinned
+SHA in the newly created fork, together with parent, visibility and push
+rights. For the [HarnessDesk #1772 pilot](../pilots/harnessdesk-1772/README.md),
+the needed branch is `development`, not default `main` (and the copy mode
+must be `default_branch_only=False`).
+
+This implementation is **source-only**. The connected GitHub provider has
+no native create-fork method and no trusted current-session fork-authorize
+port; mock CI does not activate any write. See the
+[fork contract](CONNECTED_FORK_ADAPTER.md) and
+[Upstream #28](https://github.com/opensiro/upstream/issues/28).
+It does not change the separately authorized `prepare_contribution`
+flow or human-owned external PR publication.
+
 ## End-to-end operator flow (bounded)
 
 1. **Discover** via `contribute to other harnesses`. Refresh the external

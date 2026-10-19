@@ -31,10 +31,10 @@ Index assessment (canonical pinned SHA/path)
 
 ## Current tool boundary
 
-- [Draft fork-stage PR #18](https://github.com/opensiro/upstream/pull/18)
-  contains a **source-prepared** `connected_fork_adapter.py`, restricted to
-  destination `opensiro-contributions`, plus mock tests. It is **Draft**:
-  neither the trusted host `authorize(intent)` callback nor native
+- [Merged source PR #30](https://github.com/opensiro/upstream/pull/30)
+  ports the historical Draft #18 fork adapter to current `main` with
+  explicit branch/SHA validation and mock tests. It is **source-prepared**:
+  neither trusted host `authorize(intent)` nor native
   `github.create_public_fork(...)` is live-connected.
 - The available GitHub connector can create branches/files and internal PRs
   in authorized repositories, but currently **does not expose the needed
@@ -76,9 +76,11 @@ correct upstream branch. For the first
 external repository's default branch is `main`, but its contribution path
 uses `development` per
 [`CONTRIBUTING.md`](https://github.com/HarnessDesk/HarnessDesk/blob/development/CONTRIBUTING.md).
-The [Draft PR #18](https://github.com/opensiro/upstream/pull/18) prototype
-currently uses `default_branch_only=True`. That setting alone cannot prove
-that the new fork contains `development`.
+Historical Draft #18 hard-coded `default_branch_only=True`. The
+[current source adapter](../scripts/connected_fork_adapter.py) instead
+binds `working_branch`, `working_branch_sha` and the explicit copy mode,
+rejecting default-only copying for a nondefault target such as `development`.
+The native GitHub fork method remains unavailable.
 
 Before attempting an actual fork, resolve **in the exact stage contract and
 bound operator intent** how the target working branch will exist. A
@@ -133,10 +135,9 @@ readiness route.
 ## Implementation / review checkpoint
 
 [Issue #28](https://github.com/opensiro/upstream/issues/28) owns the provider
-and first-real-fork criteria. Review [Draft PR #18](https://github.com/opensiro/upstream/pull/18)
-against current `main`, the assessment-derived intake contract and this
-branch-aware target condition. Keep PR #18 **Draft** until its stated
-provider+authorization gate can be truly enforced; passing mocked unit tests
-alone does not activate it. Return a concrete readback receipt to
+and first-real-fork criteria. Branch-aware source was merged via
+[PR #30](https://github.com/opensiro/upstream/pull/30). Require an actual
+host-provided fork operation and separately authenticated, exact-stage
+authorization before live activation; passing mocked tests alone is not a grant. Return a concrete readback receipt to
 [Upstream #6](https://github.com/opensiro/upstream/issues/6) if an eligible
 fork action ever executes.
