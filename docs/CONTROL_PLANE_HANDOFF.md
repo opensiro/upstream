@@ -10,6 +10,8 @@ This is **not a separate bot, scheduler or UI**. It creates neither a fourth
 admitted S1 domain nor an Upstream-hosted runtime. Organization [#274](https://github.com/opensiro/vsm-oss-organization/issues/274)
 remains a separate S5 boundary decision.
 
+The [OSM autonomy-transfer design](OSM_DELEGATION_DESIGN.md) proposes **future standing local decision rights** and human-owned external PR publication. It is not an authorization source: this handoff's current exact-stage consent, host/connector, source preflight and no-write fail-closed contract remain operative until a distinct authorized grant and implementation replace them.
+
 ## End-to-end operator flow (bounded)
 
 1. **Discover** via `contribute to other harnesses`. Refresh the external
