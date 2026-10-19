@@ -59,6 +59,10 @@ This command never contacts GitHub, creates forks, publishes external PRs
 or records an approval. Selection and SHA-256 identifiers are **not**
 authorization. See [the proposal schema and limitations](docs/BATCH_PROPOSALS.md).
 
+## OSM autonomy-transfer design (prospective)
+
+[OSM delegation design](docs/OSM_DELEGATION_DESIGN.md) maps the proposed progression from agent-owned local preparation to a complete **unpublished** contribution package, while external PR publication remains a separate human right. It is a design for **future attributable delegation**, not an effective mandate, a new S1 domain, or a bypass of the current exact-stage execution gate. [Organization #274](https://github.com/opensiro/vsm-oss-organization/issues/274) still owns the reserved boundary decision.
+
 ## Control Plane preparation handoff (read-only)
 
 The existing [OpenSiro OSS Control Plane](https://github.com/opensiro/vsm-oss-organization/blob/main/docs/AGENT_CONTROL_PLANE.md)
