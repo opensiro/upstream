@@ -82,6 +82,12 @@ fork-creation stage remains **BLOCKED** pending a trustworthy, approved
 provider action. Do not treat a prepared test file or offline simulation as an
 end-to-end fork-contribution result.
 
+The [source-prepared connected fork adapter](docs/CONNECTED_FORK_ADAPTER.md)
+adds a strictly scoped, **offline-tested** `create_public_fork` stage boundary.
+It cannot execute in this chat: the host exposes neither a fork-creation
+operation nor an integrated trusted authorization callback. Mock tests must
+not be interpreted as a real fork.
+
 ## Fork lifecycle automation
 
 The manually dispatched [fork lifecycle workflow](.github/workflows/fork-lifecycle.yml)
