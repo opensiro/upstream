@@ -81,6 +81,20 @@ observable test, not that policy decision.
    Preserve Index grades and historical assessment sources; any new
    assessment/reassessment is separately owned by Index/Skills.
 
+## Working fork creation route (not yet activated)
+
+A qualified Index-derived candidate that needs a new working fork should
+target the **`opensiro-contributions`** organization through the existing
+Control Plane, not default to a manually created personal fork. The
+[dedicated route](OPENSIRO_CONTRIBUTIONS_FORK_ROUTE.md) and
+[Upstream #28](https://github.com/opensiro/upstream/issues/28) own the
+native provider capability, exact-stage authority and branch-aware readback
+requirements. Current GitHub tools **cannot** create a fork; this stage
+remains `BLOCKED_CAPABILITY` and does not unblock a proposal or permit
+`prepare_contribution`. For nondefault contribution branches (such as
+HarnessDesk `development`), a copied `main` alone is not an acceptable
+working-fork verification.
+
 ## Offline Index-origin consistency gate (implemented)
 
 The read-only [`assessment_origin_preflight.py`](../scripts/assessment_origin_preflight.py)

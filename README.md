@@ -98,6 +98,18 @@ content digest. It returns `ACTION_PREPARED_NOT_AUTHORIZED` and performs
 **no GitHub calls or writes**. A distinct current-session operator decision
 and working trusted GitHub port are still required for actual changes.
 
+## Working fork destination: opensiro-contributions (currently blocked)
+
+For Index-assessment-derived contributions, the intended working-fork
+namespace is `opensiro-contributions`, **not an ad hoc personal fork**.
+See the [provider/authority/branch-aware fork handoff](docs/OPENSIRO_CONTRIBUTIONS_FORK_ROUTE.md)
+and tracked [Upstream #28](https://github.com/opensiro/upstream/issues/28).
+The existing Control Plane is the only operator entry. **There is currently no
+connected native create-fork operation or effective exact-stage authorization**;
+do not describe source-prepared Draft PR #18 or preview-only workflows as
+fork creation. A candidate requiring a nondefault development branch must
+prove that ref exists in the resulting authorized fork before preparation.
+
 ## Fork lifecycle automation
 
 The manually dispatched [fork lifecycle workflow](.github/workflows/fork-lifecycle.yml)
