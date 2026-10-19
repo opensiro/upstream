@@ -122,6 +122,19 @@ The [public preflight CLI](FORK_PUBLIC_PREFLIGHT.md) deliberately uses
 anonymous GETs and remains uncredentialed. Neither proves a valid
 permission or an operator decision.
 
+## Updated one-off credential evidence
+
+A dated live test on this existing host confirmed that `gh` could authenticate
+as `xLagerFeuer` and **actually create** a public, correctly parented,
+branch-preserving `HarnessDesk` fork in `opensiro-contributions`. This
+supersedes the earlier dated `robot` unauthenticated observation **for the
+tested CLI context only**. It is not a validated source-wide standing mandate
+or a verified fork into the *different* organization `opensiro`.
+
+[Organization fork and external upstream PR procedure](ORGANIZATION_FORK_UPSTREAM_PR.md)
+now documents both org destinations and an independently read-only PR
+handoff for a future pushed contribution branch. The latter cannot publish.
+
 ## Current boundary and next step
 
 - An existing VM/host is a **candidate execution environment**, not a
