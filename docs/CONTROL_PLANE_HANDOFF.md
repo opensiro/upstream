@@ -12,6 +12,23 @@ remains a separate S5 boundary decision.
 
 The [OSM autonomy-transfer design](OSM_DELEGATION_DESIGN.md) proposes **future standing local decision rights** and human-owned external PR publication. It is not an authorization source: this handoff's current exact-stage consent, host/connector, source preflight and no-write fail-closed contract remain operative until a distinct authorized grant and implementation replace them.
 
+## Assessment-driven S1 test versus generic preparation
+
+For `test S1 function: upstream contributions`, the Control Plane must first
+follow the [assessment-driven test contract](ASSESSMENT_DRIVEN_S1_TEST.md):
+**pinned Index harness assessment → concrete finding → independently verified
+upstream-native need/fit → scoped proposal**. No prior Cognee fork or unrelated
+GitHub issue may bypass that intake. Preserve Index provenance separately from
+`proposal.evidence_url`. A rejected finding or no suitable assessment-derived
+candidate closes the discovery test without selecting another target.
+
+The generic `contribute to other harnesses` and explicitly targeted
+`prepare upstream contribution <source/issue>` routes remain available
+independently; neither counts as an assessment-driven S1 test by itself. This
+handoff still requires exact operator decision and trusted connected rights
+before every real write. It does **not** enforce the Index-evidence test gate
+in Python or grant any rights by merely providing a document link.
+
 ## End-to-end operator flow (bounded)
 
 1. **Discover** via `contribute to other harnesses`. Refresh the external
