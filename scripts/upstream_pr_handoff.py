@@ -32,6 +32,13 @@ def _need(value, reason):
         raise PRBlocked(reason)
 
 
+def _valid_repo(value):
+    try:
+        return _repo(value)
+    except StageBlocked as exc:
+        raise PRBlocked(str(exc)) from None
+
+
 def _json_sha(value, reason):
     _need(type(value) is str and SHA.fullmatch(value), reason)
     return value
@@ -64,8 +71,8 @@ def _get(endpoint, *, runner=subprocess.run):
 
 def prepare_pr_handoff(*, upstream, fork, head_branch, head_sha, base_branch,
                        base_sha, title, body, runner=subprocess.run):
-    upstream = _repo(upstream)
-    fork = _repo(fork)
+    upstream = _valid_repo(upstream)
+    fork = _valid_repo(fork)
     head_branch = _valid_branch(head_branch, contribution=True)
     base_branch = _valid_branch(base_branch)
     head_sha = _json_sha(head_sha, "Head requires pinned 40-hex SHA")
