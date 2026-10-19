@@ -71,6 +71,17 @@ content digest. It returns `ACTION_PREPARED_NOT_AUTHORIZED` and performs
 **no GitHub calls or writes**. A distinct current-session operator decision
 and working trusted GitHub port are still required for actual changes.
 
+## First live fork-to-contribution test
+
+[The fork-first live test plan](docs/FIRST_LIVE_FORK_TEST.md) distinguishes
+**creating and verifying a new fork** from preparing a branch and file in an
+existing fork. The current Cognee preparation pilot exercises only the latter;
+Cognee is an example target, not a required subsystem. The connected GitHub
+actions presently expose no `create_public_fork` operation, so the real
+fork-creation stage remains **BLOCKED** pending a trustworthy, approved
+provider action. Do not treat a prepared test file or offline simulation as an
+end-to-end fork-contribution result.
+
 ## Fork lifecycle automation
 
 The manually dispatched [fork lifecycle workflow](.github/workflows/fork-lifecycle.yml)
