@@ -52,8 +52,11 @@ observations are not a substitute for contribution-policy and CLA review.
 
 Missing/changed SHA, unsuitable source/branch, mismatched SPDX, publicly
 occupied destination or API failure is a **blocked or unknown** status.
-The CLI intentionally lacks any `--execute` command, credential, POST or
-fallback privilege escalation.
+The **public preflight CLI** intentionally lacks any `--execute` command,
+credential, POST or fallback privilege escalation. A separate,
+[credential-owning VM/host CLI route](CLI_FORK_HOST.md) may use a PAT already
+provisioned on that host, but has not been authorized or activated by this
+public preflight.
 
 ## Provider/authentication boundary
 
