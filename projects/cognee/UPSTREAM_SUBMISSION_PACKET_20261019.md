@@ -5,10 +5,10 @@ Status: **READY_FOR_MANUAL_UPSTREAM_CONTACT** (2026-10-19). This is OpenSiro-own
 ## Candidate and scope
 
 - Upstream target: [topoteretes/cognee-community](https://github.com/topoteretes/cognee-community), current main at preparation-time SHA **472e9484e6b610e4e0b193ae526439e3aad407a0**.
-- Submission candidate: [opensiro/cognee-community — submission/opensiro-vsm-source-ready-20261019](https://github.com/opensiro/cognee-community/tree/submission/opensiro-vsm-source-ready-20261019), HEAD **051a4fd34a016ed1f74dca208a901f4f8f05bd08**.
-- Exactly **two DCO-signed commits**, directly descended from upstream main, **17 changed files** entirely within packages/connector/opensiro-vsm. GitHub commit authors and sign-off identity match.
+- Submission candidate: [opensiro/cognee-community — submission/opensiro-vsm-source-ready-20261019](https://github.com/opensiro/cognee-community/tree/submission/opensiro-vsm-source-ready-20261019), HEAD **8ec814d146e4cca9dd1c3ee6fb71123f94aebec5**.
+- Exactly **three DCO-signed commits**, directly descended from upstream main, **17 changed files** entirely within packages/connector/opensiro-vsm. GitHub commit authors and sign-off identity match.
 - Historical OpenSiro Draft review: [PR #1](https://github.com/opensiro/cognee-community/pull/1). [B22 source/provenance and observed failure report](https://github.com/opensiro/cognee-community/blob/fix/opensiro-vsm-shards-dev-flow-20261019/packages/connector/opensiro-vsm/docs/review-validation-20261019.md) is intentionally **not part of the upstream code diff**.
-- The only differences between validated review-branch package blobs and candidate package blobs are the public-facing README wording and the absence of that OpenSiro-only report. The integration code and tests are the same.
+- The only differences between validated review-branch package blobs and candidate package blobs are the public-facing README (now refreshed with B23 clean Python 3.11 receipts) and the absence of that OpenSiro-only report. The executable code and tests are unchanged.
 - No added bot, service, generic GitHub connector, runtime control plane or OpenSiro-only GitHub Actions workflow in the proposed 17-file diff.
 
 ## What it contributes
@@ -36,7 +36,7 @@ Hi Cognee maintainers,
 
 I would like to propose one source-specific connector for the public OpenSiro VSM Harness Index, under packages/connector/opensiro-vsm. It uses Cognee's existing ingestion, typed graph, provenance and section-level BM25 search interfaces to make canonically included assessments available alongside six literal autonomy labels, source evidence and exact upstream Git revisions.
 
-The prepared [candidate branch](https://github.com/opensiro/cognee-community/tree/submission/opensiro-vsm-source-ready-20261019) is based on the current Cognee Community main and has two DCO-signed commits. A [clean Python 3.11 installed-wheel CI run](https://github.com/opensiro/cognee-community/actions/runs/39292809116) passed unit tests, a real three-document Cognee import, an independent audit and native lexical search with pinned source inspection.
+The prepared [candidate branch](https://github.com/opensiro/cognee-community/tree/submission/opensiro-vsm-source-ready-20261019) is based on the current Cognee Community main and has three DCO-signed commits. A [clean Python 3.11 installed-wheel CI run](https://github.com/opensiro/cognee-community/actions/runs/39292809116) passed unit tests, a real three-document Cognee import, an independent audit and native lexical search with pinned source inspection.
 
 This is intentionally a local, fresh-only source connector, not a generic GitHub adapter or service. Lexical indexing currently covers the six VSM function sections, not the full assessment body. We have used the discovery workflow in public [Flash API](https://github.com/opensiro/harness-build-example-flash-api) and [Game Development](https://github.com/opensiro/harness-build-example-game-development) construction examples.
 
@@ -61,6 +61,10 @@ Cognee SDK 1.6.4, single-host fresh-only local datasets, function-section lexica
 ### DCO Affirmation
 
 I affirm that all code in every commit of this pull request conforms to the terms of the Topoteretes Developer Certificate of Origin.
+
+## DCO precedents and contributor responsibility (2026-10-20)
+
+The pinned [Cognee Community CONTRIBUTING.md](https://github.com/topoteretes/cognee-community/blob/472e9484e6b610e4e0b193ae526439e3aad407a0/CONTRIBUTING.md) requires per-commit sign-off and the PR description affirmation. A spot check of **10 merged** Cognee Community PRs found that enforcement is not universal: [#304](https://github.com/topoteretes/cognee-community/pull/304) had 5/5 signed commits and a PR DCO affirmation; [#370](https://github.com/topoteretes/cognee-community/pull/370) had 1/1 signed and an affirmation; [#191](https://github.com/topoteretes/cognee-community/pull/191) merged with an affirmation but 0/36 sign-offs; and [#224](https://github.com/topoteretes/cognee-community/pull/224) / [#210](https://github.com/topoteretes/cognee-community/pull/210) merged despite lacking both the affirmation and sign-off, with AI-assisted authorship acknowledged in their PR descriptions. These are observations, **not a DCO policy waiver**. There is no additional published separate personal-AI attestation requirement. The OpenSiro candidate satisfies the written template requirements: all three commits have matching sign-offs. A contributor publishing the PR must still ensure the DCO assertion about distribution rights is truthful.
 
 ## Manual boundary
 
