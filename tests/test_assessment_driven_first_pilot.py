@@ -42,7 +42,7 @@ class FirstIndexPilotReceiptTests(unittest.TestCase):
         ):
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase.lower(), self.text.lower())
-        self.assertRegex(self.text, r"\bS2=—\b|\bS2=—;")
+        self.assertIn("`S2=—`", self.text)
 
     def test_no_write_claim_or_vsm_grade_promotion(self):
         for stage in (
