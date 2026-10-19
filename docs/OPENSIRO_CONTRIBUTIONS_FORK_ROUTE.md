@@ -49,6 +49,25 @@ Index assessment (canonical pinned SHA/path)
   is unavailable, preserve the qualified assessment/proposal and stop before
   any external mutation.
 
+## Prepared branch-aware adapter (not live)
+
+[`connected_fork_adapter.py`](../scripts/connected_fork_adapter.py) has an
+offline-tested `create_public_fork` source contract with exact
+`working_branch`, `working_branch_sha` and `default_branch_only`
+inputs. It asks a trusted provider for the current source branch SHA
+**before and after** current-session authorization; the fork result is
+`CREATED_VERIFIED` only if the same required branch and SHA are
+observed in the new working fork along with identity, parent, visibility
+and push rights.
+
+For HarnessDesk `development`, the operator-bound copy strategy must
+be `default_branch_only=False`. This only works if the native provider
+actually supports a corresponding **all-branch** fork operation. The
+connector currently exposes **no native create-fork method**, and
+the host-provided trusted `authorize(intent)` port is absent. The
+implementation therefore remains **source-prepared**, not
+activated; a passing offline fake-provider test grants nothing.
+
 ## Branch-aware fork acceptance
 
 Do not conflate successful `create_public_fork` with readiness to modify the
