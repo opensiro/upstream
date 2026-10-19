@@ -6,6 +6,12 @@ The existing [OpenSiro OSS Control Plane](https://github.com/opensiro/vsm-oss-or
 is the human-facing conversation. This repository is the *owner* of the
 contribution proposal, technical handoff and stage implementation.
 
+For the separate first **fork-to-contribution** live execution requirement,
+see [First live fork test](FIRST_LIVE_FORK_TEST.md). This handoff covers
+`prepare_contribution` in an existing fork only; successful execution here
+cannot establish `create_public_fork`. The connected provider currently
+has no fork-creation action, so that stage remains blocked.
+
 This is **not a separate bot, scheduler or UI**. It creates neither a fourth
 admitted S1 domain nor an Upstream-hosted runtime. Organization [#274](https://github.com/opensiro/vsm-oss-organization/issues/274)
 remains a separate S5 boundary decision.
@@ -80,7 +86,7 @@ write must remain **blocked/unknown/partial** as appropriate. Do not
 interpret successful mock tests, CI, unsigned hashes, or a connected GitHub
 session as user authorization.
 
-**Minimal next pilot:** choose one real source and *already existing* writable
+**Minimal next prepare-stage pilot (not a fork-creation test):** choose one real source and *already existing* writable
 fork; prepare one test file and show its exact packet in the conversation.
 Until the user authorizes that exact action and the host can enforce the
 rights, **make no external writes**.
