@@ -121,7 +121,7 @@ class P1PipelineTests(unittest.TestCase):
     def setUp(self):
         t = tempfile.TemporaryDirectory()
         self.addCleanup(t.cleanup)
-        self.path = Path(t.name) / "proposal.json"
+        self.path = Path(t.name) / "upstream-20261019-example.json"
         self.draft = manifest()
         self.save()
         self.action = action()
