@@ -72,6 +72,7 @@ class BatchTests(unittest.TestCase):
         self.addCleanup(tmp.cleanup)
         self.path = Path(tmp.name) / "upstream-20261020-batch-fork.json"
         self.data = draft()
+        self.data["batch_id"] = "upstream-20261020-batch-fork"
         self.save()
         self.provider = MultiForkProvider()
         self.host = FakeHost()
