@@ -1,5 +1,11 @@
 # Cognee Community — B23 manual submission packet
 
+## Live upstream filing (verified 2026-10-20)
+
+**Current status: SUBMITTED, NOT MERGED.** OpenSiro's [Cognee Community PR #434](https://github.com/topoteretes/cognee-community/pull/434) is open against `main`; [Issue #435](https://github.com/topoteretes/cognee-community/issues/435) is open. The PR contains **3 signed-off commits**, changes **17 files**, and is at candidate HEAD [`8ec814d`](https://github.com/opensiro/cognee-community/commit/8ec814d146e4cca9dd1c3ee6fb71123f94aebec5). It is mergeable by GitHub's structural check but has **no upstream check runs or submitted reviews reported**. The fork's Python 3.11 integration and Ruff runs are independent, successful prior evidence, **not upstream CI**.
+
+The prose below is the dated B23 **pre-publication submission packet** from 2026-10-19, retained for historical traceability. Any statement that no external issue/PR exists describes only that earlier checkpoint. Issue #435's last line about no implementation PR is now stale and should be linked to PR #434; no external comment/change was made by this documentation update.
+
 Status: **READY_FOR_MANUAL_UPSTREAM_CONTACT** (2026-10-19). This is OpenSiro-owned preparation only. **No external Cognee issue or PR has been created, and no maintainer has approved or assigned this work.**
 
 ## Candidate and scope
