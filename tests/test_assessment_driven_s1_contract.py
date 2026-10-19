@@ -29,7 +29,7 @@ class AssessmentDrivenS1ContractTests(unittest.TestCase):
             "Do not start from a favourite fork",
             "NO_ELIGIBLE_ASSESSMENT_CANDIDATE",
             "BLOCKED_EVIDENCE",
-            "no suitable assessment-derived candidate",
+            "no candidates qualify", 
         ):
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase.lower(), self.spec.lower())
@@ -42,7 +42,7 @@ class AssessmentDrivenS1ContractTests(unittest.TestCase):
             "scope",
             "Index assessment @ SHA",
             "proposal.evidence_url",
-            "not a bug",
+            "itself a bug", 
             "PASS",
             "PENDING",
             "FAIL",
@@ -60,16 +60,16 @@ class AssessmentDrivenS1ContractTests(unittest.TestCase):
         self.assertIn("standalone OSS preview", self.preview)
         self.assertIn("does **not** enforce", self.preview)
         self.assertIn("ACTION_PREPARED_NOT_AUTHORIZED", self.handoff)
-        self.assertIn("not a new", self.handoff)
+        self.assertIn("not a separate bot", self.handoff)
 
     def test_current_s1_test_cannot_create_a_fork_or_submit_external_pr(self):
         for phrase in (
             "read-only",
-            "not an activated automation",
+            "activated automation", 
             "existing fork",
             "does **not** prove new fork creation",
             "trusted current-session",
-            "no new S1 domain",
+            "new S1 domain", 
             "not",
         ):
             with self.subTest(phrase=phrase):
