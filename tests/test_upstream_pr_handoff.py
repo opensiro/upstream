@@ -152,6 +152,12 @@ class UpstreamPRHandoffTests(unittest.TestCase):
         with self.assertRaisesRegex(PRBlocked, "GET unavailable"):
             self.preview()
 
+    def test_missing_working_branch_is_explicitly_blocked_no_post(self):
+        self.fake.fail_suffix = "/branches/opensiro%2Ffix-toolgateway-1772"
+        with self.assertRaisesRegex(PRBlocked, "fork contribution head branch"):
+            self.preview()
+        self.assertTrue(all(call[3] == "GET" for call in self.fake.calls))
+
     def test_namespaced_branch_only(self):
         for invalid in ("main", "fix/issue", "../bad", "opensiro/a..b",
                         "opensiro/a.lock", "opensiro/a//b"):
