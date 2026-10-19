@@ -133,7 +133,10 @@ preview as consent. See [Upstream #28](https://github.com/opensiro/upstream/issu
 The manually dispatched [fork lifecycle workflow](.github/workflows/fork-lifecycle.yml)
 is **preview-only on `main`** after [PR #8](https://github.com/opensiro/upstream/pull/8).
 It no longer offers an `execute` input, privileged create job or credential
-reference. The old [fork lifecycle handoff](docs/FORK_LIFECYCLE.md) is historical
+reference. The [public fork preflight](docs/FORK_PUBLIC_PREFLIGHT.md) now checks
+live source/working-branch SHA, declared license and destination public
+visibility using **anonymous GET requests only**; a green public preflight
+is never fork authority. The old [fork lifecycle handoff](docs/FORK_LIFECYCLE.md) is historical
 and **not** a deployment checklist.
 
 [Activation issue #6](https://github.com/opensiro/upstream/issues/6)
