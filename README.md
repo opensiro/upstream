@@ -53,6 +53,14 @@ this repository's existing portfolio and normal contributor-selected upstream
 issues. It neither admits a fourth Organization S1 domain nor activates
 P1/connected writes or external PR publication.
 
+For a **single read-only assessment-linked proposal and test-file plan**,
+[`scripts/assessment_driven_handoff.py`](scripts/assessment_driven_handoff.py)
+composes the local [Index-object origin preflight](scripts/assessment_origin_preflight.py)
+with the existing [exact prepare-stage handoff](docs/CONTROL_PLANE_HANDOFF.md).
+It returns one non-authorizing packet, never a fork, push or external PR. A
+local git checkout and proposal fields do **not** prove live canonical Index
+origin, external native fit, or authenticated operator authorization.
+
 ## Conversation-first contribution proposals (read-only)
 
 [Batch proposal preview](docs/BATCH_PROPOSALS.md) is a **provider-agnostic,
