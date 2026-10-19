@@ -104,11 +104,15 @@ For Index-assessment-derived contributions, the intended working-fork
 namespace is `opensiro-contributions`, **not an ad hoc personal fork**.
 See the [provider/authority/branch-aware fork handoff](docs/OPENSIRO_CONTRIBUTIONS_FORK_ROUTE.md)
 and tracked [Upstream #28](https://github.com/opensiro/upstream/issues/28).
-The existing Control Plane is the only operator entry. **There is currently no
-connected native create-fork operation or effective exact-stage authorization**;
-do not describe source-prepared Draft PR #18 or preview-only workflows as
-fork creation. A candidate requiring a nondefault development branch must
-prove that ref exists in the resulting authorized fork before preparation.
+The existing Control Plane is the only operator entry. The
+[source-prepared fork-stage adapter](docs/CONNECTED_FORK_ADAPTER.md) and
+[first live pilot contract](docs/FIRST_LIVE_FORK_TEST.md) require a pinned
+working branch/SHA and independently verified new-fork readback. They **do not
+expose a connected native create-fork operation or effective exact-stage
+authorization**. Do not describe old Draft PR #18, unit-test fake providers
+or preview-only workflows as fork creation. A candidate requiring a nondefault
+branch must prove that exact ref exists in the resulting authorized fork
+before preparation.
 
 ## Fork lifecycle automation
 
