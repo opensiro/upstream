@@ -92,14 +92,15 @@ def preview_p1_scope(grant, intent, *, trusted_host=None):
           "No concrete recipient execution identity")
     repos = grant["working_repositories"]
     _need(type(repos) is list and 1 <= len(repos) <= 5
-          and len(set(repos)) == len(repos)
-          and all(type(x) is str and REPO.fullmatch(x) for x in repos),
+          and all(type(x) is str and REPO.fullmatch(x) for x in repos)
+          and len(set(repos)) == len(repos),
           "No explicit repository allowlist")
     _need(grant["branch_prefix"] == "opensiro/"
           and grant["allowed_stage"] == "prepare_contribution",
           "P1 cannot delegate publication or branch scope expansion")
     prefixes = grant["path_prefixes"]
     _need(type(prefixes) is list and 1 <= len(prefixes) <= 8
+          and all(type(x) is str for x in prefixes)
           and len(set(prefixes)) == len(prefixes),
           "Invalid allowed path prefixes")
     for prefix in prefixes:
@@ -126,6 +127,7 @@ def preview_p1_scope(grant, intent, *, trusted_host=None):
           "Unapproved or unsafe branch")
     paths = intent["file_paths"]
     _need(type(paths) is list and 1 <= len(paths) <= 8
+          and all(type(x) is str for x in paths)
           and len(set(paths)) == len(paths), "Invalid file change set")
     for p in paths:
         _path(p)
