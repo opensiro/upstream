@@ -366,5 +366,46 @@ class ForkStageTests(unittest.TestCase):
                                "default_branch_only": True}
 
 
+    def test_proposal_mutated_during_host_decision_fails_before_write(self):
+        def mutate():
+            self.data["revision"] += 1
+            self.save()
+        self.on_approval = mutate
+        with self.assertRaises(StageBlocked):
+            self.run_stage()
+        self.assertEqual(self.provider.writes(), [])
+
+    def test_candidate_replaced_during_host_decision_fails_before_write(self):
+        def mutate():
+            self.data["candidates"][0]["proposal"]["problem"] = (
+                "An entirely different problem replacing the approved one")
+            self.save()
+        self.on_approval = mutate
+        with self.assertRaises(StageBlocked):
+            self.run_stage()
+        self.assertEqual(self.provider.writes(), [])
+
+    def test_selected_scope_mutated_during_decision_fails_before_write(self):
+        selected = ["example"]
+        self.on_approval = lambda: selected.clear()
+        with self.assertRaises(StageBlocked):
+            self.run_stage(selected_ids=selected)
+        self.assertEqual(self.provider.writes(), [])
+
+    def test_mutable_action_changed_after_authorization_fails_before_write(self):
+        self.on_approval = lambda: self.action.__setitem__(
+            "default_branch_only", False)
+        with self.assertRaises(StageBlocked):
+            self.run_stage()
+        self.assertEqual(self.provider.writes(), [])
+
+    def test_mutable_target_sha_changed_after_authorization_fails_before_write(self):
+        self.on_approval = lambda: self.action.__setitem__(
+            "working_branch_sha", "b" * 40)
+        with self.assertRaises(StageBlocked):
+            self.run_stage()
+        self.assertEqual(self.provider.writes(), [])
+
+
 if __name__ == "__main__":
     unittest.main()

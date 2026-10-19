@@ -111,6 +111,8 @@ def execute_one_public_fork(*, manifest, selected_ids, stage_scopes,
               ("repo", "branch", "fork_capability", "create_public_fork")),
           "Connected provider fork methods unavailable")
     _validate(action)
+    # Do not execute caller-mutable action data after the host decision.
+    reviewed_action = dict(action)
     try:
         preview = preview_draft(manifest, selected_ids=selected_ids,
                                 stage_scopes=stage_scopes)
@@ -144,14 +146,24 @@ def execute_one_public_fork(*, manifest, selected_ids, stage_scopes,
     # A mock callback returning True is only an offline unit-test fixture.
     _need(authorize(dict(intent)) is True,
           "No trustworthy exact-stage operator authorization")
-    actor_again, destination_again = _preflight(item, action, github)
+    _need(action == reviewed_action,
+          "Exact fork action changed during authorization")
+    try:
+        preview_again = preview_draft(manifest, selected_ids=selected_ids,
+                                      stage_scopes=stage_scopes)
+    except BatchError as exc:
+        raise StageBlocked("Proposal changed after consent: " + str(exc)) from None
+    _need(preview_again["proposal_sha256"] == preview["proposal_sha256"]
+          and preview_again["selection_scope_sha256"] == preview["selection_scope_sha256"],
+          "Selected proposal or stage scope changed after authorization")
+    actor_again, destination_again = _preflight(item, reviewed_action, github)
     _need((actor_again, destination_again) == (actor, destination),
           "Provider identity or fork destination changed after approval")
 
     try:
         result = github.create_public_fork(item["source"], DEST_OWNER,
-                                           action["fork_name"],
-                                           default_branch_only=action["default_branch_only"])
+                                           reviewed_action["fork_name"],
+                                           default_branch_only=reviewed_action["default_branch_only"])
     except Exception as exc:
         return {**intent, "status": "FAILED", "reason": type(exc).__name__,
                 "note": "Write may have partially succeeded; do not retry without a new decision"}
@@ -179,14 +191,14 @@ def execute_one_public_fork(*, manifest, selected_ids, stage_scopes,
         return {**intent, "status": "VERIFICATION_FAILED", "fork_url": None,
                 "note": "Unexpected fork identity, parent, visibility, or push rights"}
     try:
-        fork_branch = github.branch(destination, action["working_branch"])
+        fork_branch = github.branch(destination, reviewed_action["working_branch"])
     except NotFound:
         return {**intent, "status": "PENDING_VERIFICATION", "fork_url": None,
                 "note": "Fork exists but required working branch is not yet visible"}
     except Exception as exc:
         return {**intent, "status": "PENDING_VERIFICATION", "fork_url": None,
                 "note": "Working-branch readback failed: " + type(exc).__name__}
-    if type(fork_branch) is not dict or fork_branch.get("sha") != action["working_branch_sha"]:
+    if type(fork_branch) is not dict or fork_branch.get("sha") != reviewed_action["working_branch_sha"]:
         return {**intent, "status": "VERIFICATION_FAILED", "fork_url": None,
                 "note": "Fork working branch SHA differs from pinned upstream revision"}
     return {**intent, "status": "CREATED_VERIFIED",
