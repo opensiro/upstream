@@ -55,14 +55,14 @@ def _valid_branch(branch, *, contribution=False):
     return branch
 
 
-def _get(endpoint, *, runner=subprocess.run):
+def _get(endpoint, *, purpose="GitHub read", runner=subprocess.run):
     # Fixed gh invocation: the program does not issue any HTTP write.
     try:
         result = runner(["gh", "api", "--method", "GET", endpoint],
                         capture_output=True, text=True, check=False, timeout=15)
     except (OSError, subprocess.TimeoutExpired):
         raise PRBlocked("Authenticated read transport unavailable") from None
-    _need(result.returncode == 0, "Authenticated GitHub GET unavailable")
+    _need(result.returncode == 0, "Authenticated GitHub GET unavailable: " + purpose)
     try:
         return json.loads(result.stdout)
     except (TypeError, ValueError):
@@ -84,13 +84,13 @@ def prepare_pr_handoff(*, upstream, fork, head_branch, head_sha, base_branch,
     _need(type(body) is str and 1 <= len(body.encode("utf-8")) <= 16384,
           "PR body must be reviewed and within size limit")
 
-    actor = _get("user", runner=runner)
+    actor = _get("user", purpose="actor identity", runner=runner)
     _need(type(actor) is dict and type(actor.get("login")) is str
           and LOGIN.fullmatch(actor["login"]) is not None,
           "Authenticated GitHub user not verified")
 
-    original = _get("repos/" + upstream, runner=runner)
-    working = _get("repos/" + fork, runner=runner)
+    original = _get("repos/" + upstream, purpose="upstream repository", runner=runner)
+    working = _get("repos/" + fork, purpose="working fork repository", runner=runner)
     _need(type(original) is dict and
           original.get("full_name", "").casefold() == upstream.casefold()
           and original.get("private") is False and original.get("archived") is False
@@ -106,9 +106,9 @@ def prepare_pr_handoff(*, upstream, fork, head_branch, head_sha, base_branch,
           "Fork parent/public status or authenticated push rights invalid")
 
     observed_base = _get("repos/" + upstream + "/branches/" +
-                         quote(base_branch, safe=""), runner=runner)
+                         quote(base_branch, safe=""), purpose="upstream base branch", runner=runner)
     observed_head = _get("repos/" + fork + "/branches/" +
-                         quote(head_branch, safe=""), runner=runner)
+                         quote(head_branch, safe=""), purpose="fork contribution head branch", runner=runner)
     _need(type(observed_base) is dict and type(observed_head) is dict,
           "Missing base/head branch")
     _need((observed_base.get("commit") or {}).get("sha") == base_sha,
@@ -120,7 +120,7 @@ def prepare_pr_handoff(*, upstream, fork, head_branch, head_sha, base_branch,
     cmp_path = ("repos/" + upstream + "/compare/" +
                 quote(base_branch, safe="") + "..." +
                 quote(fork.split("/")[0] + ":" + head_branch, safe=""))
-    comparison = _get(cmp_path, runner=runner)
+    comparison = _get(cmp_path, purpose="upstream diff comparison", runner=runner)
     _need(type(comparison) is dict
           and comparison.get("status") in ("ahead", "diverged")
           and type(comparison.get("ahead_by")) is int
@@ -132,7 +132,7 @@ def prepare_pr_handoff(*, upstream, fork, head_branch, head_sha, base_branch,
     query = ("?state=open&head=" +
              quote(fork.split("/")[0] + ":" + head_branch, safe="") +
              "&base=" + quote(base_branch, safe="") + "&per_page=100")
-    existing = _get("repos/" + upstream + "/pulls" + query, runner=runner)
+    existing = _get("repos/" + upstream + "/pulls" + query, purpose="open upstream PR inventory", runner=runner)
     _need(type(existing) is list and len(existing) < 100,
           "Open upstream PR inventory unavailable or truncated")
     _need(not existing, "An open upstream PR already targets this fork branch/base")
