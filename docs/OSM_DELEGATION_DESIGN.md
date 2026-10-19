@@ -28,9 +28,9 @@ An agent is not autonomous because GitHub's API can write. Conversely, requiring
 
 ## Activation transaction required before any standing local-write mandate
 
-A prospective S5 decision on a new organizational boundary/delegation model must be **attributable** and separate from drafting or discussing this design. Any later effective operational grant must record:
+**Authority depends on system-in-focus.** While `opensiro/upstream` is **adjacent** to the bounded Organization, a local preparation mandate for its own authorized forks can be issued by an **attributable, legitimate Upstream repository/fork owner** within those actual rights. That **does not require** admitting a fourth Organization S1 domain. A change to the bounded Organization's scope or its higher-level delegation model, however, remains a separate **Organization S5** decision under [#274](https://github.com/opensiro/vsm-oss-organization/issues/274). Neither kind of decision follows from drafting or discussing this design. Any later effective operational grant must record:
 
-1. legitimate issuer and a verifiable issuer/owner act, and the **exact recipient/agent execution identity**;
+1. the **specific applicable authority owner** (local Upstream/fork owner while adjacent, or S5-delegated owner if formally admitted), an attributable issuer act, and the **exact recipient/agent execution identity**;
 2. named working repositories/namespaces, upstream policy/licensing constraints, permitted paths, branches, write stages and denied actions;
 3. the local decision rights transferred vs higher/external decisions retained, and whether/how DCO and other contributor attestations can be made;
 4. start/end or finite term, budget/operation limits, revocation/checkpoint mechanism, and live enforcement through the connected host/provider;
@@ -45,7 +45,7 @@ Do not treat a GitHub push permission, assistant-written issue comment, generic 
 | Decision field | Proposed value / current evidence |
 | --- | --- |
 | Organizational system-in-focus | Bounded OpenSiro VSM OSS group; Upstream is currently an **adjacent candidate**, not an admitted fourth S1 domain |
-| Legitimate boundary/mandate issuer | Organization's currently declared S5 parent; **no attributable #274 admission/delegation decision yet** |
+| Legitimate boundary/mandate issuer | **Adjacent Upstream local P1:** authorized owner of the particular Upstream-controlled working fork(s), with a separately attributable grant (**not issued**). **Organization S5:** reserves #274 admission and any bounded-Organization delegation-model change (**not decided**). These are different rights. |
 | Recipient | Agent-operated Upstream contribution role; **actual authenticated execution identity not identified** |
 | Working repository allowlist | **Unset**: discoverable/writable forks are *not* automatically enrolled |
 | Locally delegated discretion, after activation | Candidate investigation and bounded fix selection; own-branch creation, code/tests/docs changes, local recovery and verification; full **unpublished** external PR package |
@@ -57,7 +57,7 @@ Do not treat a GitHub push permission, assistant-written issue comment, generic 
 
 ### P1 activation and acceptance conditions
 
-- **Governance first.** Resolve the actual #274 S5 boundary decision independently (admit or keep adjacent). Do not silently assume admission from a positive technical trial. If a local standing mandate is then proposed, the legitimate owner must separately issue an attributable, versioned, revocable delegation within the chosen boundary, identify the real recipient actor and permitted source/fork scope, and supply its return target.
+- **Classify the recursion and issuer first.** When Upstream remains adjacent, the **actual owner of each participating working fork** may issue a narrowly scoped local P1 mandate without first deciding Organization #274. This owner must demonstrably control the relevant repo/fork and the delegated operations. Formal admission of Upstream to the **bounded Organization** and changes to its higher-level S1/S5 delegation model still require a separate attributable S5 decision under #274; neither is implied by a local mandate. In either case the applicable issuer must record a versioned, revocable grant, identified recipient execution actor, permitted repos/stages, and return target.
 - **Host enforcement first.** The existing Control Plane must prove it can map a real connected agent execution identity and an operative mandate to GitHub write operations; check the exact grant before *every* write, repeat remote preflight at the action boundary, and reject grant expiry/revocation, wrong fork, default-branch/PR writes, branch drift and permission changes. Do not replace this with `authorize=True` or a document-derived approval.
 - **Bounded first run.** Choose one real upstream-native issue, validate duplication/licensing/CLA and an explicitly allowed working fork. Within an effective P1 grant, the agent chooses and implements a testable patch, autonomously fixes ordinary test failures, and assembles the **unpublished** PR diff/title/body plus source and validation receipts. Do not require fresh human confirmation for each routine delegated step.
 - **Negative and partial-path evidence.** Demonstrate that no grant means no write; forbidden repository/path, missing native operation, expired/revoked grant, modified base, policy conflict or external PR submission all fail closed. Preserve partial GitHub mutations and require a new decision before any unsafe retry.
@@ -68,8 +68,8 @@ Do not treat a GitHub push permission, assistant-written issue comment, generic 
 
 ## Owner-controlled evolution path
 
-1. Review this target envelope together with the Organization OSM construction and [S5 domain proposal #274](https://github.com/opensiro/vsm-oss-organization/issues/274); do not treat review as selecting admission option A.
-2. Obtain a separately attributable parent/issuer decision **if** the proposal changes S5-reserved delegation/boundary. Record the scope, grant, return targets, and subsequent application at the owning source; preserve existing safeguards until effective.
+1. Review this target envelope and **decide which system boundary owns the requested right**. Adjacent local Upstream fork preparation and Organization-wide S1 admission are independent decisions. Preserve [Organization #274](https://github.com/opensiro/vsm-oss-organization/issues/274) as a separate S5 question; do not treat review as selecting admission option A.
+2. Obtain a separately attributable **authorized Upstream/fork-owner decision** for a local adjacent P1 grant, or an **S5 decision** if the proposed change alters the bounded Organization's identity, admission or higher-level delegation model. Record scope, owner, recipient, effective term, revocation, return targets, and application at their owning sources; preserve existing safeguards until effective.
 3. Extend the existing Upstream adapter **only for actually delegated local stages**, retaining a provider-enforced actor identity, checks before/after the decision, permission/policy/branch verification, narrow write scopes, real readback, failure/partial-recovery stop, and tests.
 4. Exercise genuine bounded candidate work and preserve who owned each decision and closure; do not count fake/mock tests as autonomous operation.
 5. Keep external PR publication **manual** until a distinct future issuer decision changes that specific right. Record the upstream maintainer's external disposition separately.
