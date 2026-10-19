@@ -124,7 +124,12 @@ approval boundary. A **new custom MCP plugin is not a prerequisite**:
 either a protected batch-only Actions/REST executor or a native connected
 fork action could satisfy the [upstream execution contract](docs/AUTOMATIC_FORK_EXECUTOR_RECOVERY.md)
 once its **actual provider rights and separately authenticated exact-scope
-Control Plane authorization** are verified. Neither is currently active.
+Control Plane authorization** are verified. The
+[GitHub CLI execution-host route](docs/CLI_FORK_HOST.md) allows reuse of
+an existing **credential-owning VM/host** without naming or depending on
+an orchestration application; a reported existing PAT still needs an
+execution-user identity and effective permission check. Neither write
+route is currently active.
 Do not restore the legacy manual `--execute` path or treat a batch
 preview as consent. See [Upstream #28](https://github.com/opensiro/upstream/issues/28).
 
