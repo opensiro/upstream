@@ -1,5 +1,13 @@
 # Cognee Community — OpenSiro contribution
 
+## B23 current manual-submission checkpoint (2026-10-19)
+
+- Ready upstream-main-based candidate: [opensiro/cognee-community submission/opensiro-vsm-source-ready-20261019](https://github.com/opensiro/cognee-community/tree/submission/opensiro-vsm-source-ready-20261019), HEAD 051a4fd34a016ed1f74dca208a901f4f8f05bd08; two DCO-signed commits, 17 connector-only files.
+- Clean Python 3.11 installed-wheel / real import / audit / search CI: [SUCCESS](https://github.com/opensiro/cognee-community/actions/runs/39292809116).
+- Ready-for-manual-contact packet: [Issue and PR drafts](UPSTREAM_SUBMISSION_PACKET_20261019.md). Earlier B21 data below is retained as historical state, not the current code reference.
+- External Cognee issue/PR: **not submitted**. User authorization required.
+
+
 - **Upstream:** [topoteretes/cognee-community](https://github.com/topoteretes/cognee-community)
 - **Working fork:** [opensiro/cognee-community](https://github.com/opensiro/cognee-community)
 - **Focused review candidate:** [feat/opensiro-vsm-source-review](https://github.com/opensiro/cognee-community/tree/feat/opensiro-vsm-source-review), [commit d176484](https://github.com/opensiro/cognee-community/commit/d176484e85da55c84450d67040cb4a2d096353c7) — **B20 Python 3.11 clean wheel install / pip check / 32 unit tests / real three-record ingestion / independent audit PASS** ([GitHub Actions run #1](https://github.com/opensiro/cognee-community/actions/runs/38942238109))
