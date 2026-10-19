@@ -114,6 +114,20 @@ or preview-only workflows as fork creation. A candidate requiring a nondefault
 branch must prove that exact ref exists in the resulting authorized fork
 before preparation.
 
+## Automatic fork execution: existing REST route, currently gated
+
+OpenSiro already has a source-prepared [REST fork client](scripts/create_fork.py)
+from [PR #5](https://github.com/opensiro/upstream/pull/5). Its
+write-capable workflow was intentionally disabled by
+[PR #8](https://github.com/opensiro/upstream/pull/8) pending a trustworthy
+approval boundary. A **new custom MCP plugin is not a prerequisite**:
+either a protected batch-only Actions/REST executor or a native connected
+fork action could satisfy the [upstream execution contract](docs/AUTOMATIC_FORK_EXECUTOR_RECOVERY.md)
+once its **actual provider rights and separately authenticated exact-scope
+Control Plane authorization** are verified. Neither is currently active.
+Do not restore the legacy manual `--execute` path or treat a batch
+preview as consent. See [Upstream #28](https://github.com/opensiro/upstream/issues/28).
+
 ## Fork lifecycle automation
 
 The manually dispatched [fork lifecycle workflow](.github/workflows/fork-lifecycle.yml)

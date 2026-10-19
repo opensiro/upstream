@@ -1,6 +1,6 @@
 # OpenSiro Contributions — fork creation via the existing Control Plane
 
-**Owner:** `opensiro/upstream` · **Task:** [Upstream #28](https://github.com/opensiro/upstream/issues/28) (focused provider/first-fork blocker), parent [Upstream #6](https://github.com/opensiro/upstream/issues/6) · **Status:** `BLOCKED_CAPABILITY / BLOCKED_AUTHORIZATION` · **Not a live fork-creation tool or effective grant.**
+**Owner:** `opensiro/upstream` · **Task:** [Upstream #28](https://github.com/opensiro/upstream/issues/28) (focused executor/first-fork blocker), parent [Upstream #6](https://github.com/opensiro/upstream/issues/6) · **Status:** `BLOCKED_EXECUTOR / BLOCKED_AUTHORIZATION` · **Not a live fork-creation tool or effective grant.**
 
 ## Principle
 
@@ -29,6 +29,30 @@ Index assessment (canonical pinned SHA/path)
   → human-owned external PR publication (only if later chosen)
 ```
 
+## Two supported execution designs, neither activated
+
+**The existing REST fork client is a real source-prepared fork transport.**
+[Merged PR #5](https://github.com/opensiro/upstream/pull/5) added
+[`scripts/create_fork.py`](../scripts/create_fork.py), which implements
+GitHub REST `POST /repos/{source}/forks`. [Merged PR #8](https://github.com/opensiro/upstream/pull/8)
+intentionally disabled the old write-capable manual workflow because its
+authorization boundary was incomplete. This is an **inactive execution route**,
+not evidence that writing a fork requires a custom MCP plugin.
+
+For safe activation the owner may independently review either a **protected,
+batch-only GitHub Actions/REST executor** reusing this client or a **native
+ChatGPT-connected fork provider** running the source-only adapter. The
+native ChatGPT method is **not mandatory** if the separate trusted executor
+can verify exact, attributable Control Plane batch authorization before
+the write. Conversely, the old `--execute` command, an unguarded
+`workflow_dispatch` or an unverified token is **not** the batch executor.
+
+The [transport recovery design](AUTOMATIC_FORK_EXECUTOR_RECOVERY.md)
+records current source evidence, GitHub App installation observations,
+provider-permission checks, exact approval-to-executor bridge and
+branch-aware acceptance criteria. **No path is activated until the
+verifier and its actual rights are independently demonstrated.**
+
 ## Current tool boundary
 
 - [Merged source PR #30](https://github.com/opensiro/upstream/pull/30)
@@ -36,18 +60,22 @@ Index assessment (canonical pinned SHA/path)
   explicit branch/SHA validation and mock tests. It is **source-prepared**:
   neither trusted host `authorize(intent)` nor native
   `github.create_public_fork(...)` is live-connected.
-- The available GitHub connector can create branches/files and internal PRs
-  in authorized repositories, but currently **does not expose the needed
-  create-fork operation**. Its read-only repository listing cannot prove
-  organization repo-creation rights.
+- The currently available ChatGPT GitHub connector can create branches/files
+  and internal PRs in authorized repositories, but does not expose a native
+  create-fork action. **This blocks the connector-adapter route only, not a
+  separately verified protected REST executor.** Its organization app
+  installation and repository listing cannot by themselves prove fork-create
+  permissions or the operator's exact authorization.
 - Deployed [`fork-lifecycle.yml`](../.github/workflows/fork-lifecycle.yml)
   is **preview-only** and must remain that way. The old token-based
   `create_fork.py --execute`, PAT, an invented `approved_by` field or a
   headless workflow are **not** acceptable substitute execution paths.
-- `BLOCKED_CAPABILITY` is a successful **negative preflight**, not a request
-  for the operator to do an unplanned manual fork. If the provider operation
-  is unavailable, preserve the qualified assessment/proposal and stop before
-  any external mutation.
+- `BLOCKED_CAPABILITY` is a valid negative preflight for the native
+  connector route; `BLOCKED_EXECUTOR / BLOCKED_AUTHORIZATION` is the
+  appropriate overall state until **either** independently authorized
+  executor path exists. Neither status is a request for an improvised
+  personal fork. Preserve the qualified proposal and stop before any
+  external mutation.
 
 ## Prepared branch-aware adapter (not live)
 
