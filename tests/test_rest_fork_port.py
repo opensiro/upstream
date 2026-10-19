@@ -185,6 +185,63 @@ class RESTPortTests(unittest.TestCase):
                 "other", default_branch_only=True)
         self.assertEqual(self.writes(), [])
 
+    def test_full_batch_routes_through_mock_rest_port_without_host_bypass(self):
+        import json
+        import tempfile
+        from batch_fork_executor import execute_one_verified_fork_batch
+        from test_batch_fork_executor import FakeHost
+        from test_connected_fork_adapter import draft
+
+        data = draft()
+        data["batch_id"] = "upstream-20261020-rest-smoke"
+        data["candidates"][0]["source"] = "external/example"
+        data["candidates"][0]["fork_name"] = "example"
+        data["candidates"][0]["blockers"] = []
+        action = {"destination_owner": "opensiro-contributions",
+                  "fork_name": "example",
+                  "working_branch": "development",
+                  "working_branch_sha": SHA,
+                  "default_branch_only": False}
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "upstream-20261020-rest-smoke.json"
+            path.write_text(json.dumps(data), encoding="utf-8")
+            host = FakeHost()
+            result = execute_one_verified_fork_batch(
+                manifest=path, selected_ids=["example"],
+                stage_scopes={"example": ["create_public_fork"]},
+                actions={"example": action}, github=self.port, host=host)
+        self.assertEqual(result["status"], "BATCH_VERIFIED")
+        self.assertEqual(result["receipts"][0]["status"], "CREATED_VERIFIED")
+        self.assertEqual(len(self.writes()), 1)
+        self.assertEqual(len(host.verify_calls), 1)
+        self.assertEqual(len(host.stage_calls), 1)
+
+    def test_full_batch_fake_rest_403_stops_after_one_attempt(self):
+        import json
+        import tempfile
+        from batch_fork_executor import execute_one_verified_fork_batch
+        from test_batch_fork_executor import FakeHost
+        from test_connected_fork_adapter import draft
+
+        data = draft()
+        data["batch_id"] = "upstream-20261020-rest-smoke"
+        data["candidates"][0]["source"] = "external/example"
+        action = {"destination_owner": "opensiro-contributions",
+                  "fork_name": "example", "working_branch": "development",
+                  "working_branch_sha": SHA, "default_branch_only": False}
+        self.remote.create_status = 403
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "upstream-20261020-rest-smoke.json"
+            path.write_text(json.dumps(data), encoding="utf-8")
+            r = execute_one_verified_fork_batch(
+                manifest=path, selected_ids=["example"],
+                stage_scopes={"example": ["create_public_fork"]},
+                actions={"example": action}, github=self.port, host=FakeHost())
+        self.assertEqual(r["status"], "BATCH_STOPPED")
+        self.assertEqual(r["receipts"][0]["status"], "FAILED")
+        self.assertEqual(len(self.writes()), 1)
+
+
 
 if __name__ == "__main__":
     unittest.main()
