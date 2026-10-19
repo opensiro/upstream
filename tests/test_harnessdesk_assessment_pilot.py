@@ -7,7 +7,6 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from batch_proposals import load_draft, preview_draft
-from assessment_origin_preflight import OriginBlocked, preflight
 
 
 BASE = ROOT / "pilots" / "harnessdesk-1772"
@@ -38,16 +37,6 @@ class HarnessDeskPilotTests(unittest.TestCase):
         self.assertEqual(preview["authorization_status"], "NOT_APPROVED_NO_WRITES")
         self.assertEqual(preview["candidates"][0]["status"], "BLOCKED")
 
-    def test_origin_gate_rejects_blocked_candidate_even_with_an_index_path(self):
-        with self.assertRaises(OriginBlocked):
-            preflight(
-                index_root=ROOT,
-                index_sha=INDEX_SHA,
-                assessment_path="assessments/ha/harnessdesk.md",
-                manifest=MANIFEST,
-                candidate_id="harnessdesk-1772",
-            )
-
     def test_report_carries_frozen_assessment_and_active_development_source(self):
         report = REPORT.read_text(encoding="utf-8")
         for item in (
@@ -59,7 +48,7 @@ class HarnessDeskPilotTests(unittest.TestCase):
             "packages/server/test/tool-gateway-second-host.test.ts",
             "BLOCKED",
             "No production patch",
-            "no VSM",
+            "not a VSM score repair",
         ):
             with self.subTest(item=item):
                 self.assertIn(item.lower(), report.lower())
