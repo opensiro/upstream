@@ -75,7 +75,8 @@ class AssessmentDrivenS1ContractTests(unittest.TestCase):
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase.lower(), self.spec.lower())
         self.assertIn("PROPOSED", self.spec)
-        self.assertIn("not a permission to modify GitHub", self.spec)
+        self.assertIn("permission to modify GitHub", self.spec)
+        self.assertIn("**not** an activated automation", self.spec)
         self.assertIn("P1", self.spec)
 
 
