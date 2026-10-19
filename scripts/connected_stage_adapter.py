@@ -42,7 +42,7 @@ def _validate_action(action):
           and "//" not in action["new_branch"]
           and not action["new_branch"].endswith(("/", ".", ".lock")),
           "Invalid new branch")
-    _need(action["base_branch"] in ("main", "master")
+    _need(action["base_branch"] in ("main", "master", "development")
           or bool(BRANCH.fullmatch(action["base_branch"])), "Invalid base branch")
     path = action["file_path"]
     parts = PurePosixPath(path).parts
