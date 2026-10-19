@@ -1,6 +1,6 @@
 # GitHub REST fork transport — source-only host port
 
-**Status:** `SOURCE_PREPARED / NO LIVE HOST / NO CREDENTIALS / NO PUBLIC FORK CREATED`.  
+**Status:** `SOURCE_PREPARED / NO CREDENTIALS IN THIS MODULE / EXECUTION-HOST CREDENTIAL UNVERIFIED / NO PUBLIC FORK CREATED`.  
 **Owner:** [Upstream #28](https://github.com/opensiro/upstream/issues/28), parent [#6](https://github.com/opensiro/upstream/issues/6).
 
 [`scripts/rest_fork_port.py`](../scripts/rest_fork_port.py) is a constrained
@@ -9,6 +9,11 @@ GitHub REST implementation of the `github` methods expected by
 and `connected_fork_adapter.py`.
 
 It deliberately **does not read tokens** or supply a real `authorize` host.
+A PAT may already reside in an existing **VM/host credential store**; no
+conclusion about that machine's credentials follows from this source module
+or one unrelated shell's empty environment. See the
+[credential-owning CLI host contract](CLI_FORK_HOST.md) for how to establish
+the exact OS principal and usable permissions without disclosing a token.
 Its constructor accepts two dependency-injected **trusted host** callables:
 
 - `api(method, path, body=...)` — the authenticating HTTP client, returning
