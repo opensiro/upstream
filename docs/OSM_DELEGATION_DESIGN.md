@@ -24,7 +24,7 @@ An agent is not autonomous because GitHub's API can write. Conversely, requiring
 | 3. External submission | After a separate future delegation, may eventually be considered for publication automation | **Manual operator action now**; no publication right currently granted | `submit_external_pr` out of scope for current adapter |
 | 4. External disposition | Observe maintainer feedback and propose bounded revisions; keep truthful lifecycle evidence | External maintainer solely controls acceptance/merge; operator retains undelegated contact/rights | No acceptance inferred from a prepared branch, draft, PR creation or green CI |
 
-**Fork creation is distinct from local preparation.** Draft [Upstream PR #18](https://github.com/opensiro/upstream/pull/18) proposes a source-only fork-stage adapter, but the present connected GitHub tools do not expose native `create_public_fork`. An already-existing fork is not evidence that a new fork was created.
+**Fork creation is distinct from local preparation.** Merged [Upstream PR #30](https://github.com/opensiro/upstream/pull/30) provides the branch-aware, **source-only** fork-stage adapter (superseding historical Draft #18), but the connected GitHub tools still expose no native `create_public_fork` method and no trusted exact-stage host authorization. An already-existing fork is not evidence that a new fork was created.
 
 ## Activation transaction required before any standing local-write mandate
 
