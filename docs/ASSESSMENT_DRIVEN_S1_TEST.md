@@ -81,6 +81,41 @@ observable test, not that policy decision.
    Preserve Index grades and historical assessment sources; any new
    assessment/reassessment is separately owned by Index/Skills.
 
+## Offline Index-origin consistency gate (implemented)
+
+The read-only [`assessment_origin_preflight.py`](../scripts/assessment_origin_preflight.py)
+checks one **already checked-out, exact-HEAD local Index git object** against one
+existing Upstream `proposal_only` candidate. It requires an included
+canonical-shaped assessment in the correct shard, a full 40-hex `review_ref`,
+the six literal function states, and **matching proposed upstream repository**.
+It reads assessment bytes from `git show <index-sha>:<path>` rather than
+uncommitted workspace files. It rejects absent/mismatched candidates, missing
+origin or blocked proposals; it never calls GitHub or mutates a repo.
+
+```bash
+python3 scripts/assessment_origin_preflight.py \\
+  --index-root /path/to/local/vsm-harness-index \\
+  --index-sha <40-hex-index-commit-sha> \\
+  --assessment-path assessments/xx/harness-id.md \\
+  --manifest /path/to/upstream-YYYYMMDD-slug.json \\
+  --candidate exact-candidate-id
+```
+
+Output `LOCAL_INDEX_ORIGIN_PRECHECK_ONLY` carries the exact assessment hash,
+Index/object identity, target match and unsigned proposal digest. It
+**always** returns `NOT_APPROVED_NO_GITHUB_WRITES`,
+`execution_available=false`, `native_fit=UNVERIFIED` and
+`canonical_index_source=UNVERIFIED` (under the corresponding explicit
+result-field names). A synthetic local checkout can pass its consistency
+checks; **a trusted agent must independently verify the supplied Index SHA/path
+against live canonical GitHub**, current upstream source, real native
+need/fit, licences, duplicate PRs and its actual stage-specific grant.
+
+This is an incremental executable **provenance-consistency prerequisite**, not
+cryptographic remote attestation, admission, automatic candidate discovery,
+or connected-host authorization. It does not change the generic batch schema
+or replace the per-stage Upstream #6 gates.
+
 ## Minimum test receipt
 
 A human-readable or machine-readable report must contain at least:
