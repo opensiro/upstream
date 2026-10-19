@@ -133,6 +133,17 @@ route is currently active.
 Do not restore the legacy manual `--execute` path or treat a batch
 preview as consent. See [Upstream #28](https://github.com/opensiro/upstream/issues/28).
 
+## Organization fork → upstream PR (manual publication)
+
+The existing credential-owning VM/host has **live verified** one-off fork
+creation in `opensiro-contributions` (Issue [#28](https://github.com/opensiro/upstream/issues/28)).
+A separate [organization-fork PR handoff](docs/ORGANIZATION_FORK_UPSTREAM_PR.md)
+uses **authenticated GETs only** to bind an upstream base and pushed fork
+branch to reviewed SHA/diff evidence. It prepares a REST draft payload,
+**not** an external PR. Publication remains an independently authorized,
+human-owned stage; ownership and reported PAT scopes are not blanket
+permission for arbitrary upstream submissions.
+
 ## Fork lifecycle automation
 
 The manually dispatched [fork lifecycle workflow](.github/workflows/fork-lifecycle.yml)
