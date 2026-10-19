@@ -115,8 +115,20 @@ class P1ScopeTests(unittest.TestCase):
         self.blocked()
 
     def test_wrong_issuer_blocks(self):
+        self.host.grant = deepcopy(self.grant)
         self.host.grant["issuer"] = "someone/else"
         self.blocked()
+
+    def test_unhashable_payloads_fail_closed(self):
+        d = deepcopy(self.grant)
+        d["working_repositories"] = [{"repo": "fake/value"}]
+        self.blocked(grant=d)
+        d = deepcopy(self.grant)
+        d["path_prefixes"] = [{"path": "tests/"}]
+        self.blocked(grant=d)
+        intent = deepcopy(self.intent)
+        intent["file_paths"] = [{"path": "tests/fake.py"}]
+        self.blocked(intent=intent)
 
     def test_expired_or_not_yet_effective_blocks(self):
         self.host.time = datetime(2026, 10, 20, 12, tzinfo=timezone.utc)
