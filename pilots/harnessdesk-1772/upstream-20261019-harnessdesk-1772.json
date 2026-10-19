@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "batch_id": "upstream-20261019-harnessdesk-1772",
+  "revision": 1,
+  "status": "proposal_only",
+  "candidates": [
+    {
+      "id": "harnessdesk-1772",
+      "source": "HarnessDesk/HarnessDesk",
+      "fork_name": "HarnessDesk",
+      "stages": [
+        "prepare_contribution"
+      ],
+      "expected_license": "MIT",
+      "proposal": {
+        "system_component": "ToolGateway lifecycle in the multi-agent host control-plane",
+        "problem": "When a second headless host boots with an already-active home, ToolGateway.start removes and rebinds the shared tools.sock; the first host remains visible but its new agent sessions cannot reach the tool gateway.",
+        "planned_change": "Add a deterministic two-host socket-owner regression; then implement a minimal safe start and stop ownership check so a duplicate host refuses startup without replacing or removing the first host's socket.",
+        "expected_improvement": "Prevent tool access loss for running first-host agent sessions when a duplicate host is launched; surface a useful duplicate-home diagnostic instead of silently breaking agent tools.",
+        "validation": "Reproduce HarnessDesk issue 1772 on development, run node test with real gateway under packages/server/test, pnpm check:push and full relevant upstream CI; verify normal single-host restart and stale socket behavior.",
+        "evidence_url": "https://github.com/HarnessDesk/HarnessDesk/issues/1772"
+      },
+      "blockers": [
+        "No authorized matching writable HarnessDesk fork has been verified for the connected account.",
+        "Proposed regression file is source-only; full upstream project tests and production fix are not yet executed.",
+        "No exact authenticated prepare-stage action or current-session host authorization exists."
+      ]
+    }
+  ]
+}
