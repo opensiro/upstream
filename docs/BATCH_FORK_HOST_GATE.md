@@ -27,6 +27,15 @@ that batch grant. Changed proposal, selected scopes, actions, source SHA,
 actor or target blocks; a write/readback failure or pending outcome stops
 further candidates. No automatic retry, publish, archive or registry update.
 
+## REST provider port (source only)
+
+[`scripts/rest_fork_port.py`](../scripts/rest_fork_port.py) implements
+the required GitHub REST `repo`, `branch` and fork operation
+interfaces with **host-injected authenticated request and permission
+attestation**. It is **not** an exposed ChatGPT GitHub method or a
+credential-bearing CLI; see [REST port contract](REST_FORK_PORT.md).
+It does not close the trusted batch-grant/actor/permission gap.
+
 ## Host requirements (not implemented here)
 
 The Python interface requires **two injected ports**:
