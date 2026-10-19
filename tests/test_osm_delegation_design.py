@@ -23,7 +23,7 @@ class OSMDelegationDesignTests(unittest.TestCase):
         self.assertIn("docs/OSM_DELEGATION_DESIGN.md", self.readme)
         self.assertIn("OSM_DELEGATION_DESIGN.md", self.handoff)
         self.assertIn("PROPOSED_NOT_GRANTED", self.packet)
-        for phrase in ("not a standing grant", "no attributable #274",
+        for phrase in ("not a standing grant", "separately attributable grant",
                        "actual authenticated execution identity not identified",
                        "Unset", "revocation", "P1 is blocked today"):
             with self.subTest(phrase=phrase):
