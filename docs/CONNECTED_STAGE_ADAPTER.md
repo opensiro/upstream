@@ -15,8 +15,8 @@ action, github, authorize)`.
 Only **one narrow portion of `prepare_contribution`** is implemented:
 create a new `opensiro/...` branch from a pinned base SHA in an **existing
 public fork** that already belongs to the operator's connected writable
-repositories, then create **one new test file** under root `tests/` or
-`packages/.../tests/` (for upstream projects that keep tests with each package).
+repositories, then create **one new test file** under root `tests/` or package-local `packages/.../tests/` or
+`packages/.../test/` (for upstream projects that keep tests with each package).
 It will not modify an existing file, create a fork, submit an external PR,
 archive, change registry state or push arbitrary changes.
 
