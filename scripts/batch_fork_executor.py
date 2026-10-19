@@ -83,10 +83,15 @@ def execute_one_verified_fork_batch(*, manifest, selected_ids, stage_scopes,
         actor, observed_dest = _preflight(item, action, github)
         _need(observed_dest == destination, "Unexpected destination")
         actors.add(actor)
+        child_preview = _preview(
+            manifest, [candidate_id], {candidate_id: [STAGE]})
+        _need(child_preview["proposal_sha256"] == preview["proposal_sha256"],
+              "Per-stage proposal changed during batch preflight")
         entries.append({
             "candidate_id": candidate_id,
             "stage": STAGE, "source": item["source"],
             "destination": destination, "action": deepcopy(action),
+            "stage_scope_sha256": child_preview["selection_scope_sha256"],
         })
     _need(len(actors) == 1, "Batch cannot mix GitHub execution actors")
 
@@ -124,6 +129,7 @@ def execute_one_verified_fork_batch(*, manifest, selected_ids, stage_scopes,
                   and stage_intent.get("candidate_id") == candidate_id
                   and stage_intent.get("connected_actor") == batch_intent["connected_actor"]
                   and stage_intent.get("proposal_sha256") == batch_intent["proposal_sha256"]
+                  and stage_intent.get("selection_scope_sha256") == entry["stage_scope_sha256"]
                   and stage_intent.get("working_branch") == action["working_branch"]
                   and stage_intent.get("working_branch_sha") == action["working_branch_sha"]
                   and stage_intent.get("default_branch_only") is action["default_branch_only"],
