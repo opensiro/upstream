@@ -116,12 +116,12 @@ class UpstreamPRHandoffTests(unittest.TestCase):
 
     def test_head_sha_drift_rejected(self):
         self.fake.head_sha = "e" * 40
-        with self.assertRaisesRegex(PRBlocked, "Head"):
+        with self.assertRaisesRegex(PRBlocked, "head branch"):
             self.preview()
 
     def test_base_sha_drift_rejected(self):
         self.fake.base_sha = "d" * 40
-        with self.assertRaisesRegex(PRBlocked, "Base"):
+        with self.assertRaisesRegex(PRBlocked, "base branch"):
             self.preview()
 
     def test_zero_commit_diff_fails(self):
@@ -226,12 +226,19 @@ class UpstreamPRHandoffTests(unittest.TestCase):
                              "EXTERNAL_PR_HUMAN_OWNED_NO_WRITE")
 
     def test_cli_has_no_publish_or_post_flag(self):
-        p = subprocess.run([sys.executable,
-            str(ROOT / "scripts/upstream_pr_handoff.py"), "--publish"],
-            text=True, capture_output=True)
-        self.assertNotEqual(p.returncode, 0)
-        self.assertIn("unrecognized arguments", p.stderr)
-        self.assertEqual(self.fake.calls, [])
+        with tempfile.TemporaryDirectory() as tmp:
+            body_file = Path(tmp) / "body.md"
+            body_file.write_text(self.data["body"], encoding="utf-8")
+            args = [sys.executable, str(ROOT / "scripts/upstream_pr_handoff.py"),
+                    "--upstream", SOURCE, "--fork", FORK,
+                    "--head-branch", HEAD, "--head-sha", H_SHA,
+                    "--base-branch", "development", "--base-sha", B_SHA,
+                    "--title", self.data["title"], "--body-file", str(body_file),
+                    "--publish"]
+            p = subprocess.run(args, text=True, capture_output=True)
+            self.assertNotEqual(p.returncode, 0)
+            self.assertIn("unrecognized arguments", p.stderr)
+            self.assertEqual(self.fake.calls, [])
 
 
 if __name__ == "__main__":
