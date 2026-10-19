@@ -234,6 +234,28 @@ class TestStageAdapter(unittest.TestCase):
         result = self.run_stage()
         self.assertEqual(result["file_path"], self.intent["file_path"])
 
+    def test_package_local_singular_test_directory_allowed(self):
+        self.intent["base_branch"] = "development"
+        self.intent["file_path"] = "packages/server/test/second-host-gateway.test.ts"
+        result = self.run_stage()
+        self.assertEqual(result["status"], "CREATED_VERIFIED")
+        self.assertEqual(result["file_path"], self.intent["file_path"])
+        self.assertEqual(len(self.api.writes()), 2)
+
+    def test_singular_test_path_does_not_allow_arbitrary_source_write(self):
+        for candidate in (
+            "test/second-host-gateway.test.ts",
+            "unrelated/test/second-host-gateway.test.ts",
+            "packages/server/testing/second-host-gateway.test.ts",
+            "packages/server/test/../src/tool-gateway.ts",
+            "packages/server/test",
+        ):
+            with self.subTest(candidate=candidate):
+                self.intent["file_path"] = candidate
+                with self.assertRaises(StageBlocked):
+                    self.run_stage()
+                self.assertEqual(self.api.writes(), [])
+
     def test_package_source_path_rejected(self):
         self.intent["file_path"] = "packages/graph/arcadedb/src/adapter.py"
         with self.assertRaises(StageBlocked):
