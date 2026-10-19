@@ -13,3 +13,9 @@ An on-disk `status=ISSUED` value is **not** issuance: host attestation is mandat
 This module deliberately does **not** wrap, modify or activate `connected_stage_adapter.py`. A future host integration must separately verify real repository rights, source contribution policy, true branch/path state, exact action bytes/content, branch protection, authenticated issuer/actor, and per-operation revocation before *every* mutation. It must still preserve partial-write and unknown-outcome stop conditions, and the manual external PR publication right.
 
 Review/validate with `python3 -m unittest discover -s tests -p 'test_osm_p1_scope.py' -v`. Acceptance of a source-only mock test cannot be cited as S1=A, an effective delegation, or a completed upstream contribution.
+
+## Proposal-to-preflight integration (offline)
+
+The optional `scripts/osm_p1_pipeline.py:preview_p1_pipeline(...)` composes the actual `batch_proposals.preview_draft` selection, the **non-authorizing** `preview_p1_scope` check, and the existing `connected_stage_adapter._preflight` repository **reads**. It constructs the P1 intent from the exact proposal action, not from separately supplied text, and only accepts one `prepare_contribution` candidate. The result is always `PIPELINE_PREVIEW_ONLY_NO_GITHUB_WRITES` and `can_execute=false`. There is **no execute or write adapter** on this path.
+
+`tests/test_osm_p1_pipeline.py` uses synthetic issue metadata, an explicitly fake issuer-host and fake GitHub reads to cover positive composition and fail-closed deviations (unissued/revoked/mismatched grant, wrong workspace, altered source/license, push denial, base drift, branch/file collision, blocked candidate and external stage). No test result claims a real owner decision, live connector authorization, or actual upstream contribution. Run the full existing test suite through the repository's GitHub CI. Do not use this preview receipt to bypass Upstream #6's exact-stage gate.
