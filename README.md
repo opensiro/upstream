@@ -38,6 +38,21 @@ Before archiving an inactive fork, verify that its planned PRs are resolved or i
 
 The archived state is an explicit decision, **not an automatic action triggered by merged PRs**.
 
+## Assessment-driven S1 function test
+
+The Organization Control Plane command `test S1 function: upstream contributions`
+uses the [assessment-driven S1 test contract](docs/ASSESSMENT_DRIVEN_S1_TEST.md).
+It **starts with a pinned canonical Index assessment of an AI harness**, then
+independently checks whether that finding motivates a real upstream-native
+change. A familiar fork, unrelated GitHub issue or lower VSM grade is
+insufficient. The result may legitimately be `NO_ELIGIBLE_ASSESSMENT_CANDIDATE`
+without creating any fork or PR.
+
+This assessment-to-contribution test is **distinct** from generic OSS discovery,
+this repository's existing portfolio and normal contributor-selected upstream
+issues. It neither admits a fourth Organization S1 domain nor activates
+P1/connected writes or external PR publication.
+
 ## Conversation-first contribution proposals (read-only)
 
 [Batch proposal preview](docs/BATCH_PROPOSALS.md) is a **provider-agnostic,
