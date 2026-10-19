@@ -47,6 +47,14 @@ class OSMDelegationDesignTests(unittest.TestCase):
         self.assertIn("not an authorization source", self.handoff.lower())
         self.assertIn("stop at the existing exact-stage gate", self.design.lower())
 
+    def test_adjacent_repo_owner_may_grant_locally_without_s5_admission(self):
+        self.assertIn("does not require", self.design.lower())
+        self.assertIn("actual owner of each participating working fork", self.design)
+        self.assertIn("independent decisions", self.design)
+        self.assertIn("different rights", self.design)
+        self.assertIn("not issued", self.packet.lower())
+
+
 
 if __name__ == "__main__":
     unittest.main()
