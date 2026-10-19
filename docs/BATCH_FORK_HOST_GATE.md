@@ -36,6 +36,17 @@ attestation**. It is **not** an exposed ChatGPT GitHub method or a
 credential-bearing CLI; see [REST port contract](REST_FORK_PORT.md).
 It does not close the trusted batch-grant/actor/permission gap.
 
+## Existing VM/host as execution environment
+
+The GitHub CLI or REST request may be executed on an **existing VM or
+host that holds or legitimately accesses the GitHub credential**. This
+is an execution location, not a new control plane or a named app. An
+already provisioned PAT is possible; absence of a token variable in one
+shell is not evidence about other user/service/container contexts.
+The [CLI host procedure](CLI_FORK_HOST.md) shows non-secret identity and
+source checks, and separates credential possession from authorized batch
+execution and verified organization creation permission.
+
 ## Host requirements (not implemented here)
 
 The Python interface requires **two injected ports**:
