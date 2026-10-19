@@ -64,7 +64,7 @@ class FakeGithub:
 
     def branch(self, repo, branch):
         self.calls.append(("branch", repo, branch))
-        if branch == "main":
+        if branch in ("main", "development"):
             return {"sha": self.base_sha}
         if self.new_branch:
             return {"sha": COMMIT_SHA if self.created_file else BASE_SHA}
