@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "index_sha": "5393b698bfdfa4ca14d97a79238234eca20694e5",
+  "assessment_path": "assessments/ac/acc.md",
+  "review_ref": "47dba4bd00f4eef7450961d4623861bbb335e96d",
+  "reviewed_at": "2026-10-21",
+  "functions": {
+    "S1": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "The runAgent loop delegates to model-selected tools and receives results through a common Host and permission gate; sessions and rewind preserve developer work. No specific malfunction is demonstrated at this assessment's S1 boundary, regardless of more recent upstream commits.",
+      "candidate_ids": []
+    },
+    "S2": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Configured nonrecursive subagent calls return bounded results but the evaluated distribution does not evidence persistent competing S1 units or a concrete file/claim collision. Parallel work coordination cannot be justified from the mere presence of a generic agent tool.",
+      "candidate_ids": []
+    },
+    "S3": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Interactive interrupts, step limits and child invocation are local agent controls without a whole-current worker portfolio or active management rights. The assessed product's ordinary single-session use does not itself demand new S3 infrastructure.",
+      "candidate_ids": []
+    },
+    "S3*": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "An additional model permission judge classifies tool action risk but does not audit correctness of the implementation; ordinary tests and configurable subagents are not a shipped independent audit loop. Without a native false-green incident, a reviewer mandate would be speculative.",
+      "candidate_ids": []
+    },
+    "S4": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Context compaction, rewind and user-authored agents change session state or manual configuration, not an outside-and-then organizational strategy. No source-pinned prospectively measured adaptation defect or user demand is supported here.",
+      "candidate_ids": []
+    },
+    "S5": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Permission rules, model judge and user confirmations govern individual tool calls; none exercises ultimate identity/purpose decisions. The Index absence label alone does not justify shipping an automatic policy-making actor.",
+      "candidate_ids": []
+    }
+  }
+}
