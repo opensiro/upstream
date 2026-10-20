@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "index_sha": "5393b698bfdfa4ca14d97a79238234eca20694e5",
+  "assessment_path": "assessments/ag/agent-context-lab.md",
+  "review_ref": "372ecc514d48d8e1e5f92d672a9c2b16f4826b5d",
+  "reviewed_at": "2026-10-21",
+  "functions": {
+    "S1": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "The core Python task runner executes selected list/read/write/run_python tools, returns results to an OpenAI-compatible model and rejects premature done under configured checks. No concrete task failure is evidenced beyond its intended experimental controls.",
+      "candidate_ids": []
+    },
+    "S2": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "One task at a time has sequential tool dispatch; strategy comparisons across task runs are separate experiments, not interacting viable S1 units. Deferring done until other tool calls complete does not create inter-agent regulation.",
+      "candidate_ids": []
+    },
+    "S3": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Step, no-tool, and rejection budgets bound a single coding run, and the verifier vetoes its completion. There is no operational portfolio with a separate current authority requiring a supported scheduling/resource change.",
+      "candidate_ids": []
+    },
+    "S3*": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "DefaultFailVerifier can examine work products and tool logs independently of a done message but is a local task acceptance gate, not an independent audit of managerial reports. No false-result incident motivates a new S3-star channel in this research harness.",
+      "candidate_ids": []
+    },
+    "S4": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "ContextManager tests full/compact/compact_clear fixed strategies and experiment scripts generate comparative reports, but an external human chooses policy; no accepted autonomous future capability mutation is present or natively demanded.",
+      "candidate_ids": []
+    },
+    "S5": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Experiment authors predefine task constraints, evidence checklist and workspace side-effect rules. Fixed task policy is not a legitimate ultimate-identity change decision, and the assessment provides no product need to grant one.",
+      "candidate_ids": []
+    }
+  }
+}
