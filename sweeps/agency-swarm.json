@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "index_sha": "5393b698bfdfa4ca14d97a79238234eca20694e5",
+  "assessment_path": "assessments/ag/agency-swarm.md",
+  "review_ref": "853d37b9b243edc5dfe2ff2d2d4658aa8ec9a750",
+  "reviewed_at": "2026-10-21",
+  "functions": {
+    "S1": {
+      "outcome": "HYPOTHESES_RECORDED",
+      "rationale": "Agency Swarm Agent runs a model/tool/action feedback loop. Independently discovered upstream issue #828 reports traces sent to api.openai.com while model calls use an overridden base URL; this is a first-party integration problem, NOT an S1 autonomy finding in Index. The narrow tracing-egress hypothesis is assessment-informed.",
+      "candidate_ids": [
+        "IMPR-AGENCY-SWARM-TRACE-ENDPOINT-20261021"
+      ]
+    },
+    "S2": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Communication flows, SendMessage delegation and Handoff exchange work, but the reviewed ToolConcurrencyManager serializes tools inside one agent rather than competing sibling S1 resources. No native inter-agent contention demand appears in the bounded issue check.",
+      "candidate_ids": []
+    },
+    "S3": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "An Agency can compose multiple agents and shared context yet no first-party portfolio authority owns live commitments and resource reallocation. Model/tool delegation alone does not establish a desired whole-Agency controller or product need for one.",
+      "candidate_ids": []
+    },
+    "S3*": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Developer guardrails validate ordinary inputs/outputs but do not use independent operational evidence and corrective return to S3. The reported tracing endpoint issue is not a correctness auditor defect; no separate review candidate is supported here.",
+      "candidate_ids": []
+    },
+    "S4": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "External tools, model plans, memory and persistence support current work rather than decisions to adopt future organizational capabilities. No concrete user-requested long-horizon adaptation flow was verified in this bounded assessment review.",
+      "candidate_ids": []
+    },
+    "S5": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Developers choose agent topology, instructions and guardrails, and runtime hooks enforce them for calls. No credible identity-level conflict resolution mechanism or first-party policy expansion demand is evidenced by the checked source.",
+      "candidate_ids": []
+    }
+  }
+}
