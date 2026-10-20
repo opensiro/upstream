@@ -23,6 +23,8 @@ The issue provides a real direct-owner restart receipt: stopped Scheduled Task, 
 
 A narrow potential remedy would align typed producer/importer states and permit a **provenance-bound**, PID-free backward-compatible `backoff` import, while preserving fail-closed identity checks and adding bounded graceful-stop sequencing. Do **not** simply accept all unknown states.
 
+## Four native fit gates
+
 | Native gate | Verdict | Evidence |
 | --- | --- | --- |
 | Need | `PASS` | Observed first-party restart issue #22, exact current source vocabulary |
