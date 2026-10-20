@@ -84,6 +84,27 @@ Before generating a `batch_proposals.py` `proposal_only` row for the **assessmen
 
 The generic OSS upstream path remains independently available. Its user-chosen candidates do not retroactively become Index-derived by attaching an assessment link.
 
+## Offline candidate-to-existing-proposal linkage (prototype; still not promotion)
+
+The [read-only `improvement_candidate_linkage.py`](../scripts/improvement_candidate_linkage.py) can **compare** a declared `QUALIFIED` or `SELECTED` assessment-linked research card against an **already authored** `batch_proposals.py` `proposal_only` manifest item. It deliberately **does not generate** proposal rows, select a candidate, or call a host adapter.
+
+It checks the selected local card against the whole candidate inventory; requires all four native-fit declarations to say `PASS` and no proposal blockers; matches the card's target repository against the proposed upstream; and calls the existing `assessment_origin_preflight.py` to inspect a checked-out, exact-HEAD local Index git object. It additionally compares the card's Index commit, assessment path and `review_ref` against that object and binds the existing proposal SHA-256 digest. The original `ASSESSMENT_INFORMED` classification is **preserved**, never upgraded into `ASSESSMENT_DERIVED`. The generic path for non-assessment-linked proposals is unchanged.
+
+*Example only: the present candidate cards are `BLOCKED_EVIDENCE` or `PARKED`; none can legitimately pass this command today.* Once native need and design actually justify qualifying one candidate, a separately authored draft can be checked via:
+
+```bash
+python3 scripts/improvement_candidate_linkage.py \\
+  --candidate-root candidates \\
+  --candidate-id IMPR-EXAMPLE-20261020 \\
+  --index-root /path/to/checked-out-canonical-index \\
+  --manifest /path/to/upstream-YYYYMMDD-name.json \\
+  --proposal-id independently-authored-proposal-row-id
+```
+
+**Trust limitation:** local evidence can be forged, stale or incomplete. `state=QUALIFIED` and four `PASS` fields are only author declarations. Even with a matching local Index git object, this tool cannot prove the checkout is *live canonical public GitHub*, the selected improvement follows the Index finding, the product has a real native issue, the maintainer approves the design or a human has authorized a proposal or exact stage. Every successful output contains `OFFLINE_LINKAGE_PREVIEW_ONLY`, `NOT_APPROVED_NO_GITHUB_WRITES`, `candidate_selection_authenticated=false`, `proposal_created=false` and `execution_available=false`. A genuine selection/admission review and any executable stage remain separate upstream/Control Plane obligations, outside this prototype.
+
+[Dedicated synthetic positive/negative tests](../tests/test_improvement_candidate_linkage.py) exercise matching, blocked candidates, stale pins, source mismatch and misattributed provenance without requiring any real candidate to be marked qualified. The [credential-free CI](../.github/workflows/improvement-candidates.yml) runs them.
+
 ## One-to-many / lifecycle edge cases
 
 - An assessment can yield **zero qualified candidates**; report a valid negative discovery result.
