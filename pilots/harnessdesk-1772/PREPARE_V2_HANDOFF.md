@@ -70,7 +70,13 @@ git -C /path/to/clean/HarnessDesk-development apply --check \
 now exists, with [contract and negative tests](../../docs/CONNECTED_MULTIFILE_STAGE.md).
 It keeps the original single-file adapter unchanged and **does not activate
 a real authenticated host approval issuer or atomic GitHub patch port**.
-The stale fork base and original proposal blockers also remain. This is
+A later **source-only, optional shared-commit mode** eliminates the need
+to synchronize the fork's older `development` branch **if** the exact
+current upstream SHA is independently present in the fork and the
+fork branch is verified as its ancestor. This route requires a new
+exact action binding `fork_observed_sha`, and does not rewrite this
+historical proposal packet. The original proposal blockers and absent
+authenticated one-use stage grant remain. This is
 a later checkpoint than the original JSON snapshot; do not promote the
 JSON packet to an authorization.
 
