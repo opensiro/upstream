@@ -18,6 +18,8 @@ The authoritative factual corpus stays in [Index](https://github.com/opensiro/vs
 
 After the one-system AgentBox seed receipt, [Batch 001](../reports/2026-10-21-index-sweep-batch-001.md) reviews the next **five assessments in deterministic path order**: A-Evolve, Abhed, acc, Active Graph, ActWeave. These are **bounded, Index-function-by-function reviews**, not full live-native regressions. Only the A-Evolve card resulted in a new hypothesis, classified `ASSESSMENT_INFORMED` from an independently reported issue. Not counting a candidate for the other systems is an explicit negative research decision, not a blanket claim of no defects.
 
+[Batch 002](../reports/2026-10-21-index-sweep-batch-002.md) continues in path order with **Aesop, Aether, AG2**, each with six separate function decisions. No new product-native candidate was qualified or added in that pass; existing AG2 evaluation issue #3460 is not post-hoc converted into an Index-derived S3* diagnosis. Coverage is recomputed by the scanner, not by summing static reports.
+
 ## Run
 
 ```bash
