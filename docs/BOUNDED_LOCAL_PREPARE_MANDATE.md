@@ -40,6 +40,12 @@ This is a *simple, trust-based* operational contract, **not** a hard sandbox aga
 
 For stronger threat models, a separately protected token broker/signer would be required; that is deferred as disproportionate to this pilot.
 
+### Existing-VM entry point (never a new service)
+
+Run `python3 scripts/prepare_harnessdesk_local.py --check` for authenticated **GET-only** source/fork/policy preflight. The result reports source/fork SHA and the observed main-policy status without creating a branch.
+
+Only **after** an independently attributable fork-owner decision and application of an ACTIVE policy to owner-repository `main`, run `python3 scripts/prepare_harnessdesk_local.py --prepare`. This re-GETs the current policy, invokes the existing two-file patch stage with actor attestation and exact-source validation, and creates only a new contributor-fork branch if permitted. With the currently proposed policy or missing GitHub main policy the result is `BLOCKED_NO_WRITE`; the command line flag never supplies authorization itself. No external PR is submitted.
+
 ### Acceptance and next work
 
 1. Offline positive (test fixture ACTIVE) and negative (repository policy PROPOSED) behavior verified, including revocation, time limit, actor, source, fork, branch, paths, source/base hashes, GitHub main drift and provider re-preflight.

@@ -26,7 +26,7 @@ class BoundedHostTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
-        self.manifest = Path(self.temp.name) / "candidate.json"
+        self.manifest = Path(self.temp.name) / "upstream-20261020-gateway.json"
         self.manifest.write_text(json.dumps(core_fixture.manifest_data()))
         self.action = core_fixture.action()
         self.action["fork_observed_sha"] = "c" * 40
