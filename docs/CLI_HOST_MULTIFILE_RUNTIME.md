@@ -54,7 +54,14 @@ commit, whole patch text and exactly two paths. Using normal
 
 1. Clones the **public working fork** in a disposable temporary
    checkout without committing, pushing or using a token in args.
-2. Fetches/checks out the requested **exact SHA** and verifies a
+2. Fetches/checks out the requested **exact SHA** using an **isolated
+   child environment**: no inherited PAT/SSH-agent/Git askpass variables,
+   no user/system Git config or globally defined clean/smudge filters,
+   no interactive credential prompt; temporary `HOME` and XDG config
+   are owned by the disposable checkout. This prevents a public source
+   tree from inheriting the VM's credential-bearing Git environment.
+   The public clone still needs working noninteractive anonymous HTTPS.
+   Then verifies a
    clean working tree.
 3. Validates current tracked regular `100644` source file and new
    test-path constraints, rejecting symlink/nonregular modes.
