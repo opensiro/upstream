@@ -1,5 +1,23 @@
 # Cognee Community — OpenSiro contribution
 
+## Current upstream submission (verified 2026-10-20)
+
+- **Outcome:** `submitted` — [Cognee Community PR #434](https://github.com/topoteretes/cognee-community/pull/434) is **open**, not Draft and not merged, targeting upstream `main`. Upstream [proposal Issue #435](https://github.com/topoteretes/cognee-community/issues/435) is open.
+- **Submitted candidate:** [`8ec814d`](https://github.com/opensiro/cognee-community/commit/8ec814d146e4cca9dd1c3ee6fb71123f94aebec5), **3 DCO-signed commits**, **17 connector-only changed files**; base Cognee Community `main@472e9484`.
+- **Tests:** [OpenSiro fork-hosted clean Python 3.11 CI PASS](https://github.com/opensiro/cognee-community/actions/runs/39292809116) on source/test-identical review branch; [Ruff CI PASS](https://github.com/opensiro/cognee-community/actions/runs/39292816378). There are **no upstream PR check runs reported** yet; fork evidence is not upstream CI.
+- **Upstream response:** no recorded maintainer review or approval yet. `accepted_at` remains null; no merge, Mergetober assignment or prize eligibility implied. Fork lifecycle stays `active`.
+- **Issue text note:** Issue #435 says no upstream implementation PR had been opened; this line became stale when PR #434 was published. The two public records should be cross-linked.
+
+The B23 handoff and B21 research checkpoints below are **historical preparation evidence**, not the current submission status.
+
+## B23 current manual-submission checkpoint (2026-10-19)
+
+- Ready upstream-main-based candidate: [opensiro/cognee-community submission/opensiro-vsm-source-ready-20261019](https://github.com/opensiro/cognee-community/tree/submission/opensiro-vsm-source-ready-20261019), HEAD 8ec814d146e4cca9dd1c3ee6fb71123f94aebec5; three DCO-signed commits, 17 connector-only files.
+- Clean Python 3.11 installed-wheel / real import / audit / search CI: [SUCCESS](https://github.com/opensiro/cognee-community/actions/runs/39292809116).
+- Ready-for-manual-contact packet: [Issue and PR drafts](UPSTREAM_SUBMISSION_PACKET_20261019.md). Earlier B21 data below is retained as historical state, not the current code reference.
+- External Cognee issue/PR at this historical checkpoint: **not submitted**; superseded by public Issue #435 and PR #434 on 2026-10-19 UTC.
+
+
 - **Upstream:** [topoteretes/cognee-community](https://github.com/topoteretes/cognee-community)
 - **Working fork:** [opensiro/cognee-community](https://github.com/opensiro/cognee-community)
 - **Focused review candidate:** [feat/opensiro-vsm-source-review](https://github.com/opensiro/cognee-community/tree/feat/opensiro-vsm-source-review), [commit d176484](https://github.com/opensiro/cognee-community/commit/d176484e85da55c84450d67040cb4a2d096353c7) — **B20 Python 3.11 clean wheel install / pip check / 32 unit tests / real three-record ingestion / independent audit PASS** ([GitHub Actions run #1](https://github.com/opensiro/cognee-community/actions/runs/38942238109))

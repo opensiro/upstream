@@ -5,13 +5,13 @@ projects:
     upstream: https://github.com/topoteretes/cognee-community
     fork: https://github.com/opensiro/cognee-community
     work_branch: https://github.com/opensiro/cognee-community/tree/feat/opensiro-vsm-source
-    review_branch: https://github.com/opensiro/cognee-community/tree/feat/opensiro-vsm-source-review
+    review_branch: https://github.com/opensiro/cognee-community/tree/submission/opensiro-vsm-source-ready-20261019
     contribution:
       id: opensiro-vsm-source
       title: Canonical OpenSiro VSM assessment source
-      status: preparing
-      upstream_issue: null
-      upstream_pr: null
+      status: submitted
+      upstream_issue: https://github.com/topoteretes/cognee-community/issues/435
+      upstream_pr: https://github.com/topoteretes/cognee-community/pull/434
       accepted_at: null
     maintenance:
       status: active
@@ -22,6 +22,9 @@ projects:
       - https://github.com/opensiro/vsm-oss-organization/issues/271
     notes: >-
       Research branch retains B10-B16 full-corpus and failure evidence.
-      Focused B17 review branch keeps pinned source, native projection,
-      durable stage fencing and independent audit. Upstream not submitted;
-      only OpenSiro-owned development is authorized.
+      The original research and focused review branches retain internal
+      evidence. Upstream PR #434 and related proposal Issue #435 were
+      published by xLagerFeuer on 2026-10-19 UTC, using the DCO-signed
+      submission branch at 8ec814d. This is submitted only, with no
+      maintainer review/approval or merge as of 2026-10-20.
+      Fork remains active for upstream review and maintenance.

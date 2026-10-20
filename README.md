@@ -14,7 +14,7 @@ These are **dated experiment measurements, not live acceptance rates or producti
 
 | External project | OpenSiro fork | Contribution | Upstream status | Fork lifecycle |
 | --- | --- | --- | --- | --- |
-| [Cognee Community](https://github.com/topoteretes/cognee-community) | [opensiro/cognee-community](https://github.com/opensiro/cognee-community) | [Canonical OpenSiro VSM assessment source](projects/cognee/README.md) | **Not submitted** | **Active** |
+| [Cognee Community](https://github.com/topoteretes/cognee-community) | [opensiro/cognee-community](https://github.com/opensiro/cognee-community) | [Canonical OpenSiro VSM assessment source](projects/cognee/README.md) | **[Submitted PR #434](https://github.com/topoteretes/cognee-community/pull/434)** ([Issue #435](https://github.com/topoteretes/cognee-community/issues/435); awaiting upstream review) | **Active** |
 
 Machine-readable current state: [`registry.yaml`](registry.yaml). Research and testing evidence is linked in project profiles.
 

@@ -2,6 +2,8 @@
 
 > **OpenSiro-owned preparation only.** This document is not a request filed with Cognee, a Cognee approval, an upstream PR, or a Mergetober entry. Do not submit it automatically.
 
+> **Current B23 (2026-10-19):** [Manual submission packet](UPSTREAM_SUBMISSION_PACKET_20261019.md) references the up-to-date DCO-signed candidate and new Python 3.11 integration CI. The B21 text below is historical, not current status. No external Cognee PR/issue opened.
+
 **Status (2026-10-16):** `preparing`. **Upstream issue:** none. **Upstream PR:** none. **Maintainer assignment:** none.
 
 ## One coherent contribution
