@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "mandate_id": "harnessdesk-1772-local-p1",
+  "status": "PROPOSED_NOT_ACTIVE",
+  "issuer_actor": "xLagerFeuer",
+  "actor": "xLagerFeuer",
+  "execution_host": "zhdanov:robot",
+  "source": "HarnessDesk/HarnessDesk",
+  "working_repo": "opensiro-contributions/HarnessDesk",
+  "candidate_id": "harnessdesk-1772",
+  "stage": "prepare_contribution",
+  "source_branch": "development",
+  "base_branch": "development",
+  "new_branch": "opensiro/fix-toolgateway-1772",
+  "changed_paths": [
+    "packages/server/src/tool-gateway.ts",
+    "packages/server/test/tool-gateway-ownership.test.ts"
+  ],
+  "valid_from": 1792454400,
+  "valid_until": 1794268800,
+  "owner_decision_url": "",
+  "publication_owner": "human_operator"
+}
