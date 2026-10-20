@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "index_sha": "5393b698bfdfa4ca14d97a79238234eca20694e5",
+  "assessment_path": "assessments/ag/agent-zero.md",
+  "review_ref": "b1cbd1f960a1a5c4482b324dcff4742aa67b7a51",
+  "reviewed_at": "2026-10-21",
+  "functions": {
+    "S1": {
+      "outcome": "HYPOTHESES_RECORDED",
+      "rationale": "Agent Zero's shipped computer-use agent operates desktop, filesystem, browser and optional child contexts. First-party issue #1955 reports agents in one project reading another project's plain-text secret file; current get_secrets_manager only masks the global and active project's secrets. This cross-project permission issue originates from the issue, not a specific Index S1/S5 diagnosis.",
+      "candidate_ids": [
+        "IMPR-AGENT-ZERO-PROJECT-SECRETS-20261021"
+      ]
+    },
+    "S2": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "A parent can create, await, cancel or run named subordinates but the reviewed compact assessment does not show a peer-interference decision/feedback path. Access to sibling project secrets is a permission boundary, not demonstrated coordination among viable S1 departments.",
+      "candidate_ids": []
+    },
+    "S3": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Subagent continuation and cancellation are delegated task controls without a separately owned whole-current portfolio of resource rights and binding interventions. No specific S3 fix follows from the project secrets bug.",
+      "candidate_ids": []
+    },
+    "S3*": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Subordinates can be asked to review, but generic delegation does not supply independent claim-auditor authority and corrective managerial return. Credential scoping must not be mislabeled as complementary audit.",
+      "candidate_ids": []
+    },
+    "S4": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Memory, web access, plugins and scheduling provide tools and future task timing but no documented outside-and-then organizational adaptation loop with adopted policy changes. No native feature request justifies adding one.",
+      "candidate_ids": []
+    },
+    "S5": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Profiles, credentials, tool settings and project selections are operator-controlled, and the index does not establish an ultimate identity-policy judgment/return loop. Protecting project secrets is essential operational isolation but does not grant a new S5 decision right.",
+      "candidate_ids": []
+    }
+  }
+}
