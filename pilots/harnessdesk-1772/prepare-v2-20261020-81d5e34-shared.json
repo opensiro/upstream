@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "kind": "UPSTREAM_MULTIFILE_SHARED_COMMIT_PREPARE_HANDOFF",
+  "status": "ACTION_PREPARED_NOT_AUTHORIZED",
+  "execution_available": false,
+  "authorization": "NO_VERIFIABLE_STAGE_GRANT",
+  "observation_date": "2026-10-20",
+  "candidate_id": "harnessdesk-1772",
+  "stage": "prepare_contribution",
+  "actor_observed": "xLagerFeuer",
+  "upstream": "HarnessDesk/HarnessDesk",
+  "issue": "https://github.com/HarnessDesk/HarnessDesk/issues/1772",
+  "source_branch": "development",
+  "source_sha": "81d5e34e0e8e3d7e0945bc680695940b41ab852f",
+  "fork": "opensiro-contributions/HarnessDesk",
+  "fork_base_branch": "development",
+  "fork_base_sha": "4029e95189c61485f934f158c6725ef6eeb7ef35",
+  "proposed_new_branch": "opensiro/fix-toolgateway-1772",
+  "new_branch_observation": "NOT_FOUND_BY_AUTHENTICATED_GET",
+  "parent_verified": "HarnessDesk/HarnessDesk",
+  "actor_push_verified": true,
+  "source_and_fork_base_match": false,
+  "patch_repository": "opensiro/upstream",
+  "patch_path": "pilots/harnessdesk-1772/tool-gateway-ownership-fix-v2.patch",
+  "patch_sha256": "12b5c7e55a6f730fb9a2465ca30dd47321690c87c0d887e7b8c9d6990ec186e7",
+  "changed_paths": [
+    "packages/server/src/tool-gateway.ts",
+    "packages/server/test/tool-gateway-ownership.test.ts"
+  ],
+  "preimage_sha256": {
+    "packages/server/src/tool-gateway.ts": "727b8a13c8bcbbd4786c2ab9f048c8ab931f28a45d02aa1701a2c4d1131096ee"
+  },
+  "postimage_sha256": {
+    "packages/server/src/tool-gateway.ts": "a130ca1fdf78519fa055a12502c35f7b937ebe8caff084975aa8a927a08faa3f",
+    "packages/server/test/tool-gateway-ownership.test.ts": "f8fed230521978811efc3dd5bd32d8c284505201ecee41bf909bb93b3b163b9f"
+  },
+  "validation": {
+    "platform": "Linux",
+    "node": "22.19.0",
+    "pnpm": "10.4.1",
+    "frozen_offline_install": "PASS",
+    "node_build": "PASS",
+    "gateway_tests_total": 17,
+    "gateway_tests_failed": 0,
+    "git_apply_check": "PASS",
+    "git_diff_check": "PASS",
+    "macos_current_pin": "17/17 PASS AT EARLIER 24aa8d7 SHA; NOT RUN AT 81d5e34",
+    "isolated_patch_on_81d5e34": "PASS_PRE_AND_POST_SHA256_TWO_FILES",
+    "provider_preflight": "AUTHENTICATED_GET_ONLY_PASS_ON_2026-10-20; RECHECK_BEFORE_WRITE",
+    "full_check_push": "NOT_RUN"
+  },
+  "blockers": [
+    "No independently authenticated, revocable, one-use exact prepare_contribution grant active.",
+    "Full external pnpm check:push and third-party PR publication not performed."
+  ],
+  "prohibited_actions_without_grant": [
+    "synchronize fork development",
+    "create or update contributor branch",
+    "post third-party upstream PR"
+  ],
+  "fork_observed_sha": "4029e95189c61485f934f158c6725ef6eeb7ef35",
+  "shared_source_commit_in_fork": true,
+  "fork_ancestry": {
+    "status": "ahead",
+    "ahead_by": 24,
+    "behind_by": 0,
+    "base_sha": "4029e95189c61485f934f158c6725ef6eeb7ef35",
+    "merge_base_sha": "4029e95189c61485f934f158c6725ef6eeb7ef35"
+  },
+  "proposal_path": "pilots/harnessdesk-1772/upstream-20261020-harnessdesk-1772.json",
+  "proposal_status": "proposal_only",
+  "selection_scope": [
+    "prepare_contribution"
+  ]
+}

@@ -1,0 +1,12 @@
+# HarnessDesk #1772 — refreshed shared-commit prepare selection (source-only)
+
+This is a dated **proposal and evidence update**, not a stage authorization, external fork mutation, or third-party PR.
+
+- [Refreshed one-item proposal](upstream-20261020-harnessdesk-1772.json) resolves *historical technical selection blockers* independently of the existing protected execution gate. It selects only `prepare_contribution`; its empty proposal-blocker list **does not** mean an active one-use host grant exists. The historical proposal is not rewritten.
+- [New immutable observation packet](prepare-v2-20261020-81d5e34-shared.json) pins external source `HarnessDesk/HarnessDesk development@81d5e34e0e8e3d7e0945bc680695940b41ab852f` and contributor fork `development@4029e95189c61485f934f158c6725ef6eeb7ef35`. GitHub authenticated GET reads confirm the newer source commit object exists in the fork, with 24 commits ahead, zero behind and the older fork commit as merge base. Fork `development` must remain untouched.
+- VM read-only `_validate` and `_preflight` succeeded as authenticated `xLagerFeuer` with current fork push rights. Production file SHA-256 in source and fork at exact shared commit was `727b8a13c8bcbbd4786c2ab9f048c8ab931f28a45d02aa1701a2c4d1131096ee`. The reviewed V2 patch `12b5c7e55a6f730fb9a2465ca30dd47321690c87c0d887e7b8c9d6990ec186e7` applied in isolated local files and yielded production `a130ca1fdf78519fa055a12502c35f7b937ebe8caff084975aa8a927a08faa3f` and new test `f8fed230521978811efc3dd5bd32d8c284505201ecee41bf909bb93b3b163b9f`.
+- The original historical `proposal_only` manifest **correctly blocks** the real `prepare_exact_two_file_patch` before any remote write. The new proposal is intended to expose the **remaining actual decision boundary**: a protected, attributable, revocable one-use `verify_exact_prepare` + `authorize_exact_stage` host grant, still **NOT ISSUED**.
+- 17/17 macOS gateway tests were run at `24aa8d7`, **not** the newer `81d5e34`; full upstream `pnpm check:push` is also not complete. Recheck live source SHA, rights, fork ref and issue before authorization and again before Git Data ref creation. Passing this read-only check is not a host permit.
+- External upstream PR publication remains a separately human-owned stage. **No contribution branch, pushed V2 commit or external PR exists as a result of this handoff.**
+
+Owner: [Upstream #6](https://github.com/opensiro/upstream/issues/6).
