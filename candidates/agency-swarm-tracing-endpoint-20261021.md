@@ -27,6 +27,8 @@ The native risk is unintended egress of trace metadata and confusing credentials
 
 For an explicitly overridden non-default model endpoint, default SDK platform tracing **off** unless the user intentionally opts into it; preserve documented OpenAI tracing opt-in and make the behavior observable in tests. Alternatively route exporter to an explicitly selected trace collector if the SDK supports it. Do not silently change model endpoints, disable all telemetry unconditionally or assume environment override implies user consent to remote tracing.
 
+## Four native fit gates
+
 | Native gate | Verdict | Evidence |
 | --- | --- | --- |
 | Need | `PASS` | Reproducible symptom and user-facing impact described by first-party issue #828 |
