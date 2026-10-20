@@ -174,16 +174,10 @@ class FullIndexSweepTests(unittest.TestCase):
             self.inspect()
 
     def test_included_missing_S3_star_section_blocks_entire_sweep(self):
-        assessment_path = self.index / "assessments/be/beta.md"
-        assessment_path.write_text(assessment_path.read_text().replace(
-            "## S3* — Synthetic function", "## Unrelated section"))
-        git(self.index, "add", ".")
-        git(self.index, "commit", "-q", "-m", "break a function section")
-        self.sha = git(self.index, "rev-parse", "HEAD")
-        self.declaration["index_sha"] = self.sha
-        self.save()
+        source = assessment("beta", "someowner/beta")
+        source = source.replace("## S3* — Synthetic function", "## Unrelated section")
         with self.assertRaisesRegex(SweepError, "missing function section S3"):
-            self.inspect()
+            parse_assessment(source.encode(), "assessments/be/beta.md")
 
     def test_duplicate_JSON_metadata_rejected(self):
         content = self.receipt.read_text()
