@@ -1,5 +1,16 @@
 # HarnessDesk #1772 — assessment-driven S1 candidate (blocked; unpublished)
 
+> **Latest 2026-10-20 implementation checkpoint:** The old status below is a **dated
+> 2026-10-19 historical pilot snapshot**. An actual public
+> [`opensiro-contributions/HarnessDesk`](https://github.com/opensiro-contributions/HarnessDesk)
+> fork has since been created and verified, and a
+> [source-only production fix plus real Node regression tests](IMPLEMENTATION_VALIDATION_2026-10-20.md)
+> have now been compiled/tested against upstream `development@4029e951`
+> (**15/15 relevant tests PASS**). The
+> [patch](tool-gateway-ownership-fix.patch) is reviewable, **but has not
+> been written to the fork**, and no external upstream PR has been opened.
+> The old manifest remains blocked and publication remains human-owned.
+>
 **Date:** 2026-10-19  
 **Pilot status:** `SOURCE_QUALIFIED / PREPARED_PREVIEW / BLOCKED_EXTERNAL_STAGE`  
 **External writes:** none. **No external PR, fork, branch, or maintainer comment** was created.
