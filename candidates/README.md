@@ -32,6 +32,8 @@ The [read-only candidate-to-proposal linker](../scripts/improvement_candidate_li
 
 The Kit candidate is an independently useful **assessment-informed** alternative, **not** a strict assessment-derived test win; an existing external issue does not become an OpenSiro contribution by appearing here.
 
+See the [bounded 2026-10-21 Index-first screen](../reports/2026-10-21-improvement-candidates-index-screen.md) for independently checked non-selections and the Kit-specific classification rationale. This is not a new exhaustive Index assessment or promotion of Issue #222 into a completed product improvement.
+
 **Not every screened harness becomes a candidate.** Claw Code, KairoCode, AtomCode and Dendrophis were documented as negative or unqualified alternative screens in [AgentBox source-screen receipt](../pilots/agentbox-s2/NATIVE_FIT_DECISION_AND_ALT_SCREEN_2026-10-20.md); they are **not** approved backlog entries or discarded assessments. This is a bounded example set.
 
 ## Minimum card template
