@@ -24,6 +24,8 @@ After Batches 001–002, [Batch 003](../reports/2026-10-21-index-sweep-batch-003
 
 [Batch 004](../reports/2026-10-21-index-sweep-batch-004.md) continues with **five additional included systems**, recording one new `ASSESSMENT_INFORMED` AO reviewer no-write enforcement candidate from [upstream #6962](https://github.com/OrchestratorInc/agent-orchestrator/issues/6962). Note the assessed AO repo has been renamed/redirected since the Index review; current owning source must be checked for any future proposal. Neither a full native before/after nor an Index regrade is claimed. Total [current sweep receipts](./) are validated by the script, not by these narrative counters.
 
+[Batch 005](../reports/2026-10-21-index-sweep-batch-005.md) takes the next five systems in order (Agent-S, Agent Squad, Agent Zero, agent0, AgentDescent). It records four native first-party issue-backed **assessment-informed** research hypotheses, including two requiring strictly isolated safety/resource tests. None is promoted based on an Index grade or declared benefit. The true coverage count is obtained by running the [pinned offline sweep](../scripts/sweep_index_assessments.py).
+
 ## Run
 
 ```bash
