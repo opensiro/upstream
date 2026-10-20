@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "index_sha": "5393b698bfdfa4ca14d97a79238234eca20694e5",
+  "assessment_path": "assessments/ag/ag2.md",
+  "review_ref": "3211bb19832049e7abe1a5742b6d177274bff723",
+  "reviewed_at": "2026-10-21",
+  "functions": {
+    "S1": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "The AG2 Agent owns its model/tool-feedback operational loop and optional subtask/knowledge APIs at the frozen v1.0 review boundary. This evidence alone does not identify an S1 malfunction or bounded model/tool behavior that should be changed in a new contribution.",
+      "candidate_ids": []
+    },
+    "S2": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "The built-in DiscussionAdapter's expected_next_speaker turn protocol rejects out-of-turn speech and propagates channel expectation feedback to interacting Agent units. This is a real deterministic S2 attenuation of conversational collisions; no documented flaw in that witness establishes a native S2 change.",
+      "candidate_ids": []
+    },
+    "S3": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Hub health, RuleBasedArbiter and resource/access limits enforce developer-provided network rules, not an owner that exercises discretionary whole-current cross-agent management. This gap does not prove framework users need a built-in S3 supervisor or that a specific manager policy is compatible.",
+      "candidate_ids": []
+    },
+    "S3*": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Hub AuditLog/listeners consume the same WAL/channel state, without independent supplementary evidence or corrective governance closure. A current AG2 eval task-ID bug is a separate eval integrity issue in an evolved subsystem outside the v1.0 Index boundary and is not retroactively attributed to S3*.",
+      "candidate_ids": []
+    },
+    "S4": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "AG2 tools, knowledge/assembly, history and app-defined workflows can support task-time adaptation but do not provide an autonomous externally prospective organization-change loop. No native feature demand for an S4 component can be derived from this alone.",
+      "candidate_ids": []
+    },
+    "S5": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Passports, Rule enforcement, auth adapters and HITL hooks establish application-supplied operational policy but not an ultimate identity conflict-to-authority-to-return relationship. This is a compositional framework rather than an implied need for a built-in S5 policymaker.",
+      "candidate_ids": []
+    }
+  }
+}
