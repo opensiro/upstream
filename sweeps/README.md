@@ -14,6 +14,10 @@ The authoritative factual corpus stays in [Index](https://github.com/opensiro/vs
 - The script fails closed on duplicated/unknown JSON fields, missing/inconsistent Index refs, orphaned or mismatched receipts/candidates, absent function sections, wrong git HEAD or invalid status. It cannot create candidate cards, mark native fit verified, choose proposals or grant GitHub writes.
 - Multiple independent hypotheses per function/harness are permitted. One candidate linked across functions remains **one intervention**, not multiple successes. `GENERAL_UPSTREAM` candidates from product-first discovery are not retroactively assessment-derived.
 
+## First reproducible substantive batch
+
+After the one-system AgentBox seed receipt, [Batch 001](../reports/2026-10-21-index-sweep-batch-001.md) reviews the next **five assessments in deterministic path order**: A-Evolve, Abhed, acc, Active Graph, ActWeave. These are **bounded, Index-function-by-function reviews**, not full live-native regressions. Only the A-Evolve card resulted in a new hypothesis, classified `ASSESSMENT_INFORMED` from an independently reported issue. Not counting a candidate for the other systems is an explicit negative research decision, not a blanket claim of no defects.
+
 ## Run
 
 ```bash
