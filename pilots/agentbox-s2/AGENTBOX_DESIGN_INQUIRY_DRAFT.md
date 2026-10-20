@@ -1,40 +1,35 @@
-# AgentBox — proposed upstream Phase 4 design inquiry (unpublished)
+# AgentBox upstream design inquiry — DRAFT, NOT POSTED
 
-**This is a draft for a HUMAN to publish, not a posted issue, an external PR, permission grant, or chosen architecture.** The intended target is [madarco/agentbox](https://github.com/madarco/agentbox). Its [CONTRIBUTING](https://github.com/madarco/agentbox/blob/main/CONTRIBUTING.md) requires an issue for more-than-bugfix features and a signed contributor license agreement for eventual merges. Recheck current first-party state/duplicates before publishing.
+**External target:** [madarco/agentbox](https://github.com/madarco/agentbox). **Candidate:** [IMPR-AGENTBOX-S2-OVERLAP-20261020](../../candidates/agentbox-overlap-manager-20261020.md).
+**Publication/implementation:** human-owned and **NOT AUTHORIZED BY THIS DOCUMENT**. Recheck first-party default branch, duplicates and [CONTRIBUTING](https://github.com/madarco/agentbox/blob/main/CONTRIBUTING.md) before publication. This is a question about product fit, **not** a feature demand or bug report.
 
-## Proposed title
+## Suggested issue title
 
-Phase 4 manager brief: optional file-overlap-aware task grouping before starting boxes?
+Phase 4 design question: opt-in grouping for overlapping workspace tasks?
 
-## Minimal first-contact version (suggested)
+## Suggested issue body (copy for human review)
 
-> The Phase 4 manager brief in your workspace/task plan still describes cross-box file-overlap grouping as manual. I have a reproducible source-only test showing that current task allocation also allows an assigned task with unfinished `dependsOn` to enter `in_progress`—possibly intentionally, since allocation is not worker execution. Would you prefer an **opt-in manager instruction using existing task/manager APIs** that groups tasks with explicitly overlapping intended paths and defers dependent *dispatch*, while leaving the default task-store semantics unchanged? Or should this remain entirely a human coordination task? No third-party implementation has been started.
+The [workspace/tasks/manager plan](https://github.com/madarco/agentbox/blob/605ee75d63319003c188bc532d4e5b2ba36a51d6/docs/workspaces-tasks-manager-plan.md) describes deciding which tasks can safely run in separate boxes—and preventing boxes from editing overlapping files—as a manual task. The Phase 4 manager brief appears to be the planned place for that decision.
 
-Use this shorter question first if appropriate; details and pin/test references below are for follow-up. Publication is still human-owned.
+I am exploring a small **opt-in manager planning step** for this workflow rather than a general locking service or a change to task storage. A possible first version would:
 
-## Proposed body
+- ask for **explicit intended file scopes** (never infer authority from free-text task titles);
+- propose putting overlapping tasks in one box or sequencing them, while letting non-overlapping tasks continue independently;
+- report unknown scopes or stale plans for human/manager review instead of silently claiming safety.
 
-I noticed that your `docs/workspaces-tasks-manager-plan.md` says task allocation and keeping separate boxes from fighting over the same files are manual today, while the manager brief (Phase 4) remains planned. I wanted to check which small part of that Phase 4 behavior would be useful to implement without expanding AgentBox's architecture unnecessarily.
+Before preparing any implementation: **Would this fit the planned Phase 4 direction, or is there a preferred existing mechanism / reason to leave it manual?** If it fits, would you prefer the behavior as manager instructions using the current task/manager API, with no new persisted scope field?
 
-From current `main`, the task records expose `dependsOn`, `boxId/boxJobId`, `projectId` and status, but no verified intended-write paths. The CLI's assignment preflight checks task IDs/workspace identity, not whether two tasks are likely to edit the same code. So a safe first step might be an **opt-in, manager-owned planning brief** that collects explicit file-intent scopes before allocating independent boxes and returns a readable collision/unknown-scope warning rather than silently assuming two tasks are independent.
+For context, [a source-pinned CLI preflight experiment](https://github.com/opensiro/upstream/blob/main/pilots/agentbox-s2/NATIVE_TASK_PREFLIGHT_BASELINE_RECEIPT_2026-10-20.md) shows that valid tasks with overlapping *descriptions* can be allocated to different boxes. This is **not** a reproduced collision between running workers, nor proof that an automatic scope checker belongs in AgentBox.
 
-A second small, reproducible observation might help clarify the intended boundary: the current task store accepts both `assignTasks` and `addTask`-with-`boxJobId` for a task whose explicit `dependsOn` predecessor is still `todo`, recording the dependent task as `in_progress`. [Source-pinned native test and limitations](https://github.com/opensiro/upstream/blob/main/pilots/agentbox-s2/NATIVE_DEPENDENCY_DISPATCH_RECEIPT_2026-10-20.md). This measures assignment metadata, **not a child agent running early**, and may be intentional preassignment rather than a bug. It suggests that manager scheduling versus task-store enforcement is a meaningful design decision.
+I have not opened an implementation PR or changed AgentBox. I would prepare a small native before/after scenario if the scope matches your plans.
 
-Would this fit the intended Phase 4 direction? In particular:
+## Separate candidate: dependency readiness
 
-1. Should the initial implementation be an **agent instruction/manager brief using existing `agentbox tasks` and message surfaces**, or is a persistent task-level intended-file-scope field/API acceptable?
-2. For two tasks aiming to change `src/payments/**`, should the preferred response be grouping them into **one box**, a dependency/serialization proposal or asking the user, rather than global path locking?
-3. Where should a supervisor return a rejected/stale plan and ask the workers to re-scope? And should missing/ambiguous path intent always block automatic *parallel* assignment?
-4. How should the design preserve normal independent `docs/**` work, explicit human choices, multi-host manager records, task reassignment and rollback?
-5. Is `dependsOn` **advisory planning metadata** (preassignment while predecessors are unfinished is expected), or should an optional Phase 4 manager actively defer dispatch of such tasks? Would changing core task-store statuses harm current users?
+A subsequent [native task-store experiment](https://github.com/opensiro/upstream/blob/main/pilots/agentbox-s2/NATIVE_DEPENDENCY_DISPATCH_RECEIPT_2026-10-20.md) showed that task allocation can mark a dependent task `in_progress` while its `dependsOn` predecessor is `todo`. This is **not** a demonstrated prematurely executing worker or necessarily a bug. It is a **different, parked improvement candidate** ([card](../../candidates/agentbox-dependency-readiness-20261020.md)), intentionally **not bundled** into the file-overlap discussion or a proposed first patch. If maintainers later clarify manager dispatch semantics, it can be evaluated separately.
 
-I have not made a third-party fork, implementation PR, or issue for this proposal. I would be glad to prepare a minimal, source-pinned acceptance test and then a bounded change **once the desired interface is clear**.
+## Boundaries
 
-Context: [pinned current-source analysis and proposed scenarios](https://github.com/opensiro/upstream/blob/main/pilots/agentbox-s2/SCREENING_AND_NATIVE_FIT_2026-10-20.md).
-
-## Publication boundary
-
-- This must be reviewed and submitted deliberately by the authorized operator; no external communication has been made.
-- Do not present a VSM grade as a bug report or claim that the function is wholly absent in every downstream deployment.
-- Do not promise built-in file locks/sandboxing: neither exist in the proposed manager-brief route, and task titles are not authoritative file-scope claims.
-- If maintainers decline the feature, record a negative native-fit result under [OpenSiro #61](https://github.com/opensiro/upstream/issues/61) and select another candidate. No artificial PR is needed.
+- The issue body above is for deliberate human review/publication; no issue, fork or PR in AgentBox was created by drafting it.
+- Do not claim AgentBox has a product bug merely because an Index assessment did not credit S2 autonomy; no grade change is requested.
+- AgentBox requests an issue first for features bigger than bug fixes, and an eventual PR requires the CLA and matching public docs for CLI/API changes.
+- A favorable answer is product **design feedback**, not authorization to push an external patch or publish an external PR. Preserve the existing OpenSiro stage permissions.
