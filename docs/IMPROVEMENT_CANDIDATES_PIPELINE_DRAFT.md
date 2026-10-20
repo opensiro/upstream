@@ -18,8 +18,10 @@ Therefore introduce a **research-only, many-candidate intake** between Index and
 ## Proposed pipeline
 
 ```text
-Index: accepted general VSM assessment @ immutable Index commit
-       | (read-only observation; never invent a missing-function bug)
+Index: all accepted general VSM assessments @ immutable Index commit
+       | six explicit function screens per included assessment:
+       | S1 / S2 / S3 / S3* / S4 / S5; zero-to-many hypotheses
+       | read-only queue; missing review stays UNREVIEWED
        v
 Upstream: improvement candidate intake [NEW]
        | one assessment → zero, one, or many independently named candidates
@@ -41,6 +43,16 @@ External upstream issue/PR (separately authorized) → maintainer feedback
 ```
 
 **Implementation rule:** no new agent, service, database, automated sorter, GitHub fork or writing right. Candidate cards are linked Markdown research records under [`candidates/`](../candidates/README.md); live source/issue/release status remains authoritative in its owning repository. The canonical Index assessment **does not** store improvement candidates; Index is the fact source for the assessed system, Upstream owns hypotheses and contribution outcomes.
+
+## Exhaustive included-assessment function sweep before candidate qualification
+
+**Coverage requirement (proposed):** inventory **all** included Index assessments, not just those matching search keywords or scored `S2=—`. Per assessment, explicitly inspect **S1, S2, S3, S3*, S4 and S5**, regardless of current autonomy grade. A missing function is not a product defect and a positive function is not immune to useful improvement. Every function must have a review outcome and substantive rationale: `REVIEWED_ZERO` (no defensible change from this bounded screen), `HYPOTHESES_RECORDED` (link 1..N existing independent candidate cards), `BLOCKED_EVIDENCE`, or `UNREVIEWED`.
+
+The deterministic, **read-only** [`sweep_index_assessments.py`](../scripts/sweep_index_assessments.py) reads an exact local frozen Index Git HEAD and produces a complete sorted outstanding assessment worklist (paginated via `--offset/--limit`); explicit per-system [`sweeps/*.json` receipts](../sweeps/README.md) are required before counting six-slot analysis as completed. **Missing receipt means unreviewed, not zero candidates**. All excluded/proposed records remain visible in inventory but are not silently admitted to the sweep. Older Index frontmatter may contain additional legitimate historical fields; this sweep parser requires core identities and all function sections without rejecting those extras.
+
+A system counts fully function-screened only when each of the six slots is explicitly reviewed. This is **research coverage, not native product validation**: after generating `0..N` hypotheses, only individually promising ones proceed to live current-upstream checks for **need / mechanism / counterfactual benefit / scope**, then falsifiable before/after and finally the separate contribution proposal route. A negative screen is allowed and valuable. No script promotes a candidate based on autonomy grades or string matches; no generator fills missing reviews with generic reasons.
+
+The baseline [Index-wide coverage receipt](../reports/2026-10-21-full-index-function-sweep-bootstrap.md) records the first frozen run. The coverage denominator must be recalculated from the current Index rather than copied into permanent organizational assumptions.
 
 ## Candidate identity and minimum fields
 
