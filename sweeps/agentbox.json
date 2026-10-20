@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "index_sha": "5393b698bfdfa4ca14d97a79238234eca20694e5",
+  "assessment_path": "assessments/ag/agentbox.md",
+  "review_ref": "463a6a0a20176147f0b0dbfa8a261aba5e43cbd6",
+  "reviewed_at": "2026-10-21",
+  "functions": {
+    "S1": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "At the reviewed boundary, supported coding agents already execute operational work inside boxes (S1=A). This bounded function review does not identify a distinct S1 product change supported by the assessment; absence of a candidate is not proof of optimal S1 behavior.",
+      "candidate_ids": []
+    },
+    "S2": {
+      "outcome": "HYPOTHESES_RECORDED",
+      "rationale": "The Index explicitly identifies manual prevention of overlapping file edits across boxes and no first-party conflict-specific grouping/feedback at reviewed ref. One opt-in manager task-overlap grouping hypothesis is recorded; current native need/design is still BLOCKED_EVIDENCE.",
+      "candidate_ids": [
+        "IMPR-AGENTBOX-S2-OVERLAP-20261020"
+      ]
+    },
+    "S3": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "The manager's own brief is planned rather than shipped, and current sessions and task state do not establish a first-party whole-system S3 controller. This review finds no separately evidenced native product benefit from an S3-targeted intervention beyond the scoped S2 overlap hypothesis.",
+      "candidate_ids": []
+    },
+    "S3*": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "The Index records timeline and PR observation without an independently decisive audit judgment or corrective closure. No specific requested safety/audit defect or bounded native patch is established by this assessment, so no independent S3* candidate is opened.",
+      "candidate_ids": []
+    },
+    "S4": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "No external prospective intelligence loop is established in the reviewed native boundary, but the assessment provides no particular product bug or measured user demand that justifies adding one. A missing S4 autonomy function alone is not a feature request.",
+      "candidate_ids": []
+    },
+    "S5": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "User objectives and approvals are not a first-party ultimate-policy/identity loop in the assessed boundary. The Index evidence does not by itself establish that shipping a new S5 controller would improve AgentBox's intended product use, so the bounded review yields no candidate.",
+      "candidate_ids": []
+    }
+  }
+}
