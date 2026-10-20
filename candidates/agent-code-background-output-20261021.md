@@ -21,6 +21,8 @@ At current `main@82e0edfa7372c256d893d0854f954d9099254f88`, [`crates/lib/src/ser
 
 **Single bounded change hypothesis:** namespace task artifacts per session with correctly scoped adoption, or implement robust collision-resistant task IDs. Neither migration is yet selected: preserve prior-session resume and previous persisted task identity, correctly handle local/remote processes and prevent cross-session mixing.
 
+## Four native fit gates
+
 | Native gate | Verdict | Evidence |
 | --- | --- | --- |
 | Need | `PASS` | First-party issue #515 details multi-process collision and current source identity design corroborates the mechanism |
