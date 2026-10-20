@@ -1,0 +1,58 @@
+diff --git a/agentdescent/demo.py b/agentdescent/demo.py
+index 62ec384..3fa5b17 100644
+--- a/agentdescent/demo.py
++++ b/agentdescent/demo.py
+@@ -55,7 +55,12 @@ _AGENT_SRC = (
+     "print(sum(int(r[col]) for r in rows) if rows and col in rows[0] else 'unknown')"
+ )
+ 
+-_SKILL_MD = f"""# {DEMO_SKILL}
++_SKILL_MD = f"""---
++name: {DEMO_SKILL}
++description: Use when asked to total a column of data.csv in the working directory.
++---
++
++# {DEMO_SKILL}
+ 
+ Total one column of `data.csv`, which is in the working directory.
+ 
+diff --git a/changelog.d/453-demo-skill-frontmatter.md b/changelog.d/453-demo-skill-frontmatter.md
+new file mode 100644
+index 0000000..275e2cb
+--- /dev/null
++++ b/changelog.d/453-demo-skill-frontmatter.md
+@@ -0,0 +1 @@
++Fixed `agentdescent demo` to create a valid, host-discoverable Agent Skill with `name` and `description` frontmatter, preserving the offline evolution example.
+diff --git a/tests/test_demo.py b/tests/test_demo.py
+index 50df88d..043386f 100644
+--- a/tests/test_demo.py
++++ b/tests/test_demo.py
+@@ -29,6 +29,28 @@ def test_build_writes_a_skill_that_is_wrong_on_purpose(tmp_path):
+     assert json.loads((tmp_path / "spec.json").read_text()) == spec
+ 
+ 
++def test_demo_generated_skill_has_valid_host_metadata(tmp_path):
++    """Demo output must have valid metadata required by Agent Skill hosts."""
++    from agentdescent.filetree import load_tree
++    from agentdescent.skillspec import parse_skill_frontmatter, validate_skill_tree
++
++    demo.build(str(tmp_path))
++    skill_dir = tmp_path / demo.DEMO_SKILL
++    tree = load_tree(str(skill_dir))
++    assert validate_skill_tree(tree, root_name=demo.DEMO_SKILL) == []
++    frontmatter = parse_skill_frontmatter(tree["SKILL.md"])
++    assert frontmatter is not None
++    assert frontmatter["name"] == demo.DEMO_SKILL
++    assert "data.csv" in frontmatter["description"]
++    # A generated demo spec must not silently disable the SKILL.md validator.
++    plan = subprocess.run(
++        [sys.executable, "-m", "agentdescent.cli", "plan", str(tmp_path / "spec.json")],
++        capture_output=True, text=True, cwd=ROOT, timeout=30,
++    )
++    assert plan.returncode == 0, plan.stdout + plan.stderr
++    assert "structural gate is off" not in plan.stdout + plan.stderr
++
++
+ def test_the_demo_spec_needs_no_credentials_and_no_allowlist_widening(tmp_path):
+     spec = demo.build(str(tmp_path))
+     # both refs live inside the package, so `allow` stays empty -- a newcomer
