@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "index_sha": "5393b698bfdfa4ca14d97a79238234eca20694e5",
+  "assessment_path": "assessments/ag/agent-runtime-mattbusel.md",
+  "review_ref": "c398a209d0e503c4d47ce6e27888e13e83790ed1",
+  "reviewed_at": "2026-10-21",
+  "functions": {
+    "S1": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "AgentRuntime composes an ordinary tool-observing ReAct agent with caller-provided inference and bounded session/checkpoint handling. No particular tool-loop defect or affected user behavior was substantiated in the native issue check.",
+      "candidate_ids": []
+    },
+    "S2": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "The negotiation module accepts competing agent compute/memory/token proposals and applies deterministic allocation strategies to return resource outcomes. This is already an inter-S1 resource conflict attenuation, although downstream integration owns actual enforcement; no specific broken allocation case is reported.",
+      "candidate_ids": []
+    },
+    "S3": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "AgentSupervisor and Erlang-style supervised child restarts apply one-for-one/group policies and escalation under current failure-state observation. These are real deterministic S3 mechanisms, not proof that adding discretionary model management would improve reliability.",
+      "candidate_ids": []
+    },
+    "S3*": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "A separate shadow traffic path pairs sampled production and shadow responses and reports divergences for possible follow-up. It supports S3* comparison under configured assumptions; no concrete false-divergence or missing remediation requirement was established by the bounded assessment.",
+      "candidate_ids": []
+    },
+    "S4": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Temporal belief history, reflection, memory consolidation and planning can change local context but do not establish an outside-and-then organizational capability adaptation decision. No native demand for an external-prospective loop was observed.",
+      "candidate_ids": []
+    },
+    "S5": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "PolicyStore RBAC conditions, roles, allow/deny limits and runtime config enforce already-authored choices rather than resolve ultimate purpose/identity disputes. No supported S5 redesign candidate is implied by the absent function.",
+      "candidate_ids": []
+    }
+  }
+}
