@@ -2,7 +2,13 @@
 
 This directory is a proposed **Upstream-owned research intake**, separate from [`registry.yaml`](../registry.yaml) (real forks/contributions), [`cases/`](../cases/README.md) (observed portfolio), and the existing [`batch_proposals.py`](../docs/BATCH_PROPOSALS.md) (selected proposal-only GitHub stages).
 
-**No candidate card is authorization to create a fork, change an external project or submit an upstream issue/PR.** See the [design and status contract](../docs/IMPROVEMENT_CANDIDATES_PIPELINE_DRAFT.md) and [Upstream #56](https://github.com/opensiro/upstream/issues/56). Dates/SHAs reflect inspected 2026-10-20 sources, **not live future state**. Actual issue/PR/source status must be refreshed before execution.
+**No candidate card is authorization to create a fork, change an external project or submit an upstream issue/PR.** See the [design and status contract](../docs/IMPROVEMENT_CANDIDATES_PIPELINE_DRAFT.md) and [Upstream #56](https://github.com/opensiro/upstream/issues/56). Dates/SHAs reflect source snapshots inspected 2026-10-20–21, **not live future state**. Actual issue/PR/source status must be refreshed before execution.
+
+## Index-wide source of improvement hypotheses
+
+New assessment-derived work begins with the **full included Index queue**, not keyword-filtered S2-only shortlists. Run [the read-only all-six-function sweep](../sweeps/README.md) at a trusted frozen Index HEAD and record separate S1 / S2 / S3 / S3* / S4 / S5 function decisions **for each included system**. Every system yields **zero to many** hypotheses; missing reviews are *not* zero-candidate outcomes. Current [coverage baseline and outstanding count](../reports/2026-10-21-full-index-function-sweep-bootstrap.md) is source-pinned, not an assumption about all future Index commits.
+
+This `candidates/` directory represents only concrete hypotheses **after** such analysis; it must not be filled with one card per system just to make its size match the Index. Hypothesis discovery/coverage and independent target-native demand/fit are separate stages. An `ASSESSMENT_INFORMED` candidate can coexist in the pool but never gets upgraded to `ASSESSMENT_DERIVED` merely because its target was included in the full sweep.
 
 ## Offline candidate integrity check (proposed)
 
@@ -19,7 +25,7 @@ Cards use a small, strictly parsed YAML-like **scalar frontmatter** for identity
 
 ## Linkage to the existing proposal-only path
 
-The [read-only candidate-to-proposal linker](../scripts/improvement_candidate_linkage.py) checks an **already** qualified/selected assessment-linked candidate against an **already authored** `batch_proposals.py` manifest item and local pinned Index assessment object. It rejects blocked cards/proposals, different target repositories, changed assessment refs and dishonest `QUALIFIED` flags with incomplete native-fit declarations. It never creates a candidate, draft or permission; see the [detailed design and example](../docs/IMPROVEMENT_CANDIDATES_PIPELINE_DRAFT.md#offline-candidate-to-existing-proposal-linkage-prototype-still-not-promotion). All current cards are blocked or parked, so only **synthetic isolated test fixtures** cover a positive linkage; real product fit and canonical live source checks remain external human/agent duties.
+The [read-only candidate-to-proposal linker](../scripts/improvement_candidate_linkage.py) checks an **already** qualified/selected assessment-linked candidate against an **already authored** `batch_proposals.py` manifest item and local pinned Index assessment object. It rejects blocked cards/proposals, different target repositories, changed assessment refs and dishonest `QUALIFIED` flags with incomplete native-fit declarations. It never creates a candidate, draft or permission; see the [detailed design and example](../docs/IMPROVEMENT_CANDIDATES_PIPELINE_DRAFT.md#offline-candidate-to-existing-proposal-linkage-prototype-still-not-promotion). No current card is qualified or selected, so only **synthetic isolated test fixtures** cover a positive linkage; real product fit and canonical live source checks remain external human/agent duties.
 
 ## Initial candidates (not a ranked or approved queue)
 
