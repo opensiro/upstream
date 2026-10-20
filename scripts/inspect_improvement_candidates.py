@@ -108,8 +108,8 @@ def inspect(root):
     if not root.is_dir():
         raise CandidateError("Candidate directory missing")
     cards = sorted(p for p in root.glob("*.md") if p.name != "README.md")
-    if not cards or len(cards) > 500:
-        raise CandidateError("Candidate collection empty or oversized")
+    if len(cards) > 500:
+        raise CandidateError("Candidate collection oversized")
     seen = set()
     entries = []
     for path in cards:
