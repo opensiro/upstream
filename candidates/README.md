@@ -4,6 +4,19 @@ This directory is a proposed **Upstream-owned research intake**, separate from [
 
 **No candidate card is authorization to create a fork, change an external project or submit an upstream issue/PR.** See the [design and status contract](../docs/IMPROVEMENT_CANDIDATES_PIPELINE_DRAFT.md) and [Upstream #56](https://github.com/opensiro/upstream/issues/56). Dates/SHAs reflect inspected 2026-10-20 sources, **not live future state**. Actual issue/PR/source status must be refreshed before execution.
 
+## Offline candidate integrity check (proposed)
+
+Run the **read-only local structural inspector** on this directory:
+
+```bash
+python3 scripts/inspect_improvement_candidates.py --root candidates --format text
+python3 -m unittest discover -s tests -p 'test_inspect_improvement_candidates.py' -v
+```
+
+Cards use a small, strictly parsed YAML-like **scalar frontmatter** for identity, original Index pin, current target source pin, candidate state and four native-fit gate declarations. Duplicate IDs, malformed pins, missing supporting prose, unsupported status values and `QUALIFIED/SELECTED` claims with incomplete gates fail closed. A dedicated credential-free [CI workflow](../.github/workflows/improvement-candidates.yml) runs these checks.
+
+**Critical:** This inspector checks only local syntax and internal consistency. The displayed `declared_fit_complete` boolean is a *card author's declaration*, **not** independent verification. It never reads live Index/target repositories or accepts/fabricates authorization, and its output always says `candidate_transition_authorized=false` and `NOT_APPROVED_NO_GITHUB_WRITES`. A real transition to the existing proposal preview still requires separate source/fit verification and operator decision. No input flag can trigger proposal generation or GitHub writes.
+
 ## Initial candidates (not a ranked or approved queue)
 
 | Candidate | Provenance of specific hypothesis | Research state | Next gate |
