@@ -8,7 +8,7 @@ assessment_path: assessments/ag/agentdescent.md
 review_ref: d1cfa8f6eb570d927826278c70aa23b86d3c5264
 source_sha: d1cfa8f6eb570d927826278c70aa23b86d3c5264
 fit_need: PASS
-fit_mechanism: PENDING
+fit_mechanism: PASS
 fit_value: PENDING
 fit_scope: PENDING
 ---
@@ -26,8 +26,10 @@ fit_scope: PENDING
 | Gate | Verdict | Evidence |
 | --- | --- | --- |
 | Need | `PASS` | Specific native issue #453 and observed current `_SKILL_MD` generator |
-| Mechanism | `PENDING` | Exact frontmatter, validator contract and doc compatibility not yet implemented/tested |
-| Counterfactual benefit | `PENDING` | No matched native demo + OpenCode/Claude/Codex host-loading before/after |
-| Scope | `PENDING` | Check maintainer's competing PR and ensure demo educational semantics, fixtures and tests stay intact |
+| Mechanism | `PASS` | [Internal native patch PR #68](https://github.com/opensiro/upstream/pull/68) reproduces red-to-green using the first-party `validate_skill_tree`, `plan`, and replay against the exact original source SHA |
+| Counterfactual benefit | `PENDING` | First-party gate changed from `['no-frontmatter']` to `[]` and 219/219 scoped native tests passed on clean patch replay; real OpenCode/Claude/Codex host discovery and full CI remain unverified |
+| Scope | `PENDING` | No competing PR found in bounded search; tests preserve demo semantics, but full native CI and external host validation are outstanding; external publication is human-controlled |
 
-**Baseline:** issue-reported host behavior, source-consistent; independent host test `NOT_RUN`. **After:** `NOT_IMPLEMENTED`. **Next gate:** add isolated deterministic test `demo → validate_skill_tree`, then a small fix and real host discovery smoke, preserving the original offline evaluation. **Not** a verified S4 grade change or contribution. No third-party files/issue/PR written.
+**Implementation checkpoint (2026-10-21):** [Internal OpenSiro Draft PR #68](https://github.com/opensiro/upstream/pull/68) contains a [three-file native patch and exact red/green receipt](https://github.com/opensiro/upstream/blob/pilot/agentdescent-453-native-fix-20261021/pilots/agentdescent-453/README.md). On exact current upstream `main@d1cfa8f`, the original demo returns `['no-frontmatter']` under the project's validator; the new regression test fails. After applying the patch to an **independent clean checkout**, the same validator returns `[]`, demo `plan` does not disable the structural skill gate, and **219/219 scoped native tests PASS** (98.37 seconds). `git apply --check` and focused **114/114 tests PASS** as well. Patch SHA-256: `2910c29c7236dc8c351920510068e236b54114e1c5a1d043700c7b5777e5265b`.
+
+**Remaining blockers:** real host discovery `NOT_RUN`, complete upstream `pytest -q` `NOT_COMPLETE` (interrupted at ~5%), upstream CI `NOT_RUN`, upstream maintainer review `NOT_STARTED`. The evidence supports a local native **format/gate behavior improvement**, not an externally adopted or released product improvement. Candidate stays `SCREENING` with `fit_value` and `fit_scope` `PENDING`, no `QUALIFIED` or `SELECTED` promotion. This remains `ASSESSMENT_INFORMED`, **not** a diagnosis of missing S4 from Index. No third-party code, issue, PR, fork or Index grade was written.
