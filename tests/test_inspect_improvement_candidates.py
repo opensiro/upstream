@@ -34,9 +34,9 @@ class CandidateIntegrityTests(unittest.TestCase):
     def test_current_cards_are_structurally_valid_but_never_authorized(self):
         before = {p.name: p.read_bytes() for p in self.root.glob("*.md")}
         report = inspect(self.root)
-        self.assertEqual(report["count"], 3)
+        self.assertEqual(report["count"], 4)
         self.assertEqual({x["state"] for x in report["candidates"]},
-                         {"BLOCKED_EVIDENCE", "PARKED"})
+                         {"BLOCKED_EVIDENCE", "PARKED", "SCREENING"})
         self.assertTrue(all(not x["declared_fit_complete"] for x in report["candidates"]))
         for flag in ("live_index_verified", "native_fit_verified",
                      "candidate_transition_authorized", "proposal_created"):
