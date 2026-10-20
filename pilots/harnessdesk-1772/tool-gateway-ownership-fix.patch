@@ -1,0 +1,362 @@
+diff --git a/packages/server/src/tool-gateway.ts b/packages/server/src/tool-gateway.ts
+index 1e1afcf..621f6d6 100644
+--- a/packages/server/src/tool-gateway.ts
++++ b/packages/server/src/tool-gateway.ts
+@@ -1,5 +1,6 @@
+ import { createServer, type Server, type Socket } from 'node:net'
+-import { chmodSync, mkdirSync, rmSync } from 'node:fs'
++import { randomUUID } from 'node:crypto'
++import { chmodSync, closeSync, existsSync, mkdirSync, openSync, readFileSync, rmdirSync, rmSync, writeFileSync } from 'node:fs'
+ import { dirname } from 'node:path'
+ 
+ import {
+@@ -112,39 +113,177 @@ interface Request {
+   params?: Record<string, unknown>
+ }
+ 
++interface SocketOwner {
++  readonly pid: number
++  readonly nonce: string
++}
++
++const readSocketOwner = (path: string): SocketOwner | null => {
++  try {
++    const value: unknown = JSON.parse(readFileSync(path, 'utf8'))
++    if (typeof value !== 'object' || value === null) return null
++    const record = value as Record<string, unknown>
++    if (!Number.isSafeInteger(record['pid']) || (record['pid'] as number) < 1 ||
++        typeof record['nonce'] !== 'string' || record['nonce'].length < 1) return null
++    return { pid: record['pid'] as number, nonce: record['nonce'] }
++  } catch {
++    return null
++  }
++}
++
++const processAlive = (pid: number): boolean => {
++  try {
++    process.kill(pid, 0)
++    return true
++  } catch (error) {
++    // EPERM is not evidence of a dead process: never remove its socket.
++    return (error as NodeJS.ErrnoException).code !== 'ESRCH'
++  }
++}
++
+ export class ToolGateway {
+   #server: Server | null = null
++  #ownerNonce: string | null = null
++
++  readonly #lockPath: string
++
+ 
+   constructor(
+     private readonly socketPath: string,
+     private readonly backend: ToolGatewayBackend,
+-  ) {}
++  ) {
++    this.#lockPath = this.socketPath + '.owner'
++  }
++
++  /** Only the owner with the matching nonce may unlink this gateway's lock. */
++  #releaseOwner(): void {
++    if (this.#ownerNonce === null) return
++    if (readSocketOwner(this.#lockPath)?.nonce === this.#ownerNonce) {
++      rmSync(this.#lockPath, { force: true })
++    }
++    this.#ownerNonce = null
++  }
+ 
+   start(): void {
++    if (this.#server !== null || this.#ownerNonce !== null) {
++      throw new Error('Tool gateway has already started.')
++    }
+     mkdirSync(dirname(this.socketPath), { recursive: true, mode: 0o700 })
+-    rmSync(this.socketPath, { force: true })
+-    this.#server = createServer((socket) => this.#serve(socket))
+-    this.#server.listen(this.socketPath, () => {
++
++    let reclaimedDeadOwner = false
++    const recoveryPath = this.#lockPath + '.recovery'
++    let recovering = false
++    // A second atomic directory lock serializes stale-lock recovery. Two
++    // contenders after one crashed host must never both reclaim and unlink
++    // the socket. A crashed reclaimer leaves the directory deliberately
++    // fail-closed, for explicit operator diagnosis.
++    for (let attempt = 0; attempt < 3; attempt++) {
++      if (!recovering && existsSync(recoveryPath)) {
++        throw new Error(`Tool gateway owner recovery is already in progress at ${this.socketPath}`)
++      }
++      const nonce = randomUUID()
++      let fd: number
++      try {
++        fd = openSync(this.#lockPath, 'wx', 0o600)
++      } catch (error) {
++        if ((error as NodeJS.ErrnoException).code !== 'EEXIST') throw error
++        if (recovering) {
++          rmdirSync(recoveryPath)
++          throw new Error(`Concurrent gateway owner claim at ${this.socketPath}`)
++        }
++        try {
++          mkdirSync(recoveryPath, { mode: 0o700 })
++        } catch {
++          throw new Error(`Concurrent gateway owner recovery at ${this.socketPath}`)
++        }
++        recovering = true
++        try {
++          const owner = readSocketOwner(this.#lockPath)
++          if (owner === null || processAlive(owner.pid)) {
++            throw new Error(`Tool gateway is already owned or ownership is unclear at ${this.socketPath}`)
++          }
++          const again = readSocketOwner(this.#lockPath)
++          if (again === null || again.nonce !== owner.nonce || again.pid !== owner.pid) {
++            throw new Error(`Tool gateway ownership changed at ${this.socketPath}`)
++          }
++          rmSync(this.#lockPath, { force: true })
++        } catch (error) {
++          rmdirSync(recoveryPath)
++          throw error
++        }
++        reclaimedDeadOwner = true
++        continue
++      }
+       try {
+-        chmodSync(this.socketPath, 0o600)
+-      } catch {
+-        // Permissions on the parent directory still hold.
++        writeFileSync(fd, JSON.stringify({ pid: process.pid, nonce } satisfies SocketOwner))
++      } catch (error) {
++        closeSync(fd)
++        rmSync(this.#lockPath, { force: true })
++        if (recovering) rmdirSync(recoveryPath)
++        throw error
+       }
+-    })
++      closeSync(fd)
++      this.#ownerNonce = nonce
++      if (recovering) {
++        rmdirSync(recoveryPath)
++        recovering = false
++      } else if (existsSync(recoveryPath)) {
++        this.#releaseOwner()
++        throw new Error(`Concurrent gateway owner recovery at ${this.socketPath}`)
++      }
++      break
++    }
++    if (this.#ownerNonce === null) {
++      throw new Error(`Unable to claim tool gateway ownership at ${this.socketPath}`)
++    }
++
++    try {
++      if (existsSync(this.socketPath)) {
++        if (!reclaimedDeadOwner) {
++          // An older or unknown host may still own this path. Refuse until
++          // it is diagnosed; an empty owner file is not a stale-socket proof.
++          throw new Error(`Tool gateway socket has no verified dead owner at ${this.socketPath}`)
++        }
++        rmSync(this.socketPath, { force: true })
++      }
++      this.#server = createServer((socket) => this.#serve(socket))
++      this.#server.once('error', (error) => {
++        this.#server = null
++        this.#releaseOwner()
++        throw error
++      })
++      this.#server.listen(this.socketPath, () => {
++        try {
++          chmodSync(this.socketPath, 0o600)
++        } catch {
++          // Permissions on the parent directory still hold.
++        }
++      })
++    } catch (error) {
++      this.#server = null
++      this.#releaseOwner()
++      throw error
++    }
+   }
+ 
+   /** Every bridge connected right now — ended by `stop`, which must not wait on an agent that has not hung up. */
+   readonly #sockets = new Set<Socket>()
+ 
+   async stop(): Promise<void> {
++    // A rejected duplicate has no server or ownership; its cleanup must not
++    // unlink the running first host's socket.
++    if (this.#server === null || this.#ownerNonce === null) return
+     await new Promise<void>((resolve) => {
+-      if (!this.#server) return resolve()
+-      this.#server.close(() => resolve())
++      this.#server!.close(() => resolve())
+       for (const socket of this.#sockets) socket.destroy()
+       this.#sockets.clear()
+     })
+-    rmSync(this.socketPath, { force: true })
++    // The same ownership check guards both the socket and its lockfile.
++    if (readSocketOwner(this.#lockPath)?.nonce === this.#ownerNonce) {
++      rmSync(this.socketPath, { force: true })
++    }
+     this.#server = null
++    this.#releaseOwner()
+   }
+ 
+   #serve(socket: Socket): void {
+diff --git a/packages/server/test/tool-gateway-ownership.test.ts b/packages/server/test/tool-gateway-ownership.test.ts
+new file mode 100644
+index 0000000..b10282b
+--- /dev/null
++++ b/packages/server/test/tool-gateway-ownership.test.ts
+@@ -0,0 +1,155 @@
++/**
++ * HarnessDesk #1772: a duplicate host must not take or unlink a live
++ * ToolGateway's socket, and a crashed owner's socket can be reclaimed.
++ */
++import assert from 'node:assert/strict'
++import { spawn } from 'node:child_process'
++import { once } from 'node:events'
++import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
++import { connect } from 'node:net'
++import { tmpdir } from 'node:os'
++import { join } from 'node:path'
++import { test } from 'node:test'
++
++import type { ToolResult } from '@harnessdesk/protocol'
++import { ToolGateway } from '../src/tool-gateway.js'
++
++const socketHome = (): string =>
++  tmpdir().length < 104 - '/hd-ownership-XXXXXX/tools.sock'.length ? tmpdir() : '/tmp'
++
++const gatewayFor = (path: string, who: string): ToolGateway =>
++  new ToolGateway(path, {
++    listTools: () => [],
++    invokeByName: async (): Promise<ToolResult> => ({ ok: true, content: [] }),
++    instructions: () => who,
++  })
++
++const whoAnswers = (path: string): Promise<string> =>
++  new Promise((resolve, reject) => {
++    const socket = connect(path)
++    let received = ''
++    const timeout = setTimeout(() => { socket.destroy(); reject(new Error('gateway timed out')) }, 3000)
++    timeout.unref()
++    socket.once('error', (err) => { clearTimeout(timeout); reject(err) })
++    socket.on('connect', () => socket.write('{"id":1,"method":"server/info","params":{}}\n'))
++    socket.on('data', (bytes) => {
++      received += bytes.toString()
++      if (!received.includes('\n')) return
++      clearTimeout(timeout)
++      socket.end()
++      resolve((JSON.parse(received.split('\n')[0]!) as { result: { instructions: string } }).result.instructions)
++    })
++  })
++
++test('duplicate gateway cannot steal or unlink the live first host tool socket', async () => {
++  const home = mkdtempSync(join(socketHome(), 'hd-ownership-'))
++  const socket = join(home, 'tools.sock')
++  const first = gatewayFor(socket, 'first')
++  const duplicate = gatewayFor(socket, 'duplicate')
++  try {
++    first.start()
++    assert.equal(await whoAnswers(socket), 'first')
++    assert.throws(() => duplicate.start(), /already owned/)
++    assert.equal(await whoAnswers(socket), 'first')
++    await duplicate.stop()
++    assert.equal(await whoAnswers(socket), 'first')
++    assert.throws(() => first.start(), /already started/)
++  } finally {
++    await duplicate.stop()
++    await first.stop()
++    assert.equal(existsSync(socket + '.owner'), false)
++    rmSync(home, { recursive: true, force: true })
++  }
++})
++
++test('stale owner lock and stale socket are reclaimed after owner PID exits', async () => {
++  const home = mkdtempSync(join(socketHome(), 'hd-stale-'))
++  const socket = join(home, 'tools.sock')
++  const gateway = gatewayFor(socket, 'restarted')
++  try {
++    writeFileSync(socket + '.owner', JSON.stringify({ pid: 2147483000, nonce: 'terminated' }))
++    writeFileSync(socket, 'stale after crashed host')
++    gateway.start()
++    assert.equal(await whoAnswers(socket), 'restarted')
++    const owner = JSON.parse(readFileSync(socket + '.owner', 'utf8')) as { pid: number; nonce: string }
++    assert.equal(owner.pid, process.pid)
++    assert.notEqual(owner.nonce, 'terminated')
++    assert.equal(existsSync(socket + '.owner.recovery'), false)
++  } finally {
++    await gateway.stop()
++    rmSync(home, { recursive: true, force: true })
++  }
++})
++
++test('a killed separate host leaves a reclaimable socket without stealing a live host', async () => {
++  const home = mkdtempSync(join(socketHome(), 'hd-process-'))
++  const socket = join(home, 'tools.sock')
++  const gatewayURL = new URL('../src/tool-gateway.js', import.meta.url).href
++  const childScript = `
++    import { ToolGateway } from ${JSON.stringify(gatewayURL)};
++    const gateway = new ToolGateway(process.argv[1], {
++      listTools: () => [],
++      invokeByName: async () => ({ ok: true, content: [] }),
++      instructions: () => 'child-owner',
++    });
++    gateway.start();
++    setInterval(() => {}, 1000);
++  `
++  const child = spawn(process.execPath, ['--input-type=module', '-e', childScript, socket],
++    { stdio: 'ignore' })
++  const recovery = gatewayFor(socket, 'recovered')
++  try {
++    const deadline = Date.now() + 5000
++    for (;;) {
++      try {
++        assert.equal(await whoAnswers(socket), 'child-owner')
++        break
++      } catch (error) {
++        if (Date.now() >= deadline) throw error
++        await new Promise((resolve) => setTimeout(resolve, 50))
++      }
++    }
++    assert.throws(() => recovery.start(), /already owned/)
++    assert.equal(await whoAnswers(socket), 'child-owner')
++    child.kill('SIGKILL')
++    await once(child, 'exit')
++    recovery.start()
++    assert.equal(await whoAnswers(socket), 'recovered')
++    await recovery.stop()
++    assert.equal(existsSync(socket + '.owner'), false)
++  } finally {
++    child.kill('SIGKILL')
++    await recovery.stop()
++    rmSync(home, { recursive: true, force: true })
++  }
++})
++
++test('another host refuses an in-progress stale recovery instead of removing its socket', async () => {
++  const home = mkdtempSync(join(socketHome(), 'hd-recovery-'))
++  const socket = join(home, 'tools.sock')
++  const gateway = gatewayFor(socket, 'blocked')
++  try {
++    writeFileSync(socket, 'protected during recovery')
++    mkdirSync(socket + '.owner.recovery')
++    assert.throws(() => gateway.start(), /recovery is already in progress/)
++    assert.equal(readFileSync(socket, 'utf8'), 'protected during recovery')
++    await gateway.stop()
++  } finally {
++    rmSync(home, { recursive: true, force: true })
++  }
++})
++
++test('unknown ownerless socket is not removed by a second gateway', async () => {
++  const home = mkdtempSync(join(socketHome(), 'hd-unknown-'))
++  const socket = join(home, 'tools.sock')
++  writeFileSync(socket, 'unknown legacy path; may be in use')
++  const gateway = gatewayFor(socket, 'refused')
++  try {
++    assert.throws(() => gateway.start(), /no verified dead owner/)
++    await gateway.stop()
++    assert.equal(readFileSync(socket, 'utf8'), 'unknown legacy path; may be in use')
++    assert.equal(existsSync(socket + '.owner'), false)
++  } finally {
++    rmSync(home, { recursive: true, force: true })
++  }
++})
