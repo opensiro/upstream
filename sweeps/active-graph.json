@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "index_sha": "5393b698bfdfa4ca14d97a79238234eca20694e5",
+  "assessment_path": "assessments/ac/active-graph.md",
+  "review_ref": "50d8405923b79e4e823a73a3045bb969436a872c",
+  "reviewed_at": "2026-10-21",
+  "functions": {
+    "S1": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "The first-party LLMBehavior runtime accepts graph views and tools, executes model-selected calls and feeds results into typed patch/event continuation. A current native replay correctness issue exists elsewhere, but is already tracked by upstream PR #86; it is not a newly discovered S1 candidate here.",
+      "candidate_ids": []
+    },
+    "S2": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Optimistic patch validation, graph-event queueing and serialized updates preserve shared graph consistency but are not separate mutual adjustment among independently continuing S1 divisions. No specific user-demanded peer-workload coordination mechanism is established for this generic graph runtime.",
+      "candidate_ids": []
+    },
+    "S3": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Frame and Policy budgets, scheduling/authority evaluation and failure events are static constructor/runtime controls, not current cross-S1 portfolio commitments. The assessed architecture does not provide a bounded native S3 intervention with measurable demand.",
+      "candidate_ids": []
+    },
+    "S3*": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Replay/fork/diff and append-only causal records are evidence infrastructure rather than independent managerial audit closure. An actual stale-projection/native integrity issue is documented in upstream #82, but it is already addressed by open Draft PR #86, so no duplicate candidate is opened.",
+      "candidate_ids": []
+    },
+    "S4": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Fork and diff allow developers to compare historical graph alternatives; the standard runtime does not autonomously sense external future conditions, select adaptation and adopt policy/behavior change. There is no evidenced need to install such a loop in its core.",
+      "candidate_ids": []
+    },
+    "S5": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Application-supplied frame, Policy, approval and authority checks enforce capability boundaries but do not decide ultimate identity or purpose. No product-native demand for runtime S5 decision ownership is demonstrated by the assessment or bounded upstream check.",
+      "candidate_ids": []
+    }
+  }
+}
