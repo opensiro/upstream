@@ -1,9 +1,9 @@
 # Zot scoped-admission prototype — executed after-case receipt (2026-10-20)
 
-**Status:** SOURCE-ONLY EXPERIMENT CONFIRMED / NOT A SHIPPED PRODUCT IMPROVEMENT.  
-**Owning issue:** [Upstream #56](https://github.com/opensiro/upstream/issues/56).  
-**Experimental PR:** [Upstream #59](https://github.com/opensiro/upstream/pull/59).  
-**Canonical assessment provenance:** [Index `main@5393b698bfdfa4ca14d97a79238234eca20694e5`](https://github.com/opensiro/vsm-harness-index/commit/5393b698bfdfa4ca14d97a79238234eca20694e5), `assessments/zo/zot.md`, reviewed source `2a19df15ba8278dd6a92240ab6c2ae267c3cf6c3`.  
+**Status:** SOURCE-ONLY EXPERIMENT CONFIRMED / NOT A SHIPPED PRODUCT IMPROVEMENT.
+**Owning issue:** [Upstream #56](https://github.com/opensiro/upstream/issues/56).
+**Experimental PR:** [Upstream #59](https://github.com/opensiro/upstream/pull/59).
+**Canonical assessment provenance:** [Index `main@5393b698bfdfa4ca14d97a79238234eca20694e5`](https://github.com/opensiro/vsm-harness-index/commit/5393b698bfdfa4ca14d97a79238234eca20694e5), `assessments/zo/zot.md`, reviewed source `2a19df15ba8278dd6a92240ab6c2ae267c3cf6c3`.
 **Exact experiment source:** Zot `main@c62d1c549d52cd33390968ffa50667cb79609152` (identical for baseline and after). Real Zot `packages/agent/swarm` package with injected source/test files only in disposable CI worktree.
 
 ## Actual executions (GitHub-hosted runner, Go 1.25.0, no fork/upstream writes)
