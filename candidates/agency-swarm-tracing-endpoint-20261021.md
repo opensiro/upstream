@@ -5,7 +5,7 @@ origin_class: ASSESSMENT_INFORMED
 target_repo: VRSEN/agency-swarm
 index_sha: 5393b698bfdfa4ca14d97a79238234eca20694e5
 assessment_path: assessments/ag/agency-swarm.md
-review_ref: 853d37b9b243c21fab99f8f44a7ea8c67dab5bd6
+review_ref: 853d37b9b243edc5dfe2ff2d2d4658aa8ec9a750
 source_sha: a86d657e12b693be64a8dcb8ead560a7b9a4ef01
 fit_need: PASS
 fit_mechanism: PENDING
