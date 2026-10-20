@@ -79,13 +79,10 @@ class SignedHostEndToEndTests(unittest.TestCase):
         self.assertEqual(self.port.writes(), [])
         self.assertFalse(self.fixture.ledger.exists())
 
-    def test_valid_signature_for_old_base_rejects_changed_stage(self):
+    def test_signed_old_fork_observation_rejects_changed_stage(self):
         self.fixture.signed_payload()
-        self.a["source_sha"] = "d" * 40
-        self.a["base_sha"] = "d" * 40
-        self.port.source_sha = "d" * 40
-        self.port.shared_tree = "e" * 40
-        self.port.commit_parents = ["d" * 40]
+        self.a["fork_observed_sha"] = "d" * 40
+        self.port.work_sha = "d" * 40
         with self.assertRaisesRegex(StageBlocked, "exact intent mismatch"):
             self.run_stage()
         self.assertEqual(self.port.writes(), [])

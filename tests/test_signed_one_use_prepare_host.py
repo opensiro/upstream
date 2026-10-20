@@ -179,6 +179,40 @@ class SignedPrepareGrantTests(unittest.TestCase):
         with self.assertRaisesRegex(StageBlocked, "host-issued object"):
             host.authorize_exact_stage(True, self.intent)
 
+    def test_signature_verifier_ignores_untrusted_path_and_openssl_config(self):
+        self.signed_payload()
+        env = self.grant_file.read_text()
+        parsed = json.loads(env)
+        parsed["signature_b64"] = base64.b64encode(b"x" * 72).decode()
+        self.grant_file.write_text(json.dumps(parsed))
+        self.grant_file.chmod(0o600)
+        fake_dir = self.path / "hostile-bin"
+        fake_dir.mkdir()
+        fake = fake_dir / "openssl"
+        fake.write_text("#!/bin/sh\nexit 0\n")
+        fake.chmod(0o755)
+        old_path = os.environ.get("PATH")
+        old_config = os.environ.get("OPENSSL_CONF")
+        try:
+            os.environ["PATH"] = str(fake_dir)
+            os.environ["OPENSSL_CONF"] = str(fake_dir / "untrusted.conf")
+            with self.assertRaisesRegex(StageBlocked, "signature is not valid"):
+                self.make_host().verify_exact_prepare(self.intent)
+        finally:
+            if old_path is None:
+                os.environ.pop("PATH", None)
+            else:
+                os.environ["PATH"] = old_path
+            if old_config is None:
+                os.environ.pop("OPENSSL_CONF", None)
+            else:
+                os.environ["OPENSSL_CONF"] = old_config
+
+    def test_unpinned_openssl_executable_rejected(self):
+        self.signed_payload()
+        with self.assertRaisesRegex(StageBlocked, "pinned system OpenSSL"):
+            self.make_host(openssl="openssl")
+
     def test_signature_for_different_hash_denied(self):
         self.signed_payload(intent_sha256="a" * 64)
         with self.assertRaisesRegex(StageBlocked, "exact intent mismatch"):

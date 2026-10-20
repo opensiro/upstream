@@ -69,13 +69,22 @@ class SignedOneUsePrepareHost:
     """
 
     def __init__(self, *, public_key_file, trusted_key_sha256, issuer_actor,
-                 signed_grant_file, replay_db, clock=None, openssl="openssl"):
+                 signed_grant_file, replay_db, clock=None, openssl="/usr/bin/openssl"):
         need(type(trusted_key_sha256) is str and HEX64.fullmatch(trusted_key_sha256),
              "No pinned operator public-key fingerprint")
         need(type(issuer_actor) is str and issuer_actor == "xLagerFeuer",
              "Unexpected independently enrolled operator")
-        need(type(openssl) is str and openssl == "openssl",
-             "Only fixed OpenSSL verifier executable supported")
+        need(type(openssl) is str and openssl == "/usr/bin/openssl",
+             "Only pinned system OpenSSL verifier supported")
+        binary = Path(openssl)
+        need(binary.is_file() and not binary.is_symlink()
+             and binary.stat().st_uid == 0
+             and (stat.S_IMODE(binary.stat().st_mode) & 0o022) == 0
+             and all(Path(parent).stat().st_uid == 0
+                     and (stat.S_IMODE(Path(parent).stat().st_mode) & 0o022) == 0
+                     for parent in ("/usr", "/usr/bin")),
+             "System signature verifier/directory is not protected")
+        self._openssl = openssl
         self._public_key_file = Path(public_key_file)
         self._grant_file = Path(signed_grant_file)
         self._db = Path(replay_db)
@@ -146,9 +155,11 @@ class SignedOneUsePrepareHost:
             sig_path.write_bytes(signature)
             try:
                 result = subprocess.run(
-                    ["openssl", "dgst", "-sha256", "-verify", str(key_path),
+                    [self._openssl, "dgst", "-sha256", "-verify", str(key_path),
                      "-signature", str(sig_path), str(message_path)],
-                    capture_output=True, timeout=10, check=False)
+                    capture_output=True, timeout=10, check=False,
+                    env={"PATH": "/usr/bin:/bin", "HOME": "/nonexistent",
+                         "OPENSSL_CONF": "/dev/null"})
             except (OSError, subprocess.TimeoutExpired):
                 raise StageBlocked("Operator signature verifier unavailable") from None
             need(result.returncode == 0, "Operator signature is not valid")
