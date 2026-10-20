@@ -24,10 +24,20 @@ All of the following are required before the host may authorize:
   licensed source and direct public fork under `opensiro-contributions`,
   matching source/fork name, authenticated `push=true`, and host-attested
   exact GitHub actor/capability.
-- Source and fork bases are **at the identical reviewed SHA**. This is
-  intentional: a stale fork must first be reconciled **outside** this
-  stage. Any moving-base drift, existing contribution branch, preimage
-  modification or existing test file blocks.
+- **Two strictly pinned base modes:** By default source and fork
+  `development` must match the identical reviewed SHA. Alternatively, a
+  complete action may add `fork_observed_sha`, binding the fork's unchanged
+  existing branch to its own exact older SHA while `base_sha == source_sha`
+  identifies the **new contribution branch's parent commit**. In this
+  alternate mode the authenticated provider must independently read that
+  exact Git commit object **from the fork** and confirm its tree, then
+  compare `fork_observed_sha...source_sha` within the fork. Only
+  `ahead/identical`, `behind_by=0`, and
+  `base_commit == merge_base == fork_observed_sha` are admissible.
+  Both SHA pins and the ancestry proof are rechecked **after** the one-use
+  grant and before the only branch-ref write. Existing fork development
+  stays untouched. Missing objects, divergent ancestry, moving refs,
+  wrong file preimages, or a pre-existing contribution branch block.
 - The patch includes exactly these two paths, adds the test, has no
   binary/rename/copy/delete, and matches its pinned digest.
 - The trusted host first returns a **nonprimitive opaque authenticated
