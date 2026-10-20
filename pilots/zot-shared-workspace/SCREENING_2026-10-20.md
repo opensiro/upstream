@@ -1,7 +1,7 @@
 # Upstream #56 — independent Index-first functional intervention screening
 
-**Status:** SCREENED / NO CANDIDATE YET ADMITTED / SOURCE-ONLY.  
-**Origin:** canonical [OpenSiro Index main@5393b698bfdfa4ca14d97a79238234eca20694e5](https://github.com/opensiro/vsm-harness-index/commit/5393b698bfdfa4ca14d97a79238234eca20694e5), observed 2026-10-20.  
+**Status:** SCREENED / NO CANDIDATE YET ADMITTED / SOURCE-ONLY.
+**Origin:** canonical [OpenSiro Index main@5393b698bfdfa4ca14d97a79238234eca20694e5](https://github.com/opensiro/vsm-harness-index/commit/5393b698bfdfa4ca14d97a79238234eca20694e5), observed 2026-10-20.
 **Controlling protocol:** [assessment-to-improvement](../../docs/ASSESSMENT_TO_IMPROVEMENT.md) and [Upstream #56](https://github.com/opensiro/upstream/issues/56). No new S1 admission or write right.
 
 ## Discovery and source order
