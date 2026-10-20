@@ -6,6 +6,12 @@
 
 Phase 4 manager brief: optional file-overlap-aware task grouping before starting boxes?
 
+## Minimal first-contact version (suggested)
+
+> The Phase 4 manager brief in your workspace/task plan still describes cross-box file-overlap grouping as manual. I have a reproducible source-only test showing that current task allocation also allows an assigned task with unfinished `dependsOn` to enter `in_progress`—possibly intentionally, since allocation is not worker execution. Would you prefer an **opt-in manager instruction using existing task/manager APIs** that groups tasks with explicitly overlapping intended paths and defers dependent *dispatch*, while leaving the default task-store semantics unchanged? Or should this remain entirely a human coordination task? No third-party implementation has been started.
+
+Use this shorter question first if appropriate; details and pin/test references below are for follow-up. Publication is still human-owned.
+
 ## Proposed body
 
 I noticed that your `docs/workspaces-tasks-manager-plan.md` says task allocation and keeping separate boxes from fighting over the same files are manual today, while the manager brief (Phase 4) remains planned. I wanted to check which small part of that Phase 4 behavior would be useful to implement without expanding AgentBox's architecture unnecessarily.
