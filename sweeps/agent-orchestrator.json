@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "index_sha": "5393b698bfdfa4ca14d97a79238234eca20694e5",
+  "assessment_path": "assessments/ag/agent-orchestrator.md",
+  "review_ref": "1e4a394b20c470d281b2a7f6f63fd47c30af5019",
+  "reviewed_at": "2026-10-21",
+  "functions": {
+    "S1": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Isolated model-driven coding-worker sessions implement scoped tasks and return changes/tests/PR evidence under AO project boundaries. The independently reported no-write bypass concerns the reviewer role, not a verified failure of the workers' normal operational tool loop.",
+      "candidate_ids": []
+    },
+    "S2": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "A model-driven project orchestrator monitors ownership, messages or redirects workers and applies per-worker worktree boundaries to avoid simultaneous duplicate work. No independent downstream issue in the bounded current scan invalidates that normal worker-coordination path.",
+      "candidate_ids": []
+    },
+    "S3": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "The persistent orchestrator uses project-wide session/CI/PR feedback to spawn, redirect, kill or reprioritize tasks; the human parent can exercise the same control (A(P)). No specific current-management defect was verified by this Index reading alone.",
+      "candidate_ids": []
+    },
+    "S3*": {
+      "outcome": "HYPOTHESES_RECORDED",
+      "rationale": "The Index positively maps independent reviewer sessions as S3*=A. The current independently discovered public issue #6962 reports reviewers bypassing a declared no-write sandbox with shell redirection, risking side effects and untracked submission artifacts. This is a product reliability/security enforcement issue NOT diagnosed at the earlier reviewed ref, and the linked candidate remains ASSESSMENT_INFORMED.",
+      "candidate_ids": [
+        "IMPR-AO-REVIEWER-READONLY-20261021"
+      ]
+    },
+    "S4": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Project planning, task feedback, reviews and history inform current software engineering but no future-facing adaptation decision is returned into sustained organization capability. A missing S4 loop does not by itself show a warranted extra agent.",
+      "candidate_ids": []
+    },
+    "S5": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Project rules, standing prompts and publishing constraints are configured outside the project-run control plane, without an identity dispute and legitimate ultimate-policy judgment returning to operations. No supported S5 candidate emerges from this bounded analysis.",
+      "candidate_ids": []
+    }
+  }
+}
