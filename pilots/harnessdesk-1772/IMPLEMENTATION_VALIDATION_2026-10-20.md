@@ -1,4 +1,13 @@
-# HarnessDesk #1772 — local implementation and regression validation
+# HarnessDesk #1772 — local implementation and regression validation (V1 historical)
+
+> **SUPERSEDED / DO NOT APPLY V1:** Independent adversarial review uncovered
+> socket-identity takeover and unrelated-listener deletion on `stop()`.
+> The original 15/15 PASS covered only the earlier test subset. The safe
+> successor is [V2](IMPLEMENTATION_REVIEW_V2_2026-10-20.md), whose
+> [revised patch](tool-gateway-ownership-fix-v2.patch) has been
+> compiled/tested on current upstream source with 17/17 targeted PASS.
+> V1 is retained solely as historical evidence.
+
 
 **Status:** SOURCE PATCH PREPARED; production fix has been compiled and locally
 tested against the real external repository; **not installed in the
