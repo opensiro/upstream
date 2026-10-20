@@ -144,6 +144,18 @@ branch to reviewed SHA/diff evidence. It prepares a REST draft payload,
 human-owned stage; ownership and reported PAT scopes are not blanket
 permission for arbitrary upstream submissions.
 
+## Exact two-file contribution preparation (source only)
+
+A [bounded two-file preparation stage](docs/CONNECTED_MULTIFILE_STAGE.md)
+now supports the **proposed** production-source-plus-new-regression patch
+shape needed for HarnessDesk #1772, while preserving the original
+single-test-file adapter unchanged. It binds entire patch bytes, pinned
+identical upstream/fork bases, pre/post file contents and one
+authenticated, revocable exact stage grant from the **real VM/host**.
+**No live grant issuer or credential-bearing atomic publication port is
+connected**; offline pass is not authority to push a fork branch.
+External upstream PR publication remains separately human-owned.
+
 ## Fork lifecycle automation
 
 The manually dispatched [fork lifecycle workflow](.github/workflows/fork-lifecycle.yml)
