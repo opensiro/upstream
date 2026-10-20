@@ -24,6 +24,19 @@ A separate [product-native fit casebook](cases/README.md) documents **eight** pu
 
 The [Organization experimental ledger](https://github.com/opensiro/vsm-oss-organization/tree/main/experiments/upstream-intervention-fit) remains the source of truth for the four fit gates, participant attribution and deduplication. The casebook is a linked portfolio view, **not** an upstream endorsement, an acceptance rate or a VSM grade claim.
 
+## Assessment-derived product improvement (separate test)
+
+The [assessment-to-improvement protocol](docs/ASSESSMENT_TO_IMPROVEMENT.md)
+distinguishes **assessment-derived** functional interventions, **assessment-informed**
+engineering fixes and generic upstream contributions. The stronger test starts
+from an actual Index function finding, confirms independent product-native
+value and measures behavior **before and after** the change; neither a higher
+VSM grade nor a merged PR is its success criterion. [Upstream #56](https://github.com/opensiro/upstream/issues/56)
+tracks the next Index-first pilot. The already prepared
+[HarnessDesk #1772](pilots/harnessdesk-1772/ASSESSMENT_LINKAGE_2026-10-20.md)
+socket reliability fix is classified as **assessment-informed**, not a
+completed assessment-derived improvement experiment.
+
 ## Two independent status dimensions
 
 **Contribution outcome** tracks the result *at upstream*: `research`, `preparing`, `submitted`, `merged`, `closed`, or `not-accepted`. Only a verified upstream merge is marked `merged`.
