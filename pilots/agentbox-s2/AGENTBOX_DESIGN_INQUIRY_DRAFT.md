@@ -12,12 +12,15 @@ I noticed that your `docs/workspaces-tasks-manager-plan.md` says task allocation
 
 From current `main`, the task records expose `dependsOn`, `boxId/boxJobId`, `projectId` and status, but no verified intended-write paths. The CLI's assignment preflight checks task IDs/workspace identity, not whether two tasks are likely to edit the same code. So a safe first step might be an **opt-in, manager-owned planning brief** that collects explicit file-intent scopes before allocating independent boxes and returns a readable collision/unknown-scope warning rather than silently assuming two tasks are independent.
 
+A second small, reproducible observation might help clarify the intended boundary: the current task store accepts both `assignTasks` and `addTask`-with-`boxJobId` for a task whose explicit `dependsOn` predecessor is still `todo`, recording the dependent task as `in_progress`. [Source-pinned native test and limitations](https://github.com/opensiro/upstream/blob/main/pilots/agentbox-s2/NATIVE_DEPENDENCY_DISPATCH_RECEIPT_2026-10-20.md). This measures assignment metadata, **not a child agent running early**, and may be intentional preassignment rather than a bug. It suggests that manager scheduling versus task-store enforcement is a meaningful design decision.
+
 Would this fit the intended Phase 4 direction? In particular:
 
 1. Should the initial implementation be an **agent instruction/manager brief using existing `agentbox tasks` and message surfaces**, or is a persistent task-level intended-file-scope field/API acceptable?
 2. For two tasks aiming to change `src/payments/**`, should the preferred response be grouping them into **one box**, a dependency/serialization proposal or asking the user, rather than global path locking?
 3. Where should a supervisor return a rejected/stale plan and ask the workers to re-scope? And should missing/ambiguous path intent always block automatic *parallel* assignment?
 4. How should the design preserve normal independent `docs/**` work, explicit human choices, multi-host manager records, task reassignment and rollback?
+5. Is `dependsOn` **advisory planning metadata** (preassignment while predecessors are unfinished is expected), or should an optional Phase 4 manager actively defer dispatch of such tasks? Would changing core task-store statuses harm current users?
 
 I have not made a third-party fork, implementation PR, or issue for this proposal. I would be glad to prepare a minimal, source-pinned acceptance test and then a bounded change **once the desired interface is clear**.
 
