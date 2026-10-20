@@ -28,6 +28,9 @@ The [read-only candidate-to-proposal linker](../scripts/improvement_candidate_li
 | [AgentBox: prevent overlapping independent box dispatch](agentbox-overlap-manager-20261020.md) | Index assessment directly names **manual** cross-box conflict coordination | `BLOCKED_EVIDENCE` | First-party manager design / intended path scopes |
 | [AgentBox: dependency readiness semantics](agentbox-dependency-readiness-20261020.md) | Precise observation surfaced in subsequent source inspection; **assessment-informed**, not a separate Index diagnosis | `PARKED` | Does `dependsOn` constrain worker dispatch or merely task allocation? |
 | [Zot: shared-root write preservation](zot-shared-write-20261020.md) | Index assessment directly identifies shared writable RepoRoot and absent inter-worker arbiter | `PARKED` | Show demand for *built-in* behavior over manual worktrees |
+| [Kit: partial subagent config startup failure](kit-subagent-config-20261021.md) | First-party open [issue #222](https://github.com/speakeasy-api/kit/issues/222), **assessment-informed** rather than derived S2 finding | `SCREENING` | Reproduce current-main startup failure and determine narrow safe fallback |
+
+The Kit candidate is an independently useful **assessment-informed** alternative, **not** a strict assessment-derived test win; an existing external issue does not become an OpenSiro contribution by appearing here.
 
 **Not every screened harness becomes a candidate.** Claw Code, KairoCode, AtomCode and Dendrophis were documented as negative or unqualified alternative screens in [AgentBox source-screen receipt](../pilots/agentbox-s2/NATIVE_FIT_DECISION_AND_ALT_SCREEN_2026-10-20.md); they are **not** approved backlog entries or discarded assessments. This is a bounded example set.
 
