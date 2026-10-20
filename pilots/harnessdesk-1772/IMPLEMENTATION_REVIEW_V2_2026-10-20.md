@@ -21,7 +21,7 @@ V2 fixes both:
 - Publication occurs synchronously after `server.listen()` binds, so immediate clients do not see a transient `ENOENT`.
 - Existing atomic PID/nonce owner lock and serialized stale recovery gate remain. Unknown, interrupted or conflicting recoveries fail closed; they do not silently delete another host's socket.
 
-See [Node.js documented Unix-domain socket auto-unlink behavior](https://nodejs.org/api/net.html#ipc-support) and [macOS `link(2)` atomic no-overwrite contract](https://developer.apple.com/library/archive/documentation/System/Conceptual/ManPages_iPhoneOS/man2/link.2.html). **Tests ran on Linux only**; macOS/APFS compatibility, unusual filesystem paths, process-race stress and full application CI remain to be verified independently before a maintainer-facing PR.
+See [Node.js documented Unix-domain socket auto-unlink behavior](https://nodejs.org/api/net.html#ipc-support) and [macOS `link(2)` atomic no-overwrite contract](https://developer.apple.com/library/archive/documentation/System/Conceptual/ManPages_iPhoneOS/man2/link.2.html). **Historical checkpoint:** original V2 tests ran only on Linux. A later macOS CI execution validated the pinned patch; see the cross-platform receipt below. Unusual filesystem paths, broader process-race stress and full application CI remain outside these gateway tests.
 
 ## Reproducible validation
 
@@ -35,10 +35,20 @@ A real isolated upstream checkout, using Node **22.19.0** and pnpm **10.4.1**, w
 
 The two new adversarial tests initially failed on V1 before the repair, with reproducible `Missing expected exception` and `ENOENT` symptoms respectively. This red→green sequence is independent of the original V1's earlier **15/15 PASS** subset: those tests had not covered the two regressions.
 
+### Cross-platform validation — later 2026-10-20 receipt
+
+[Upstream PR #43](https://github.com/opensiro/upstream/pull/43) merged at `00e9a1069da9d63c89558d243eda6bda3a46466d` a **credential-free, read-only** macOS validation workflow on pinned public `HarnessDesk/HarnessDesk@97b13afc819ab7c1a0f8cd20630a428a34c2d47a`. The workflow checks the exact V2 SHA-256 before applying the patch, installs frozen dependencies with scripts disabled, runs the genuine Node build, then executes both gateway suites on `macos-15`.
+
+- [Exact PR-head macOS run #39351363635](https://github.com/opensiro/upstream/actions/runs/39351363635): build **PASS**, gateway **17/17 PASS**.
+- [Post-merge `main` macOS run #39351513890](https://github.com/opensiro/upstream/actions/runs/39351513890): build **PASS**, gateway **17/17 PASS**.
+- Additionally, the new Linux adversarial regression file completed five successive repeat runs without failures.
+
+This verifies targeted Linux and macOS **socket behavior on the pinned source**, not end-to-end application operation, publication rights or a full upstream gate. The [machine-readable handoff](prepare-v2-handoff.json) is an earlier, deliberately non-authorizing evidence snapshot; its original “macOS unverified” field reflects the preparation time, superseded by these immutable later CI receipts.
+
 ### Unfinished checks
 
 - The historical **full** `pnpm check:push` run at V1 was explicitly terminated during long UI typechecking. It was **not** a completed PASS, and it was not evidence of a patch-caused type error.
-- A full macOS runtime check, broader current upstream gate and upstream's own CI remain necessary. Green OpenSiro CI validates the source proposal repository, **not** acceptance by the external upstream.
+- A **full end-to-end macOS application run** and broader current upstream `pnpm check:push` / upstream CI remain unverified. The pinned macOS Node build + 17 gateway tests are now validated, but OpenSiro CI does **not** prove acceptance by the external upstream.
 - The existing manifest is still `proposal_only`/`prepare_contribution` and contains unresolved authorization blockers. The existence of [the public working fork](https://github.com/opensiro-contributions/HarnessDesk) does **not** constitute a new authenticated grant to push a branch, nor permission to publish a third-party PR.
 
 ## Next bounded execution

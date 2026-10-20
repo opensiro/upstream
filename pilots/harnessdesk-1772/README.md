@@ -1,5 +1,14 @@
 # HarnessDesk #1772 — assessment-driven S1 candidate (blocked; unpublished)
 
+> **Cross-platform V2 validation — 2026-10-20:** Genuine pinned-source
+> macOS Node build and **17/17 gateway tests PASS** in both
+> [PR CI](https://github.com/opensiro/upstream/actions/runs/39351363635)
+> and [post-merge CI](https://github.com/opensiro/upstream/actions/runs/39351513890).
+> Original Linux gateway tests also PASS. See the
+> [validation report](IMPLEMENTATION_REVIEW_V2_2026-10-20.md).
+> **The full upstream `check:push` and an exact host write grant remain
+> unverified**; the fork is unchanged.
+>
 > **Exact V2 stage handoff — 2026-10-20:** [Machine-readable
 > prepare-stage packet](prepare-v2-handoff.json) and
 > [readable execution boundary](PREPARE_V2_HANDOFF.md) now bind the
