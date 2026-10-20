@@ -6,8 +6,11 @@ on:
       - 'candidates/**'
       - 'scripts/inspect_improvement_candidates.py'
       - 'scripts/improvement_candidate_linkage.py'
+      - 'scripts/sweep_index_assessments.py'
       - 'tests/test_inspect_improvement_candidates.py'
       - 'tests/test_improvement_candidate_linkage.py'
+      - 'tests/test_sweep_index_assessments.py'
+      - 'sweeps/**'
       - 'docs/IMPROVEMENT_CANDIDATES_PIPELINE_DRAFT.md'
       - '.github/workflows/improvement-candidates.yml'
   push:
@@ -16,8 +19,11 @@ on:
       - 'candidates/**'
       - 'scripts/inspect_improvement_candidates.py'
       - 'scripts/improvement_candidate_linkage.py'
+      - 'scripts/sweep_index_assessments.py'
       - 'tests/test_inspect_improvement_candidates.py'
       - 'tests/test_improvement_candidate_linkage.py'
+      - 'tests/test_sweep_index_assessments.py'
+      - 'sweeps/**'
       - 'docs/IMPROVEMENT_CANDIDATES_PIPELINE_DRAFT.md'
       - '.github/workflows/improvement-candidates.yml'
 
@@ -35,5 +41,7 @@ jobs:
         run: python3 -m unittest discover -s tests -p 'test_inspect_improvement_candidates.py' -v
       - name: Candidate-to-proposal linkage fail-closed tests
         run: python3 -m unittest discover -s tests -p 'test_improvement_candidate_linkage.py' -v
+      - name: Index-wide sweep synthetic coverage tests
+        run: python3 -m unittest discover -s tests -p 'test_sweep_index_assessments.py' -v
       - name: Read-only candidate inventory
         run: python3 scripts/inspect_improvement_candidates.py --root candidates --format text
