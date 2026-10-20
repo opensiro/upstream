@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "index_sha": "5393b698bfdfa4ca14d97a79238234eca20694e5",
+  "assessment_path": "assessments/ac/actweave.md",
+  "review_ref": "ea0451acc090977c14c1c8d9d0b4d2bee5df4238",
+  "reviewed_at": "2026-10-21",
+  "functions": {
+    "S1": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "A typed hosted Agent run makes repeated model decisions and executes first-party tools/delegation until completion or bounded interruption; checkpoints and tool results return operational evidence. No specific S1 bug with measured impact is identified by this assessment.",
+      "candidate_ids": []
+    },
+    "S2": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "INLINE/TASK delegates, root-shared limits, graph snapshots and workflow dependency edges constrain call-tree growth and task order, not a demonstrated feedback response to interference among independent S1 units. No native overlap incident or coordination demand is evidenced.",
+      "candidate_ids": []
+    },
+    "S3": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "The management plane publishes versioned Agents/Tools/Workflows, while runtime cancellation/leases/quotas control runs; no agent has a live whole-installation view and intervenes across competing obligations. Missing S3 classification is not a requirement for a second control plane.",
+      "candidate_ids": []
+    },
+    "S3*": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Rich run and delegation audit rows, traces and admin UI expose facts but do not independently adjudicate claim correctness and feed corrective obligations. Without a concrete false-report or audit defect, this is a viable hypothesis area only, not a product-specific proposed patch.",
+      "candidate_ids": []
+    },
+    "S4": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Operators draft, test and publish capabilities, and runs retain state, but no first-party autonomous actor develops outside/future alternatives and adopts them into active service. The assessment cannot support an unsolicited prospective adaptation module.",
+      "candidate_ids": []
+    },
+    "S5": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "RBAC, AAP grants, workspace scopes, publication rights and A2A auth enforce externally defined permissions. No legitimate native identity-level policy owner is established or shown needed for a bounded change in this installation.",
+      "candidate_ids": []
+    }
+  }
+}
