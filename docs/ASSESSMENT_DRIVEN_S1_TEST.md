@@ -195,6 +195,8 @@ A human-readable or machine-readable report must contain at least:
 | Field | Required observation |
 | --- | --- |
 | `index_assessment` | Index assessment path/URL **and** immutable Index SHA; assessed harness upstream/revision; finding, function/ownership and source evidence |
+| `origin_strength` | `ASSESSMENT_DERIVED / ASSESSMENT_INFORMED / GENERAL_UPSTREAM / INSUFFICIENT`, with selection-order and causal evidence rather than just a related assessment URL |
+| `before_after_effect` | Reproducible pre-change behavior, relevant benefit/safety metric, matched after-change test and `BENEFIT_SUPPORTED / NO_BENEFIT_OBSERVED / INCONCLUSIVE`, or explicit untested blocker |
 | `fresh_upstream` | Upstream owner/repository, current default-branch SHA, current relevant code/issue/PR URLs and policy/licence check |
 | `hypothesis` | Assessment-motivated problem, concrete upstream-native mechanism, expected benefit and falsifier/test |
 | `native_fit` | Separate need/mechanism/counterfactual/scope `PASS/PENDING/FAIL` with actual source links |
