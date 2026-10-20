@@ -9,6 +9,20 @@ This is **not** a new Control Plane, standalone worker or script with a
 the executor; the execution environment is the actual **VM or host
 where the GitHub credentials are installed and permitted to be used**.
 
+## Read-only authenticated actor and fork-rights observation
+
+The new [`GitHubCLIProviderAttestor`](../scripts/cli_host_patch_attestor.py)
+checks **live `gh api GET user`**, the actor's
+`user/memberships/orgs/opensiro-contributions` membership, and the
+**specific public direct fork's** effective `permissions.push=true`.
+The expected source, fork and optionally the actor are injected by the
+trusted VM/host; 403, different actor, inactive membership, wrong parent,
+private or unwritable fork **fail closed**. Only those two additional
+GET endpoints are opened in the restricted transport. This is
+**provider capability evidence**, not an operator stage grant; it
+does not issue or store an approval, and cannot authorize Git Data POST
+without an independent one-use host decision.
+
 ## Authenticated GitHub CLI JSON transport
 
 `GitHubCLIJSONTransport` implements the REST port callback shape
