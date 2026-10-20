@@ -8,7 +8,7 @@ approval, working branch, PR or organizational S1 status change.
 
 ## Current source and connected-account evidence
 
-Authenticated read-only GitHub CLI on existing VM/host observed:
+Authenticated read-only GitHub CLI on existing VM/host observed (source/fork state is dated; the later macOS validation runs **do not** authorize a write):
 
 | Boundary | Observed |
 | --- | --- |
@@ -20,7 +20,7 @@ Authenticated read-only GitHub CLI on existing VM/host observed:
 | Proposed branch | `opensiro/fix-toolgateway-1772` — **absent in authenticated GET** |
 | Only permitted patch artifact | [V2](tool-gateway-ownership-fix-v2.patch), SHA-256 `12b5c7e55a6f730fb9a2465ca30dd47321690c87c0d887e7b8c9d6990ec186e7` |
 | Local source validation | On *current source SHA*: Node build PASS; original+new gateway tests **17/17 PASS** |
-| macOS/full upstream gate | **NOT TESTED / NOT COMPLETE** |
+| macOS / full upstream gate | **Pinned macOS Node build and gateway tests 17/17 PASS** ([PR run](https://github.com/opensiro/upstream/actions/runs/39351363635), [post-merge run](https://github.com/opensiro/upstream/actions/runs/39351513890)); **full `pnpm check:push` NOT COMPLETE** |
 
 The GitHub API observations above are dated. Refresh exact actor, issue,
 source branch, fork identity/parent/push rights, working-branch absence
