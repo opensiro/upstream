@@ -44,7 +44,9 @@ class GitHubCLIJSONTransport:
         need(method in ("GET", "POST") and type(path) is str,
              "Unsupported GitHub CLI request")
         if method == "GET":
-            need(GET_PATH.fullmatch(path) is not None and body is None,
+            need((GET_PATH.fullmatch(path) is not None or path in ("user",
+                 "user/memberships/orgs/opensiro-contributions"))
+                 and body is None,
                  "Only repository-scoped read-only requests admitted")
         else:
             need(POST_PATH.fullmatch(path) is not None
@@ -66,6 +68,8 @@ class GitHubCLIJSONTransport:
         statuses = HTTP_STATUS.findall(raw)
         need(statuses, "GitHub CLI response lacked HTTP status")
         status = int(statuses[-1])
+        if status < 400:
+            need(completed.returncode == 0, "Successful HTTP response had failing gh CLI exit")
         # -i includes header blocks; parse only the last body, not headers.
         chunks = re.split(r"\r?\n\r?\n", raw)
         response_body = chunks[-1].strip()
@@ -96,10 +100,10 @@ class CleanPublicGitPatchMaterializer:
         self._runner = runner
         self._clone_base = clone_base.rstrip("/")
 
-    def _run(self, args, *, cwd=None, timeout=120):
+    def _run(self, args, *, cwd=None, timeout=120, env=None):
         try:
             p = self._runner(args, cwd=cwd, capture_output=True,
-                             text=True, check=False, timeout=timeout)
+                             text=True, check=False, timeout=timeout, env=env)
         except (OSError, subprocess.TimeoutExpired):
             raise StageBlocked("Isolated git materialization unavailable") from None
         need(p.returncode == 0,
@@ -122,17 +126,32 @@ class CleanPublicGitPatchMaterializer:
                      for path in changed_paths),
              "Materialization scope invalid")
         with tempfile.TemporaryDirectory(prefix="opensiro-materialize-") as tmp:
+            # Public untrusted checkouts must not inherit the VM's GitHub
+            # token, SSH agent, Git credential helpers or global Git filters.
+            home = Path(tmp) / "isolated-home"
+            home.mkdir(mode=0o700)
+            env = {k: os.environ[k] for k in ("PATH", "LANG", "LC_ALL",
+                                              "SSL_CERT_FILE", "SSL_CERT_DIR")
+                   if k in os.environ}
+            env.update({"HOME": str(home), "XDG_CONFIG_HOME": str(home),
+                        "GIT_CONFIG_GLOBAL": os.devnull,
+                        "GIT_CONFIG_SYSTEM": os.devnull,
+                        "GIT_CONFIG_NOSYSTEM": "1",
+                        "GIT_TERMINAL_PROMPT": "0",
+                        "GIT_LFS_SKIP_SMUDGE": "1"})
+            def run(args, *, timeout=120):
+                return self._run(args, timeout=timeout, env=env)
             root = Path(tmp) / "repo"
             repo_url = self._clone_base + "/" + repo + ".git"
-            self._run(["git", "clone", "--quiet", "--no-checkout", "--depth", "1",
+            run(["git", "clone", "--quiet", "--no-checkout", "--depth", "1",
                        "--filter=blob:none", repo_url, str(root)], timeout=120)
-            self._run(["git", "-C", str(root), "fetch", "--quiet", "--depth", "1",
+            run(["git", "-C", str(root), "fetch", "--quiet", "--depth", "1",
                        "origin", base_sha], timeout=120)
-            self._run(["git", "-C", str(root), "-c", "core.hooksPath=/dev/null",
+            run(["git", "-C", str(root), "-c", "core.hooksPath=/dev/null",
                        "checkout", "--detach", base_sha], timeout=90)
-            need(self._run(["git", "-C", str(root), "rev-parse", "HEAD"]).strip()
+            need(run(["git", "-C", str(root), "rev-parse", "HEAD"]).strip()
                  == base_sha, "Checkout SHA differs from authorized base")
-            need(not self._run(["git", "-C", str(root), "status", "--porcelain"]),
+            need(not run(["git", "-C", str(root), "status", "--porcelain"]),
                  "Working checkout not clean")
             original_modes = {}
             for p in changed_paths:
@@ -141,7 +160,7 @@ class CleanPublicGitPatchMaterializer:
                     raise StageBlocked("Symlink path cannot be patched")
                 if f.exists():
                     need(f.is_file(), "Cannot patch non-regular path")
-                    ls = self._run(["git", "-C", str(root), "ls-files", "-s",
+                    ls = run(["git", "-C", str(root), "ls-files", "-s",
                                     "--", p]).strip()
                     need(ls.startswith("100644 "),
                          "Preimage was not an ordinary 100644 blob")
@@ -150,17 +169,17 @@ class CleanPublicGitPatchMaterializer:
                 original_modes[p] = "100644"
             patch_path = Path(tmp) / "candidate.patch"
             patch_path.write_text(patch_text, encoding="utf-8")
-            self._run(["git", "-C", str(root), "apply", "--check",
+            run(["git", "-C", str(root), "apply", "--check",
                        str(patch_path)])
-            self._run(["git", "-C", str(root), "apply", str(patch_path)])
-            self._run(["git", "-C", str(root), "add", "--", *changed_paths])
-            actual = self._run(["git", "-C", str(root),
+            run(["git", "-C", str(root), "apply", str(patch_path)])
+            run(["git", "-C", str(root), "add", "--", *changed_paths])
+            actual = run(["git", "-C", str(root),
                                 "diff", "--cached", "--name-only", "-z"])
             need(sorted(x for x in actual.split("\x00") if x)
                  == sorted(changed_paths),
                  "Actual staged patch changed an unexpected path")
-            self._run(["git", "-C", str(root), "diff", "--cached", "--check"])
-            status_files = self._run(["git", "-C", str(root),
+            run(["git", "-C", str(root), "diff", "--cached", "--check"])
+            status_files = run(["git", "-C", str(root),
                                       "status", "--porcelain", "--untracked-files=all"])
             need(len(status_files.splitlines()) == 2,
                  "Untracked or unauthorized file remained after patch")
@@ -170,7 +189,7 @@ class CleanPublicGitPatchMaterializer:
                 need(path.is_file() and not path.is_symlink()
                      and stat.S_ISREG(path.stat().st_mode),
                      "Patched path is not an ordinary file")
-                staged = self._run(["git", "-C", str(root), "ls-files",
+                staged = run(["git", "-C", str(root), "ls-files",
                                     "-s", "--", p]).strip()
                 need(staged.startswith("100644 "),
                      "Patch changed executable/symlink/submodule mode")

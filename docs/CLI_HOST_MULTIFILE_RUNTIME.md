@@ -9,6 +9,20 @@ This is **not** a new Control Plane, standalone worker or script with a
 the executor; the execution environment is the actual **VM or host
 where the GitHub credentials are installed and permitted to be used**.
 
+## Read-only authenticated actor and fork-rights observation
+
+The new [`GitHubCLIProviderAttestor`](../scripts/cli_host_patch_attestor.py)
+checks **live `gh api GET user`**, the actor's
+`user/memberships/orgs/opensiro-contributions` membership, and the
+**specific public direct fork's** effective `permissions.push=true`.
+The expected source, fork and optionally the actor are injected by the
+trusted VM/host; 403, different actor, inactive membership, wrong parent,
+private or unwritable fork **fail closed**. Only those two additional
+GET endpoints are opened in the restricted transport. This is
+**provider capability evidence**, not an operator stage grant; it
+does not issue or store an approval, and cannot authorize Git Data POST
+without an independent one-use host decision.
+
 ## Authenticated GitHub CLI JSON transport
 
 `GitHubCLIJSONTransport` implements the REST port callback shape
@@ -40,7 +54,14 @@ commit, whole patch text and exactly two paths. Using normal
 
 1. Clones the **public working fork** in a disposable temporary
    checkout without committing, pushing or using a token in args.
-2. Fetches/checks out the requested **exact SHA** and verifies a
+2. Fetches/checks out the requested **exact SHA** using an **isolated
+   child environment**: no inherited PAT/SSH-agent/Git askpass variables,
+   no user/system Git config or globally defined clean/smudge filters,
+   no interactive credential prompt; temporary `HOME` and XDG config
+   are owned by the disposable checkout. This prevents a public source
+   tree from inheriting the VM's credential-bearing Git environment.
+   The public clone still needs working noninteractive anonymous HTTPS.
+   Then verifies a
    clean working tree.
 3. Validates current tracked regular `100644` source file and new
    test-path constraints, rejecting symlink/nonregular modes.
