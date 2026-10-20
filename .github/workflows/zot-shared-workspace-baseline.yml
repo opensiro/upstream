@@ -1,0 +1,46 @@
+name: Assessment-derived Zot shared-workspace baseline
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/zot-shared-workspace-baseline.yml'
+      - 'pilots/zot-shared-workspace/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-baseline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - name: Checkout OpenSiro fixture without credentials
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          path: opensiro
+          persist-credentials: false
+      - name: Checkout exact public Zot source without credentials
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: patriceckhart/zot
+          ref: c62d1c549d52cd33390968ffa50667cb79609152
+          path: zot
+          persist-credentials: false
+      - name: Confirm immutable Index-selected source and copy read-only fixture
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C zot rev-parse HEAD)" = 'c62d1c549d52cd33390968ffa50667cb79609152'
+          grep -F 'go 1.25.0' zot/go.mod
+          cp opensiro/pilots/zot-shared-workspace/assessment_shared_workspace_baseline_test.go zot/packages/agent/swarm/zz_opensiro_assessment_baseline_test.go
+          test "$(git -C zot status --porcelain --untracked-files=all | wc -l)" -eq 1
+      - name: Install pinned Go toolchain
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.25.0'
+          cache: false
+      - name: Run real swarm source baseline against two synthetic workers
+        working-directory: zot
+        timeout-minutes: 12
+        run: go test ./packages/agent/swarm -run '^TestAssessmentSharedWorkspaceLostUpdateBaseline$' -count=1 -v -timeout=2m
