@@ -1,5 +1,13 @@
 # HarnessDesk #1772 — assessment-driven S1 candidate (blocked; unpublished)
 
+> **Exact V2 stage handoff — 2026-10-20:** [Machine-readable
+> prepare-stage packet](prepare-v2-handoff.json) and
+> [readable execution boundary](PREPARE_V2_HANDOFF.md) now bind the
+> updated `development@97b13afc`, verified public fork at
+> `development@4029e951`, nonexistent proposed branch and exact V2
+> patch SHA-256. **NOT AUTHORIZED**: the existing connected adapter
+> handles only one new test file, not this two-file production patch.
+>
 > **Latest V2 review — 2026-10-20:** The [original production
 > patch](tool-gateway-ownership-fix.patch) has **two reproduced safety defects**
 > and **MUST NOT be applied or sent upstream**. See the
