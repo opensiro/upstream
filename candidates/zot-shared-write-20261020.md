@@ -1,3 +1,18 @@
+---
+candidate_id: IMPR-ZOT-SHARED-WRITE-20261020
+state: PARKED
+origin_class: ASSESSMENT_DERIVED
+target_repo: patriceckhart/zot
+index_sha: 5393b698bfdfa4ca14d97a79238234eca20694e5
+assessment_path: assessments/zo/zot.md
+review_ref: 2a19df15ba8278dd6a92240ab6c2ae267c3cf6c3
+source_sha: c62d1c549d52cd33390968ffa50667cb79609152
+fit_need: PENDING
+fit_mechanism: PENDING
+fit_value: PENDING
+fit_scope: PENDING
+---
+
 # IMPR-ZOT-SHARED-WRITE-20261020 — preserve independent swarm edits
 
 **Candidate state:** `PARKED` (new built-in behavior has `BLOCKED_EVIDENCE` native demand).
