@@ -215,6 +215,29 @@ class CandidateLinkageTests(unittest.TestCase):
         with self.assertRaisesRegex(LinkageBlocked, "Unknown or duplicate"):
             self.preview(candidate_id="IMPR-NONEXISTENT")
 
+    def test_multiple_research_candidates_same_target_do_not_auto_combine(self):
+        self.qualify()
+        alternate = self.cards / "alternate-agentbox.md"
+        second_id = "IMPR-AGENTBOX-ALTERNATE-20261020"
+        alternate.write_text(
+            self.card.read_text().replace(CANDIDATE_ID, second_id)
+            .replace("state: QUALIFIED", "state: PARKED")
+        )
+        result = self.preview()
+        self.assertEqual(result["improvement_candidate_id"], CANDIDATE_ID)
+        self.assertEqual(result["proposal_id"], PROPOSAL_ID)
+        with self.assertRaisesRegex(LinkageBlocked, "not qualified"):
+            self.preview(candidate_id=second_id)
+
+    def test_existing_batch_rejects_two_items_for_same_upstream(self):
+        self.qualify()
+        duplicate = dict(self.draft["candidates"][0])
+        duplicate["id"] = "another-proposal-row"
+        self.draft["candidates"].append(duplicate)
+        self.save_draft()
+        with self.assertRaisesRegex(LinkageBlocked, "Duplicate candidate ID or upstream source"):
+            self.preview()
+
     def test_cli_json_preview_only(self):
         self.qualify()
         args = ["--candidate-root", str(self.cards), "--candidate-id", CANDIDATE_ID,
