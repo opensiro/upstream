@@ -36,8 +36,6 @@ def assessment(name, repo, status="included", extra="last_checked_ref: " + "a" *
         "---", "", "# " + name, "", "## Review boundary",
         "Synthetic review without any external product evidence.",
     ]
-    lines += ["", "## " + f + " — " + f + " synthetic evidence"
-              for f in FUNCTIONS] if False else []
     for f in FUNCTIONS:
         lines.extend(("", "## " + f + " — Synthetic function", "Some local fixture text."))
     return "\n".join(lines) + "\n"
