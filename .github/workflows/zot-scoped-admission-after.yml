@@ -1,0 +1,59 @@
+name: Zot assessment-derived scoped admission after-case
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/zot-scoped-admission-after.yml'
+      - 'pilots/zot-shared-workspace/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-after:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout OpenSiro experimental sources (no persisted credentials)
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          path: opensiro
+          persist-credentials: false
+      - name: Checkout exact same pinned Zot source (no persisted credentials)
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: patriceckhart/zot
+          ref: c62d1c549d52cd33390968ffa50667cb79609152
+          path: zot
+          persist-credentials: false
+      - name: Verify original upstream tree and inject additive proof files
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C zot rev-parse HEAD)" = c62d1c549d52cd33390968ffa50667cb79609152
+          grep -Fx 'go 1.25.0' zot/go.mod
+          dir=zot/packages/agent/swarm
+          pilot=opensiro/pilots/zot-shared-workspace
+          cp "$pilot/assessment_shared_workspace_baseline_test.go" "$dir/zz_opensiro_baseline_test.go"
+          cp "$pilot/experimental_scoped_spawn.go" "$dir/zz_opensiro_scoped.go"
+          cp "$pilot/experimental_scoped_spawn_test.go" "$dir/zz_opensiro_scoped_test.go"
+          test "$(git -C zot status --porcelain --untracked-files=all | wc -l)" -eq 3
+      - name: Go 1.25.0
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.25.0'
+          cache: false
+      - name: Ensure Go style in disposable injected copies only
+        run: |
+          set -euo pipefail
+          gofmt -w zot/packages/agent/swarm/zz_opensiro_*.go
+          test -z "$(gofmt -l zot/packages/agent/swarm/zz_opensiro_*.go)"
+      - name: Matched native baseline and source-only opt-in after-case with race detector
+        working-directory: zot
+        timeout-minutes: 18
+        run: go test -race ./packages/agent/swarm -run '^TestAssessment(SharedWorkspaceLostUpdateBaseline|Scoped.*)$' -count=1 -v -timeout=3m
+      - name: Native package regression checks with injected proof (no network credentials)
+        working-directory: zot
+        timeout-minutes: 5
+        run: go test ./packages/agent/swarm -count=1 -timeout=3m
