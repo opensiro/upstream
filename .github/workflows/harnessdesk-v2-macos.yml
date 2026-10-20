@@ -1,0 +1,69 @@
+name: HarnessDesk V2 macOS pinned source validation
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/harnessdesk-v2-macos.yml'
+      - 'pilots/harnessdesk-1772/tool-gateway-ownership-fix-v2.patch'
+      - 'pilots/harnessdesk-1772/prepare-v2-handoff.json'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/harnessdesk-v2-macos.yml'
+      - 'pilots/harnessdesk-1772/tool-gateway-ownership-fix-v2.patch'
+      - 'pilots/harnessdesk-1772/prepare-v2-handoff.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pinned-source-gateway-macos:
+    name: V2 macOS source build and gateway regressions
+    runs-on: macos-15
+    timeout-minutes: 45
+    steps:
+      - name: Checkout V2 patch and immutable handoff (no persisted token)
+        uses: actions/checkout@v4
+        with:
+          path: opensiro
+          persist-credentials: false
+      - name: Checkout external public upstream pinned development SHA
+        uses: actions/checkout@v4
+        with:
+          repository: HarnessDesk/HarnessDesk
+          ref: 97b13afc819ab7c1a0f8cd20630a428a34c2d47a
+          path: harnessdesk
+          persist-credentials: false
+      - name: Verify exact patch digest and external source SHA
+        shell: bash
+        run: |
+          set -euo pipefail
+          EXPECTED_PATCH='12b5c7e55a6f730fb9a2465ca30dd47321690c87c0d887e7b8c9d6990ec186e7'
+          EXPECTED_SOURCE='97b13afc819ab7c1a0f8cd20630a428a34c2d47a'
+          PATCH="$GITHUB_WORKSPACE/opensiro/pilots/harnessdesk-1772/tool-gateway-ownership-fix-v2.patch"
+          test "$(shasum -a 256 "$PATCH" | cut -d' ' -f1)" = "$EXPECTED_PATCH"
+          test "$(git -C harnessdesk rev-parse HEAD)" = "$EXPECTED_SOURCE"
+          git -C harnessdesk apply --check "$PATCH"
+          git -C harnessdesk apply "$PATCH"
+          git -C harnessdesk diff --check
+      - name: Set up Node 22.19.0
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.19.0
+      - name: Set up pnpm 10.4.1
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.4.1
+      - name: Install pinned dependencies without lifecycle scripts
+        working-directory: harnessdesk
+        run: pnpm install --frozen-lockfile --ignore-scripts
+      - name: Build genuine external Node packages
+        working-directory: harnessdesk
+        run: pnpm run build:node
+      - name: Execute current upstream gateway and V2 adversarial regressions
+        working-directory: harnessdesk
+        run: |
+          node --test --test-timeout=120000 \
+            packages/server/dist/test/tool-gateway-ownership.test.js \
+            packages/server/dist/test/tool-gateway.test.js
