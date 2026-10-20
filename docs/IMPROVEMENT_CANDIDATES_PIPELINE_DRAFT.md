@@ -109,6 +109,7 @@ python3 scripts/improvement_candidate_linkage.py \\
 
 - An assessment can yield **zero qualified candidates**; report a valid negative discovery result.
 - Multiple candidates for one system remain separate until an explicit scoped decision to combine them; combining does not upgrade weaker provenance. Prefer small interventions.
+- **Existing preview limitation:** `batch_proposals.py` disallows two draft rows for the same upstream `source` in **one manifest**. This does **not** restrict the new research pool: keep multiple independent candidates against the same harness, then prepare separately authored proposal drafts for a chosen candidate one at a time (or explicitly redesign the existing proposal schema later with its own test/review). Do not silently bypass the duplicate-source check or auto-combine separate mechanisms.
 - One candidate can have multiple experiments and negative receipts; preserve attempts instead of overwriting historical evidence.
 - Rejected/parked candidates remain linkable and do not create empty `registry.yaml` fork entries. `registry.yaml` continues to represent **actual forks/contributions**, not the candidate backlog.
 - If a new Index revision or first-party main commit changes the premise, recheck and record the replacement evidence without rewriting the frozen assessment.
