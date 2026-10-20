@@ -15,7 +15,7 @@ issuer, or a standalone `--execute` entry point.
 
 The [existing VM/host CLI runtime source](CLI_HOST_MULTIFILE_RUNTIME.md)
 now implements the transport and clean-checkout materializer callbacks;
-a real provider actor/capability attestor and **exact stage grant issuer**
+a [live read-only GitHub actor/fork attestor](CLI_HOST_MULTIFILE_RUNTIME.md) is now source-implemented, but an **exact protected one-use stage grant issuer**
 are still missing as authenticated host integrations. Merely constructing
 the Python objects does not activate a writer.
 
