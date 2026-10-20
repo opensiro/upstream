@@ -61,8 +61,9 @@ func TestAssessmentNativeWriteAndEditBypassDeclaredScope(t *testing.T) {
         NewRunner: func(agent *swarm.Agent) swarm.Runner {
             return swarm.RunnerFunc(func(ctx context.Context, sink swarm.Sink) error {
                 writer := &WriteTool{CWD: agent.Dir, Sandbox: NewSandbox(agent.Dir)}
-                if _, err := writer.Execute(ctx, json.RawMessage(`{"path":"shared.txt","content":"foreign
-"}`), nil); err != nil {
+                args, encodeErr := json.Marshal(map[string]string{"path": "shared.txt", "content": "foreign\n"})
+                if encodeErr != nil { result <- encodeErr; return encodeErr }
+                if _, err := writer.Execute(ctx, args, nil); err != nil {
                     result <- err
                     return err
                 }
