@@ -125,11 +125,13 @@ class CandidateIntegrityTests(unittest.TestCase):
         with self.assertRaisesRegex(CandidateError, "exceeds 32 KiB"):
             inspect(self.root)
 
-    def test_empty_collection_rejected(self):
+    def test_empty_collection_is_valid_but_never_selects_anything(self):
         for path in self.root.glob("*.md"):
             path.unlink()
-        with self.assertRaisesRegex(CandidateError, "empty"):
-            inspect(self.root)
+        report = inspect(self.root)
+        self.assertEqual(report["count"], 0)
+        self.assertEqual(report["candidates"], [])
+        self.assertFalse(report["candidate_transition_authorized"])
 
     def test_symlinks_not_followed(self):
         path = self.target()
