@@ -4,6 +4,10 @@
 
 **Tracked experiment:** [Upstream #56](https://github.com/opensiro/upstream/issues/56). Existing GitHub stage/authorization rights remain as defined in [Control Plane handoff](CONTROL_PLANE_HANDOFF.md) and [Upstream #6](https://github.com/opensiro/upstream/issues/6). This document creates no permissions.
 
+## Proposed intake separation (not yet effective)
+
+A reviewable [Improvement Candidates pipeline design](IMPROVEMENT_CANDIDATES_PIPELINE_DRAFT.md) proposes **a distinct research-only candidate stage** between canonical Index findings and the existing selected `proposal_only` contribution handoff. It allows one assessment to motivate multiple independent interventions, including negative/parked candidates without forks or PRs. [Initial candidate cards](../candidates/README.md) are illustrations, **not an admitted selection, an amended stage contract or a new permission**. Until the design is adopted, the numbered gates below and [the existing S1 test](ASSESSMENT_DRIVEN_S1_TEST.md) remain authoritative.
+
 ## Purpose
 
 Produce **independently useful, measurable changes to real AI harness behavior whose selection and intervention rationale arise from a concrete VSM assessment finding**. A PR is a delivery vehicle; a higher autonomy grade is not the goal, metric or success condition.
