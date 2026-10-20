@@ -1,6 +1,6 @@
 # agent-code #524 — constrained fresh-context reviewer subagent, first native slice
 
-**Research / implementation status:** `NATIVE_PATCH_PREPARED / RUST_TESTS_PENDING / NOT_UPSTREAM_SUBMITTED` (2026-10-21). This is an internal, reviewable OpenSiro patch handoff, **not** a completed implementation of [avala-ai/agent-code issue #524](https://github.com/avala-ai/agent-code/issues/524).
+**Research / implementation status:** `NATIVE_PATCH_PREPARED / SELECTED_NATIVE_RUST_TESTS_PASS / NOT_UPSTREAM_SUBMITTED` (2026-10-21). This is an internal, reviewable OpenSiro patch handoff, **not** a completed implementation of [avala-ai/agent-code issue #524](https://github.com/avala-ai/agent-code/issues/524).
 
 ## Source and selection
 
@@ -39,6 +39,15 @@ cargo test -p agent-code-lib builtin_review_subagent_is_constrained_and_has_a_ru
 cargo test -p agent-code-lib review_subagent_is_a_fresh_process_with_a_read_only_tool_boundary --lib
 ```
 
-**Local exact native Rust test result:** pending. An isolated Rust 1.97 toolchain was bootstrapped because this VM initially had no `cargo`, `rustc`, system `cc` or `ar`. First unmodified build failed on missing `cc`; a Zig C/linker wrapper was added, then initial retry failed on missing `ar`, then a Zig archive wrapper was added. These are **environment setup failures**, not assertions about the target implementation. Record a PASS only after Rust compiler and test runner exit successfully, and separately note CI/full matrix gaps.
+**Native Rust validation at exact source HEAD, with the candidate patch applied:**
+
+- Rust toolchain `1.97.0` with a local Zig C/linker/archive wrapper (stock VM lacks `cc`/`ar`). No model API keys required.
+- `cargo test -p agent-code-lib review:: --locked --lib` → **14/14 PASS** (existing review target/rubric tests).
+- `cargo test -p agent-code-lib services::coordinator::coordinator_tests --locked --lib` → **34/34 PASS**, including the new definition/profile test.
+- `cargo test -p agent-code-lib tools::agent::tests --locked --lib` → **15/15 PASS**, including the new child-process command test.
+- **63/63 selected tests PASS** across the three nonoverlapping module filters; `cargo fmt --all -- --check` and `git diff --check` PASS; exact patch `git apply --check` and formatting on a second pristine worktree PASS.
+- The baseline original `AgentRegistry::with_defaults` did **not** register a `review` type. After the patch, the new test confirms registration, rubric inclusion, plan permission-mode, explicit bounded tool profiles and separate subprocess command construction. This is a *configuration-and-execution-path test*, **not an executed live LLM review**.
+
+**Not run:** `cargo check --all-targets`, full `cargo test --all-targets`, `cargo clippy --all-targets -- -D warnings`, cross-platform CI, a live model-run and the no-write/no-network adversarial test of error paths. Full acceptance of issue #524 remains unmet. An isolated Rust 1.97 toolchain was bootstrapped because this VM initially had no `cargo`, `rustc`, system `cc` or `ar`. First unmodified build failed on missing `cc`; a Zig C/linker wrapper was added, then initial retry failed on missing `ar`, then a Zig archive wrapper was added. These are **environment setup failures**, not assertions about the target implementation. Record a PASS only after Rust compiler and test runner exit successfully, and separately note CI/full matrix gaps.
 
 **Authority:** internal OpenSiro draft only, external maintainer PR publication remains human-owned.
