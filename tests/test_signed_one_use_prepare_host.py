@@ -3,6 +3,7 @@ import base64
 import hashlib
 import json
 import os
+import sqlite3
 from pathlib import Path
 import stat
 import subprocess
@@ -28,6 +29,11 @@ class SignedPrepareGrantTests(unittest.TestCase):
         self.ledger_dir = self.path / "host-ledger"
         self.ledger_dir.mkdir(mode=0o700)
         self.ledger = self.ledger_dir / "replay.sqlite"
+        # Trusted-host pre-provisioned ledger (ephemeral test fixture).
+        with sqlite3.connect(self.ledger) as db:
+            db.execute("CREATE TABLE consumed (grant_id TEXT PRIMARY KEY, "
+                       "intent_sha256 TEXT NOT NULL, consumed_at INTEGER NOT NULL)")
+        self.ledger.chmod(0o600)
         subprocess.run(["openssl", "ecparam", "-name", "prime256v1",
                         "-genkey", "-noout", "-out", str(self.private)],
                        capture_output=True, check=True)
@@ -52,6 +58,10 @@ class SignedPrepareGrantTests(unittest.TestCase):
                     replay_db=self.ledger, clock=lambda: self.now)
         args.update(overrides)
         return SignedOneUsePrepareHost(**args)
+
+    def consumed_count(self):
+        with sqlite3.connect(self.ledger) as db:
+            return db.execute("SELECT count(*) FROM consumed").fetchone()[0]
 
     def signed_payload(self, **overrides):
         payload = {
@@ -85,6 +95,51 @@ class SignedPrepareGrantTests(unittest.TestCase):
             self.make_host().verify_exact_prepare(self.intent)
         self.assertEqual(stat.S_IMODE(self.ledger.stat().st_mode), 0o600)
 
+    def test_two_verified_hosts_cannot_both_consume_same_grant(self):
+        self.signed_payload()
+        first, second = self.make_host(), self.make_host()
+        g1 = first.verify_exact_prepare(self.intent)
+        g2 = second.verify_exact_prepare(self.intent)
+        self.assertTrue(first.authorize_exact_stage(g1, self.intent))
+        with self.assertRaisesRegex(StageBlocked, "already consumed"):
+            second.authorize_exact_stage(g2, self.intent)
+        self.assertEqual(self.consumed_count(), 1)
+
+    def test_deleting_ledger_after_use_does_not_reset_one_use(self):
+        self.signed_payload()
+        host = self.make_host()
+        grant = host.verify_exact_prepare(self.intent)
+        host.authorize_exact_stage(grant, self.intent)
+        self.ledger.unlink()
+        with self.assertRaisesRegex(StageBlocked, "ledger absent"):
+            self.make_host().verify_exact_prepare(self.intent)
+        self.assertFalse(self.ledger.exists())
+
+    def test_absent_trusted_replay_ledger_rejects_even_valid_signature(self):
+        self.signed_payload()
+        self.ledger.unlink()
+        with self.assertRaisesRegex(StageBlocked, "ledger absent"):
+            self.make_host().verify_exact_prepare(self.intent)
+        self.assertFalse(self.ledger.exists())
+
+    def test_removed_ledger_during_authorization_blocks_no_recreation(self):
+        self.signed_payload()
+        host = self.make_host()
+        grant = host.verify_exact_prepare(self.intent)
+        self.ledger.unlink()
+        with self.assertRaisesRegex(StageBlocked, "ledger absent"):
+            host.authorize_exact_stage(grant, self.intent)
+        self.assertFalse(self.ledger.exists())
+
+    def test_missing_ledger_schema_blocks_no_creation(self):
+        self.signed_payload()
+        self.ledger.unlink()
+        with sqlite3.connect(self.ledger) as db:
+            db.execute("CREATE TABLE unrelated (id INTEGER)")
+        self.ledger.chmod(0o600)
+        with self.assertRaisesRegex(StageBlocked, "ledger unavailable"):
+            self.make_host().verify_exact_prepare(self.intent)
+
     def test_missing_grant_fails_closed(self):
         with self.assertRaisesRegex(StageBlocked, "missing or revoked"):
             self.make_host().verify_exact_prepare(self.intent)
@@ -96,7 +151,7 @@ class SignedPrepareGrantTests(unittest.TestCase):
         other = {**self.intent, "new_branch": "opensiro/other"}
         with self.assertRaisesRegex(StageBlocked, "exact action"):
             host.authorize_exact_stage(grant, other)
-        self.assertFalse(self.ledger.exists())
+        self.assertEqual(self.consumed_count(), 0)
 
     def test_wrong_actor_and_stage(self):
         self.signed_payload()
@@ -144,7 +199,7 @@ class SignedPrepareGrantTests(unittest.TestCase):
         self.grant_file.unlink()
         with self.assertRaisesRegex(StageBlocked, "missing or revoked"):
             host.authorize_exact_stage(grant, self.intent)
-        self.assertFalse(self.ledger.exists())
+        self.assertEqual(self.consumed_count(), 0)
 
     def test_changed_signed_grant_revokes_old_verified_object(self):
         self.signed_payload()

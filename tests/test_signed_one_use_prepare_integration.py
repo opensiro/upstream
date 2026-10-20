@@ -16,12 +16,12 @@ from connected_multifile_stage import prepare_exact_two_file_patch, StageBlocked
 from test_connected_multifile_stage import (
     FakePort, manifest_data, action,
 )
-from test_signed_one_use_prepare_host import SignedPrepareGrantTests
+import test_signed_one_use_prepare_host as signer_test_fixtures
 
 
 class SignedHostEndToEndTests(unittest.TestCase):
     def setUp(self):
-        self.fixture = SignedPrepareGrantTests(
+        self.fixture = signer_test_fixtures.SignedPrepareGrantTests(
             "test_real_signature_consumed_once_and_restart_replay_rejected")
         self.fixture.setUp()
         self.addCleanup(self.fixture.doCleanups)
@@ -73,11 +73,19 @@ class SignedHostEndToEndTests(unittest.TestCase):
         with self.assertRaises(StageBlocked):
             self.fixture.make_host().verify_exact_prepare(self.fixture.intent)
 
+    def test_signed_grant_without_trusted_ledger_rejects_before_writer(self):
+        self.fixture.signed_payload()
+        self.fixture.ledger.unlink()
+        with self.assertRaisesRegex(StageBlocked, "ledger absent"):
+            self.run_stage()
+        self.assertEqual(self.port.writes(), [])
+        self.assertFalse(self.fixture.ledger.exists())
+
     def test_missing_operator_signature_rejects_before_writer(self):
         with self.assertRaisesRegex(StageBlocked, "missing or revoked"):
             self.run_stage()
         self.assertEqual(self.port.writes(), [])
-        self.assertFalse(self.fixture.ledger.exists())
+        self.assertEqual(self.fixture.consumed_count(), 0)
 
     def test_signed_old_fork_observation_rejects_changed_stage(self):
         self.fixture.signed_payload()

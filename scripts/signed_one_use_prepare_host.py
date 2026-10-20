@@ -11,7 +11,6 @@ import binascii
 import hashlib
 import hmac
 import json
-import os
 from pathlib import Path
 import re
 import sqlite3
@@ -188,40 +187,37 @@ class SignedOneUsePrepareHost:
         self._verify_signature(payload, env["signature_b64"])
         return payload
 
-    def _ledger_connection(self, *, create=False):
-        if self._db.exists():
-            need(self._db.is_file() and not self._db.is_symlink()
-                 and (stat.S_IMODE(self._db.stat().st_mode) & 0o077) == 0,
-                 "Replay ledger is not protected")
-        elif create:
-            flags = os.O_CREAT | os.O_EXCL | os.O_WRONLY
-            if hasattr(os, "O_NOFOLLOW"):
-                flags |= os.O_NOFOLLOW
+    def _ledger_connection(self):
+        # The trusted host MUST provision the ledger before the stage;
+        # missing/deleted storage is revocation, never a new empty epoch.
+        need(self._db.is_file() and not self._db.is_symlink()
+             and (stat.S_IMODE(self._db.stat().st_mode) & 0o077) == 0,
+             "Trusted replay ledger absent, deleted or unprotected")
+        try:
+            # mode=rw refuses to create a missing database; schema must exist.
+            db = sqlite3.connect(self._db.absolute().as_uri() + "?mode=rw",
+                                 uri=True, timeout=3, isolation_level=None)
             try:
-                fd = os.open(self._db, flags, 0o600)
-                os.close(fd)
-            except FileExistsError:
-                pass
-        else:
-            return None
-        db = sqlite3.connect(str(self._db), timeout=3, isolation_level=None)
-        db.execute("PRAGMA synchronous=FULL")
-        db.execute("CREATE TABLE IF NOT EXISTS consumed (grant_id TEXT PRIMARY KEY, intent_sha256 TEXT NOT NULL, consumed_at INTEGER NOT NULL)")
-        return db
+                db.execute("PRAGMA synchronous=FULL")
+                db.execute("SELECT grant_id, intent_sha256, consumed_at "
+                           "FROM consumed LIMIT 0")
+            except sqlite3.Error:
+                db.close()
+                raise
+            return db
+        except (sqlite3.Error, OSError):
+            raise StageBlocked("Trusted replay ledger unavailable") from None
 
     def _already_consumed(self, grant_id):
+        db = self._ledger_connection()
         try:
-            db = self._ledger_connection()
-            if db is None:
-                return False
-            try:
-                return db.execute(
-                    "SELECT 1 FROM consumed WHERE grant_id=?", (grant_id,)
-                ).fetchone() is not None
-            finally:
-                db.close()
+            return db.execute(
+                "SELECT 1 FROM consumed WHERE grant_id=?", (grant_id,)
+            ).fetchone() is not None
         except sqlite3.Error:
             raise StageBlocked("Replay protection unavailable") from None
+        finally:
+            db.close()
 
     def verify_exact_prepare(self, intent):
         need(type(intent) is dict and intent.get("stage") == "prepare_contribution"
@@ -257,7 +253,7 @@ class SignedOneUsePrepareHost:
              "Grant changed or expired before one-use consumption")
         db = None
         try:
-            db = self._ledger_connection(create=True)
+            db = self._ledger_connection()
             db.execute("BEGIN IMMEDIATE")
             existing = db.execute(
                 "SELECT 1 FROM consumed WHERE grant_id=?", (grant.grant_id,)
