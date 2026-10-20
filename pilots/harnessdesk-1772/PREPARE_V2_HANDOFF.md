@@ -1,5 +1,24 @@
 # HarnessDesk #1772 — exact V2 preparation handoff (not authorization)
 
+**Updated pinned source evidence (later on 2026-10-20):** The prior
+`prepare-v2-handoff.json` below is a frozen historical snapshot at
+`97b13afc`; do not overwrite it. The new
+[`prepare-v2-20261020-24aa8d7.json`](prepare-v2-20261020-24aa8d7.json)
+pins actual source `development@24aa8d7fdeee47f03f787cc77f40978948bf8141`,
+while the public fork `development` remains at `4029e951...`.
+On the newest source, V2 exact patch SHA256
+`12b5c7e55a6f730fb9a2465ca30dd47321690c87c0d887e7b8c9d6990ec186e7`
+applies cleanly; frozen offline dependencies, Node build and gateway
+**17/17 tests PASS** on Linux. The packet now includes exact source
+preimage and both postimage SHA-256 digests. A separate credential-free
+macOS CI run is selected for this newer immutable SHA; do not report it
+as passed before a linked completion receipt. The current fork base
+mismatch and missing **real one-use host grant** still block writes.
+The read-only [provider attestor](../../scripts/cli_host_patch_attestor.py)
+was successfully exercised on the real credential-owning VM as
+`xLagerFeuer` with `permissions.push=true`, but is **not** an operator
+stage authorization.
+
 **2026-10-20, source-only.** See the machine-readable
 [`prepare-v2-handoff.json`](prepare-v2-handoff.json) and
 [tested V2 patch](tool-gateway-ownership-fix-v2.patch). This is a bounded
