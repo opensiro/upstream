@@ -17,6 +17,10 @@ Cards use a small, strictly parsed YAML-like **scalar frontmatter** for identity
 
 **Critical:** This inspector checks only local syntax and internal consistency. The displayed `declared_fit_complete` boolean is a *card author's declaration*, **not** independent verification. It never reads live Index/target repositories or accepts/fabricates authorization, and its output always says `candidate_transition_authorized=false` and `NOT_APPROVED_NO_GITHUB_WRITES`. A real transition to the existing proposal preview still requires separate source/fit verification and operator decision. No input flag can trigger proposal generation or GitHub writes.
 
+## Linkage to the existing proposal-only path
+
+The [read-only candidate-to-proposal linker](../scripts/improvement_candidate_linkage.py) checks an **already** qualified/selected assessment-linked candidate against an **already authored** `batch_proposals.py` manifest item and local pinned Index assessment object. It rejects blocked cards/proposals, different target repositories, changed assessment refs and dishonest `QUALIFIED` flags with incomplete native-fit declarations. It never creates a candidate, draft or permission; see the [detailed design and example](../docs/IMPROVEMENT_CANDIDATES_PIPELINE_DRAFT.md#offline-candidate-to-existing-proposal-linkage-prototype-still-not-promotion). All current cards are blocked or parked, so only **synthetic isolated test fixtures** cover a positive linkage; real product fit and canonical live source checks remain external human/agent duties.
+
 ## Initial candidates (not a ranked or approved queue)
 
 | Candidate | Provenance of specific hypothesis | Research state | Next gate |
