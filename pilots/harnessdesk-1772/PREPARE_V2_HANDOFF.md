@@ -65,6 +65,15 @@ git -C /path/to/clean/HarnessDesk-development apply --check \
   /path/to/opensiro-upstream/pilots/harnessdesk-1772/tool-gateway-ownership-fix-v2.patch
 ```
 
+**New source-only multi-file implementation:** The
+[exact two-file stage core](../../scripts/connected_multifile_stage.py)
+now exists, with [contract and negative tests](../../docs/CONNECTED_MULTIFILE_STAGE.md).
+It keeps the original single-file adapter unchanged and **does not activate
+a real authenticated host approval issuer or atomic GitHub patch port**.
+The stale fork base and original proposal blockers also remain. This is
+a later checkpoint than the original JSON snapshot; do not promote the
+JSON packet to an authorization.
+
 **Next missing implementation** is a separately reviewed exact
 **multi-file, content-bound, host-authorized preparation port** (or an
 equivalent trusted host executor), *not* another fork creation and not an
