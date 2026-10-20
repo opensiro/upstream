@@ -383,6 +383,18 @@ class TestTwoFileStage(unittest.TestCase):
         self.port.readback_sha = "c" * 40
         self.assertEqual(self.run_stage()["status"], "PENDING_VERIFICATION")
 
+    def test_actual_v2_patch_diff_parser_and_pinned_sha(self):
+        file = ROOT / "pilots/harnessdesk-1772/tool-gateway-ownership-fix-v2.patch"
+        text = file.read_text(encoding="utf-8")
+        actual = self.intent
+        actual["patch_text"] = text
+        actual["patch_sha256"] = digest(text)
+        self.assertEqual(actual["patch_sha256"],
+                         "12b5c7e55a6f730fb9a2465ca30dd47321690c87c0d887e7b8c9d6990ec186e7")
+        from connected_multifile_stage import _validate
+        _validate(actual)
+        self.assertEqual(self.port.writes(), [])
+
     def test_no_external_pr_capability_is_ever_needed(self):
         self.run_stage()
         self.assertTrue(all(c[0] != "create_pull_request" for c in self.port.calls))
