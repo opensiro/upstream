@@ -21,6 +21,31 @@ owns the still-unmade S5 choice about the formal fourth-domain scope,
 currently `PROPOSED / NOT ADMITTED`. This document only defines the
 observable test, not that policy decision.
 
+## Functional improvement evidence
+
+Use the [assessment-to-improvement protocol](ASSESSMENT_TO_IMPROVEMENT.md)
+for the stronger evidence claim. An assessment-related contribution is not
+necessarily an assessment-derived diagnosis.
+
+- `ASSESSMENT_DERIVED`: an observed functional finding, discovered from
+  canonical Index first, motivates a falsifiable upstream-native improvement.
+- `ASSESSMENT_INFORMED`: assessment establishes subsystem relevance,
+  while a separate issue/code investigation identifies the concrete defect.
+- `GENERAL_UPSTREAM`: no demonstrated functional-finding linkage.
+- `INSUFFICIENT`: a required provenance or linkage item cannot be verified.
+
+Keep this origin class separate from execution status and from the observed
+product-effect verdict. For a strong derived case, require a documented
+pre-change behavior and safety criterion, a matched post-change evaluation
+and an explicit benefit/no-benefit/inconclusive result. Passing CI validates
+the check, not a changed product capability. Do not invent a functional
+deficit from a grade or retroactively attach an Index finding to an already
+chosen issue.
+
+The existing [HarnessDesk #1772](../pilots/harnessdesk-1772/ASSESSMENT_LINKAGE_2026-10-20.md)
+pilot is `ASSESSMENT_INFORMED`. A new Index-first functional-gap experiment
+is tracked in [Upstream #56](https://github.com/opensiro/upstream/issues/56).
+
 ## Ordered assessment-to-contribution intake
 
 1. **Discover in Index first.** Refresh [canonical Index](https://github.com/opensiro/vsm-harness-index)
@@ -170,6 +195,8 @@ A human-readable or machine-readable report must contain at least:
 | Field | Required observation |
 | --- | --- |
 | `index_assessment` | Index assessment path/URL **and** immutable Index SHA; assessed harness upstream/revision; finding, function/ownership and source evidence |
+| `origin_strength` | `ASSESSMENT_DERIVED / ASSESSMENT_INFORMED / GENERAL_UPSTREAM / INSUFFICIENT`, with selection-order and causal evidence rather than just a related assessment URL |
+| `before_after_effect` | Reproducible pre-change behavior, relevant benefit/safety metric, matched after-change test and `BENEFIT_SUPPORTED / NO_BENEFIT_OBSERVED / INCONCLUSIVE`, or explicit untested blocker |
 | `fresh_upstream` | Upstream owner/repository, current default-branch SHA, current relevant code/issue/PR URLs and policy/licence check |
 | `hypothesis` | Assessment-motivated problem, concrete upstream-native mechanism, expected benefit and falsifier/test |
 | `native_fit` | Separate need/mechanism/counterfactual/scope `PASS/PENDING/FAIL` with actual source links |

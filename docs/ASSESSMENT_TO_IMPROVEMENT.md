@@ -1,0 +1,73 @@
+# Assessment → functional improvement → upstream contribution
+
+**Owner:** `opensiro/upstream`. **Scope:** [the assessment-driven candidate S1 test](ASSESSMENT_DRIVEN_S1_TEST.md), not the generic Upstream portfolio or a fourth admitted Organization S1 domain.
+
+**Tracked experiment:** [Upstream #56](https://github.com/opensiro/upstream/issues/56). Existing GitHub stage/authorization rights remain as defined in [Control Plane handoff](CONTROL_PLANE_HANDOFF.md) and [Upstream #6](https://github.com/opensiro/upstream/issues/6). This document creates no permissions.
+
+## Purpose
+
+Produce **independently useful, measurable changes to real AI harness behavior whose selection and intervention rationale arise from a concrete VSM assessment finding**. A PR is a delivery vehicle; a higher autonomy grade is not the goal, metric or success condition.
+
+```text
+current canonical Index assessment @ immutable SHA
+  → specific observed VSM function / decision owner / feedback shortfall
+  → falsifiable proposed native behavior change
+  → independent current-upstream need and fit validation
+  → reproducible pre-change baseline, safety requirements
+  → bounded implementation and matched post-change evaluation
+  → validated product-effect finding (including negative/null results)
+  → permissioned contributor-fork preparation and human-owned external PR
+  → actual maintainer feedback, optionally a separately owned reassessment
+```
+
+The target's system-in-focus, acceptable behavior and developer/maintainer needs take precedence over making its VSM vector appear stronger. Improving a function **does not necessarily change its autonomy owner or Index grade**.
+
+## Classification: origin strength is not implementation status
+
+| Class | Required explanatory evidence | May be counted as evidence of the assessment-derived discovery path? |
+| --- | --- | --- |
+| `ASSESSMENT_DERIVED` | **Index-first** assessment identifies a specific *observed* functional constraint/feedback or ownership gap; that finding motivates the chosen intervention; a distinct current-source check establishes a useful native weakness; a concrete before/after plan makes the effect falsifiable. | **Yes, if those links are documented.** A proposed case is not yet a proven product improvement. |
+| `ASSESSMENT_INFORMED` | Assessment identifies an important subsystem or helps select an area, but the exact defect is independently discovered (issue, maintainer, code) and not diagnosed by the assessment finding. | **No** for strict derived discovery. May proceed as useful upstream engineering. |
+| `GENERAL_UPSTREAM` | No verified Index finding → selected behavior/mechanism link. | No. Count only in the ordinary upstream route. |
+| `INSUFFICIENT` | Missing/pending canonical pin, finding, native fit or discovery-order evidence. | No until independently established. |
+
+Record **classification** separately from **work stage** (`SOURCE_PREPARED`, `EXERCISED`, `BLOCKED`, `SUBMITTED`, `MERGED`, etc.) and **outcome** (`BENEFIT_SUPPORTED`, `NO_BENEFIT_OBSERVED`, `INCONCLUSIVE`). For example, an assessment-derived hypothesis with negative post-change measurements remains a real derived *test* but not an improved system. A well-tested assessment-informed bug fix remains a valid engineering contribution, not a derived diagnostic success.
+
+Do not promote `ASSESSMENT_INFORMED` into `ASSESSMENT_DERIVED` by finding a post-hoc VSM label compatible with an already-chosen issue. If the actual assessment does not record a decisive weakness, the candidate cannot obtain a stronger origin label by assuming that low `S3`, absent `S4` or human-owned `S5` is necessarily a fault. Equally, a detected functional weakness must be checked against the target's intended product behavior; not every theoretical delegation is desirable.
+
+## Admission gates for a new strong case
+
+1. **Index-first discovery (positive evidence):** refresh the *current canonical Index default branch*; independently select an included assessment before picking an upstream fix or favorite fork; pin Index commit, assessment path, its assessed target `review_ref`, function and exact source-backed decision/feedback owner/constraint. Preserve dated snapshots; a historical assessment never claims the source is still unchanged.
+2. **Function-to-mechanism hypothesis (positive evidence):** identify what operational loop does not close as required, which actor currently makes the decisive decision, the specific mechanism proposed to change behavior, expected native benefit and a plausible failure/null outcome. Explain *why the assessment finding predicts/selects this mechanism*, independently of any prospective VSM grade.
+3. **Native need/fit (independent evidence):** inspect current target default branch and its genuine contribution target (which can be a distinct `development` branch), first-party code, maintainer signal/issue/PR overlap, licensing/DCO/CLA rules, product scope and impact. Record `PASS`, `PENDING` or `FAIL` separately for **need, mechanism, counterfactual benefit, scope**. A VSM diagnosis or issue citation alone cannot make these pass.
+4. **Before/after protocol (before implementing):** freeze input scenario/workload, baseline source SHA, environment, metric/observable, sample or repeated-trial plan, effect threshold or acceptance condition, safety/rollback checks, expected regressions and confounders. Select metrics from the actual function: e.g. conflict-resolution time, correct local delegation rate, recovery success, operator intervention count, unsafe-action rate, or reliability *where relevant*. Do not impose arbitrary agent autonomy or score-driven targets.
+5. **Real bounded test and repair:** demonstrate the pre-change failure/shortfall; implement one scoped upstream-native change; re-run an equivalent workload on the new source and inspect regressions. Retain exact code, tests, commands, observations and failed attempts. A green CI alone proves checks ran, **not that a real product benefit was measured**.
+6. **Decision and outcome:** compare pre/post observations and evidence limits. State `BENEFIT_SUPPORTED`, `NO_BENEFIT_OBSERVED` or `INCONCLUSIVE`, plus functional mechanism effect and whether any authority/decision owner changed. No self-awarded reclassification of Index grades. If scope/policy is incompatible, return `NO_ELIGIBLE_ASSESSMENT_CANDIDATE` / `BLOCKED_EVIDENCE` instead of swapping to a convenient unrelated issue.
+7. **Authorized delivery and external feedback:** only write to a permitted fork/branch under effective provider-bound authority. Publish an external PR only by the separately reserved human decision. Track maintainer review, actual merge/non-merge and downstream observed behavior without treating either a push or acceptance as proof of benefit. A later reassessment belongs to Index/Skills under their own procedures.
+
+**Do not require a new agent, automation service, grant signer, fork or duplicated assessment to qualify the idea.** Reuse the existing Control Plane and Upstream engineering route; issue #56 owns the research experiment, issue #6 owns stage execution and authorization, and Organization #274 remains a separate reserved scope decision.
+
+## Minimum evidence record (reviewable prose is sufficient)
+
+| Field | Content |
+| --- | --- |
+| `index_origin` | Index SHA, assessment URL/path, assessed source `review_ref`, targeted S-function, source lines supporting the finding |
+| `selection_order` | Independent evidence the assessment/finding was inspected before the external candidate was selected; if unknown, classify `INSUFFICIENT` or `ASSESSMENT_INFORMED`, not confidently derived |
+| `weakness_and_hypothesis` | Observed limitation within declared system boundary; current decision owner and feedback failure; planned bounded mechanism; alternate explanations and falsifier |
+| `native_fit` | Fresh upstream branch/SHA, actual issue/code/policy/PR overlap and need/mechanism/counterfactual/scope four gates |
+| `baseline` | Unmodified product behavior with command/scenario, environment, metric, quantitative or reproducible qualitative observation, safety cases |
+| `intervention` | Diff, source/patch pins, specific function/mechanism, changed actor/rights if any; ordinary engineering quality checks |
+| `after` | Matched execution with result, failures, regressions, observed delta and validity limits |
+| `classification_and_outcome` | One origin class, separate execution stage, one effect verdict; explicit counterevidence and unknowns |
+| `publication_feedback` | Fork/PR refs **only when they exist**, permissions, human publication decision, maintainer disposition, further investigation |
+
+### Classification example: HarnessDesk #1772
+
+- [Pinned Index assessment](https://github.com/opensiro/vsm-harness-index/blob/13dab0d4f2954614f7f99a9fa044ad5b9a154490/assessments/ha/harnessdesk.md) includes **host/common tool projection** in the assessed system and describes operating S1/S2 agent work. It **does not identify** the second-host Unix-socket deletion bug as a VSM functional weakness.
+- The concrete native defect comes from [HarnessDesk's first-party issue #1772](https://github.com/HarnessDesk/HarnessDesk/issues/1772) and current `tool-gateway.ts`, **not from an assessment diagnosis**. The [V2 patch](https://github.com/opensiro/upstream/blob/main/pilots/harnessdesk-1772/tool-gateway-ownership-fix-v2.patch) independently improves socket-owner safety.
+- **Origin `ASSESSMENT_INFORMED`**. Actual targeted gateway regressions and [read-only pinned upstream `pnpm check:push` PASS](https://github.com/opensiro/upstream/actions/runs/39467673123) support *source validation*, not measured live/deployed product benefit, autonomous VSM ownership transfer, or a finished external contribution. The external `opensiro/fix-toolgateway-1772` branch and upstream PR remain absent; local policy remains `PROPOSED_NOT_ACTIVE`.
+- Keep HarnessDesk #1772 as a legitimate **technical reliability pilot**; do not reclassify it as the new stronger assessment-derived experiment or erase its historical receipts. See [case-specific linkage note](../pilots/harnessdesk-1772/ASSESSMENT_LINKAGE_2026-10-20.md).
+
+### Next case
+
+Select through **fresh Index-first evidence** under [#56](https://github.com/opensiro/upstream/issues/56). A possible functional ownership hypothesis (such as an `S3=C(P)` human-current-control decision in a real harness) is only a **question to investigate**, not an automatically deficient grade, a selected target or an authorized contribution.
