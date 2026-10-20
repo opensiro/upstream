@@ -95,7 +95,9 @@ The generic OSS upstream path remains independently available. Its user-chosen c
 
 ## Draft rollout and review questions
 
-**This PR is documentation-only.** Proposed adoption sequence: review this boundary → accept/adjust candidate state names → retain/retire initial research cards → separately plan optional mechanical validator or CLI command only if manual candidate intake proves insufficient → then amend authoritative S1/proposal contracts in another reviewable change.
+**This PR remains a DRAFT design, plus a small executable _offline, read-only_ integrity check.** [`inspect_improvement_candidates.py`](../scripts/inspect_improvement_candidates.py) and [its test suite](../tests/test_inspect_improvement_candidates.py) check stable IDs, pinned-reference syntax, state/fit declaration coherence, source/evidence-card structure and non-duplication; the [credential-free CI workflow](../.github/workflows/improvement-candidates.yml) executes them. They do **not** validate live source or user benefit, attest provenance/fit, select a candidate, create a proposal, or authenticate/authorize any action. `declared_fit_complete=true` is only locally asserted metadata.
+
+Proposed adoption sequence: review this boundary → accept/adjust candidate state names → retain/retire initial research cards → separately review an explicit candidate-to-existing-proposal transition, with verified live evidence and operator decision, if/when a candidate qualifies → then amend the authoritative S1/proposal contracts in another reviewable change. No automatic sorter, execution gate or new agent is introduced.
 
 Questions for review:
 1. Should `QUALIFIED` require maintainer feedback **only when** the target design is not already established, rather than for every independently validated bug fix? (Proposed: yes, require acceptance of the actual behavior, not a ritual comment.)
