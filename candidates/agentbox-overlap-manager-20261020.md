@@ -1,3 +1,18 @@
+---
+candidate_id: IMPR-AGENTBOX-S2-OVERLAP-20261020
+state: BLOCKED_EVIDENCE
+origin_class: ASSESSMENT_DERIVED
+target_repo: madarco/agentbox
+index_sha: 5393b698bfdfa4ca14d97a79238234eca20694e5
+assessment_path: assessments/ag/agentbox.md
+review_ref: 463a6a0a20176147f0b0dbfa8a261aba5e43cbd6
+source_sha: 605ee75d63319003c188bc532d4e5b2ba36a51d6
+fit_need: PASS
+fit_mechanism: PENDING
+fit_value: PENDING
+fit_scope: PENDING
+---
+
 # IMPR-AGENTBOX-S2-OVERLAP-20261020 — group potentially conflicting box tasks
 
 **Candidate state:** `BLOCKED_EVIDENCE` (first-party design boundary).
