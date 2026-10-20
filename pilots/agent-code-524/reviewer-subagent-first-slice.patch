@@ -1,0 +1,188 @@
+diff --git a/crates/lib/src/services/coordinator.rs b/crates/lib/src/services/coordinator.rs
+index b01d1f8..a57518e 100644
+--- a/crates/lib/src/services/coordinator.rs
++++ b/crates/lib/src/services/coordinator.rs
+@@ -142,6 +142,43 @@ impl AgentRegistry {
+             },
+         );
+ 
++        agents.insert(
++            "review".to_string(),
++            AgentDefinition {
++                name: "review".to_string(),
++                description: "Fresh-context, read-only code review with an evidence rubric."
++                    .to_string(),
++                system_prompt: Some(format!(
++                    "You are an independent code reviewer. You have no access to the parent \
++                     conversation. Inspect the repository and return only grounded findings. \
++                     Do not edit files, access the network, delegate work, or ask for approval.\n\n{}",
++                    crate::review::RUBRIC
++                )),
++                model: None,
++                base_url: None,
++                auth_mode: None,
++                include_tools: vec![
++                    "FileRead".into(),
++                    "Grep".into(),
++                    "Glob".into(),
++                    "Bash".into(),
++                ],
++                exclude_tools: vec![
++                    "WebFetch".into(),
++                    "WebSearch".into(),
++                    "Agent".into(),
++                    "Task".into(),
++                    "FileWrite".into(),
++                    "FileEdit".into(),
++                    "MultiEdit".into(),
++                    "NotebookEdit".into(),
++                ],
++                read_only: true,
++                max_turns: Some(20),
++                permissions: None,
++            },
++        );
++
+         Self { agents }
+     }
+ 
+@@ -1454,6 +1491,48 @@ mod coordinator_tests {
+         assert_eq!(parsed.rules.len(), 2);
+     }
+ 
++    #[test]
++    fn builtin_review_subagent_is_constrained_and_has_a_rubric() {
++        let registry = AgentRegistry::with_defaults();
++        let reviewer = registry.get("review").expect("registered reviewer");
++
++        assert!(reviewer.read_only);
++        assert_eq!(reviewer.max_turns, Some(20));
++        let perms = effective_permissions(reviewer).expect("reviewer tool boundary");
++        assert_eq!(perms.default_mode, PermissionMode::Plan);
++        for required in ["FileRead", "Grep", "Glob", "Bash"] {
++            assert!(perms.allowed_tools.iter().any(|name| name == required));
++        }
++        for forbidden in [
++            "WebFetch",
++            "WebSearch",
++            "Agent",
++            "Task",
++            "FileWrite",
++            "FileEdit",
++            "MultiEdit",
++            "NotebookEdit",
++        ] {
++            assert!(
++                !perms.allowed_tools.iter().any(|name| name == forbidden),
++                "review unexpectedly allows {forbidden}"
++            );
++        }
++        let prompt = compose_agent_prompt(reviewer, "Review commit abc");
++        for required in [
++            "introduced by this change",
++            "AGENTS.md",
++            "[P0]",
++            "no findings",
++            "Review commit abc",
++        ] {
++            assert!(
++                prompt.contains(required),
++                "review prompt missing {required}"
++            );
++        }
++    }
++
+     #[test]
+     fn effective_permissions_none_when_unconstrained() {
+         let def = AgentRegistry::with_defaults()
+diff --git a/crates/lib/src/tools/agent.rs b/crates/lib/src/tools/agent.rs
+index 13d30cb..77d569c 100644
+--- a/crates/lib/src/tools/agent.rs
++++ b/crates/lib/src/tools/agent.rs
+@@ -161,7 +161,7 @@ impl Tool for AgentTool {
+         "Launch a subagent to handle a complex task autonomously. The agent \
+          runs with its own conversation context and can execute tools in parallel \
+          with the main session. Choose a subagent_type (explore, plan, \
+-         general-purpose) to scope tools and permissions."
++         general-purpose, review) to scope tools and permissions."
+     }
+ 
+     fn prompt(&self) -> String {
+@@ -178,6 +178,8 @@ impl Tool for AgentTool {
+            without writing code.\n\
+          - `general-purpose` — full tools (default). Use only when the child must \
+            edit, run mutating commands, or finish an implementation.\n\
++         - `review` — focused fresh-context code review; use an explicit diff \
++           or target in the prompt. Does not replace the interactive `/review`.\n\
+          Custom types from `.agent/agents/*.md` are also accepted.\n\n\
+          Provide a clear, complete prompt so the agent can work autonomously. \
+          Do not assume the child inherits your recent conversation — put every \
+@@ -201,7 +203,7 @@ impl Tool for AgentTool {
+                 "subagent_type": {
+                     "type": "string",
+                     "description": "Agent type: general-purpose (default), explore \
+-                        (read-only research), plan (read-only architecture), or a \
++                        (read-only research), plan (read-only architecture), review \n                        (read-only review), or a \
+                         custom name from .agent/agents/"
+                 },
+                 "model": {
+@@ -1148,6 +1150,46 @@ mod tests {
+         );
+     }
+ 
++    #[test]
++    fn review_subagent_is_a_fresh_process_with_a_read_only_tool_boundary() {
++        let registry = AgentRegistry::with_defaults();
++        let review = registry.get("review").expect("built-in review agent");
++        let cmd = build_subagent_command(
++            "Inspect commit aabbcc",
++            std::path::Path::new("/tmp"),
++            "sid-review",
++            None,
++            None,
++            Some(review),
++            &SubagentEndpoint::default(),
++        );
++        let std_cmd = cmd.as_std();
++        let args: Vec<String> = std_cmd
++            .get_args()
++            .map(|a| a.to_string_lossy().into_owned())
++            .collect();
++        let prompt_pos = args.iter().position(|a| a == "--prompt").unwrap();
++        let prompt = &args[prompt_pos + 1];
++        assert!(prompt.contains("Inspect commit aabbcc"));
++        assert!(prompt.contains("introduced by this change"));
++        assert!(!prompt.contains("PRIVATE_PARENT_TRANSCRIPT_SENTINEL"));
++        assert!(
++            args.windows(2)
++                .any(|w| w[0] == "--permission-mode" && w[1] == "plan")
++        );
++        assert!(args.iter().any(|x| x == "--permissions-overlay"));
++        assert!(
++            args.windows(2)
++                .any(|w| w[0] == "--max-turns" && w[1] == "20")
++        );
++        assert!(
++            std_cmd
++                .get_envs()
++                .any(|(key, val)| key == "AGENT_CODE_SUBAGENT_TYPE"
++                    && val == Some(std::ffi::OsStr::new("review")))
++        );
++    }
++
+     #[test]
+     fn build_subagent_command_model_override_without_definition() {
+         let cmd = build_subagent_command(
+diff --git a/docs/reference/tools.mdx b/docs/reference/tools.mdx
+index 639f874..5186911 100644
+--- a/docs/reference/tools.mdx
++++ b/docs/reference/tools.mdx
+@@ -34,7 +34,7 @@ description: "Complete list of all 32 built-in tools"
+ 
+ | Tool | Description | Read-only | Concurrent |
+ |------|-------------|:---------:|:----------:|
+-| `Agent` | Spawn typed subagents (`explore` / `plan` / `general-purpose` or custom `.agent/agents/*.md`). Optional worktree isolation and free-form model override. | No | No |
++| `Agent` | Spawn typed subagents (`explore` / `plan` / `review` / `general-purpose` or custom `.agent/agents/*.md`). Optional worktree isolation and free-form model override. | No | No |
+ | `SendMessage` | Inter-agent communication. | No | Yes |
+ | `Skill` | Invoke skills programmatically. | Yes | No |
+ 
