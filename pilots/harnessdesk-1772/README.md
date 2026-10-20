@@ -1,6 +1,16 @@
 # HarnessDesk #1772 — assessment-driven S1 candidate (blocked; unpublished)
 
-> **Latest 2026-10-20 implementation checkpoint:** The old status below is a **dated
+> **Latest V2 review — 2026-10-20:** The [original production
+> patch](tool-gateway-ownership-fix.patch) has **two reproduced safety defects**
+> and **MUST NOT be applied or sent upstream**. See the
+> [new V2 patch](tool-gateway-ownership-fix-v2.patch) and
+> [red→green adversarial review](IMPLEMENTATION_REVIEW_V2_2026-10-20.md).
+> V2 was built and tested in the **current** source
+> `development@97b13afc819ab7c1a0f8cd20630a428a34c2d47a`;
+> **17/17** targeted tests PASS. No V2 patch has been pushed to the
+> public fork; the pilot has no authenticated prepare-stage grant.
+>
+> **Historical V1 2026-10-20 implementation checkpoint:** The old status below is a **dated
 > 2026-10-19 historical pilot snapshot**. An actual public
 > [`opensiro-contributions/HarnessDesk`](https://github.com/opensiro-contributions/HarnessDesk)
 > fork has since been created and verified, and a
