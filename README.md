@@ -153,8 +153,7 @@ single-test-file adapter unchanged. It binds entire patch bytes, pinned
 identical upstream/fork bases, pre/post file contents and one
 authenticated, revocable exact stage grant from the **real VM/host**.
 A [source-prepared REST Git Data port](docs/REST_MULTIFILE_PATCH_PORT.md)
-provides the atomic tree/commit/new-ref algorithm, but **no trusted host
-transport, patch materializer or grant issuer is connected**; offline pass is not authority to push a fork branch.
+provides the atomic tree/commit/new-ref algorithm; the [CLI host transport and clean Git patch materializer](docs/CLI_HOST_MULTIFILE_RUNTIME.md) also exist as source. **No trusted provider attestor, effective grant issuer or deployed host binding is connected**; offline pass is not authority to push a fork branch.
 External upstream PR publication remains separately human-owned.
 
 ## Fork lifecycle automation

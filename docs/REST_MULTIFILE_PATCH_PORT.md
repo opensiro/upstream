@@ -13,6 +13,12 @@ implements the GitHub provider interface required by
 without embedding PATs, GitHub CLI authentication, an automatic approval
 issuer, or a standalone `--execute` entry point.
 
+The [existing VM/host CLI runtime source](CLI_HOST_MULTIFILE_RUNTIME.md)
+now implements the transport and clean-checkout materializer callbacks;
+a real provider actor/capability attestor and **exact stage grant issuer**
+are still missing as authenticated host integrations. Merely constructing
+the Python objects does not activate a writer.
+
 The **existing credential-owning VM/host** must inject all three components:
 
 1. **`api(method,path,body)`**: authenticated GitHub REST transport,
