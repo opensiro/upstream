@@ -22,6 +22,8 @@ After the one-system AgentBox seed receipt, [Batch 001](../reports/2026-10-21-in
 
 After Batches 001–002, [Batch 003](../reports/2026-10-21-index-sweep-batch-003.md) completes ten next included systems, reviews six function paths for each and records four research-only native hypotheses. **Only one is classified assessment-derived at hypothesis level** (agent-code S3* fresh-context reviewer); its native product benefit is still unmeasured. Recompute coverage with the scanner instead of treating this narrative count as live state.
 
+[Batch 004](../reports/2026-10-21-index-sweep-batch-004.md) continues with **five additional included systems**, recording one new `ASSESSMENT_INFORMED` AO reviewer no-write enforcement candidate from [upstream #6962](https://github.com/OrchestratorInc/agent-orchestrator/issues/6962). Note the assessed AO repo has been renamed/redirected since the Index review; current owning source must be checked for any future proposal. Neither a full native before/after nor an Index regrade is claimed. Total [current sweep receipts](./) are validated by the script, not by these narrative counters.
+
 ## Run
 
 ```bash
