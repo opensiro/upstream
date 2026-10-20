@@ -152,8 +152,9 @@ shape needed for HarnessDesk #1772, while preserving the original
 single-test-file adapter unchanged. It binds entire patch bytes, pinned
 identical upstream/fork bases, pre/post file contents and one
 authenticated, revocable exact stage grant from the **real VM/host**.
-**No live grant issuer or credential-bearing atomic publication port is
-connected**; offline pass is not authority to push a fork branch.
+A [source-prepared REST Git Data port](docs/REST_MULTIFILE_PATCH_PORT.md)
+provides the atomic tree/commit/new-ref algorithm, but **no trusted host
+transport, patch materializer or grant issuer is connected**; offline pass is not authority to push a fork branch.
 External upstream PR publication remains separately human-owned.
 
 ## Fork lifecycle automation

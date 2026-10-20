@@ -55,6 +55,12 @@ An error from the write port yields `UNKNOWN_AFTER_WRITE`,
 
 ## What it does NOT do
 
+A new, separately source-prepared [GitHub REST Git Data provider port](REST_MULTIFILE_PATCH_PORT.md)
+implements the remote tree → single commit → non-overwriting new branch
+reference sequence. It is still **host-injected**, with no authenticated
+API transport, clean git-apply materializer, provider attestor or trusted
+grant issuer installed.
+
 The module is **not a live host executor**: it neither supplies
 `verify_exact_prepare` nor an authenticated GitHub patch-writing port.
 A Python test fake can simulate any decision, so unit tests are **not**
