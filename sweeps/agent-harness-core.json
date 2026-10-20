@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "index_sha": "5393b698bfdfa4ca14d97a79238234eca20694e5",
+  "assessment_path": "assessments/ag/agent-harness-core.md",
+  "review_ref": "1e247e064061e4427f4b78e8afd8671e6e7f06f0",
+  "reviewed_at": "2026-10-21",
+  "functions": {
+    "S1": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "This operations layer gives model-backed Codex agent turns durable identity, tool outcomes, result delivery and goal continuity across bounded slices; execution choices remain in the backend model rather than the deterministic queue. No independently supported task-response product defect arises from this function mapping.",
+      "candidate_ids": []
+    },
+    "S2": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "First-party queue classes, fan-out group caps and same-session constraints attenuate competition among interactive, cron and child task cells. The new restart/backoff failure is a service owner lifecycle contract, not demonstrated evidence that the S2 admission/queue fairness relation is broken.",
+      "candidate_ids": []
+    },
+    "S3": {
+      "outcome": "HYPOTHESES_RECORDED",
+      "rationale": "At master-child recursion the agent owns delegated current commitments while the runtime supervises owner and restart state. Existing issue #22 reports an exact direct-owner restart deadlock: Backoff serializes backoff but importer expects restart-backoff. This is a source- and incident-backed native reliability opportunity discovered separately, so it is ASSESSMENT_INFORMED rather than the Index S3 diagnosis.",
+      "candidate_ids": [
+        "IMPR-AGENT-HARNESS-CORE-BACKOFF-20261021"
+      ]
+    },
+    "S3*": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "The source emits receipts, states and health invariants but no complementary independently source-observing audit judgment with corrective return. It would be inappropriate to infer a demand for a new audit actor from these observability artifacts alone.",
+      "candidate_ids": []
+    },
+    "S4": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Internal skill synthesis and provider/session response routines do not establish outside/future intelligence to changed organizational capability. No external adaptation need or concrete process feature is independently established in this bounded screen.",
+      "candidate_ids": []
+    },
+    "S5": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Identity admission, backend auth, channel allow-lists, live owner constraints and default policies are fixed operating permissions, not ultimate purpose deliberation; no proposed S5 actor is warranted by the reviewed contract.",
+      "candidate_ids": []
+    }
+  }
+}
