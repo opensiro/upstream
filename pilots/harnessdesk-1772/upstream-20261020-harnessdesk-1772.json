@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "batch_id": "upstream-20261020-harnessdesk-1772",
+  "revision": 1,
+  "status": "proposal_only",
+  "candidates": [
+    {
+      "id": "harnessdesk-1772",
+      "source": "HarnessDesk/HarnessDesk",
+      "fork_name": "HarnessDesk",
+      "stages": [
+        "prepare_contribution"
+      ],
+      "expected_license": "MIT",
+      "proposal": {
+        "system_component": "ToolGateway lifecycle in the multi-agent host control-plane",
+        "problem": "When a second headless host boots with an already-active home, ToolGateway.start removes and rebinds the shared tools.sock; the first host remains visible but its new agent sessions cannot reach the tool gateway.",
+        "planned_change": "Add a deterministic two-host socket-owner regression; then implement a minimal safe start and stop ownership check so a duplicate host refuses startup without replacing or removing the first host's socket.",
+        "expected_improvement": "Prevent tool access loss for running first-host agent sessions when a duplicate host is launched; surface a useful duplicate-home diagnostic instead of silently breaking agent tools.",
+        "validation": "V2 source fix and new gateway regressions: targeted 17/17 Linux and macOS PASS at development@24aa8d7. New development@81d5e34 has the same exact production preimage and isolated V2 patch resulting SHA-256; full upstream pnpm check:push and CI are required before external PR publication. Recheck live source, fork and branch immediately before any write.",
+        "evidence_url": "https://github.com/HarnessDesk/HarnessDesk/issues/1772"
+      },
+      "blockers": []
+    }
+  ]
+}
