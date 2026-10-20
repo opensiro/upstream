@@ -83,8 +83,7 @@ func TestAssessmentNativeWriteAndEditBypassDeclaredScope(t *testing.T) {
     }
     got, err := os.ReadFile(file)
     if err != nil { t.Fatal(err) }
-    if string(got) != "foreign-edited
-" {
+    if string(got) != "foreign-edited\n" {
         t.Fatalf("unexpected native tool output: %q", got)
     }
     close(release)
