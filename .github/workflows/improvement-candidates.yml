@@ -15,7 +15,9 @@ on:
     paths:
       - 'candidates/**'
       - 'scripts/inspect_improvement_candidates.py'
+      - 'scripts/improvement_candidate_linkage.py'
       - 'tests/test_inspect_improvement_candidates.py'
+      - 'tests/test_improvement_candidate_linkage.py'
       - 'docs/IMPROVEMENT_CANDIDATES_PIPELINE_DRAFT.md'
       - '.github/workflows/improvement-candidates.yml'
 
