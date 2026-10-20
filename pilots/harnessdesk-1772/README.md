@@ -1,5 +1,13 @@
 # HarnessDesk #1772 — assessment-driven S1 candidate (blocked; unpublished)
 
+> **Later current-source revalidation — 2026-10-20:** The
+> [new immutable prepare packet](prepare-v2-20261020-24aa8d7.json)
+> records external source `development@24aa8d7`, exact V2 pre/postimage
+> digests, local Linux Node build + **17/17 gateway PASS**.
+> Public fork base remains `4029e951`; no grant, external branch or PR.
+> The earlier macOS receipts below apply to **97b13afc**, and the new
+> `24aa8d7` macOS pin is a separate validation run.
+>
 > **Cross-platform V2 validation — 2026-10-20:** Genuine pinned-source
 > macOS Node build and **17/17 gateway tests PASS** in both
 > [PR CI](https://github.com/opensiro/upstream/actions/runs/39351363635)
