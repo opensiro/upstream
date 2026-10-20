@@ -55,6 +55,12 @@ class FakeAPI:
         if method == "GET" and path == "repos/" + REPO + "/commits/" + NEW:
             return (200, {"parents": [{"sha": self.parent}],
                           "files": [{"filename": f} for f in self.changed]})
+        if method == "GET" and path == "repos/" + REPO + "/compare/" + BASE + "..." + NEW:
+            return (200, {"status":"ahead","ahead_by":23,"behind_by":0,
+                          "base_commit":{"sha":BASE},
+                          "merge_base_commit":{"sha":BASE}})
+        if method == "GET" and path == "repos/" + REPO + "/git/commits/" + NEW:
+            return (200, {"sha":NEW,"tree":{"sha":TREE}})
         if method == "GET" and path == "repos/" + REPO + "/git/commits/" + BASE:
             return (200, {"tree": {"sha": TREE}})
         if method == "POST" and path == "repos/" + REPO + "/git/trees":
@@ -92,6 +98,32 @@ class TestGitHubRESTMultifilePatchPort(unittest.TestCase):
     def publish(self):
         return self.port.publish_patch_commit(
             REPO, BASE, BRANCH, PATCH, [SRC, TEST], POST)
+
+    def test_shared_commit_object_read_only(self):
+        self.assertEqual(self.port.shared_commit(REPO, NEW),
+                         {"sha": NEW, "tree_sha": TREE})
+        self.assertEqual(self.api.writes(), [])
+
+    def test_fork_ancestry_comparison_is_read_only(self):
+        self.assertEqual(self.port.compare_commits(REPO, BASE, NEW),
+                         {"status": "ahead", "ahead_by": 23, "behind_by": 0,
+                          "base_commit_sha": BASE, "merge_base_sha": BASE})
+        self.assertEqual(self.api.writes(), [])
+
+    def test_shared_commit_sha_mismatch_blocks(self):
+        path = "repos/" + REPO + "/git/commits/" + NEW
+        self.api.forced[("GET", path)] = (200, {"sha":BASE,"tree":{"sha":TREE}})
+        with self.assertRaises(StageBlocked):
+            self.port.shared_commit(REPO, NEW)
+        self.assertEqual(self.api.writes(), [])
+
+    def test_compare_malformed_base_blocks(self):
+        path = "repos/" + REPO + "/compare/" + BASE + "..." + NEW
+        self.api.forced[("GET", path)] = (200, {"status":"ahead","ahead_by":2,
+                                                "behind_by":0})
+        with self.assertRaises(StageBlocked):
+            self.port.compare_commits(REPO, BASE, NEW)
+        self.assertEqual(self.api.writes(), [])
 
     def test_single_atomic_branch_reference_created_last(self):
         result = self.publish()

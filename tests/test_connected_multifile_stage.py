@@ -91,6 +91,10 @@ class FakePort:
         self.actor = "xLagerFeuer"
         self.source_sha = BASE
         self.work_sha = BASE
+        self.shared_available = True
+        self.shared_tree = "d" * 40
+        self.shared_behind = 0
+        self.shared_merge_base = None
         self.new_branch = False
         self.bad_parent = False
         self.bad_license = False
@@ -128,9 +132,9 @@ class FakePort:
 
     def file(self, repo, path, branch):
         self.calls.append(("file", repo, path, branch))
-        if branch == "development" and path == SRC:
+        if branch in ("development", BASE) and path == SRC:
             return {"content": "wrong\n" if self.bad_preimage else OLD}
-        if branch == "development" and path == TEST and self.test_exists:
+        if branch in ("development", BASE) and path == TEST and self.test_exists:
             return {"content": "present\n"}
         if branch == "opensiro/fix-toolgateway-1772" and self.new_branch:
             if path == SRC:
@@ -139,6 +143,18 @@ class FakePort:
                 return {"content": ADDED}
         from connected_multifile_stage import NotFound
         raise NotFound()
+
+    def shared_commit(self, repo, sha):
+        self.calls.append(("shared_commit", repo, sha))
+        return {"sha": sha if self.shared_available else "e" * 40,
+                "tree_sha": self.shared_tree}
+
+    def compare_commits(self, repo, older, newer):
+        self.calls.append(("compare_commits", repo, older, newer))
+        return {"status": "ahead", "ahead_by": 23,
+                "behind_by": self.shared_behind,
+                "base_commit_sha": older,
+                "merge_base_sha": self.shared_merge_base or older}
 
     def patch_capability(self, owner):
         self.calls.append(("patch_capability", owner))
@@ -192,6 +208,69 @@ class TestTwoFileStage(unittest.TestCase):
         self.assertEqual(self.host.batches[0]["patch_sha256"], digest(PATCH))
         self.assertEqual(self.host.stages[0][1]["changed_paths"], [SRC, TEST])
         self.assertNotIn("patch_text", self.host.batches[0])
+
+    def _shared_mode(self):
+        self.port.work_sha = "c" * 40
+        self.intent["fork_observed_sha"] = "c" * 40
+
+    def test_exact_shared_source_commit_prepares_without_moving_development(self):
+        self._shared_mode()
+        r = self.run_stage()
+        self.assertEqual(r["status"], "PREPARED_VERIFIED")
+        self.assertEqual(r["fork_observed_sha"], "c" * 40)
+        self.assertEqual(len(self.port.writes()), 1)
+        self.assertEqual(self.port.work_sha, "c" * 40)
+        self.assertIn(("file", FORK, SRC, BASE), self.port.calls)
+        self.assertTrue(any(c[0] == "shared_commit" for c in self.port.calls))
+        self.assertTrue(any(c[0] == "compare_commits" for c in self.port.calls))
+
+    def test_shared_mode_fork_branch_drift_blocks_without_write(self):
+        self._shared_mode()
+        self.port.work_sha = "e" * 40
+        with self.assertRaisesRegex(StageBlocked, "Observed fork branch"):
+            self.run_stage()
+        self.assertEqual(self.port.writes(), [])
+
+    def test_shared_commit_object_unavailable_blocks_without_write(self):
+        self._shared_mode()
+        self.port.shared_available = False
+        with self.assertRaisesRegex(StageBlocked, "commit object"):
+            self.run_stage()
+        self.assertEqual(self.port.writes(), [])
+
+    def test_shared_commit_tree_malformed_blocks_without_write(self):
+        self._shared_mode()
+        self.port.shared_tree = "broken"
+        with self.assertRaisesRegex(StageBlocked, "commit object"):
+            self.run_stage()
+        self.assertEqual(self.port.writes(), [])
+
+    def test_divergent_fork_history_blocks_without_write(self):
+        self._shared_mode()
+        self.port.shared_behind = 1
+        with self.assertRaisesRegex(StageBlocked, "not an ancestor"):
+            self.run_stage()
+        self.assertEqual(self.port.writes(), [])
+
+    def test_merge_base_not_observed_branch_blocks_without_write(self):
+        self._shared_mode()
+        self.port.shared_merge_base = "f" * 40
+        with self.assertRaisesRegex(StageBlocked, "not an ancestor"):
+            self.run_stage()
+        self.assertEqual(self.port.writes(), [])
+
+    def test_shared_mode_grant_binds_observed_fork_head(self):
+        self._shared_mode()
+        self.run_stage()
+        self.assertEqual(self.host.batches[0]["fork_observed_sha"], "c" * 40)
+        self.assertEqual(self.host.stages[0][1]["fork_observed_sha"], "c" * 40)
+
+    def test_shared_mode_missing_provider_method_fails_closed(self):
+        self._shared_mode()
+        self.port.shared_commit = None
+        with self.assertRaisesRegex(StageBlocked, "ancestry evidence"):
+            self.run_stage()
+        self.assertEqual(self.port.writes(), [])
 
     def test_no_provider_or_host_no_write(self):
         for what in ({"host": None}, {"github": None}):

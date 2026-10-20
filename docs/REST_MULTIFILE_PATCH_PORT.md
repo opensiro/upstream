@@ -47,6 +47,23 @@ methods must independently establish an operator decision, one-use
 enforcement, expiry/revocation and action binding before invoking any
 mutating provider method.
 
+## Reuse a verified shared upstream commit without syncing fork development
+
+The optional `fork_observed_sha` stage mode is supported by read-only
+`shared_commit(repo,source_sha)` and
+`compare_commits(repo,fork_observed_sha,source_sha)` operations. These
+inspect authenticated GitHub REST `GET /git/commits/{sha}` and
+`GET /compare/{old}...{source_sha}` in the **working fork itself**.
+The exact source commit must be available there as a real Git object,
+the current older fork branch must still match the observed SHA, and
+the old SHA must be the common ancestor with zero `behind_by`.
+Production/test contents are independently fetched using
+`?ref=source_sha` on the fork, **not from the older fork branch**.
+This is only evidence that a new *separate* contributor branch could
+be safely based on the latest source commit. It is neither fork
+development synchronization nor a stage grant. No API write is
+needed to run this proof.
+
 ## Atomic public-branch creation
 
 After host authorization and the stage's twice-run preflight:

@@ -44,8 +44,14 @@ def good_branch(value):
 
 
 def _validate(action):
-    need(type(action) is dict and set(action) == FIELDS,
+    need(type(action) is dict and
+         (set(action) == FIELDS or
+          set(action) == FIELDS | {"fork_observed_sha"}),
          "Invalid exact multi-file stage action")
+    if "fork_observed_sha" in action:
+        need(type(action["fork_observed_sha"]) is str
+             and SHA.fullmatch(action["fork_observed_sha"]),
+             "Observed fork branch SHA must be pinned")
     for key in ("working_repo", "source_branch", "source_sha", "base_branch",
                 "base_sha", "new_branch", "patch_text", "patch_sha256"):
         need(type(action[key]) is str, "Invalid string field " + key)
@@ -145,11 +151,39 @@ def _preflight(item, action, github):
          "No host/provider-attested patch writing capability")
     source_base = github.branch(source_name, action["source_branch"])
     work_base = github.branch(work_name, action["base_branch"])
-    need(type(source_base) is dict and
-         source_base.get("sha") == action["source_sha"]
-         and type(work_base) is dict and
-         work_base.get("sha") == action["base_sha"],
-         "Source or working fork base SHA drift")
+    need(type(source_base) is dict
+         and source_base.get("sha") == action["source_sha"],
+         "Upstream source branch changed")
+    if "fork_observed_sha" not in action:
+        need(type(work_base) is dict
+             and work_base.get("sha") == action["base_sha"],
+             "Source or working fork base SHA drift")
+    else:
+        # A fork may already contain the source commit object without
+        # moving its development branch. Prove exact object and ancestry.
+        observed = action["fork_observed_sha"]
+        need(type(work_base) is dict
+             and work_base.get("sha") == observed,
+             "Observed fork branch moved after review")
+        need(callable(getattr(github, "shared_commit", None))
+             and callable(getattr(github, "compare_commits", None)),
+             "No authenticated shared-commit ancestry evidence port")
+        object_receipt = github.shared_commit(work_name, action["base_sha"])
+        need(type(object_receipt) is dict
+             and object_receipt.get("sha") == action["base_sha"]
+             and type(object_receipt.get("tree_sha")) is str
+             and SHA.fullmatch(object_receipt["tree_sha"]),
+             "Exact upstream base commit object not available in fork")
+        relation = github.compare_commits(
+            work_name, observed, action["base_sha"])
+        need(type(relation) is dict
+             and relation.get("status") in ("ahead", "identical")
+             and type(relation.get("ahead_by")) is int
+             and relation["ahead_by"] >= 0
+             and relation.get("behind_by") == 0
+             and relation.get("base_commit_sha") == observed
+             and relation.get("merge_base_sha") == observed,
+             "Fork branch not an ancestor of reviewed shared source commit")
     try:
         github.branch(work_name, action["new_branch"])
     except NotFound:
@@ -162,12 +196,15 @@ def _preflight(item, action, github):
                                action["source_branch"])) ==
          action["preimage_sha256"][prod],
          "Source preimage SHA mismatch")
-    need(digest(_observed_file(github, work_name, prod,
-                               action["base_branch"])) ==
+    # Shared-object mode reads the target fork by exact source SHA,
+    # never by its intentionally unchanged old development branch.
+    target_ref = (action["base_sha"] if "fork_observed_sha" in action
+                  else action["base_branch"])
+    need(digest(_observed_file(github, work_name, prod, target_ref)) ==
          action["preimage_sha256"][prod],
-         "Fork base production file diverged")
+         "Exact fork commit preimage differs from reviewed source")
     try:
-        github.file(work_name, test, action["base_branch"])
+        github.file(work_name, test, target_ref)
     except NotFound:
         pass
     else:
@@ -215,6 +252,8 @@ def prepare_exact_two_file_patch(*, manifest, selected_ids, stage_scopes,
         "source_branch": frozen["source_branch"],
         "source_sha": frozen["source_sha"], "base_branch": frozen["base_branch"],
         "base_sha": frozen["base_sha"], "new_branch": frozen["new_branch"],
+        **({"fork_observed_sha": frozen["fork_observed_sha"]}
+           if "fork_observed_sha" in frozen else {}),
         "patch_sha256": frozen["patch_sha256"],
         "changed_paths": deepcopy(frozen["changed_paths"]),
         "preimage_sha256": deepcopy(frozen["preimage_sha256"]),

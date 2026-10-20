@@ -114,6 +114,37 @@ class GitHubRESTMultifilePatchPort:
              "Authenticated provider patch right not confirmed")
         return dict(proof)
 
+    def shared_commit(self, name, sha):
+        """Read the exact Git object in the working fork; no ref update."""
+        name = _repo(name)
+        need(type(sha) is str and SHA.fullmatch(sha),
+             "Shared commit hash must be a pinned SHA")
+        data = self._request("GET", "repos/" + name + "/git/commits/" + sha)
+        tree = data.get("tree")
+        need(data.get("sha") == sha and type(tree) is dict
+             and type(tree.get("sha")) is str and SHA.fullmatch(tree["sha"]),
+             "Missing or mismatched shared commit object/tree")
+        return {"sha": data["sha"], "tree_sha": tree["sha"]}
+
+    def compare_commits(self, name, older_sha, newer_sha):
+        """Prove the fork's observed old branch is an ancestor of source."""
+        name = _repo(name)
+        need(type(older_sha) is str and SHA.fullmatch(older_sha)
+             and type(newer_sha) is str and SHA.fullmatch(newer_sha),
+             "Comparison requires two pinned Git commit SHAs")
+        data = self._request(
+            "GET", "repos/" + name + "/compare/" + older_sha + "..." + newer_sha)
+        base = data.get("base_commit")
+        merge = data.get("merge_base_commit")
+        need(type(base) is dict and type(merge) is dict
+             and type(data.get("ahead_by")) is int
+             and type(data.get("behind_by")) is int,
+             "Ancestry comparison unavailable")
+        return {"status": data.get("status"),
+                "ahead_by": data["ahead_by"], "behind_by": data["behind_by"],
+                "base_commit_sha": base.get("sha"),
+                "merge_base_sha": merge.get("sha")}
+
     def commit(self, name, sha):
         name = _repo(name)
         need(type(sha) is str and SHA.fullmatch(sha),
