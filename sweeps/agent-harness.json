@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "index_sha": "5393b698bfdfa4ca14d97a79238234eca20694e5",
+  "assessment_path": "assessments/ag/agent-harness.md",
+  "review_ref": "0c30ff12476898543246912a3d49d653ae86b874",
+  "reviewed_at": "2026-10-21",
+  "functions": {
+    "S1": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "The installed execute skill uses a model-driven coding host for real implementation and verification, while the harness validates goal/run/evidence state. Current main differs from the assessed commit but the bounded open issue queue offers no native failure with sufficient evidence to open a distinct S1 candidate.",
+      "candidate_ids": []
+    },
+    "S2": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Ready DAG and ownership gates restrict task prerequisites; optional worker isolation remains an ask boundary without proved mutual correction among siblings. A question-mark classification here means unresolved assessed inter-S1 evidence, not proof of a defect or useful fix.",
+      "candidate_ids": []
+    },
+    "S3": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "The host controller manages a bounded accepted Goal/Run portfolio, dependency readiness, evidence acceptance and recovery inside the current task. No supported product request identifies an incorrect assignment or intervention path requiring a different first-party controller.",
+      "candidate_ids": []
+    },
+    "S3*": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Optional read-only reviewer and deterministic acceptance gates could support auditing, but standard-path independence/return is not established at the assessed boundary. There is no native incident demonstrating an independently auditable false-green problem yet.",
+      "candidate_ids": []
+    },
+    "S4": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Goal/milestone hierarchy and developer-maintained roadmap express intended work but do not independently sense future environment and adopt capability changes; the Index provides no product-native demand for autonomous re-planning.",
+      "candidate_ids": []
+    },
+    "S5": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Acceptance policy and manual approval belong to the product owner outside the deployed skill rather than a first-party identity-authority actor. No mission-identity conflict or return path improvement has a concrete user outcome here.",
+      "candidate_ids": []
+    }
+  }
+}
