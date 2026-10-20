@@ -20,6 +20,8 @@ After the one-system AgentBox seed receipt, [Batch 001](../reports/2026-10-21-in
 
 [Batch 002](../reports/2026-10-21-index-sweep-batch-002.md) continues in path order with **Aesop, Aether, AG2**, each with six separate function decisions. No new product-native candidate was qualified or added in that pass; existing AG2 evaluation issue #3460 is not post-hoc converted into an Index-derived S3* diagnosis. Coverage is recomputed by the scanner, not by summing static reports.
 
+After Batches 001–002, [Batch 003](../reports/2026-10-21-index-sweep-batch-003.md) completes ten next included systems, reviews six function paths for each and records four research-only native hypotheses. **Only one is classified assessment-derived at hypothesis level** (agent-code S3* fresh-context reviewer); its native product benefit is still unmeasured. Recompute coverage with the scanner instead of treating this narrative count as live state.
+
 ## Run
 
 ```bash
