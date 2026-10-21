@@ -4,7 +4,11 @@ on:
   pull_request:
     paths:
       - '.github/workflows/agent-code-524-offline.yml'
-      - 'pilots/agent-code-524/**'
+      - 'pilots/agent-code-524/reviewer-subagent-first-slice.patch'
+      - 'pilots/agent-code-524/offline_cli_smoke.py'
+      - 'pilots/agent-code-524/mock_provider_smoke.py'
+      - 'pilots/agent-code-524/evaluation/score.py'
+      - 'pilots/agent-code-524/evaluation/test_score.py'
   workflow_dispatch:
 
 permissions:

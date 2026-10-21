@@ -4,7 +4,9 @@ on:
   pull_request:
     paths:
       - '.github/workflows/agent-code-524-upstream-audit.yml'
-      - 'pilots/agent-code-524/**'
+      - 'pilots/agent-code-524/reviewer-subagent-first-slice.patch'
+      - 'pilots/agent-code-524/verify_clippy_baseline.py'
+      - 'pilots/agent-code-524/test_verify_clippy_baseline.py'
   workflow_dispatch:
 
 permissions:
