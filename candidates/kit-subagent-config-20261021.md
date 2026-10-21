@@ -30,7 +30,7 @@ Pinned target: [Kit `main@8f9f08a2`](https://github.com/speakeasy-api/kit/tree/8
 | Need | `PASS` | Native user report [#222](https://github.com/speakeasy-api/kit/issues/222), exact current source path and true baseline failure |
 | Mechanism | `PASS` | Distinct regression-only and minimal product patches, reproducible clean application; proposed missing-field warning + built-in default + incomplete child-policy exclusion |
 | Counterfactual local benefit | `PASS` **bounded** | Real original `kit sessions` binary **failed** with issue fixture; patched binary **succeeded** with actionable warning and unchanged config file; same immutable source, isolated HOME, no model/API |
-| Scope / acceptability | `PENDING` | Upstream maintainer has **not** approved fallback/disable semantics; full default-feature and macOS original CI, external PR and maintainer feedback not yet established |
+| Scope / acceptability | `PENDING` | Upstream maintainer has **not** approved fallback/disable semantics; default-feature Linux compatibility PASS, but native macOS check, external PR and maintainer feedback remain open |
 
 ## Reproducible actual before/after result
 
@@ -45,6 +45,10 @@ Pinned target: [Kit `main@8f9f08a2`](https://github.com/speakeasy-api/kit/tree/8
 
 ## Next gate and ownership
 
-Complete and inspect the separately launched [full-feature compatibility workflow](https://github.com/opensiro/upstream/blob/pilot/kit-222-partial-subagent-config-20261021/.github/workflows/kit-222-compat.yml) (original default-feature native tests and strict all-features Clippy), and obtain independent internal design review of the fallback policy before an external submission decision. MacOS / original maintainer's PR CI are not replicated here.
+[Normal Linux/default-feature compatibility run #39671040353](https://github.com/opensiro/upstream/actions/runs/39671040353) completed **SUCCESS**: `cargo clippy --all-features --all-targets -- -D warnings` and `cargo test --locked`, including **1,949 core library passed, zero failed, ten ignored**, plus native CLI/integration tests and Rustfmt. This is not just a `--no-default-features` smoke. [Headless source and before/after CLI run #39671039770](https://github.com/opensiro/upstream/actions/runs/39671039770) and [fork lifecycle run #39671039773](https://github.com/opensiro/upstream/actions/runs/39671039773) also completed **SUCCESS** at the exact reviewed PR source head. No original Rust patch changes.
+
+The actual Kit issue was reported on macOS. Dedicated native [macOS config tests and local `kit sessions` CLI CI #39674571202](https://github.com/opensiro/upstream/actions/runs/39674571202) is running; **do not claim macOS PASS until complete**. This is not the original macOS Xcode/desktop CI.
+
+For design contrast, existing original Kit `Command::Config::Set` invokes `kit::config_editor::set` directly without `Config::load_default`, so `kit config set subagent.harness acp.claude` offers a **manual repair route** even with malformed optional `[subagent]` config. The measured patch benefit is specifically **no manual repair before ordinary session startup**. Upstream maintainers must decide whether built-in default selection or complete disabling of incomplete subagent delegation is preferable. The product fit scope remains `PENDING` for that reason. Actual external PR, final maintainer review, original macOS Xcode/desktop matrix and downstream release are still absent.
 
 No external fork, original Kit branch/PR, Index grade change, Organization authority or product release has been written. External PR remains human-owned and governed by separate stage-specific permission. Preserve this as an **ASSESSMENT_INFORMED** engineering case, not as the strict Index→functional-gap success sought by [OpenSiro experiment #56](https://github.com/opensiro/upstream/issues/56).
