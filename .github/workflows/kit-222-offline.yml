@@ -1,0 +1,91 @@
+name: Kit #222 native offline red-green
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/kit-222-offline.yml'
+      - 'pilots/kit-222/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kit-222-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  native-red-green:
+    name: Native test RED before and GREEN after (no LLM)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 65
+    env:
+      CARGO_TERM_COLOR: always
+      CARGO_INCREMENTAL: "0"
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          path: opensiro
+          persist-credentials: false
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: speakeasy-api/kit
+          ref: 8f9f08a2b2088381f1cb106dcb9129378f8f0b4e
+          path: kit
+          persist-credentials: false
+      - name: Verify untouched source and replay failing test only
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C kit rev-parse HEAD)" = '8f9f08a2b2088381f1cb106dcb9129378f8f0b4e'
+          test -z "$(git -C kit status --porcelain)"
+          p="$GITHUB_WORKSPACE/opensiro/pilots/kit-222/kit-222-regression-only.patch"
+          git -C kit apply --check "$p"
+          git -C kit apply "$p"
+          git -C kit diff --check
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: '1.99'
+          components: rustfmt,clippy
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: kit
+      - name: Original code must fail the exact new native regression at runtime
+        working-directory: kit
+        shell: bash
+        run: |
+          set -uo pipefail
+          set +e
+          cargo test --no-default-features --bin kit --locked partial_subagent_harness_allows_config_load_without_selecting_external_backend -- --nocapture > "$RUNNER_TEMP/kit-before.log" 2>&1
+          status=$?
+          set -e
+          tail -85 "$RUNNER_TEMP/kit-before.log"
+          if [ "$status" -eq 0 ]; then
+            echo 'EXPECTED_RED_NOT_OBSERVED: baseline test unexpectedly passed' >&2
+            exit 1
+          fi
+          grep -F 'test tests::partial_subagent_harness_allows_config_load_without_selecting_external_backend ... FAILED' "$RUNNER_TEMP/kit-before.log"
+          grep -F 'missing field `harness`' "$RUNNER_TEMP/kit-before.log"
+          echo 'BEFORE=EXPECTED_RED_MISSING_HARNESS'
+      - name: Apply source-only recovery patch to identical test checkout
+        shell: bash
+        run: |
+          set -euo pipefail
+          p="$GITHUB_WORKSPACE/opensiro/pilots/kit-222/kit-222-safe-default.patch"
+          git -C kit apply --check "$p"
+          git -C kit apply "$p"
+          git -C kit diff --check
+      - name: New native happy-path and invalid-policy regression tests
+        working-directory: kit
+        run: cargo test --no-default-features --bin kit --locked partial_subagent_harness -- --nocapture
+      - name: Existing native policy and configuration tests
+        working-directory: kit
+        shell: bash
+        run: |
+          set -euo pipefail
+          cargo test --no-default-features --bin kit --locked subagent_names_are_rejected_as_unknown_configuration
+          cargo test --no-default-features --bin kit --locked named_acp_profiles_ignore_unknown_fields_and_remain_selectable
+          cargo test --no-default-features --bin kit --locked subagent_model_policies_are_scoped_and_validated_per_harness
+      - name: Native Rust formatting
+        working-directory: kit
+        run: cargo fmt --all -- --check
