@@ -22,7 +22,7 @@
 >
 > **Compatibility / safety:** reuses the current AgentTool/TaskManager, preserves non-review agent output behavior, and fails closed when the child cannot enforce the required permission overlay.
 
-The maintainer may prefer splitting the patch into smaller changes before review. Preserve semantics and evidence; do not mislabel this as complete #524 or change the source pin without retesting.
+The patch spans eight Rust/docs files across the core library and modern CLI, including a sensitive permissions boundary. Under the upstream [SHIP.md](https://github.com/avala-ai/agent-code/blob/main/SHIP.md) large/dangerous-change rules, prefer staged human review and avoid treating the green offline run as a security approval. The maintainer may prefer splitting the patch into smaller changes before review. Preserve semantics and evidence; do not mislabel this as complete #524 or change the source pin without retesting.
 
 ## Source preparation (for a human-authorized contributor fork)
 
@@ -48,7 +48,10 @@ The contributor must use their own **explicitly authorized fork/branch** and mak
 - [x] Patch SHA-256 pinned and source-clean replay/native unit test receipt exists in [README](README.md).
 - [x] No API key / real LLM endpoint is needed for the current contribution validation scope.
 - [x] Independent [offline validation workflow #39628191036](https://github.com/opensiro/upstream/actions/runs/39628191036) **SUCCESS** on internal PR head `a39412a22357a5647ff9740e0fb832460daf8427`: exact patch SHA/source/apply, Rust formatting, full `agent-code-lib --lib` and `agent-code --bin agent` tests, scoped Clippy, native compiled executable, credential-free startup/overlay smoke, actual local mock-provider HTTP/JSONL subprocess smoke, and evaluator tests **all job steps PASS**. This is offline engineering validation only; no real model API, model-quality E2E, Windows matrix, or unqualified all-targets CI. Subsequent documentation commits do not modify the pinned eight-file source patch.
-- [ ] Upstream maintainer's complete `cargo check --all-targets`, `cargo test --all-targets`, `cargo clippy --all-targets -- -D warnings` and format CI need independent completion on the contribution branch; scoped lint exception does **not** certify full upstream Clippy. Six baseline `unnecessary_cast` warnings exist in untouched files.
+- [x] Independently completed source-pinned [all-targets compatibility run #39634816635](https://github.com/opensiro/upstream/actions/runs/39634816635) **SUCCESS**: Linux `cargo check --all-targets --locked` + `cargo test --all-targets --locked`; Windows `cargo test --all-targets --locked`; SHA-pinned source/patch replay and strict Clippy baseline-to-patch diagnostic-location comparison. All three jobs PASS.
+- [x] Original upstream strict Clippy **is NOT green even without the patch**: six `clippy::unnecessary_cast` error locations in two unaffected files. With the patch it reports exactly the same six unique locations, duplicated across build targets (12 events); **zero new lint locations**. [Fail-closed validator](verify_clippy_baseline.py) plus [8/8 parser/unit tests](test_verify_clippy_baseline.py) record and verify the distinction. Do not call this unqualified strict-Clippy PASS.
+- [x] Rechecked complete credential-free process/mock-provider run [#39634816349](https://github.com/opensiro/upstream/actions/runs/39634816349) **SUCCESS** on the same frozen native patch, without LLM API.
+- [ ] Upstream maintainer's own external PR CI, baseline strict-lint resolution/acceptance, optional release target matrix and reviewer sign-off remain open; the local OpenSiro workflow does not replace these steps.
 - [ ] External fork/branch evidence plus PR title/body/source digest verified **if publication is authorized**.
 - [ ] Human publication of the external PR and maintainer feedback (not performed by this handoff).
 
