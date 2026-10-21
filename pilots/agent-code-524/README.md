@@ -34,7 +34,7 @@ The VM required Rust 1.97 with an isolated Zig C/linker/archiver because system 
 
 **Prior source-slice tests (not a combined-patch certification):** 17/17 review, 37/37 coordinator, 15/15 AgentTool, 108/108 modern TUI and 2/2 child-overlay parser. A previous live CLI smoke on five invalid required-overlay cases rejected all five before any model request.
 
-**Current seven-file JSONL-enabled native patch — PASS at exact pinned upstream:** The reviewer child now receives `--output-format json` (other agent types retain their existing output mode). `parse_review_jsonl` consumes the existing agent-code `JsonStreamSink` event envelope: it accepts `text_delta` from the last completed assistant turn, ignores thinking and tool-result content, requires a successful `session_end`, then validates the typed findings; malformed, incomplete, failed, unstructured, or truncated streams do **not** become accepted review artifacts. The TUI calls the event parser rather than trying to parse the entire process stdout as a single JSON object.
+**Current eight-file JSONL-enabled native patch — PASS at exact pinned upstream:** The reviewer child now receives `--output-format json` (other agent types retain their existing output mode). `parse_review_jsonl` consumes the existing agent-code `JsonStreamSink` event envelope: it accepts `text_delta` from the last completed assistant turn, ignores thinking and tool-result content, requires a successful `session_end`, then validates the typed findings; malformed, incomplete, failed, unstructured, or truncated streams do **not** become accepted review artifacts. The TUI calls the event parser rather than trying to parse the entire process stdout as a single JSON object.
 
 **Previously measured selected tests** (all five filters on the prior JSONL slice PASSED; the current full-library/full-CLI runs on the eight-file patch supersede those counts):
 
@@ -56,7 +56,7 @@ The JSONL regression initially failed on a malformed **test fixture**, not a pro
 ## Remaining acceptance boundaries
 
 - No real model-backed independent review, blinded same-task comparison, or measured software-quality improvement. `ASSESSMENT_DERIVED` remains a **research selection category**; candidate stays `SCREENING`.
-- The child reviewer rubric is prefixed to its one-shot prompt, not installed as a replacement base system message; the child now produces JSONL and the route reconstructs last-turn text, but real model-generated JSON may still be invalid; that degrades safely to `/tasks` instead of inventing findings.
+- Reviewer instructions now replace the general coding-agent base system message; the user turn contains only the task. The child produces JSONL and the route reconstructs the last completed turn, but real model-generated JSON may still be invalid; that degrades safely to `/tasks` rather than inventing findings.
 - A Plan-mode Bash classifier and tool-level permissions are not an OS-level sandbox. No hostile filesystem/subprocess/network egress test has demonstrated complete containment.
 - Results are operator-visible in the TUI, but not injected as a bounded model-visible parent action that would close an automatic S3 correction loop.
 - Full upstream tests, matrix/clippy, real host/provider tests and maintainer acceptance are not complete. The internal GitHub workflow validates the OpenSiro handoff, not native third-party code behavior.
