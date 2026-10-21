@@ -1,0 +1,139 @@
+name: Agent-code #524 upstream CI compatibility audit
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/agent-code-524-upstream-audit.yml'
+      - 'pilots/agent-code-524/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: agent-code-524-upstream-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CARGO_TERM_COLOR: always
+  RUSTFLAGS: "-D warnings"
+  CARGO_INCREMENTAL: "0"
+
+jobs:
+  all-targets-linux:
+    name: Upstream all-targets Check and Test (Linux)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          path: opensiro
+          persist-credentials: false
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: avala-ai/agent-code
+          ref: 82e0edfa7372c256d893d0854f954d9099254f88
+          path: agent-code
+          persist-credentials: false
+      - name: Validate pinned source and patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          p="$GITHUB_WORKSPACE/opensiro/pilots/agent-code-524/reviewer-subagent-first-slice.patch"
+          test "$(sha256sum "$p" | cut -d' ' -f1)" = '58a70a40beafcceef1f76161f869f4fe2366272d8a82ea9fe9b48fcf530235e1'
+          test "$(git -C agent-code rev-parse HEAD)" = '82e0edfa7372c256d893d0854f954d9099254f88'
+          git -C agent-code apply --check "$p"
+          git -C agent-code apply "$p"
+          git -C agent-code diff --check
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: "1.97"
+          components: rustfmt,clippy
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: "agent-code"
+      - name: Install ripgrep (original upstream test dependency)
+        run: sudo apt-get update -qq && sudo apt-get install -y ripgrep
+      - name: Upstream format gate
+        working-directory: agent-code
+        run: cargo fmt --all -- --check
+      - name: Upstream check gate (all targets)
+        working-directory: agent-code
+        run: cargo check --all-targets --locked
+      - name: Upstream test gate (all targets)
+        working-directory: agent-code
+        run: cargo test --all-targets --locked
+
+  strict-clippy-linux:
+    name: Upstream strict Clippy (Linux; existing warnings not waived)
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          path: opensiro
+          persist-credentials: false
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: avala-ai/agent-code
+          ref: 82e0edfa7372c256d893d0854f954d9099254f88
+          path: agent-code
+          persist-credentials: false
+      - name: Validate and apply pinned source patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          p="$GITHUB_WORKSPACE/opensiro/pilots/agent-code-524/reviewer-subagent-first-slice.patch"
+          test "$(sha256sum "$p" | cut -d' ' -f1)" = '58a70a40beafcceef1f76161f869f4fe2366272d8a82ea9fe9b48fcf530235e1'
+          test "$(git -C agent-code rev-parse HEAD)" = '82e0edfa7372c256d893d0854f954d9099254f88'
+          git -C agent-code apply --check "$p"
+          git -C agent-code apply "$p"
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: "1.97"
+          components: clippy
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: "agent-code"
+      - name: Unqualified upstream strict all-targets Clippy (may fail on baseline)
+        working-directory: agent-code
+        run: cargo clippy --all-targets --locked -- -D warnings
+
+  all-targets-windows:
+    name: Upstream all-targets Test (Windows)
+    runs-on: windows-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          path: opensiro
+          persist-credentials: false
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: avala-ai/agent-code
+          ref: 82e0edfa7372c256d893d0854f954d9099254f88
+          path: agent-code
+          persist-credentials: false
+      - name: Validate and apply SHA-pinned patch
+        shell: pwsh
+        run: |
+          $patch = Join-Path $env:GITHUB_WORKSPACE 'opensiro/pilots/agent-code-524/reviewer-subagent-first-slice.patch'
+          $actual = (Get-FileHash -Algorithm SHA256 $patch).Hash.ToLowerInvariant()
+          if ($actual -ne '58a70a40beafcceef1f76161f869f4fe2366272d8a82ea9fe9b48fcf530235e1') { throw 'Patch checksum mismatch' }
+          if ((git -C agent-code rev-parse HEAD) -ne '82e0edfa7372c256d893d0854f954d9099254f88') { throw 'Upstream source mismatch' }
+          git -C agent-code apply --check $patch
+          if ($LASTEXITCODE -ne 0) { throw 'Patch cannot apply' }
+          git -C agent-code apply $patch
+          if ($LASTEXITCODE -ne 0) { throw 'Patch apply failed' }
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: "1.97"
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: "agent-code"
+      - name: Install ripgrep (upstream test dependency)
+        shell: pwsh
+        run: choco install ripgrep -y
+      - name: Original upstream all-targets Windows test gate
+        working-directory: agent-code
+        run: cargo test --all-targets --locked
