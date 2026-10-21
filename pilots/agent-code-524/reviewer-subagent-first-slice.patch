@@ -20,6 +20,166 @@ index 2487c24..ff8b2d1 100644
                  }
                  // Spending a turn reviewing the wrong thing is worse than
                  // saying no: report and stop.
+diff --git a/crates/cli/src/main.rs b/crates/cli/src/main.rs
+index 99c8e9b..d313537 100644
+--- a/crates/cli/src/main.rs
++++ b/crates/cli/src/main.rs
+@@ -320,6 +320,21 @@ fn parse_permission_mode(value: &str) -> anyhow::Result<agent_code_lib::config::
+     })
+ }
+ 
++fn load_permissions_overlay(
++    path: &str,
++) -> anyhow::Result<agent_code_lib::config::PermissionsConfig> {
++    let contents = std::fs::read_to_string(path)
++        .map_err(|e| anyhow::anyhow!("Failed to read --permissions-overlay {path}: {e}"))?;
++    let value: toml::Value = toml::from_str(&contents)
++        .map_err(|e| anyhow::anyhow!("--permissions-overlay {path} is not valid TOML: {e}"))?;
++    let perms = value.get("permissions").ok_or_else(|| {
++        anyhow::anyhow!("--permissions-overlay {path} has no [permissions] section")
++    })?;
++    perms.clone().try_into().map_err(|e| {
++        anyhow::anyhow!("--permissions-overlay {path} has invalid [permissions] section: {e}")
++    })
++}
++
+ fn main() -> anyhow::Result<()> {
+     // Harden the process BEFORE the async runtime starts, while the process is
+     // still single-threaded: hardening mutates the environment (unsound once
+@@ -573,56 +588,42 @@ async fn async_main() -> anyhow::Result<()> {
+         config.permissions.default_mode = parsed;
+     }
+ 
+-    // Apply --permissions-overlay. Parsed as a TOML document whose
+-    // `[permissions]` section wholesale replaces `config.permissions`.
+-    // The overlay is gated by `security.disable_bypass_permissions` so a
+-    // locked-down host cannot be loosened by passing a file path.
++    // A typed agent may not discard the required overlay argument and
++    // inherit a broader host profile.
++    let required_overlay = std::env::var("AGENT_CODE_REQUIRE_PERMISSIONS_OVERLAY")
++        .is_ok_and(|v| !v.is_empty() && v != "0");
++    if required_overlay && cli.permissions_overlay.is_none() {
++        anyhow::bail!("Subagent missing required --permissions-overlay");
++    }
++
++    // A child must never silently start without an overlay it was told
++    // to enforce. Keep the historical warn-only CLI behavior for ordinary
++    // interactive users who supplied a malformed overlay manually.
+     if let Some(ref overlay_path) = cli.permissions_overlay {
++        let overlay_required =
++            matches!(detect_agent_kind(), AgentKind::Subagent) || required_overlay;
+         if config.security.disable_bypass_permissions {
++            if overlay_required {
++                anyhow::bail!(
++                    "Subagent cannot apply required --permissions-overlay:                      security.disable_bypass_permissions is set"
++                );
++            }
+             tracing::warn!(
+                 "--permissions-overlay ignored: security.disable_bypass_permissions is set"
+             );
+         } else {
+-            match std::fs::read_to_string(overlay_path) {
+-                Ok(contents) => match toml::from_str::<toml::Value>(&contents) {
+-                    Ok(value) => {
+-                        if let Some(perms_value) = value.get("permissions") {
+-                            match perms_value
+-                                .clone()
+-                                .try_into::<agent_code_lib::config::PermissionsConfig>()
+-                            {
+-                                Ok(perms) => {
+-                                    cli_permissions.overlay = Some(perms.clone());
+-                                    // Compose with host permissions so project
+-                                    // rules survive typed-subagent visibility
+-                                    // overlays (do not wholesale replace).
+-                                    config.permissions =
+-                                        agent_code_lib::services::coordinator::compose_permissions_overlay(
+-                                            &config.permissions,
+-                                            &perms,
+-                                        );
+-                                    tracing::debug!(
+-                                        "Applied permissions overlay from {overlay_path}"
+-                                    );
+-                                }
+-                                Err(e) => tracing::warn!(
+-                                    "--permissions-overlay {overlay_path} has invalid \
+-                                     [permissions] section: {e}"
+-                                ),
+-                            }
+-                        } else {
+-                            tracing::warn!(
+-                                "--permissions-overlay {overlay_path} has no [permissions] section"
+-                            );
+-                        }
+-                    }
+-                    Err(e) => tracing::warn!(
+-                        "--permissions-overlay {overlay_path} is not valid TOML: {e}"
+-                    ),
+-                },
+-                Err(e) => {
+-                    tracing::warn!("Failed to read --permissions-overlay {overlay_path}: {e}")
++            match load_permissions_overlay(overlay_path) {
++                Ok(perms) => {
++                    cli_permissions.overlay = Some(perms.clone());
++                    config.permissions =
++                        agent_code_lib::services::coordinator::compose_permissions_overlay(
++                            &config.permissions,
++                            &perms,
++                        );
++                    tracing::debug!("Applied permissions overlay from {overlay_path}");
+                 }
++                Err(e) if overlay_required => return Err(e),
++                Err(e) => tracing::warn!("{e}"),
+             }
+         }
+     }
+@@ -1343,6 +1344,47 @@ fn record_no_sandbox(
+     true
+ }
+ 
++#[cfg(test)]
++mod subagent_overlay_loading_tests {
++    use super::load_permissions_overlay;
++
++    #[test]
++    fn missing_or_invalid_overlay_must_not_be_treated_as_usable() {
++        let dir = tempfile::tempdir().unwrap();
++        let missing = dir.path().join("missing.toml");
++        assert!(load_permissions_overlay(missing.to_str().unwrap()).is_err());
++
++        let malformed = dir.path().join("malformed.toml");
++        std::fs::write(&malformed, "garbage = [").unwrap();
++        assert!(load_permissions_overlay(malformed.to_str().unwrap()).is_err());
++
++        let no_section = dir.path().join("no-permissions.toml");
++        std::fs::write(&no_section, "[other]\nfoo = true\n").unwrap();
++        assert!(load_permissions_overlay(no_section.to_str().unwrap()).is_err());
++
++        let invalid = dir.path().join("invalid-permissions.toml");
++        std::fs::write(&invalid, "[permissions]\ndefault_mode = 123\n").unwrap();
++        assert!(load_permissions_overlay(invalid.to_str().unwrap()).is_err());
++    }
++
++    #[test]
++    fn a_valid_permissions_overlay_is_parsed_for_child() {
++        let dir = tempfile::tempdir().unwrap();
++        let path = dir.path().join("permissions.toml");
++        std::fs::write(
++            &path,
++            "[permissions]\ndefault_mode = \"plan\"\nallowed_tools = [\"FileRead\"]\n",
++        )
++        .unwrap();
++        let config = load_permissions_overlay(path.to_str().unwrap()).unwrap();
++        assert_eq!(
++            config.default_mode,
++            agent_code_lib::config::PermissionMode::Plan
++        );
++        assert_eq!(config.allowed_tools, vec!["FileRead".to_string()]);
++    }
++}
++
+ #[cfg(test)]
+ mod permission_mode_flag_tests {
+     use super::{parse_permission_mode, record_no_sandbox};
 diff --git a/crates/cli/src/ui/modern/run.rs b/crates/cli/src/ui/modern/run.rs
 index 9407088..faf0f52 100644
 --- a/crates/cli/src/ui/modern/run.rs
