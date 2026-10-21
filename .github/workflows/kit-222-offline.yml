@@ -86,6 +86,12 @@ jobs:
           cargo test --no-default-features --bin kit --locked subagent_names_are_rejected_as_unknown_configuration
           cargo test --no-default-features --bin kit --locked named_acp_profiles_ignore_unknown_fields_and_remain_selectable
           cargo test --no-default-features --bin kit --locked subagent_model_policies_are_scoped_and_validated_per_harness
+      - name: All native headless tests (broader than focused regression)
+        working-directory: kit
+        run: cargo test --no-default-features --locked
+      - name: Rust native Clippy (headless all targets, strict)
+        working-directory: kit
+        run: cargo clippy --no-default-features --all-targets --locked -- -D warnings
       - name: Native Rust formatting
         working-directory: kit
         run: cargo fmt --all -- --check

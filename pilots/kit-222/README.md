@@ -19,8 +19,10 @@ Origin is **ASSESSMENT_INFORMED**: [canonical Kit assessment](https://github.com
 ## Status and acceptance
 
 - Index origin: `ASSESSMENT_INFORMED / SCREENING`.
-- Real baseline run: `NOT_YET_OBSERVED` until the linked Actions workflow returns a test-level failure and is inspected.
-- Real after effect: `NOT_YET_OBSERVED`; a patch's existence does not imply the fix works.
+- **Actual native baseline: VERIFIED RED** — [first source-pinned run #39656287282](https://github.com/opensiro/upstream/actions/runs/39656287282) reproduced the **specific runtime failure** `missing field \`harness\`` under `subagent`, not a compile failure.
+- **After: VERIFIED GREEN on focused source tests** — the two new tests PASS, three existing explicit policy/config tests PASS, `cargo fmt --all -- --check` PASS in the **same** run, without a provider, model or external Kit network calls. The warning for the incomplete optional configuration was actually printed in the test log.
+- **Patch evidence:** regression-only SHA256 `34463579de4609cab159b6e2d90d4a737bd5a2c96147a6cec0354d5798a61901`; source-fix SHA256 `951952eef85d5d6e78c763fcbc30a28d620246af3a8991175780a1f89c814659`. Both independently replayed via `git apply` against pinned source on a read-only VM.
+- **Next added engineering gate:** broad `cargo test --no-default-features --locked` plus strict all-targets headless Clippy; `NOT_VERIFIED` until the follow-up CI finishes. Source change and both patch digests remain frozen.
 - Native fit: first-party demand `PASS`; mechanism/scope/counterfactual `PENDING` pending native results and maintainer preference.
 - External fork / Kit PR / product release: `NONE`.
 - No changes to Index, Organization control, permissions or authority.
