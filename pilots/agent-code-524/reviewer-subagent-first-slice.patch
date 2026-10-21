@@ -181,7 +181,7 @@ index 99c8e9b..d313537 100644
  mod permission_mode_flag_tests {
      use super::{parse_permission_mode, record_no_sandbox};
 diff --git a/crates/cli/src/ui/modern/run.rs b/crates/cli/src/ui/modern/run.rs
-index 9407088..faf0f52 100644
+index 9407088..00c14ea 100644
 --- a/crates/cli/src/ui/modern/run.rs
 +++ b/crates/cli/src/ui/modern/run.rs
 @@ -891,6 +891,11 @@ pub(super) async fn event_loop(
@@ -330,7 +330,7 @@ index 9407088..faf0f52 100644
 +                    continue;
 +                }
 +                let note = match output {
-+                    Ok(text) => match agent_code_lib::review::parse_review_output(&text) {
++                    Ok(text) => match agent_code_lib::review::parse_review_jsonl(&text) {
 +                        Ok(report) => format_review_report(&id, &report),
 +                        Err(e) => format!(
 +                            "Reviewer task {id} has no valid structured findings ({e}). Inspect raw output via /tasks."
@@ -422,10 +422,10 @@ index 9407088..faf0f52 100644
      /// still reach the global interject binding, not open task output.
      #[test]
 diff --git a/crates/lib/src/review/mod.rs b/crates/lib/src/review/mod.rs
-index 76f0100..35b47f0 100644
+index 76f0100..0e54a83 100644
 --- a/crates/lib/src/review/mod.rs
 +++ b/crates/lib/src/review/mod.rs
-@@ -24,6 +24,76 @@ pub const RUBRIC: &str = include_str!("rubric.md");
+@@ -24,6 +24,134 @@ pub const RUBRIC: &str = include_str!("rubric.md");
  use std::path::Path;
  use std::process::Command;
  
@@ -499,10 +499,68 @@ index 76f0100..35b47f0 100644
 +    Ok(report)
 +}
 +
++/// Parse *completed* child JSONL events, extracting only the last
++/// assistant turn's text stream. Tool outputs and reasoning are excluded;
++/// a missing session envelope, truncated stdout or non-zero child exit
++/// never becomes a successful review.
++pub fn parse_review_jsonl(text: &str) -> Result<ReviewOutput, String> {
++    use std::collections::BTreeMap;
++    let mut saw_start = false;
++    let mut saw_end = false;
++    let mut final_turn: Option<u64> = None;
++    let mut text_by_turn = BTreeMap::<u64, String>::new();
++    for line in text.lines() {
++        let event: serde_json::Value =
++            serde_json::from_str(line).map_err(|e| format!("Invalid reviewer JSONL event: {e}"))?;
++        match event.get("type").and_then(serde_json::Value::as_str) {
++            Some("session_start") if !saw_start && !saw_end => saw_start = true,
++            Some("text_delta") if saw_start && !saw_end => {
++                let turn = event
++                    .get("turn")
++                    .and_then(serde_json::Value::as_u64)
++                    .ok_or("Reviewer text event has no numeric turn")?;
++                let delta = event
++                    .get("content")
++                    .and_then(serde_json::Value::as_str)
++                    .ok_or("Reviewer text event has no content")?;
++                text_by_turn.entry(turn).or_default().push_str(delta);
++            }
++            Some("turn_complete") if saw_start && !saw_end => {
++                let turn = event
++                    .get("turn")
++                    .and_then(serde_json::Value::as_u64)
++                    .ok_or("Reviewer turn completion has no turn")?;
++                final_turn = Some(turn);
++            }
++            Some("session_end") if saw_start && !saw_end => {
++                if event.get("exit_code").and_then(serde_json::Value::as_u64) != Some(0) {
++                    return Err("Reviewer child did not exit successfully".into());
++                }
++                saw_end = true;
++            }
++            Some(
++                "thinking" | "tool_call" | "tool_result" | "warning" | "turn_start" | "compact",
++            ) if saw_start && !saw_end => {}
++            Some("error" | "permission_denied") if saw_start && !saw_end => {
++                return Err("Reviewer child reported an error or denied permission".into());
++            }
++            _ => return Err("Unexpected or out-of-order reviewer JSONL event".into()),
++        }
++    }
++    if !saw_end {
++        return Err("Incomplete reviewer JSONL session".into());
++    }
++    let turn = final_turn.ok_or("Reviewer produced no completed turn")?;
++    let answer = text_by_turn
++        .get(&turn)
++        .ok_or("Reviewer completed without a final text answer")?;
++    parse_review_output(answer)
++}
++
  /// What a review is being asked to look at.
  #[derive(Debug, Clone, PartialEq, Eq)]
  pub enum ReviewTarget {
-@@ -266,6 +336,26 @@ fn run_git(cwd: &Path, args: &[&str]) -> Option<String> {
+@@ -266,6 +394,59 @@ fn run_git(cwd: &Path, args: &[&str]) -> Option<String> {
      if s.is_empty() { None } else { Some(s) }
  }
  
@@ -519,6 +577,39 @@ index 76f0100..35b47f0 100644
 +        let x = parse_review_output(r#"{"findings":[{"title":"[P1] race","body":"Lost update","confidence_score":0.9,"priority":1,"code_location":{"absolute_file_path":"/repo/src/lib.rs","line_range":{"start":10,"end":12}}}],"overall_correctness":"patch is incorrect","overall_explanation":"Race","overall_confidence_score":0.9}"#).unwrap();
 +        assert_eq!(x.findings[0].priority, 1);
 +    }
++    #[test]
++    fn jsonl_review_reads_final_assistant_text_not_tool_output() {
++        let report = r#"{"findings":[],"overall_correctness":"patch is correct","overall_explanation":"No defect.","overall_confidence_score":0.8}"#;
++        let first = &report[..50];
++        let second = &report[50..];
++        let lines = format!(
++            "{{\"type\":\"session_start\"}}\n{{\"type\":\"thinking\",\"turn\":1,\"content\":\"private reasoning\"}}\n{{\"type\":\"tool_result\",\"turn\":1,\"output\":\"untrusted tool data\"}}\n{{\"type\":\"text_delta\",\"turn\":1,\"content\":{}}}\n{{\"type\":\"text_delta\",\"turn\":1,\"content\":{}}}\n{{\"type\":\"turn_complete\",\"turn\":1}}\n{{\"type\":\"session_end\",\"exit_code\":0}}\n",
++            serde_json::to_string(first).unwrap(),
++            serde_json::to_string(second).unwrap(),
++        );
++        let result = parse_review_jsonl(&lines).unwrap();
++        assert_eq!(result.overall_correctness, "patch is correct");
++    }
++
++    #[test]
++    fn jsonl_review_rejects_partial_failed_and_unstructured_child() {
++        let good = "{\"type\":\"session_start\"}\n{\"type\":\"text_delta\",\"turn\":1,\"content\":\"Hello\"}\n{\"type\":\"turn_complete\",\"turn\":1}\n";
++        assert!(parse_review_jsonl(good).is_err());
++        assert!(
++            parse_review_jsonl(
++                &(good.to_string() + "{\"type\":\"session_end\",\"exit_code\":4}\n")
++            )
++            .is_err()
++        );
++        assert!(
++            parse_review_jsonl(
++                &(good.to_string() + "{\"type\":\"session_end\",\"exit_code\":0}\n")
++            )
++            .is_err()
++        );
++        assert!(parse_review_jsonl("garbage\n").is_err());
++    }
++
 +    #[test]
 +    fn freeform_review_and_invalid_locations_are_rejected() {
 +        assert!(parse_review_output("Looks fine").is_err());
@@ -810,7 +901,7 @@ index b01d1f8..668dbba 100644
      fn effective_permissions_none_when_unconstrained() {
          let def = AgentRegistry::with_defaults()
 diff --git a/crates/lib/src/tools/agent.rs b/crates/lib/src/tools/agent.rs
-index 13d30cb..577ba5a 100644
+index 13d30cb..0b7e0b7 100644
 --- a/crates/lib/src/tools/agent.rs
 +++ b/crates/lib/src/tools/agent.rs
 @@ -161,7 +161,7 @@ impl Tool for AgentTool {
@@ -869,8 +960,16 @@ index 13d30cb..577ba5a 100644
      let full_prompt = match definition {
          Some(def) => compose_agent_prompt(def, prompt),
          None => prompt.to_string(),
-@@ -538,7 +542,7 @@ pub fn build_subagent_command(
+@@ -536,9 +540,15 @@ pub fn build_subagent_command(
+ 
+     let mut cmd = tokio::process::Command::new(&agent_binary);
      cmd.arg("--prompt").arg(full_prompt).current_dir(cwd);
++    // A reviewer returns machine-readable events; a text-only child may
++    // interleave progress messages with its final report and cannot be
++    // parsed reliably as one JSON object. Other subagent types stay text.
++    if definition.is_some_and(|d| d.name == "review") {
++        cmd.arg("--output-format").arg("json");
++    }
  
      if let Some(def) = definition {
 -        apply_agent_definition(&mut cmd, def, endpoint.model.as_deref());
@@ -878,7 +977,7 @@ index 13d30cb..577ba5a 100644
      } else if let Some(model) = endpoint.model.as_deref() {
          cmd.arg("--model")
              .arg(crate::services::coordinator::resolve_model_alias(model));
-@@ -581,7 +585,7 @@ pub fn build_subagent_command(
+@@ -581,7 +591,7 @@ pub fn build_subagent_command(
          cmd.env("AGENT_CODE_SUBAGENT_TYPE", &def.name);
      }
  
@@ -887,7 +986,7 @@ index 13d30cb..577ba5a 100644
  }
  
  /// Provider-key env vars to strip from a child whose endpoint override
-@@ -665,7 +669,7 @@ pub async fn spawn_background_agent(
+@@ -665,7 +675,7 @@ pub async fn spawn_background_agent(
      limiter: Option<std::sync::Arc<crate::services::agent_control::AgentExecutionLimiter>>,
      definition: Option<&AgentDefinition>,
      endpoint: &SubagentEndpoint,
@@ -896,7 +995,7 @@ index 13d30cb..577ba5a 100644
      use crate::services::background::{TaskKind, TaskPayload};
  
      let cmd = build_subagent_command(
-@@ -676,7 +680,7 @@ pub async fn spawn_background_agent(
+@@ -676,7 +686,7 @@ pub async fn spawn_background_agent(
          disk_output_style,
          definition,
          endpoint,
@@ -905,7 +1004,7 @@ index 13d30cb..577ba5a 100644
      let payload = TaskPayload::LocalAgent {
          subagent_kind: Some(
              definition
-@@ -687,7 +691,7 @@ pub async fn spawn_background_agent(
+@@ -687,7 +697,7 @@ pub async fn spawn_background_agent(
          parent_session: None,
          subagent_id: Some(subagent_id.to_string()),
      };
@@ -914,7 +1013,7 @@ index 13d30cb..577ba5a 100644
          .spawn_command(
              cmd,
              description,
-@@ -696,7 +700,7 @@ pub async fn spawn_background_agent(
+@@ -696,7 +706,7 @@ pub async fn spawn_background_agent(
              color,
              limiter,
          )
@@ -923,7 +1022,7 @@ index 13d30cb..577ba5a 100644
  }
  
  /// Spawn an already-resolved workflow/skill prompt as a background task.
-@@ -720,7 +724,7 @@ pub async fn spawn_background_workflow(
+@@ -720,7 +730,7 @@ pub async fn spawn_background_workflow(
      color: Option<SubagentColor>,
      disk_output_style: Option<&str>,
      limiter: Option<std::sync::Arc<crate::services::agent_control::AgentExecutionLimiter>>,
@@ -932,7 +1031,7 @@ index 13d30cb..577ba5a 100644
      use crate::services::background::{TaskKind, TaskPayload};
  
      let cmd = build_subagent_command(
-@@ -731,12 +735,12 @@ pub async fn spawn_background_workflow(
+@@ -731,12 +741,12 @@ pub async fn spawn_background_workflow(
          disk_output_style,
          None,
          &SubagentEndpoint::default(),
@@ -947,7 +1046,7 @@ index 13d30cb..577ba5a 100644
          .spawn_command(
              cmd,
              description,
-@@ -745,7 +749,7 @@ pub async fn spawn_background_workflow(
+@@ -745,7 +755,7 @@ pub async fn spawn_background_workflow(
              color,
              limiter,
          )
@@ -956,7 +1055,7 @@ index 13d30cb..577ba5a 100644
  }
  
  /// Create a temporary git worktree for isolated execution.
-@@ -923,7 +927,8 @@ mod tests {
+@@ -923,7 +933,8 @@ mod tests {
              None,
              None,
              &deepseek_endpoint(),
@@ -966,7 +1065,7 @@ index 13d30cb..577ba5a 100644
          let removed: Vec<String> = cmd
              .as_std()
              .get_envs()
-@@ -949,7 +954,8 @@ mod tests {
+@@ -949,7 +960,8 @@ mod tests {
              None,
              None,
              &endpoint,
@@ -976,7 +1075,7 @@ index 13d30cb..577ba5a 100644
          let envs = command_envs(&cmd);
          assert_eq!(
              envs.get("AGENT_CODE_API_BASE_URL").map(String::as_str),
-@@ -976,7 +982,8 @@ mod tests {
+@@ -976,7 +988,8 @@ mod tests {
              None,
              None,
              &SubagentEndpoint::default(),
@@ -986,7 +1085,7 @@ index 13d30cb..577ba5a 100644
          let envs = command_envs(&cmd);
          if !had_parent_base_url {
              assert!(!envs.contains_key("AGENT_CODE_API_BASE_URL"));
-@@ -1003,7 +1010,8 @@ mod tests {
+@@ -1003,7 +1016,8 @@ mod tests {
              None,
              None,
              &endpoint,
@@ -996,7 +1095,7 @@ index 13d30cb..577ba5a 100644
          let envs = command_envs(&cmd);
          assert_eq!(
              envs.get("AGENT_CODE_API_BASE_URL").map(String::as_str),
-@@ -1021,7 +1029,8 @@ mod tests {
+@@ -1021,7 +1035,8 @@ mod tests {
              None,
              None,
              &SubagentEndpoint::default(),
@@ -1006,7 +1105,7 @@ index 13d30cb..577ba5a 100644
          let std_cmd = cmd.as_std();
  
          let args: Vec<String> = std_cmd
-@@ -1064,7 +1073,8 @@ mod tests {
+@@ -1064,7 +1079,8 @@ mod tests {
              Some("concise"),
              None,
              &SubagentEndpoint::default(),
@@ -1016,7 +1115,7 @@ index 13d30cb..577ba5a 100644
          let envs: HashMap<String, String> = cmd
              .as_std()
              .get_envs()
-@@ -1093,7 +1103,8 @@ mod tests {
+@@ -1093,7 +1109,8 @@ mod tests {
              None,
              Some(def),
              &endpoint_with_model("grok-4"),
@@ -1026,7 +1125,7 @@ index 13d30cb..577ba5a 100644
          let std_cmd = cmd.as_std();
          let args: Vec<String> = std_cmd
              .get_args()
-@@ -1148,6 +1159,51 @@ mod tests {
+@@ -1148,6 +1165,55 @@ mod tests {
          );
      }
  
@@ -1068,6 +1167,10 @@ index 13d30cb..577ba5a 100644
 +                .any(|w| w[0] == "--max-turns" && w[1] == "20")
 +        );
 +        assert!(
++            args.windows(2)
++                .any(|w| w[0] == "--output-format" && w[1] == "json")
++        );
++        assert!(
 +            std_cmd
 +                .get_envs()
 +                .any(|(key, val)| key == "AGENT_CODE_SUBAGENT_TYPE"
@@ -1078,7 +1181,7 @@ index 13d30cb..577ba5a 100644
      #[test]
      fn build_subagent_command_model_override_without_definition() {
          let cmd = build_subagent_command(
-@@ -1158,7 +1214,8 @@ mod tests {
+@@ -1158,7 +1224,8 @@ mod tests {
              None,
              None,
              &endpoint_with_model("gpt-5.4"),
@@ -1088,7 +1191,7 @@ index 13d30cb..577ba5a 100644
          let args: Vec<String> = cmd
              .as_std()
              .get_args()
-@@ -1189,7 +1246,8 @@ mod tests {
+@@ -1189,7 +1256,8 @@ mod tests {
              None,
              None,
          )
