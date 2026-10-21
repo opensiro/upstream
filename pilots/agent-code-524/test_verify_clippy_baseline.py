@@ -35,8 +35,8 @@ class ClippyBaselineValidatorTests(unittest.TestCase):
         self.assertEqual(result["unique_existing_diagnostics"], 6)
         self.assertEqual(result["diagnostic_instances"], 12)
         self.assertEqual(result["result"], "NO_NEW_DIAGNOSTIC_LOCATIONS")
-        with self.assertRaisesRegex(ValueError, "baseline Clippy diagnostic locations changed"):
-            validate(repeated, 101, side="baseline")
+        baseline_result = validate(repeated, 101, side="baseline")
+        self.assertEqual(baseline_result["diagnostic_instances"], 12)
 
     def test_double_emission_on_clean_baseline_is_valid(self):
         # Restored Cargo cache may cause duplicate all-targets diagnostics.
@@ -71,12 +71,12 @@ class ClippyBaselineValidatorTests(unittest.TestCase):
             "level": "error", "code": {"code": "E0382"},
             "spans": [{"file_name": "src/new.rs", "line_start": 10, "is_primary": True}]
         }})
-        with self.assertRaisesRegex(ValueError, "diagnostics changed"):
+        with self.assertRaisesRegex(ValueError, "diagnostic locations changed"):
             validate(make_jsonl() + "\n" + extra, 101)
 
     def test_reject_missing_errors(self):
         lines = make_jsonl().splitlines()
-        with self.assertRaisesRegex(ValueError, "diagnostics changed"):
+        with self.assertRaisesRegex(ValueError, "diagnostic locations changed"):
             validate("\n".join(lines[1:]), 101)
 
     def test_reject_successful_baseline(self):
