@@ -67,6 +67,25 @@ jobs:
           grep -F 'test tests::partial_subagent_harness_allows_config_load_without_selecting_external_backend ... FAILED' "$RUNNER_TEMP/kit-before.log"
           grep -F 'missing field `harness`' "$RUNNER_TEMP/kit-before.log"
           echo 'BEFORE=EXPECTED_RED_MISSING_HARNESS'
+      - name: Actual headless Kit CLI with original invalid config must fail (offline)
+        working-directory: kit
+        shell: bash
+        run: |
+          set -euo pipefail
+          cargo build --no-default-features --bin kit --locked
+          home="$RUNNER_TEMP/kit222-user-home"
+          mkdir -p "$home/.kit"
+          printf '%s\n' '[acp.claude]' "command = 'true'" '' '[subagent.harnesses."acp.claude".models]' "fable = 'example-model'" > "$home/.kit/config.toml"
+          cp "$home/.kit/config.toml" "$RUNNER_TEMP/kit222-original-config"
+          set +e
+          HOME="$home" timeout 15s ./target/debug/kit sessions --root "$home" > "$RUNNER_TEMP/kit222-before.stdout" 2> "$RUNNER_TEMP/kit222-before.stderr"
+          status=$?
+          set -e
+          test "$status" -ne 0
+          test "$status" -ne 124
+          grep -F 'missing field `harness`' "$RUNNER_TEMP/kit222-before.stderr"
+          cmp "$home/.kit/config.toml" "$RUNNER_TEMP/kit222-original-config"
+          echo 'BASELINE_REAL_KIT_SESSIONS=BLOCKED_MISSING_HARNESS'
       - name: Apply source-only recovery patch to identical test checkout
         shell: bash
         run: |
@@ -92,6 +111,21 @@ jobs:
       - name: Rust native Clippy (headless all targets, strict)
         working-directory: kit
         run: cargo clippy --no-default-features --all-targets --locked -- -D warnings
+      - name: Actual headless Kit CLI recovers with the same isolated config (offline)
+        working-directory: kit
+        shell: bash
+        run: |
+          set -euo pipefail
+          cargo build --no-default-features --bin kit --locked
+          home="$RUNNER_TEMP/kit222-user-home"
+          HOME="$home" timeout 15s ./target/debug/kit sessions --root "$home" > "$RUNNER_TEMP/kit222-after.stdout" 2> "$RUNNER_TEMP/kit222-after.stderr"
+          grep -F 'missing `subagent.harness`' "$RUNNER_TEMP/kit222-after.stderr"
+          if grep -Fq 'missing field `harness`' "$RUNNER_TEMP/kit222-after.stderr"; then
+            echo 'PARTIAL_CONFIG_REGRESSION_STILL_BLOCKS_CLI' >&2
+            exit 1
+          fi
+          cmp "$home/.kit/config.toml" "$RUNNER_TEMP/kit222-original-config"
+          echo 'AFTER_REAL_KIT_SESSIONS=RECOVERED_WITH_WARNING'
       - name: Native Rust formatting
         working-directory: kit
         run: cargo fmt --all -- --check
