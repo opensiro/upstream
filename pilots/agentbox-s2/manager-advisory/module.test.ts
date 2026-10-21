@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { suggestManagerGroups } from '../src/lib/zz_opensiro_manager_advisory.js';
 import type { ScopeIntent } from '../src/lib/zz_opensiro_manager_advisory.js';
-import type { HubApiTask } from '../src/control-plane/hub-api-client.js';
+import type { HubApiClient, HubApiTask } from '../src/control-plane/hub-api-client.js';
+import { preflightTaskAssignment, assignTasksBestEffort } from '../src/lib/tasks-assign.js';
 
 type Task = Pick<HubApiTask, 'id' | 'projectId' | 'status' | 'dependsOn' | 'boxId' | 'boxJobId'>;
 const task = (id: string, extra: Partial<Task> = {}): Task =>
@@ -85,6 +86,43 @@ describe('Opt-in Phase 4 advisory only; no AgentBox allocation side effects', ()
     expect(suggestManagerGroups([task('A', { dependsOn: ['Z'] })], [intent('A', 'src/one.ts')]).review).toHaveLength(1);
     expect(() => suggestManagerGroups([task('A'), task('A')], [])).toThrow(/duplicate task/);
     expect(() => suggestManagerGroups([task('A')], [intent('Z', 'src/a.ts')])).toThrow(/unknown or duplicate/);
+  });
+
+  it('compares actual existing CLI assignment with proposed advisory on the same tasks', async () => {
+    const ws = 'opensiro-readonly-manager-fixture';
+    const originalWorkspace = process.env['AGENTBOX_WORKSPACE'];
+    const assignments: Array<{ ids: string[]; boxId: string }> = [];
+    const tasks = [
+      task('T-1'), task('T-2'), task('T-3'),
+    ];
+    const client = {
+      listWorkspaces: async () => [{ id: ws, name: 'Fixture workspace' }],
+      listTasks: async () => tasks,
+      assignTasks: async (_id: string, ids: string[], target: { boxId: string }) => {
+        assignments.push({ ids, boxId: target.boxId });
+      },
+    } as unknown as HubApiClient;
+    try {
+      process.env['AGENTBOX_WORKSPACE'] = ws;
+      for (const [id, box] of [['T-1', 'box-A'], ['T-2', 'box-B'], ['T-3', 'box-C']]) {
+        expect(await preflightTaskAssignment(client, '/ignored', [id!])).toBe(ws);
+        await assignTasksBestEffort(client, ws, [id!], { boxId: box! });
+      }
+    } finally {
+      if (originalWorkspace === undefined) delete process.env['AGENTBOX_WORKSPACE'];
+      else process.env['AGENTBOX_WORKSPACE'] = originalWorkspace;
+    }
+    // Actual first-party CLI records all separate allocation requests.
+    expect(assignments.map((x) => x.boxId)).toEqual(['box-A', 'box-B', 'box-C']);
+    const advice = suggestManagerGroups(tasks, [
+      intent('T-1', 'src/payments/handler.ts'),
+      intent('T-2', 'src/payments/handler.ts'),
+      intent('T-3', 'docs/README.md'),
+    ]);
+    // A proposed opt-in S2 planning decision differs from the baseline CLI.
+    expect(advice.groups).toEqual([['T-1', 'T-2'], ['T-3']]);
+    expect(advice.requiresHumanReview).toBe(true);
+    expect(assignments).toHaveLength(3); // Planner does not mutate upstream task assignments.
   });
 
   it('remains a pure advisory function even for conflicting intents', () => {
