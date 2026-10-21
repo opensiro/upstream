@@ -35,7 +35,7 @@ def fixture():
                 "prompt_sha256": ("d" if arm == "baseline" else "e") * 64,
                 "duration_ms": 100 if arm == "baseline" else 120,
                 "total_tokens": 50 if arm == "baseline" else 70,
-                "findings": finds
+                "status": "completed", "findings": finds
             })
             judgements["adjudications"][rid] = matches
     return cases, runs, judgements
@@ -98,6 +98,23 @@ class TestScorer(unittest.TestCase):
         r["runs"] = []
         j["adjudications"] = {}
         with self.assertRaisesRegex(ValueError, "NOT_MEASURED"):
+            score(c, r, j)
+
+    def test_failed_run_is_counted_as_attempt_with_missed_bugs(self):
+        c, r, j = fixture()
+        target = next(x for x in r["runs"] if x["id"] == "bug-isolated")
+        target["status"] = "failed"
+        target["findings"] = []
+        j["adjudications"]["bug-isolated"] = []
+        stats = score(c, r, j)["isolated"]
+        self.assertEqual(stats["failed_runs"], 1)
+        self.assertEqual(stats["tp"], 0)
+        self.assertEqual(stats["fn"], 2)
+
+    def test_failed_run_cannot_smuggle_findings(self):
+        c, r, j = fixture()
+        r["runs"][0]["status"] = "invalid_output"
+        with self.assertRaisesRegex(ValueError, "failed run"):
             score(c, r, j)
 
     def test_missing_blind_attestation_rejected(self):
