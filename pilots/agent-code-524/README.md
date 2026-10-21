@@ -1,6 +1,6 @@
 # Agent-code #524 — consolidated independent reviewer and child permission contract
 
-**Internal OpenSiro handoff · Draft PR #69 · 2026-10-21.**
+**Internal OpenSiro handoff · PR #69 ready for internal review · 2026-10-21.**
 
 **Canonical upstream source:** [`avala-ai/agent-code/main@82e0edfa7372c256d893d0854f954d9099254f88`](https://github.com/avala-ai/agent-code/commit/82e0edfa7372c256d893d0854f954d9099254f88), existing [issue #524](https://github.com/avala-ai/agent-code/issues/524). **Index lineage:** [`vsm-harness-index/main@5393b698bfdfa4ca14d97a79238234eca20694e5`](https://github.com/opensiro/vsm-harness-index/commit/5393b698bfdfa4ca14d97a79238234eca20694e5), `assessments/ag/agent-code.md`, `review_ref=2734ab5f18939b20c774b39c4406788383e35255`. The Index records no independent S3* review and issue #524 independently describes the product need.
 
@@ -36,6 +36,21 @@
 The exact unchanged native source patch above was replayed from the immutable upstream commit in **[OpenSiro offline-native Actions #39628191036](https://github.com/opensiro/upstream/actions/runs/39628191036)** (internal PR head `a39412a22357a5647ff9740e0fb832460daf8427`). The `offline-native` job finished **SUCCESS**. Every job step passed: patch SHA-256 and source SHA verification, clean `git apply`/diff, Rust formatting, full central `agent-code-lib --lib` and `agent-code --bin agent` native test targets, scoped two-target Clippy with documented pre-existing lint exception, compiled patched executable, startup/mandatory-overlay smoke, **actual local mock-provider HTTP/JSONL process smoke**, and evaluation-scorer unit tests.
 
 This independently reproduces scripted executable behavior **without paid credentials or a real model**. The local HTTP mock supplies synthetic JSON; it does **not** measure model accuracy, user outcomes, true network sandbox containment, or all-targets Windows/upstream CI. This newer actual mock-run receipt supersedes the earlier 'mock script committed but not executed' checkpoint. See the [human-owned external PR handoff](UPSTREAM_PR_HANDOFF.md) for remaining source contribution gates. Subsequent documentation changes do not alter the tested eight-file patch.
+
+## Measured offline before/after behavior (real binaries, not model E2E)
+
+The [frozen-source baseline-versus-patched CI run #39640742103](https://github.com/opensiro/upstream/actions/runs/39640742103) is **SUCCESS**. It compiled **both** actual `avala-ai/agent-code@82e0edfa` before and after applying the exact unchanged patch, then ran [`offline_delta_smoke.py`](offline_delta_smoke.py) in a local, provider-free environment.
+
+| Observable contract | Unpatched binary | Patched binary |
+| --- | --- | --- |
+| Child reviewer system identity | General coding-agent persona reused | Dedicated independent review-only persona |
+| Mandatory overlay absent | Child startup allowed | Child startup rejected |
+| Mandatory overlay malformed | Child startup allowed with warning | Child startup rejected |
+| Main-agent persona | Original general coding-agent identity | Preserved |
+
+This establishes a **measured deterministic process-level safety/role contract delta** on the real program. It does **not** exercise the full TUI reviewer lifecycle, a real model's behavior, OS sandbox containment, or reviewer quality/precision. The check is a genuine before/after result for these narrowly observed behaviors; it is **not** grounds to label the broader research experiment `BENEFIT_SUPPORTED` or change an Index grade.
+
+**Latest validation on the current internal PR source:** [native offline #39640741764](https://github.com/opensiro/upstream/actions/runs/39640741764), [Linux/Windows upstream compatibility + Clippy baseline parity #39640741743](https://github.com/opensiro/upstream/actions/runs/39640741743), and [before/after delta #39640742103](https://github.com/opensiro/upstream/actions/runs/39640742103) all completed **SUCCESS**. The strict Clippy command itself remains red on six unique, pre-existing upstream warning locations; comparison detects no additional warning locations from the patch. GitHub workflows are **OpenSiro reproductions**, not upstream maintainer-owned CI.
 
 ## Reproducibility
 
@@ -102,7 +117,7 @@ python3 pilots/agent-code-524/offline_cli_smoke.py --binary path/to/the/patched/
 - Results are operator-visible in the TUI, but not injected as a bounded model-visible parent action that would close an automatic S3 correction loop.
 - Full **two-target unit tests and Linux/Windows all-targets tests are complete** at the frozen patch; unqualified strict Clippy still fails on the same existing upstream baseline diagnostics. Release build matrix, real model/provider tests, external PR CI and maintainer acceptance remain incomplete. The internal GitHub workflow validates the OpenSiro handoff, not third-party upstream acceptance.
 
-**Authority:** only internal OpenSiro Draft PR #69 is written. No third-party code, contribution fork, external issue/PR, VSM grade, organization S1 admission or delegated permission changed. The human operator retains publication authority.
+**Authority:** internal OpenSiro PR #69 is open and ready for internal review, not merged. Neither `opensiro-contributions/agent-code` nor `opensiro/agent-code` was found as a public repository at this checkpoint. The existing Upstream #6 gate requires a separate attributable authorization before creating a fork or executing `prepare_contribution`; external PR publication remains human-owned. No external code/fork/PR, Index grade, organization S1 admission or delegated permission was changed.
 
 ## Optional future paired-quality study — instrument prepared, no product outcome
 

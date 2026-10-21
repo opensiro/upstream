@@ -4,7 +4,7 @@
 
 **Current source pin:** `avala-ai/agent-code/main@82e0edfa7372c256d893d0854f954d9099254f88`.
 **Patch:** [reviewer-subagent-first-slice.patch](reviewer-subagent-first-slice.patch), SHA256 `58a70a40beafcceef1f76161f869f4fe2366272d8a82ea9fe9b48fcf530235e1`.
-**Internal review artifact:** [opensiro/upstream Draft PR #69](https://github.com/opensiro/upstream/pull/69).
+**Internal review artifact:** [opensiro/upstream PR #69](https://github.com/opensiro/upstream/pull/69) — **open, ready for internal code/evidence review; not merged**.
 
 ## Suggested external PR (human publishes separately)
 
@@ -23,6 +23,17 @@
 > **Compatibility / safety:** reuses the current AgentTool/TaskManager, preserves non-review agent output behavior, and fails closed when the child cannot enforce the required permission overlay.
 
 The patch spans eight Rust/docs files across the core library and modern CLI, including a sensitive permissions boundary. Under the upstream [SHIP.md](https://github.com/avala-ai/agent-code/blob/main/SHIP.md) large/dangerous-change rules, prefer staged human review and avoid treating the green offline run as a security approval. The maintainer may prefer splitting the patch into smaller changes before review. Preserve semantics and evidence; do not mislabel this as complete #524 or change the source pin without retesting.
+
+## Actual before/after receipts and contribution readiness (2026-10-21)
+
+**Source engineering / offline behavior verified:**
+- [Complete native offline CI #39640741764](https://github.com/opensiro/upstream/actions/runs/39640741764) — SUCCESS, compiled real source, Rust tests, required permission-overlay rejects, synthetic local HTTP/JSONL integration.
+- [Linux/Windows upstream compatibility CI #39640741743](https://github.com/opensiro/upstream/actions/runs/39640741743) — SUCCESS: cross-platform all-target tests and independent exact Clippy baseline diagnostic-location parity. **Unqualified strict Clippy still fails** on six existing source lines in two unchanged upstream files; no new diagnostic locations attributed to this patch.
+- [Original-vs-patched executable #39640742103](https://github.com/opensiro/upstream/actions/runs/39640742103) — SUCCESS. Main agent unchanged, child reviewer uses its own dedicated system persona, and both missing/malformed mandatory permission overlay cases change from **ALLOWED** to **REJECTED**. This is a deterministic process-contract improvement, **not** full TUI E2E, security containment, or model review-quality improvement.
+
+**Publication state / read-only preflight:** original public upstream `main` remains `82e0edfa7372c256d893d0854f954d9099254f88`; existing issue [#524](https://github.com/avala-ai/agent-code/issues/524) is open; first partial upstream [#529](https://github.com/avala-ai/agent-code/pull/529) merged. No public `opensiro-contributions/agent-code` or `opensiro/agent-code` repository was found during this checkpoint; **no verified working fork, contribution branch or external PR**. Under the existing [fork-stage route](https://github.com/opensiro/upstream/blob/main/docs/OPENSIRO_CONTRIBUTIONS_FORK_ROUTE.md) and [Upstream #6](https://github.com/opensiro/upstream/issues/6), neither a successful OpenSiro CI nor the operator's generic `continue` creates a stage-specific authorization. No fork/branch write has been performed.
+
+**Next permitted handoff:** internal technical/permissions review of the eight-file patch, followed by an **exactly authorized** fork-and-`prepare_contribution` stage if the operator separately chooses it. The external PR itself is reserved for manual human publication.
 
 ## Source preparation (for a human-authorized contributor fork)
 
@@ -52,7 +63,7 @@ The contributor must use their own **explicitly authorized fork/branch** and mak
 - [x] Original upstream strict Clippy **is NOT green even without the patch**: six `clippy::unnecessary_cast` error locations in two unaffected files. With the patch it reports exactly the same six unique locations, duplicated across build targets (12 events); **zero new lint locations**. [Fail-closed validator](verify_clippy_baseline.py) plus [8/8 parser/unit tests](test_verify_clippy_baseline.py) record and verify the distinction. Do not call this unqualified strict-Clippy PASS.
 - [x] Rechecked complete credential-free process/mock-provider run [#39634816349](https://github.com/opensiro/upstream/actions/runs/39634816349) **SUCCESS** on the same frozen native patch, without LLM API.
 - [ ] Upstream maintainer's own external PR CI, baseline strict-lint resolution/acceptance, optional release target matrix and reviewer sign-off remain open; the local OpenSiro workflow does not replace these steps.
-- [ ] External fork/branch evidence plus PR title/body/source digest verified **if publication is authorized**.
+- [ ] Verify/create the actual contributor fork under a separate exact-stage operator authorization, then validate its branch, direct parent, source SHA and push rights; current public candidate forks were not found. Publication permission remains separate.
 - [ ] Human publication of the external PR and maintainer feedback (not performed by this handoff).
 
 **Research boundary:** independent-review quality benefit and any S3* reassessment remain `NOT_MEASURED` in the separate [optional protocol](evaluation/PROTOCOL.md). A working implementation + offline tests is legitimate source engineering but **not measured superiority to existing review**.
