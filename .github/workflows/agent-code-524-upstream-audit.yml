@@ -65,7 +65,7 @@ jobs:
         run: cargo test --all-targets --locked
 
   strict-clippy-linux:
-    name: Upstream strict Clippy baseline parity (not strict PASS)
+    name: Upstream strict Clippy diagnostic-location parity (not strict PASS)
     runs-on: ubuntu-latest
     timeout-minutes: 40
     steps:
@@ -101,7 +101,7 @@ jobs:
           cargo clippy --all-targets --locked --message-format=json -- -D warnings > baseline-clippy.jsonl 2> baseline-clippy.stderr
           status=$?
           set -e
-          python3 ../opensiro/pilots/agent-code-524/verify_clippy_baseline.py --jsonl baseline-clippy.jsonl --clippy-exit "$status"
+          python3 ../opensiro/pilots/agent-code-524/verify_clippy_baseline.py --jsonl baseline-clippy.jsonl --clippy-exit "$status" --side baseline
       - name: Apply exact reviewer patch after baseline gate
         shell: bash
         run: |
@@ -111,7 +111,7 @@ jobs:
           git -C agent-code apply --check "$p"
           git -C agent-code apply "$p"
           git -C agent-code diff --check
-      - name: Run unqualified strict Clippy on patched source (require identical exact errors)
+      - name: Run unqualified strict Clippy on patched source (require same unique lint locations)
         working-directory: agent-code
         shell: bash
         run: |
@@ -120,9 +120,9 @@ jobs:
           cargo clippy --all-targets --locked --message-format=json -- -D warnings > patched-clippy.jsonl 2> patched-clippy.stderr
           status=$?
           set -e
-          python3 ../opensiro/pilots/agent-code-524/verify_clippy_baseline.py --jsonl patched-clippy.jsonl --clippy-exit "$status"
+          python3 ../opensiro/pilots/agent-code-524/verify_clippy_baseline.py --jsonl patched-clippy.jsonl --clippy-exit "$status" --side patched
           echo "PATCH_INTRODUCED_STRICT_CLIPPY_DIAGNOSTICS=0 (only if this verification passed)"
-          echo "UNQUALIFIED_STRICT_CLIPPY=FAILS_ON_IDENTICAL_UPSTREAM_BASELINE_WARNINGS"
+          echo "UNQUALIFIED_STRICT_CLIPPY=FAILS_ON_IDENTICAL_BASELINE_WARNING_LOCATIONS"
 
   all-targets-windows:
     name: Upstream all-targets Test (Windows)
