@@ -31,6 +31,12 @@
 - Completion propagation is gated to task IDs started by this TUI and their initial conversation epoch. Late output after a resume or session switch is discarded; malformed/oversized/non-JSON raw output remains available through `/tasks`.
 - **Reviewer memory isolation:** the child-side CLI avoids main-agent background memory consolidation for `AgentKind::Subagent`, even when the extract-memories setting is enabled. This prevents an unrelated memory-maintenance model call and reuse of ambient user memory during the fresh-context reviewer task. Main-agent consolidation remains enabled when configured. Three new unit cases cover main-enabled, subagent-enabled and main-disabled behavior.
 
+## Independent GitHub Actions offline verification (completed)
+
+The exact unchanged native source patch above was replayed from the immutable upstream commit in **[OpenSiro offline-native Actions #39628191036](https://github.com/opensiro/upstream/actions/runs/39628191036)** (internal PR head `a39412a22357a5647ff9740e0fb832460daf8427`). The `offline-native` job finished **SUCCESS**. Every job step passed: patch SHA-256 and source SHA verification, clean `git apply`/diff, Rust formatting, full central `agent-code-lib --lib` and `agent-code --bin agent` native test targets, scoped two-target Clippy with documented pre-existing lint exception, compiled patched executable, startup/mandatory-overlay smoke, **actual local mock-provider HTTP/JSONL process smoke**, and evaluation-scorer unit tests.
+
+This independently reproduces scripted executable behavior **without paid credentials or a real model**. The local HTTP mock supplies synthetic JSON; it does **not** measure model accuracy, user outcomes, true network sandbox containment, or all-targets Windows/upstream CI. This newer actual mock-run receipt supersedes the earlier 'mock script committed but not executed' checkpoint. See the [human-owned external PR handoff](UPSTREAM_PR_HANDOFF.md) for remaining source contribution gates. Subsequent documentation changes do not alter the tested eight-file patch.
+
 ## Reproducibility
 
 ```bash
