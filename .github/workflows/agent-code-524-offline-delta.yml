@@ -1,0 +1,78 @@
+name: Agent-code #524 offline before-after contract delta
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/agent-code-524-offline-delta.yml'
+      - 'pilots/agent-code-524/offline_delta_smoke.py'
+      - 'pilots/agent-code-524/offline_cli_smoke.py'
+      - 'pilots/agent-code-524/reviewer-subagent-first-slice.patch'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: agent-code-524-offline-delta-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  source-pinned-delta:
+    name: Source-pinned baseline vs patched binary (no API)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      CARGO_TERM_COLOR: always
+      CARGO_INCREMENTAL: "0"
+    steps:
+      - name: Checkout handoff (read-only, no token persisted)
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          path: opensiro
+          persist-credentials: false
+      - name: Checkout identical native baseline source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: avala-ai/agent-code
+          ref: 82e0edfa7372c256d893d0854f954d9099254f88
+          path: agent-code
+          persist-credentials: false
+      - name: Verify exact baseline and patch digest before building
+        shell: bash
+        run: |
+          set -euo pipefail
+          p="$GITHUB_WORKSPACE/opensiro/pilots/agent-code-524/reviewer-subagent-first-slice.patch"
+          test "$(git -C agent-code rev-parse HEAD)" = '82e0edfa7372c256d893d0854f954d9099254f88'
+          test "$(sha256sum "$p" | cut -d' ' -f1)" = '58a70a40beafcceef1f76161f869f4fe2366272d8a82ea9fe9b48fcf530235e1'
+          git -C agent-code apply --check "$p"
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: "1.97"
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: "agent-code"
+      - name: Build real unpatched upstream executable
+        working-directory: agent-code
+        run: cargo build -p agent-code --bin agent --locked
+      - name: Preserve baseline binary outside source checkout
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp agent-code/target/debug/agent "$GITHUB_WORKSPACE/agent-baseline"
+          chmod +x "$GITHUB_WORKSPACE/agent-baseline"
+      - name: Apply exact intervention, retaining same upstream and model-free environment
+        shell: bash
+        run: |
+          set -euo pipefail
+          git -C agent-code apply "$GITHUB_WORKSPACE/opensiro/pilots/agent-code-524/reviewer-subagent-first-slice.patch"
+          git -C agent-code diff --check
+      - name: Rebuild actual patched upstream executable
+        working-directory: agent-code
+        run: cargo build -p agent-code --bin agent --locked
+      - name: Execute deterministic baseline versus patched prompts and fail-closed overlays
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 opensiro/pilots/agent-code-524/offline_delta_smoke.py \
+            --baseline-binary "$GITHUB_WORKSPACE/agent-baseline" \
+            --patched-binary "$GITHUB_WORKSPACE/agent-code/target/debug/agent"
