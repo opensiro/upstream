@@ -6,6 +6,22 @@
 
 **Source artifact:** [consolidated eight-file native patch](reviewer-subagent-first-slice.patch), SHA-256 `58a70a40beafcceef1f76161f869f4fe2366272d8a82ea9fe9b48fcf530235e1` (57,663 bytes). The source patch was created from the exact pinned target plus the previously reviewed mandatory-child-overlay protection, combined with the later isolated review and result gate. It **applies successfully on an independent pristine checkout**; `git diff --check` PASS.
 
+## Contribution and validation boundary (current scope)
+
+**Delivery type:** **source-level, offline-validated upstream contribution**. This pilot delivers a reviewable patch to the real `agent-code` files, native Rust tests and local scripted checks. It does **not** claim a live LLM end-to-end (E2E) test or experimentally improved review quality. **No paid LLM API key, model subscription or ChatGPT Browser session is required** to finish the current engineering verification and prepare an external upstream PR for human publication.
+
+**Required engineering evidence for this handoff:**
+1. Reapply the exact patch to the pinned upstream source; inspect the diff and verify formatting.
+2. Run relevant native Rust unit/regression tests (including reviewer routing, prompt/memory isolation, structured JSONL parsing and fail-closed permission failure paths).
+3. Run credential-free local scripts against the rebuilt executable. The [offline process smoke](offline_cli_smoke.py) checks executable startup and required overlays; the [mock-provider smoke](mock_provider_smoke.py) can test the actual streaming/request transport against a **local synthetic HTTP endpoint**, without any real provider or inference. Distinguish scripts that have been committed from scripts whose execution has been recorded.
+4. Record native lint/build/CI results honestly, including missing full-workspace/all-targets or cross-platform coverage and the six pre-existing strict-Clippy warnings. Do not replace the upstream maintainer's required CI gates with OpenSiro-only tests.
+
+**Explicitly out of scope for the current contribution gate:** real model calls, paid API access, live ChatGPT-browser-driven inference, provider-backed baseline-versus-isolated review comparisons, human-labeled precision/recall benchmarks and claims of S3* capability improvement. A local mock provider is a **scripted integration/transport test**, not real-model E2E. Tool-level read-only configuration is also **not** proof of an operating-system sandbox.
+
+**Acceptance language:** `SOURCE_IMPLEMENTED / OFFLINE_TESTED` can be used only for paths whose recorded checks passed. Do **not** use `E2E_VALIDATED`, `REVIEW_QUALITY_IMPROVED`, `BENEFIT_SUPPORTED`, `QUALIFIED`, or an Index grade change. The original [assessment-to-improvement experiment #56](https://github.com/opensiro/upstream/issues/56) may remain `SCREENING / BENEFIT_NOT_MEASURED`; the absence of live-model tests does **not** prevent a separately reviewed source contribution, but it **does** prevent declaring the stronger assessment-to-measured-product-benefit hypothesis proven.
+
+**Future research (optional, independently scoped):** [paired quality evaluation protocol](evaluation/PROTOCOL.md). The planned 12 cases / 72 runs are a research design, **not** required preconditions for the current file-level upstream PR, not an ongoing background job, and not performed. Maintainers can request additional validation after reviewing the code.
+
 ## Changes
 
 - `/review` preserves current target resolution/rubric but produces a distinct `ReviewTask`, **not** a parent-session model prompt. Modern TUI launches a typed `review` child process via existing `AgentTool`/`TaskManager`; the builtin definition cannot be overridden by project disk profiles.
