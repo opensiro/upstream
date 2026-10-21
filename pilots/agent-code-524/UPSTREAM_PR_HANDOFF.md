@@ -10,17 +10,29 @@
 
 **Title:** `feat(review): run /review in a constrained independent reviewer subagent`
 
-**Description:**
+**Description — ready to paste into the original upstream PR template (after the authorized fork/branch exists):**
 
-> Partial implementation of #524, building on the target/rubric groundwork merged via #529.
->
-> This patch routes the modern TUI `/review` to a dedicated child process rather than running inside the authoring conversation. It replaces the normal child system message with a reviewer-only rubric/JSON contract, enforces mandatory fail-closed child permission overlays, parses completed JSONL review output into bounded structured findings, and prevents subagent memory-consolidation side effects. Results appear in the operator TUI/`/tasks`; rejected or malformed outputs are not imported as trusted parent conversation text.
->
-> **Verification:** exact-source patch/checksum, Rust format, native library/CLI tests, checked Clippy scope, compiled CLI startup/required-overlay smoke and local synthetic OpenAI-compatible provider/JSONL smoke (when and only when those checks have actually completed; link the corresponding receipt). Tests are offline and require no external LLM API. Synthetic provider output is a **transport integration check, not an evaluation of reviewer accuracy or a production LLM E2E**.
->
-> **Non-goals / follow-ups:** no `agent review --json`, no `POST /review`, no model-backed quality claims, no proof of OS-level filesystem/network confinement, and no automatic fix/PR publishing. Please review as a **bounded independent-review execution slice**, not as closure of all #524 acceptance criteria.
->
-> **Compatibility / safety:** reuses the current AgentTool/TaskManager, preserves non-review agent output behavior, and fails closed when the child cannot enforce the required permission overlay.
+## Summary
+
+- Implements a **bounded second slice** of [#524](https://github.com/avala-ai/agent-code/issues/524), following merged [#529](https://github.com/avala-ai/agent-code/pull/529): modern TUI `/review` now launches a dedicated, fresh-context reviewer subprocess through the existing task manager rather than reusing the author's conversation. Completed reviews are surfaced as bounded, explicitly **unverified** structured findings in the operator UI/`/tasks`, not fed back as trusted model instructions.
+- Adds mandatory **fail-closed permission-overlay propagation and child loading**, a protected built-in `review` profile with read-only tool-level defaults, a reviewer-only system prompt and JSONL output parsing, and disables background memory consolidation for subagents.
+- Intentionally **partial**: no `agent review --json`, `POST /review`, completed issue #524 claim, model-backed precision/recall study, automatic repair/publishing or proof of OS-level sandbox containment.
+
+## Test plan
+
+- [x] `cargo check --all-targets` — [source-pinned Linux PASS](https://github.com/opensiro/upstream/actions/runs/39644233887).
+- [x] `cargo test --all-targets` — [Linux and Windows PASS](https://github.com/opensiro/upstream/actions/runs/39644233887).
+- [ ] `cargo clippy --all-targets -- -D warnings` — **not green on pristine upstream either**: six distinct `clippy::unnecessary_cast` warning locations in two untouched baseline files. [Before/after comparison PASS](https://github.com/opensiro/upstream/actions/runs/39644233887) confirms **no new diagnostic locations**; this is **not** a strict-Clippy pass. Maintainer resolution/acceptance required.
+- [x] `cargo fmt --all -- --check` — [source-pinned PASS](https://github.com/opensiro/upstream/actions/runs/39644233887).
+- [x] New tests added for review dispatch, role isolation, structured report/JSONL validation, memory lifecycle, mandatory permission overlay failure paths and non-review compatibility.
+- [x] Offline executable smoke and synthetic local HTTP/JSONL provider integration — [PASS](https://github.com/opensiro/upstream/actions/runs/39644234230); **no model API** or inference.
+- [x] Actual compiled binary before/after: reviewer persona replacement; missing/malformed child overlay transitions **ALLOWED → REJECTED**; main behavior unchanged — [PASS](https://github.com/opensiro/upstream/actions/runs/39644234140).
+
+**Known limitations / review focus:** This changes security-sensitive library and CLI paths, so please review composition/enforcement of child tool permissions separately from UX and JSONL handling. The `read_only` role uses product-level Plan-mode policy, **not an OS sandbox**. Model review quality and full real-provider E2E have **not** been measured. This PR should be reviewed as source engineering, not as proof of better reviewer precision, a complete #524 implementation or a VSM score improvement. No new API keys, proprietary provider dependencies or network-required default tests.
+
+**Contribution provenance:** Eight-file patch [pinned at SHA-256 `58a70a40beafcceef1f76161f869f4fe2366272d8a82ea9fe9b48fcf530235e1`](reviewer-subagent-first-slice.patch) against `avala-ai/agent-code@82e0edfa7372c256d893d0854f954d9099254f88`. These are externally reviewable OpenSiro reproduction receipts, **not the eventual upstream PR's own checks**. Revalidate source pins/patch/CI when the actual contributor branch is created.
+
+---
 
 The patch spans eight Rust/docs files across the core library and modern CLI, including a sensitive permissions boundary. Under the upstream [SHIP.md](https://github.com/avala-ai/agent-code/blob/main/SHIP.md) large/dangerous-change rules, prefer staged human review and avoid treating the green offline run as a security approval. The maintainer may prefer splitting the patch into smaller changes before review. Preserve semantics and evidence; do not mislabel this as complete #524 or change the source pin without retesting.
 
