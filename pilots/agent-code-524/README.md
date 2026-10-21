@@ -90,9 +90,9 @@ python3 pilots/agent-code-524/offline_cli_smoke.py --binary path/to/the/patched/
 
 **Authority:** only internal OpenSiro Draft PR #69 is written. No third-party code, contribution fork, external issue/PR, VSM grade, organization S1 admission or delegated permission changed. The human operator retains publication authority.
 
-## Paired quality measurement — instrument prepared, product outcome pending
+## Optional future paired-quality study — instrument prepared, no product outcome
 
-A [preregistered paired-review protocol](evaluation/PROTOCOL.md) and [read-only deterministic scorer](evaluation/score.py) have been added to this internal pilot. The protocol distinguishes the shipped parent-session `/review` from the patched isolated reviewer on matched held-out bug and clean-control changes, including blinded findings adjudication, token/latency overhead, failed-run accounting and the rubric-vs-isolation confound. Real model-backed observations have **not** been collected, and no claim of improved review precision/recall is made.
+A [preregistered paired-review protocol](evaluation/PROTOCOL.md) and [read-only deterministic scorer](evaluation/score.py) are retained **only for optional future research, not as gates for the present source-level contribution**. The protocol distinguishes the shipped parent-session `/review` from the patched isolated reviewer on matched held-out bug and clean-control changes, including blinded findings adjudication, token/latency overhead, failed-run accounting and the rubric-vs-isolation confound. Real model-backed observations have **not** been collected, and no claim of improved review precision/recall is made.
 
 The scorer refuses unpaired observations, mismatched source/model/scenario, missing adjudication and incomplete datasets; mock records explicitly produce `NON_LIVE_NOT_PRODUCT_BENEFIT`. It reports TP/FP/FN, clean-control false alarms, failure/invalid-output counts and paired resource deltas, but **never autonomously concludes product benefit**.
 
