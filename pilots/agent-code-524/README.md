@@ -4,7 +4,7 @@
 
 **Canonical upstream source:** [`avala-ai/agent-code/main@82e0edfa7372c256d893d0854f954d9099254f88`](https://github.com/avala-ai/agent-code/commit/82e0edfa7372c256d893d0854f954d9099254f88), existing [issue #524](https://github.com/avala-ai/agent-code/issues/524). **Index lineage:** [`vsm-harness-index/main@5393b698bfdfa4ca14d97a79238234eca20694e5`](https://github.com/opensiro/vsm-harness-index/commit/5393b698bfdfa4ca14d97a79238234eca20694e5), `assessments/ag/agent-code.md`, `review_ref=2734ab5f18939b20c774b39c4406788383e35255`. The Index records no independent S3* review and issue #524 independently describes the product need.
 
-**Source artifact:** [consolidated seven-file native patch](reviewer-subagent-first-slice.patch), SHA-256 `be775b2e2830e0f4991e91013f7c0dd629e0da6e1ae870edb11b41950bff278c` (46,972 bytes). The source patch was created from the exact pinned target plus the previously reviewed mandatory-child-overlay protection, combined with the later isolated review and result gate. It **applies successfully on an independent pristine checkout**; `git diff --check` PASS.
+**Source artifact:** [consolidated seven-file native patch](reviewer-subagent-first-slice.patch), SHA-256 `93b13ad3162ba9bcb1592aee7de1db18db6db92e3925ee38b399133e6a6647ec` (52,033 bytes). The source patch was created from the exact pinned target plus the previously reviewed mandatory-child-overlay protection, combined with the later isolated review and result gate. It **applies successfully on an independent pristine checkout**; `git diff --check` PASS.
 
 ## Changes
 
@@ -33,12 +33,27 @@ The VM required Rust 1.97 with an isolated Zig C/linker/archiver because system 
 
 **Prior source-slice tests (not a combined-patch certification):** 17/17 review, 37/37 coordinator, 15/15 AgentTool, 108/108 modern TUI and 2/2 child-overlay parser. A previous live CLI smoke on five invalid required-overlay cases rejected all five before any model request.
 
-**Combined seven-file test results — PASS on the actual reconciled source worktree:** `review::` **17/17**, `services::coordinator::coordinator_tests` **37/37**, `tools::agent::tests` **15/15**, `subagent_overlay_loading_tests` **2/2**, `ui::modern::run::tests` **108/108**. **Total 179/179 selected native tests PASS, zero failures** (five sequential Cargo test filters, final runner exit code 0). Clean patch replay on independent source checkout, `cargo fmt --all` and `git diff --check` also PASS. The exact published patch is byte-identical to the file exported from the tested merged source.
+**Current seven-file JSONL-enabled native patch — PASS at exact pinned upstream:** The reviewer child now receives `--output-format json` (other agent types retain their existing output mode). `parse_review_jsonl` consumes the existing agent-code `JsonStreamSink` event envelope: it accepts `text_delta` from the last completed assistant turn, ignores thinking and tool-result content, requires a successful `session_end`, then validates the typed findings; malformed, incomplete, failed, unstructured, or truncated streams do **not** become accepted review artifacts. The TUI calls the event parser rather than trying to parse the entire process stdout as a single JSON object.
+
+**Measured exact-patch native test results** (five filters on the same final checkout, all exit 0):
+
+| Test | PASS |
+| --- | ---: |
+| `cargo test -p agent-code-lib review:: --lib --locked` | **19/19** |
+| `cargo test -p agent-code-lib services::coordinator::coordinator_tests --lib --locked` | **37/37** |
+| `cargo test -p agent-code-lib tools::agent::tests --lib --locked` | **15/15** |
+| `cargo test -p agent-code --bin agent subagent_overlay_loading_tests --locked` | **2/2** |
+| `cargo test -p agent-code --bin agent ui::modern::run::tests --locked` | **108/108** |
+| **Total** | **181/181 PASS, zero failures** |
+
+The first JSONL regression failed on a malformed **test fixture**, not on a production parser result; corrected the fixture, then re-ran the suite green. A distinct frozen-checkout worktree accepts the exact 52,033-byte patch; `git apply --check`, `git diff --check`, `cargo fmt --all -- --check`, and byte comparison of the patch against the tested implementation all **PASS**. Tested using Rust 1.97 plus an isolated Zig C/linker toolchain.
+
+**Scope caveat:** These are 181 targeted native tests, **not** the full upstream suite or a provider-backed end-to-end review. JSONL handling is tested using synthetic event streams derived from the existing first-party `JsonStreamSink` event schema; actual review output with a configured model remains to be checked.
 
 ## Remaining acceptance boundaries
 
 - No real model-backed independent review, blinded same-task comparison, or measured software-quality improvement. `ASSESSMENT_DERIVED` remains a **research selection category**; candidate stays `SCREENING`.
-- The child reviewer rubric is prefixed to its one-shot prompt, not installed as a replacement base system message; actual model-generated stdout may not be a lone JSON object, so structured results can fail closed to `/tasks` rather than appear as validated findings.
+- The child reviewer rubric is prefixed to its one-shot prompt, not installed as a replacement base system message; the child now produces JSONL and the route reconstructs last-turn text, but real model-generated JSON may still be invalid; that degrades safely to `/tasks` instead of inventing findings.
 - A Plan-mode Bash classifier and tool-level permissions are not an OS-level sandbox. No hostile filesystem/subprocess/network egress test has demonstrated complete containment.
 - Results are operator-visible in the TUI, but not injected as a bounded model-visible parent action that would close an automatic S3 correction loop.
 - Full upstream tests, matrix/clippy, real host/provider tests and maintainer acceptance are not complete. The internal GitHub workflow validates the OpenSiro handoff, not native third-party code behavior.
