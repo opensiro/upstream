@@ -35,8 +35,30 @@ class ClippyBaselineValidatorTests(unittest.TestCase):
         self.assertEqual(result["unique_existing_diagnostics"], 6)
         self.assertEqual(result["diagnostic_instances"], 12)
         self.assertEqual(result["result"], "NO_NEW_DIAGNOSTIC_LOCATIONS")
-        with self.assertRaisesRegex(ValueError, "baseline Clippy diagnostics changed"):
+        with self.assertRaisesRegex(ValueError, "baseline Clippy diagnostic locations changed"):
             validate(repeated, 101, side="baseline")
+
+    def test_double_emission_on_clean_baseline_is_valid(self):
+        # Restored Cargo cache may cause duplicate all-targets diagnostics.
+        lines = make_jsonl().splitlines()
+        doubled = "\n".join(lines[:-1] + lines[:-1] + [lines[-1]])
+        result = validate(doubled, 101, side="baseline")
+        self.assertEqual(result["diagnostic_instances"], 12)
+        self.assertEqual(result["duplicate_diagnostic_instances"], 6)
+
+    def test_mixed_one_and_two_emissions_are_valid_for_both_sides(self):
+        lines = make_jsonl().splitlines()
+        mixed = "\n".join(lines[:-1] + lines[:3] + [lines[-1]])
+        for side in ("baseline", "patched"):
+            result = validate(mixed, 101, side=side)
+            self.assertEqual(result["unique_existing_diagnostics"], 6)
+            self.assertEqual(result["diagnostic_instances"], 9)
+
+    def test_baseline_third_duplicate_is_rejected(self):
+        lines = make_jsonl().splitlines()
+        tripled = "\n".join(lines[:-1] * 3 + [lines[-1]])
+        with self.assertRaisesRegex(ValueError, "baseline Clippy diagnostic locations changed"):
+            validate(tripled, 101, side="baseline")
 
     def test_patched_third_duplicate_is_rejected(self):
         lines = make_jsonl().splitlines()
