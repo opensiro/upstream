@@ -73,3 +73,11 @@ python3 pilots/agent-code-524/offline_cli_smoke.py --binary path/to/the/patched/
 - Full **two-target unit tests are complete**, but full-workspace/cross-platform matrix, unqualified strict clippy, real host/provider tests and maintainer acceptance remain incomplete. The internal GitHub workflow validates the OpenSiro handoff, not third-party upstream acceptance.
 
 **Authority:** only internal OpenSiro Draft PR #69 is written. No third-party code, contribution fork, external issue/PR, VSM grade, organization S1 admission or delegated permission changed. The human operator retains publication authority.
+
+## Paired quality measurement — instrument prepared, product outcome pending
+
+A [preregistered paired-review protocol](evaluation/PROTOCOL.md) and [read-only deterministic scorer](evaluation/score.py) have been added to this internal pilot. The protocol distinguishes the shipped parent-session `/review` from the patched isolated reviewer on matched held-out bug and clean-control changes, including blinded findings adjudication, token/latency overhead, failed-run accounting and the rubric-vs-isolation confound. Real model-backed observations have **not** been collected, and no claim of improved review precision/recall is made.
+
+The scorer refuses unpaired observations, mismatched source/model/scenario, missing adjudication and incomplete datasets; mock records explicitly produce `NON_LIVE_NOT_PRODUCT_BENEFIT`. It reports TP/FP/FN, clean-control false alarms, failure/invalid-output counts and paired resource deltas, but **never autonomously concludes product benefit**.
+
+**Validator receipt:** [`evaluation/test_score.py`](evaluation/test_score.py), executed from the exact PR commit `51469b76d7d894d64a1bb5ebb97fa0e03bb73531` via public SHA-pinned raw source on a registered VM, **11/11 unittest cases PASS**. This is a lightweight local scorer-test receipt, not live LLM efficacy validation or a rerun of the Rust patch.
