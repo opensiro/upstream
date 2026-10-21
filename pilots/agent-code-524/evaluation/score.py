@@ -45,6 +45,10 @@ def score(cases_doc, runs_doc, judgements_doc):
                 f"case source/input mismatch in {rid}")
         require(isinstance(run["repeat"], int) and run["repeat"] > 0, f"bad repeat {rid}")
         require(isinstance(run["findings"], list), f"missing findings {rid}")
+        require(run.get("status") in ("completed", "failed", "invalid_output"),
+                f"invalid or missing run status {rid}")
+        require(run["status"] == "completed" or not run["findings"],
+                f"failed run cannot report accepted findings {rid}")
         require(run.get("model") and run.get("context_condition"), f"missing arm metadata {rid}")
         require(isinstance(run.get("duration_ms"), int) and run["duration_ms"] >= 0,
                 f"bad duration {rid}")
@@ -71,7 +75,8 @@ def score(cases_doc, runs_doc, judgements_doc):
             "adjudication must contain exactly all run IDs (including zero-finding runs)")
     require(judgements_doc.get("blinded_adjudication") is True,
             "blinded_adjudication must be explicitly attested, not silently assumed")
-    totals = {arm: dict(tp=0, fp=0, fn=0, clean_fp=0, tokens=0, duration_ms=0, runs=0)
+    totals = {arm: dict(tp=0, fp=0, fn=0, clean_fp=0, tokens=0, duration_ms=0, runs=0,
+                            failed_runs=0, invalid_output_runs=0)
               for arm in ("baseline", "isolated")}
     per_run = {}
     for rid, run in by_id.items():
@@ -96,6 +101,10 @@ def score(cases_doc, runs_doc, judgements_doc):
         st["tokens"] += run["total_tokens"]
         st["duration_ms"] += run["duration_ms"]
         st["runs"] += 1
+        if run["status"] == "failed":
+            st["failed_runs"] += 1
+        if run["status"] == "invalid_output":
+            st["invalid_output_runs"] += 1
         if not case["truth_ids"]:
             st["clean_fp"] += fp
         per_run[rid] = {"tp": tp, "fp": fp, "fn": fn}
