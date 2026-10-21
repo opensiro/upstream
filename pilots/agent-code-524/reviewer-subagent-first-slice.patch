@@ -1,163 +1,133 @@
-diff --git a/crates/cli/src/main.rs b/crates/cli/src/main.rs
-index 99c8e9b..d313537 100644
---- a/crates/cli/src/main.rs
-+++ b/crates/cli/src/main.rs
-@@ -320,6 +320,21 @@ fn parse_permission_mode(value: &str) -> anyhow::Result<agent_code_lib::config::
-     })
+diff --git a/crates/cli/src/commands/mod.rs b/crates/cli/src/commands/mod.rs
+index 2487c24..ff8b2d1 100644
+--- a/crates/cli/src/commands/mod.rs
++++ b/crates/cli/src/commands/mod.rs
+@@ -25,6 +25,8 @@ pub enum CommandResult {
+     Passthrough(String),
+     /// Command wants to inject a prompt for the agent.
+     Prompt(String),
++    /// Run a review in an isolated subagent task, never in the parent turn.
++    ReviewTask(String),
  }
  
-+fn load_permissions_overlay(
-+    path: &str,
-+) -> anyhow::Result<agent_code_lib::config::PermissionsConfig> {
-+    let contents = std::fs::read_to_string(path)
-+        .map_err(|e| anyhow::anyhow!("Failed to read --permissions-overlay {path}: {e}"))?;
-+    let value: toml::Value = toml::from_str(&contents)
-+        .map_err(|e| anyhow::anyhow!("--permissions-overlay {path} is not valid TOML: {e}"))?;
-+    let perms = value.get("permissions").ok_or_else(|| {
-+        anyhow::anyhow!("--permissions-overlay {path} has no [permissions] section")
-+    })?;
-+    perms.clone().try_into().map_err(|e| {
-+        anyhow::anyhow!("--permissions-overlay {path} has invalid [permissions] section: {e}")
-+    })
-+}
-+
- fn main() -> anyhow::Result<()> {
-     // Harden the process BEFORE the async runtime starts, while the process is
-     // still single-threaded: hardening mutates the environment (unsound once
-@@ -573,56 +588,42 @@ async fn async_main() -> anyhow::Result<()> {
-         config.permissions.default_mode = parsed;
-     }
- 
--    // Apply --permissions-overlay. Parsed as a TOML document whose
--    // `[permissions]` section wholesale replaces `config.permissions`.
--    // The overlay is gated by `security.disable_bypass_permissions` so a
--    // locked-down host cannot be loosened by passing a file path.
-+    // A typed agent may not discard the required overlay argument and
-+    // inherit a broader host profile.
-+    let required_overlay = std::env::var("AGENT_CODE_REQUIRE_PERMISSIONS_OVERLAY")
-+        .is_ok_and(|v| !v.is_empty() && v != "0");
-+    if required_overlay && cli.permissions_overlay.is_none() {
-+        anyhow::bail!("Subagent missing required --permissions-overlay");
-+    }
-+
-+    // A child must never silently start without an overlay it was told
-+    // to enforce. Keep the historical warn-only CLI behavior for ordinary
-+    // interactive users who supplied a malformed overlay manually.
-     if let Some(ref overlay_path) = cli.permissions_overlay {
-+        let overlay_required =
-+            matches!(detect_agent_kind(), AgentKind::Subagent) || required_overlay;
-         if config.security.disable_bypass_permissions {
-+            if overlay_required {
-+                anyhow::bail!(
-+                    "Subagent cannot apply required --permissions-overlay:                      security.disable_bypass_permissions is set"
-+                );
-+            }
-             tracing::warn!(
-                 "--permissions-overlay ignored: security.disable_bypass_permissions is set"
-             );
-         } else {
--            match std::fs::read_to_string(overlay_path) {
--                Ok(contents) => match toml::from_str::<toml::Value>(&contents) {
--                    Ok(value) => {
--                        if let Some(perms_value) = value.get("permissions") {
--                            match perms_value
--                                .clone()
--                                .try_into::<agent_code_lib::config::PermissionsConfig>()
--                            {
--                                Ok(perms) => {
--                                    cli_permissions.overlay = Some(perms.clone());
--                                    // Compose with host permissions so project
--                                    // rules survive typed-subagent visibility
--                                    // overlays (do not wholesale replace).
--                                    config.permissions =
--                                        agent_code_lib::services::coordinator::compose_permissions_overlay(
--                                            &config.permissions,
--                                            &perms,
--                                        );
--                                    tracing::debug!(
--                                        "Applied permissions overlay from {overlay_path}"
--                                    );
--                                }
--                                Err(e) => tracing::warn!(
--                                    "--permissions-overlay {overlay_path} has invalid \
--                                     [permissions] section: {e}"
--                                ),
--                            }
--                        } else {
--                            tracing::warn!(
--                                "--permissions-overlay {overlay_path} has no [permissions] section"
--                            );
--                        }
--                    }
--                    Err(e) => tracing::warn!(
--                        "--permissions-overlay {overlay_path} is not valid TOML: {e}"
--                    ),
--                },
--                Err(e) => {
--                    tracing::warn!("Failed to read --permissions-overlay {overlay_path}: {e}")
-+            match load_permissions_overlay(overlay_path) {
-+                Ok(perms) => {
-+                    cli_permissions.overlay = Some(perms.clone());
-+                    config.permissions =
-+                        agent_code_lib::services::coordinator::compose_permissions_overlay(
-+                            &config.permissions,
-+                            &perms,
-+                        );
-+                    tracing::debug!("Applied permissions overlay from {overlay_path}");
+ /// A built-in command definition.
+@@ -1457,7 +1459,7 @@ pub fn execute(input: &str, engine: &mut QueryEngine) -> CommandResult {
+             match review::resolve(target, &cwd) {
+                 Ok(resolved) => {
+                     println!("Reviewing {}…", resolved.hint);
+-                    CommandResult::Prompt(format!("{}\n\n{}", review::RUBRIC, resolved.prompt))
++                    CommandResult::ReviewTask(resolved.prompt)
                  }
-+                Err(e) if overlay_required => return Err(e),
-+                Err(e) => tracing::warn!("{e}"),
-             }
+                 // Spending a turn reviewing the wrong thing is worse than
+                 // saying no: report and stop.
+diff --git a/crates/cli/src/ui/modern/run.rs b/crates/cli/src/ui/modern/run.rs
+index 9407088..4f2c617 100644
+--- a/crates/cli/src/ui/modern/run.rs
++++ b/crates/cli/src/ui/modern/run.rs
+@@ -1688,6 +1688,18 @@ pub(super) async fn event_loop(
+                             })
+                         }
+                     });
++                    // Review tasks must not enter the parent model's history.
++                    let review_prompt =
++                        if let crate::commands::CommandResult::ReviewTask(p) = &result {
++                            Some(p.clone())
++                        } else {
++                            None
++                        };
++                    let reviewer_defaults = review_prompt.as_ref().map(|_| {
++                        agent_code_lib::services::coordinator::SubagentEndpoint::from_api_config(
++                            &eng.state().config.api,
++                        )
++                    });
+                     apply_command_result(app, result, &captured, &slash);
+                     // Keep TUI header/path and `!` shell in sync with engine
+                     // after `/cd` (and any other cwd-changing command).
+@@ -1727,6 +1739,53 @@ pub(super) async fn event_loop(
+                     }
+                     app.dirty = true;
+                     drop(eng);
++                    if let Some(prompt) = review_prompt {
++                        // Deliberately use the immutable built-in, not a disk
++                        // profile that could override the read-only reviewer.
++                        use agent_code_lib::services::coordinator::{
++                            AgentRegistry, resolve_subagent_endpoint,
++                        };
++                        use agent_code_lib::tools::agent::spawn_background_agent;
++                        let registry = AgentRegistry::with_defaults();
++                        let reviewer = registry.get("review").expect("built-in reviewer");
++                        let endpoint = resolve_subagent_endpoint(
++                            None,
++                            Some(reviewer),
++                            reviewer_defaults.as_ref(),
++                        );
++                        let subagent_id = format!("review-{}", uuid::Uuid::new_v4());
++                        match spawn_background_agent(
++                            &prompt,
++                            "Independent code review",
++                            std::path::Path::new(&app.cwd),
++                            &task_manager,
++                            &subagent_id,
++                            None,
++                            None,
++                            None,
++                            Some(reviewer),
++                            &endpoint,
++                        )
++                        .await
++                        {
++                            Ok(id) => {
++                                app.transcript.push(
++                                    super::app::TranscriptItem::System(format!(
++                                        "Independent review started: task {id}. Use /tasks for output."
++                                    )),
++                                );
++                                app.status_message = format!("Review task {id} started");
++                            }
++                            Err(e) => {
++                                app.transcript
++                                    .push(super::app::TranscriptItem::System(format!(
++                                        "Review not started: {e}"
++                                    )));
++                                app.status_message = "Review launch failed".to_string();
++                            }
++                        }
++                        app.dirty = true;
++                    }
+                     // The command may have mutated the TaskManager
+                     // (`/tasks kill`, `/tasks clear`): refresh the pane
+                     // now, because the gated poll can be parked when
+@@ -2570,6 +2629,10 @@ fn apply_command_result(
+         | crate::commands::CommandResult::Passthrough(p) => {
+             app.enqueue_turn_from_command(p);
          }
-     }
-@@ -1343,6 +1344,47 @@ fn record_no_sandbox(
-     true
- }
++        crate::commands::CommandResult::ReviewTask(_) => {
++            // Caller owns launching the isolated task; no parent turn.
++            app.status_message = "Preparing isolated review".to_string();
++        }
+         crate::commands::CommandResult::Handled => {
+             app.status_message = format!("ran {slash}");
+         }
+@@ -4118,6 +4181,19 @@ mod tests {
+     use super::*;
+     use crate::ui::modern::app::Phase;
  
-+#[cfg(test)]
-+mod subagent_overlay_loading_tests {
-+    use super::load_permissions_overlay;
-+
 +    #[test]
-+    fn missing_or_invalid_overlay_must_not_be_treated_as_usable() {
-+        let dir = tempfile::tempdir().unwrap();
-+        let missing = dir.path().join("missing.toml");
-+        assert!(load_permissions_overlay(missing.to_str().unwrap()).is_err());
-+
-+        let malformed = dir.path().join("malformed.toml");
-+        std::fs::write(&malformed, "garbage = [").unwrap();
-+        assert!(load_permissions_overlay(malformed.to_str().unwrap()).is_err());
-+
-+        let no_section = dir.path().join("no-permissions.toml");
-+        std::fs::write(&no_section, "[other]\nfoo = true\n").unwrap();
-+        assert!(load_permissions_overlay(no_section.to_str().unwrap()).is_err());
-+
-+        let invalid = dir.path().join("invalid-permissions.toml");
-+        std::fs::write(&invalid, "[permissions]\ndefault_mode = 123\n").unwrap();
-+        assert!(load_permissions_overlay(invalid.to_str().unwrap()).is_err());
-+    }
-+
-+    #[test]
-+    fn a_valid_permissions_overlay_is_parsed_for_child() {
-+        let dir = tempfile::tempdir().unwrap();
-+        let path = dir.path().join("permissions.toml");
-+        std::fs::write(
-+            &path,
-+            "[permissions]\ndefault_mode = \"plan\"\nallowed_tools = [\"FileRead\"]\n",
-+        )
-+        .unwrap();
-+        let config = load_permissions_overlay(path.to_str().unwrap()).unwrap();
-+        assert_eq!(
-+            config.default_mode,
-+            agent_code_lib::config::PermissionMode::Plan
++    fn review_command_never_enqueues_a_parent_turn() {
++        let mut app = App::new("m", "/tmp", "s");
++        apply_command_result(
++            &mut app,
++            crate::commands::CommandResult::ReviewTask("review change".into()),
++            "",
++            "/review",
 +        );
-+        assert_eq!(config.allowed_tools, vec!["FileRead".to_string()]);
++        assert!(app.status_message.contains("isolated review"));
++        assert_eq!(app.work, crate::ui::modern::session_work::SessionWork::default());
 +    }
-+}
 +
- #[cfg(test)]
- mod permission_mode_flag_tests {
-     use super::{parse_permission_mode, record_no_sandbox};
+     /// The tasks-pane keys claim only unmodified presses: Ctrl+Enter must
+     /// still reach the global interject binding, not open task output.
+     #[test]
 diff --git a/crates/lib/src/services/coordinator.rs b/crates/lib/src/services/coordinator.rs
 index b01d1f8..82f7386 100644
 --- a/crates/lib/src/services/coordinator.rs
