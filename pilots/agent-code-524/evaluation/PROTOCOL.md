@@ -24,7 +24,7 @@ The proposed S3* mechanism is **independent observation of the implementation**,
 
 Before a human adjudicates, hide the arm, tool/model branding and expected outcome from each result; shuffle results and assign opaque IDs. A reviewer of outputs maps **every finding** to either one declared truth ID or `null` (false positive/unproven). Independent adjudication should also consider novel true bugs: inspect and register them **before** unblinding; do not silently count speculative improvements as TPs. Duplicate findings for the same bug in one run count once as TP and the rest as FP. Capture disagreements and resolutions. A single operator who cannot establish genuine independent/blinded adjudication must report this limitation and **must not set** `blinded_adjudication=true`.
 
-The primary observational comparison is paired change in **true positives per task** and **false positives per task** (including false positives on clean controls). Also report recall over declared truth bugs, precision over all adjudicated findings, average latency, total token usage and failure/invalid-output rate **by arm**. Do not drop failed/incomplete model runs or hallucinated invalid JSON from denominators: log them separately as attempted failures, not successful zero-finding reviews. An apparent gain may be outweighed by increased false alarms/cost.
+The primary observational comparison is paired change in **true positives per task** and **false positives per task** (including false positives on clean controls). Also report recall over declared truth bugs, precision over all adjudicated findings, average latency, total token usage and failure/invalid-output rate **by arm**. Do not drop failed/incomplete model runs or hallucinated invalid JSON from denominators: record them as `status=failed` or `status=invalid_output` with no accepted findings. The scorer counts each such attempt as a missed opportunity (false negatives for its declared bugs), and reports failure counts separately. It must never label the attempt a valid empty review. An apparent gain may be outweighed by increased false alarms/cost.
 
 **Interpretation:** This small preregistered trial is exploratory. Present per-task paired deltas, variance across repetitions, adverse outcomes and confounders. Do not claim statistically significant improvement or VSM grade change from a positive mean alone. A null/negative result is a valid final experimental outcome.
 
@@ -46,7 +46,7 @@ The primary observational comparison is paired change in **true positives per ta
 ```json
 {"schema_version":1,"runs":[
   {"id":"case-01-baseline-1","case_id":"case-01","arm":"baseline","repeat":1,
-   "source_type":"live_provider","source_sha":"<same-target-commit>",
+   "status":"completed","source_type":"live_provider","source_sha":"<same-target-commit>",
    "input_sha256":"<same-target-payload-hash>",
    "model":"<model-and-version>","context_condition":"author_exposed",
    "prompt_sha256":"<sha256-of-actual-prompt>","duration_ms":0,
