@@ -33,7 +33,7 @@ The VM required Rust 1.97 with an isolated Zig C/linker/archiver because system 
 
 **Prior source-slice tests (not a combined-patch certification):** 17/17 review, 37/37 coordinator, 15/15 AgentTool, 108/108 modern TUI and 2/2 child-overlay parser. A previous live CLI smoke on five invalid required-overlay cases rejected all five before any model request.
 
-**Combined seven-file test results:** the full set of filters above was launched on the actual consolidated clean worktree. **Pending completed runner output at this evidence checkpoint**; do not repeat earlier slice results as though they certified the combined patch. Clean patch apply, `cargo fmt` and diff check completed.
+**Combined seven-file test results — PASS on the actual reconciled source worktree:** `review::` **17/17**, `services::coordinator::coordinator_tests` **37/37**, `tools::agent::tests` **15/15**, `subagent_overlay_loading_tests` **2/2**, `ui::modern::run::tests` **108/108**. **Total 179/179 selected native tests PASS, zero failures** (five sequential Cargo test filters, final runner exit code 0). Clean patch replay on independent source checkout, `cargo fmt --all` and `git diff --check` also PASS. The exact published patch is byte-identical to the file exported from the tested merged source.
 
 ## Remaining acceptance boundaries
 
