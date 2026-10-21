@@ -21,10 +21,24 @@ index 2487c24..ff8b2d1 100644
                  // Spending a turn reviewing the wrong thing is worse than
                  // saying no: report and stop.
 diff --git a/crates/cli/src/main.rs b/crates/cli/src/main.rs
-index 99c8e9b..d313537 100644
+index 99c8e9b..3408ef9 100644
 --- a/crates/cli/src/main.rs
 +++ b/crates/cli/src/main.rs
-@@ -320,6 +320,21 @@ fn parse_permission_mode(value: &str) -> anyhow::Result<agent_code_lib::config::
+@@ -55,6 +55,13 @@ fn detect_agent_kind() -> AgentKind {
+     }
+ }
+ 
++/// Memory maintenance belongs to the interactive/main agent lifecycle, not a
++/// delegated reviewer or any other subagent. A child must not independently
++/// read/modify user memory or make an unrelated provider request.
++fn should_start_memory_consolidation(agent_kind: AgentKind, enabled: bool) -> bool {
++    enabled && agent_kind == AgentKind::Main
++}
++
+ /// AI-powered coding agent for the terminal.
+ #[derive(Parser, Debug)]
+ #[command(name = "agent", version, about)]
+@@ -320,6 +327,21 @@ fn parse_permission_mode(value: &str) -> anyhow::Result<agent_code_lib::config::
      })
  }
  
@@ -46,7 +60,7 @@ index 99c8e9b..d313537 100644
  fn main() -> anyhow::Result<()> {
      // Harden the process BEFORE the async runtime starts, while the process is
      // still single-threaded: hardening mutates the environment (unsound once
-@@ -573,56 +588,42 @@ async fn async_main() -> anyhow::Result<()> {
+@@ -573,56 +595,42 @@ async fn async_main() -> anyhow::Result<()> {
          config.permissions.default_mode = parsed;
      }
  
@@ -132,10 +146,43 @@ index 99c8e9b..d313537 100644
              }
          }
      }
-@@ -1343,6 +1344,47 @@ fn record_no_sandbox(
+@@ -993,7 +1001,7 @@ async fn async_main() -> anyhow::Result<()> {
+     let _ = engine.fire_session_start_hooks().await;
+ 
+     // Run memory consolidation in the background if due and feature enabled.
+-    if config.features.extract_memories
++    if should_start_memory_consolidation(agent_kind, config.features.extract_memories)
+         && let Some(memory_dir) = agent_code_lib::memory::ensure_memory_dir()
+         && agent_code_lib::memory::consolidation::should_consolidate(&memory_dir)
+         && let Some(lock_path) =
+@@ -1343,6 +1351,71 @@ fn record_no_sandbox(
      true
  }
  
++#[cfg(test)]
++mod memory_consolidation_role_tests {
++    use super::should_start_memory_consolidation;
++    use agent_code_lib::output_styles::AgentKind;
++
++    #[test]
++    fn main_agent_may_consolidate_when_enabled() {
++        assert!(should_start_memory_consolidation(AgentKind::Main, true));
++    }
++
++    #[test]
++    fn isolated_review_and_other_subagents_never_consolidate() {
++        assert!(!should_start_memory_consolidation(
++            AgentKind::Subagent,
++            true
++        ));
++    }
++
++    #[test]
++    fn disabled_memory_consolidation_stays_off() {
++        assert!(!should_start_memory_consolidation(AgentKind::Main, false));
++    }
++}
++
 +#[cfg(test)]
 +mod subagent_overlay_loading_tests {
 +    use super::load_permissions_overlay;
