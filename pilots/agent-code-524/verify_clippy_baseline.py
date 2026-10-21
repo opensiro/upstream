@@ -46,21 +46,32 @@ def errors_from_jsonl(text):
     return found, malformed
 
 
-def validate(text, exit_code):
+def validate(text, exit_code, side="baseline"):
+    if side not in ("baseline", "patched"):
+        raise ValueError(f"unknown provenance side {side}")
     found, malformed = errors_from_jsonl(text)
     if exit_code == 0:
-        raise ValueError("baseline strict Clippy succeeded; expected warnings no longer hold")
+        raise ValueError("strict Clippy succeeded; a known-fail comparison cannot claim success")
     if malformed:
         raise ValueError(f"{malformed} malformed compiler JSONL lines")
-    if found != EXPECTED:
-        raise ValueError(f"baseline Clippy diagnostics changed: expected={dict(EXPECTED)} observed={dict(found)}")
+    if side == "baseline":
+        if found != EXPECTED:
+            raise ValueError(f"baseline Clippy diagnostics changed: expected={dict(EXPECTED)} observed={dict(found)}")
+    elif set(found) != set(EXPECTED) or any(n > 2 for n in found.values()):
+        # Cargo --all-targets may emit the same lib diagnostic twice (lib and
+        # test targets). Compare unique source locations and bound multiplicity.
+        # Any new lint, file or line is rejected, not suppressed.
+        raise ValueError(f"patched Clippy diagnostic locations changed: expected={list(EXPECTED)} observed={dict(found)}")
     return {
-        "classification": "EXISTING_UNTOUCHED_UPSTREAM_BASELINE",
-        "scope": "unmodified avala-ai/agent-code; strict all-targets Clippy",
-        "expected_clippy_errors": sum(found.values()),
-        "unexpected_errors": 0,
-        "result": "BASELINE_WARNING_SET_CONFIRMED",
-        "does_not_prove_patched_clippy_pass": True,
+        "classification": ("UNMODIFIED_UPSTREAM_BASELINE" if side == "baseline"
+                           else "PATCHED_UPSTREAM_BASELINE_PARITY"),
+        "scope": side + " avala-ai/agent-code; unqualified strict all-targets Clippy",
+        "unique_existing_diagnostics": len(found),
+        "diagnostic_instances": sum(found.values()),
+        "unexpected_diagnostic_locations": 0,
+        "result": ("BASELINE_WARNING_SET_CONFIRMED" if side == "baseline"
+                   else "NO_NEW_DIAGNOSTIC_LOCATIONS"),
+        "does_not_prove_unqualified_strict_clippy_pass": True,
     }
 
 
@@ -68,9 +79,10 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--jsonl", required=True, type=pathlib.Path)
     p.add_argument("--clippy-exit", required=True, type=int)
+    p.add_argument("--side", required=True, choices=("baseline", "patched"))
     args = p.parse_args()
     try:
-        print(json.dumps(validate(args.jsonl.read_text(encoding="utf-8"), args.clippy_exit), indent=2))
+        print(json.dumps(validate(args.jsonl.read_text(encoding="utf-8"), args.clippy_exit, side=args.side), indent=2))
     except ValueError as exc:
         p.exit(1, f"BASELINE_VERIFICATION_FAILED: {exc}\n")
 
