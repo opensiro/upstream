@@ -54,15 +54,19 @@ def validate(text, exit_code, side="baseline"):
         raise ValueError("strict Clippy succeeded; a known-fail comparison cannot claim success")
     if malformed:
         raise ValueError(f"{malformed} malformed compiler JSONL lines")
-    if side == "baseline":
-        if found != EXPECTED:
-            raise ValueError(f"baseline Clippy diagnostics changed: expected={dict(EXPECTED)} observed={dict(found)}")
-    elif set(found) != set(EXPECTED) or any(n > 2 for n in found.values()):
-        # Cargo --all-targets may emit the same lib diagnostic twice (lib and
-        # test targets). Compare unique source locations and bound multiplicity.
-        # Any new lint, file or line is rejected, not suppressed.
-        raise ValueError(f"patched Clippy diagnostic locations changed: expected={list(EXPECTED)} observed={dict(found)}")
+    # Cargo --all-targets can report the same primary code/file/line either
+    # once or twice, depending on restored build cache and target compilation.
+    # Both the unmodified and patched runs must match exactly the six known
+    # locations, with bounded 1..2 occurrences at each location. Do not
+    # normalize away new diagnostics, missing diagnostics, or 3+ repeats.
+    if set(found) != set(EXPECTED) or any(count not in (1, 2) for count in found.values()):
+        raise ValueError(
+            f"{side} Clippy diagnostic locations changed: "
+            f"expected={list(EXPECTED)} observed={dict(found)}"
+        )
     return {
+        "duplicate_diagnostic_instances": sum(count - 1 for count in found.values()),
+        "cache_dependent_duplicate_bound": 2,
         "classification": ("UNMODIFIED_UPSTREAM_BASELINE" if side == "baseline"
                            else "PATCHED_UPSTREAM_BASELINE_PARITY"),
         "scope": side + " avala-ai/agent-code; unqualified strict all-targets Clippy",
