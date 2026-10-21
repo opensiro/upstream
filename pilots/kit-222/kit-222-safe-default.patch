@@ -1,0 +1,74 @@
+diff --git a/src/main.rs b/src/main.rs
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -1413,11 +1413,12 @@
+ }
+ 
+ #[derive(Debug, Deserialize)]
+-struct SubagentConfig {
+-    harness: String,
+-    #[serde(default)]
+-    harnesses: BTreeMap<String, kit::SubagentHarnessPolicy>,
+-}
++struct SubagentConfig {
++    #[serde(default)]
++    harness: Option<String>,
++    #[serde(default)]
++    harnesses: BTreeMap<String, kit::SubagentHarnessPolicy>,
++}
+ 
+ impl Config {
+     fn load_default() -> io::Result<Self> {
+@@ -1473,9 +1474,19 @@
+                 format!("invalid config {}: {error}", path.display()),
+             )
+         })?;
+-        config.config_dir = config_dir;
+-        config.config_path = Some(config_path);
+-        Ok(config)
++        if config
++            .subagent
++            .as_ref()
++            .is_some_and(|subagent| subagent.harness.is_none())
++        {
++            eprintln!(
++                "warning: incomplete [subagent] config in {}: missing `subagent.harness`; using the built-in harness and ignoring incomplete subagent policies. Set it with `kit config set subagent.harness <name>`",
++                path.display()
++            );
++        }
++        config.config_dir = config_dir;
++        config.config_path = Some(config_path);
++        Ok(config)
+     }
+ 
+     async fn plugin_runtime(
+@@ -1580,17 +1591,18 @@
+     }
+ 
+     fn harnesses(&self) -> Result<(kit::AcpHarnesses, String), String> {
+-        let policies = self
+-            .subagent
+-            .as_ref()
+-            .map(|value| value.harnesses.clone())
+-            .unwrap_or_default();
+-        let harnesses = kit::AcpHarnesses::new(self.acp.clone())?.with_model_policies(policies)?;
+-        let selected = self
+-            .subagent
+-            .as_ref()
+-            .map(|value| value.harness.clone())
+-            .unwrap_or_else(|| kit::BUILTIN_HARNESS.into());
++        let policies = self
++            .subagent
++            .as_ref()
++            .filter(|value| value.harness.is_some())
++            .map(|value| value.harnesses.clone())
++            .unwrap_or_default();
++        let harnesses = kit::AcpHarnesses::new(self.acp.clone())?.with_model_policies(policies)?;
++        let selected = self
++            .subagent
++            .as_ref()
++            .and_then(|value| value.harness.clone())
++            .unwrap_or_else(|| kit::BUILTIN_HARNESS.into());
+         if !harnesses.contains(&selected) {
+             return Err(format!("unknown subagent ACP harness {selected:?}"));
+         }
