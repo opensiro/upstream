@@ -24,8 +24,25 @@ def make_jsonl():
 class ClippyBaselineValidatorTests(unittest.TestCase):
     def test_expected_baseline_is_only_an_attestation(self):
         result = validate(make_jsonl(), 101)
-        self.assertEqual(result["expected_clippy_errors"], 6)
-        self.assertTrue(result["does_not_prove_patched_clippy_pass"])
+        self.assertEqual(result["unique_existing_diagnostics"], 6)
+        self.assertEqual(result["diagnostic_instances"], 6)
+        self.assertTrue(result["does_not_prove_unqualified_strict_clippy_pass"])
+
+    def test_patched_repeated_lib_diagnostics_are_reported_not_silenced(self):
+        lines = make_jsonl().splitlines()
+        repeated = "\\n".join(lines[:-1] + lines[:-1] + [lines[-1]])
+        result = validate(repeated, 101, side="patched")
+        self.assertEqual(result["unique_existing_diagnostics"], 6)
+        self.assertEqual(result["diagnostic_instances"], 12)
+        self.assertEqual(result["result"], "NO_NEW_DIAGNOSTIC_LOCATIONS")
+        with self.assertRaisesRegex(ValueError, "baseline Clippy diagnostics changed"):
+            validate(repeated, 101, side="baseline")
+
+    def test_patched_third_duplicate_is_rejected(self):
+        lines = make_jsonl().splitlines()
+        repeated = "\\n".join(lines[:-1] * 3)
+        with self.assertRaisesRegex(ValueError, "diagnostic locations changed"):
+            validate(repeated, 101, side="patched")
 
     def test_reject_additional_errors(self):
         extra = json.dumps({"reason": "compiler-message", "message": {
