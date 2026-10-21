@@ -65,9 +65,9 @@ jobs:
         run: cargo test --all-targets --locked
 
   strict-clippy-linux:
-    name: Upstream strict Clippy (Linux; existing warnings not waived)
+    name: Upstream strict Clippy baseline parity (not strict PASS)
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
@@ -79,15 +79,12 @@ jobs:
           ref: 82e0edfa7372c256d893d0854f954d9099254f88
           path: agent-code
           persist-credentials: false
-      - name: Validate and apply pinned source patch
+      - name: Verify original source and script self-tests
         shell: bash
         run: |
           set -euo pipefail
-          p="$GITHUB_WORKSPACE/opensiro/pilots/agent-code-524/reviewer-subagent-first-slice.patch"
-          test "$(sha256sum "$p" | cut -d' ' -f1)" = '58a70a40beafcceef1f76161f869f4fe2366272d8a82ea9fe9b48fcf530235e1'
           test "$(git -C agent-code rev-parse HEAD)" = '82e0edfa7372c256d893d0854f954d9099254f88'
-          git -C agent-code apply --check "$p"
-          git -C agent-code apply "$p"
+          python3 -m unittest discover -s opensiro/pilots/agent-code-524 -p 'test_verify_clippy_baseline.py' -v
       - uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: "1.97"
@@ -95,9 +92,37 @@ jobs:
       - uses: Swatinem/rust-cache@v2
         with:
           workspaces: "agent-code"
-      - name: Unqualified upstream strict all-targets Clippy (may fail on baseline)
+      - name: Run unqualified strict Clippy on pristine upstream baseline (expect exact errors)
         working-directory: agent-code
-        run: cargo clippy --all-targets --locked -- -D warnings
+        shell: bash
+        run: |
+          set -uo pipefail
+          set +e
+          cargo clippy --all-targets --locked --message-format=json -- -D warnings > baseline-clippy.jsonl 2> baseline-clippy.stderr
+          status=$?
+          set -e
+          python3 ../opensiro/pilots/agent-code-524/verify_clippy_baseline.py --jsonl baseline-clippy.jsonl --clippy-exit "$status"
+      - name: Apply exact reviewer patch after baseline gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          p="$GITHUB_WORKSPACE/opensiro/pilots/agent-code-524/reviewer-subagent-first-slice.patch"
+          test "$(sha256sum "$p" | cut -d' ' -f1)" = '58a70a40beafcceef1f76161f869f4fe2366272d8a82ea9fe9b48fcf530235e1'
+          git -C agent-code apply --check "$p"
+          git -C agent-code apply "$p"
+          git -C agent-code diff --check
+      - name: Run unqualified strict Clippy on patched source (require identical exact errors)
+        working-directory: agent-code
+        shell: bash
+        run: |
+          set -uo pipefail
+          set +e
+          cargo clippy --all-targets --locked --message-format=json -- -D warnings > patched-clippy.jsonl 2> patched-clippy.stderr
+          status=$?
+          set -e
+          python3 ../opensiro/pilots/agent-code-524/verify_clippy_baseline.py --jsonl patched-clippy.jsonl --clippy-exit "$status"
+          echo "PATCH_INTRODUCED_STRICT_CLIPPY_DIAGNOSTICS=0 (only if this verification passed)"
+          echo "UNQUALIFIED_STRICT_CLIPPY=FAILS_ON_IDENTICAL_UPSTREAM_BASELINE_WARNINGS"
 
   all-targets-windows:
     name: Upstream all-targets Test (Windows)
