@@ -23,7 +23,7 @@ The [Kit assessment pinned at Index 5393b698](https://github.com/opensiro/vsm-ha
 
 Pinned target: [Kit `main@8f9f08a2`](https://github.com/speakeasy-api/kit/tree/8f9f08a2b2088381f1cb106dcb9129378f8f0b4e). In `src/main.rs`, `SubagentConfig.harness: String` makes nested `subagent.harnesses.*` fields without a parent `subagent.harness` fail `Config::load` with `InvalidData`. An optional child config can therefore prevent ordinary Kit command startup.
 
-## Native fit gates — evidence-specific
+## Four native fit gates — evidence-specific
 
 | Gate | Verdict | What was actually established |
 | --- | --- | --- |
