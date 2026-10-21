@@ -2,6 +2,14 @@
 
 **Status: PROTOCOL_ONLY / NOT_MEASURED.** Owned by OpenSiro [Draft PR #69](https://github.com/opensiro/upstream/pull/69) under [#56](https://github.com/opensiro/upstream/issues/56). This protocol is not an upstream PR, acceptance receipt, VSM regrade, provider benchmark result, or authority to publish. The exact product patch is documented in [../README.md](../README.md).
 
+## Status and execution boundary
+
+**Deferred research protocol — not the current upstream contribution gate.** This file specifies how a *future* provider-backed reviewer-quality study would be conducted **if** a real model/provider and independently reviewable judgments become available. No model API is presently assumed, no browser proxy or synthetic output may stand in for a live model, and no 12-task dataset or 72-run quality benchmark is currently being executed.
+
+The **current contribution** is [source-level and offline-validated](../README.md#contribution-and-validation-boundary-current-scope): Rust code, native tests, patch replay, formatting/lint receipts and credential-free scripted checks. The existing [offline process smoke](../offline_cli_smoke.py) covers startup/permissions and the [local mock-provider script](../mock_provider_smoke.py) can exercise synthetic HTTP streaming. Neither is a real-LLM E2E test. Their results must be labelled by what actually ran.
+
+**No live provider E2E or precision/recall improvement is required to prepare a human-reviewed source PR**, subject to the target project's normal CI and maintainer requirements. Equally, without real paired review measurements the separate [assessment-derived product-improvement experiment #56](https://github.com/opensiro/upstream/issues/56) remains `BENEFIT_NOT_MEASURED`; do not promote `SCREENING` or claim S3* closure. The evaluation scorer below is retained for future research only.
+
 ## Question and competing explanations
 
 **Product question:** On the *same* code changes, does an isolated, repository-reading reviewer produce more actionable true bug findings than the shipped parent-session `/review`, without an unacceptable increase in false alarms, latency or tokens?
