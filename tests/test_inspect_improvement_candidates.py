@@ -36,8 +36,11 @@ class CandidateIntegrityTests(unittest.TestCase):
         report = inspect(self.root)
         self.assertEqual(report["count"], len(list(self.root.glob("*.md"))))
         self.assertEqual({x["state"] for x in report["candidates"]},
-                         {"BLOCKED_EVIDENCE", "PARKED", "SCREENING"})
+                         {"BLOCKED_EVIDENCE", "PARKED", "SCREENING", "REJECTED"})
         self.assertTrue(all(not x["declared_fit_complete"] for x in report["candidates"]))
+        self.assertTrue(any(x["state"] == "REJECTED" and
+                            x["candidate_id"] == "IMPR-AGENTDESCENT-DEMO-SKILL-20261021"
+                            for x in report["candidates"]))
         for flag in ("live_index_verified", "native_fit_verified",
                      "candidate_transition_authorized", "proposal_created"):
             self.assertIs(report[flag], False)
