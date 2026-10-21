@@ -21,10 +21,22 @@ index 2487c24..ff8b2d1 100644
                  // Spending a turn reviewing the wrong thing is worse than
                  // saying no: report and stop.
 diff --git a/crates/cli/src/ui/modern/run.rs b/crates/cli/src/ui/modern/run.rs
-index 9407088..4f2c617 100644
+index 9407088..faf0f52 100644
 --- a/crates/cli/src/ui/modern/run.rs
 +++ b/crates/cli/src/ui/modern/run.rs
-@@ -1688,6 +1688,18 @@ pub(super) async fn event_loop(
+@@ -891,6 +891,11 @@ pub(super) async fn event_loop(
+         let eng = engine_arc.lock().await;
+         eng.state().task_manager.clone()
+     };
++    // Only review tasks started in this TUI may return review results here.
++    // Each id is scoped to the conversation epoch at launch.
++    let mut pending_review_tasks = std::collections::HashMap::<String, u64>::new();
++    let (review_result_tx, mut review_result_rx) =
++        tokio::sync::mpsc::unbounded_channel::<(u64, String, Result<String, String>)>();
+     // Drill-in output reads run detached (see the select arm) and land
+     // back here, so a slow filesystem never blocks the event loop.
+     let (task_out_tx, mut task_out_rx) =
+@@ -1688,6 +1693,18 @@ pub(super) async fn event_loop(
                              })
                          }
                      });
@@ -43,7 +55,7 @@ index 9407088..4f2c617 100644
                      apply_command_result(app, result, &captured, &slash);
                      // Keep TUI header/path and `!` shell in sync with engine
                      // after `/cd` (and any other cwd-changing command).
-@@ -1727,6 +1739,53 @@ pub(super) async fn event_loop(
+@@ -1727,6 +1744,54 @@ pub(super) async fn event_loop(
                      }
                      app.dirty = true;
                      drop(eng);
@@ -77,6 +89,7 @@ index 9407088..4f2c617 100644
 +                        .await
 +                        {
 +                            Ok(id) => {
++                                pending_review_tasks.insert(id.clone(), app.conversation_epoch);
 +                                app.transcript.push(
 +                                    super::app::TranscriptItem::System(format!(
 +                                        "Independent review started: task {id}. Use /tasks for output."
@@ -97,7 +110,80 @@ index 9407088..4f2c617 100644
                      // The command may have mutated the TaskManager
                      // (`/tasks kill`, `/tasks clear`): refresh the pane
                      // now, because the gated poll can be parked when
-@@ -2570,6 +2629,10 @@ fn apply_command_result(
+@@ -2350,9 +2415,71 @@ pub(super) async fn event_loop(
+             // Gated on work that can still change: polling while any
+             // rows exist at all would tick forever once a subagent row
+             // (which persists for the session) appears.
+-            _ = tasks_tick.tick(), if live || app.has_live_manager_tasks() => {
++            _ = tasks_tick.tick(), if live || app.has_live_manager_tasks() || !pending_review_tasks.is_empty() => {
+                 let rows = manager_rows(&task_manager).await;
+                 app.sync_background_tasks(rows);
++                // Completion only forwards the explicitly initiated review
++                // tasks. Never read another session's persisted task output.
++                if !pending_review_tasks.is_empty() {
++                    use agent_code_lib::services::background::TaskStatus;
++                    for task in task_manager.list().await {
++                        if !pending_review_tasks.contains_key(&task.id) {
++                            continue;
++                        }
++                        match task.status {
++                            TaskStatus::Running => continue,
++                            TaskStatus::Completed => {
++                                let epoch = pending_review_tasks.remove(&task.id).unwrap();
++                                let tm = task_manager.clone();
++                                let tx = review_result_tx.clone();
++                                let id = task.id.clone();
++                                tokio::spawn(async move {
++                                    let output = tm.read_output_tail(&id, 128 * 1024).await;
++                                    let _ = tx.send((epoch, id, output));
++                                });
++                            }
++                            TaskStatus::Failed(reason) => {
++                                let epoch = pending_review_tasks.remove(&task.id).unwrap();
++                                if epoch == app.conversation_epoch {
++                                    app.transcript.push(
++                                        super::app::TranscriptItem::System(format!(
++                                            "Independent review task {} failed: {}",
++                                            task.id, reason
++                                        )),
++                                    );
++                                    app.dirty = true;
++                                }
++                            }
++                            TaskStatus::Killed => {
++                                let epoch = pending_review_tasks.remove(&task.id).unwrap();
++                                if epoch == app.conversation_epoch {
++                                    app.transcript.push(
++                                        super::app::TranscriptItem::System(format!(
++                                            "Independent review task {} was cancelled", task.id
++                                        )),
++                                    );
++                                    app.dirty = true;
++                                }
++                            }
++                        }
++                    }
++                }
++            }
++            Some((epoch, id, output)) = review_result_rx.recv() => {
++                if epoch != app.conversation_epoch {
++                    continue;
++                }
++                let note = match output {
++                    Ok(text) => match agent_code_lib::review::parse_review_output(&text) {
++                        Ok(report) => format_review_report(&id, &report),
++                        Err(e) => format!(
++                            "Reviewer task {id} has no valid structured findings ({e}). Inspect raw output via /tasks."
++                        ),
++                    },
++                    Err(e) => format!("Reviewer task {id}: cannot read output ({e}). Use /tasks."),
++                };
++                app.transcript.push(super::app::TranscriptItem::System(note));
++                app.dirty = true;
+             }
+             // Micro-animations: spinner, action-required blink, toast decay.
+             _ = anim_tick.tick(), if live || app.needs_anim_tick() => {
+@@ -2570,12 +2697,44 @@ fn apply_command_result(
          | crate::commands::CommandResult::Passthrough(p) => {
              app.enqueue_turn_from_command(p);
          }
@@ -108,7 +194,41 @@ index 9407088..4f2c617 100644
          crate::commands::CommandResult::Handled => {
              app.status_message = format!("ran {slash}");
          }
-@@ -4118,6 +4181,19 @@ mod tests {
+     }
+ }
+ 
++/// Display only a bounded, untrusted *report* in the parent transcript.
++fn format_review_report(id: &str, output: &agent_code_lib::review::ReviewOutput) -> String {
++    fn short(s: &str, max: usize) -> String {
++        s.replace(['\n', '\r'], " ").chars().take(max).collect()
++    }
++    let mut out = format!(
++        "Independent reviewer task {id} (unverified model findings): {}. {} finding(s).",
++        output.overall_correctness,
++        output.findings.len()
++    );
++    for finding in output.findings.iter().take(20) {
++        let loc = &finding.code_location;
++        out.push_str(&format!(
++            "\n[P{}] {}:{}-{} {} — {}",
++            finding.priority,
++            short(&loc.absolute_file_path, 160),
++            loc.line_range.start,
++            loc.line_range.end,
++            short(&finding.title, 160),
++            short(&finding.body, 400),
++        ));
++    }
++    if output.findings.len() > 20 {
++        out.push_str("\nAdditional findings remain in the /tasks output.");
++    }
++    out
++}
++
+ /// Push stdout captured from a slash command into the transcript, one
+ /// `System` line per non-empty line.
+ fn push_captured_output(app: &mut App, captured: &str) {
+@@ -4118,6 +4277,32 @@ mod tests {
      use super::*;
      use crate::ui::modern::app::Phase;
  
@@ -122,17 +242,138 @@ index 9407088..4f2c617 100644
 +            "/review",
 +        );
 +        assert!(app.status_message.contains("isolated review"));
-+        assert_eq!(app.work, crate::ui::modern::session_work::SessionWork::default());
++        assert_eq!(
++            app.work,
++            crate::ui::modern::session_work::SessionWork::default()
++        );
++    }
++
++    #[test]
++    fn independent_review_report_is_bounded_and_labelled() {
++        let raw = r#"{"findings":[{"title":"[P1] BUG","body":"Broken under parallel calls","confidence_score":0.9,"priority":1,"code_location":{"absolute_file_path":"/repo/src/main.rs","line_range":{"start":10,"end":12}}}],"overall_correctness":"patch is incorrect","overall_explanation":"Race","overall_confidence_score":0.9}"#;
++        let report = agent_code_lib::review::parse_review_output(raw).unwrap();
++        let note = format_review_report("a17", &report);
++        assert!(note.contains("unverified model findings"));
++        assert!(note.contains("/repo/src/main.rs:10-12"));
++        assert!(note.contains("Broken under parallel calls"));
 +    }
 +
      /// The tasks-pane keys claim only unmodified presses: Ctrl+Enter must
      /// still reach the global interject binding, not open task output.
      #[test]
+diff --git a/crates/lib/src/review/mod.rs b/crates/lib/src/review/mod.rs
+index 76f0100..35b47f0 100644
+--- a/crates/lib/src/review/mod.rs
++++ b/crates/lib/src/review/mod.rs
+@@ -24,6 +24,76 @@ pub const RUBRIC: &str = include_str!("rubric.md");
+ use std::path::Path;
+ use std::process::Command;
+ 
++use serde::Deserialize;
++
++/// Typed reviewer output. Claims are untrusted until independently verified.
++#[derive(Debug, Clone, PartialEq, Deserialize)]
++pub struct ReviewOutput {
++    pub findings: Vec<ReviewFinding>,
++    pub overall_correctness: String,
++    pub overall_explanation: String,
++    pub overall_confidence_score: f64,
++}
++
++#[derive(Debug, Clone, PartialEq, Deserialize)]
++pub struct ReviewFinding {
++    pub title: String,
++    pub body: String,
++    pub confidence_score: f64,
++    pub priority: u8,
++    pub code_location: ReviewLocation,
++}
++
++#[derive(Debug, Clone, PartialEq, Deserialize)]
++pub struct ReviewLocation {
++    pub absolute_file_path: String,
++    pub line_range: ReviewLineRange,
++}
++
++#[derive(Debug, Clone, PartialEq, Deserialize)]
++pub struct ReviewLineRange {
++    pub start: u64,
++    pub end: u64,
++}
++
++pub const OUTPUT_INSTRUCTIONS: &str = r#"Return only one JSON object, no commentary:
++{"findings":[{"title":"[P1] short actionable defect","body":"Impact and conditions",
++"confidence_score":0.9,"priority":1,
++"code_location":{"absolute_file_path":"/repo/file.rs",
++"line_range":{"start":10,"end":12}}}],
++"overall_correctness":"patch is incorrect",
++"overall_explanation":"Brief explanation",
++"overall_confidence_score":0.9}
++When no proven defect exists use findings: [] and "patch is correct".
++Priority is an integer P0-P3, confidence is between 0 and 1.
++Include no extra prose."#;
++
++pub fn parse_review_output(text: &str) -> Result<ReviewOutput, String> {
++    let report: ReviewOutput =
++        serde_json::from_str(text.trim()).map_err(|e| format!("Invalid review JSON: {e}"))?;
++    if !matches!(
++        report.overall_correctness.as_str(),
++        "patch is correct" | "patch is incorrect"
++    ) {
++        return Err("Invalid review verdict".into());
++    }
++    if !(0.0..=1.0).contains(&report.overall_confidence_score) {
++        return Err("Invalid overall confidence".into());
++    }
++    for f in &report.findings {
++        if f.priority > 3 || !(0.0..=1.0).contains(&f.confidence_score) {
++            return Err("Invalid review finding priority/confidence".into());
++        }
++        if !f.code_location.absolute_file_path.starts_with('/')
++            || f.code_location.line_range.start == 0
++            || f.code_location.line_range.end < f.code_location.line_range.start
++        {
++            return Err("Invalid review finding location".into());
++        }
++    }
++    Ok(report)
++}
++
+ /// What a review is being asked to look at.
+ #[derive(Debug, Clone, PartialEq, Eq)]
+ pub enum ReviewTarget {
+@@ -266,6 +336,26 @@ fn run_git(cwd: &Path, args: &[&str]) -> Option<String> {
+     if s.is_empty() { None } else { Some(s) }
+ }
+ 
++#[cfg(test)]
++mod structured_output_tests {
++    use super::*;
++    #[test]
++    fn structured_empty_review_is_valid() {
++        let x = parse_review_output(r#"{"findings":[],"overall_correctness":"patch is correct","overall_explanation":"No defect.","overall_confidence_score":0.8}"#).unwrap();
++        assert!(x.findings.is_empty());
++    }
++    #[test]
++    fn finding_has_bounded_location() {
++        let x = parse_review_output(r#"{"findings":[{"title":"[P1] race","body":"Lost update","confidence_score":0.9,"priority":1,"code_location":{"absolute_file_path":"/repo/src/lib.rs","line_range":{"start":10,"end":12}}}],"overall_correctness":"patch is incorrect","overall_explanation":"Race","overall_confidence_score":0.9}"#).unwrap();
++        assert_eq!(x.findings[0].priority, 1);
++    }
++    #[test]
++    fn freeform_review_and_invalid_locations_are_rejected() {
++        assert!(parse_review_output("Looks fine").is_err());
++        assert!(parse_review_output(r#"{"findings":[{"title":"Bad","body":"x","confidence_score":0.9,"priority":4,"code_location":{"absolute_file_path":"/repo/x","line_range":{"start":0,"end":1}}}],"overall_correctness":"patch is incorrect","overall_explanation":"x","overall_confidence_score":0.9}"#).is_err());
++    }
++}
++
+ #[cfg(test)]
+ mod tests {
+     /// The rubric is the difference between a reviewer and a commenter.
 diff --git a/crates/lib/src/services/coordinator.rs b/crates/lib/src/services/coordinator.rs
-index b01d1f8..82f7386 100644
+index b01d1f8..668dbba 100644
 --- a/crates/lib/src/services/coordinator.rs
 +++ b/crates/lib/src/services/coordinator.rs
-@@ -142,6 +142,43 @@ impl AgentRegistry {
+@@ -142,6 +142,44 @@ impl AgentRegistry {
              },
          );
  
@@ -145,8 +386,9 @@ index b01d1f8..82f7386 100644
 +                system_prompt: Some(format!(
 +                    "You are an independent code reviewer. You have no access to the parent \
 +                     conversation. Inspect the repository and return only grounded findings. \
-+                     Do not edit files, access the network, delegate work, or ask for approval.\n\n{}",
-+                    crate::review::RUBRIC
++                     Do not edit files, access the network, delegate work, or ask for approval.\n\n{}\n\n{}",
++                    crate::review::RUBRIC,
++                    crate::review::OUTPUT_INSTRUCTIONS
 +                )),
 +                model: None,
 +                base_url: None,
@@ -176,7 +418,7 @@ index b01d1f8..82f7386 100644
          Self { agents }
      }
  
-@@ -189,6 +226,12 @@ impl AgentRegistry {
+@@ -189,6 +227,12 @@ impl AgentRegistry {
              if path.extension().is_some_and(|e| e == "md")
                  && let Some(def) = parse_agent_file(&path)
              {
@@ -189,7 +431,7 @@ index b01d1f8..82f7386 100644
                  self.agents.insert(def.name.clone(), def);
              }
          }
-@@ -731,7 +774,16 @@ pub fn apply_agent_definition(
+@@ -731,7 +775,16 @@ pub fn apply_agent_definition(
      cmd: &mut tokio::process::Command,
      definition: &AgentDefinition,
      model_override: Option<&str>,
@@ -207,7 +449,7 @@ index b01d1f8..82f7386 100644
      if let Some(model) = model_override.or(definition.model.as_deref()) {
          cmd.arg("--model").arg(resolve_model_alias(model));
      }
-@@ -742,19 +794,20 @@ pub fn apply_agent_definition(
+@@ -742,19 +795,20 @@ pub fn apply_agent_definition(
          cmd.arg("--permission-mode").arg("plan");
      }
  
@@ -240,7 +482,7 @@ index b01d1f8..82f7386 100644
  }
  
  /// Expand short model aliases used by agents (`sonnet` / `opus` / `haiku`).
-@@ -785,7 +838,7 @@ fn build_agent_command(
+@@ -785,7 +839,7 @@ fn build_agent_command(
      definition: &AgentDefinition,
      prompt: &str,
      cwd: &std::path::Path,
@@ -249,7 +491,7 @@ index b01d1f8..82f7386 100644
      let full_prompt = compose_agent_prompt(definition, prompt);
  
      let agent_binary = std::env::current_exe()
-@@ -799,7 +852,7 @@ fn build_agent_command(
+@@ -799,7 +853,7 @@ fn build_agent_command(
          .stdout(std::process::Stdio::piped())
          .stderr(std::process::Stdio::piped());
  
@@ -258,7 +500,7 @@ index b01d1f8..82f7386 100644
  
      // Pass through API keys so subagents use the same provider.
      for var in &[
-@@ -821,7 +874,7 @@ fn build_agent_command(
+@@ -821,7 +875,7 @@ fn build_agent_command(
          }
      }
  
@@ -267,7 +509,7 @@ index b01d1f8..82f7386 100644
  }
  
  impl Coordinator {
-@@ -893,7 +946,16 @@ impl Coordinator {
+@@ -893,7 +947,16 @@ impl Coordinator {
  
          debug!("Running agent '{agent_name}' ({agent_id})");
  
@@ -285,7 +527,7 @@ index b01d1f8..82f7386 100644
          let output = cmd
              .output()
              .await
-@@ -984,9 +1046,12 @@ impl Coordinator {
+@@ -984,9 +1047,12 @@ impl Coordinator {
                      }
                  }
  
@@ -300,7 +542,7 @@ index b01d1f8..82f7386 100644
                      Ok(output) => {
                          let stdout = String::from_utf8_lossy(&output.stdout).to_string();
                          let stderr = String::from_utf8_lossy(&output.stderr).to_string();
-@@ -1454,6 +1519,106 @@ mod coordinator_tests {
+@@ -1454,6 +1520,106 @@ mod coordinator_tests {
          assert_eq!(parsed.rules.len(), 2);
      }
  
