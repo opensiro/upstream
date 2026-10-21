@@ -421,6 +421,79 @@ index 9407088..00c14ea 100644
      /// The tasks-pane keys claim only unmodified presses: Ctrl+Enter must
      /// still reach the global interject binding, not open task output.
      #[test]
+diff --git a/crates/lib/src/query/mod.rs b/crates/lib/src/query/mod.rs
+index 5eccff5..d6bcc9d 100644
+--- a/crates/lib/src/query/mod.rs
++++ b/crates/lib/src/query/mod.rs
+@@ -2446,6 +2446,38 @@ pub fn build_system_prompt(
+     state: &AppState,
+     agent_kind: AgentKind,
+ ) -> String {
++    // A review child is a different role, not a coding assistant wearing a
++    // user-prompt preface. Do not import user memory, interactive style,
++    // project skills, or the ambient agent instructions into its system role.
++    let role = std::env::var("AGENT_CODE_SUBAGENT_TYPE").ok();
++    build_system_prompt_for_role(tools, state, agent_kind, role.as_deref())
++}
++
++fn build_system_prompt_for_role(
++    tools: &ToolRegistry,
++    state: &AppState,
++    agent_kind: AgentKind,
++    subagent_role: Option<&str>,
++) -> String {
++    if agent_kind == AgentKind::Subagent && subagent_role == Some("review") {
++        let mut prompt = format!(
++            "You are an independent, read-only code reviewer. Review only the change \
++             identified by the task. Never write code, seek approval, delegate work, or \
++             perform network operations. You have no prior conversation history.\n\n\
++             # Repository\nWorking directory: {}\n\n{}\n\n{}\n\n",
++            state.cwd,
++            crate::review::RUBRIC,
++            crate::review::OUTPUT_INSTRUCTIONS
++        );
++        prompt.push_str("# Available read-only tools\n\n");
++        for tool in tools.all() {
++            if tool.is_enabled() && matches!(tool.name(), "FileRead" | "Grep" | "Glob" | "Bash") {
++                prompt.push_str(&format!("## {}\n{}\n\n", tool.name(), tool.prompt()));
++            }
++        }
++        return prompt;
++    }
++
+     let mut prompt = String::new();
+ 
+     prompt.push_str(
+@@ -3130,6 +3162,29 @@ mod tests {
+         assert!(!prompt.contains("Additional tracked directories"));
+     }
+ 
++    #[test]
++    fn review_role_replaces_the_general_system_prompt_without_memory_or_style() {
++        let mut state = AppState::new(crate::config::Config::default());
++        state.brief_mode = true;
++        state
++            .additional_dirs
++            .push("/secret/parent_directory".into());
++        let tools = ToolRegistry::new();
++        let prompt =
++            build_system_prompt_for_role(&tools, &state, AgentKind::Subagent, Some("review"));
++        assert!(prompt.contains("independent, read-only code reviewer"));
++        assert!(prompt.contains("introduced by this change"));
++        assert!(prompt.contains("overall_correctness"));
++        assert!(!prompt.contains("You are an AI coding agent"));
++        assert!(!prompt.contains("Brief mode is enabled"));
++        assert!(!prompt.contains("/secret/parent_directory"));
++        let ordinary =
++            build_system_prompt_for_role(&tools, &state, AgentKind::Subagent, Some("explore"));
++        assert!(ordinary.contains("You are an AI coding agent"));
++        let main = build_system_prompt_for_role(&tools, &state, AgentKind::Main, Some("review"));
++        assert!(main.contains("You are an AI coding agent"));
++    }
++
+     /// System prompt lists /add-dir entries so the agent knows they're in-scope.
+     #[test]
+     fn system_prompt_lists_additional_dirs() {
 diff --git a/crates/lib/src/review/mod.rs b/crates/lib/src/review/mod.rs
 index 76f0100..0e54a83 100644
 --- a/crates/lib/src/review/mod.rs
@@ -621,7 +694,7 @@ index 76f0100..0e54a83 100644
  mod tests {
      /// The rubric is the difference between a reviewer and a commenter.
 diff --git a/crates/lib/src/services/coordinator.rs b/crates/lib/src/services/coordinator.rs
-index b01d1f8..668dbba 100644
+index b01d1f8..4a36f07 100644
 --- a/crates/lib/src/services/coordinator.rs
 +++ b/crates/lib/src/services/coordinator.rs
 @@ -142,6 +142,44 @@ impl AgentRegistry {
@@ -733,7 +806,19 @@ index b01d1f8..668dbba 100644
  }
  
  /// Expand short model aliases used by agents (`sonnet` / `opus` / `haiku`).
-@@ -785,7 +839,7 @@ fn build_agent_command(
+@@ -771,6 +825,11 @@ pub fn resolve_model_alias(model: &str) -> String {
+ 
+ /// Prefix the user prompt with the agent type's system-prompt addition.
+ pub fn compose_agent_prompt(definition: &AgentDefinition, prompt: &str) -> String {
++    if definition.name == "review" {
++        // Reviewer identity/rubric is the child's *system* prompt, never
++        // injected into the task as if it were a parent conversation turn.
++        return prompt.to_string();
++    }
+     if let Some(ref sys) = definition.system_prompt {
+         format!("{sys}\n\n{prompt}")
+     } else {
+@@ -785,7 +844,7 @@ fn build_agent_command(
      definition: &AgentDefinition,
      prompt: &str,
      cwd: &std::path::Path,
@@ -742,16 +827,20 @@ index b01d1f8..668dbba 100644
      let full_prompt = compose_agent_prompt(definition, prompt);
  
      let agent_binary = std::env::current_exe()
-@@ -799,7 +853,7 @@ fn build_agent_command(
+@@ -799,7 +858,11 @@ fn build_agent_command(
          .stdout(std::process::Stdio::piped())
          .stderr(std::process::Stdio::piped());
  
 -    apply_agent_definition(&mut cmd, definition, None);
 +    apply_agent_definition(&mut cmd, definition, None)?;
++    if definition.name == "review" {
++        cmd.env("AGENT_CODE_SUBAGENT", "1")
++            .env("AGENT_CODE_SUBAGENT_TYPE", "review");
++    }
  
      // Pass through API keys so subagents use the same provider.
      for var in &[
-@@ -821,7 +875,7 @@ fn build_agent_command(
+@@ -821,7 +884,7 @@ fn build_agent_command(
          }
      }
  
@@ -760,7 +849,7 @@ index b01d1f8..668dbba 100644
  }
  
  impl Coordinator {
-@@ -893,7 +947,16 @@ impl Coordinator {
+@@ -893,7 +956,16 @@ impl Coordinator {
  
          debug!("Running agent '{agent_name}' ({agent_id})");
  
@@ -778,7 +867,7 @@ index b01d1f8..668dbba 100644
          let output = cmd
              .output()
              .await
-@@ -984,9 +1047,12 @@ impl Coordinator {
+@@ -984,9 +1056,12 @@ impl Coordinator {
                      }
                  }
  
@@ -793,7 +882,7 @@ index b01d1f8..668dbba 100644
                      Ok(output) => {
                          let stdout = String::from_utf8_lossy(&output.stdout).to_string();
                          let stderr = String::from_utf8_lossy(&output.stderr).to_string();
-@@ -1454,6 +1520,106 @@ mod coordinator_tests {
+@@ -1454,6 +1529,102 @@ mod coordinator_tests {
          assert_eq!(parsed.rules.len(), 2);
      }
  
@@ -825,18 +914,14 @@ index b01d1f8..668dbba 100644
 +            );
 +        }
 +        let prompt = compose_agent_prompt(reviewer, "Review commit abc");
-+        for required in [
-+            "introduced by this change",
-+            "AGENTS.md",
-+            "[P0]",
-+            "no findings",
-+            "Review commit abc",
-+        ] {
-+            assert!(
-+                prompt.contains(required),
-+                "review prompt missing {required}"
-+            );
-+        }
++        assert_eq!(prompt, "Review commit abc");
++        assert!(
++            reviewer
++                .system_prompt
++                .as_ref()
++                .unwrap()
++                .contains("introduced by this change")
++        );
 +    }
 +
 +    #[test]
@@ -901,7 +986,7 @@ index b01d1f8..668dbba 100644
      fn effective_permissions_none_when_unconstrained() {
          let def = AgentRegistry::with_defaults()
 diff --git a/crates/lib/src/tools/agent.rs b/crates/lib/src/tools/agent.rs
-index 13d30cb..0b7e0b7 100644
+index 13d30cb..907afa6 100644
 --- a/crates/lib/src/tools/agent.rs
 +++ b/crates/lib/src/tools/agent.rs
 @@ -161,7 +161,7 @@ impl Tool for AgentTool {
@@ -1151,7 +1236,7 @@ index 13d30cb..0b7e0b7 100644
 +        let prompt_pos = args.iter().position(|a| a == "--prompt").unwrap();
 +        let prompt = &args[prompt_pos + 1];
 +        assert!(prompt.contains("Inspect commit aabbcc"));
-+        assert!(prompt.contains("introduced by this change"));
++        assert_eq!(prompt, "Inspect commit aabbcc");
 +        assert!(!prompt.contains("PRIVATE_PARENT_TRANSCRIPT_SENTINEL"));
 +        assert!(
 +            args.windows(2)
