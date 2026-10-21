@@ -30,7 +30,7 @@ class ClippyBaselineValidatorTests(unittest.TestCase):
 
     def test_patched_repeated_lib_diagnostics_are_reported_not_silenced(self):
         lines = make_jsonl().splitlines()
-        repeated = "\\n".join(lines[:-1] + lines[:-1] + [lines[-1]])
+        repeated = "\n".join(lines[:-1] + lines[:-1] + [lines[-1]])
         result = validate(repeated, 101, side="patched")
         self.assertEqual(result["unique_existing_diagnostics"], 6)
         self.assertEqual(result["diagnostic_instances"], 12)
@@ -40,7 +40,7 @@ class ClippyBaselineValidatorTests(unittest.TestCase):
 
     def test_patched_third_duplicate_is_rejected(self):
         lines = make_jsonl().splitlines()
-        repeated = "\\n".join(lines[:-1] * 3)
+        repeated = "\n".join(lines[:-1] * 3)
         with self.assertRaisesRegex(ValueError, "diagnostic locations changed"):
             validate(repeated, 101, side="patched")
 
