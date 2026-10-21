@@ -48,7 +48,9 @@ The VM required Rust 1.97 with an isolated Zig C/linker/archiver because system 
 
 The first JSONL regression failed on a malformed **test fixture**, not on a production parser result; corrected the fixture, then re-ran the suite green. A distinct frozen-checkout worktree accepts the exact 52,033-byte patch; `git apply --check`, `git diff --check`, `cargo fmt --all -- --check`, and byte comparison of the patch against the tested implementation all **PASS**. Tested using Rust 1.97 plus an isolated Zig C/linker toolchain.
 
-**Scope caveat:** These are 181 targeted native tests, **not** the full upstream suite or a provider-backed end-to-end review. JSONL handling is tested using synthetic event streams derived from the existing first-party `JsonStreamSink` event schema; actual review output with a configured model remains to be checked.
+**Broader exact-patch native results:** `cargo test -p agent-code-lib --lib --locked --quiet` **1760/1760 PASS** (8.11 seconds) and `cargo test -p agent-code --bin agent --locked --quiet` **1019/1019 PASS** (4.39 seconds), both on the same current seven-file native checkout. **2779/2779 full unit tests across these two targets PASS**, in addition to the 181 narrower targeted filters (which overlap these suites and must not be added to the total). This is wider native validation than the original PR handoff, but does not include end-to-end configured provider runs, all workspace targets/platforms, clippy, or external maintainer CI.
+
+**Scope caveat:** The JSONL handling is tested using synthetic event streams derived from the first-party `JsonStreamSink` schema; actual review output with a configured model remains to be checked. Full external upstream CI and provider-backed comparison are still absent. JSONL handling is tested using synthetic event streams derived from the existing first-party `JsonStreamSink` event schema; actual review output with a configured model remains to be checked.
 
 ## Remaining acceptance boundaries
 
