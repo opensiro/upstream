@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-10-22-05",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "396a54bb690f8ec7ce966bf9b00b241b30036307",
+  "frozen_at": "2026-10-22",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Fifth full nonoverlapping cohort from canonical included S1=A source assessments reviewed 2026-10-20; prioritized for Python 3 stdlib/first-party offline tests on actual model-capable harness modules, not live provider or mock-only autonomy claims. Excludes all prior twenty frozen candidates and the earlier separate Kram intervention. Source identity and order are immutable after intake.",
+  "candidates": [
+    {
+      "id": "agent-loop-numeric-verifier-grounding",
+      "assessment_path": "assessments/ag/agent-loop.md",
+      "source": "Onipounds/agent-loop",
+      "review_ref": "49525dc12a9861f71c99050de3b4a4b8b897e9fa",
+      "reviewed_at": "2026-10-20",
+      "function": "S1",
+      "finding": "A real model-capable tool loop calls its first-party numeric verifier after tool feedback; screen fixed-input numeric claims and error propagation using shipped Python test scripts without calling Anthropic or the model loop.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/Onipounds/agent-loop/blob/49525dc12a9861f71c99050de3b4a4b8b897e9fa/agent_loop/verify.py", "https://github.com/Onipounds/agent-loop/blob/49525dc12a9861f71c99050de3b4a4b8b897e9fa/tests/test_agent.py"]
+    },
+    {
+      "id": "agent-context-lab-default-fail-boundary",
+      "assessment_path": "assessments/ag/agent-context-lab.md",
+      "source": "Qin-sor/agent-context-lab",
+      "review_ref": "372ecc514d48d8e1e5f92d672a9c2b16f4826b5d",
+      "reviewed_at": "2026-10-20",
+      "function": "S1",
+      "finding": "First-party default-FAIL evidence verifier and workspace tool functions are reachable inside one coding-task harness; screen deterministic missing/partial evidence and canonicalized workspace paths using the shipped Python verifier tests, with no live model calls.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/Qin-sor/agent-context-lab/blob/372ecc514d48d8e1e5f92d672a9c2b16f4826b5d/harness/verifier.py", "https://github.com/Qin-sor/agent-context-lab/blob/372ecc514d48d8e1e5f92d672a9c2b16f4826b5d/test_verifier.py"]
+    },
+    {
+      "id": "discoveryrsi-campaign-history-integrity",
+      "assessment_path": "assessments/di/discoveryrsi.md",
+      "source": "Gen-Verse/DiscoveryRSI",
+      "review_ref": "7389e0b58ae50486ab35aa3dcbfa2fa15fea1a91",
+      "reviewed_at": "2026-10-20",
+      "function": "S1",
+      "finding": "The first-party research hypothesis campaign persists versioned parent and critique records; screen JSONL/manifest validation, result ordering and repeated-run integrity through native fixed-input Python tests rather than invoking inference providers.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/Gen-Verse/DiscoveryRSI/blob/7389e0b58ae50486ab35aa3dcbfa2fa15fea1a91/src/discovery_rsi/core.py", "https://github.com/Gen-Verse/DiscoveryRSI/blob/7389e0b58ae50486ab35aa3dcbfa2fa15fea1a91/tests/test_core.py"]
+    },
+    {
+      "id": "orch-resume-checkpoint-idempotency",
+      "assessment_path": "assessments/or/orch.md",
+      "source": "fbrubacher/orch",
+      "review_ref": "16960b40ed6293e27e4536bbd99d62989264a87e",
+      "reviewed_at": "2026-10-20",
+      "function": "S1",
+      "finding": "The Python coding-task phase machine has local checkpoint persistence and optional resume; inspect fixed-input checkpoint read/write and restart deduplication with local Python scripts only, never running router/planner/executor LLM roles.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/fbrubacher/orch/blob/16960b40ed6293e27e4536bbd99d62989264a87e/orchestrator/persistence.py", "https://github.com/fbrubacher/orch/blob/16960b40ed6293e27e4536bbd99d62989264a87e/orchestrator/state.py"]
+    },
+    {
+      "id": "matterloop-taskgraph-checkpoint-recovery",
+      "assessment_path": "assessments/ma/matterloop.md",
+      "source": "huleidada/matterloop",
+      "review_ref": "a98e384fb02814de3e6ba3902cfee2c041e2d40f",
+      "reviewed_at": "2026-10-20",
+      "function": "S1",
+      "finding": "An embeddable model-capable task loop and deterministic Team TaskGraph/checkpoint controllers track blocked and completed work; screen native Python dependency recovery and repeated checkpoint replay without invoking a provider or treating mocks as autonomy evidence.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/huleidada/matterloop/blob/a98e384fb02814de3e6ba3902cfee2c041e2d40f/matterloop-agents/src/python/matterloop_agents/collaboration/task_graph.py", "https://github.com/huleidada/matterloop/blob/a98e384fb02814de3e6ba3902cfee2c041e2d40f/matterloop-core/src/python/matterloop_core/loop/controller.py"]
+    }
+  ]
+}
