@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "owner": "opensiro/upstream",
+  "as_of": "2026-10-22",
+  "candidate": "kram-s2-native-edit-atomicity",
+  "experiment": "https://github.com/opensiro/upstream/issues/56",
+  "state": "ACTION_PREPARED_NOT_AUTHORIZED",
+  "origin": {
+    "classification": "ASSESSMENT_DERIVED_HYPOTHESIS",
+    "index_sha": "99bfde6da32c4ef2fccce396b3e3938fc959a91f",
+    "assessment_path": "assessments/kr/kram.md",
+    "independence": "POTENTIALLY_CONTAMINATED"
+  },
+  "source": {
+    "repository": "codexmark/kram",
+    "branch": "master",
+    "sha": "5f18406709f432dbdb2d6b09da6f140385516366",
+    "contribution_policy": "https://github.com/codexmark/kram/blob/5f18406709f432dbdb2d6b09da6f140385516366/CONTRIBUTING.md",
+    "reviewed_on": "2026-10-22"
+  },
+  "proposed_destination": {
+    "repository": "opensiro-contributions/kram",
+    "fork_exists_verified": false,
+    "branch": "opensiro/fix-kram-concurrent-edit-loss",
+    "branch_absence_verified": false,
+    "base_branch": "master"
+  },
+  "patch": {
+    "path": "pilots/kram-s2/s2-edit-file-atomicity-v2.patch",
+    "sha256": "c8877dda2405f6d18d5c0693c3620115c8b57907248b4f6c3d42007dec0d030b",
+    "changed_paths": [
+      "internal/daemon/tools/edit_file.go",
+      "internal/daemon/tools/s2_replay_test.go",
+      "internal/daemon/tools/s2_delegate_replay_test.go"
+    ]
+  },
+  "verification": {
+    "method": "DETERMINISTIC_NATIVE_SCRIPT_ONLY",
+    "baseline_lost_same_file": "50/50",
+    "patched_lost_same_file": "0/50",
+    "baseline_lost_delegated_registry": "29/30",
+    "patched_lost_delegated_registry": "0/30",
+    "separate_file_control": "50/50 preserved",
+    "ci": [
+      "https://github.com/opensiro/upstream/actions/runs/39826632281",
+      "https://github.com/opensiro/upstream/actions/runs/39829252198"
+    ],
+    "limitations": "No live LLM agents or user sessions; model-selected tasks, cross-registry/cross-process writers and deployed user benefit not evaluated."
+  },
+  "external_actions_executed": [],
+  "effective_stage_authorization": null,
+  "owner_decision_url": null,
+  "read_only_next_steps": [
+    "Recheck Kram source master SHA, contribution policy, conflicts and proposed fork/branch immediately before any write",
+    "Check owner-selected fork identity, public visibility, source parent, fork master ancestry and actual push rights",
+    "Require attributable exact-stage fork creation and separate patch-branch preparation grants",
+    "Reapply exactly this pinned patch to approved source; verify resulting diff and first-party scripts/verify.sh",
+    "Return branch/commit evidence without submitting external PR; the human retains external publication"
+  ],
+  "external_publication": "HUMAN_OWNED_NOT_AUTHORIZED"
+}
