@@ -39,6 +39,8 @@ The completed [Kram source-only technical packet](../pilots/kram-s2/CONTRIBUTION
 
 **Batch-07 second row:** [Pi Loop Studio](../pilots/pi-loop-studio/CONTRIBUTION_HANDOFF.md) is `ASSESSMENT_INFORMED` / `AWAITING_EXTERNAL`: four typed-array contract cases failed in the native host plan validator before a bounded change; 6/6 deterministic Node cases pass after. No models, tool-executing agents or publication run. Next eligible: `openorbit-approval-boundary-validation`.
 
+**Batch-07 third row:** [OpenOrbit](../pilots/openorbit/CONTRIBUTION_HANDOFF.md) is `ASSESSMENT_INFORMED` / `AWAITING_EXTERNAL`: two actual TypeScript request-builder tests exposed dot-segment normalization that changes constructed endpoint URLs. The 19-case script suite now passes. No live HTTP requests or LLM agents. Next candidate: `reef-polyp-experiment-queue-contract`.
+
 ## VSM / OSM responsibility map
 
 | Operation | Present decisive owner | Return / evidence |

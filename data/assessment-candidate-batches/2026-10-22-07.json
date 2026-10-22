@@ -43,9 +43,11 @@
       "reviewed_at": "2026-10-20",
       "function": "S1",
       "finding": "OpenOrbit ships Electron/TypeScript first-party mutation approvals and agent-reply guards around its personal-assistant loop. Check deterministic permission and malformed-event boundaries via native script tests, without launching Electron, providers or agents.",
-      "stage": "SCREENING", "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/maneja81/OpenOrbit/blob/2c30242310c3f2e8453b1116d657e65634e6973e/electron/main/ai/agentMutationGuard.ts"]
+      "stage": "AWAITING_EXTERNAL", "origin": "ASSESSMENT_INFORMED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "evidence": ["https://github.com/maneja81/OpenOrbit/blob/2c30242310c3f2e8453b1116d657e65634e6973e/electron/main/ai/httpToolRequest.ts", "https://github.com/opensiro/upstream/blob/main/pilots/openorbit/dot-segment-path-parameter-guard.patch"],
+      "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/openorbit/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED"
     },
     {
       "id": "reef-polyp-experiment-queue-contract",
