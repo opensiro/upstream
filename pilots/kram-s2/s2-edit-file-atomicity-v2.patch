@@ -1,0 +1,303 @@
+diff --git a/internal/daemon/tools/edit_file.go b/internal/daemon/tools/edit_file.go
+index 7d06af4..0f3632c 100644
+--- a/internal/daemon/tools/edit_file.go
++++ b/internal/daemon/tools/edit_file.go
+@@ -6,6 +6,7 @@ import (
+ 	"fmt"
+ 	"os"
+ 	"strings"
++	"sync"
+ )
+ 
+ // editFile does a precise find-and-replace instead of rewriting a whole
+@@ -14,10 +15,48 @@ import (
+ // instead of guessing which occurrence was meant.
+ type editFile struct {
+ 	workspace string
++	guardsMu  sync.Mutex
++	guards    map[string]*editFileGuard
++}
++
++// One registry (shared by the root agent and delegated child runs) owns one
++// editFile instance. Keep locks only while edits are in flight; different
++// paths remain independent and do not accumulate locks for the daemon's life.
++type editFileGuard struct {
++	mu    sync.Mutex
++	users int
+ }
+ 
+ func newEditFile(workspace string) *editFile { return &editFile{workspace: workspace} }
+ 
++func (t *editFile) lockPath(path string) func() {
++	// resolvePath already checked containment. Coalesce in-workspace symlink
++	// aliases so two spellings of the same existing file share one lock.
++	path = resolveExistingAncestor(path)
++	t.guardsMu.Lock()
++	if t.guards == nil {
++		t.guards = make(map[string]*editFileGuard)
++	}
++	guard := t.guards[path]
++	if guard == nil {
++		guard = &editFileGuard{}
++		t.guards[path] = guard
++	}
++	guard.users++
++	t.guardsMu.Unlock()
++
++	guard.mu.Lock()
++	return func() {
++		guard.mu.Unlock()
++		t.guardsMu.Lock()
++		guard.users--
++		if guard.users == 0 {
++			delete(t.guards, path)
++		}
++		t.guardsMu.Unlock()
++	}
++}
++
+ func (t *editFile) Name() string { return "edit_file" }
+ func (t *editFile) Description() string {
+ 	return "Replace an exact substring in a file with another. Fails if old_string isn't found, or is found more than once and replace_all wasn't set — include enough surrounding context in old_string to make it unique."
+@@ -62,6 +101,11 @@ func (t *editFile) Execute(ctx context.Context, raw json.RawMessage) (string, er
+ 	if err != nil {
+ 		return fmt.Sprintf("error: %v", err), nil
+ 	}
++	// The read/replace/write sequence must be atomic with respect to other
++	// edit_file calls in this registry. Otherwise independent subagents can
++	// both report success while the last write silently discards the first.
++	unlock := t.lockPath(path)
++	defer unlock()
+ 
+ 	data, err := os.ReadFile(path)
+ 	if err != nil {
+diff --git a/internal/daemon/tools/s2_delegate_replay_test.go b/internal/daemon/tools/s2_delegate_replay_test.go
+new file mode 100644
+index 0000000..73f3bdc
+--- /dev/null
++++ b/internal/daemon/tools/s2_delegate_replay_test.go
+@@ -0,0 +1,67 @@
++package tools
++
++import (
++	"context"
++	"encoding/json"
++	"os"
++	"path/filepath"
++	"strings"
++	"sync"
++	"testing"
++)
++
++// syntheticS2Delegator follows the real delegate_task fan-out through the
++// shared Registry.Execute path, but substitutes fixed task goals for a model.
++type syntheticS2Delegator struct {
++	registry *Registry
++	started  sync.WaitGroup
++}
++
++func (d *syntheticS2Delegator) RunTask(ctx context.Context, goal, _, _ string, _ int) (string, error) {
++	d.started.Done()
++	d.started.Wait()
++	args := editFileArgs{Path: "shared.txt", OldString: goal + "=old", NewString: goal + "=new"}
++	raw, err := json.Marshal(args)
++	if err != nil {
++		return "", err
++	}
++	return d.registry.Execute(ctx, "edit_file", raw)
++}
++
++func TestS2DelegatedRegistryReplay(t *testing.T) {
++	const trials = 30
++	var preserved, lost, silentLost int
++	for trial := 0; trial < trials; trial++ {
++		workspace := t.TempDir()
++		path := filepath.Join(workspace, "shared.txt")
++		before := "ALPHA=old\n" + strings.Repeat("x", 1<<20) + "\nBETA=old\n"
++		if err := os.WriteFile(path, []byte(before), 0o644); err != nil {
++			t.Fatal(err)
++		}
++		registry := NewRegistry(workspace, nil, nil)
++		delegator := &syntheticS2Delegator{registry: registry}
++		delegator.started.Add(2)
++		registry.SetDelegator(delegator)
++		out, err := registry.Execute(context.Background(), "delegate_task", json.RawMessage(`{"tasks":[{"goal":"ALPHA"},{"goal":"BETA"}]}`))
++		if err != nil {
++			t.Fatal(err)
++		}
++		after, err := os.ReadFile(path)
++		if err != nil {
++			t.Fatal(err)
++		}
++		both := strings.Contains(string(after), "ALPHA=new") && strings.Contains(string(after), "BETA=new")
++		if both {
++			preserved++
++		} else {
++			lost++
++			if strings.Count(out, "replaced 1 occurrence") == 2 {
++				silentLost++
++			}
++		}
++	}
++	t.Logf("S2_DELEGATED_REGISTRY trials=%d preserved=%d lost=%d silent_lost=%d", trials, preserved, lost, silentLost)
++	if lost > 0 {
++		t.Errorf("delegate_task shared-registry edit collision lost %d/%d edits", lost, trials)
++	}
++}
+diff --git a/internal/daemon/tools/s2_replay_test.go b/internal/daemon/tools/s2_replay_test.go
+new file mode 100644
+index 0000000..4f823be
+--- /dev/null
++++ b/internal/daemon/tools/s2_replay_test.go
+@@ -0,0 +1,151 @@
++package tools
++
++import (
++	"context"
++	"encoding/json"
++	"os"
++	"path/filepath"
++	"strings"
++	"sync"
++	"testing"
++)
++
++// TestS2SameFileEditReplay is a frozen 50-trial tool-level replay. It is not
++// a provider-backed test of live model-selected delegate_task goals.
++func TestS2SameFileEditReplay(t *testing.T) {
++	const trials = 50
++	const padding = 1 << 20
++	var preserved, lost, errors, silentLost int
++	for trial := 0; trial < trials; trial++ {
++		workspace := t.TempDir()
++		path := filepath.Join(workspace, "shared.txt")
++		initial := "ALPHA=old\n" + strings.Repeat("x", padding) + "\nBETA=old\n"
++		if err := os.WriteFile(path, []byte(initial), 0o644); err != nil {
++			t.Fatal(err)
++		}
++		tool := newEditFile(workspace)
++		edits := []editFileArgs{
++			{Path: "shared.txt", OldString: "ALPHA=old", NewString: "ALPHA=new"},
++			{Path: "shared.txt", OldString: "BETA=old", NewString: "BETA=new"},
++		}
++		start := make(chan struct{})
++		var wg sync.WaitGroup
++		results := make([]string, len(edits))
++		for i := range edits {
++			wg.Add(1)
++			go func(i int) {
++				defer wg.Done()
++				<-start
++				raw, _ := json.Marshal(edits[i])
++				out, err := tool.Execute(context.Background(), raw)
++				if err != nil {
++					results[i] = "error: " + err.Error()
++				} else {
++					results[i] = out
++				}
++			}(i)
++		}
++		close(start)
++		wg.Wait()
++		end, err := os.ReadFile(path)
++		if err != nil {
++			t.Fatal(err)
++		}
++		both := strings.Contains(string(end), "ALPHA=new") && strings.Contains(string(end), "BETA=new")
++		if both {
++			preserved++
++		} else {
++			lost++
++		}
++		for _, res := range results {
++			if strings.HasPrefix(res, "error:") {
++				errors++
++			}
++		}
++		if !both && !strings.HasPrefix(results[0], "error:") && !strings.HasPrefix(results[1], "error:") {
++			silentLost++
++		}
++	}
++	t.Logf("S2_REPLAY same_path trials=%d preserved=%d lost=%d silent_lost=%d tool_errors=%d", trials, preserved, lost, silentLost, errors)
++	if lost != 0 {
++		t.Errorf("same-path independent edits failed preservation in %d/%d trials (%d silent)", lost, trials, silentLost)
++	}
++}
++
++func TestS2CompetingSameMarker(t *testing.T) {
++	const trials = 50
++	var doubleSuccess int
++	for trial := 0; trial < trials; trial++ {
++		workspace := t.TempDir()
++		path := filepath.Join(workspace, "shared.txt")
++		if err := os.WriteFile(path, []byte("KEY=old\n"+strings.Repeat("x", 1<<20)), 0o644); err != nil {
++			t.Fatal(err)
++		}
++		tool := newEditFile(workspace)
++		edits := []editFileArgs{
++			{Path: "shared.txt", OldString: "KEY=old", NewString: "KEY=one"},
++			{Path: "shared.txt", OldString: "KEY=old", NewString: "KEY=two"},
++		}
++		start := make(chan struct{})
++		var wg sync.WaitGroup
++		results := make([]string, len(edits))
++		for i := range edits {
++			wg.Add(1)
++			go func(i int) {
++				defer wg.Done()
++				<-start
++				raw, _ := json.Marshal(edits[i])
++				results[i], _ = tool.Execute(context.Background(), raw)
++			}(i)
++		}
++		close(start)
++		wg.Wait()
++		if strings.HasPrefix(results[0], "replaced ") && strings.HasPrefix(results[1], "replaced ") {
++			doubleSuccess++
++		}
++	}
++	t.Logf("S2_REPLAY same_marker trials=%d double_success=%d", trials, doubleSuccess)
++	if doubleSuccess > 0 {
++		t.Errorf("two incompatible edits both reported success in %d/%d trials", doubleSuccess, trials)
++	}
++}
++
++func TestS2SeparateFilesControl(t *testing.T) {
++	const trials = 50
++	for trial := 0; trial < trials; trial++ {
++		workspace := t.TempDir()
++		for _, name := range []string{"alpha.txt", "beta.txt"} {
++			if err := os.WriteFile(filepath.Join(workspace, name), []byte("old\n"), 0o644); err != nil {
++				t.Fatal(err)
++			}
++		}
++		tool := newEditFile(workspace)
++		edits := []editFileArgs{
++			{Path: "alpha.txt", OldString: "old", NewString: "alpha"},
++			{Path: "beta.txt", OldString: "old", NewString: "beta"},
++		}
++		start := make(chan struct{})
++		var wg sync.WaitGroup
++		for i := range edits {
++			wg.Add(1)
++			go func(i int) {
++				defer wg.Done()
++				<-start
++				raw, _ := json.Marshal(edits[i])
++				res, err := tool.Execute(context.Background(), raw)
++				if err != nil || strings.HasPrefix(res, "error:") {
++					t.Errorf("trial=%d file=%s error=%v result=%s", trial, edits[i].Path, err, res)
++				}
++			}(i)
++		}
++		close(start)
++		wg.Wait()
++		for _, pair := range [][2]string{{"alpha.txt", "alpha\n"}, {"beta.txt", "beta\n"}} {
++			got, err := os.ReadFile(filepath.Join(workspace, pair[0]))
++			if err != nil || string(got) != pair[1] {
++				t.Errorf("trial=%d %s got=%q err=%v", trial, pair[0], got, err)
++			}
++		}
++	}
++	t.Logf("S2_REPLAY separate_path trials=%d completed=%d", trials, trials)
++}

@@ -36,6 +36,13 @@ and Organization fit. It is deliberately explicit about **unmeasured real-user
 benefit**; regenerate its Markdown from
 `data/functional-effects.json` using `scripts/functional_effects.py`.
 
+The [Kram S2 replay](pilots/kram-s2/README.md) is the current strongest
+Index-first native-tool result: a pinned real Go `edit_file` source path
+reproduced concurrent lost updates and a local scoped patch eliminated those
+losses in repeated fixture runs. The supplied `delegate_task` replay still
+uses a synthetic child-task selector; it does **not** establish provider-driven
+agent productivity, user benefit, upstream adoption or an S2 grade change.
+
 The [assessment-to-improvement protocol](docs/ASSESSMENT_TO_IMPROVEMENT.md)
 distinguishes **assessment-derived** functional interventions, **assessment-informed**
 engineering fixes and generic upstream contributions. The stronger test starts

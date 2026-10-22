@@ -6,6 +6,7 @@ Source-only matched tests and a green CI run cannot be counted as an improvement
 
 | Pilot | Origin | Before | After | Evidence level | Product benefit | External delivery |
 | --- | --- | --- | --- | --- | --- | --- |
+| [Kram](https://github.com/opensiro/upstream/issues/56) | `ASSESSMENT_DERIVED_HYPOTHESIS` | Pinned native edit_file lost one distinct same-file edit in 50/50 trials; shared-registry delegate_task replay lost 29/30. | Local per-file guarded edit_file preserved both in 50/50 native trials and 30/30 delegated-registry replays; disjoint-file control 50/50. | `NATIVE_TOOL_BEHAVIOR` | `NOT_MEASURED` | `NONE` |
 | [Zot](https://github.com/opensiro/upstream/issues/56) | `ASSESSMENT_DERIVED_HYPOTHESIS` | Controlled two-worker shared-file schedule: 1/2 intended updates preserved; both reported done, no conflict feedback. | Opt-in file-scope wrapper: 2/2 updates preserved after explicit retry; 1 conflicting admission refused; disjoint declared workers remained concurrent. | `SOURCE_ONLY_MECHANISM` | `NOT_MEASURED` | `NONE` |
 | [AgentBox](https://github.com/opensiro/upstream/issues/61) | `ASSESSMENT_DERIVED_HYPOTHESIS` | Native CLI preflight/assignment accepted T-1, T-2 and T-3 as three separate box allocation requests against a stubbed Hub API. | Opt-in planner recommended [T-1,T-2] and [T-3] using explicitly supplied write intent; 20/20 new native Vitest checks passed. | `SOURCE_ONLY_PLANNING` | `NOT_MEASURED` | `NONE` |
 | [Kit](https://github.com/opensiro/upstream/pull/70) | `ASSESSMENT_INFORMED` | Original compiled kit sessions failed to start with issue #222 partial TOML (missing subagent.harness). | Compiled patched CLI exited successfully, warned about subagent.harness, and preserved the TOML bytes; original/added Rust tests passed. | `NATIVE_CLI_BEHAVIOR` | `NOT_MEASURED` | `NONE` |
@@ -13,6 +14,12 @@ Source-only matched tests and a green CI run cannot be counted as an improvement
 | [HarnessDesk](https://github.com/opensiro/upstream/pull/55) | `ASSESSMENT_INFORMED` | First-party issue #1772 reports second-host socket takeover; original gateway source unlinks the socket without host ownership. | V2 gateway-ownership patch passed source-pinned native gateway regressions and full check:push; no deployed end-user result measured. | `SOURCE_REGRESSION_ONLY` | `NOT_MEASURED` | `NONE` |
 
 ## Reproducibility and next gate
+
+### Kram — `kram-s2-native-edit-atomicity`
+
+- **Comparability:** Same Kram commit, native Go tool and fixed concurrent source workloads. Delegated calls use a synthetic task selector, not a model; 50-trial and 30-trial results are local observations. Independent blind selection is potentially contaminated by prior session context.
+- **Next gate:** Cross-agent/model workload and first-party review, exact-stage authorization, then human-owned external contribution; no S2 regrade.
+- **Receipts:** [1](https://github.com/opensiro/upstream/blob/main/pilots/kram-s2/REPLAY_RECEIPT_2026-10-22.md), [2](https://github.com/opensiro/upstream/blob/main/pilots/kram-s2/s2-edit-file-atomicity-v2.patch), [3](https://github.com/opensiro/upstream/blob/main/.github/workflows/kram-s2-native-replay.yml)
 
 ### Zot — `zot-scoped-admission`
 
@@ -50,6 +57,7 @@ Source-only matched tests and a green CI run cannot be counted as an improvement
 - `ASSESSMENT_INFORMED` means the first-party report supplied the concrete defect; do not retroactively credit Index with discovery.
 - `SOURCE_ONLY_*` and `SOURCE_REGRESSION_ONLY` establish narrow mechanisms/tests, not a deployed change.
 - `NATIVE_CLI_BEHAVIOR` can establish a genuine product-code execution difference on a frozen fixture, without establishing live adoption.
+- `NATIVE_TOOL_BEHAVIOR` measures actual shipped tool code under a controlled concurrent fixture, not provider-selected agent work or deployed user benefit.
 - `external_delivery=NONE` concerns the *pilot's third-party PR*, not internal OpenSiro PRs or the separate eight-case portfolio.
 
 Only an independently accepted native need and a matched real workload can justify stronger product impact claims; external delivery is a separate dimension. Follow [the experiment method](ASSESSMENT_TO_IMPROVEMENT.md) and [#56](https://github.com/opensiro/upstream/issues/56).
