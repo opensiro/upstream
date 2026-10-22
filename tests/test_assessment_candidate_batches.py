@@ -16,6 +16,7 @@ FOURTH_PATH = ROOT / "data/assessment-candidate-batches/2026-10-22-04.json"
 FIFTH_PATH = ROOT / "data/assessment-candidate-batches/2026-10-22-05.json"
 SIXTH_PATH = ROOT / "data/assessment-candidate-batches/2026-10-22-06.json"
 SEVENTH_PATH = ROOT / "data/assessment-candidate-batches/2026-10-22-07.json"
+EIGHTH_PATH = ROOT / "data/assessment-candidate-batches/2026-10-23-08.json"
 SCRIPT = ROOT / "scripts/assessment_candidate_batches.py"
 SPEC = importlib.util.spec_from_file_location("assessment_candidate_batches", SCRIPT)
 queue = importlib.util.module_from_spec(SPEC)
@@ -32,6 +33,7 @@ class BatchTests(unittest.TestCase):
         cls.fifth = json.loads(FIFTH_PATH.read_text(encoding="utf-8"))
         cls.sixth = json.loads(SIXTH_PATH.read_text(encoding="utf-8"))
         cls.seventh = json.loads(SEVENTH_PATH.read_text(encoding="utf-8"))
+        cls.eighth = json.loads(EIGHTH_PATH.read_text(encoding="utf-8"))
 
     def test_real_frozen_batch_structure(self):
         board = queue.summarize(self.original)
@@ -101,11 +103,18 @@ class BatchTests(unittest.TestCase):
         all_previous.update(r["source"] for r in self.sixth["candidates"])
         seventh = queue.summarize(self.seventh)
         self.assertEqual(seventh["total"], 5)
-        self.assertEqual(seventh["next_candidate"], "sifra-runtime-approval-replay")
-        self.assertEqual(seventh["stage_counts"]["SCREENING"], 1)
-        self.assertEqual(seventh["stage_counts"]["AWAITING_EXTERNAL"], 4)
+        self.assertIsNone(seventh["next_candidate"])
+        self.assertEqual(seventh["next_stage"], "NO_ACTIONABLE_CANDIDATE")
+        self.assertEqual(seventh["stage_counts"]["AWAITING_EXTERNAL"], 5)
         self.assertEqual(seventh["test_mode"], "NATIVE_SCRIPT_ONLY_NO_LLM_AGENTS")
         self.assertFalse(all_previous.intersection({r["source"] for r in self.seventh["candidates"]}))
+        all_previous.update(r["source"] for r in self.seventh["candidates"])
+        eighth = queue.summarize(self.eighth)
+        self.assertEqual(eighth["total"], 5)
+        self.assertEqual(eighth["next_candidate"], "spartan-persistence-recovery-contract")
+        self.assertEqual(eighth["stage_counts"]["SCREENING"], 5)
+        self.assertEqual(eighth["test_mode"], "NATIVE_SCRIPT_ONLY_NO_LLM_AGENTS")
+        self.assertFalse(all_previous.intersection({r["source"] for r in self.eighth["candidates"]}))
 
     def test_no_actionable_after_full_review(self):
         data = copy.deepcopy(self.original)

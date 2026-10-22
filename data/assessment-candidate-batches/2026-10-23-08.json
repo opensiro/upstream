@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-10-23-08",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "396a54bb690f8ec7ce966bf9b00b241b30036307",
+  "frozen_at": "2026-10-23",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Eighth full five-source nonduplicated assessment intake after all 35 prior rows were given bounded dispositions. Select licensed first-party Python systems from exactly pinned included S1=A Index records, with three reviewed 2026-10-20 and two reviewed 2026-10-19. Freeze upstream revisions and screening order before inspecting patch feasibility; all questions remain unproven. Use native deterministic first-party script/unit tests only: no LLM agent, mock-model task run, inference provider, simulated swarm or live deployment test. Human retains external upstream publication rights.",
+  "candidates": [
+    {
+      "id": "spartan-persistence-recovery-contract",
+      "assessment_path": "assessments/sp/spartan.md",
+      "source": "CorticalComputer/Spartan",
+      "review_ref": "8f7b36a2326c0157a82040f8e04b474f4899c3da",
+      "reviewed_at": "2026-10-20",
+      "function": "S1",
+      "finding": "Spartan persists cognitive and file-watcher state across model and process restarts. Screen first-party Python archive/recovery/serialization helpers for reproducible malformed, duplicate or interrupted state transitions with offline native-script inputs, excluding a live cognitive loop, local model or host machine actions.",
+      "stage": "SCREENING", "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/CorticalComputer/Spartan/blob/8f7b36a2326c0157a82040f8e04b474f4899c3da/ltm.py"]
+    },
+    {
+      "id": "cyber-ai-team-autonomy-action-policy",
+      "assessment_path": "assessments/cy/cyber-ai-team.md",
+      "source": "Hyper-AI-Lab/cyber-ai-team",
+      "review_ref": "525401e40f34863cc7f4d3b053d437ce7709912f",
+      "reviewed_at": "2026-10-20",
+      "function": "S1",
+      "finding": "Cyber AI Team has first-party owner authorization and action-policy decisions around business-domain work. Screen pure Python policy validators and transition guards with fixed inputs only; exclude ERPNext, PostgreSQL, Temporal company cycles, LLM agents, simulated model plans or any external business actions.",
+      "stage": "SCREENING", "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/Hyper-AI-Lab/cyber-ai-team/blob/525401e40f34863cc7f4d3b053d437ce7709912f/backend/src/cyber_team/operations/action_policy.py"]
+    },
+    {
+      "id": "oniroute-validation-boundary",
+      "assessment_path": "assessments/on/oniroute-swarmagents.md",
+      "source": "AniruddhaDas1/OniRoute_SwarmAgents",
+      "review_ref": "c47d553ad2e1aa547cce000c095a9feda5434ee2",
+      "reviewed_at": "2026-10-20",
+      "function": "S1",
+      "finding": "OniRoute ships first-party Python workspace governance, quality and validation modules around engineering artifacts. Screen deterministic validator and path-boundary handling on pinned real source using fixed local fixtures, not its model-backed engineering runner or simulated swarm-wave subsystem.",
+      "stage": "SCREENING", "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/AniruddhaDas1/OniRoute_SwarmAgents/blob/c47d553ad2e1aa547cce000c095a9feda5434ee2/runtime/validation/engine.py"]
+    },
+    {
+      "id": "activegraph-event-patch-invariants",
+      "assessment_path": "assessments/ac/active-graph.md",
+      "source": "yoheinakajima/activegraph",
+      "review_ref": "50d8405923b79e4e823a73a3045bb969436a872c",
+      "reviewed_at": "2026-10-19",
+      "function": "S1",
+      "finding": "Active Graph has a first-party Python event log, typed graph patches and optimistic conflict checks. Screen script-only event-patch validation and replay invariants using genuine modules and fixed input events; do not invoke recorded, mocked or live LLM-backed goal behaviors.",
+      "stage": "SCREENING", "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/yoheinakajima/activegraph/blob/50d8405923b79e4e823a73a3045bb969436a872c/activegraph/runtime/runtime.py"]
+    },
+    {
+      "id": "pyflue-sandbox-tool-schema",
+      "assessment_path": "assessments/py/pyflue.md",
+      "source": "SuperagenticAI/pyflue",
+      "review_ref": "657c2d1a1b024a0bc137ff3bb252339fa0d5f692",
+      "reviewed_at": "2026-10-19",
+      "function": "S1",
+      "finding": "PyFlue exposes first-party Python session/toolkit and sandbox policies over optional external backends. Screen deterministic tool and output-schema admission plus sandbox boundary checks against real native functions, never run backend agents, PydanticAI inference, simulated provider sessions or hosted services.",
+      "stage": "SCREENING", "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/SuperagenticAI/pyflue/blob/657c2d1a1b024a0bc137ff3bb252339fa0d5f692/pyflue/core.py"]
+    }
+  ]
+}

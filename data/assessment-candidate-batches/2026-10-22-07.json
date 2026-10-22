@@ -71,9 +71,11 @@
       "reviewed_at": "2026-10-20",
       "function": "S1",
       "finding": "SIFRA defines TypeScript event, message-bus and human-refund approval transitions for a shipped local support workstream. Screen malformed and duplicated approval/status events with fixed Node/TypeScript scripts; exclude DBOS, real billing, model/provider and live support sessions.",
-      "stage": "SCREENING", "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/atharva1407-sys/SIFRA-Agent-Orchestration-Multi-Agent-Runtime/blob/6856b054ba67e4dc4ef499a46732eeed80b5ac68/sifra/runtime.ts"]
+      "stage": "AWAITING_EXTERNAL", "origin": "ASSESSMENT_INFORMED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "evidence": ["https://github.com/atharva1407-sys/SIFRA-Agent-Orchestration-Multi-Agent-Runtime/blob/6856b054ba67e4dc4ef499a46732eeed80b5ac68/sifra/sandbox.ts", "https://github.com/opensiro/upstream/blob/main/pilots/sifra/timeout-revokes-tool-access.patch"],
+      "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/sifra/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED"
     }
   ]
 }
