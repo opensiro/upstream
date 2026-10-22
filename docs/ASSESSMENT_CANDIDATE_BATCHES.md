@@ -43,6 +43,8 @@ The completed [Kram source-only technical packet](../pilots/kram-s2/CONTRIBUTION
 
 **Batch-07 fourth row:** [Reef / Polyp](../pilots/reef/CONTRIBUTION_HANDOFF.md) is `ASSESSMENT_INFORMED` / `AWAITING_EXTERNAL`: a real local Git bare-remote script reproduced false success when replaying an archive after a committed-but-not-pushed state. One failing test before, all three after. No DB, LLM, GPU or network Git. Next: `sifra-runtime-approval-replay`.
 
+**Current continuation pointer — batch-08 (2026-10-23):** [Batch-07](../data/assessment-candidate-batches/2026-10-22-07-SUMMARY.md) is now fully screened; [SIFRA](../pilots/sifra/CONTRIBUTION_HANDOFF.md) yielded the fifth bounded native patch: 2 PASS / 1 FAIL before, 3 PASS after. Across the seventh cohort: 38 passing genuine-script cases after, 10 failing cases before, no LLM agents and no external upstream PRs. All five technical handoffs remain human-owned for publication. A new full, source-disjoint five-row [batch-08](../data/assessment-candidate-batches/2026-10-23-08.json) is frozen against the same included S1=A Index SHA and starts with `spartan-persistence-recovery-contract`; then Cyber AI Team, OniRoute, Active Graph and PyFlue. The questions remain unverified until source screening. Generic `continue` moves to batch-08, not back to a pending external PR.
+
 ## VSM / OSM responsibility map
 
 | Operation | Present decisive owner | Return / evidence |
