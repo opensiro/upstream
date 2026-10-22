@@ -121,9 +121,9 @@ class BatchTests(unittest.TestCase):
         all_previous.update(r["source"] for r in self.eighth["candidates"])
         ninth = queue.summarize(self.ninth)
         self.assertEqual(ninth["total"], 5)
-        self.assertEqual(ninth["next_candidate"], "connectonion-approval-tool-admission")
-        self.assertEqual(ninth["stage_counts"]["SCREENING"], 4)
-        self.assertEqual(ninth["stage_counts"]["AWAITING_EXTERNAL"], 1)
+        self.assertEqual(ninth["next_candidate"], "agentuniverse-workflow-input-contract")
+        self.assertEqual(ninth["stage_counts"]["SCREENING"], 3)
+        self.assertEqual(ninth["stage_counts"]["AWAITING_EXTERNAL"], 2)
         self.assertEqual(ninth["test_mode"], "NATIVE_SCRIPT_ONLY_NO_LLM_AGENTS")
         self.assertFalse(all_previous.intersection({r["source"] for r in self.ninth["candidates"]}))
 
