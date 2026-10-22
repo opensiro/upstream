@@ -1,0 +1,43 @@
+diff --git a/bin/engine/reconcile.mjs b/bin/engine/reconcile.mjs
+index fca98fd..6dd10d3 100644
+--- a/bin/engine/reconcile.mjs
++++ b/bin/engine/reconcile.mjs
+@@ -2,10 +2,15 @@
+  * Merge the local run-log state and the remote FORGE:STATE index.
+  * Rule: GitHub wins on divergence (spec §5.3).
+  */
++import { isDeepStrictEqual } from "node:util";
++
+ export function reconcileState(local, remote) {
+   if (!remote) return { state: local ?? null, action: local ? "local" : "fresh" };
+   if (!local) return { state: remote, action: "hydrate" };
+   if (remote.v > local.v) return { state: remote, action: "hydrate" };   // advanced elsewhere
+   if (remote.v < local.v) return { state: local, action: "remirror" };   // crashed pre-mirror
++  // Equal sequence numbers do not prove state equality across separate writers.
++  // On a tie, hydrate a divergent GitHub snapshot instead of masking it locally.
++  if (!isDeepStrictEqual(local, remote)) return { state: remote, action: "hydrate" };
+   return { state: local, action: "local" };
+ }
+diff --git a/bin/tests/engine-reconcile.test.mjs b/bin/tests/engine-reconcile.test.mjs
+index 2c2f9f7..40971d5 100644
+--- a/bin/tests/engine-reconcile.test.mjs
++++ b/bin/tests/engine-reconcile.test.mjs
+@@ -25,4 +25,18 @@ describe("reconcileState (GitHub wins)", () => {
+     const r = reconcileState(mk(3, "build"), mk(3, "build"));
+     assert.equal(r.action, "local"); assert.equal(r.state.v, 3);
+   });
++  it("same version but different phase → GitHub state wins", () => {
++    const local = mk(3, "build");
++    const remote = mk(3, "review");
++    const r = reconcileState(local, remote);
++    assert.equal(r.action, "hydrate");
++    assert.equal(r.state.phase, "review");
++  });
++  it("same version but remote terminal transition → hydrate", () => {
++    const local = mk(5, "close");
++    const remote = { ...mk(5, "close"), terminal: true, terminalReason: "done" };
++    const r = reconcileState(local, remote);
++    assert.equal(r.action, "hydrate");
++    assert.equal(r.state.terminal, true);
++  });
+ });
