@@ -31,10 +31,13 @@
       "reviewed_at": "2026-10-21",
       "function": "S1",
       "finding": "The installed plugin includes first-party Python bootstrap and adoption validators; screen input validation and idempotency with native Python scripts only, without calling a host LLM skill.",
-      "stage": "SCREENING",
-      "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/jpantsjoha/ai-native-developer-experience/tree/e93069b92735ba096abf662f2b9d95a0ebfd36f9"]
+      "stage": "AWAITING_EXTERNAL",
+      "origin": "ASSESSMENT_INFORMED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "evidence": ["https://github.com/jpantsjoha/ai-native-developer-experience/blob/e93069b92735ba096abf662f2b9d95a0ebfd36f9/skills/operating-model-bootstrap/scripts/bootstrap_operating_model.py", "https://github.com/jpantsjoha/ai-native-developer-experience/blob/e93069b92735ba096abf662f2b9d95a0ebfd36f9/tests/test_operating_model.py"],
+      "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/join-the-team/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED",
+      "screening_receipt": "pilots/join-the-team/CONTRIBUTION_HANDOFF.md"
     },
     {
       "id": "maref-run-state-boundary",
