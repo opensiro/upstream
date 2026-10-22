@@ -6,15 +6,19 @@ It is **not** a monorepo of forks, a mirror of upstream code, a claim of upstrea
 
 ## Public impact dashboard
 
-**[Open the Upstream Dashboard →](DASHBOARD.md)** — readable on GitHub. It shows the eight experimental upstream interventions, outcomes, product-native fit (currently **60% of completed fit reviews**), primary PR evidence, and snapshot dates. For a standalone interactive, filterable browser view see [`docs/index.html`](docs/index.html) (HTML file; GitHub Pages publishing is not enabled by these files).
+**[Open the Upstream Dashboard →](DASHBOARD.md)** — readable on GitHub. It shows the eight experimental upstream interventions, separately verified external PR states, historical product-native fit (**60% of completed fit reviews** in the pinned experiment), primary evidence and distinct verification dates. For a filterable browser view see [`docs/index.html`](docs/index.html) (HTML file; GitHub Pages publishing is not enabled by these files).
 
-These are **dated experiment measurements, not live acceptance rates or productivity scores**. The [Organization-owned snapshot](https://github.com/opensiro/vsm-oss-organization/blob/main/experiments/upstream-intervention-fit/snapshot.json) is authoritative; the dashboard is a pinned public presentation.
+These are **dated observations, not live acceptance rates or productivity scores**. The [Organization-owned snapshot](https://github.com/opensiro/vsm-oss-organization/blob/main/experiments/upstream-intervention-fit/snapshot.json) is authoritative for fit and attribution; [`data/upstream-lifecycle.json`](data/upstream-lifecycle.json) is this repository's independently checked public PR-state receipt. Neither makes a new S1 domain or modifies Control Plane authority.
+
+### Keeping the portfolio current
+
+The [read-only status procedure](docs/UPSTREAM_STATUS_FRESHNESS.md) checks both the eight-case experimental portfolio and separately submitted `registry.yaml` upstream PRs. It renders `DASHBOARD.md`, `docs/index.html` and the casebook from one local receipt. A daily GitHub Actions job reports drift without using write permissions or automatically changing fit classifications.
 
 ## Current work
 
 | External project | OpenSiro fork | Contribution | Upstream status | Fork lifecycle |
 | --- | --- | --- | --- | --- |
-| [Cognee Community](https://github.com/topoteretes/cognee-community) | [opensiro/cognee-community](https://github.com/opensiro/cognee-community) | [Canonical OpenSiro VSM assessment source](projects/cognee/README.md) | **Not submitted** | **Active** |
+| [Cognee Community](https://github.com/topoteretes/cognee-community) | [opensiro/cognee-community](https://github.com/opensiro/cognee-community) | [Canonical OpenSiro VSM assessment source](projects/cognee/README.md) | [PR #434 — submitted](https://github.com/topoteretes/cognee-community/pull/434) | **Active** |
 
 Machine-readable current state: [`registry.yaml`](registry.yaml). Research and testing evidence is linked in project profiles.
 

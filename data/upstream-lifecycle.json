@@ -1,0 +1,112 @@
+{
+  "fit_snapshot_sha256": "c98b91863e3ec44533bd1df1a73cf06eb1cda74f119f5f9459b67c09a74cb92d",
+  "observed_at": "2026-10-22T16:03:07+00:00",
+  "records": [
+    {
+      "id": "headcount-47",
+      "landing_pr": null,
+      "lifecycle": "open",
+      "original_pr": {
+        "lifecycle": "open",
+        "merged_at": null,
+        "updated_at": "2026-10-17T16:26:47Z",
+        "url": "https://github.com/cbrock84/headcount/pull/47"
+      }
+    },
+    {
+      "id": "henterprise-1",
+      "landing_pr": {
+        "lifecycle": "merged",
+        "merged_at": "2026-10-08T05:58:08Z",
+        "updated_at": "2026-10-08T05:58:14Z",
+        "url": "https://github.com/humbertobellor/henterprise/pull/3"
+      },
+      "lifecycle": "merged",
+      "original_pr": {
+        "lifecycle": "closed_unmerged",
+        "merged_at": null,
+        "updated_at": "2026-10-11T21:10:28Z",
+        "url": "https://github.com/humbertobellor/henterprise/pull/1"
+      }
+    },
+    {
+      "id": "marveen-1516",
+      "landing_pr": null,
+      "lifecycle": "merged",
+      "original_pr": {
+        "lifecycle": "merged",
+        "merged_at": "2026-09-30T07:41:53Z",
+        "updated_at": "2026-09-30T07:42:16Z",
+        "url": "https://github.com/Szotasz/marveen/pull/1516"
+      }
+    },
+    {
+      "id": "oh-my-agent-819",
+      "landing_pr": null,
+      "lifecycle": "closed_unmerged",
+      "original_pr": {
+        "lifecycle": "closed_unmerged",
+        "merged_at": null,
+        "updated_at": "2026-09-28T18:29:00Z",
+        "url": "https://github.com/first-fluke/oh-my-agent/pull/819"
+      }
+    },
+    {
+      "id": "scion-2047",
+      "landing_pr": null,
+      "lifecycle": "closed_unmerged",
+      "original_pr": {
+        "lifecycle": "closed_unmerged",
+        "merged_at": null,
+        "updated_at": "2026-09-28T23:13:22Z",
+        "url": "https://github.com/GoogleCloudPlatform/scion/pull/2047"
+      }
+    },
+    {
+      "id": "shep-933",
+      "landing_pr": null,
+      "lifecycle": "merged",
+      "original_pr": {
+        "lifecycle": "merged",
+        "merged_at": "2026-10-19T19:24:33Z",
+        "updated_at": "2026-10-19T19:24:33Z",
+        "url": "https://github.com/shep-ai/shep/pull/933"
+      }
+    },
+    {
+      "id": "shep-934",
+      "landing_pr": null,
+      "lifecycle": "merged",
+      "original_pr": {
+        "lifecycle": "merged",
+        "merged_at": "2026-10-19T19:24:22Z",
+        "updated_at": "2026-10-19T19:24:22Z",
+        "url": "https://github.com/shep-ai/shep/pull/934"
+      }
+    },
+    {
+      "id": "starnet-55",
+      "landing_pr": null,
+      "lifecycle": "open",
+      "original_pr": {
+        "lifecycle": "open",
+        "merged_at": null,
+        "updated_at": "2026-10-17T16:26:50Z",
+        "url": "https://github.com/androoAGI/starnet/pull/56"
+      }
+    }
+  ],
+  "registry_records": [
+    {
+      "id": "cognee-community",
+      "pr": {
+        "lifecycle": "open",
+        "merged_at": null,
+        "updated_at": "2026-10-19T23:48:54Z",
+        "url": "https://github.com/topoteretes/cognee-community/pull/434"
+      }
+    }
+  ],
+  "registry_verified_at": "2026-10-22T16:47:43Z",
+  "schema_version": 2
+}

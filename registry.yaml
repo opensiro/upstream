@@ -9,9 +9,9 @@ projects:
     contribution:
       id: opensiro-vsm-source
       title: Canonical OpenSiro VSM assessment source
-      status: preparing
-      upstream_issue: null
-      upstream_pr: null
+      status: submitted
+      upstream_issue: https://github.com/topoteretes/cognee-community/issues/435
+      upstream_pr: https://github.com/topoteretes/cognee-community/pull/434
       accepted_at: null
     maintenance:
       status: active
@@ -23,5 +23,5 @@ projects:
     notes: >-
       Research branch retains B10-B16 full-corpus and failure evidence.
       Focused B17 review branch keeps pinned source, native projection,
-      durable stage fencing and independent audit. Upstream not submitted;
-      only OpenSiro-owned development is authorized.
+      durable stage fencing and independent audit. Implementation PR #434
+      is submitted for upstream maintainer review; not yet accepted.

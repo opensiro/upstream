@@ -1,0 +1,39 @@
+name: Upstream portfolio PR freshness (read-only)
+
+on:
+  schedule:
+    - cron: '17 9 * * *'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'data/upstream-*.json'
+      - 'data/dashboard-cases.json'
+      - 'registry.yaml'
+      - 'scripts/upstream_status.py'
+      - 'tests/test_upstream_status.py'
+      - 'DASHBOARD.md'
+      - 'docs/index.html'
+      - 'docs/UPSTREAM_STATUS_FRESHNESS.md'
+      - 'cases/README.md'
+      - '.github/workflows/upstream-status-freshness.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Test source and receipt contract (offline)
+        run: python3 -m unittest discover -s tests -p 'test_upstream_status.py'
+      - name: Check generated dashboard and casebook (offline)
+        run: python3 scripts/upstream_status.py --check-generated
+      - name: Verify current public PR lifecycle (GET only)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 scripts/upstream_status.py --check-live
