@@ -75,10 +75,12 @@
       "reviewed_at": "2026-10-19",
       "function": "S1",
       "finding": "Recuris uses first-party Python meta-agent plan schema and gate evaluators to admit memory revisions; screen only deterministic schema/decision script checks on pinned code, without downstream model runs or provider access.",
-      "stage": "SCREENING",
-      "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/Gen-Verse/Recuris/blob/7d3745ab787b1206ccd981cb1511100476097266/src/recuris/metaagent/gates.py"]
+      "stage": "AWAITING_EXTERNAL",
+      "origin": "ASSESSMENT_INFORMED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "evidence": ["https://github.com/Gen-Verse/Recuris/blob/7d3745ab787b1206ccd981cb1511100476097266/src/recuris/metaagent/gates.py", "https://github.com/opensiro/upstream/blob/main/pilots/recuris/invalid-heldout-data-guard.patch"],
+      "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/recuris/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED"
     }
   ]
 }

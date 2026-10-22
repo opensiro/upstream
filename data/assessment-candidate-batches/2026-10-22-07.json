@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-10-22-07",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "396a54bb690f8ec7ce966bf9b00b241b30036307",
+  "frozen_at": "2026-10-22",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Seventh full and nonoverlapping five-source intake from canonical included S1=A Index evidence, after all previous 30 candidates were resolved to bounded screening dispositions. These five records were reviewed on 2026-10-20; order prioritizes documented first-party Node script/ledger paths before Python state and other TypeScript surfaces. Native-script feasibility is a screening question, not a guarantee. Freeze exact Index SHA, reviewed commit, order and S1 identity. No live model agents, mock-model benchmarks or provider calls; only deterministic tests of real first-party code. External publication is human-owned.",
+  "candidates": [
+    {
+      "id": "forgedock-issue-stage-reconciliation",
+      "assessment_path": "assessments/fo/forgedock.md",
+      "source": "RapierCraftStudios/ForgeDock",
+      "review_ref": "f5bfeeedf6baadd94aea1e6769f69abd45080016",
+      "reviewed_at": "2026-10-20",
+      "function": "S1",
+      "finding": "ForgeDock's own Node issue-stage engine, phase registry and durable runlog reconcile GitHub issue-to-PR state. Screen deterministic parser and stage/recovery integrity using native local scripts only, without invoking its model runner, GitHub writes, or sandbox workers.",
+      "stage": "SCREENING", "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/RapierCraftStudios/ForgeDock/blob/f5bfeeedf6baadd94aea1e6769f69abd45080016/bin/engine.mjs"]
+    },
+    {
+      "id": "pi-loop-worktree-publication-integrity",
+      "assessment_path": "assessments/pi/pi-loop-studio-orchestra.md",
+      "source": "LEO001020/pi-loop-studio-orchestra",
+      "review_ref": "0a6b65c63a0eb11f2e928e773de1774b2c7d5bd7",
+      "reviewed_at": "2026-10-20",
+      "function": "S1",
+      "finding": "Pi Loop Studio packages first-party Node workspace/result/publishing and persistent job state around its model actors. Check script-only worktree state and publish guards on pinned native modules with fixed inputs, no Pi/model SDK agent execution.",
+      "stage": "SCREENING", "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/LEO001020/pi-loop-studio-orchestra/blob/0a6b65c63a0eb11f2e928e773de1774b2c7d5bd7/server/workspace.mjs"]
+    },
+    {
+      "id": "openorbit-approval-boundary-validation",
+      "assessment_path": "assessments/op/openorbit.md",
+      "source": "maneja81/OpenOrbit",
+      "review_ref": "2c30242310c3f2e8453b1116d657e65634e6973e",
+      "reviewed_at": "2026-10-20",
+      "function": "S1",
+      "finding": "OpenOrbit ships Electron/TypeScript first-party mutation approvals and agent-reply guards around its personal-assistant loop. Check deterministic permission and malformed-event boundaries via native script tests, without launching Electron, providers or agents.",
+      "stage": "SCREENING", "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/maneja81/OpenOrbit/blob/2c30242310c3f2e8453b1116d657e65634e6973e/electron/main/ai/agentMutationGuard.ts"]
+    },
+    {
+      "id": "reef-polyp-experiment-queue-contract",
+      "assessment_path": "assessments/re/reef.md",
+      "source": "Coral-Bricks-AI/reef",
+      "review_ref": "33aefaa12d78891bf5ba70a0d96b070d471ecc78",
+      "reviewed_at": "2026-10-20",
+      "function": "S1",
+      "finding": "Reef's first-party Python Polyp queue and tool-constraint enforcement encode state transitions for optional research work. Screen deterministic queue-record and constraint validation against genuine source without Postgres, cloud workers or live model decisions.",
+      "stage": "SCREENING", "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/Coral-Bricks-AI/reef/blob/33aefaa12d78891bf5ba70a0d96b070d471ecc78/polyp/queue/cbq.py"]
+    },
+    {
+      "id": "sifra-runtime-approval-replay",
+      "assessment_path": "assessments/si/sifra.md",
+      "source": "atharva1407-sys/SIFRA-Agent-Orchestration-Multi-Agent-Runtime",
+      "review_ref": "6856b054ba67e4dc4ef499a46732eeed80b5ac68",
+      "reviewed_at": "2026-10-20",
+      "function": "S1",
+      "finding": "SIFRA defines TypeScript event, message-bus and human-refund approval transitions for a shipped local support workstream. Screen malformed and duplicated approval/status events with fixed Node/TypeScript scripts; exclude DBOS, real billing, model/provider and live support sessions.",
+      "stage": "SCREENING", "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/atharva1407-sys/SIFRA-Agent-Orchestration-Multi-Agent-Runtime/blob/6856b054ba67e4dc4ef499a46732eeed80b5ac68/sifra/runtime.ts"]
+    }
+  ]
+}
