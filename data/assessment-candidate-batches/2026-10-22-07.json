@@ -15,9 +15,11 @@
       "reviewed_at": "2026-10-20",
       "function": "S1",
       "finding": "ForgeDock's own Node issue-stage engine, phase registry and durable runlog reconcile GitHub issue-to-PR state. Screen deterministic parser and stage/recovery integrity using native local scripts only, without invoking its model runner, GitHub writes, or sandbox workers.",
-      "stage": "SCREENING", "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/RapierCraftStudios/ForgeDock/blob/f5bfeeedf6baadd94aea1e6769f69abd45080016/bin/engine.mjs"]
+      "stage": "AWAITING_EXTERNAL", "origin": "ASSESSMENT_INFORMED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "evidence": ["https://github.com/RapierCraftStudios/ForgeDock/blob/f5bfeeedf6baadd94aea1e6769f69abd45080016/bin/engine/reconcile.mjs", "https://github.com/opensiro/upstream/blob/main/pilots/forgedock/equal-version-remote-divergence.patch"],
+      "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/forgedock/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED"
     },
     {
       "id": "pi-loop-worktree-publication-integrity",

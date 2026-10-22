@@ -101,8 +101,9 @@ class BatchTests(unittest.TestCase):
         all_previous.update(r["source"] for r in self.sixth["candidates"])
         seventh = queue.summarize(self.seventh)
         self.assertEqual(seventh["total"], 5)
-        self.assertEqual(seventh["next_candidate"], "forgedock-issue-stage-reconciliation")
-        self.assertEqual(seventh["stage_counts"]["SCREENING"], 5)
+        self.assertEqual(seventh["next_candidate"], "pi-loop-worktree-publication-integrity")
+        self.assertEqual(seventh["stage_counts"]["SCREENING"], 4)
+        self.assertEqual(seventh["stage_counts"]["AWAITING_EXTERNAL"], 1)
         self.assertEqual(seventh["test_mode"], "NATIVE_SCRIPT_ONLY_NO_LLM_AGENTS")
         self.assertFalse(all_previous.intersection({r["source"] for r in self.seventh["candidates"]}))
 
