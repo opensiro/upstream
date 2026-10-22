@@ -41,6 +41,8 @@ The completed [Kram source-only technical packet](../pilots/kram-s2/CONTRIBUTION
 
 **Batch-07 third row:** [OpenOrbit](../pilots/openorbit/CONTRIBUTION_HANDOFF.md) is `ASSESSMENT_INFORMED` / `AWAITING_EXTERNAL`: two actual TypeScript request-builder tests exposed dot-segment normalization that changes constructed endpoint URLs. The 19-case script suite now passes. No live HTTP requests or LLM agents. Next candidate: `reef-polyp-experiment-queue-contract`.
 
+**Batch-07 fourth row:** [Reef / Polyp](../pilots/reef/CONTRIBUTION_HANDOFF.md) is `ASSESSMENT_INFORMED` / `AWAITING_EXTERNAL`: a real local Git bare-remote script reproduced false success when replaying an archive after a committed-but-not-pushed state. One failing test before, all three after. No DB, LLM, GPU or network Git. Next: `sifra-runtime-approval-replay`.
+
 ## VSM / OSM responsibility map
 
 | Operation | Present decisive owner | Return / evidence |
