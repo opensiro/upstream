@@ -10,7 +10,7 @@ from pathlib import Path
 
 HEX40 = re.compile(r"[0-9a-f]{40}\Z")
 SOURCE = re.compile(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+\Z")
-ASSESSMENT = re.compile(r"assessments/[a-z0-9]{2}/[a-z0-9-]+\.md\Z")
+ASSESSMENT = re.compile(r"assessments/[a-z0-9-]{2}/[a-z0-9-]+\.md\Z")
 FIT_KEYS = {"need", "mechanism", "counterfactual", "scope"}
 FIT_STATES = {"PENDING", "PASS", "FAIL"}
 ORIGINS = {"ASSESSMENT_DERIVED", "ASSESSMENT_INFORMED", "GENERAL_UPSTREAM", "INSUFFICIENT"}

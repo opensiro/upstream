@@ -60,11 +60,13 @@
       "reviewed_at": "2026-09-29",
       "function": "S2",
       "finding": "Raven-Code has a first-party read-before-edit/stale-content ledger; screen whether any current native failure remains despite the existing guard.",
-      "stage": "SCREENING",
-      "origin": "INSUFFICIENT",
-      "fit": {"need": "PASS", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/EverMind-AI/Raven/issues/1061"],
-      "screening_receipt": "pilots/raven/SCREENING_INTAKE_2026-10-22.md"
+      "stage": "AWAITING_EXTERNAL",
+      "origin": "ASSESSMENT_INFORMED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "evidence": ["https://github.com/EverMind-AI/Raven/issues/1061", "https://github.com/EverMind-AI/Raven/blob/4315993300e538ec954c79565cbc8585006c8053/ui-web/src/state/session/stages.ts", "https://github.com/EverMind-AI/Raven/blob/4315993300e538ec954c79565cbc8585006c8053/ui-web/src/state/session/runtime.cancel.test.ts"],
+      "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/raven/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED",
+      "screening_receipt": "pilots/raven/CONTRIBUTION_HANDOFF.md"
     },
     {
       "id": "ironclaw-job-scheduler",
@@ -74,10 +76,11 @@
       "reviewed_at": "2026-09-21",
       "function": "S2",
       "finding": "A first-party job pool and deterministic MAX_PARALLEL_JOBS policy regulate shared work; screen native job-state safety and stuck recovery only if a first-party need emerges.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": []
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "FAIL", "scope": "FAIL"},
+      "evidence": ["https://github.com/nearai/ironclaw/issues/6455", "https://github.com/nearai/ironclaw/pull/6458", "https://github.com/nearai/ironclaw/blob/b0b999d96781516ee05e6ba961d6f3ead900da96/docs/internal/reborn/contracts/turn-runner.md"],
+      "screening_receipt": "pilots/ironclaw/SCREENING_2026-10-22.md"
     }
   ]
 }

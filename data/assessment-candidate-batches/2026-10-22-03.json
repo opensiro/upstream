@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-10-22-03",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "396a54bb690f8ec7ce966bf9b00b241b30036307",
+  "frozen_at": "2026-10-22",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Third distinct five-record cohort from included canonical Index S1=A assessments all reviewed on 2026-10-22; prioritize runnable first-party Python/TypeScript source and explicitly include Swift last as a screening-only question. These are investigative questions, not admitted defects or approved fixes.",
+  "candidates": [
+    {
+      "id": "tau-session-storage-continuation",
+      "assessment_path": "assessments/ta/tau.md",
+      "source": "huggingface/tau",
+      "review_ref": "9fe6a719ac0bda3696e9fc8413643cfe9786c73c",
+      "reviewed_at": "2026-10-22",
+      "function": "S1",
+      "finding": "The first-party Python session stack persists JSONL turns and restores a project coding session; inspect interrupted append/resume behavior using a native fixed-input Python test without provider calls.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "FAIL", "mechanism": "PASS", "counterfactual": "FAIL", "scope": "PENDING"},
+      "evidence": ["https://github.com/huggingface/tau/blob/9fe6a719ac0bda3696e9fc8413643cfe9786c73c/src/tau_agent/session/storage.py", "https://github.com/huggingface/tau/blob/9fe6a719ac0bda3696e9fc8413643cfe9786c73c/tests/test_session.py"],
+      "screening_receipt": "pilots/tau/SCREENING_2026-10-22.md"
+    },
+    {
+      "id": "zaly-stale-edit-permission",
+      "assessment_path": "assessments/za/zaly.md",
+      "source": "folke/zaly",
+      "review_ref": "a568c033de6418e5a24193f41ae8335ce0ddb2b2",
+      "reviewed_at": "2026-10-22",
+      "function": "S1",
+      "finding": "The TypeScript CLI protects edits with freshness checks and explicit permission rules; inspect error/denial semantics under fixed source-script tests before selecting any regression.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "FAIL", "mechanism": "PASS", "counterfactual": "FAIL", "scope": "PENDING"},
+      "evidence": ["https://github.com/folke/zaly/blob/a568c033de6418e5a24193f41ae8335ce0ddb2b2/packages/agent/src/tools/edit.ts", "https://github.com/folke/zaly/commit/abff49c", "https://github.com/folke/zaly/commit/842d394"],
+      "screening_receipt": "pilots/zaly/SCREENING_2026-10-22.md"
+    },
+    {
+      "id": "freebuff-cli-tool-result",
+      "assessment_path": "assessments/fr/freebuff.md",
+      "source": "CodebuffAI/freebuff",
+      "review_ref": "8ed5d3e5e58b6a7ea1351efcbaa967b2dc015073",
+      "reviewed_at": "2026-10-22",
+      "function": "S1",
+      "finding": "The distributed base3 TypeScript CLI feeds first-party tool results into its step runtime; inspect native fixed-input failure propagation without invoking any hosted model.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "FAIL", "mechanism": "PASS", "counterfactual": "FAIL", "scope": "PENDING"},
+      "evidence": ["https://github.com/CodebuffAI/freebuff/blob/8ed5d3e5e58b6a7ea1351efcbaa967b2dc015073/packages/agent-runtime/src/run-agent-step.ts"],
+      "screening_receipt": "pilots/freebuff/SCREENING_2026-10-22.md"
+    },
+    {
+      "id": "caveman-child-worktree-cleanup",
+      "assessment_path": "assessments/ca/caveman-code.md",
+      "source": "JuliusBrussee/caveman-code",
+      "review_ref": "3a21be115c32aa27288c8ed6d860d9aa1b65d2c5",
+      "reviewed_at": "2026-10-22",
+      "function": "S1",
+      "finding": "The first-party TypeScript subagent task executor creates distinct implementer worktrees; inspect worktree cleanup and error-path reporting through native deterministic scripts, with no agent inference.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PASS", "counterfactual": "PENDING", "scope": "PASS"},
+      "evidence": ["https://github.com/JuliusBrussee/caveman-code/blob/3a21be115c32aa27288c8ed6d860d9aa1b65d2c5/packages/coding-agent/src/core/tools/task.ts", "https://github.com/JuliusBrussee/caveman-code/blob/3a21be115c32aa27288c8ed6d860d9aa1b65d2c5/AGENTS.md"],
+      "blocker": "Native focused Vitest could not collect any tests: workspace package caveman-agent lacks built entry; AGENTS.md prohibits npm run build, and no external code changes were made.",
+      "screening_receipt": "pilots/caveman-code/SCREENING_2026-10-22.md"
+    },
+    {
+      "id": "g-rump-daemon-branch-restore",
+      "assessment_path": "assessments/g-/g-rump.md",
+      "source": "Aphrodine-wq/G-Rump",
+      "review_ref": "876766327171eed40df89ef1d58c8c9a475c8def",
+      "reviewed_at": "2026-10-22",
+      "function": "S1",
+      "finding": "The optional supervised macOS Swift daemon reuses one coding loop on task branches; screen deterministic idle/cancel/branch restore paths before treating a source observation as a functional bug.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PASS", "counterfactual": "PENDING", "scope": "PASS"},
+      "evidence": ["https://github.com/Aphrodine-wq/G-Rump/blob/876766327171eed40df89ef1d58c8c9a475c8def/Sources/GRump/Intelligence/Daemon/AutonomousLoop.swift"],
+      "blocker": "No first-party Swift/macOS daemon script test was possible in the current environment; source suggests branch restore gap but does not prove runtime impact.",
+      "screening_receipt": "pilots/g-rump/SCREENING_2026-10-22.md"
+    }
+  ]
+}

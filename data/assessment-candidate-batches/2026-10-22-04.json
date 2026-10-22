@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-10-22-04",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "396a54bb690f8ec7ce966bf9b00b241b30036307",
+  "frozen_at": "2026-10-22",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Fourth complete nonoverlapping cohort from canonical included S1=A records reviewed on 2026-10-21, prioritized for natively runnable Node/Python deterministic source tests under the available host; earlier 2026-10-22 Go/Rust-only records are deferred rather than silently admitted as fixes. Frozen provenance never repinned.",
+  "candidates": [
+    {
+      "id": "politik-transaction-denial-return",
+      "assessment_path": "assessments/po/politik.md",
+      "source": "cordfuse/politik",
+      "review_ref": "c1fa7312c75599d72b187bf20088f51f5dda2247",
+      "reviewed_at": "2026-10-21",
+      "function": "S1",
+      "finding": "Node/TypeScript governed-session runner mediates one coding worker's allowed effects and explicit escalation; screen native fixed-input rollback or denied-action return without invoking a third-party model CLI.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/cordfuse/politik/tree/c1fa7312c75599d72b187bf20088f51f5dda2247/src"]
+    },
+    {
+      "id": "join-the-team-bootstrap-validation",
+      "assessment_path": "assessments/ai/ai-native-developer-experience-join-the-team.md",
+      "source": "jpantsjoha/ai-native-developer-experience",
+      "review_ref": "e93069b92735ba096abf662f2b9d95a0ebfd36f9",
+      "reviewed_at": "2026-10-21",
+      "function": "S1",
+      "finding": "The installed plugin includes first-party Python bootstrap and adoption validators; screen input validation and idempotency with native Python scripts only, without calling a host LLM skill.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/jpantsjoha/ai-native-developer-experience/tree/e93069b92735ba096abf662f2b9d95a0ebfd36f9"]
+    },
+    {
+      "id": "maref-run-state-boundary",
+      "assessment_path": "assessments/ma/maref.md",
+      "source": "maref-org/maref",
+      "review_ref": "35b1d8108887bf162711c2212b7a67d6e21d9342",
+      "reviewed_at": "2026-10-21",
+      "function": "S1",
+      "finding": "MAREF Python code-evolution and local guardrail routines produce code and test outcomes; inspect fixed-input state/error propagation with native Python tests, not model-generated candidates.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/maref-org/maref/tree/35b1d8108887bf162711c2212b7a67d6e21d9342"]
+    },
+    {
+      "id": "ateles-python-dispatch-gate",
+      "assessment_path": "assessments/at/ateles.md",
+      "source": "markmhendrickson/ateles",
+      "review_ref": "516edbf0bf6a96654f69b8a797fd2998aa4983cb",
+      "reviewed_at": "2026-10-21",
+      "function": "S2",
+      "finding": "The first-party Python task dispatcher routes through local role/skill gates and recovery; inspect error-path task handoff using native deterministic Python fixtures, with provider functions stubbed.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/markmhendrickson/ateles/blob/516edbf0bf6a96654f69b8a797fd2998aa4983cb/apis.py"]
+    },
+    {
+      "id": "crdd-candidate-export-cancel",
+      "assessment_path": "assessments/cr/crdd.md",
+      "source": "qual-lab/CRDD",
+      "review_ref": "e9947d4f733c3c46b90ee9f78c70898d1920bae9",
+      "reviewed_at": "2026-10-21",
+      "function": "S1",
+      "finding": "The first-party Node Project Runtime exposes candidate export/discard and cancellation recovery; test fixed-input state boundaries where an available native script can execute without Windows/Docker agent runs.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/qual-lab/CRDD/tree/e9947d4f733c3c46b90ee9f78c70898d1920bae9"]
+    }
+  ]
+}
