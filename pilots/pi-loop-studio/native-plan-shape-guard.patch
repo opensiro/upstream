@@ -1,0 +1,67 @@
+diff --git a/server/workspace.mjs b/server/workspace.mjs
+index d5b2c5a..ff64ede 100644
+--- a/server/workspace.mjs
++++ b/server/workspace.mjs
+@@ -56,7 +56,16 @@ export function checkedPath(root,value,{write=false,ownedPaths=[]}={}){
+   return {full,rel};
+ }
+ export function validatePlan(value,settings){
+-  if(!Array.isArray(value.tasks)||!value.tasks.length)throw new LoopError('EMPTY_PLAN','任务计划不能为空');
++  // Validate independently of tool-parameter schemas before malformed strings
++  // can be treated as lists of tasks, dependencies or verification commands.
++  const stringList=v=>Array.isArray(v)&&v.every(x=>typeof x==='string');
++  if(!value||typeof value.summary!=='string'||!Array.isArray(value.tasks)||
++    !stringList(value.successCriteria)||!stringList(value.verificationCommands)||
++    value.tasks.some(t=>!t||typeof t.id!=='string'||typeof t.title!=='string'||
++      typeof t.role!=='string'||typeof t.instructions!=='string'||
++      !stringList(t.dependsOn)||!stringList(t.ownedPaths)||!stringList(t.acceptance)))
++    throw new LoopError('INVALID_PLAN_SHAPE','计划字段类型不符合结构化提交契约');
++  if(!value.tasks.length)throw new LoopError('EMPTY_PLAN','任务计划不能为空');
+   if(value.tasks.length>200)throw new LoopError('PLAN_TOO_LARGE','每轮计划最多 200 个有边界的任务');
+   const ids=new Set(value.tasks.map(t=>t.id));
+   if(new Set(value.tasks.map(t=>t.id.toLowerCase())).size!==value.tasks.length||value.tasks.some(t=>!/^[-\w]{1,60}$/.test(t.id)))throw new LoopError('INVALID_TASK_ID','Windows 任务 ID 必须忽略大小写后仍唯一，且只含字母、数字、横线、下划线');
+diff --git a/tests/native-plan-shape.test.mjs b/tests/native-plan-shape.test.mjs
+new file mode 100644
+index 0000000..ca40c9c
+--- /dev/null
++++ b/tests/native-plan-shape.test.mjs
+@@ -0,0 +1,39 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import { validatePlan } from '../server/workspace.mjs';
++
++const settings = { roles: [{ name: 'Implement', count: 1 }] };
++const valid = () => ({
++  summary: 'deterministic validation',
++  successCriteria: ['scripts pass'],
++  verificationCommands: ['node --test'],
++  tasks: [{ id: 'job', title: 'Job', role: 'Implement', instructions: 'change source',
++    dependsOn: [], ownedPaths: ['src/job.mjs'], acceptance: ['check source'] }]
++});
++
++function invalid(mutator) {
++  const plan = valid();
++  mutator(plan);
++  assert.throws(() => validatePlan(plan, settings), err => err?.code === 'INVALID_PLAN_SHAPE');
++}
++
++test('valid structured plan remains accepted', () => {
++  assert.equal(validatePlan(valid(), settings).tasks.length, 1);
++});
++test('success criteria string is not an array', () => {
++  invalid(plan => { plan.successCriteria = 'checks pass'; });
++});
++test('verification command string must not be spread into individual characters', () => {
++  invalid(plan => { plan.verificationCommands = 'node --test'; });
++});
++test('task acceptance string cannot stand in for an array', () => {
++  invalid(plan => { plan.tasks[0].acceptance = 'looks good'; });
++});
++test('dependency string cannot stand in for a list of task IDs', () => {
++  invalid(plan => { plan.tasks[0].dependsOn = ''; });
++});
++test('original empty criteria guard still rejects missing acceptance', () => {
++  const plan = valid();
++  plan.tasks[0].acceptance = [];
++  assert.throws(() => validatePlan(plan, settings), err => err?.code === 'MISSING_ACCEPTANCE');
++});
