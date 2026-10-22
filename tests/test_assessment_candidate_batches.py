@@ -90,7 +90,7 @@ class BatchTests(unittest.TestCase):
         self.assertFalse(all_previous.intersection({r["source"] for r in self.fifth["candidates"]}))
         sixth = queue.summarize(self.sixth)
         self.assertEqual(sixth["total"], 5)
-        self.assertEqual(sixth["next_candidate"], "chord-delegation-scope-boundary")
+        self.assertEqual(sixth["next_candidate"], "reins-policy-decision-contract")
         self.assertEqual(sixth["test_mode"], "NATIVE_SCRIPT_ONLY_NO_LLM_AGENTS")
         all_previous.update(r["source"] for r in self.fifth["candidates"])
         self.assertFalse(all_previous.intersection({r["source"] for r in self.sixth["candidates"]}))
