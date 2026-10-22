@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-10-23-11",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "396a54bb690f8ec7ce966bf9b00b241b30036307",
+  "frozen_at": "2026-10-23",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Eleventh complete five-source cohort after 50 screened sources, each new and included S1=A at the exact same frozen Index SHA, reviewed 2026-10-17. Prioritize native JavaScript/Python first-party claims, scoped scripts, evidence admission, persistent-quest metadata and deterministic checkpoint validation, not agent or provider runs. These rows record source-derived screening questions, not proven defects, admission, or permission for external publication. Script-only before/after; no LLM agents, simulated episodes, model providers, web actions, or benchmark runs. External forks and upstream PRs remain human-owned.",
+  "candidates": [
+    {
+      "id": "citadel-native-claim-exclusivity",
+      "assessment_path": "assessments/ci/citadel.md",
+      "source": "SethGammon/Citadel",
+      "review_ref": "38f3a4e7fa13cd48cfbedde872778b847af6c842",
+      "reviewed_at": "2026-10-17",
+      "function": "S1",
+      "finding": "Inspect the shipped first-party JavaScript scope/coordination claim admission for conflicting claims and stale ownership with finite synthetic claim records. Run only native scripts against authentic admission functions; never invoke a coding-model route, archon or fleet.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/SethGammon/Citadel/blob/38f3a4e7fa13cd48cfbedde872778b847af6c842/core/coordination/claims.js"]
+    },
+    {
+      "id": "agent-fleet-native-lease-contract",
+      "assessment_path": "assessments/ag/agent-fleet-chankov.md",
+      "source": "chankov/agent-fleet",
+      "review_ref": "d260099e67911d38f7cfbe90bd30b2639c2fd4b6",
+      "reviewed_at": "2026-10-17",
+      "function": "S1",
+      "finding": "Screen bundled local dispatcher and writer-lease coordination logic for stale-lease, double-owner or invalid path admission using genuine first-party pure scripts and fixed state, without invoking Pi, agent personas, task work or external runtime.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/chankov/agent-fleet/blob/d260099e67911d38f7cfbe90bd30b2639c2fd4b6/.pi/agent-fleet/scripts"]
+    },
+    {
+      "id": "evidence-bench-native-evidence-admission",
+      "assessment_path": "assessments/ev/evidence-bench.md",
+      "source": "kstawiski/evidence-gated-scientific-agent",
+      "review_ref": "85b396a824dfad6ec0880cbe07d86d3e24920ae8",
+      "reviewed_at": "2026-10-17",
+      "function": "S1",
+      "finding": "Inspect first-party Python scientific evidence policy, linting and provenance schema boundaries for deterministic unsupported-payload admission using fixed in-memory data and native tests only; do not run scientific tasks, ADK agents, model critics or API providers.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/kstawiski/evidence-gated-scientific-agent/blob/85b396a824dfad6ec0880cbe07d86d3e24920ae8/scientific_agent/policy.py", "https://github.com/kstawiski/evidence-gated-scientific-agent/blob/85b396a824dfad6ec0880cbe07d86d3e24920ae8/scientific_agent/provenance.py"]
+    },
+    {
+      "id": "herd-native-quest-ownership",
+      "assessment_path": "assessments/he/herd.md",
+      "source": "NickGuAI/Herd",
+      "review_ref": "fbda6618c7b53524faddbed070e4fbc14970e412",
+      "reviewed_at": "2026-10-17",
+      "function": "S1",
+      "finding": "Inspect first-party Node quest ownership and worker/session metadata persistence for race-safe admission or malformed state using only local deterministic script fixtures; never dispatch the commander, launch a worker, or invoke a model or machine agent.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/NickGuAI/Herd/tree/fbda6618c7b53524faddbed070e4fbc14970e412"]
+    },
+    {
+      "id": "fara-native-checkpoint-integrity",
+      "assessment_path": "assessments/fa/fara.md",
+      "source": "microsoft/fara",
+      "review_ref": "a675d6d61c41c47ae87bacefeab22caad18e3e84",
+      "reviewed_at": "2026-10-17",
+      "function": "S1",
+      "finding": "Inspect first-party Python browser trajectory checkpoint and critical-resume input validation using fixed data structures only. No Playwright browser launch, live desktop interaction, Fara model agent, benchmark rollout, or hosted inference is permitted.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/microsoft/fara/blob/a675d6d61c41c47ae87bacefeab22caad18e3e84/src/fara/core/run_context.py"]
+    }
+  ]
+}

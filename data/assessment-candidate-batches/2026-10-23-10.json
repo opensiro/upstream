@@ -29,9 +29,11 @@
       "reviewed_at": "2026-10-18",
       "function": "S1",
       "finding": "Inspect TypeScript runtime daily and monthly budget/rate guardrails for boundary and persistence conditions, using native no-network Node scripts against original helpers and finite synthetic counters; never start conversations, delegated agents or a provider.",
-      "stage": "SCREENING", "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/Phoenixrr2113/agent-harness/blob/0f67103affd30a3c778874b890dbd5801cdbd94f/src/runtime/guardrails.ts"]
+      "stage": "AWAITING_EXTERNAL", "origin": "ASSESSMENT_INFORMED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "evidence": ["https://github.com/Phoenixrr2113/agent-harness/blob/0f67103affd30a3c778874b890dbd5801cdbd94f/src/runtime/guardrails.ts", "https://github.com/Phoenixrr2113/agent-harness/blob/0f67103affd30a3c778874b890dbd5801cdbd94f/src/runtime/rate-limiter.ts", "https://github.com/opensiro/upstream/blob/main/pilots/phoenix-agent-harness/day-rate-event-retention.patch"],
+      "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/phoenix-agent-harness/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED"
     },
     {
       "id": "harness2-library-persistence-contract",
@@ -41,9 +43,11 @@
       "reviewed_at": "2026-10-18",
       "function": "S1",
       "finding": "Screen local Python per-domain experience-library persistence, validation and context-tree transformations with filesystem and fixed-data script inputs, not its proposer, executor, demo agent, benchmark, task rollouts or model selection.",
-      "stage": "SCREENING", "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/google-research/harness2/blob/1cfe254e8d25b15f37048c3730134686abe60335/harness2/core/library.py"]
+      "stage": "AWAITING_EXTERNAL", "origin": "ASSESSMENT_INFORMED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "evidence": ["https://github.com/google-research/harness2/blob/1cfe254e8d25b15f37048c3730134686abe60335/harness2/core/library.py", "https://github.com/opensiro/upstream/blob/main/pilots/harness2/library-path-component-guard.patch"],
+      "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/harness2/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED"
     },
     {
       "id": "harnessx-config-validation-contract",
@@ -53,9 +57,9 @@
       "reviewed_at": "2026-10-18",
       "function": "S1",
       "finding": "Inspect Python first-party harness-config schema and evolution candidate validation for deterministic acceptance gaps using static config fixtures only; do not execute meta-agent evolution, target-model runs, trajectory replay or external grading.",
-      "stage": "SCREENING", "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/Darwin-Agent/HarnessX/blob/915520584c92cc35ed24aef1af17eec1d60c0b01/harnessx/meta_harness/validate_workflow.py"]
+      "stage": "CLOSED_NO_CHANGE", "origin": "INSUFFICIENT",
+      "fit": {"need": "FAIL", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/Darwin-Agent/HarnessX/blob/915520584c92cc35ed24aef1af17eec1d60c0b01/harnessx/meta_harness/validate_workflow.py", "https://github.com/Darwin-Agent/HarnessX/blob/915520584c92cc35ed24aef1af17eec1d60c0b01/harnessx/core/config_schema.py", "https://github.com/opensiro/upstream/blob/main/pilots/harnessx/SCREENING.md"]
     },
     {
       "id": "revka-workflow-validation-contract",
@@ -65,9 +69,11 @@
       "reviewed_at": "2026-10-18",
       "function": "S1",
       "finding": "Inspect the Python operator-mcp workflow graph validator with finite in-memory workflow specifications for incorrect DAG or step-argument admission. Limit validation to source-native no-provider Python and no shell execution, running workflows, supervisor agents or MCP side effects.",
-      "stage": "SCREENING", "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/KumihoIO/Revka/blob/a1acd826502e12a6c2f3d147e488a7d2982c480b/operator-mcp/operator_mcp/workflow/validator.py"]
+      "stage": "AWAITING_EXTERNAL", "origin": "ASSESSMENT_INFORMED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "evidence": ["https://github.com/KumihoIO/Revka/blob/a1acd826502e12a6c2f3d147e488a7d2982c480b/operator-mcp/operator_mcp/workflow/validator.py", "https://github.com/opensiro/upstream/blob/main/pilots/revka/workflow-deep-dag-validation.patch"],
+      "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/revka/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED"
     }
   ]
 }
