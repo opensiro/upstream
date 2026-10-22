@@ -120,3 +120,9 @@ Read [Upstream #56](https://github.com/opensiro/upstream/issues/56) and the [dat
 | External contribution | Prior AgentBox PR was OpenSiro-internal; no external upstream acceptance | No external PR, no current permission for GitHub mutation |
 
 **Conclusion:** The prospectively selected functional finding yielded a reproducible, independently useful, narrowly repaired source-level problem. This advances the assessment-derived test past planning-only evidence, but is **not** a full successful external contribution or fully demonstrated S1 function. The final authority/real-product-feedback stages remain open.
+
+## Operator scope correction — 2026-10-22 (supersedes future-test gate, preserves frozen observations)
+
+The original preregistration, measured results and historical statements above are preserved verbatim as the contemporaneous record. The operator reaffirmed that **assessment-to-upstream validation uses only deterministic native-source/script tests**, not live LLM-agent or Browser sessions, model API calls, synthetic *agent runs*, or user workflow trials. A fixed stub selecting actions within an actually executed first-party native `delegate_task`/`edit_file` path is a **script fixture**, not an agent run.
+
+Consequently, the earlier `PENDING_REAL_AGENT_PRODUCT_EFFECT` statement describes an **unmeasured generalization**, not an outstanding technical gate. The native scripted correctness effect has satisfied the bounded technical test. Further required work concerns external source-fit review, exact-stage authority, possible human-owned contribution and maintainer disposition; none requires LLM testing. No user/deployed benefit, VSM S2 improvement or external acceptance is implied. The [binding experimental rule](../../docs/ASSESSMENT_TO_IMPROVEMENT.md#mandatory-validation-boundary--native-scripted-tests-only) governs new follow-ups.

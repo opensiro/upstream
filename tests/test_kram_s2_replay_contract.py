@@ -37,6 +37,14 @@ class KramReplayContractTest(unittest.TestCase):
         self.assertIn("product_benefit=NOT_MEASURED", readme)
         self.assertIn("external_delivery=NONE", readme)
         self.assertIn("synthetic", readme)
+        self.assertIn("Technical — satisfied for the bounded mechanism", readme)
+        self.assertIn("Do not test or require live LLM agents", readme)
+        policy = (ROOT / "docs" / "ASSESSMENT_TO_IMPROVEMENT.md").read_text()
+        self.assertIn("Mandatory validation boundary — native scripted tests only", policy)
+        self.assertIn("no live agent experiment is a prerequisite", policy)
+        receipt = (PILOT / "REPLAY_RECEIPT_2026-10-22.md").read_text()
+        self.assertIn("PENDING_REAL_AGENT_PRODUCT_EFFECT", receipt)
+        self.assertIn("not an outstanding technical gate", receipt)
 
 
 if __name__ == "__main__":

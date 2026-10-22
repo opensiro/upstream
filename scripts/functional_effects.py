@@ -18,6 +18,7 @@ ORIGINS = {"ASSESSMENT_DERIVED_HYPOTHESIS", "ASSESSMENT_INFORMED", "GENERAL_UPST
 LEVELS = {"SOURCE_ONLY_MECHANISM", "SOURCE_ONLY_PLANNING", "NATIVE_CLI_BEHAVIOR", "NATIVE_TOOL_BEHAVIOR", "SOURCE_REGRESSION_ONLY", "REAL_WORKLOAD"}
 BENEFITS = {"NOT_MEASURED", "SUPPORTED", "NO_BENEFIT_OBSERVED", "INCONCLUSIVE"}
 DELIVERY = {"NONE", "SUBMITTED", "MERGED", "CLOSED_UNMERGED"}
+FORBIDDEN_TEST_GATES = ("provider-backed", "cross-agent/model", "real-model paired", "live agent test", "live llm-agent test")
 
 
 def load_and_validate(path=DATA):
@@ -51,6 +52,8 @@ def load_and_validate(path=DATA):
         if case["product_benefit"] == "SUPPORTED" and case["measurement_level"] != "REAL_WORKLOAD":
             # Source-only mechanism/CLI tests cannot self-certify user benefit.
             raise ValueError("product benefit requires measured real workload")
+        if any(term in case["next_gate"].lower() for term in FORBIDDEN_TEST_GATES):
+            raise ValueError("live LLM-agent testing cannot be a required next gate")
         if not isinstance(case["receipts"], list) or len(case["receipts"]) < 2:
             raise ValueError("case needs at least two independent evidence links")
         for url in [case["experiment"], *case["receipts"]]:
@@ -67,6 +70,7 @@ def render(payload):
         f"**Evidence date:** {payload['as_of']}. **Owner:** `opensiro/upstream`.",
         "This is **not** the eight-intervention PR acceptance dashboard, the Organization-owned product-native fit snapshot, or a VSM S2 regrade.",
         "Source-only matched tests and a green CI run cannot be counted as an improvement deployed to users.",
+        "**Binding test policy:** [native scripted tests only](ASSESSMENT_TO_IMPROVEMENT.md#mandatory-validation-boundary--native-scripted-tests-only). Pinned product-code before/after scripts and regressions can establish a bounded technical effect; live LLM agents and model API evaluations are not required or in scope.",
         "",
         "| Pilot | Origin | Before | After | Evidence level | Product benefit | External delivery |",
         "| --- | --- | --- | --- | --- | --- | --- |",
@@ -99,7 +103,7 @@ def render(payload):
         "- `NATIVE_TOOL_BEHAVIOR` measures actual shipped tool code under a controlled concurrent fixture, not provider-selected agent work or deployed user benefit.",
         "- `external_delivery=NONE` concerns the *pilot's third-party PR*, not internal OpenSiro PRs or the separate eight-case portfolio.",
         "",
-        "Only an independently accepted native need and a matched real workload can justify stronger product impact claims; external delivery is a separate dimension. Follow [the experiment method](ASSESSMENT_TO_IMPROVEMENT.md) and [#56](https://github.com/opensiro/upstream/issues/56).",
+        "A matched deterministic native script may establish technical improvement at its tested boundary. Deployed adoption, actual user benefit and external delivery remain separate, unproven dimensions. Follow [the experiment method](ASSESSMENT_TO_IMPROVEMENT.md) and [#56](https://github.com/opensiro/upstream/issues/56).",
         "",
         "Regenerate: `python3 scripts/functional_effects.py --write`; verify: `python3 scripts/functional_effects.py --check`.",
         "",
