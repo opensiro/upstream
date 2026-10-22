@@ -63,10 +63,12 @@
       "reviewed_at": "2026-10-21",
       "function": "S2",
       "finding": "The first-party Python task dispatcher routes through local role/skill gates and recovery; inspect error-path task handoff using native deterministic Python fixtures, with provider functions stubbed.",
-      "stage": "SCREENING",
+      "stage": "BLOCKED_EVIDENCE",
       "origin": "INSUFFICIENT",
       "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/markmhendrickson/ateles/blob/516edbf0bf6a96654f69b8a797fd2998aa4983cb/apis.py"]
+      "evidence": ["https://github.com/markmhendrickson/ateles/blob/516edbf0bf6a96654f69b8a797fd2998aa4983cb/execution/daemons/apis/apis.py", "https://github.com/markmhendrickson/ateles/blob/516edbf0bf6a96654f69b8a797fd2998aa4983cb/execution/daemons/apis/test_terminal_task_never_dispatches.py"],
+      "blocker": "Relevant first-party pytest regression cannot execute in the available Python environment (No module named pytest); existing dispatch and blast-radius tests already cover known gate faults, so no new RED/GREEN deficiency or bounded improvement was demonstrated.",
+      "screening_receipt": "pilots/ateles/SCREENING.md"
     },
     {
       "id": "crdd-candidate-export-cancel",
@@ -76,10 +78,12 @@
       "reviewed_at": "2026-10-21",
       "function": "S1",
       "finding": "The first-party Node Project Runtime exposes candidate export/discard and cancellation recovery; test fixed-input state boundaries where an available native script can execute without Windows/Docker agent runs.",
-      "stage": "SCREENING",
+      "stage": "BLOCKED_EVIDENCE",
       "origin": "INSUFFICIENT",
       "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/qual-lab/CRDD/tree/e9947d4f733c3c46b90ee9f78c70898d1920bae9"]
+      "evidence": ["https://github.com/qual-lab/CRDD/blob/e9947d4f733c3c46b90ee9f78c70898d1920bae9/40_Develop/project-runtime/src/core/project-runtime-state.ts", "https://github.com/qual-lab/CRDD/blob/e9947d4f733c3c46b90ee9f78c70898d1920bae9/40_Develop/coordinator/tests/integration/candidate-bundle-store.contract.test.ts"],
+      "blocker": "Native first-party Project Runtime unit/integration tests passed (8+1 files), but the Coordinator's mandatory npm run check fails because biome is not installed, forbidding restricted-process cancellation tests under CRDD AGENTS; no measured product failure or RED/GREEN improvement exists.",
+      "screening_receipt": "pilots/crdd/SCREENING.md"
     }
   ]
 }

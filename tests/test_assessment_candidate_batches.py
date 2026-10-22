@@ -13,6 +13,7 @@ PATH = ROOT / "data/assessment-candidate-batches/2026-10-22-01.json"
 NEXT_PATH = ROOT / "data/assessment-candidate-batches/2026-10-22-02.json"
 THIRD_PATH = ROOT / "data/assessment-candidate-batches/2026-10-22-03.json"
 FOURTH_PATH = ROOT / "data/assessment-candidate-batches/2026-10-22-04.json"
+FIFTH_PATH = ROOT / "data/assessment-candidate-batches/2026-10-22-05.json"
 SCRIPT = ROOT / "scripts/assessment_candidate_batches.py"
 SPEC = importlib.util.spec_from_file_location("assessment_candidate_batches", SCRIPT)
 queue = importlib.util.module_from_spec(SPEC)
@@ -26,6 +27,7 @@ class BatchTests(unittest.TestCase):
         cls.following = json.loads(NEXT_PATH.read_text(encoding="utf-8"))
         cls.third = json.loads(THIRD_PATH.read_text(encoding="utf-8"))
         cls.fourth = json.loads(FOURTH_PATH.read_text(encoding="utf-8"))
+        cls.fifth = json.loads(FIFTH_PATH.read_text(encoding="utf-8"))
 
     def test_real_frozen_batch_structure(self):
         board = queue.summarize(self.original)
@@ -69,11 +71,19 @@ class BatchTests(unittest.TestCase):
         earlier = {r["source"] for r in self.original["candidates"] + self.following["candidates"]}
         self.assertFalse(earlier.intersection({r["source"] for r in self.third["candidates"]}))
         fourth = queue.summarize(self.fourth)
-        self.assertEqual(fourth["next_candidate"], "ateles-python-dispatch-gate")
+        self.assertIsNone(fourth["next_candidate"])
+        self.assertEqual(fourth["next_stage"], "NO_ACTIONABLE_CANDIDATE")
         self.assertEqual(fourth["total"], 5)
         self.assertEqual(fourth["stage_counts"]["AWAITING_EXTERNAL"], 3)
+        self.assertEqual(fourth["stage_counts"]["BLOCKED_EVIDENCE"], 2)
         all_previous = earlier | {r["source"] for r in self.third["candidates"]}
         self.assertFalse(all_previous.intersection({r["source"] for r in self.fourth["candidates"]}))
+        fifth = queue.summarize(self.fifth)
+        self.assertEqual(fifth["total"], 5)
+        self.assertEqual(fifth["next_candidate"], "agent-loop-numeric-verifier-grounding")
+        self.assertEqual(fifth["test_mode"], "NATIVE_SCRIPT_ONLY_NO_LLM_AGENTS")
+        all_previous.update(r["source"] for r in self.fourth["candidates"])
+        self.assertFalse(all_previous.intersection({r["source"] for r in self.fifth["candidates"]}))
 
     def test_no_actionable_after_full_review(self):
         data = copy.deepcopy(self.original)
