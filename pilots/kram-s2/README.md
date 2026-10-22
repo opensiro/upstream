@@ -15,6 +15,8 @@ The [reviewed three-file patch](s2-edit-file-atomicity-v2.patch) has SHA-256 `c8
 
 The [read-only CI replay](../../.github/workflows/kram-s2-native-replay.yml) checks out the first-party commit, injects **tests only** for BEFORE, asserts a reproducible original failure, applies just the production change for AFTER, and runs native/race/regression verification. The runner's temporary source checkout is discarded. It does not push to Kram.
 
+For a future authorized contributor stage, see the [prepared Kram contribution handoff](CONTRIBUTION_HANDOFF.md) and [exact machine-readable packet](contribution-handoff-2026-10-22.json). They include the first-party PR text, immutable patch digest, target `master` and explicit **no external write** status; neither is an authorization.
+
 ## Stop conditions and next gates
 
 1. **Technical — satisfied for the bounded mechanism:** the pinned native `edit_file` before/after script, scripted `delegate_task` registry dispatch, separate-file control, native Go/race regressions and read-only CI establish the measured correctness delta. **Do not test or require live LLM agents, model APIs or real-user workflows.** Only further deterministic native scripts are in scope if a source-level concern arises; general S2 autonomy and adoption remain unmeasured, not pending gates.
