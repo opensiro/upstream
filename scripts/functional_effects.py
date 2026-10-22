@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data" / "functional-effects.json"
 OUTPUT = ROOT / "docs" / "FUNCTIONAL_EFFECTS.md"
 ORIGINS = {"ASSESSMENT_DERIVED_HYPOTHESIS", "ASSESSMENT_INFORMED", "GENERAL_UPSTREAM", "INSUFFICIENT"}
-LEVELS = {"SOURCE_ONLY_MECHANISM", "SOURCE_ONLY_PLANNING", "NATIVE_CLI_BEHAVIOR", "SOURCE_REGRESSION_ONLY", "REAL_WORKLOAD"}
+LEVELS = {"SOURCE_ONLY_MECHANISM", "SOURCE_ONLY_PLANNING", "NATIVE_CLI_BEHAVIOR", "NATIVE_TOOL_BEHAVIOR", "SOURCE_REGRESSION_ONLY", "REAL_WORKLOAD"}
 BENEFITS = {"NOT_MEASURED", "SUPPORTED", "NO_BENEFIT_OBSERVED", "INCONCLUSIVE"}
 DELIVERY = {"NONE", "SUBMITTED", "MERGED", "CLOSED_UNMERGED"}
 
@@ -96,6 +96,7 @@ def render(payload):
         "- `ASSESSMENT_INFORMED` means the first-party report supplied the concrete defect; do not retroactively credit Index with discovery.",
         "- `SOURCE_ONLY_*` and `SOURCE_REGRESSION_ONLY` establish narrow mechanisms/tests, not a deployed change.",
         "- `NATIVE_CLI_BEHAVIOR` can establish a genuine product-code execution difference on a frozen fixture, without establishing live adoption.",
+        "- `NATIVE_TOOL_BEHAVIOR` measures actual shipped tool code under a controlled concurrent fixture, not provider-selected agent work or deployed user benefit.",
         "- `external_delivery=NONE` concerns the *pilot's third-party PR*, not internal OpenSiro PRs or the separate eight-case portfolio.",
         "",
         "Only an independently accepted native need and a matched real workload can justify stronger product impact claims; external delivery is a separate dimension. Follow [the experiment method](ASSESSMENT_TO_IMPROVEMENT.md) and [#56](https://github.com/opensiro/upstream/issues/56).",

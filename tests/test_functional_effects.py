@@ -14,7 +14,12 @@ class FunctionalEffectsTest(unittest.TestCase):
         rendered = render(payload)
         self.assertIn("1/2 intended updates preserved", rendered)
         self.assertIn("20/20 new native Vitest checks", rendered)
+        self.assertIn("shared-registry delegate_task replay lost 29/30", rendered)
         self.assertIn("NOT_MEASURED", rendered)
+        kram = next(case for case in payload["cases"] if case["id"] == "kram-s2-native-edit-atomicity")
+        self.assertEqual(kram["measurement_level"], "NATIVE_TOOL_BEHAVIOR")
+        self.assertEqual(kram["product_benefit"], "NOT_MEASURED")
+        self.assertEqual(kram["external_delivery"], "NONE")
         self.assertEqual(
             rendered,
             (DATA.parent.parent / "docs" / "FUNCTIONAL_EFFECTS.md").read_text(encoding="utf-8"),
@@ -35,6 +40,15 @@ class FunctionalEffectsTest(unittest.TestCase):
                 path.write_text(json.dumps(altered), encoding="utf-8")
                 with self.assertRaises(ValueError):
                     load_and_validate(path)
+
+    def test_native_tool_replay_cannot_claim_product_benefit(self):
+        altered = copy.deepcopy(load_and_validate())
+        altered["cases"][0]["product_benefit"] = "SUPPORTED"
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "data.json"
+            path.write_text(json.dumps(altered), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "product benefit requires measured real workload"):
+                load_and_validate(path)
 
 
 if __name__ == "__main__":

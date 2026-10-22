@@ -4,6 +4,24 @@
   "owner": "opensiro/upstream",
   "cases": [
     {
+      "id": "kram-s2-native-edit-atomicity",
+      "project": "Kram",
+      "experiment": "https://github.com/opensiro/upstream/issues/56",
+      "origin": "ASSESSMENT_DERIVED_HYPOTHESIS",
+      "measurement_level": "NATIVE_TOOL_BEHAVIOR",
+      "before": "Pinned native edit_file lost one distinct same-file edit in 50/50 trials; shared-registry delegate_task replay lost 29/30.",
+      "after": "Local per-file guarded edit_file preserved both in 50/50 native trials and 30/30 delegated-registry replays; disjoint-file control 50/50.",
+      "comparability": "Same Kram commit, native Go tool and fixed concurrent source workloads. Delegated calls use a synthetic task selector, not a model; 50-trial and 30-trial results are local observations. Independent blind selection is potentially contaminated by prior session context.",
+      "product_benefit": "NOT_MEASURED",
+      "external_delivery": "NONE",
+      "receipts": [
+        "https://github.com/opensiro/upstream/blob/main/pilots/kram-s2/REPLAY_RECEIPT_2026-10-22.md",
+        "https://github.com/opensiro/upstream/blob/main/pilots/kram-s2/s2-edit-file-atomicity-v2.patch",
+        "https://github.com/opensiro/upstream/blob/main/.github/workflows/kram-s2-native-replay.yml"
+      ],
+      "next_gate": "Cross-agent/model workload and first-party review, exact-stage authorization, then human-owned external contribution; no S2 regrade."
+    },
+    {
       "id": "zot-scoped-admission",
       "project": "Zot",
       "experiment": "https://github.com/opensiro/upstream/issues/56",
