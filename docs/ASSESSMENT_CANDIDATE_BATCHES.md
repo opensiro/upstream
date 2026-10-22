@@ -59,6 +59,8 @@ The completed [Kram source-only technical packet](../pilots/kram-s2/CONTRIBUTION
 
 **Batch-09 first row:** [AgentFlow](../pilots/agentflow/CONTRIBUTION_HANDOFF.md) is `ASSESSMENT_INFORMED` / `AWAITING_EXTERNAL`. First-party `NodeSpec.id` admitted directory traversal and absolute paths later used verbatim by `RunStore` to create artifact directories; native fixed-data schema/artifact-path tests were 1 PASS / 5 FAIL before and 6 PASS after. The exact patch is locally reversible; no model run, agent simulation or external upstream write occurred. Continue to `connectonion-approval-tool-admission`.
 
+**Batch-09 second row:** [ConnectOnion](../pilots/connectonion/CONTRIBUTION_HANDOFF.md) is `ASSESSMENT_INFORMED` / `AWAITING_EXTERNAL`. Whitelisted `write` tool requests via symlink aliases to protected `.co/host.yaml` or `.co/keys/` passed native `is_tool_permitted()` admission because the existing lexical path test did not follow symlinks. Six offline permission checks: 3 PASS / 3 FAIL before; 6 PASS after path canonicalization. No agent or tool was executed. Continue to `agentuniverse-workflow-input-contract`.
+
 
 | Operation | Present decisive owner | Return / evidence |
 | --- | --- | --- |

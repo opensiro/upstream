@@ -29,9 +29,11 @@
       "reviewed_at": "2026-10-18",
       "function": "S1",
       "finding": "ConnectOnion has a first-party Python tool executor and optional approval plugin. Screen native approval, request validation and tool admission helpers with deterministic inputs only; no packaged co ai instance, LLM replies, subagent task or shell/browser side effect.",
-      "stage": "SCREENING", "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/openonion/connectonion/blob/7011faa911e2563e485f865db5be60f6e595f1bd/connectonion/useful_plugins/tool_approval/approval.py"]
+      "stage": "AWAITING_EXTERNAL", "origin": "ASSESSMENT_INFORMED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "evidence": ["https://github.com/openonion/connectonion/blob/7011faa911e2563e485f865db5be60f6e595f1bd/connectonion/useful_plugins/tool_approval/approval.py", "https://github.com/opensiro/upstream/blob/main/pilots/connectonion/control-file-symlink-admission.patch"],
+      "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/connectonion/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED"
     },
     {
       "id": "agentuniverse-workflow-input-contract",
