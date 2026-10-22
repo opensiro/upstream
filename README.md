@@ -28,6 +28,10 @@ A separate [product-native fit casebook](cases/README.md) documents **eight** pu
 
 The [Organization experimental ledger](https://github.com/opensiro/vsm-oss-organization/tree/main/experiments/upstream-intervention-fit) remains the source of truth for the four fit gates, participant attribution and deduplication. The casebook is a linked portfolio view, **not** an upstream endorsement, an acceptance rate or a VSM grade claim.
 
+## Improvement candidate intake (design proposal)
+
+The [draft separated candidate pipeline](docs/IMPROVEMENT_CANDIDATES_PIPELINE_DRAFT.md) and [research-only candidate cards](candidates/README.md) propose storing **potential product improvements independently of actual contributions**. Multiple candidate mechanisms can come from one assessment, and uncertain candidates can be parked without creating forks or upstream issues. The [read-only full Index function sweep](sweeps/README.md) adds a deterministic worklist of **every included assessment** and requires an explicit per-system review of S1, S2, S3, S3*, S4, S5 (zero-to-many hypotheses). The [pinned initial coverage report](reports/2026-10-21-full-index-function-sweep-bootstrap.md) distinguishes assessments merely queued from those actually reviewed; it is not an automatic assessment or evidence that every system has been read. This is a **draft**, not the current execution contract; the existing registry and connected-stage authorization rules are unchanged.
+
 ## Assessment-derived product improvement (separate test)
 
 The [functional effect ledger](docs/FUNCTIONAL_EFFECTS.md) records source-native

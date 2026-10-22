@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "index_sha": "5393b698bfdfa4ca14d97a79238234eca20694e5",
+  "assessment_path": "assessments/ag/agent-squad.md",
+  "review_ref": "31eccfeb0d546262d1d0ec2e2e5239186f8d2954",
+  "reviewed_at": "2026-10-21",
+  "functions": {
+    "S1": {
+      "outcome": "HYPOTHESES_RECORDED",
+      "rationale": "AgentSquad routes heterogeneous requests to autonomous model/tool specialists and returns individual or stream results. Native issue #662 reports unbounded background provider stream consumption after client disconnect; current orchestrator.ts and AccumulatorTransform still show independent consumer plus growing buffer. This is an assessment-informed S1 runtime reliability hypothesis, not a missing S3 function.",
+      "candidate_ids": [
+        "IMPR-AGENT-SQUAD-STREAM-20261021"
+      ]
+    },
+    "S2": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "SupervisorAgent parallel specialist requests and classifier choice provide composition, not feedback damping an observed conflict among independent S1 units. The streaming issue concerns one request's resource lifetime rather than competing sibling coordination.",
+      "candidate_ids": []
+    },
+    "S3": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Selection, fan-out and synthesis serve one application request, without a whole-current manager reallocating commitments among autonomous business units. No S3 intervention is justified by a streaming buffer defect.",
+      "candidate_ids": []
+    },
+    "S3*": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Response logging, traces and similarity/overlap diagnostics may aid inspection but do not independently judge correctness and return corrective direction. No product-native standalone audit need was verified from the assessed boundary.",
+      "candidate_ids": []
+    },
+    "S4": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Persistent conversation memory, retrieval and classifier configuration influence current routing, not future strategic adoption of new organizational capability. There is no particular user-valued S4 change proven here.",
+      "candidate_ids": []
+    },
+    "S5": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Configured agent membership, prompts and provider/tool roles reflect developer identity choices, not a first-party legitimate ultimate-policy owner or authoritative return. No S5 intervention has measured demand.",
+      "candidate_ids": []
+    }
+  }
+}

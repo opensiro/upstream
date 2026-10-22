@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "index_sha": "5393b698bfdfa4ca14d97a79238234eca20694e5",
+  "assessment_path": "assessments/ag/agent-runtime.md",
+  "review_ref": "07ebca8ec36d15eae2d264d4998fa6857f9e0b51",
+  "reviewed_at": "2026-10-21",
+  "functions": {
+    "S1": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "The first-party model Agent repeatedly chooses tools, receives ToolRegistry observations and changes subsequent actions; repeated call detection returns explicit feedback. No independently reproducible failure or open product request is evidenced for the existing S1 path.",
+      "candidate_ids": []
+    },
+    "S2": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Caller-authored workflows, ConditionalStep rules and nested sequential steps do not introduce a first-party sibling S1 conflict/oscillation regulator. No actual inter-agent collision or accepted demand for native S2 was identified in this library.",
+      "candidate_ids": []
+    },
+    "S3": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "WorkflowExecutor retries, timeouts and events regulate fixed steps rather than live organization-wide resource priorities across S1 cells. The module is a workflow engine, not an incomplete default multi-agent supervisor by definition.",
+      "candidate_ids": []
+    },
+    "S3*": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "The same agent receives tool observations and records event history, without a distinct external source inspector challenging work claims and returning corrective managerial feedback. No native false-success incident justifies an unsolicited reviewer extension.",
+      "candidate_ids": []
+    },
+    "S4": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Tool/context retrieval and event monitoring affect current tasks but do not autonomously scan prospective external environment or adopt future capability changes. No user-facing improvement hypothesis is justified from the absent S4 label.",
+      "candidate_ids": []
+    },
+    "S5": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Users construct workflow/model/tool options and runtime permissions, but the installed crate does not own an ultimate identity-policy decision loop. A missing S5 implementation alone cannot ground useful new behavior.",
+      "candidate_ids": []
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "index_sha": "5393b698bfdfa4ca14d97a79238234eca20694e5",
+  "assessment_path": "assessments/ag/agentdescent.md",
+  "review_ref": "d1cfa8f6eb570d927826278c70aa23b86d3c5264",
+  "reviewed_at": "2026-10-21",
+  "functions": {
+    "S1": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "The model-backed LLMAgent.solve responds to varied task inputs using the currently rendered skill/rule artifact; reward evaluation returns evidence for prospective evolution. No distinct S1 answer-loop bug is demonstrated by the demo skill frontmatter problem.",
+      "candidate_ids": []
+    },
+    "S2": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Parallel candidate rollout and DefaultConflict selection regulate edits/score conflicts on shared evolving artifacts, not distinct continuing viable S1 divisions' mutual obligations. No native S2 interference fix is supported by this screen.",
+      "candidate_ids": []
+    },
+    "S3": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "BudgetGovernor, round timeouts, task slices and caller policies bound one evolution run and do not own a whole-current organizational portfolio. No separately needed S3 supervisory behavior is established.",
+      "candidate_ids": []
+    },
+    "S3*": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Held-out verifier and AuditScheduler reject weak prospective strategy edits but are artifact-evolution gates rather than independent audit of current S3 operations. No separate managerial false-report incident is evidenced.",
+      "candidate_ids": []
+    },
+    "S4": {
+      "outcome": "HYPOTHESES_RECORDED",
+      "rationale": "AgentDescent implements first-party future artifact evolution using rollout rewards and model-selected rule changes (S4=A). Independently sourced issue #453 shows agentdescent demo generates a SKILL.md with no name/description frontmatter, disabling the skill-format gate and breaking host discovery; current demo.py still writes the frontmatter-free constant. This is ASSESSMENT_INFORMED, not a gap first diagnosed by Index.",
+      "candidate_ids": [
+        "IMPR-AGENTDESCENT-DEMO-SKILL-20261021"
+      ]
+    },
+    "S5": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "The user/config author defines trusted task domain, evaluation constraints, accepted strategy scope and provider settings. No ultimate-policy authority deliberates purpose changes and returns binding identity decisions to the evolving harness.",
+      "candidate_ids": []
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "index_sha": "5393b698bfdfa4ca14d97a79238234eca20694e5",
+  "assessment_path": "assessments/ag/agency-os.md",
+  "review_ref": "010d216b10cb6f504de27312de0112dc7782e4ee",
+  "reviewed_at": "2026-10-21",
+  "functions": {
+    "S1": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Factory-instantiated BusinessAgents perform model-driven role-specific tasks; current issue #26 concerns unavailable self-hosted CI runners, not a verified defect in the S1 model/tool feedback operation.",
+      "candidate_ids": []
+    },
+    "S2": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "TaskWorker competes for one assigned task but an atomic SQL conditional claim admits only one consumer before agent execution, directly attenuating duplicate work. No repeat execution incident is shown despite the C ownership label.",
+      "candidate_ids": []
+    },
+    "S3": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Bid ordering and circuit-breaker thresholds are task-level constraints; the frozen review marks whole-current oversight as uncertain. The bounded upstream issue check establishes no product-native workload reallocations failure or demand for a supervisor.",
+      "candidate_ids": []
+    },
+    "S3*": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Optional WorkflowEngine review counts take caller-supplied evidence and lack guaranteed independent adjudication; this is a plausible review boundary but no reported false-pass incident or acceptance criterion supports a particular patch.",
+      "candidate_ids": []
+    },
+    "S4": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Reputation, cost-aware bidding and task history update reactive per-task decisions, not prospective outside/environment adaptation options. This S4 question mark is not independent evidence that new strategic automation improves user outcomes.",
+      "candidate_ids": []
+    },
+    "S5": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Human package YAML, charters, approval and permissions define static intended policy; unresolved ultimate-governance ownership does not itself justify delegating binding identity decisions to the agent organization.",
+      "candidate_ids": []
+    }
+  }
+}

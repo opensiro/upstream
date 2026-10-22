@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "index_sha": "5393b698bfdfa4ca14d97a79238234eca20694e5",
+  "assessment_path": "assessments/ag/agent-loop.md",
+  "review_ref": "49525dc12a9861f71c99050de3b4a4b8b897e9fa",
+  "reviewed_at": "2026-10-21",
+  "functions": {
+    "S1": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "One model/tool loop performs user telemetry and calculation tasks with numeric answer verification and a bounded retry path. The current main is the same reviewed commit, with no open native issue specifying an independently reproducible model-output or tool-loop bug.",
+      "candidate_ids": []
+    },
+    "S2": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "A single S1 session can invoke tools serially, but competing ongoing S1 work cells and a distinct inter-unit interference relation are not part of the reviewed standard package. There is no product-supported S2 correction objective.",
+      "candidate_ids": []
+    },
+    "S3": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Per-run max steps and deterministic answer verification handle one operation's limits; no manager owns live portfolio priorities or other agents' obligations. No current user scenario requires a broader resource controller.",
+      "candidate_ids": []
+    },
+    "S3*": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Numeric verify() challenges one model answer using in-run data and triggers local S1 retry; it is not a complementary external-reality audit of management reports. A missing S3* grade does not identify a native quality test failure.",
+      "candidate_ids": []
+    },
+    "S4": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "The scripted model, fixed tools, evaluation fixtures and provider configuration lack an outside-and-then organizational improvement decision. The experimental CLI does not present a concrete need for prospective adaptation features.",
+      "candidate_ids": []
+    },
+    "S5": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Caller tool allow-list and provider/task configuration set ordinary permitted actions and goals, without ultimate policy conflict adjudication or lasting return. No bounded constitutional feature change is supported.",
+      "candidate_ids": []
+    }
+  }
+}

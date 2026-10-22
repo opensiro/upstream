@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "index_sha": "5393b698bfdfa4ca14d97a79238234eca20694e5",
+  "assessment_path": "assessments/ae/aether.md",
+  "review_ref": "7476a0336bd47fa01dc2feb03d9572155395da47",
+  "reviewed_at": "2026-10-21",
+  "functions": {
+    "S1": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "The Rust Agent combines planner, builder tool loop and router revise/continue/done decisions inside one user-directed coding operation. The builder receives tool/sandbox feedback and can change subsequent actions; no specific native failed-task scenario follows from the assessed S1 behavior.",
+      "candidate_ids": []
+    },
+    "S2": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Three model roles and cross-device transcript sync do not constitute distinct interacting operational divisions: builder/router are one task loop, and session text merge is persistence. No concrete peer-write collision or corrective multi-S1 loop is documented for the shipped runtime.",
+      "candidate_ids": []
+    },
+    "S3": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "The router chooses whether the single current task continues or revises after reading builder summary and history. It has neither a portfolio of current operational units nor binding organization-wide allocation rights; no product need for a fleet manager is established in this scope.",
+      "candidate_ids": []
+    },
+    "S3*": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "The router relies on builder summaries and prior loop state, not a second independent workspace/test inspection that challenges a claimed outcome. This leaves a conceivable risk of false success, but neither a reproduced false-green case nor first-party user request makes it a justified candidate yet.",
+      "candidate_ids": []
+    },
+    "S4": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Stored session text, provider selection, new user prompts and planner updates change the present task or its inputs; the assessed product does not implement prospective organizational capability adoption. An S4 redesign would be speculative without a native user goal and benchmark.",
+      "candidate_ids": []
+    },
+    "S5": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "The tool sandbox and operator approve/deny unsafe actions, with deterministic CLI risk rules, but these are current tool permissions rather than ultimate identity policy decisions. No observed identity governance conflict supports adding S5 autonomy to the coding task runtime.",
+      "candidate_ids": []
+    }
+  }
+}

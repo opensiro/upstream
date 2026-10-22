@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "index_sha": "5393b698bfdfa4ca14d97a79238234eca20694e5",
+  "assessment_path": "assessments/ag/agent-fleet-chankov.md",
+  "review_ref": "d260099e67911d38f7cfbe90bd30b2639c2fd4b6",
+  "reviewed_at": "2026-10-21",
+  "functions": {
+    "S1": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Specialist model-backed Pi actors implement coding, testing and research tasks with tool evidence and local decision discretion. No specific operational malfunction or unserved user workflow is established by its indexed S1=A behavior.",
+      "candidate_ids": []
+    },
+    "S2": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "An atomic writer lease on flow integration explicitly regulates two concurrent operations against a shared worktree; it returns the holder and blocks competing effectful merges. There is no demonstrated lease failure to justify a replacement coordination design.",
+      "candidate_ids": []
+    },
+    "S3": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "The hub model chooses assignments, corrective follow-ups and pause/delegation from aggregated task progress, while watchdog and limits enforce caps. No first-party incident demonstrates a lost current-control obligation requiring a new supervisor.",
+      "candidate_ids": []
+    },
+    "S3*": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Independent read-only code-reviewer persona can inspect current changed files and report issues to the hub for corrective dispatch. The positive S3* claim does not alone show that reviewers miss defects or need new verification infrastructure.",
+      "candidate_ids": []
+    },
+    "S4": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "A compound-learning mode proposes durable rule changes from observed corrections, but legitimate human parent accepts or rejects the diff before later tasks load it (S4=P). No evidence supports silently replacing that consent decision with an agent.",
+      "candidate_ids": []
+    },
+    "S5": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Persona mission and standing tool policies are operator configured; no separate legitimate ultimate-policy dispute and binding return is sourced. Adding S5 autonomy would exceed the product's current authority envelope without a user need.",
+      "candidate_ids": []
+    }
+  }
+}

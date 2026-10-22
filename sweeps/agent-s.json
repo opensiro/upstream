@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "index_sha": "5393b698bfdfa4ca14d97a79238234eca20694e5",
+  "assessment_path": "assessments/ag/agent-s.md",
+  "review_ref": "3aa272d23d2994c7bbde1acbbe0ef8e8d06b8693",
+  "reviewed_at": "2026-10-21",
+  "functions": {
+    "S1": {
+      "outcome": "HYPOTHESES_RECORDED",
+      "rationale": "The shipped Agent S3 Worker selects GUI actions from screenshots and task feedback. Independent upstream issue #235 shows the S3 CLI misreads arbitrary typed content containing done/fail/next/wait as a control signal. Current S3 CLI still substring-searches generated Python before executing it. This is an issue-backed product bug, not a defect first identified by Index.",
+      "candidate_ids": [
+        "IMPR-AGENT-S-CLI-ACTION-20261021"
+      ]
+    },
+    "S2": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "The ordinary shipped S3 mode is a single screenshot-to-GUI task loop with optional CodeAgent help rather than two competing viable S1 units. No current inter-worker coordination failure is required to fix the typed-text S1 action parser.",
+      "candidate_ids": []
+    },
+    "S3": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Task step limits, pause/quit control and CodeAgent tool budget regulate one operative trajectory, not whole-current resource commitments across multiple S1 units. The S3 name in Agent S3 is an edition name, not VSM System 3.",
+      "candidate_ids": []
+    },
+    "S3*": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Worker reflection and optional best-of-N rollout comparison provide task-time feedback or offline selection but do not establish a separately mandated independent runtime claim audit. The specific CLI control-word issue is not an S3* mechanism.",
+      "candidate_ids": []
+    },
+    "S4": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Static procedural memory and current screenshot observations do not independently develop future organizational adaptations and adopt them into a later operating generation. No precise S4 product change is supported by this review.",
+      "candidate_ids": []
+    },
+    "S5": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "User task selection, provider and grounding configuration, local code permission and app pause/quit define operational constraints. They are not an identity-policy dispute and governing resolution loop; no S5 authority change has native demand.",
+      "candidate_ids": []
+    }
+  }
+}

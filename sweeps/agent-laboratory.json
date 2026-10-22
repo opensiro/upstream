@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "index_sha": "5393b698bfdfa4ca14d97a79238234eca20694e5",
+  "assessment_path": "assessments/ag/agent-laboratory.md",
+  "review_ref": "d9017d90e329112d2a80b7712f37ee9094d2cd27",
+  "reviewed_at": "2026-10-21",
+  "functions": {
+    "S1": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Agent Laboratory's researcher, experimenter and writing actors execute literature, code, experiment and manuscript tasks in a shared phase workflow. Although user issue #103 reports blank manuscript sections, no verified current-code root cause or contract-based S1 fix has yet emerged from this bounded check.",
+      "candidate_ids": []
+    },
+    "S2": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Sequenced research phases and role-dialogue handoffs exchange artifacts but do not show distinct viable operating divisions interfering and receiving anti-oscillation coordination. A missing section in final text is not evidence of an S2 concurrency defect.",
+      "candidate_ids": []
+    },
+    "S3": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "A scripted LaboratoryWorkflow and per-phase retry/step limits regulate sequential runs, not a discretion-owning organization-wide manager. The product does not demonstrate demand for a new centralized project-portfolio controller in its frozen review.",
+      "candidate_ids": []
+    },
+    "S3*": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "The project has separately prompted reviewer judgments, but the standard correction/re-entry path after criticism remains ambiguous. Issue #103 about missing paper sections could involve writing-stage context, reviewer logic or prompts and cannot be blamed on S3* without an independent reproduction.",
+      "candidate_ids": []
+    },
+    "S4": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "PhD/postdoc literature search and research plan synthesis provide an actual future-facing adaptation of the experiment, with optional human Co-Pilot parent decisions (A(P)). No concrete defect in that research agenda planning flow is established by the assessment.",
+      "candidate_ids": []
+    },
+    "S5": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Topic choice, compute limits, experimental resources and Co-Pilot approvals remain operator-owned inputs; there is no separate authoritative policy/identity dispute return that would justify autonomizing mission choices.",
+      "candidate_ids": []
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "index_sha": "5393b698bfdfa4ca14d97a79238234eca20694e5",
+  "assessment_path": "assessments/ag/agent-code.md",
+  "review_ref": "2734ab5f18939b20c774b39c4406788383e35255",
+  "reviewed_at": "2026-10-21",
+  "functions": {
+    "S1": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "The first-party Rust QueryEngine executes model-selected file/shell/search tools and child query loops with feedback. Current upstream issues involve supporting services and audit infrastructure; no distinct S1 reasoning/tool-loop defect follows from its positive Index S1 finding.",
+      "candidate_ids": []
+    },
+    "S2": {
+      "outcome": "HYPOTHESES_RECORDED",
+      "rationale": "The frozen Index records independent child execution and lack of proved feedback against writer collisions. Separately, issue #515 reports per-process background task IDs and process-global output paths colliding, consistent with current TaskManager and tasks_dir implementation. This precise path collision is ASSESSMENT_INFORMED, not the Index-diagnosed child write overlap.",
+      "candidate_ids": [
+        "IMPR-AGENT-CODE-BACKGROUND-OUTPUT-20261021"
+      ]
+    },
+    "S3": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Team collection and task status aggregation do not establish a continuous whole-current manager acting on competing worker commitments. An extra supervisor is not demanded by a particular upstream issue or measured product failure in this bounded check.",
+      "candidate_ids": []
+    },
+    "S3*": {
+      "outcome": "HYPOTHESES_RECORDED",
+      "rationale": "The Index specifically identifies missing independently source-observing correction of coding-result claims despite a separate security scanner. Upstream issue #524 requests an isolated reviewer with rubric and structured findings. Current #529 has already added target resolution/rubric to /review, so the remaining narrow Index-derived hypothesis is fresh-context, read-only reviewer task execution and actionable return—not reimplementing shipped prompt features.",
+      "candidate_ids": [
+        "IMPR-AGENT-CODE-ISOLATED-REVIEW-20261021"
+      ]
+    },
+    "S4": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Skills, background jobs, history compaction and persistent context support current runs, not a distinct prospective adaptation decision loop. Nothing in the frozen assessment establishes native demand for automated future organizational redesign.",
+      "candidate_ids": []
+    },
+    "S5": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Operator/provider configuration, workspace permission boundaries and model/tool restrictions govern action execution rather than ultimate identity decisions. No product-native policy dispute requiring new S5 authority is substantiated by this screen.",
+      "candidate_ids": []
+    }
+  }
+}

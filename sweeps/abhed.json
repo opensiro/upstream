@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "index_sha": "5393b698bfdfa4ca14d97a79238234eca20694e5",
+  "assessment_path": "assessments/ab/abhed.md",
+  "review_ref": "151b8ddceee7ae232e526b3c237356151dde780e",
+  "reviewed_at": "2026-10-21",
+  "functions": {
+    "S1": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Community Edition Loop.Run closes a genuine model/tool-feedback operation, including bounded child agents and tool permissions. No separate task-level S1 deficiency with clear before/after behavior emerges from the frozen assessment; recent security fixes cannot be assumed absent.",
+      "candidate_ids": []
+    },
+    "S2": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "The primary model can select tasks isolation worktree for simultaneous writing subagents; separate branches/worktrees attenuate edit interference and return change/merge information. This is a positive functional path, not a reason to propose another conflict manager absent an observed collision.",
+      "candidate_ids": []
+    },
+    "S3": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Current parent delegation and hierarchical limits constrain per-batch execution but do not show whole-fleet live priorities/resource reallocations. Open issue signals checked focus on PTY test flakiness, sandbox tier and dependency updates, not a requested first-party S3 manager.",
+      "candidate_ids": []
+    },
+    "S3*": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Fresh-context read-only review profile can inspect repository state independently of implementing context and return suspected bugs to the parent. No specific false-negative reviewer failure or native audit fix is supported by this assessment; do not manufacture one to improve its grade.",
+      "candidate_ids": []
+    },
+    "S4": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Retrieval, skills, session replay/fork and model selection inform a task but do not autonomously adopt future organizational capability changes. This does not demonstrate that its users need autonomous S4 or that a persistent adaptation change improves the Community Edition.",
+      "candidate_ids": []
+    },
+    "S5": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Policies, managed configuration and human approvals constrain action execution but do not close ultimate identity-policy decisions at the assessed agent boundary. No first-party feature request establishes a bounded S5 product intervention; product policy ownership remains external.",
+      "candidate_ids": []
+    }
+  }
+}

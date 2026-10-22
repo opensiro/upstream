@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "index_sha": "5393b698bfdfa4ca14d97a79238234eca20694e5",
+  "assessment_path": "assessments/ae/aesop.md",
+  "review_ref": "2a661c12007c5484f964176da3d5532c6bdf070d",
+  "reviewed_at": "2026-10-21",
+  "functions": {
+    "S1": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Aesop dispatches bounded model-driven coding workers through AgentDriver with work orders, owned files and testing; this is a substantial shipped S1 task loop. The assessment does not point to a specific failing worker behavior or reproducible native improvement beyond the tracked implementation.",
+      "candidate_ids": []
+    },
+    "S2": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "The scheduler rejects conflicting ownsFiles claims and runs admissible parallel workers in separate git worktrees; coordination is deterministic but directly addresses sibling write interference. No source-backed request for a different conflict arbitration mechanism is established during this bounded review.",
+      "candidate_ids": []
+    },
+    "S3": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "The model-driven /buildsystem orchestrator uses backlog, STATE/BUILDLOG, health and test status to prioritize, triage, retry and close waves. This is a positive whole-current management path; adding another manager based on a missing label would be mistaken, and no precise product defect is evidenced here.",
+      "candidate_ids": []
+    },
+    "S3*": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Deterministic Phase 5.5 independently reruns a sampled worker testCmd and revokes fake-green verification on nonzero exit, providing an actual complementary check. The assessment does not establish a broken replay gate or falsifiable new audit feature needing separate implementation.",
+      "candidate_ids": []
+    },
+    "S4": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "The project has incidents, wave retrospectives, backlogs and capability probes but no separate outside/future S4 loop with adoption into ongoing organization. There is no demonstrated native product demand for an extra prospective controller; a low S4 grade alone cannot make such a patch useful.",
+      "candidate_ids": []
+    },
+    "S5": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "The /power init-prime orchestrator establishes persistent project and domain CLAUDE.md operating rules, with parent owner editing the same authority when needed (A(P)). This already expresses a viable identity-policy ownership path; no distinct contract bug or requested S5 intervention is found in the assessment.",
+      "candidate_ids": []
+    }
+  }
+}

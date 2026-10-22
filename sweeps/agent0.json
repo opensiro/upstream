@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "index_sha": "5393b698bfdfa4ca14d97a79238234eca20694e5",
+  "assessment_path": "assessments/ag/agent0.md",
+  "review_ref": "3eb4d8b31fa1c0b3ba785c0c773e33bc13f30f65",
+  "reviewed_at": "2026-10-21",
+  "functions": {
+    "S1": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "createAgentRuntime composes model-selected tools with persistent missions, file/computer/MCP operations, tool result re-entry and a side-effect ledger for safe replay. The bounded current public issue search supplied no particular source-native defect or before/after product goal in this operational path.",
+      "candidate_ids": []
+    },
+    "S2": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Task graph and delegated one-turn subagent calls are components of one user goal; concurrency and deduplication guard local tool effects rather than establish inter-S1 department conflict handling. No independently supported S2 improvement is identified.",
+      "candidate_ids": []
+    },
+    "S3": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "MissionStore, scheduled automation and retry/backoff support one goal/task lifecycle under user-set parameters, not a whole-current manager over separate viable operations. No product demand supports another executive owner.",
+      "candidate_ids": []
+    },
+    "S3*": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "ExecutionLedger and mission evaluation provide idempotence and task-answer acceptance, not a complementary audit of an S3 controller's operational reality. A missing S3* grade is not a demonstrated problem.",
+      "candidate_ids": []
+    },
+    "S4": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Persistent memory and scheduled prompts store past context or automate externally specified future actions without selecting future organizational capability adaptations from sensed environmental change. No testable product gap arises from this negative observation.",
+      "candidate_ids": []
+    },
+    "S5": {
+      "outcome": "REVIEWED_ZERO",
+      "rationale": "Tool and workspace trust policies, profiles and secret configuration restrict ordinary access, while a legitimate governing identity-policy decision remains external. No native ultimate-policy conflict route was demonstrated.",
+      "candidate_ids": []
+    }
+  }
+}
