@@ -63,6 +63,8 @@ The completed [Kram source-only technical packet](../pilots/kram-s2/CONTRIBUTION
 
 **Batch-09 third row:** [agentUniverse](../pilots/agentuniverse/CONTRIBUTION_HANDOFF.md) is `ASSESSMENT_INFORMED` / `AWAITING_EXTERNAL`. First-party workflow input resolver accepted malformed two-part references (string or list with extra members) and crashed on absent fields; 3 PASS / 5 FAIL before, 8 PASS after. Original Pydantic config objects and the genuine resolver were exercised by fixed input fixtures only. Continue to `besser-state-transition-validation`.
 
+**Batch-09 fourth row:** [BESSER](../pilots/besser/CONTRIBUTION_HANDOFF.md) is `ASSESSMENT_INFORMED` / `AWAITING_EXTERNAL`. Original `TransitionBuilder.go_to()` rejected adding an event transition after an auto transition, but admitted an auto transition after an event or condition transition, breaking its stated exclusivity invariant. Seven genuine first-party transition registration tests: 5 PASS / 2 FAIL before, 7 PASS after. No state body or LLM agent was executed. Continue to `babyai-task-evaluation-input-contract`.
+
 
 | Operation | Present decisive owner | Return / evidence |
 | --- | --- | --- |
