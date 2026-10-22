@@ -30,6 +30,12 @@ The [Organization experimental ledger](https://github.com/opensiro/vsm-oss-organ
 
 ## Assessment-derived product improvement (separate test)
 
+The [functional effect ledger](docs/FUNCTIONAL_EFFECTS.md) records source-native
+before/after observations and their limits separately from external PR lifecycle
+and Organization fit. It is deliberately explicit about **unmeasured real-user
+benefit**; regenerate its Markdown from
+`data/functional-effects.json` using `scripts/functional_effects.py`.
+
 The [assessment-to-improvement protocol](docs/ASSESSMENT_TO_IMPROVEMENT.md)
 distinguishes **assessment-derived** functional interventions, **assessment-informed**
 engineering fixes and generic upstream contributions. The stronger test starts
