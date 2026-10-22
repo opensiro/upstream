@@ -47,6 +47,8 @@ The completed [Kram source-only technical packet](../pilots/kram-s2/CONTRIBUTION
 
 **Batch-08 first row:** [Spartan](../pilots/spartan/CONTRIBUTION_HANDOFF.md) is now `ASSESSMENT_INFORMED` / `AWAITING_EXTERNAL`: an existing YAML frontmatter marker was doubled during memory backfill, causing a first archive entry to be skipped. Real-source Python parser checks were 2 PASS / 2 FAIL before and 4 PASS after. This is a bounded parser fix, not an LLM/memory-retrieval outcome. The next row is `cyber-ai-team-autonomy-action-policy`.
 
+**Batch-08 second row:** [Cyber AI Team](../pilots/cyber-ai-team/CONTRIBUTION_HANDOFF.md) is `ASSESSMENT_INFORMED` / `AWAITING_EXTERNAL`: the actual first-party Python action-envelope normalizer accepted nonfinite confidence/financial numbers and negative amounts/recipient counts; source-AST native tests were 1 PASS / 4 FAIL before and 5 PASS after. No ORM/OPA, business operation, provider or agent. The next candidate is `oniroute-validation-boundary`.
+
 ## VSM / OSM responsibility map
 
 | Operation | Present decisive owner | Return / evidence |
