@@ -1,0 +1,70 @@
+diff --git a/harness/verifier.py b/harness/verifier.py
+index 0f7110b..804da03 100644
+--- a/harness/verifier.py
++++ b/harness/verifier.py
+@@ -48,12 +48,16 @@ class DefaultFailVerifier:
+ 
+     def verify(self, ws):
+         failures = []
++        if not self.evidences:
++            failures.append({"eid": "evidence-list", "gap_class": "C",
++                             "desc": "至少配置一条可观测证据",
++                             "detail": "未配置任何验收检查"})
+         for e in self.evidences:
+             try:
+                 ok, detail = e.check(ws)
+             except Exception as exc:  # noqa: BLE001 —— 证据检查抛异常 = 证据不成立（default-FAIL）
+                 ok, detail = False, "检查过程异常：%s: %s" % (type(exc).__name__, exc)
+-            if not ok:
++            if ok is not True:  # 非 bool 的 truthy 值不是正面验收证据
+                 failures.append({"eid": e.eid, "gap_class": e.gap_class,
+                                  "desc": e.desc, "detail": detail})
+         return VerifierReport(not failures, failures)
+diff --git a/test_verifier_contract_unittest.py b/test_verifier_contract_unittest.py
+new file mode 100644
+index 0000000..c6f00e2
+--- /dev/null
++++ b/test_verifier_contract_unittest.py
+@@ -0,0 +1,42 @@
++"""Direct-script default-FAIL tests; no agent/model execution or mock playback."""
++
++import unittest
++
++from harness.verifier import DefaultFailVerifier, Evidence
++
++
++def evidence(outcome, detail="script result"):
++    return Evidence("script", "C", "independent process evidence",
++                    lambda workspace: (outcome, detail))
++
++
++class DefaultFailContractTests(unittest.TestCase):
++    def test_empty_evidence_is_not_acceptance(self):
++        report = DefaultFailVerifier([]).verify(None)
++        self.assertFalse(report.passed)
++        self.assertTrue(report.failures)
++
++    def test_string_false_is_not_acceptance(self):
++        report = DefaultFailVerifier([evidence("False")]).verify(None)
++        self.assertFalse(report.passed)
++        self.assertEqual(report.failures[0]["eid"], "script")
++
++    def test_integer_one_is_not_boolean_true(self):
++        self.assertFalse(DefaultFailVerifier([evidence(1)]).verify(None).passed)
++
++    def test_literal_boolean_true_is_accepted(self):
++        self.assertTrue(DefaultFailVerifier([evidence(True)]).verify(None).passed)
++
++    def test_literal_boolean_false_is_rejected(self):
++        self.assertFalse(DefaultFailVerifier([evidence(False)]).verify(None).passed)
++
++    def test_check_exception_is_rejected(self):
++        def raising(workspace):
++            raise RuntimeError("script failed")
++        report = DefaultFailVerifier([Evidence("error", "C", "script", raising)]).verify(None)
++        self.assertFalse(report.passed)
++        self.assertIn("RuntimeError", report.failures[0]["detail"])
++
++
++if __name__ == "__main__":
++    unittest.main()
