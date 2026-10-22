@@ -57,9 +57,11 @@
       "reviewed_at": "2026-10-18",
       "function": "S1",
       "finding": "BESSER's first-party Python runtime includes declarative intent/state transitions and session persistence. Screen deterministic transition and structured input validation without starting the reasoning_body LLM, A2A peer, model provider or interactive app.",
-      "stage": "SCREENING", "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/BESSER-PEARL/BESSER-Agentic-Framework/blob/da46d4e2f0ae477704f7cc1108f1f6ec5209530e/baf/core/state.py"]
+      "stage": "AWAITING_EXTERNAL", "origin": "ASSESSMENT_INFORMED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "evidence": ["https://github.com/BESSER-PEARL/BESSER-Agentic-Framework/blob/da46d4e2f0ae477704f7cc1108f1f6ec5209530e/baf/core/transition/transition_builder.py", "https://github.com/BESSER-PEARL/BESSER-Agentic-Framework/blob/da46d4e2f0ae477704f7cc1108f1f6ec5209530e/baf/core/state.py", "https://github.com/opensiro/upstream/blob/main/pilots/besser/auto-transition-registration-order.patch"],
+      "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/besser/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED"
     },
     {
       "id": "babyai-task-evaluation-input-contract",
