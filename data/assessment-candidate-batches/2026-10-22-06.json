@@ -60,10 +60,12 @@
       "reviewed_at": "2026-10-20",
       "function": "S1",
       "finding": "Workflow One's Node orchestrator and workflow graph scripts transition node state and persist execution outputs; screen malformed and interrupted DAG inputs with built-in Node script tests, no external model or dsh runtime.",
-      "stage": "SCREENING",
-      "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/chumingjun/dsh-harness-one/blob/08aef04761e8c6586efaa4077b49d349d4f0f920/server/orchestrator.js"]
+      "stage": "AWAITING_EXTERNAL",
+      "origin": "ASSESSMENT_INFORMED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "evidence": ["https://github.com/chumingjun/dsh-harness-one/blob/08aef04761e8c6586efaa4077b49d349d4f0f920/dsh-plugins/dsh-ccpg-orchestrator/lib/engine.js", "https://github.com/opensiro/upstream/blob/main/pilots/workflow-one/active-runid-registry-guard.patch"],
+      "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/workflow-one/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED"
     },
     {
       "id": "recuris-metaagent-gate-schema",
