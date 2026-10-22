@@ -47,10 +47,13 @@
       "reviewed_at": "2026-10-21",
       "function": "S1",
       "finding": "MAREF Python code-evolution and local guardrail routines produce code and test outcomes; inspect fixed-input state/error propagation with native Python tests, not model-generated candidates.",
-      "stage": "SCREENING",
-      "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/maref-org/maref/tree/35b1d8108887bf162711c2212b7a67d6e21d9342"]
+      "stage": "AWAITING_EXTERNAL",
+      "origin": "ASSESSMENT_INFORMED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "evidence": ["https://github.com/maref-org/maref/blob/35b1d8108887bf162711c2212b7a67d6e21d9342/src/maref/recursive/recursive_evolution_loop.py", "https://github.com/maref-org/maref/blob/35b1d8108887bf162711c2212b7a67d6e21d9342/tests/recursive/test_rel_transaction.py"],
+      "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/maref/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED",
+      "screening_receipt": "pilots/maref/CONTRIBUTION_HANDOFF.md"
     },
     {
       "id": "ateles-python-dispatch-gate",
