@@ -15,9 +15,11 @@
       "reviewed_at": "2026-10-19",
       "function": "S1",
       "finding": "AgentFlow ships first-party declarative task-graph specs, ready-node selection, persisted status and result-schema logic. Screen deterministic Python validation and dependency/retry bookkeeping using fixed local data, excluding model CLI invocations or mocked model task runs.",
-      "stage": "SCREENING", "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/agentenv/agentflow/blob/eb51a2e7a5c7d65da5718c4a41843098b60c80e0/agentflow/specs.py"]
+      "stage": "AWAITING_EXTERNAL", "origin": "ASSESSMENT_INFORMED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "evidence": ["https://github.com/agentenv/agentflow/blob/eb51a2e7a5c7d65da5718c4a41843098b60c80e0/agentflow/specs.py", "https://github.com/agentenv/agentflow/blob/eb51a2e7a5c7d65da5718c4a41843098b60c80e0/agentflow/store.py", "https://github.com/opensiro/upstream/blob/main/pilots/agentflow/node-id-artifact-path-guard.patch"],
+      "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/agentflow/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED"
     },
     {
       "id": "connectonion-approval-tool-admission",

@@ -57,6 +57,9 @@ The completed [Kram source-only technical packet](../pilots/kram-s2/CONTRIBUTION
 
 ## VSM / OSM responsibility map
 
+**Batch-09 first row:** [AgentFlow](../pilots/agentflow/CONTRIBUTION_HANDOFF.md) is `ASSESSMENT_INFORMED` / `AWAITING_EXTERNAL`. First-party `NodeSpec.id` admitted directory traversal and absolute paths later used verbatim by `RunStore` to create artifact directories; native fixed-data schema/artifact-path tests were 1 PASS / 5 FAIL before and 6 PASS after. The exact patch is locally reversible; no model run, agent simulation or external upstream write occurred. Continue to `connectonion-approval-tool-admission`.
+
+
 | Operation | Present decisive owner | Return / evidence |
 | --- | --- | --- |
 | Existing canonical assessment finding | Index + selected Skills procedure | Pin SHA/path/review ref; **do not edit Index** from this queue |
