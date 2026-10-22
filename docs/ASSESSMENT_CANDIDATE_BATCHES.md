@@ -49,6 +49,8 @@ The completed [Kram source-only technical packet](../pilots/kram-s2/CONTRIBUTION
 
 **Batch-08 second row:** [Cyber AI Team](../pilots/cyber-ai-team/CONTRIBUTION_HANDOFF.md) is `ASSESSMENT_INFORMED` / `AWAITING_EXTERNAL`: the actual first-party Python action-envelope normalizer accepted nonfinite confidence/financial numbers and negative amounts/recipient counts; source-AST native tests were 1 PASS / 4 FAIL before and 5 PASS after. No ORM/OPA, business operation, provider or agent. The next candidate is `oniroute-validation-boundary`.
 
+**Batch-08 third row:** [OniRoute](../pilots/oniroute/CONTRIBUTION_HANDOFF.md) is `ASSESSMENT_INFORMED` / `AWAITING_EXTERNAL`: the genuine workspace/engine validator accepted nested roots, including symlink aliases, despite its separation contract. Real-directory script tests had 3 FAIL before and 5 PASS after. No live engineering, generated code, provider or agent. Next: `activegraph-event-patch-invariants`.
+
 ## VSM / OSM responsibility map
 
 | Operation | Present decisive owner | Return / evidence |
