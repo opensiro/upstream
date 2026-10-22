@@ -6,6 +6,12 @@
 
 ## Purpose
 
+The [candidate-batch protocol](ASSESSMENT_CANDIDATE_BATCHES.md) owns **serial
+continuation across multiple Index-first screening records**. A complete
+native technical/handoff step moves the current row to its real stage and
+continues with the next row even when external publication awaits a separately
+owned decision; it does not declare the external contribution complete.
+
 Produce **independently useful, measurable changes to real AI harness behavior whose selection and intervention rationale arise from a concrete VSM assessment finding**. A PR is a delivery vehicle; a higher autonomy grade is not the goal, metric or success condition.
 
 ```text

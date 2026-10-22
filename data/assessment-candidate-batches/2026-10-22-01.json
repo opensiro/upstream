@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-10-22-01",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "f2ea54a19770b21f88d70113fe8c60c72802e19e",
+  "frozen_at": "2026-10-22",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Five distinct included canonical Index S1=A harness assessments, ordered by reviewed_at descending; no prior Upstream pilot among these five. Selection is for read-only first-party fit screening, not approval or a claim of a product defect.",
+  "candidates": [
+    {
+      "id": "fractale-native-workflow",
+      "assessment_path": "assessments/fr/fractale.md",
+      "source": "converged-computing/fractale",
+      "review_ref": "b62ff1bce01e191828b90c5fa468f81197629e32",
+      "reviewed_at": "2026-10-17",
+      "function": "S1",
+      "finding": "Model-directed worker steps use a first-party native state-machine engine and result transitions; inspect native transition/error handling without assuming that missing S2/S3 is a defect.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PASS", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/converged-computing/fractale/issues/10", "https://github.com/converged-computing/fractale/blob/b62ff1bce01e191828b90c5fa468f81197629e32/fractale/agents/base.py", "https://github.com/converged-computing/fractale/blob/b62ff1bce01e191828b90c5fa468f81197629e32/fractale/engines/native/engine.py"],
+      "blocker": "Issue #10 establishes demand for long-running MCP tasks, but the native task protocol, cancellation/continuation semantics, regression fixture and scope of first-party versus FastMCP responsibility are not yet verified; no implementation admitted.",
+      "screening_receipt": "pilots/fractale/SCREENING_2026-10-22.md"
+    },
+    {
+      "id": "oblivion-agent-tool-loop",
+      "assessment_path": "assessments/ob/oblivion-ai.md",
+      "source": "Rohith-s-hub/Oblivion-agent",
+      "review_ref": "7c57fd23ddd9abb5a2795788364f5dcdf3ec87cb",
+      "reviewed_at": "2026-10-11",
+      "function": "S1",
+      "finding": "First-party CLI/TUI tool cycle has plan and permission guards; inspect a concrete native execution/rollback failure before selecting a patch.",
+      "stage": "AWAITING_EXTERNAL",
+      "origin": "ASSESSMENT_INFORMED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "evidence": ["https://github.com/Rohith-s-hub/Oblivion-agent/blob/7c57fd23ddd9abb5a2795788364f5dcdf3ec87cb/tools/batch_edit.py", "https://github.com/Rohith-s-hub/Oblivion-agent/blob/7c57fd23ddd9abb5a2795788364f5dcdf3ec87cb/agent/permissions.py"],
+      "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/oblivion-batch-edit/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED",
+      "screening_receipt": "pilots/oblivion-batch-edit/CONTRIBUTION_HANDOFF.md"
+    },
+    {
+      "id": "gyrfalcon-workspace-guard",
+      "assessment_path": "assessments/gy/gyrfalcon.md",
+      "source": "cargopete/gyrfalcon",
+      "review_ref": "090615a2f13a062fd91896950106aeb505376c55",
+      "reviewed_at": "2026-10-06",
+      "function": "S1",
+      "finding": "The Rust CLI uses a shared first-party tool constructor, approval policy and OS sandbox; investigate a source-backed execution boundary rather than a VSM autonomy grade.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": []
+    },
+    {
+      "id": "raven-stale-edit-ledger",
+      "assessment_path": "assessments/ra/raven.md",
+      "source": "EverMind-AI/Raven",
+      "review_ref": "e6c0344cb7ce00db25d554e4bb671ec1909a8f9f",
+      "reviewed_at": "2026-09-29",
+      "function": "S2",
+      "finding": "Raven-Code has a first-party read-before-edit/stale-content ledger; screen whether any current native failure remains despite the existing guard.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": []
+    },
+    {
+      "id": "ironclaw-job-scheduler",
+      "assessment_path": "assessments/ir/ironclaw.md",
+      "source": "nearai/ironclaw",
+      "review_ref": "b0b999d96781516ee05e6ba961d6f3ead900da96",
+      "reviewed_at": "2026-09-21",
+      "function": "S2",
+      "finding": "A first-party job pool and deterministic MAX_PARALLEL_JOBS policy regulate shared work; screen native job-state safety and stuck recovery only if a first-party need emerges.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": []
+    }
+  ]
+}

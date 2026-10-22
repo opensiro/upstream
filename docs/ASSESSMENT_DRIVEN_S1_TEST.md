@@ -50,6 +50,15 @@ is tracked in [Upstream #56](https://github.com/opensiro/upstream/issues/56).
 
 ## Ordered assessment-to-contribution intake
 
+For repeated operator `continue`/`продолжай` instructions inside #56, use the
+[frozen candidate-batch continuation protocol](ASSESSMENT_CANDIDATE_BATCHES.md):
+finish the furthest legitimately available per-candidate step, record any
+external permission handoff, **advance to the next screening row**, and roll
+over to a new full batch only after the current cohort is resolved. A prepared
+external PR packet is not a reason to idle or repeat native tests. These
+read-only selection semantics do not grant GitHub rights and do not replace
+the strict single-candidate origin/fit/admission gates below.
+
 1. **Discover in Index first.** Refresh [canonical Index](https://github.com/opensiro/vsm-harness-index)
    on its current default branch, then inspect candidate records and the
    underlying assessment files. Record an exact, immutable Index commit SHA,
