@@ -24,7 +24,7 @@ class BatchTests(unittest.TestCase):
     def test_real_frozen_batch_structure(self):
         board = queue.summarize(self.original)
         self.assertEqual(board["total"], 5)
-        self.assertEqual(board["next_candidate"], "gyrfalcon-workspace-guard")
+        self.assertEqual(board["next_candidate"], "raven-stale-edit-ledger")
         self.assertEqual(board["stage_counts"]["BLOCKED_EVIDENCE"], 1)
         self.assertEqual(board["stage_counts"]["AWAITING_EXTERNAL"], 1)
         self.assertFalse(board["external_writes_authorized"])
@@ -39,7 +39,7 @@ class BatchTests(unittest.TestCase):
                      external_action="NOT_EXECUTED", evidence=["https://github.com/opensiro/upstream/pull/77"])
         first["fit"] = dict.fromkeys(("need", "mechanism", "counterfactual", "scope"), "PASS")
         board = queue.summarize(data)
-        self.assertEqual(board["next_candidate"], "gyrfalcon-workspace-guard")
+        self.assertEqual(board["next_candidate"], "raven-stale-edit-ledger")
         self.assertEqual(board["stage_counts"]["AWAITING_EXTERNAL"], 2)
 
     def test_no_actionable_after_full_review(self):

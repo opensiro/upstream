@@ -46,10 +46,11 @@
       "reviewed_at": "2026-10-06",
       "function": "S1",
       "finding": "The Rust CLI uses a shared first-party tool constructor, approval policy and OS sandbox; investigate a source-backed execution boundary rather than a VSM autonomy grade.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": []
+      "fit": {"need": "PASS", "mechanism": "PENDING", "counterfactual": "FAIL", "scope": "FAIL"},
+      "evidence": ["https://github.com/cargopete/gyrfalcon/issues/17", "https://github.com/cargopete/gyrfalcon/issues/18", "https://github.com/cargopete/gyrfalcon/blob/894db5d03137f801ebfede0cb7c2c766989bcb28/crates/gyr-core/src/lib.rs"],
+      "screening_receipt": "pilots/gyrfalcon/SCREENING_2026-10-22.md"
     },
     {
       "id": "raven-stale-edit-ledger",
@@ -61,8 +62,9 @@
       "finding": "Raven-Code has a first-party read-before-edit/stale-content ledger; screen whether any current native failure remains despite the existing guard.",
       "stage": "SCREENING",
       "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": []
+      "fit": {"need": "PASS", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/EverMind-AI/Raven/issues/1061"],
+      "screening_receipt": "pilots/raven/SCREENING_INTAKE_2026-10-22.md"
     },
     {
       "id": "ironclaw-job-scheduler",
