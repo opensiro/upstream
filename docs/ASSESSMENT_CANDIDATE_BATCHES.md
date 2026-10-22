@@ -61,6 +61,8 @@ The completed [Kram source-only technical packet](../pilots/kram-s2/CONTRIBUTION
 
 **Batch-09 second row:** [ConnectOnion](../pilots/connectonion/CONTRIBUTION_HANDOFF.md) is `ASSESSMENT_INFORMED` / `AWAITING_EXTERNAL`. Whitelisted `write` tool requests via symlink aliases to protected `.co/host.yaml` or `.co/keys/` passed native `is_tool_permitted()` admission because the existing lexical path test did not follow symlinks. Six offline permission checks: 3 PASS / 3 FAIL before; 6 PASS after path canonicalization. No agent or tool was executed. Continue to `agentuniverse-workflow-input-contract`.
 
+**Batch-09 third row:** [agentUniverse](../pilots/agentuniverse/CONTRIBUTION_HANDOFF.md) is `ASSESSMENT_INFORMED` / `AWAITING_EXTERNAL`. First-party workflow input resolver accepted malformed two-part references (string or list with extra members) and crashed on absent fields; 3 PASS / 5 FAIL before, 8 PASS after. Original Pydantic config objects and the genuine resolver were exercised by fixed input fixtures only. Continue to `besser-state-transition-validation`.
+
 
 | Operation | Present decisive owner | Return / evidence |
 | --- | --- | --- |

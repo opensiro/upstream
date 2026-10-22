@@ -1,0 +1,108 @@
+diff --git a/agentuniverse/workflow/node/node.py b/agentuniverse/workflow/node/node.py
+index a02f13ad..db92dd5b 100644
+--- a/agentuniverse/workflow/node/node.py
++++ b/agentuniverse/workflow/node/node.py
+@@ -55,7 +55,14 @@ class Node(BaseModel):
+         node_input_params = {}
+         for input_param in input_params:
+             val = input_param.value
++            if val is None:
++                raise ValueError(f"Node input {input_param.name!r} must provide a value")
+             if val.type == 'reference':
++                if (not isinstance(val.content, list) or len(val.content) != 2
++                        or not all(isinstance(part, str) and part.strip() for part in val.content)):
++                    raise ValueError(
++                        f"Node input {input_param.name!r} reference must contain exactly [node_id, output_name]"
++                    )
+                 reference_node_id = val.content[0]
+                 reference_output_params: List[NodeOutputParams] = workflow_output.workflow_parameters.get(
+                     reference_node_id, [])
+diff --git a/tests/test_native_workflow_reference_unittest.py b/tests/test_native_workflow_reference_unittest.py
+new file mode 100644
+index 00000000..6ad3306c
+--- /dev/null
++++ b/tests/test_native_workflow_reference_unittest.py
+@@ -0,0 +1,83 @@
++"""Offline tests of first-party workflow input resolution; no agent is run."""
++
++import ast
++import copy
++import importlib.util
++import unittest
++from pathlib import Path
++from types import SimpleNamespace
++from typing import Any, Dict, List
++
++
++ROOT = Path(__file__).resolve().parents[1]
++
++
++def native_input_types():
++    source = ROOT / "agentuniverse/workflow/node/node_config.py"
++    spec = importlib.util.spec_from_file_location("native_workflow_node_config", source)
++    module = importlib.util.module_from_spec(spec)
++    spec.loader.exec_module(module)
++    return module
++
++
++def native_resolver(config):
++    """Compile unchanged first-party static method without inference imports."""
++    source = ROOT / "agentuniverse/workflow/node/node.py"
++    tree = ast.parse(source.read_text(encoding="utf-8"))
++    node_class = next(node for node in tree.body if isinstance(node, ast.ClassDef) and node.name == "Node")
++    method = copy.deepcopy(next(node for node in node_class.body if isinstance(node, ast.FunctionDef) and node.name == "_resolve_input_params"))
++    method.decorator_list = []
++    module = ast.fix_missing_locations(ast.Module(body=[method], type_ignores=[]))
++    scope = {"List": List, "Dict": Dict, "Any": Any,
++             "NodeInputParams": config.NodeInputParams,
++             "NodeOutputParams": config.NodeOutputParams,
++             "WorkflowOutput": object}
++    exec(compile(module, str(source), "exec"), scope)
++    return scope["_resolve_input_params"]
++
++
++class NativeWorkflowReferenceTests(unittest.TestCase):
++    @classmethod
++    def setUpClass(cls):
++        cls.config = native_input_types()
++        cls.resolve = staticmethod(native_resolver(cls.config))
++
++    def resolve_one(self, name, value):
++        node_input = self.config.NodeInputParams(name=name, value=value)
++        workflow = SimpleNamespace(workflow_parameters={"previous": [
++            self.config.NodeOutputParams(name="answer", value="ok")
++        ]})
++        return self.resolve([node_input], workflow)
++
++    def test_literal_input_preserved(self):
++        self.assertEqual(self.resolve_one("prompt", {"type": "literal", "content": "test"}), {"prompt": "test"})
++
++    def test_valid_reference_resolved(self):
++        self.assertEqual(self.resolve_one("result", {"type": "reference", "content": ["previous", "answer"]}), {"result": "ok"})
++
++    def test_unknown_reference_output_remains_none(self):
++        self.assertEqual(self.resolve_one("result", {"type": "reference", "content": ["previous", "missing"]}), {"result": None})
++
++    def test_absent_value_reports_contract_error(self):
++        with self.assertRaisesRegex(ValueError, "input.*value"):
++            self.resolve_one("result", None)
++
++    def test_reference_without_content_rejected(self):
++        with self.assertRaisesRegex(ValueError, "reference.*exactly"):
++            self.resolve_one("result", {"type": "reference", "content": None})
++
++    def test_reference_with_one_member_rejected(self):
++        with self.assertRaisesRegex(ValueError, "reference.*exactly"):
++            self.resolve_one("result", {"type": "reference", "content": ["previous"]})
++
++    def test_reference_as_string_rejected(self):
++        with self.assertRaisesRegex(ValueError, "reference.*exactly"):
++            self.resolve_one("result", {"type": "reference", "content": "previous.answer"})
++
++    def test_reference_with_extra_member_rejected(self):
++        with self.assertRaisesRegex(ValueError, "reference.*exactly"):
++            self.resolve_one("result", {"type": "reference", "content": ["previous", "answer", "extra"]})
++
++
++if __name__ == "__main__":
++    unittest.main()
