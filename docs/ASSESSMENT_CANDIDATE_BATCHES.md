@@ -31,6 +31,8 @@ The completed [Kram source-only technical packet](../pilots/kram-s2/CONTRIBUTION
 
 **Batch-06 third row:** [Evidence Loom](../pilots/evidenceloom/CONTRIBUTION_HANDOFF.md) is `AWAITING_EXTERNAL`: the real numeric-span code failed three Unicode-space-scale checks and passed all six cases after a bounded change. Next: `dsh-harness-one-workflow-state`.
 
+**Batch-06 fourth row:** [Workflow One](../pilots/workflow-one/CONTRIBUTION_HANDOFF.md) is `AWAITING_EXTERNAL`: the current plugin engine admitted a second active run with an already-owned run ID; 1 RED/3 deterministic script cases before, 3 PASS after. The deprecated `server/` engine was not modified. Next `recuris-metaagent-gate-schema`.
+
 ## VSM / OSM responsibility map
 
 | Operation | Present decisive owner | Return / evidence |
