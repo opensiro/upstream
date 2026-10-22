@@ -57,9 +57,11 @@
       "reviewed_at": "2026-10-19",
       "function": "S1",
       "finding": "Active Graph has a first-party Python event log, typed graph patches and optimistic conflict checks. Screen script-only event-patch validation and replay invariants using genuine modules and fixed input events; do not invoke recorded, mocked or live LLM-backed goal behaviors.",
-      "stage": "SCREENING", "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/yoheinakajima/activegraph/blob/50d8405923b79e4e823a73a3045bb969436a872c/activegraph/runtime/runtime.py"]
+      "stage": "AWAITING_EXTERNAL", "origin": "ASSESSMENT_INFORMED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "evidence": ["https://github.com/yoheinakajima/activegraph/blob/50d8405923b79e4e823a73a3045bb969436a872c/activegraph/store/serde.py", "https://github.com/opensiro/upstream/blob/main/pilots/activegraph/nonobject-event-payload-rejection.patch"],
+      "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/activegraph/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED"
     },
     {
       "id": "pyflue-sandbox-tool-schema",
