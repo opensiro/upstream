@@ -27,6 +27,8 @@ The completed [Kram source-only technical packet](../pilots/kram-s2/CONTRIBUTION
 
 **Batch-06 progress:** [Reins](../pilots/reins/CONTRIBUTION_HANDOFF.md) is `AWAITING_EXTERNAL`, based on a four-case native Python RLS principal/empty-scope contract test: 2 RED before, 4 PASS after. No provider or live agent was run and no external upstream PR was sent. The next eligible row is `cubeloop-checkpointer-session-integrity`; generic continue advances to it.
 
+**Batch-06 continued:** [CubeLoop](../pilots/cubeloop/CONTRIBUTION_HANDOFF.md) is also `AWAITING_EXTERNAL` after real-source offline in-memory checkpoint isolation checks: 3 RED before, 4 PASS after. Normal agent/provider execution was deliberately excluded. The next screening row is `evidenceloom-numeric-evidence-validation`.
+
 ## VSM / OSM responsibility map
 
 | Operation | Present decisive owner | Return / evidence |

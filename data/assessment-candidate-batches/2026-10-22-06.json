@@ -30,10 +30,12 @@
       "reviewed_at": "2026-10-20",
       "function": "S1",
       "finding": "CubeLoop's first-party Python checkpoint/session, HITL and deferred-work components preserve execution state; use fixed-input native tests to screen saved-state consistency and approval gates without running any model-backed session.",
-      "stage": "SCREENING",
-      "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/cubeplexai/cubeloop/tree/eb798f9a20c1f516d6a59a991a63a9d4c630f4bf"]
+      "stage": "AWAITING_EXTERNAL",
+      "origin": "ASSESSMENT_INFORMED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "evidence": ["https://github.com/cubeplexai/cubeloop/blob/eb798f9a20c1f516d6a59a991a63a9d4c630f4bf/cubeloop/checkpointer/memory.py", "https://github.com/opensiro/upstream/blob/main/pilots/cubeloop/memory-checkpoint-copy-boundaries.patch"],
+      "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/cubeloop/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED"
     },
     {
       "id": "evidenceloom-numeric-evidence-validation",
