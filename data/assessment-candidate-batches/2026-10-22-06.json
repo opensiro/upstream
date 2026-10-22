@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-10-22-06",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "396a54bb690f8ec7ce966bf9b00b241b30036307",
+  "frozen_at": "2026-10-22",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Sixth complete nonoverlapping cohort from canonical included S1=A Index assessments, four reviewed 2026-10-20 plus one reviewed 2026-10-19. Pre-merge host capability check on 2026-10-22 found Go and Rust toolchains unavailable; draft candidate intake was corrected before adoption to first-party Python/Node script-testable systems. All previous 25 sources excluded. Once accepted, source identity/order remain frozen. Only fixed native scripts/code tests, no provider or LLM agent runs.",
+  "candidates": [
+    {
+      "id": "reins-policy-decision-contract",
+      "assessment_path": "assessments/re/reins.md",
+      "source": "shamspias/reins",
+      "review_ref": "69d5ae7e3f2336366e7567b7a476e7c71608f226",
+      "reviewed_at": "2026-10-20",
+      "function": "S1",
+      "finding": "Reins provides first-party Python capability registry and invocation policy guards ahead of the model-facing operation loop; inspect native script tests on deny/allow, audit metadata and argument boundaries without invoking a provider.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/shamspias/reins/blob/69d5ae7e3f2336366e7567b7a476e7c71608f226/packages/python/src/reins/policy.py"]
+    },
+    {
+      "id": "cubeloop-checkpointer-session-integrity",
+      "assessment_path": "assessments/cu/cubeloop.md",
+      "source": "cubeplexai/cubeloop",
+      "review_ref": "eb798f9a20c1f516d6a59a991a63a9d4c630f4bf",
+      "reviewed_at": "2026-10-20",
+      "function": "S1",
+      "finding": "CubeLoop's first-party Python checkpoint/session, HITL and deferred-work components preserve execution state; use fixed-input native tests to screen saved-state consistency and approval gates without running any model-backed session.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/cubeplexai/cubeloop/tree/eb798f9a20c1f516d6a59a991a63a9d4c630f4bf"]
+    },
+    {
+      "id": "evidenceloom-numeric-evidence-validation",
+      "assessment_path": "assessments/ev/evidenceloom.md",
+      "source": "simonguo/evidenceloom",
+      "review_ref": "de30bd4262fe0198dcc349e318fb0c1f1f9fc410",
+      "reviewed_at": "2026-10-20",
+      "function": "S1",
+      "finding": "Evidence Loom ships Python numeric/research-readiness and frozen-evidence validators used with its bundled analyst workflow; screen deterministic malformed-input/provenance checks from real source without market API, model, or Tauri invocation.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/simonguo/evidenceloom/tree/de30bd4262fe0198dcc349e318fb0c1f1f9fc410"]
+    },
+    {
+      "id": "dsh-harness-one-workflow-state",
+      "assessment_path": "assessments/ds/dsh-harness-one.md",
+      "source": "chumingjun/dsh-harness-one",
+      "review_ref": "08aef04761e8c6586efaa4077b49d349d4f0f920",
+      "reviewed_at": "2026-10-20",
+      "function": "S1",
+      "finding": "Workflow One's Node orchestrator and workflow graph scripts transition node state and persist execution outputs; screen malformed and interrupted DAG inputs with built-in Node script tests, no external model or dsh runtime.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/chumingjun/dsh-harness-one/blob/08aef04761e8c6586efaa4077b49d349d4f0f920/server/orchestrator.js"]
+    },
+    {
+      "id": "recuris-metaagent-gate-schema",
+      "assessment_path": "assessments/re/recuris.md",
+      "source": "Gen-Verse/Recuris",
+      "review_ref": "7d3745ab787b1206ccd981cb1511100476097266",
+      "reviewed_at": "2026-10-19",
+      "function": "S1",
+      "finding": "Recuris uses first-party Python meta-agent plan schema and gate evaluators to admit memory revisions; screen only deterministic schema/decision script checks on pinned code, without downstream model runs or provider access.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/Gen-Verse/Recuris/blob/7d3745ab787b1206ccd981cb1511100476097266/src/recuris/metaagent/gates.py"]
+    }
+  ]
+}
