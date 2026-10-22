@@ -18,6 +18,7 @@ SIXTH_PATH = ROOT / "data/assessment-candidate-batches/2026-10-22-06.json"
 SEVENTH_PATH = ROOT / "data/assessment-candidate-batches/2026-10-22-07.json"
 EIGHTH_PATH = ROOT / "data/assessment-candidate-batches/2026-10-23-08.json"
 NINTH_PATH = ROOT / "data/assessment-candidate-batches/2026-10-23-09.json"
+TENTH_PATH = ROOT / "data/assessment-candidate-batches/2026-10-23-10.json"
 SCRIPT = ROOT / "scripts/assessment_candidate_batches.py"
 SPEC = importlib.util.spec_from_file_location("assessment_candidate_batches", SCRIPT)
 queue = importlib.util.module_from_spec(SPEC)
@@ -36,6 +37,7 @@ class BatchTests(unittest.TestCase):
         cls.seventh = json.loads(SEVENTH_PATH.read_text(encoding="utf-8"))
         cls.eighth = json.loads(EIGHTH_PATH.read_text(encoding="utf-8"))
         cls.ninth = json.loads(NINTH_PATH.read_text(encoding="utf-8"))
+        cls.tenth = json.loads(TENTH_PATH.read_text(encoding="utf-8"))
 
     def test_real_frozen_batch_structure(self):
         board = queue.summarize(self.original)
@@ -126,6 +128,15 @@ class BatchTests(unittest.TestCase):
         self.assertEqual(ninth["stage_counts"]["AWAITING_EXTERNAL"], 5)
         self.assertEqual(ninth["test_mode"], "NATIVE_SCRIPT_ONLY_NO_LLM_AGENTS")
         self.assertFalse(all_previous.intersection({r["source"] for r in self.ninth["candidates"]}))
+        all_previous.update(r["source"] for r in self.ninth["candidates"])
+        tenth = queue.summarize(self.tenth)
+        self.assertEqual(tenth["total"], 5)
+        self.assertEqual(tenth["next_candidate"], "phoenix-agent-harness-budget-admission")
+        self.assertEqual(tenth["next_stage"], "SCREENING")
+        self.assertEqual(tenth["stage_counts"]["SCREENING"], 4)
+        self.assertEqual(tenth["stage_counts"]["AWAITING_EXTERNAL"], 1)
+        self.assertEqual(tenth["test_mode"], "NATIVE_SCRIPT_ONLY_NO_LLM_AGENTS")
+        self.assertFalse(all_previous.intersection({r["source"] for r in self.tenth["candidates"]}))
 
     def test_no_actionable_after_full_review(self):
         data = copy.deepcopy(self.original)

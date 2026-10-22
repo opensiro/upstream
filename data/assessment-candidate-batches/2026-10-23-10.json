@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-10-23-10",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "396a54bb690f8ec7ce966bf9b00b241b30036307",
+  "frozen_at": "2026-10-23",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Tenth complete five-source screening intake after all 45 prior records have bounded dispositions. The five source-disjoint repos have included S1=A assessments at exactly pinned Index SHA, all reviewed 2026-10-18. Prefer first-party JavaScript/Python admission, validation, data and policy helpers runnable with deterministic local scripts in this host (no Go/Rust compiler). These are source-inspection questions, not verified bugs, accepted upgrades or inferred organization rights. Do not execute LLM agents, simulators, recorded-model runs, providers or benchmark episodes. External upstream publication remains human-owned.",
+  "candidates": [
+    {
+      "id": "henrik-agent-harness-workboard-claim-guards",
+      "assessment_path": "assessments/he/henrik-agent-harness.md",
+      "source": "henrik-me/agent-harness",
+      "review_ref": "9168fa451b69c5d53b961ab5c805b3067597ade4",
+      "reviewed_at": "2026-10-18",
+      "function": "S1",
+      "finding": "Screen first-party Node WORKBOARD claim admission and deterministic dispatch metadata for conflicts, stale claims or unsafe path parsing using synthetic fixed input files only. Do not invoke Copilot review, any subagent, GitHub writes or a model host.",
+      "stage": "AWAITING_EXTERNAL", "origin": "ASSESSMENT_INFORMED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "evidence": ["https://github.com/henrik-me/agent-harness/blob/9168fa451b69c5d53b961ab5c805b3067597ade4/lib/claim.mjs", "https://github.com/opensiro/upstream/blob/main/pilots/henrik-agent-harness/claim-same-cs-race-guard.patch"],
+      "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/henrik-agent-harness/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "phoenix-agent-harness-budget-admission",
+      "assessment_path": "assessments/ph/phoenix-agent-harness.md",
+      "source": "Phoenixrr2113/agent-harness",
+      "review_ref": "0f67103affd30a3c778874b890dbd5801cdbd94f",
+      "reviewed_at": "2026-10-18",
+      "function": "S1",
+      "finding": "Inspect TypeScript runtime daily and monthly budget/rate guardrails for boundary and persistence conditions, using native no-network Node scripts against original helpers and finite synthetic counters; never start conversations, delegated agents or a provider.",
+      "stage": "SCREENING", "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/Phoenixrr2113/agent-harness/blob/0f67103affd30a3c778874b890dbd5801cdbd94f/src/runtime/guardrails.ts"]
+    },
+    {
+      "id": "harness2-library-persistence-contract",
+      "assessment_path": "assessments/ha/harness2.md",
+      "source": "google-research/harness2",
+      "review_ref": "1cfe254e8d25b15f37048c3730134686abe60335",
+      "reviewed_at": "2026-10-18",
+      "function": "S1",
+      "finding": "Screen local Python per-domain experience-library persistence, validation and context-tree transformations with filesystem and fixed-data script inputs, not its proposer, executor, demo agent, benchmark, task rollouts or model selection.",
+      "stage": "SCREENING", "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/google-research/harness2/blob/1cfe254e8d25b15f37048c3730134686abe60335/harness2/core/library.py"]
+    },
+    {
+      "id": "harnessx-config-validation-contract",
+      "assessment_path": "assessments/ha/harnessx.md",
+      "source": "Darwin-Agent/HarnessX",
+      "review_ref": "915520584c92cc35ed24aef1af17eec1d60c0b01",
+      "reviewed_at": "2026-10-18",
+      "function": "S1",
+      "finding": "Inspect Python first-party harness-config schema and evolution candidate validation for deterministic acceptance gaps using static config fixtures only; do not execute meta-agent evolution, target-model runs, trajectory replay or external grading.",
+      "stage": "SCREENING", "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/Darwin-Agent/HarnessX/blob/915520584c92cc35ed24aef1af17eec1d60c0b01/harnessx/meta_harness/validate_workflow.py"]
+    },
+    {
+      "id": "revka-workflow-validation-contract",
+      "assessment_path": "assessments/re/revka.md",
+      "source": "KumihoIO/Revka",
+      "review_ref": "a1acd826502e12a6c2f3d147e488a7d2982c480b",
+      "reviewed_at": "2026-10-18",
+      "function": "S1",
+      "finding": "Inspect the Python operator-mcp workflow graph validator with finite in-memory workflow specifications for incorrect DAG or step-argument admission. Limit validation to source-native no-provider Python and no shell execution, running workflows, supervisor agents or MCP side effects.",
+      "stage": "SCREENING", "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/KumihoIO/Revka/blob/a1acd826502e12a6c2f3d147e488a7d2982c480b/operator-mcp/operator_mcp/workflow/validator.py"]
+    }
+  ]
+}
