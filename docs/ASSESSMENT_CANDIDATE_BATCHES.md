@@ -25,6 +25,8 @@ The completed [Kram source-only technical packet](../pilots/kram-s2/CONTRIBUTION
 
 **Batch-05 update:** [Batch-05](../data/assessment-candidate-batches/2026-10-22-05-SUMMARY.md) is now fully screened: agent-loop, agent-context-lab, DiscoveryRSI, orch and matterloop each yielded an evidence-bounded first-party script patch. All are `ASSESSMENT_INFORMED` / `AWAITING_EXTERNAL`; none has an external PR. A new complete nonduplicate [batch-06](../data/assessment-candidate-batches/2026-10-22-06.json) is frozen from pinned included S1=A Index records and starts with `reins-policy-decision-contract`. Before the sixth intake is adopted, the script-capability preflight replaced an unscreened Go/Rust draft (toolchains absent) with Python/Node candidates. `continue` moves forward automatically; all tests remain native code/script only, no live LLM agents.
 
+**Batch-06 progress:** [Reins](../pilots/reins/CONTRIBUTION_HANDOFF.md) is `AWAITING_EXTERNAL`, based on a four-case native Python RLS principal/empty-scope contract test: 2 RED before, 4 PASS after. No provider or live agent was run and no external upstream PR was sent. The next eligible row is `cubeloop-checkpointer-session-integrity`; generic continue advances to it.
+
 ## VSM / OSM responsibility map
 
 | Operation | Present decisive owner | Return / evidence |

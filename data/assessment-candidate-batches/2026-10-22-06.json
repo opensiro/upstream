@@ -15,10 +15,12 @@
       "reviewed_at": "2026-10-20",
       "function": "S1",
       "finding": "Reins provides first-party Python capability registry and invocation policy guards ahead of the model-facing operation loop; inspect native script tests on deny/allow, audit metadata and argument boundaries without invoking a provider.",
-      "stage": "SCREENING",
-      "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/shamspias/reins/blob/69d5ae7e3f2336366e7567b7a476e7c71608f226/packages/python/src/reins/policy.py"]
+      "stage": "AWAITING_EXTERNAL",
+      "origin": "ASSESSMENT_INFORMED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "evidence": ["https://github.com/shamspias/reins/blob/69d5ae7e3f2336366e7567b7a476e7c71608f226/packages/python/src/reins/rls.py", "https://github.com/shamspias/reins/blob/69d5ae7e3f2336366e7567b7a476e7c71608f226/packages/js/src/rls.ts", "https://github.com/shamspias/reins/blob/69d5ae7e3f2336366e7567b7a476e7c71608f226/packages/go/rls.go", "https://github.com/opensiro/upstream/blob/main/pilots/reins/empty-principal-rls-contract.patch"],
+      "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/reins/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED"
     },
     {
       "id": "cubeloop-checkpointer-session-integrity",
