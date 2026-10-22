@@ -21,6 +21,8 @@ The completed [Kram source-only technical packet](../pilots/kram-s2/CONTRIBUTION
 
 **Current continuation pointer (2026-10-22):** The first three complete five-row cohorts are exhausted. [Batch-01](../data/assessment-candidate-batches/2026-10-22-01-SUMMARY.md) prepared two local technical packets without external PRs; [batch-02](../data/assessment-candidate-batches/2026-10-22-02-SUMMARY.md) had three evidence-blocked and two no-change rows; [batch-03](../data/assessment-candidate-batches/2026-10-22-03-SUMMARY.md) verified 75 native Tau Python tests and retained two unproven source risks. The next frozen [batch-04 cohort](../data/assessment-candidate-batches/2026-10-22-04.json) starts with Politik, prioritizing native Node/Python tests. Generic continue must use batch 04 until exhausted, never loop back to pending external publication or unfalsified language-toolchain blockers absent new evidence.
 
+**Batch-04 update:** Politik has an [assessment-informed native RED/GREEN patch](../pilots/politik/CONTRIBUTION_HANDOFF.md) and is `AWAITING_EXTERNAL`, not externally submitted. The immediate next candidate is `join-the-team-bootstrap-validation`. The frozen Index SHA is unchanged.
+
 ## VSM / OSM responsibility map
 
 | Operation | Present decisive owner | Return / evidence |

@@ -15,10 +15,13 @@
       "reviewed_at": "2026-10-21",
       "function": "S1",
       "finding": "Node/TypeScript governed-session runner mediates one coding worker's allowed effects and explicit escalation; screen native fixed-input rollback or denied-action return without invoking a third-party model CLI.",
-      "stage": "SCREENING",
-      "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/cordfuse/politik/tree/c1fa7312c75599d72b187bf20088f51f5dda2247/src"]
+      "stage": "AWAITING_EXTERNAL",
+      "origin": "ASSESSMENT_INFORMED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "evidence": ["https://github.com/cordfuse/politik/blob/c1fa7312c75599d72b187bf20088f51f5dda2247/src/containment.ts", "https://github.com/cordfuse/politik/blob/c1fa7312c75599d72b187bf20088f51f5dda2247/tests/containment.test.ts"],
+      "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/politik/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED",
+      "screening_receipt": "pilots/politik/CONTRIBUTION_HANDOFF.md"
     },
     {
       "id": "join-the-team-bootstrap-validation",
