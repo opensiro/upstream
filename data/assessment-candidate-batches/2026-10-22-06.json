@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-10-22-06",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "396a54bb690f8ec7ce966bf9b00b241b30036307",
+  "frozen_at": "2026-10-22",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Sixth full nonoverlapping cohort from canonical included S1=A Index source assessments, four reviewed 2026-10-22 plus one canonical reviewed 2026-10-21. Prioritises tested first-party Go/Rust CLI code paths: task-scope advisory, child tool registry, permission gating, writer patch transaction, session recovery. Fixed native scripts/code tests only; no provider or LLM agent runs. All first 25 candidate sources remain excluded; source identity and order frozen.",
+  "candidates": [
+    {
+      "id": "chord-delegation-scope-boundary",
+      "assessment_path": "assessments/ch/chord.md",
+      "source": "keakon/chord",
+      "review_ref": "2319ec34a2963f57e2f041ff82b1a6272435ee70",
+      "reviewed_at": "2026-10-22",
+      "function": "S1",
+      "finding": "Chord's optional first-party delegated coding task registry records overlapping write scopes and produces conflict hints; use pinned Go task registry tests to screen deterministic scope comparisons and recovery, without running a model.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/keakon/chord/tree/2319ec34a2963f57e2f041ff82b1a6272435ee70"]
+    },
+    {
+      "id": "rust-code-child-tool-registry",
+      "assessment_path": "assessments/ru/rust-code.md",
+      "source": "fortunto2/rust-code",
+      "review_ref": "fcc91a93deb69fab3de2c96a32129cbd69beea72",
+      "reviewed_at": "2026-10-22",
+      "function": "S1",
+      "finding": "The Rust coding CLI's built-in swarm path constructs child agents with a tool registry; test fixed-input registry capability and error behavior using native cargo checks, without invoking model-guided child agents.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/fortunto2/rust-code/tree/fcc91a93deb69fab3de2c96a32129cbd69beea72"]
+    },
+    {
+      "id": "gopi-permission-delegation-boundary",
+      "assessment_path": "assessments/go/gopi.md",
+      "source": "cgund98/gopi",
+      "review_ref": "c5aaae8acc169c9c0a0d6c7a1a872074515cb485",
+      "reviewed_at": "2026-10-22",
+      "function": "S1",
+      "finding": "Gopi wires permission enforcement, file edits and read-only child delegation into the shipped Go tool registry; screen deterministic denied-write and invalid-path behavior with native Go tests, not LLM sessions.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/cgund98/gopi/tree/c5aaae8acc169c9c0a0d6c7a1a872074515cb485"]
+    },
+    {
+      "id": "iteron-writer-transaction-integrity",
+      "assessment_path": "assessments/it/iteron.md",
+      "source": "Plantcore-AI/Iteron",
+      "review_ref": "c146d7128a827c517732381a2a9722196677b0bd",
+      "reviewed_at": "2026-10-22",
+      "function": "S1",
+      "finding": "Iteron's host-mediated writer transactions seal patch hashes and verify worktree/head constraints before applying changes; use pinned native Rust tests for conflict and refusal boundaries without invoking providers.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/Plantcore-AI/Iteron/tree/c146d7128a827c517732381a2a9722196677b0bd"]
+    },
+    {
+      "id": "bough-session-recovery-native",
+      "assessment_path": "assessments/bo/bough.md",
+      "source": "andreylukin/bough",
+      "review_ref": "18d07fe115e6ca872273d40d7cedc0881af4561e",
+      "reviewed_at": "2026-10-21",
+      "function": "S1",
+      "finding": "Bough ships Go session/history persistence and task execution management in the first-party CLI; screen native fixed-input history/session restoration and conflict behavior without starting a model-guided coding loop.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/andreylukin/bough/tree/18d07fe115e6ca872273d40d7cedc0881af4561e"]
+    }
+  ]
+}
