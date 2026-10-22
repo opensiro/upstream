@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-10-23-09",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "396a54bb690f8ec7ce966bf9b00b241b30036307",
+  "frozen_at": "2026-10-23",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Ninth full five-source screening intake after all 40 earlier candidates have received bounded technical dispositions. Fix the same included S1=A Index commit, first-party Python candidates not used in any of the previous eight batches, and reviewed refs, in nonincreasing date order (one 2026-10-19 and four 2026-10-18). These are unproven code-inspection questions; check actual license, first-party path and fit independently. Only native deterministic script/function tests are permitted; exclude live LLM agents, recorded/mocked model behavior, hosted evaluation and provider calls. Human retains external upstream publication rights.",
+  "candidates": [
+    {
+      "id": "agentflow-dag-dependency-state",
+      "assessment_path": "assessments/ag/agentflow.md",
+      "source": "agentenv/agentflow",
+      "review_ref": "eb51a2e7a5c7d65da5718c4a41843098b60c80e0",
+      "reviewed_at": "2026-10-19",
+      "function": "S1",
+      "finding": "AgentFlow ships first-party declarative task-graph specs, ready-node selection, persisted status and result-schema logic. Screen deterministic Python validation and dependency/retry bookkeeping using fixed local data, excluding model CLI invocations or mocked model task runs.",
+      "stage": "SCREENING", "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/agentenv/agentflow/blob/eb51a2e7a5c7d65da5718c4a41843098b60c80e0/agentflow/specs.py"]
+    },
+    {
+      "id": "connectonion-approval-tool-admission",
+      "assessment_path": "assessments/co/connectonion.md",
+      "source": "openonion/connectonion",
+      "review_ref": "7011faa911e2563e485f865db5be60f6e595f1bd",
+      "reviewed_at": "2026-10-18",
+      "function": "S1",
+      "finding": "ConnectOnion has a first-party Python tool executor and optional approval plugin. Screen native approval, request validation and tool admission helpers with deterministic inputs only; no packaged co ai instance, LLM replies, subagent task or shell/browser side effect.",
+      "stage": "SCREENING", "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/openonion/connectonion/blob/7011faa911e2563e485f865db5be60f6e595f1bd/connectonion/useful_plugins/tool_approval/approval.py"]
+    },
+    {
+      "id": "agentuniverse-workflow-input-contract",
+      "assessment_path": "assessments/ag/agentuniverse.md",
+      "source": "agentuniverse-ai/agentUniverse",
+      "review_ref": "254ecd280f54c2d2de654bbe5373e9f947d2dedf",
+      "reviewed_at": "2026-10-18",
+      "function": "S1",
+      "finding": "agentUniverse owns Python agent templates, workflow metadata and configured state/step transitions. Screen exact first-party non-model schema and admission functions through offline script cases, not its ReAct inference loop, multi-agent framework execution or model evaluations.",
+      "stage": "SCREENING", "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/agentuniverse-ai/agentUniverse/blob/254ecd280f54c2d2de654bbe5373e9f947d2dedf/agentuniverse/agent/agent.py"]
+    },
+    {
+      "id": "besser-state-transition-validation",
+      "assessment_path": "assessments/be/besser-agentic-framework.md",
+      "source": "BESSER-PEARL/BESSER-Agentic-Framework",
+      "review_ref": "da46d4e2f0ae477704f7cc1108f1f6ec5209530e",
+      "reviewed_at": "2026-10-18",
+      "function": "S1",
+      "finding": "BESSER's first-party Python runtime includes declarative intent/state transitions and session persistence. Screen deterministic transition and structured input validation without starting the reasoning_body LLM, A2A peer, model provider or interactive app.",
+      "stage": "SCREENING", "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/BESSER-PEARL/BESSER-Agentic-Framework/blob/da46d4e2f0ae477704f7cc1108f1f6ec5209530e/baf/core/state.py"]
+    },
+    {
+      "id": "babyai-task-evaluation-input-contract",
+      "assessment_path": "assessments/ba/babyai.md",
+      "source": "mila-iqia/babyai",
+      "review_ref": "65fb0cb6f816532a65014bf034a758244e2d5ae7",
+      "reviewed_at": "2026-10-18",
+      "function": "S1",
+      "finding": "BabyAI ships first-party Python task/mission and evaluation configuration around its learner. Screen static input and result-log validation or parser integrity if such script-only first-party behavior exists; do not execute environments, RL episodes, learned agents or imitation/model evaluation.",
+      "stage": "SCREENING", "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/mila-iqia/babyai/blob/65fb0cb6f816532a65014bf034a758244e2d5ae7/babyai/evaluate.py"]
+    }
+  ]
+}

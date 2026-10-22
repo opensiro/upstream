@@ -71,9 +71,11 @@
       "reviewed_at": "2026-10-19",
       "function": "S1",
       "finding": "PyFlue exposes first-party Python session/toolkit and sandbox policies over optional external backends. Screen deterministic tool and output-schema admission plus sandbox boundary checks against real native functions, never run backend agents, PydanticAI inference, simulated provider sessions or hosted services.",
-      "stage": "SCREENING", "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/SuperagenticAI/pyflue/blob/657c2d1a1b024a0bc137ff3bb252339fa0d5f692/pyflue/core.py"]
+      "stage": "AWAITING_EXTERNAL", "origin": "ASSESSMENT_INFORMED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "evidence": ["https://github.com/SuperagenticAI/pyflue/blob/657c2d1a1b024a0bc137ff3bb252339fa0d5f692/pyflue/sandboxes/virtual.py", "https://github.com/opensiro/upstream/blob/main/pilots/pyflue/virtual-sandbox-root-delete-guard.patch"],
+      "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/pyflue/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED"
     }
   ]
 }

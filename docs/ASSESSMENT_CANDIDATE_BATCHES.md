@@ -53,6 +53,8 @@ The completed [Kram source-only technical packet](../pilots/kram-s2/CONTRIBUTION
 
 **Batch-08 fourth row:** [Active Graph](../pilots/activegraph/CONTRIBUTION_HANDOFF.md) is `ASSESSMENT_INFORMED` / `AWAITING_EXTERNAL`: the genuine Python event decoder admitted non-object JSON payload roots, with 3 native failures before and all 5 cases passing after. No model-backed behavior, live agent or provider test. Existing pytest suite unavailable in local interpreter. Next: `pyflue-sandbox-tool-schema`.
 
+**Current continuation pointer — batch-09 (2026-10-23):** [Batch-08](../data/assessment-candidate-batches/2026-10-23-08-SUMMARY.md) is fully screened. The final [PyFlue](../pilots/pyflue/CONTRIBUTION_HANDOFF.md) first-party virtual-sandbox `rm` command allowed recursive deletion of its root through `.`, `/` and `/workspace`, tested 2 PASS / 3 FAIL before and 5 PASS after on isolated temporary directories. Across the eighth cohort: 24 native cases PASS after, 15 test cases FAIL before (plus one Cyber AI Team subcase); zero live LLM agents, zero external PRs. All five local technical packets await their human-owned external publication. A new source-disjoint [batch-09](../data/assessment-candidate-batches/2026-10-23-09.json) is frozen from exactly pinned included S1=A Index records and starts with `agentflow-dag-dependency-state`, followed by ConnectOnion, agentUniverse, BESSER and BabyAI. Generic `continue` must advance to that unverified screening row.
+
 ## VSM / OSM responsibility map
 
 | Operation | Present decisive owner | Return / evidence |
