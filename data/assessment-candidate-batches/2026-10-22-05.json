@@ -15,10 +15,12 @@
       "reviewed_at": "2026-10-20",
       "function": "S1",
       "finding": "A real model-capable tool loop calls its first-party numeric verifier after tool feedback; screen fixed-input numeric claims and error propagation using shipped Python test scripts without calling Anthropic or the model loop.",
-      "stage": "SCREENING",
-      "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/Onipounds/agent-loop/blob/49525dc12a9861f71c99050de3b4a4b8b897e9fa/agent_loop/verify.py", "https://github.com/Onipounds/agent-loop/blob/49525dc12a9861f71c99050de3b4a4b8b897e9fa/tests/test_agent.py"]
+      "stage": "AWAITING_EXTERNAL",
+      "origin": "ASSESSMENT_INFORMED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/agent-loop/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED",
+      "evidence": ["https://github.com/Onipounds/agent-loop/blob/49525dc12a9861f71c99050de3b4a4b8b897e9fa/agent_loop/verify.py", "https://github.com/Onipounds/agent-loop/blob/49525dc12a9861f71c99050de3b4a4b8b897e9fa/tests/test_agent.py", "https://github.com/opensiro/upstream/blob/main/pilots/agent-loop/numeric-notation-grounding.patch"]
     },
     {
       "id": "agent-context-lab-default-fail-boundary",
@@ -28,10 +30,12 @@
       "reviewed_at": "2026-10-20",
       "function": "S1",
       "finding": "First-party default-FAIL evidence verifier and workspace tool functions are reachable inside one coding-task harness; screen deterministic missing/partial evidence and canonicalized workspace paths using the shipped Python verifier tests, with no live model calls.",
-      "stage": "SCREENING",
-      "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/Qin-sor/agent-context-lab/blob/372ecc514d48d8e1e5f92d672a9c2b16f4826b5d/harness/verifier.py", "https://github.com/Qin-sor/agent-context-lab/blob/372ecc514d48d8e1e5f92d672a9c2b16f4826b5d/test_verifier.py"]
+      "stage": "AWAITING_EXTERNAL",
+      "origin": "ASSESSMENT_INFORMED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/agent-context-lab/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED",
+      "evidence": ["https://github.com/Qin-sor/agent-context-lab/blob/372ecc514d48d8e1e5f92d672a9c2b16f4826b5d/harness/verifier.py", "https://github.com/Qin-sor/agent-context-lab/blob/372ecc514d48d8e1e5f92d672a9c2b16f4826b5d/test_verifier.py", "https://github.com/opensiro/upstream/blob/main/pilots/agent-context-lab/default-fail-evidence-contract.patch"]
     },
     {
       "id": "discoveryrsi-campaign-history-integrity",

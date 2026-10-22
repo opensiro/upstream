@@ -1,0 +1,55 @@
+diff --git a/agent_loop/verify.py b/agent_loop/verify.py
+index 7fd166a..40b0230 100644
+--- a/agent_loop/verify.py
++++ b/agent_loop/verify.py
+@@ -22,7 +22,10 @@ from dataclasses import dataclass
+ 
+ from .memory import Memory
+ 
+-_NUM_RE = re.compile(r"-?\d+(?:\.\d+)?")
++# Recognize a complete numeric claim, including scientific notation and
++# leading-decimal forms. Splitting 1e3 into 1 and 3 can incorrectly ground a
++# fabricated value in unrelated tool readings [1, 3].
++_NUM_RE = re.compile(r"(?<![\w.])[-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][-+]?\d+)?")
+ # Tokens like pump-7, S7-1500, abc123: a run containing letters and digits/
+ # hyphens. We blank these out before reading numbers so identifiers aren't
+ # mistaken for numeric claims.
+diff --git a/tests/test_numeric_notation.py b/tests/test_numeric_notation.py
+new file mode 100644
+index 0000000..45394f3
+--- /dev/null
++++ b/tests/test_numeric_notation.py
+@@ -0,0 +1,33 @@
++"""Fixed-input verifier regressions; no model or provider invocation."""
++
++import unittest
++
++from agent_loop.memory import Memory
++from agent_loop.models import ToolCall
++from agent_loop.verify import extract_numbers, verify_grounding
++
++
++def memory_with_results(payload):
++    memory = Memory()
++    memory.add_tool_results([(ToolCall(id="fixed", name="calculate", input={}), payload)])
++    return memory
++
++
++class NumericNotationTests(unittest.TestCase):
++    def test_scientific_and_leading_decimal_notation(self):
++        self.assertEqual(extract_numbers("1e3; 2.5e-3; .5; -4E+2"), [1000.0, 0.0025, 0.5, -400.0])
++
++    def test_accepts_equivalent_scientific_tool_result(self):
++        result = verify_grounding("fixed", "The result is 1e3", memory_with_results({"result": 1000}))
++        self.assertTrue(result.ok, result.feedback)
++
++    def test_rejects_scientific_claim_not_present_in_results(self):
++        result = verify_grounding("fixed", "The result is 1e3", memory_with_results({"values": [1, 3]}))
++        self.assertFalse(result.ok, "The numeric claim 1000 must not be grounded by unrelated 1 and 3")
++
++    def test_existing_hyphenated_identifier_is_not_numeric(self):
++        self.assertEqual(extract_numbers("pump-7 and S7-1500"), [])
++
++
++if __name__ == "__main__":
++    unittest.main()
