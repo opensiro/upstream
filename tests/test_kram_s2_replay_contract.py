@@ -26,6 +26,8 @@ class KramReplayContractTest(unittest.TestCase):
         self.assertIn("persist-credentials: false", workflow)
         self.assertIn("--include='*s2_replay_test.go'", workflow)
         self.assertIn("--include='*edit_file.go'", workflow)
+        self.assertIn("set +e", workflow)
+        self.assertIn("result=${PIPESTATUS[0]}", workflow)
         self.assertIn("go test -race", workflow)
         self.assertNotIn("git push ", workflow)
         self.assertNotIn("gh pr create", workflow)

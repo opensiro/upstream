@@ -49,8 +49,12 @@ jobs:
         working-directory: kram
         run: |
           set -uo pipefail
+          # GitHub's default bash shell enables errexit. An original RED
+          # regression is expected evidence, not a reason to skip AFTER.
+          set +e
           go test ./internal/daemon/tools -run '^TestS2(SameFileEditReplay|SeparateFilesControl|CompetingSameMarker|DelegatedRegistryReplay)$' -count=1 -v 2>&1 | tee /tmp/kram-s2-before.log
           result=${PIPESTATUS[0]}
+          set -e
           if test "$result" -eq 0; then
             echo 'Original code unexpectedly passed: no demonstrated baseline defect' >&2
             exit 1
