@@ -1,0 +1,83 @@
+diff --git a/ui-web/src/state/session/runtime.cancel.test.ts b/ui-web/src/state/session/runtime.cancel.test.ts
+index b8e436f..99440c9 100644
+--- a/ui-web/src/state/session/runtime.cancel.test.ts
++++ b/ui-web/src/state/session/runtime.cancel.test.ts
+@@ -24,6 +24,7 @@ interface Row { id: string; title?: string; status?: string | null; last?: strin
+ async function harness({ turnKept = true, rows = [{ id: 's1' }] as Row[] } = {}) {
+   const log: unknown[][] = []
+   const queue: string[] = []
++  const steps: Array<{ text: string }> = []
+   const asked: Array<[string, unknown]> = []
+   let settleCancel: { res: () => void; rej: (e: unknown) => void } | null = null
+   document.body.innerHTML = '<h1 id="title"></h1><div id="stage"></div><div id="flash"></div>'
+@@ -91,13 +92,18 @@ async function harness({ turnKept = true, rows = [{ id: 's1' }] as Row[] } = {})
+         artifacts: () => log.push(['artifacts']),
+         turnKept: () => turnKept,
+         killStatus: () => log.push(['killStatus']),
+-        step: () => ({ seal: () => {}, sayDelta: () => {}, thinkAppend: () => {} }),
++        step: () => {
++          const step = { text: '', seal: () => {}, sayDelta: (s: string) => { step.text += s }, thinkAppend: () => {} }
++          steps.push(step)
++          return step
++        },
+         status: () => {},
+       },
+       'src/features/transcript/tail': {
+         down: () => {},
+       },
+       'src/features/workspace/store': {
++        advanceTurn: () => {},
+         currentTurn: () => 1,
+         loadDeliveries: () => {},
+       },
+@@ -130,6 +136,7 @@ async function harness({ turnKept = true, rows = [{ id: 's1' }] as Row[] } = {})
+     registry,
+     pipeline,
+     log,
++    steps,
+     queue,
+     asked,
+     rows,
+@@ -146,6 +153,22 @@ afterEach(() => {
+   turn._resetForTests()
+ })
+ 
++describe('the step boundary after a stopped turn', () => {
++  it.each(['turn.started', 'message.start'] as const)('keeps late output out of a new %s turn', async (opening) => {
++    const h = await harness()
++    h.pipeline.dispatch({ type: 'message.start', payload: { content: 'ask A', turn_id: 'A' } })
++    h.pipeline.dispatch({ type: 'token.delta', payload: { text: 'a1' } })
++    h.runtime.stop()
++    h.pipeline.dispatch({ type: 'token.delta', payload: { text: 'a-tail' } })
++    h.pipeline.dispatch({ type: 'message.complete', payload: { usage: {} } })
++    await h.settle()
++    h.pipeline.dispatch({ type: opening, payload: { turn_id: 'B', content: 'ask B' } })
++    h.pipeline.dispatch({ type: 'token.delta', payload: { text: 'b1' } })
++
++    expect(h.steps.map((s) => s.text)).toEqual(['a1', 'a-tail', 'b1'])
++  })
++})
++
+ /* N2: the three places a cancel is protected from the server's own unwinding.
+    Miss any one of them and the queued send is released twice, or not at all. */
+ describe('a cancel in flight', () => {
+diff --git a/ui-web/src/state/session/stages.ts b/ui-web/src/state/session/stages.ts
+index 02fdec6..8a9d77b 100644
+--- a/ui-web/src/state/session/stages.ts
++++ b/ui-web/src/state/session/stages.ts
+@@ -78,6 +78,7 @@ const changesSettings = (name: string | undefined, args: unknown): boolean => {
+    it is here because reading them in this order is how the turn reads. */
+ export const STAGES: readonly Stage[] = [
+   arm('message.start', (rt, p) => {
++    reset(rt)
+     /* Read BEFORE the phase is set: the window that sent this turn has already
+        drawn the question; a window that is only watching has not.
+ 
+@@ -114,6 +115,7 @@ export const STAGES: readonly Stage[] = [
+   }),
+ 
+   arm('turn.started', (rt, p) => {
++    reset(rt)
+     /* A turn the RUNTIME opened (a delegated result re-entering) has begun.
+        The spine suppresses message.start for these, so this event is the whole
+        opening: the workspace turn advances, the client enters the busy state
