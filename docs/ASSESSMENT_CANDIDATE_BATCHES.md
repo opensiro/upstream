@@ -45,6 +45,8 @@ The completed [Kram source-only technical packet](../pilots/kram-s2/CONTRIBUTION
 
 **Current continuation pointer — batch-08 (2026-10-23):** [Batch-07](../data/assessment-candidate-batches/2026-10-22-07-SUMMARY.md) is now fully screened; [SIFRA](../pilots/sifra/CONTRIBUTION_HANDOFF.md) yielded the fifth bounded native patch: 2 PASS / 1 FAIL before, 3 PASS after. Across the seventh cohort: 38 passing genuine-script cases after, 10 failing cases before, no LLM agents and no external upstream PRs. All five technical handoffs remain human-owned for publication. A new full, source-disjoint five-row [batch-08](../data/assessment-candidate-batches/2026-10-23-08.json) is frozen against the same included S1=A Index SHA and starts with `spartan-persistence-recovery-contract`; then Cyber AI Team, OniRoute, Active Graph and PyFlue. The questions remain unverified until source screening. Generic `continue` moves to batch-08, not back to a pending external PR.
 
+**Batch-08 first row:** [Spartan](../pilots/spartan/CONTRIBUTION_HANDOFF.md) is now `ASSESSMENT_INFORMED` / `AWAITING_EXTERNAL`: an existing YAML frontmatter marker was doubled during memory backfill, causing a first archive entry to be skipped. Real-source Python parser checks were 2 PASS / 2 FAIL before and 4 PASS after. This is a bounded parser fix, not an LLM/memory-retrieval outcome. The next row is `cyber-ai-team-autonomy-action-policy`.
+
 ## VSM / OSM responsibility map
 
 | Operation | Present decisive owner | Return / evidence |
