@@ -101,9 +101,9 @@ class BatchTests(unittest.TestCase):
         all_previous.update(r["source"] for r in self.sixth["candidates"])
         seventh = queue.summarize(self.seventh)
         self.assertEqual(seventh["total"], 5)
-        self.assertEqual(seventh["next_candidate"], "reef-polyp-experiment-queue-contract")
-        self.assertEqual(seventh["stage_counts"]["SCREENING"], 2)
-        self.assertEqual(seventh["stage_counts"]["AWAITING_EXTERNAL"], 3)
+        self.assertEqual(seventh["next_candidate"], "sifra-runtime-approval-replay")
+        self.assertEqual(seventh["stage_counts"]["SCREENING"], 1)
+        self.assertEqual(seventh["stage_counts"]["AWAITING_EXTERNAL"], 4)
         self.assertEqual(seventh["test_mode"], "NATIVE_SCRIPT_ONLY_NO_LLM_AGENTS")
         self.assertFalse(all_previous.intersection({r["source"] for r in self.seventh["candidates"]}))
 

@@ -57,9 +57,11 @@
       "reviewed_at": "2026-10-20",
       "function": "S1",
       "finding": "Reef's first-party Python Polyp queue and tool-constraint enforcement encode state transitions for optional research work. Screen deterministic queue-record and constraint validation against genuine source without Postgres, cloud workers or live model decisions.",
-      "stage": "SCREENING", "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/Coral-Bricks-AI/reef/blob/33aefaa12d78891bf5ba70a0d96b070d471ecc78/polyp/queue/cbq.py"]
+      "stage": "AWAITING_EXTERNAL", "origin": "ASSESSMENT_INFORMED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "evidence": ["https://github.com/Coral-Bricks-AI/reef/blob/33aefaa12d78891bf5ba70a0d96b070d471ecc78/polyp/queue/cbq.py", "https://github.com/opensiro/upstream/blob/main/pilots/reef/unpushed-archive-commit-retry.patch"],
+      "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/reef/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED"
     },
     {
       "id": "sifra-runtime-approval-replay",
