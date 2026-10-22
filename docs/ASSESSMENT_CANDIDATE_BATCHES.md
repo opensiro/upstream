@@ -33,6 +33,8 @@ The completed [Kram source-only technical packet](../pilots/kram-s2/CONTRIBUTION
 
 **Batch-06 fourth row:** [Workflow One](../pilots/workflow-one/CONTRIBUTION_HANDOFF.md) is `AWAITING_EXTERNAL`: the current plugin engine admitted a second active run with an already-owned run ID; 1 RED/3 deterministic script cases before, 3 PASS after. The deprecated `server/` engine was not modified. Next `recuris-metaagent-gate-schema`.
 
+**Current continuation pointer — batch-07 (2026-10-22):** The full [batch-06](../data/assessment-candidate-batches/2026-10-22-06-SUMMARY.md) is now screened. [Recuris](../pilots/recuris/CONTRIBUTION_HANDOFF.md) yielded a fourth failing/errored source-only gate case in six tests before a narrow fix, and six passes after. Across the sixth cohort: five source-tested patches, 23 native tests passing after, 13 originally failing/errored, zero live LLM agents and zero external PRs. All five packets await separate human-owned publication. A new nonduplicate [batch-07](../data/assessment-candidate-batches/2026-10-22-07.json) is frozen from the **same exact** included `S1=A` Index SHA, starting with `forgedock-issue-stage-reconciliation`, followed by Pi Loop Studio, OpenOrbit, Reef and SIFRA. These are unverified screening questions only. Generic `continue` moves to batch-07 automatically and never waits for sixth-batch external publication.
+
 ## VSM / OSM responsibility map
 
 | Operation | Present decisive owner | Return / evidence |
