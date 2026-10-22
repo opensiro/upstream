@@ -29,9 +29,11 @@
       "reviewed_at": "2026-10-20",
       "function": "S1",
       "finding": "Cyber AI Team has first-party owner authorization and action-policy decisions around business-domain work. Screen pure Python policy validators and transition guards with fixed inputs only; exclude ERPNext, PostgreSQL, Temporal company cycles, LLM agents, simulated model plans or any external business actions.",
-      "stage": "SCREENING", "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/Hyper-AI-Lab/cyber-ai-team/blob/525401e40f34863cc7f4d3b053d437ce7709912f/backend/src/cyber_team/operations/action_policy.py"]
+      "stage": "AWAITING_EXTERNAL", "origin": "ASSESSMENT_INFORMED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "evidence": ["https://github.com/Hyper-AI-Lab/cyber-ai-team/blob/525401e40f34863cc7f4d3b053d437ce7709912f/backend/src/cyber_team/operations/action_policy.py", "https://github.com/opensiro/upstream/blob/main/pilots/cyber-ai-team/nonfinite-policy-envelopes.patch"],
+      "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/cyber-ai-team/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED"
     },
     {
       "id": "oniroute-validation-boundary",
