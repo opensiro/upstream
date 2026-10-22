@@ -1,0 +1,117 @@
+name: HarnessDesk V2 current source gate (no external writes)
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/harnessdesk-v2-current-source.yml'
+      - 'pilots/harnessdesk-1772/tool-gateway-ownership-fix-v2.patch'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/harnessdesk-v2-current-source.yml'
+      - 'pilots/harnessdesk-1772/tool-gateway-ownership-fix-v2.patch'
+
+permissions:
+  contents: read
+
+env:
+  PINNED_SOURCE: 81d5e34e0e8e3d7e0945bc680695940b41ab852f
+  PATCH_DIGEST: 12b5c7e55a6f730fb9a2465ca30dd47321690c87c0d887e7b8c9d6990ec186e7
+  SRC_POST_SHA: a130ca1fdf78519fa055a12502c35f7b937ebe8caff084975aa8a927a08faa3f
+  TEST_POST_SHA: f8fed230521978811efc3dd5bd32d8c284505201ecee41bf909bb93b3b163b9f
+
+jobs:
+  gateway-macos:
+    name: Current pinned macOS gateway regressions
+    runs-on: macos-15
+    timeout-minutes: 45
+    steps:
+      - name: Checkout OpenSiro evidence (credential-free)
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          path: opensiro
+          persist-credentials: false
+      - name: Checkout actual public HarnessDesk source SHA
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: HarnessDesk/HarnessDesk
+          ref: 81d5e34e0e8e3d7e0945bc680695940b41ab852f
+          path: harnessdesk
+          persist-credentials: false
+      - name: Verify and apply exact patch without pushing
+        shell: bash
+        run: |
+          set -euo pipefail
+          PATCH="$GITHUB_WORKSPACE/opensiro/pilots/harnessdesk-1772/tool-gateway-ownership-fix-v2.patch"
+          test "$(shasum -a 256 "$PATCH" | awk '{print $1}')" = "$PATCH_DIGEST"
+          test "$(git -C harnessdesk rev-parse HEAD)" = "$PINNED_SOURCE"
+          test ! -e harnessdesk/packages/server/test/tool-gateway-ownership.test.ts
+          git -C harnessdesk apply --check "$PATCH"
+          git -C harnessdesk apply "$PATCH"
+          git -C harnessdesk diff --check
+          test "$(shasum -a 256 harnessdesk/packages/server/src/tool-gateway.ts | awk '{print $1}')" = "$SRC_POST_SHA"
+          test "$(shasum -a 256 harnessdesk/packages/server/test/tool-gateway-ownership.test.ts | awk '{print $1}')" = "$TEST_POST_SHA"
+      - name: Node 22.19.0
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22.19.0
+      - name: pnpm 10.4.1
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.4.1
+      - name: Install frozen source dependencies without lifecycle scripts
+        working-directory: harnessdesk
+        run: pnpm install --frozen-lockfile --ignore-scripts
+      - name: Build actual upstream Node packages
+        working-directory: harnessdesk
+        run: pnpm run build:node
+      - name: Gateway original and V2 adversarial regressions
+        working-directory: harnessdesk
+        run: |
+          node --test --test-timeout=120000             packages/server/dist/test/tool-gateway-ownership.test.js             packages/server/dist/test/tool-gateway.test.js
+
+  check-push-linux:
+    name: Current pinned full check:push on Linux
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout OpenSiro evidence (credential-free)
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          path: opensiro
+          persist-credentials: false
+      - name: Checkout public HarnessDesk with merge-base history
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: HarnessDesk/HarnessDesk
+          ref: 81d5e34e0e8e3d7e0945bc680695940b41ab852f
+          path: harnessdesk
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Verify source, exact patch and changed paths
+        shell: bash
+        run: |
+          set -euo pipefail
+          PATCH="$GITHUB_WORKSPACE/opensiro/pilots/harnessdesk-1772/tool-gateway-ownership-fix-v2.patch"
+          test "$(sha256sum "$PATCH" | awk '{print $1}')" = "$PATCH_DIGEST"
+          test "$(git -C harnessdesk rev-parse HEAD)" = "$PINNED_SOURCE"
+          git -C harnessdesk merge-base origin/main HEAD >/dev/null
+          git -C harnessdesk apply --check "$PATCH"
+          git -C harnessdesk apply "$PATCH"
+          git -C harnessdesk diff --check
+          test "$(sha256sum harnessdesk/packages/server/src/tool-gateway.ts | awk '{print $1}')" = "$SRC_POST_SHA"
+          test "$(sha256sum harnessdesk/packages/server/test/tool-gateway-ownership.test.ts | awk '{print $1}')" = "$TEST_POST_SHA"
+      - name: Node 22.19.0
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22.19.0
+      - name: pnpm 10.4.1
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.4.1
+      - name: Install frozen source dependencies without lifecycle scripts
+        working-directory: harnessdesk
+        run: pnpm install --frozen-lockfile --ignore-scripts
+      - name: Execute full upstream check:push (unfiltered exit code)
+        working-directory: harnessdesk
+        run: pnpm check:push
