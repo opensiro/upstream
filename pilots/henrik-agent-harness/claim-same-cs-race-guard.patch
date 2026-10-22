@@ -1,0 +1,98 @@
+diff --git a/lib/claim.mjs b/lib/claim.mjs
+index 7418b4f..f3f17e3 100644
+--- a/lib/claim.mjs
++++ b/lib/claim.mjs
+@@ -577,6 +577,14 @@ export function applyClaimPlan({ plan, runner }) {
+       `apply-time race: orchestrator ${plan.workboardRow.owner} now owns Active row for ${selfOther.cs} in WORKBOARD (was clear at plan time); refusing to add a second Active row`,
+     );
+   }
++  const competingClaim = freshRows.find(
++    (r) => r.cs.toUpperCase() === plan.csId.toUpperCase() && r.owner !== plan.workboardRow.owner,
++  );
++  if (competingClaim) {
++    throw new Error(
++      `apply-time race: ${plan.csId} is now claimed by ${competingClaim.owner} in WORKBOARD; refusing to rename another owner's task`,
++    );
++  }
+ 
+   let renamed = false;
+   if (runner.exists(plan.destPath) && !runner.exists(plan.sourcePath)) {
+diff --git a/tests/claim-same-cs-race.test.mjs b/tests/claim-same-cs-race.test.mjs
+new file mode 100644
+index 0000000..7c9209e
+--- /dev/null
++++ b/tests/claim-same-cs-race.test.mjs
+@@ -0,0 +1,73 @@
++import { test } from 'node:test';
++import assert from 'node:assert/strict';
++import path from 'node:path';
++import { planClaim, applyClaimPlan, insertActiveWorkRow, parseActiveWorkRows } from '../lib/claim.mjs';
++
++const root = path.join(path.sep, 'p');
++const workboardPath = path.join(root, 'WORKBOARD.md');
++const plannedDir = path.join(root, 'planned');
++const activeDir = path.join(root, 'active');
++const empty = `# WORKBOARD\n\n## Active Work\n\n| CS-Task ID | Title | State | Owner | Branch | Last Updated | Blocked |\n| --- | --- | --- | --- | --- | --- | --- |\n| — | — | — | — | — | — | — |\n\n## Done\n`;
++
++function fixture() {
++  const listing = {
++    entryPath: path.join(plannedDir, 'planned_cs64_my-slug.md'),
++    filename: 'planned_cs64_my-slug.md', cs: 'CS64', slug: 'my-slug', directoryForm: false,
++  };
++  const { plan } = planClaim({
++    csId: 'CS64', listing, workboardMd: empty, workboardPath, plannedDir, activeDir,
++    agentId: 'omni-ah', title: 'The task', today: '2026-10-23',
++  });
++  const files = new Map([[workboardPath, empty], [listing.entryPath, '# Task\n']]);
++  const moves = [];
++  const runner = {
++    exists: p => files.has(p), readFile: p => files.get(p),
++    writeFile: (p, body) => files.set(p, body),
++    gitMv: (src, dest) => {
++      moves.push([src, dest]); files.set(dest, files.get(src)); files.delete(src);
++    },
++  };
++  return { plan, files, moves, runner };
++}
++
++function addRow(md, { cs = 'CS64', owner = 'yoga-ah', branch = 'cs64/content' } = {}) {
++  return insertActiveWorkRow({
++    workboardMd: md,
++    row: { cs, title: 'Concurrent claim', state: '🟢 Active', owner,
++      branch, lastUpdated: '2026-10-23', blocked: '—' },
++  }).md;
++}
++
++test('different owner taking the same CS after plan must not trigger rename or overwrite', () => {
++  const { plan, files, moves, runner } = fixture();
++  const fresh = addRow(empty);
++  files.set(workboardPath, fresh);
++  assert.throws(() => applyClaimPlan({ plan, runner }), /apply-time race.*CS64/);
++  assert.equal(moves.length, 0);
++  assert.equal(files.get(workboardPath), fresh);
++  assert.ok(files.has(plan.sourcePath));
++  assert.ok(!files.has(plan.destPath));
++});
++
++test('same-CS race with different owner stays rejected even when first branch differs', () => {
++  const { plan, files, moves, runner } = fixture();
++  files.set(workboardPath, addRow(empty, { branch: 'cs64/other' }));
++  assert.throws(() => applyClaimPlan({ plan, runner }), /apply-time race.*CS64/);
++  assert.equal(moves.length, 0);
++});
++
++test('different owner claiming a different CS is still permitted', () => {
++  const { plan, files, runner } = fixture();
++  files.set(workboardPath, addRow(empty, { cs: 'CS63', branch: 'cs63/content' }));
++  const result = applyClaimPlan({ plan, runner });
++  assert.equal(result.renamed, true);
++  assert.deepEqual(parseActiveWorkRows(files.get(workboardPath)).map(r => r.cs).sort(), ['CS63', 'CS64']);
++});
++
++test('same owner re-applying an already completed claim remains idempotent', () => {
++  const { plan, runner } = fixture();
++  applyClaimPlan({ plan, runner });
++  const again = applyClaimPlan({ plan, runner });
++  assert.equal(again.renamed, false);
++  assert.equal(again.workboardEdited, false);
++});
