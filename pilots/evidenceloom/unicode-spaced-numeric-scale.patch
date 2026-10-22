@@ -1,0 +1,75 @@
+diff --git a/tests/test_numeric_scale_whitespace_unittest.py b/tests/test_numeric_scale_whitespace_unittest.py
+new file mode 100644
+index 0000000..6a80477
+--- /dev/null
++++ b/tests/test_numeric_scale_whitespace_unittest.py
+@@ -0,0 +1,39 @@
++"""Offline native checks for Unicode-spaced percent-scale suffixes."""
++
++import unittest
++
++from tradingagents.research.numeric_spans import _SectionSpans, supported_numeric_span
++
++
++def selection(text):
++    start = len("Yield ".encode("utf-8"))
++    return {"start_byte": start, "end_byte": start + 2, "text": "12"}
++
++
++class ScaleWhitespaceTests(unittest.TestCase):
++    def check_both(self, text, expected):
++        span = selection(text)
++        self.assertEqual(supported_numeric_span(text, span), expected)
++        self.assertEqual(_SectionSpans(text).numeric(span), expected)
++
++    def test_narrow_nbsp_percent_is_scaled(self):
++        self.check_both("Yield 12\u202f% today", False)
++
++    def test_nbsp_percent_is_scaled(self):
++        self.check_both("Yield 12\u00a0% today", False)
++
++    def test_thin_space_percent_is_scaled(self):
++        self.check_both("Yield 12\u2009% today", False)
++
++    def test_ascii_space_percent_is_scaled(self):
++        self.check_both("Yield 12 % today", False)
++
++    def test_immediate_percent_is_scaled(self):
++        self.check_both("Yield 12% today", False)
++
++    def test_non_scale_plain_number_is_still_supported(self):
++        self.check_both("Yield 12 USD today", True)
++
++
++if __name__ == "__main__":
++    unittest.main()
+diff --git a/tradingagents/research/numeric_spans.py b/tradingagents/research/numeric_spans.py
+index eda3e81..94b3522 100644
+--- a/tradingagents/research/numeric_spans.py
++++ b/tradingagents/research/numeric_spans.py
+@@ -10,6 +10,7 @@ _SCALE = re.compile(
+     r"(?:[%‰‱％٪千万亿萬億兆]|(?:[kmbt]|bps?|million|billion|trillion)(?![A-Za-z0-9_]))",
+     re.I | re.ASCII,
+ )
++_SCALE_GAP = " \t\u00a0\u202f\u2009"
+ _MINUS = frozenset("-+−﹣－＋﹢±")
+ _TOKEN_BYTES = re.compile(_TOKEN.pattern.encode("ascii"))
+ 
+@@ -42,7 +43,7 @@ class _SectionSpans:
+                 selected,
+                 prefix[-2:],
+                 suffix[:2],
+-                _SCALE.match(suffix.lstrip(" \t")) is not None,
++                _SCALE.match(suffix.lstrip(_SCALE_GAP)) is not None,
+             )
+         parts = self._parts[key]
+         if parts[0] != text:
+@@ -97,7 +98,7 @@ def supported_numeric_span(section: str, span: dict) -> bool:
+         m.start() == start and m.end() == start + len(text) for m in _TOKEN.finditer(section)
+     ):
+         return False
+-    return _supported_neighbors(prefix, suffix) and _SCALE.match(suffix.lstrip(" \t")) is None
++    return _supported_neighbors(prefix, suffix) and _SCALE.match(suffix.lstrip(_SCALE_GAP)) is None
+ 
+ 
+ def _supported_neighbors(prefix, suffix):

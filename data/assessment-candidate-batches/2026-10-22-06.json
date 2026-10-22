@@ -45,10 +45,12 @@
       "reviewed_at": "2026-10-20",
       "function": "S1",
       "finding": "Evidence Loom ships Python numeric/research-readiness and frozen-evidence validators used with its bundled analyst workflow; screen deterministic malformed-input/provenance checks from real source without market API, model, or Tauri invocation.",
-      "stage": "SCREENING",
-      "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/simonguo/evidenceloom/tree/de30bd4262fe0198dcc349e318fb0c1f1f9fc410"]
+      "stage": "AWAITING_EXTERNAL",
+      "origin": "ASSESSMENT_INFORMED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "evidence": ["https://github.com/simonguo/evidenceloom/blob/de30bd4262fe0198dcc349e318fb0c1f1f9fc410/tradingagents/research/numeric_spans.py", "https://github.com/opensiro/upstream/blob/main/pilots/evidenceloom/unicode-spaced-numeric-scale.patch"],
+      "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/evidenceloom/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED"
     },
     {
       "id": "dsh-harness-one-workflow-state",
