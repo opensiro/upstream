@@ -43,9 +43,11 @@
       "reviewed_at": "2026-10-20",
       "function": "S1",
       "finding": "OniRoute ships first-party Python workspace governance, quality and validation modules around engineering artifacts. Screen deterministic validator and path-boundary handling on pinned real source using fixed local fixtures, not its model-backed engineering runner or simulated swarm-wave subsystem.",
-      "stage": "SCREENING", "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/AniruddhaDas1/OniRoute_SwarmAgents/blob/c47d553ad2e1aa547cce000c095a9feda5434ee2/runtime/validation/engine.py"]
+      "stage": "AWAITING_EXTERNAL", "origin": "ASSESSMENT_INFORMED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "evidence": ["https://github.com/AniruddhaDas1/OniRoute_SwarmAgents/blob/c47d553ad2e1aa547cce000c095a9feda5434ee2/runtime/workspace/validation.py", "https://github.com/opensiro/upstream/blob/main/pilots/oniroute/nested-workspace-engine-guard.patch"],
+      "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/oniroute/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED"
     },
     {
       "id": "activegraph-event-patch-invariants",

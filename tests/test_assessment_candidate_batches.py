@@ -111,9 +111,9 @@ class BatchTests(unittest.TestCase):
         all_previous.update(r["source"] for r in self.seventh["candidates"])
         eighth = queue.summarize(self.eighth)
         self.assertEqual(eighth["total"], 5)
-        self.assertEqual(eighth["next_candidate"], "oniroute-validation-boundary")
-        self.assertEqual(eighth["stage_counts"]["SCREENING"], 3)
-        self.assertEqual(eighth["stage_counts"]["AWAITING_EXTERNAL"], 2)
+        self.assertEqual(eighth["next_candidate"], "activegraph-event-patch-invariants")
+        self.assertEqual(eighth["stage_counts"]["SCREENING"], 2)
+        self.assertEqual(eighth["stage_counts"]["AWAITING_EXTERNAL"], 3)
         self.assertEqual(eighth["test_mode"], "NATIVE_SCRIPT_ONLY_NO_LLM_AGENTS")
         self.assertFalse(all_previous.intersection({r["source"] for r in self.eighth["candidates"]}))
 
