@@ -37,6 +37,8 @@ The completed [Kram source-only technical packet](../pilots/kram-s2/CONTRIBUTION
 
 **Batch-07 first row:** [ForgeDock](../pilots/forgedock/CONTRIBUTION_HANDOFF.md) is `ASSESSMENT_INFORMED` / `AWAITING_EXTERNAL`: same-version GitHub and local state divergence returned the local snapshot contrary to its authority rule. Two native Node regression cases failed before, all seven passed after the source-bound change. This is not an external submitted change or a live agent test. The next eligible row is `pi-loop-worktree-publication-integrity`.
 
+**Batch-07 second row:** [Pi Loop Studio](../pilots/pi-loop-studio/CONTRIBUTION_HANDOFF.md) is `ASSESSMENT_INFORMED` / `AWAITING_EXTERNAL`: four typed-array contract cases failed in the native host plan validator before a bounded change; 6/6 deterministic Node cases pass after. No models, tool-executing agents or publication run. Next eligible: `openorbit-approval-boundary-validation`.
+
 ## VSM / OSM responsibility map
 
 | Operation | Present decisive owner | Return / evidence |

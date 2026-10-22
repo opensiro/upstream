@@ -29,9 +29,11 @@
       "reviewed_at": "2026-10-20",
       "function": "S1",
       "finding": "Pi Loop Studio packages first-party Node workspace/result/publishing and persistent job state around its model actors. Check script-only worktree state and publish guards on pinned native modules with fixed inputs, no Pi/model SDK agent execution.",
-      "stage": "SCREENING", "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/LEO001020/pi-loop-studio-orchestra/blob/0a6b65c63a0eb11f2e928e773de1774b2c7d5bd7/server/workspace.mjs"]
+      "stage": "AWAITING_EXTERNAL", "origin": "ASSESSMENT_INFORMED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "evidence": ["https://github.com/LEO001020/pi-loop-studio-orchestra/blob/0a6b65c63a0eb11f2e928e773de1774b2c7d5bd7/server/workspace.mjs", "https://github.com/opensiro/upstream/blob/main/pilots/pi-loop-studio/native-plan-shape-guard.patch"],
+      "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/pi-loop-studio/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED"
     },
     {
       "id": "openorbit-approval-boundary-validation",
