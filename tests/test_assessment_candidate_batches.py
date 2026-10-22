@@ -121,9 +121,9 @@ class BatchTests(unittest.TestCase):
         all_previous.update(r["source"] for r in self.eighth["candidates"])
         ninth = queue.summarize(self.ninth)
         self.assertEqual(ninth["total"], 5)
-        self.assertEqual(ninth["next_candidate"], "babyai-task-evaluation-input-contract")
-        self.assertEqual(ninth["stage_counts"]["SCREENING"], 1)
-        self.assertEqual(ninth["stage_counts"]["AWAITING_EXTERNAL"], 4)
+        self.assertIsNone(ninth["next_candidate"])
+        self.assertEqual(ninth["next_stage"], "NO_ACTIONABLE_CANDIDATE")
+        self.assertEqual(ninth["stage_counts"]["AWAITING_EXTERNAL"], 5)
         self.assertEqual(ninth["test_mode"], "NATIVE_SCRIPT_ONLY_NO_LLM_AGENTS")
         self.assertFalse(all_previous.intersection({r["source"] for r in self.ninth["candidates"]}))
 

@@ -71,9 +71,11 @@
       "reviewed_at": "2026-10-18",
       "function": "S1",
       "finding": "BabyAI ships first-party Python task/mission and evaluation configuration around its learner. Screen static input and result-log validation or parser integrity if such script-only first-party behavior exists; do not execute environments, RL episodes, learned agents or imitation/model evaluation.",
-      "stage": "SCREENING", "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/mila-iqia/babyai/blob/65fb0cb6f816532a65014bf034a758244e2d5ae7/babyai/evaluate.py"]
+      "stage": "AWAITING_EXTERNAL", "origin": "ASSESSMENT_INFORMED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "evidence": ["https://github.com/mila-iqia/babyai/blob/65fb0cb6f816532a65014bf034a758244e2d5ae7/babyai/arguments.py", "https://github.com/mila-iqia/babyai/blob/65fb0cb6f816532a65014bf034a758244e2d5ae7/scripts/train_rl.py", "https://github.com/opensiro/upstream/blob/main/pilots/babyai/native-training-argument-guard.patch"],
+      "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/babyai/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED"
     }
   ]
 }

@@ -65,6 +65,8 @@ The completed [Kram source-only technical packet](../pilots/kram-s2/CONTRIBUTION
 
 **Batch-09 fourth row:** [BESSER](../pilots/besser/CONTRIBUTION_HANDOFF.md) is `ASSESSMENT_INFORMED` / `AWAITING_EXTERNAL`. Original `TransitionBuilder.go_to()` rejected adding an event transition after an auto transition, but admitted an auto transition after an event or condition transition, breaking its stated exclusivity invariant. Seven genuine first-party transition registration tests: 5 PASS / 2 FAIL before, 7 PASS after. No state body or LLM agent was executed. Continue to `babyai-task-evaluation-input-contract`.
 
+**Batch-09 fifth row (batch completed):** [BabyAI](../pilots/babyai/CONTRIBUTION_HANDOFF.md) accepted non-positive native training/evaluation argument counts, despite consumers requiring a nonempty process/episode loop. Only the first-party `ArgumentParser` was run with synthetic command-line flags: 2 PASS / 3 FAIL before, 5 PASS after. No Gym environment, RL/LLM agent or episode was executed. [Batch-09](../data/assessment-candidate-batches/2026-10-23-09-SUMMARY.md) is now five-of-five technically screened: 32 native tests PASS after, 18 previously failing assertions/errors, no external upstream contribution submitted. Freeze and enter a new complete source-disjoint batch for the next continuation.
+
 
 | Operation | Present decisive owner | Return / evidence |
 | --- | --- | --- |
