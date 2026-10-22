@@ -17,6 +17,6 @@ The [read-only CI replay](../../.github/workflows/kram-s2-native-replay.yml) che
 
 ## Stop conditions and next gates
 
-1. **Technical:** evaluate provider-backed real child tasks and real user frequency; the forced concurrent fixture is a bounded product-tool correctness mechanism, not measured general S2 autonomy or adoption.
+1. **Technical — satisfied for the bounded mechanism:** the pinned native `edit_file` before/after script, scripted `delegate_task` registry dispatch, separate-file control, native Go/race regressions and read-only CI establish the measured correctness delta. **Do not test or require live LLM agents, model APIs or real-user workflows.** Only further deterministic native scripts are in scope if a source-level concern arises; general S2 autonomy and adoption remain unmeasured, not pending gates.
 2. **Governance:** exact-stage OpenSiro Control Plane permission and maintainer review are required before any contribution branch or third-party issue/PR. Human owns external publication; maintainer owns acceptance.
 3. **Reporting:** `NATIVE_TOOL_BEHAVIOR` and `product_benefit=NOT_MEASURED`, `external_delivery=NONE`. Do not combine with the separate eight-PR lifecycle portfolio or claim an Index grade change.

@@ -36,6 +36,8 @@ and Organization fit. It is deliberately explicit about **unmeasured real-user
 benefit**; regenerate its Markdown from
 `data/functional-effects.json` using `scripts/functional_effects.py`.
 
+**Test rule:** assessment-derived upstream pilots use **deterministic native script/CLI tests only**. Pinned product-code baselines, matched after-tests and regressions are sufficient for a bounded technical effect; **live LLM agents, model calls and Browser agent-quality tests are out of scope**. Deployed end-user benefit, external PR acceptance and VSM grade changes remain separate unproven claims. See the [binding validation policy](docs/ASSESSMENT_TO_IMPROVEMENT.md#mandatory-validation-boundary--native-scripted-tests-only).
+
 The [Kram S2 replay](pilots/kram-s2/README.md) is the current strongest
 Index-first native-tool result: a pinned real Go `edit_file` source path
 reproduced concurrent lost updates and a local scoped patch eliminated those

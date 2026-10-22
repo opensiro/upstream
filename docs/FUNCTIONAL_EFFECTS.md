@@ -3,6 +3,7 @@
 **Evidence date:** 2026-10-22. **Owner:** `opensiro/upstream`.
 This is **not** the eight-intervention PR acceptance dashboard, the Organization-owned product-native fit snapshot, or a VSM S2 regrade.
 Source-only matched tests and a green CI run cannot be counted as an improvement deployed to users.
+**Binding test policy:** [native scripted tests only](ASSESSMENT_TO_IMPROVEMENT.md#mandatory-validation-boundary--native-scripted-tests-only). Pinned product-code before/after scripts and regressions can establish a bounded technical effect; live LLM agents and model API evaluations are not required or in scope.
 
 | Pilot | Origin | Before | After | Evidence level | Product benefit | External delivery |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -18,7 +19,7 @@ Source-only matched tests and a green CI run cannot be counted as an improvement
 ### Kram — `kram-s2-native-edit-atomicity`
 
 - **Comparability:** Same Kram commit, native Go tool and fixed concurrent source workloads. Delegated calls use a synthetic task selector, not a model; 50-trial and 30-trial results are local observations. Independent blind selection is potentially contaminated by prior session context.
-- **Next gate:** Cross-agent/model workload and first-party review, exact-stage authorization, then human-owned external contribution; no S2 regrade.
+- **Next gate:** Native scripted technical gate satisfied for scoped edit_file correctness; remaining steps are first-party code/fit review, exact-stage authority and human-owned external contribution. No S2 regrade.
 - **Receipts:** [1](https://github.com/opensiro/upstream/blob/main/pilots/kram-s2/REPLAY_RECEIPT_2026-10-22.md), [2](https://github.com/opensiro/upstream/blob/main/pilots/kram-s2/s2-edit-file-atomicity-v2.patch), [3](https://github.com/opensiro/upstream/blob/main/.github/workflows/kram-s2-native-replay.yml)
 
 ### Zot — `zot-scoped-admission`
@@ -30,7 +31,7 @@ Source-only matched tests and a green CI run cannot be counted as an improvement
 ### AgentBox — `agentbox-manager-advice`
 
 - **Comparability:** Paired task intent at source/planner level; no boxes, real file modifications or user-facing conflict frequency measured.
-- **Next gate:** Human-owned issue-first AgentBox Phase 4 design feedback, then real conflicting/disjoint box workloads.
+- **Next gate:** Human-owned issue-first AgentBox Phase 4 design feedback; if additional technical evidence is needed, use only deterministic native script fixtures against actual box/file mechanisms.
 - **Receipts:** [1](https://github.com/opensiro/upstream/pull/72), [2](https://github.com/opensiro/upstream/actions/runs/39683286746), [3](https://github.com/opensiro/upstream/pull/64)
 
 ### Kit — `kit-partial-subagent-config`
@@ -42,13 +43,13 @@ Source-only matched tests and a green CI run cannot be counted as an improvement
 ### Agent Code — `agent-code-reviewer`
 
 - **Comparability:** Tests prove source contracts, not a before/after reviewer-quality metric.
-- **Next gate:** External publication decision and real-model paired quality study if the effectiveness claim is needed.
+- **Next gate:** External publication decision; native scripted role, isolation and permissions regressions are the in-scope tests. Model-review quality remains unmeasured and must not be claimed.
 - **Receipts:** [1](https://github.com/opensiro/upstream/pull/69), [2](https://github.com/opensiro/upstream/actions/runs/39640741764)
 
 ### HarnessDesk — `harnessdesk-socket-ownership`
 
 - **Comparability:** Pinned-source regression tests; production multi-host deployment not observed.
-- **Next gate:** Exact-stage contribution authorization, native external review and deployed host observation.
+- **Next gate:** Exact-stage contribution authorization and native external review. Deployed host benefit remains unmeasured and is not a testing prerequisite.
 - **Receipts:** [1](https://github.com/opensiro/upstream/pull/55), [2](https://github.com/opensiro/upstream/blob/main/pilots/harnessdesk-1772/ASSESSMENT_LINKAGE_2026-10-20.md)
 
 ## Classification boundary
@@ -60,6 +61,6 @@ Source-only matched tests and a green CI run cannot be counted as an improvement
 - `NATIVE_TOOL_BEHAVIOR` measures actual shipped tool code under a controlled concurrent fixture, not provider-selected agent work or deployed user benefit.
 - `external_delivery=NONE` concerns the *pilot's third-party PR*, not internal OpenSiro PRs or the separate eight-case portfolio.
 
-Only an independently accepted native need and a matched real workload can justify stronger product impact claims; external delivery is a separate dimension. Follow [the experiment method](ASSESSMENT_TO_IMPROVEMENT.md) and [#56](https://github.com/opensiro/upstream/issues/56).
+A matched deterministic native script may establish technical improvement at its tested boundary. Deployed adoption, actual user benefit and external delivery remain separate, unproven dimensions. Follow [the experiment method](ASSESSMENT_TO_IMPROVEMENT.md) and [#56](https://github.com/opensiro/upstream/issues/56).
 
 Regenerate: `python3 scripts/functional_effects.py --write`; verify: `python3 scripts/functional_effects.py --check`.

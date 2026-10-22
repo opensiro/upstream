@@ -27,6 +27,8 @@ Use the [assessment-to-improvement protocol](ASSESSMENT_TO_IMPROVEMENT.md)
 for the stronger evidence claim. An assessment-related contribution is not
 necessarily an assessment-derived diagnosis.
 
+**Required test method:** follow its [native scripted tests only](ASSESSMENT_TO_IMPROVEMENT.md#mandatory-validation-boundary--native-scripted-tests-only) rule. All assessment-derived improvement evidence comes from deterministic source/CLI scripts executing the genuine first-party mechanism, with pinned matched before/after tests and regressions. **No live LLM-agent runs, model API tests or Browser agent-quality sessions are required or authorized as part of this experiment.** Do not make them a technical completion gate or a condition for permissioned upstream submission.
+
 - `ASSESSMENT_DERIVED`: an observed functional finding, discovered from
   canonical Index first, motivates a falsifiable upstream-native improvement.
 - `ASSESSMENT_INFORMED`: assessment establishes subsystem relevance,
@@ -97,7 +99,7 @@ is tracked in [Upstream #56](https://github.com/opensiro/upstream/issues/56).
    authorization. Fork creation and external PR publication are not silently
    enabled by this test or P1 source-only checks. Do not provision a PAT,
    bypass stage gates or manufacture a host grant.
-7. **Validate and return feedback.** Capture implemented diff and tests
+7. **Validate via native scripts and return feedback.** Capture implemented diff and deterministic native tests
    actually run (or the precise stop condition), readback, partial/failed
    operations, owner interventions, external PR/review outcome where it
    exists, and how the outcome informs a later candidate. A green mock CI,

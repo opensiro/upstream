@@ -19,7 +19,7 @@
         "https://github.com/opensiro/upstream/blob/main/pilots/kram-s2/s2-edit-file-atomicity-v2.patch",
         "https://github.com/opensiro/upstream/blob/main/.github/workflows/kram-s2-native-replay.yml"
       ],
-      "next_gate": "Cross-agent/model workload and first-party review, exact-stage authorization, then human-owned external contribution; no S2 regrade."
+      "next_gate": "Native scripted technical gate satisfied for scoped edit_file correctness; remaining steps are first-party code/fit review, exact-stage authority and human-owned external contribution. No S2 regrade."
     },
     {
       "id": "zot-scoped-admission",
@@ -55,7 +55,7 @@
         "https://github.com/opensiro/upstream/actions/runs/39683286746",
         "https://github.com/opensiro/upstream/pull/64"
       ],
-      "next_gate": "Human-owned issue-first AgentBox Phase 4 design feedback, then real conflicting/disjoint box workloads."
+      "next_gate": "Human-owned issue-first AgentBox Phase 4 design feedback; if additional technical evidence is needed, use only deterministic native script fixtures against actual box/file mechanisms."
     },
     {
       "id": "kit-partial-subagent-config",
@@ -90,7 +90,7 @@
         "https://github.com/opensiro/upstream/pull/69",
         "https://github.com/opensiro/upstream/actions/runs/39640741764"
       ],
-      "next_gate": "External publication decision and real-model paired quality study if the effectiveness claim is needed."
+      "next_gate": "External publication decision; native scripted role, isolation and permissions regressions are the in-scope tests. Model-review quality remains unmeasured and must not be claimed."
     },
     {
       "id": "harnessdesk-socket-ownership",
@@ -107,7 +107,7 @@
         "https://github.com/opensiro/upstream/pull/55",
         "https://github.com/opensiro/upstream/blob/main/pilots/harnessdesk-1772/ASSESSMENT_LINKAGE_2026-10-20.md"
       ],
-      "next_gate": "Exact-stage contribution authorization, native external review and deployed host observation."
+      "next_gate": "Exact-stage contribution authorization and native external review. Deployed host benefit remains unmeasured and is not a testing prerequisite."
     }
   ]
 }
