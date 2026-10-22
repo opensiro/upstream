@@ -15,6 +15,7 @@ import html
 import json
 import os
 from pathlib import Path
+import re
 import sys
 from urllib.parse import urlparse
 from urllib.request import Request, urlopen
@@ -24,6 +25,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SNAPSHOT = ROOT / "data/upstream-fit-snapshot.json"
 CASES = ROOT / "data/dashboard-cases.json"
 LIVE = ROOT / "data/upstream-lifecycle.json"
+REGISTRY = ROOT / "registry.yaml"
 MARKDOWN = ROOT / "DASHBOARD.md"
 HTML = ROOT / "docs/index.html"
 CASEBOOK = ROOT / "cases/README.md"
@@ -48,6 +50,33 @@ def sources():
     if Counter(x["fit"] for x in snapshot["interventions"]) != snapshot["fit_counts"]:
         raise ValueError("Pinned fit counts do not match interventions")
     return snapshot, cases
+
+
+def registry_prs():
+    """Read the narrow published registry shape without a third-party YAML dependency.
+
+    Every project must expose an explicit upstream_pr; null means not submitted.
+    A changed indentation/schema fails closed rather than silently dropping PRs.
+    """
+    contents = REGISTRY.read_text(encoding="utf-8")
+    projects = re.split(r"(?m)^  - id: ", contents)[1:]
+    if not projects:
+        raise ValueError("Registry has no recognized project entries")
+    entries = []
+    seen = set()
+    for project in projects:
+        project_id = project.splitlines()[0].strip()
+        if not re.fullmatch(r"[a-z0-9][a-z0-9-]*", project_id) or project_id in seen:
+            raise ValueError(f"Invalid/duplicate registry project: {project_id!r}")
+        seen.add(project_id)
+        matches = re.findall(r"(?m)^      upstream_pr: (\S+)\s*$", project)
+        if len(matches) != 1:
+            raise ValueError(f"Registry {project_id} must have exactly one contribution.upstream_pr")
+        url = matches[0]
+        if url != "null":
+            pr_api_url(url)
+            entries.append({"id": project_id, "url": url})
+    return entries
 
 
 def pr_api_url(url: str) -> str:
@@ -92,7 +121,10 @@ def collect(fetch=public_pr, *, now=None):
             raise ValueError(f"Contradictory replacement chain for {intervention['id']}")
         records.append({"id": intervention["id"], "lifecycle": effective["lifecycle"],
                         "original_pr": original, "landing_pr": landing})
-    return {"schema_version": 1, "observed_at": (now or datetime.now(timezone.utc)).isoformat(timespec="seconds"),
+    registered = [{"id": entry["id"], "pr": fetch(entry["url"])} for entry in registry_prs()]
+    timestamp = (now or datetime.now(timezone.utc)).isoformat(timespec="seconds")
+    return {"schema_version": 2, "observed_at": timestamp,
+            "registry_verified_at": timestamp, "registry_records": registered,
             "fit_snapshot_sha256": snapshot_digest(), "records": records}
 
 
@@ -107,6 +139,14 @@ def load_verified():
     for record in observed["records"]:
         if record["lifecycle"] not in LABELS:
             raise ValueError(f"Unknown lifecycle: {record['lifecycle']}")
+    if observed["schema_version"] != 2:
+        raise ValueError("Lifecycle receipt schema must be v2 with registry verification")
+    if [(r["id"], r["pr"]["url"]) for r in observed["registry_records"]] != [
+            (r["id"], r["url"]) for r in registry_prs()]:
+        raise ValueError("Registry PR links changed: reverify before presenting")
+    for record in observed["registry_records"]:
+        if record["pr"]["lifecycle"] not in LABELS:
+            raise ValueError(f"Unknown registry PR lifecycle: {record['id']}")
     return snapshot, cases, observed
 
 
@@ -148,11 +188,21 @@ def render_markdown(snapshot, cases, observed):
         if item.get("landing_pull_request"):
             original += f" → [replacement]({item['landing_pull_request']})"
         lines.append(f"| [{meta['project']} — {meta['title']}]({case_link}) | {original} | {LABELS[status['lifecycle']]} | **{FIT_LABELS[item['fit']]}** |")
+    lines += ["", "### Separately tracked OpenSiro-owned fork contributions", "",
+              "These are **outside** the eight-intervention experimental fit cohort.", "",
+              "| Registry project | Upstream PR | Verified PR state |",
+              "| --- | --- | --- |"]
+    if not observed["registry_records"]:
+        lines.append("| — | No submitted upstream PRs | — |")
+    for record in observed["registry_records"]:
+        pr = record["pr"]
+        lines.append(f"| [{record['id']}](registry.yaml) | [PR]({pr['url']}) | {LABELS[pr['lifecycle']]} |")
+    lines += ["", f"Registry PR verification: {observed['registry_verified_at']}. Updates to `registry.yaml` remain separately reviewed."]
     lines += ["", "**Attribution:** Henterprise original #1 and merged replacement #3 count as **one intervention**. StarNet maintainer's independent implementation is **not** counted as a contributor PR merge. GitHub PR lifecycle alone does not prove a functional VSM S2 improvement.", "",
               "### Provenance and refresh", "",
               f"- Historical fit snapshot: [Organization ledger](https://github.com/opensiro/vsm-oss-organization/blob/main/experiments/upstream-intervention-fit/snapshot.json), pinned here as [`data/upstream-fit-snapshot.json`](data/upstream-fit-snapshot.json) (`as_of` {snapshot['as_of']}).",
               f"- PR observations: [`data/upstream-lifecycle.json`](data/upstream-lifecycle.json), last verified {date}. They do **not** imply that GitHub statuses are live at viewing time.",
-              "- [Public casebook](cases/README.md) provides contextual evidence; [Cognee](projects/cognee/README.md) and [`registry.yaml`](registry.yaml) are tracked separately, outside this eight-intervention cohort.",
+              "- [Public casebook](cases/README.md) provides contextual evidence. [`registry.yaml`](registry.yaml) submission PR states are verified separately and excluded from the experimental cohort.",
               "- Refresh: `python3 scripts/upstream_status.py --refresh` then `--render`; test with `--check-generated` and `--check-live`. External PR checks are read-only; publication is a reviewed PR.", "",
               "_External maintainers retain decision authority; no upstream endorsement is implied._", ""]
     return "\n".join(lines)
@@ -195,7 +245,12 @@ def html_regions(snapshot, cases, observed):
         rows.append(f'<tr class="item" data-outcome="{status}" data-fit="{fit}" data-search="{search}"><td><a class="project" href="https://github.com/opensiro/upstream/blob/main/cases/{esc(case["case"], quote=True)}">{esc(case["project"])}</a><div class="intervention">{esc(case["title"])}</div></td><td>{pr}</td><td><span class="pill {css}">{label}</span></td><td><span class="pill fit-{fit}">{FIT_LABELS[fit]}</span></td><td class="note">{esc(case["note"])}</td></tr>')
     source = (f'<p>External PR lifecycle last verified <strong style="display:inline">{esc(observed["observed_at"])}</strong>: <a href="https://github.com/opensiro/upstream/blob/main/data/upstream-lifecycle.json">read-only PR receipts</a>. This is a dated observation, not real-time GitHub telemetry.</p>\n'
               f'<p>Fit is a separate historical <a href="https://github.com/opensiro/vsm-oss-organization/blob/main/experiments/upstream-intervention-fit/snapshot.json">Organization-owned experiment</a> (`as_of` {esc(snapshot["as_of"])}). PR merges cannot update product-native fit automatically. The <a href="https://github.com/opensiro/upstream/blob/main/cases/README.md">casebook</a> holds contextual evidence.</p>')
-    return {"meta": meta, "metrics": metrics, "fit": fit, "outcomes": outcome_bars, "rows": "\n".join(rows), "source": source}
+    separate = "\n".join(
+        f'<p><a href="{esc(entry["pr"]["url"], quote=True)}">{esc(entry["id"])} PR ↗</a> — {LABELS[entry["pr"]["lifecycle"]]} (verified {esc(observed["registry_verified_at"])}). Outside the eight-case fit cohort.</p>'
+        for entry in observed["registry_records"])
+    if not separate:
+        separate = '<p>No submitted OpenSiro-owned fork PRs recorded in the registry.</p>'
+    return {"meta": meta, "metrics": metrics, "fit": fit, "outcomes": outcome_bars, "rows": "\n".join(rows), "registry": separate, "source": source}
 
 
 def render_html(source: str, snapshot, cases, observed):
@@ -229,6 +284,10 @@ def check_live(fetch=public_pr):
             if a["id"] != b["id"] or a["lifecycle"] != b["lifecycle"] or
             a["original_pr"]["lifecycle"] != b["original_pr"]["lifecycle"] or
             (a["landing_pr"] or {}).get("lifecycle") != (b["landing_pr"] or {}).get("lifecycle")]
+    diff += [(a["id"], a["pr"]["lifecycle"], b["pr"]["lifecycle"])
+             for a, b in zip(old["registry_records"], new["registry_records"])
+             if a["id"] != b["id"] or a["pr"]["url"] != b["pr"]["url"] or
+             a["pr"]["lifecycle"] != b["pr"]["lifecycle"]]
     if old["fit_snapshot_sha256"] != new["fit_snapshot_sha256"]:
         raise ValueError("Pinned Organization fit snapshot changed: refresh required")
     if diff:

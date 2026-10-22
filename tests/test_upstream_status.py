@@ -30,6 +30,10 @@ class UpstreamStatusTests(unittest.TestCase):
         self.assertEqual({"merged": 4, "open": 2, "closed_unmerged": 2}, dict(outcomes))
         self.assertEqual({"pass": 3, "pending": 3, "fail": 2}, dict(fits))
         self.assertEqual(8, len(observed["records"]))
+        self.assertEqual([{"id": "cognee-community", "url": "https://github.com/topoteretes/cognee-community/pull/434"}],
+                         status.registry_prs())
+        self.assertEqual(1, len(observed["registry_records"]))
+        self.assertEqual("open", observed["registry_records"][0]["pr"]["lifecycle"])
         replacement = next(x for x in observed["records"] if x["id"] == "henterprise-1")
         self.assertEqual("closed_unmerged", replacement["original_pr"]["lifecycle"])
         self.assertEqual("merged", replacement["landing_pr"]["lifecycle"])
@@ -52,10 +56,13 @@ class UpstreamStatusTests(unittest.TestCase):
         self.assertIn("| **8** | **7** | **4** | **2** | **2** |", markdown)
         self.assertIn("60% (3/5)", markdown)
         self.assertIn("Original PR", markdown)
+        self.assertIn("### Separately tracked OpenSiro-owned fork contributions", markdown)
+        self.assertIn("cognee-community", markdown)
         raw = status.HTML.read_text(encoding="utf-8")
         first = status.render_html(raw, snapshot, cases, observed)
         self.assertEqual(first, status.render_html(first, snapshot, cases, observed))
         self.assertEqual(8, first.count('<tr class="item"'))
+        self.assertIn("cognee-community PR", first)
         self.assertIn('data-outcome="merged" data-fit="pending"', first)
         self.assertEqual(status.render_casebook(status.CASEBOOK.read_text(), snapshot, cases, observed),
                          status.CASEBOOK.read_text())
@@ -82,6 +89,14 @@ class UpstreamStatusTests(unittest.TestCase):
             return result
         with self.assertRaisesRegex(ValueError, "lifecycle drift"):
             status.check_live(fetch=changed)
+
+        def cognee_merged(url):
+            result = self.fake_fetch(url)
+            if url.endswith("/434"):
+                result["lifecycle"] = "merged"
+            return result
+        with self.assertRaisesRegex(ValueError, "cognee-community"):
+            status.check_live(fetch=cognee_merged)
 
 
 if __name__ == "__main__":

@@ -96,5 +96,17 @@
       }
     }
   ],
-  "schema_version": 1
+  "registry_records": [
+    {
+      "id": "cognee-community",
+      "pr": {
+        "lifecycle": "open",
+        "merged_at": null,
+        "updated_at": "2026-10-19T23:48:54Z",
+        "url": "https://github.com/topoteretes/cognee-community/pull/434"
+      }
+    }
+  ],
+  "registry_verified_at": "2026-10-22T16:47:43Z",
+  "schema_version": 2
 }

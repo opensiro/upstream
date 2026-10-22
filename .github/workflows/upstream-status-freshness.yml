@@ -8,10 +8,12 @@ on:
     paths:
       - 'data/upstream-*.json'
       - 'data/dashboard-cases.json'
+      - 'registry.yaml'
       - 'scripts/upstream_status.py'
       - 'tests/test_upstream_status.py'
       - 'DASHBOARD.md'
       - 'docs/index.html'
+      - 'docs/UPSTREAM_STATUS_FRESHNESS.md'
       - 'cases/README.md'
       - '.github/workflows/upstream-status-freshness.yml'
 

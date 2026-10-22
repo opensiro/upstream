@@ -12,7 +12,7 @@ These are **dated observations, not live acceptance rates or productivity scores
 
 ### Keeping the portfolio current
 
-The [read-only status procedure](docs/UPSTREAM_STATUS_FRESHNESS.md) checks public upstream PRs and renders `DASHBOARD.md`, `docs/index.html` and the casebook from one local receipt. A daily GitHub Actions job reports drift without using write permissions or automatically changing fit classifications.
+The [read-only status procedure](docs/UPSTREAM_STATUS_FRESHNESS.md) checks both the eight-case experimental portfolio and separately submitted `registry.yaml` upstream PRs. It renders `DASHBOARD.md`, `docs/index.html` and the casebook from one local receipt. A daily GitHub Actions job reports drift without using write permissions or automatically changing fit classifications.
 
 ## Current work
 
