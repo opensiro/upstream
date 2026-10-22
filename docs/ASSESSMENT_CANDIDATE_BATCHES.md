@@ -1,0 +1,33 @@
+# Assessment-first upstream candidate batches
+
+**Owner:** `opensiro/upstream` [#56](https://github.com/opensiro/upstream/issues/56). **Route:** `test S1 function: upstream contributions`. This is an adjacent Upstream experiment, **not** a fourth admitted VSM-OSS S1 domain; [Organization #274](https://github.com/opensiro/vsm-oss-organization/issues/274) remains unmade. The owner-facing Control Plane is [VSM-OSS](https://github.com/opensiro/vsm-oss-organization/blob/main/docs/AGENT_CONTROL_PLANE.md), but the durable queue and evidence stay here.
+
+## Meaning of `continue` / `продолжай` / `המשך`
+
+Within this expressly selected **#56 experiment**, these commands mean: **complete the furthest currently allowed step for the current candidate, record the actual result and proceed to the next eligible row without asking for another scheduling decision**. They do *not* mean repeating a completed package, selecting an arbitrary GitHub issue, waiting at a candidate's external authorization gate, or starting model-agent trials.
+
+1. **Bootstrap:** refresh VSM-OSS `START_HERE.md`, the current Index, this repository's default branch, #56 and #6. Use the **already frozen batch** unless the whole batch is resolved; never silently re-pin historical assessment identities.
+2. **Freeze intake before execution:** select a bounded, full cohort (normally **five** assessment records, up to ten) from the canonical *included* Index corpus. Record one exact Index SHA, each assessment path, assessed upstream repo/ref, source-derived question and fixed order. Check for duplicate prior candidates/interventions. This is a **screening cohort**, *not* a claim that five useful patches are known or that five S1 work items are admitted. Never pad with unassessed GitHub favourites.
+3. **Screen in order:** for the first `SCREENING` or `ACTIVE` row, independently inspect current upstream source, issue/PR overlap, policy/licensing and native tests; record the four fit gates (`need`, `mechanism`, `counterfactual`, `scope`) and dated primary-source links. A VSM grade alone is not a bug. If fit fails, `CLOSED_NO_CHANGE` with evidence; if insufficient, `BLOCKED_EVIDENCE` with the missing input.
+4. **Execute a qualified case:** only after four `PASS` gates and a falsifiable source-derived plan, execute relevant **native deterministic scripts** against pinned genuine product code, matched baseline/after and controls. **Never** run live LLM agents, Browser quality trials or provider calls for this experiment. Track origin class separately (`ASSESSMENT_DERIVED`, `ASSESSMENT_INFORMED`, `GENERAL_UPSTREAM`, `INSUFFICIENT`) and never retroactively improve it.
+5. **Return then advance:** when a valid local test/patch/handoff is complete and external fork/PR authority is unavailable, mark **`AWAITING_EXTERNAL`** with the precise prepared packet and unexercised right, then immediately continue to the **next** eligible row. `AWAITING_EXTERNAL` is **not** a closed contribution, not a denial and not evidence of external delivery. Revisit it only after a new, attributable grant, a fresh maintainer response, or an explicit targeted command. A genuine unresolvable policy conflict may end in `ESCALATED`, without blocking unrelated candidate screening.
+6. **Batch rollover:** only when no eligible rows remain, produce an evidence-backed batch summary and select the next **complete** frozen cohort from fresh canonical Index evidence. Do not reinsert screened or deferred candidates into the new batch without an explicit, documented revisit decision. If there are insufficient eligible assessments, state `NO_ELIGIBLE_ASSESSMENT_CANDIDATE` without a manufactured batch.
+
+The row lifecycle is `SCREENING → ACTIVE → AWAITING_EXTERNAL` (or `CLOSED_CHANGE`/`CLOSED_NO_CHANGE`/`BLOCKED_EVIDENCE`/`ESCALATED`). A screening row is **not admitted** until native fit succeeds. A prepared local packet can close its bounded *technical step* while the external contribution remains pending; report these distinctly. The ordering is deliberately **serial** for auditability; no new scheduler, reviewer agent or daemon is introduced.
+
+`python3 scripts/assessment_candidate_batches.py next data/assessment-candidate-batches/2026-10-22-01.json --index-root /path/to/vsm-harness-index` validates the immutable Index-derived source records against the exact local Git commit and prints the next row **read-only**. `status` shows all rows; `validate` fails closed on malformed, duplicate, repinned or falsely promoted cases. Without `--index-root`, the CLI checks the manifest but explicitly says the current canonical remote is **not** attested. The command never grants permission, mutates files, contacts GitHub or picks a new assessment cohort itself.
+
+The completed [Kram source-only technical packet](../pilots/kram-s2/CONTRIBUTION_HANDOFF.md) pre-dates this batch and remains `ACTION_PREPARED_NOT_AUTHORIZED`; do **not** repeat that case just because its external PR is pending. The first frozen **new screening cohort** is [2026-10-22-01](../data/assessment-candidate-batches/2026-10-22-01.json). Its rows are *questions to investigate*, not preapproved fixes.
+
+## VSM / OSM responsibility map
+
+| Operation | Present decisive owner | Return / evidence |
+| --- | --- | --- |
+| Existing canonical assessment finding | Index + selected Skills procedure | Pin SHA/path/review ref; **do not edit Index** from this queue |
+| Adjacent Upstream screening, proposal, allowed local scripts | Upstream experiment within actually available rights | Frozen order, independent native-fit evidence, measured delta and feedback |
+| Already-delegated local code/fork stage, if any | Actual fork/Upstream owner under an **effective actor-bound mandate** | Stage-specific scope, provider readback and attributable intervention |
+| New grant, external fork write, external PR publication | Applicable human/fork owner; publication currently **human-owned** | Exact separate authorization; pending cases are passed over |
+| Admit Upstream as fourth bounded Organization S1 | Organization S5 parent, **not this batch** | Separate #274 decision and applied return |
+| External acceptance/merge | External maintainer | Actual external PR/disposition, never inferred from local CI |
+
+The runner is a **source-first operating practice**, not a positive `S1=A` assessment, S2 scheduler proof or new grant. The selected Index/Skills Methodology still owns VSM classification. Any manual intervention must be attributed to its real decision owner.
