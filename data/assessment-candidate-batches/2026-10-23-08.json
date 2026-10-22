@@ -15,9 +15,11 @@
       "reviewed_at": "2026-10-20",
       "function": "S1",
       "finding": "Spartan persists cognitive and file-watcher state across model and process restarts. Screen first-party Python archive/recovery/serialization helpers for reproducible malformed, duplicate or interrupted state transitions with offline native-script inputs, excluding a live cognitive loop, local model or host machine actions.",
-      "stage": "SCREENING", "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/CorticalComputer/Spartan/blob/8f7b36a2326c0157a82040f8e04b474f4899c3da/ltm.py"]
+      "stage": "AWAITING_EXTERNAL", "origin": "ASSESSMENT_INFORMED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "evidence": ["https://github.com/CorticalComputer/Spartan/blob/8f7b36a2326c0157a82040f8e04b474f4899c3da/ltm.py", "https://github.com/opensiro/upstream/blob/main/pilots/spartan/soul-first-entry-backfill.patch"],
+      "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/spartan/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED"
     },
     {
       "id": "cyber-ai-team-autonomy-action-policy",
