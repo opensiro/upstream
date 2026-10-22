@@ -51,6 +51,8 @@ The completed [Kram source-only technical packet](../pilots/kram-s2/CONTRIBUTION
 
 **Batch-08 third row:** [OniRoute](../pilots/oniroute/CONTRIBUTION_HANDOFF.md) is `ASSESSMENT_INFORMED` / `AWAITING_EXTERNAL`: the genuine workspace/engine validator accepted nested roots, including symlink aliases, despite its separation contract. Real-directory script tests had 3 FAIL before and 5 PASS after. No live engineering, generated code, provider or agent. Next: `activegraph-event-patch-invariants`.
 
+**Batch-08 fourth row:** [Active Graph](../pilots/activegraph/CONTRIBUTION_HANDOFF.md) is `ASSESSMENT_INFORMED` / `AWAITING_EXTERNAL`: the genuine Python event decoder admitted non-object JSON payload roots, with 3 native failures before and all 5 cases passing after. No model-backed behavior, live agent or provider test. Existing pytest suite unavailable in local interpreter. Next: `pyflue-sandbox-tool-schema`.
+
 ## VSM / OSM responsibility map
 
 | Operation | Present decisive owner | Return / evidence |
