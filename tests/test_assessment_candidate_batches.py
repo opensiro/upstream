@@ -69,8 +69,9 @@ class BatchTests(unittest.TestCase):
         earlier = {r["source"] for r in self.original["candidates"] + self.following["candidates"]}
         self.assertFalse(earlier.intersection({r["source"] for r in self.third["candidates"]}))
         fourth = queue.summarize(self.fourth)
-        self.assertEqual(fourth["next_candidate"], "politik-transaction-denial-return")
+        self.assertEqual(fourth["next_candidate"], "join-the-team-bootstrap-validation")
         self.assertEqual(fourth["total"], 5)
+        self.assertEqual(fourth["stage_counts"]["AWAITING_EXTERNAL"], 1)
         all_previous = earlier | {r["source"] for r in self.third["candidates"]}
         self.assertFalse(all_previous.intersection({r["source"] for r in self.fourth["candidates"]}))
 
