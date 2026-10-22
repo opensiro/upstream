@@ -29,6 +29,8 @@ The completed [Kram source-only technical packet](../pilots/kram-s2/CONTRIBUTION
 
 **Batch-06 continued:** [CubeLoop](../pilots/cubeloop/CONTRIBUTION_HANDOFF.md) is also `AWAITING_EXTERNAL` after real-source offline in-memory checkpoint isolation checks: 3 RED before, 4 PASS after. Normal agent/provider execution was deliberately excluded. The next screening row is `evidenceloom-numeric-evidence-validation`.
 
+**Batch-06 third row:** [Evidence Loom](../pilots/evidenceloom/CONTRIBUTION_HANDOFF.md) is `AWAITING_EXTERNAL`: the real numeric-span code failed three Unicode-space-scale checks and passed all six cases after a bounded change. Next: `dsh-harness-one-workflow-state`.
+
 ## VSM / OSM responsibility map
 
 | Operation | Present decisive owner | Return / evidence |
