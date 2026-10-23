@@ -324,7 +324,10 @@
     },
     {
       "id": "harness2-library-persistence-contract",
-      "publication": "QUEUED"
+      "publication": "BLOCKED",
+      "blocker_type": "CONTRIBUTOR_CLA_NOT_ATTESTED",
+      "reason": "google-research/harness2 Apache-2.0 root LICENSE verified. Current CONTRIBUTING.md states Google Contributor License Agreement is mandatory under Before you begin for submitted contributions; no author/employer CLA signed-state proof is available and this assistant cannot attest or sign it. Targeted all-state issue/PR searches did not establish an exact library slug/path duplicate but do not prove absence. Frozen first-party bounded patch pilots/harness2/library-path-component-guard.patch previously proved 2 PASS/5 FAIL before (one further assertion added later), 8/8 PASS after; no fresh source implementation or tests in this batch because submission admission remains unresolved. No external PR, no invented CLA identity, and VSM-OSS #285 publication pause still applies.",
+      "external_pr": null
     },
     {
       "id": "revka-workflow-validation-contract",
