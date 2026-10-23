@@ -254,7 +254,10 @@
     },
     {
       "id": "oniroute-validation-boundary",
-      "publication": "QUEUED"
+      "publication": "BLOCKED",
+      "blocker_type": "ORG_285_EXTERNAL_PUBLICATION_PAUSE",
+      "reason": "AniruddhaDas1/OniRoute_SwarmAgents@c47d553ad2e1aa547cce000c095a9feda5434ee2 Apache-2.0 root LICENSE verified; .github/PULL_REQUEST_TEMPLATE.md lists native pytest and doctor requirements. Read-only all-state inventory saw two PRs (one open streaming feature, one closed review pipeline) and no title duplicate of overlap guard. On authorized VM zhdanov, local opensiro/fix-nested-workspace-engine-roots commit 893e016 reproduces root nesting defect: before 2/5 PASS, after 5/5 PASS using exact first-party validator, local paths and symlink; py_compile, git diff --check and reverse patch check PASS. Full upstream suite and doctor not run. External PR not created because VSM-OSS #285 explicitly retains publication pause; prepared source-only patch is also preserved at pilots/oniroute/nested-workspace-engine-guard.patch.",
+      "external_pr": null
     },
     {
       "id": "activegraph-event-patch-invariants",
