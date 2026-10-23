@@ -68,7 +68,17 @@
     },
     {
       "id": "agent-loop-numeric-verifier-grounding",
-      "publication": "QUEUED"
+      "publication": "SUBMITTED",
+      "pr_url": "https://github.com/Onipounds/agent-loop/pull/1",
+      "actor": "xLagerFeuer",
+      "fork": "opensiro-contributions/agent-loop",
+      "base_branch": "main",
+      "base_sha": "49525dc12a9861f71c99050de3b4a4b8b897e9fa",
+      "head_branch": "opensiro/fix-numeric-notation-grounding",
+      "head_sha": "c0135171cb38e74a70108b6b8b6afde57e9d223e",
+      "native_test_receipt": "2026-10-23 source first-party test_numeric_notation.py: baseline 1 PASS / 3 RED; patched 4 PASS / 0 FAIL. python3 -m compileall -q agent_loop tests/test_numeric_notation.py and git diff --check PASS. Exact staged diff SHA256 c95110e9a0c22f3c51b12143564b78514942aef1200898e015405931a6cea33c matched frozen patch. tests/test_agent.py includes FakeModel/mock episodes and was deliberately not run.",
+      "ci_observation": "CI checks not yet established/read; no CI PASS claimed.",
+      "publication_readback": "2026-10-23 GET PR #1 returned open Draft, correct source fork, matching head/base SHA, two changed files."
     },
     {
       "id": "agent-context-lab-default-fail-boundary",
