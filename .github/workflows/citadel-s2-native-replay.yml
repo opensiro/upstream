@@ -1,0 +1,63 @@
+name: Citadel S2 native atomic-claim replay
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'pilots/citadel-s2/**'
+      - '.github/workflows/citadel-s2-native-replay.yml'
+permissions:
+  contents: read
+jobs:
+  replay:
+    name: Native replay / ${{ matrix.os }} / Node ${{ matrix.node }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node: [22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: SethGammon/Citadel
+          ref: 63e538c65a5e09384c464bff5892cf6e9f601949
+          path: citadel
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Normalize Windows first-party checkout to pinned LF source
+        if: runner.os == 'Windows'
+        shell: bash
+        run: |
+          git -C citadel config core.autocrlf false
+          git -C citadel reset --hard 63e538c65a5e09384c464bff5892cf6e9f601949
+      - name: Verify exact patch SHA256 after canonicalizing checkout CRLF
+        shell: bash
+        run: |
+          node -e "const fs=require('node:fs');const crypto=require('node:crypto');const path='pilots/citadel-s2/atomic-claims.patch';const normalized=Buffer.from(fs.readFileSync(path,'utf8').split(String.fromCharCode(13,10)).join(String.fromCharCode(10)),'utf8');const actual=crypto.createHash('sha256').update(normalized).digest('hex');const expected='90c0362e33c825e967f136b1b357e143a6f5647d003857c85a000fe0618fc772';if(actual!==expected){console.error({expected,actual});process.exit(1)};fs.writeFileSync(path,normalized);console.log('PATCH_SHA256_PASS')"
+      - name: BEFORE - require specific two-owner race, not arbitrary failure
+        shell: bash
+        run: |
+          git -C citadel apply --include='scripts/test-coordination-claim-atomicity.js' "$GITHUB_WORKSPACE/pilots/citadel-s2/atomic-claims.patch"
+          set +e
+          output=$(node citadel/scripts/test-coordination-claim-atomicity.js 2>&1)
+          status=$?
+          set -e
+          printf '%s\n' "$output"
+          test "$status" -ne 0
+          printf '%s\n' "$output" | grep -F 'CLAIMED,CLAIMED'
+          printf '%s\n' "$output" | grep -F 'AssertionError'
+      - name: AFTER - native coordination tests
+        shell: bash
+        run: |
+          git -C citadel apply --exclude='scripts/test-coordination-claim-atomicity.js' "$GITHUB_WORKSPACE/pilots/citadel-s2/atomic-claims.patch"
+          node citadel/scripts/test-coordination-claim-atomicity.js
+          node citadel/scripts/test-coordination-core.js
+          git -C citadel diff --check
+      - name: First-party strict native suite (all OS/Node combinations)
+        working-directory: citadel
+        run: node scripts/test-all.js --strict
