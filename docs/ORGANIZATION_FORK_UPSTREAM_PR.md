@@ -4,8 +4,11 @@
 fork credential/creation evidence: [#28](https://github.com/opensiro/upstream/issues/28).
 **Status:** external fork creation **ONE_OFF_FORK_VERIFIED** in
 `opensiro-contributions`; PR **READ-ONLY HANDOFF IMPLEMENTED**; external
-PR publication **HUMAN-OWNED / NOT EXECUTED**. No additional Control Plane
-or background agent is installed.
+PR publication **NOT EXECUTED** as of this historical handoff. Since
+2026-10-23, exactly 34 frozen Corrective cases have a separate
+[owner-approved Draft PR publication mandate](CORRECTIVE_PR_PUBLICATION.md);
+outside that cohort publication remains human-owned. No additional Control
+Plane or background agent is installed.
 
 ## Actual credential and rights evidence (2026-10-20)
 
@@ -108,27 +111,32 @@ accepts `head=organization:branch` for a cross-repository PR, with
 owner. The handoff builds the exact path/payload for these scenarios and
 defaults to `draft=true`.
 
-## C. Separate human-owned external publication
+## C. External publication: ordinary human decision or finite Corrective grant
 
-After the operator explicitly approves **this exact title, body, fork,
-branch, target base and observed SHAs**, they can re-run preflight and
-publish **manually** from the credential-owning VM/host:
+For **all nonmandated cases**, after the operator explicitly approves **this
+exact title, body, fork, branch, target base and observed SHAs**, they can
+re-run preflight and publish **manually** from the credential-owning VM/host:
 
 ```bash
 jq -er '.status == "PR_READY_FOR_MANUAL_REVIEW_NOT_PUBLISHED"' pr-handoff.json
 jq -e '.draft_request_body' pr-handoff.json > reviewed-pr-request.json
 
-# WRITE: human-owned, NEVER called by preflight or an unattended workflow
+# WRITE: manually authorized for ordinary cases; never called by preflight
 gh api --method POST repos/HarnessDesk/HarnessDesk/pulls \
   --input reviewed-pr-request.json
 ```
 
-No script in this PR executes the write command. A future automated
-publication stage needs an independently authenticated, revocable,
-one-use Control Plane stage grant and a protected executor, separate from
-existing `create_public_fork` and `prepare_contribution` permission.
-Submitting external PRs is **currently a human decision**, and a one-off
-fork approval must never be silently reused.
+No script in this historical handoff executes the write command. For **only**
+the 34 cases enumerated in the [finite Corrective queue](../data/corrective-publication/2026-10-23-01.json),
+the 2026-10-23 owner decision is the publication authorization: the
+authorized contribution actor may perform equivalent live operations to
+create the public `opensiro-contributions` fork, push a bounded working
+branch and open an external **Draft PR** without a new per-case vote, after
+fresh preflight and provider identity/readback checks. It is **not** a
+credential, API capability, bypass of a permission denial, DCO/CLA signature,
+right to merge or authorization to contact maintainers outside PR creation.
+Future general automation still requires its separate activation; a one-off
+fork approval must never be silently reused for unrelated cases.
 
 ## Test state and remaining blockers
 

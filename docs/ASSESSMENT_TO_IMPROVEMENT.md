@@ -4,6 +4,8 @@
 
 **Tracked experiment:** [Upstream #56](https://github.com/opensiro/upstream/issues/56). Existing GitHub stage/authorization rights remain as defined in [Control Plane handoff](CONTROL_PLANE_HANDOFF.md) and [Upstream #6](https://github.com/opensiro/upstream/issues/6). This document creates no permissions.
 
+**Dated publication exception:** the owner's 2026-10-23 [finite mandate](CORRECTIVE_PR_PUBLICATION.md) authorizes contributor-fork, branch and external **Draft PR** publication for precisely 34 already verified Corrective packets, subject to live source/policy/actor checks. This document itself does not extend that authorization to future candidates or other classifications. The [publication ledger](../data/corrective-publication/2026-10-23-01.json) tracks actual delivery, separate from historical source-only technical outcomes.
+
 ## Purpose
 
 The [candidate-batch protocol](ASSESSMENT_CANDIDATE_BATCHES.md) owns **serial
@@ -22,7 +24,7 @@ current canonical Index assessment @ immutable SHA
   → reproducible pre-change baseline, safety requirements
   → bounded implementation and matched post-change evaluation
   → validated product-effect finding (including negative/null results)
-  → permissioned contributor-fork preparation and human-owned external PR
+  → permissioned contributor-fork preparation and separately authorized external PR
   → actual maintainer feedback, optionally a separately owned reassessment
 ```
 
@@ -34,7 +36,7 @@ The target's system-in-focus, acceptable behavior and developer/maintainer needs
 
 The **technical validation gate is complete** when a pinned native baseline demonstrably fails or underperforms on a reproducible, relevant script, the scoped implementation passes a *matched* after-script, and appropriate native regressions/controls pass. Preserve failures and negative/null results. This is sufficient evidence of the **bounded mechanism effect**; no live agent experiment is a prerequisite for technical completion or for a separately authorized upstream contribution.
 
-This rule **does not** convert the observed scripted delta into measured deployed adoption, user productivity, security assurance, VSM autonomy/grade change, or upstream maintainer acceptance. Record these as unmeasured/unestablished unless independently evidenced. Delivery permissions, human-owned external publication and maintainer review are separate gates, never additional LLM testing gates. If wider model-agent research is proposed in the future, it is **outside this experiment** and requires a distinct explicit operator decision.
+This rule **does not** convert the observed scripted delta into measured deployed adoption, user productivity, security assurance, VSM autonomy/grade change, or upstream maintainer acceptance. Record these as unmeasured/unestablished unless independently evidenced. Delivery permissions, separately authorized external publication and maintainer review are separate gates, never additional LLM testing gates. If wider model-agent research is proposed in the future, it is **outside this experiment** and requires a distinct explicit operator decision.
 
 ## Classification: origin strength is not implementation status
 
@@ -57,7 +59,7 @@ Do not promote `ASSESSMENT_INFORMED` into `ASSESSMENT_DERIVED` by finding a post
 4. **Before/after script protocol (before implementing):** freeze deterministic native test inputs, baseline source SHA, environment, metric/observable, sample or repeated-trial plan, effect threshold or acceptance condition, safety/rollback checks, expected regressions and confounders. Select metrics from the actual function: e.g. preserved concurrent writes, CLI recovery outcome, refusal of unsafe source actions or reliability *where relevant*. Do not impose arbitrary agent autonomy or score-driven targets.
 5. **Native scripted test and repair:** demonstrate the pre-change failure/shortfall by executing actual product source through reproducible scripts; implement one scoped upstream-native change; re-run the matched scripted workload against changed code and inspect native regressions. Retain exact code, tests, commands, observations and failed attempts. Do not substitute a mock-only pass for a real product-code path. A green CI alone proves checks ran, **not that a deployed/user benefit was measured**. Do not add live LLM agents as an extra verification step.
 6. **Decision and outcome:** compare pre/post observations and evidence limits. State `BENEFIT_SUPPORTED`, `NO_BENEFIT_OBSERVED` or `INCONCLUSIVE`, plus functional mechanism effect and whether any authority/decision owner changed. No self-awarded reclassification of Index grades. If scope/policy is incompatible, return `NO_ELIGIBLE_ASSESSMENT_CANDIDATE` / `BLOCKED_EVIDENCE` instead of swapping to a convenient unrelated issue.
-7. **Authorized delivery and external feedback:** only write to a permitted fork/branch under effective provider-bound authority. Publish an external PR only by the separately reserved human decision. Track maintainer review, actual merge/non-merge and downstream observed behavior without treating either a push or acceptance as proof of benefit. A later reassessment belongs to Index/Skills under their own procedures.
+7. **Authorized delivery and external feedback:** only write to a permitted fork/branch under effective provider-bound authority. Publish an external PR only under an applicable separate decision: manual for ordinary cases; the finite 2026-10-23 owner mandate for its exact Corrective 34. Track maintainer review, actual merge/non-merge and downstream observed behavior without treating either a push or acceptance as proof of benefit. A later reassessment belongs to Index/Skills under their own procedures.
 
 **Do not require a new agent, automation service, grant signer, fork or duplicated assessment to qualify the idea.** Reuse the existing Control Plane and Upstream engineering route; issue #56 owns the research experiment, issue #6 owns stage execution and authorization, and Organization #274 remains a separate reserved scope decision.
 

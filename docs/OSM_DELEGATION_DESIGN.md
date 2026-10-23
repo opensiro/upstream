@@ -2,6 +2,8 @@
 
 **Status: PROPOSED DESIGN ONLY — not a standing grant, S1 admission, host integration, or authority to mutate GitHub.**
 
+**Separate later owner decision (2026-10-23):** the [34-case Corrective publication mandate](CORRECTIVE_PR_PUBLICATION.md) is an explicitly finite exception to the earlier human-only external Draft PR policy. It **does not activate** the broad `UPSTREAM-OSM-P1` proposal below, make this design operational, add an Organization S1 domain, or grant external maintainer merge rights. Historic proposed-stage descriptions below are retained as the original prospective design, not a denial of the dated finite exception.
+
 This design applies the [Organization OSM Roadmap](https://github.com/opensiro/vsm-oss-organization/blob/main/docs/ROADMAP.md) to the *candidate* Upstream Contributions operating function. The [Organization Control Plane](https://github.com/opensiro/vsm-oss-organization/blob/main/docs/AGENT_CONTROL_PLANE.md) remains the human-facing interface; this repository owns the contribution procedure. [Upstream #6](https://github.com/opensiro/upstream/issues/6) owns the executor; [Organization #274](https://github.com/opensiro/vsm-oss-organization/issues/274) is the **unmade S5** choice about admitting a fourth S1 domain. The current bounded S1 domains remain Index, Skills and Awesome.
 
 ## Function and operating goal

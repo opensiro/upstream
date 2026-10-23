@@ -2,6 +2,8 @@
 
 **Owner:** `opensiro/upstream` [#56](https://github.com/opensiro/upstream/issues/56). **Route:** `test S1 function: upstream contributions`. This is an adjacent Upstream experiment, **not** a fourth admitted VSM-OSS S1 domain; [Organization #274](https://github.com/opensiro/vsm-oss-organization/issues/274) remains unmade. The owner-facing Control Plane is [VSM-OSS](https://github.com/opensiro/vsm-oss-organization/blob/main/docs/AGENT_CONTROL_PLANE.md), but the durable queue and evidence stay here.
 
+**Distinct owner-authorized publication route (2026-10-23):** `continue corrective PR publication` processes **only** the 34 already source-tested Corrective cases in the [finite ledger](../data/corrective-publication/2026-10-23-01.json) under the [bounded mandate](CORRECTIVE_PR_PUBLICATION.md). It is separate from generic `continue`, which advances **screening** through the frozen assessment-candidate batches and does not retroactively rewrite their historical `AWAITING_EXTERNAL` entries. Record real new external PR outcomes in the separate ledger; no PR was published merely by creating the ledger. The owner approval covers only public fork/branch/external Draft PR publication for the enumerated rows, not upstream merge, protected writes or new cases.
+
 ## Meaning of `continue` / `продолжай` / `המשך`
 
 Within this expressly selected **#56 experiment**, these commands mean: **complete the furthest currently allowed step for the current candidate, record the actual result and proceed to the next eligible row without asking for another scheduling decision**. They do *not* mean repeating a completed package, selecting an arbitrary GitHub issue, waiting at a candidate's external authorization gate, or starting model-agent trials.
@@ -87,7 +89,8 @@ The completed [Kram source-only technical packet](../pilots/kram-s2/CONTRIBUTION
 | Existing canonical assessment finding | Index + selected Skills procedure | Pin SHA/path/review ref; **do not edit Index** from this queue |
 | Adjacent Upstream screening, proposal, allowed local scripts | Upstream experiment within actually available rights | Frozen order, independent native-fit evidence, measured delta and feedback |
 | Already-delegated local code/fork stage, if any | Actual fork/Upstream owner under an **effective actor-bound mandate** | Stage-specific scope, provider readback and attributable intervention |
-| New grant, external fork write, external PR publication | Applicable human/fork owner; publication currently **human-owned** | Exact separate authorization; pending cases are passed over |
+| External fork write and PR publication outside the exact 34-case mandate | Applicable human/fork owner; publication otherwise **human-owned** | Exact separate authorization; pending cases are passed over |
+| Frozen 34-case Corrective Draft PR publication | Owner's dated finite mandate; authenticated contribution actor | Recheck source/permissions/policy, read back provider PR and update separate queue; no upstream merge |
 | Admit Upstream as fourth bounded Organization S1 | Organization S5 parent, **not this batch** | Separate #274 decision and applied return |
 | External acceptance/merge | External maintainer | Actual external PR/disposition, never inferred from local CI |
 
