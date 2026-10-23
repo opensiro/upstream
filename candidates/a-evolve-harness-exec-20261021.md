@@ -1,6 +1,6 @@
 ---
 candidate_id: IMPR-A-EVOLVE-HARNESS-EXEC-20261021
-state: SCREENING
+state: BLOCKED_EVIDENCE
 origin_class: ASSESSMENT_INFORMED
 target_repo: A-EVO-Lab/a-evolve
 index_sha: 5393b698bfdfa4ca14d97a79238234eca20694e5
@@ -15,7 +15,7 @@ fit_scope: PENDING
 
 # IMPR-A-EVOLVE-HARNESS-EXEC-20261021 — isolate execution of proposer-mutated harness
 
-**Research state:** `SCREENING`. Origin is **ASSESSMENT_INFORMED**, not strictly `ASSESSMENT_DERIVED`. The [accepted Index assessment](https://github.com/opensiro/vsm-harness-index/blob/5393b698bfdfa4ca14d97a79238234eca20694e5/assessments/a-/a-evolve.md) shows S4=A evolution of persistent workspaces, but does **not** identify `harness.py` module-scope execution or a bypass of the validation gate. The exact product problem came from first-party code and [pre-existing upstream issue #28](https://github.com/A-EVO-Lab/a-evolve/issues/28) discovered during this Index-first six-function sweep.
+**Research state:** `BLOCKED_EVIDENCE / BLOCKED_LICENSE_TEXT_MISSING` (2026-10-23). Origin is **ASSESSMENT_INFORMED**, not strictly `ASSESSMENT_DERIVED`. The [accepted Index assessment](https://github.com/opensiro/vsm-harness-index/blob/5393b698bfdfa4ca14d97a79238234eca20694e5/assessments/a-/a-evolve.md) shows S4=A evolution of persistent workspaces, but does **not** identify `harness.py` module-scope execution or a bypass of the validation gate. The exact product problem came from first-party code and [pre-existing upstream issue #28](https://github.com/A-EVO-Lab/a-evolve/issues/28) discovered during this Index-first six-function sweep.
 
 ## Concrete native problem and current-source observations
 
@@ -41,6 +41,10 @@ Candidate **mechanism to evaluate**, not yet a patch: define an explicit trust c
 | Mechanism | `PENDING` | Sandboxing/trust model and correct API boundary not decided or implemented |
 | Counterfactual benefit | `PENDING` | Reproduction on current commit and before/after adversarial + legitimate-hook tests not yet run |
 | Scope | `PENDING` | Maintainer acceptance, intended trusted-code contract, perf/UX and overlapping upstream PRs need fresh review |
+
+## License-first gate — 2026-10-23
+
+Read-only default-branch inventory lists no root `LICENSE`, `LICENCE`, `COPYING` or other license-text file. First-party [`pyproject.toml`](https://github.com/A-EVO-Lab/a-evolve/blob/main/pyproject.toml) declares `license = "MIT"` and an MIT classifier, but **the actual repository license terms and redistribution notice could not be retrieved**. Machine disposition: `BLOCKED_LICENSE_TEXT_MISSING / LICENSE_REVIEW_REQUIRED`; do not produce or externally submit a derivative source patch until this is resolved. No source clone or code implementation was performed for this candidate. This is a license-text evidence failure, **not** a legal determination that the authors disallow contribution.
 
 ## Measurements, status, next gate
 
