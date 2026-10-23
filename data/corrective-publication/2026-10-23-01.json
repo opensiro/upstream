@@ -247,7 +247,10 @@
     },
     {
       "id": "cyber-ai-team-autonomy-action-policy",
-      "publication": "QUEUED"
+      "publication": "BLOCKED",
+      "blocker_type": "NO_AUTHORIZED_FORK_EXECUTION_PORT",
+      "reason": "MIT verified at Hyper-AI-Lab/cyber-ai-team@525401e40f34863cc7f4d3b053d437ce7709912f; CONTRIBUTING.md requires ./scripts/quality-gate.sh before proposing a change, and this full gate was not run. The native source-only fix and reproducible tests are implemented locally on opensiro/fix-nonfinite-policy-envelope: before 1/5 PASS (5 failing malformed-value subcases), after 5/5 PASS; py_compile and git diff --check PASS. Neither an authorized fork-creation route nor a target fork exists, therefore no external Draft PR was created. Do not claim full backend QA or publication.",
+      "external_pr": null
     },
     {
       "id": "oniroute-validation-boundary",
