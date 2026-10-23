@@ -34,7 +34,17 @@
     },
     {
       "id": "politik-transaction-denial-return",
-      "publication": "QUEUED"
+      "publication": "SUBMITTED",
+      "pr_url": "https://github.com/cordfuse/politik/pull/33",
+      "actor": "xLagerFeuer",
+      "fork": "opensiro-contributions/politik",
+      "base_branch": "main",
+      "base_sha": "c1fa7312c75599d72b187bf20088f51f5dda2247",
+      "head_branch": "opensiro/fix-containment-dotdot-prefix",
+      "head_sha": "23570ac446c5e84d20fd8794c9b578e8245c3a43",
+      "native_test_receipt": "2026-10-23: first-party Politik@c1fa731 with regression added: node --import tsx tests/containment.test.ts baseline RED 16 PASS / 1 FAIL. Patched 17 PASS / 0 FAIL; npm run build (tsc --noEmit) PASS, git diff --check PASS. Exact diff sha256 3a68922871fe7395f2118225d1477f0ec3f4297f3f3daf88b9c4f359037eeb4b matches frozen handoff; no LLM/agent tests.",
+      "ci_observation": "2026-10-23 GitHub commit statuses: 0 contexts observed; aggregate pending; no full-suite CI PASS claimed.",
+      "publication_readback": "2026-10-23 GitHub GET /repos/cordfuse/politik/pulls/33: state=open, draft=true, head_repo=opensiro-contributions/politik, 2 changed files, matched base/head SHA."
     },
     {
       "id": "join-the-team-bootstrap-validation",
