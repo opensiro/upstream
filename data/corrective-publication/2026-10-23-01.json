@@ -203,7 +203,14 @@
     },
     {
       "id": "openorbit-approval-boundary-validation",
-      "publication": "QUEUED"
+      "publication": "BLOCKED",
+      "blocker_type": "NO_AUTHORIZED_FORK_EXECUTION_PORT",
+      "reason": "2026-10-23: maneja81/OpenOrbit@2c302423 (default/development branch develop) has MIT license and a real source-native dot-segment path parameter bug. Local two-file fix passed native RED 17/2 -> GREEN 19/0, 1555/1555 full Vitest, eslint, TypeScript and build. However, opensiro-contributions/OpenOrbit does not exist (GitHub GET 404), the active GitHub connector exposes no create-fork operation, and the current execution container has no configured gh credential-owning host. The bounded mandate does not allow substituting a personal fork or bypassing that capability. No external fork, push or PR was created. Recheck if a legitimate create-fork host is restored.",
+      "checked_source_sha": "2c30242310c3f2e8453b1116d657e65634e6973e",
+      "license": "MIT root LICENSE verified at develop; actual text inspected",
+      "native_test_receipt": "2026-10-23 actual electron/main/ai/httpToolRequest.test.ts on OpenOrbit/develop: two added regressions RED 17 pass / 2 fail; local fix GREEN 19 pass / 0 fail; npm test outside sandbox 142 files / 1555 tests PASS; npx eslint src electron, npx tsc -b, npm run build and git diff --check PASS. All tests native/CLI; no LLM or Electron app trial.",
+      "local_change": "electron/main/ai/httpToolRequest.ts and electron/main/ai/httpToolRequest.test.ts; verified branch opensiro/fix-http-dot-segments, diff sha256 630eee8f372f3fac06746f499ddbb1f4118b5bea6af8dc782088bcc5217b9a68; frozen handoff pilots/openorbit/dot-segment-path-parameter-guard.patch provides an equivalent 2-file patch",
+      "publication_readback": "No external publication; opensiro-contributions/OpenOrbit GET 404 and no connected create-fork operation available."
     },
     {
       "id": "reef-polyp-experiment-queue-contract",
