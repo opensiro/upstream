@@ -71,6 +71,35 @@ class CandidateIntakeTests(unittest.TestCase):
         self.assertIn("DCO_SIGNOFF_MENTIONED", result["contributor_policy"]["hints"])
         self.assertFalse(any("POST" in path for path in self.get.calls))
 
+    def test_named_dual_license_files_are_both_read_at_pinned_source(self):
+        self.get.responses[PREFIX + "/contents?ref=" + SHA] = (200, [
+            {"name": "LICENSE-APACHE", "type": "file"},
+            {"name": "LICENSE-MIT", "type": "file"},
+        ])
+        self.get.responses[PREFIX + "/contents/LICENSE-APACHE?ref=" + SHA] = (
+            200, content("Apache License Version 2.0"))
+        self.get.responses[PREFIX + "/contents/LICENSE-MIT?ref=" + SHA] = (
+            200, content("MIT License permission is hereby granted"))
+        result = self.inspect()
+        self.assertEqual(result["status"], "LICENSE_REVIEW_REQUIRED")
+        self.assertEqual([file["path"] for file in result["license"]["files"]],
+                         ["LICENSE-APACHE", "LICENSE-MIT"])
+        self.assertEqual(result["license"]["path"], "LICENSE-APACHE")
+        self.assertTrue(all(len(file["sha256"]) == 64 for file in result["license"]["files"]))
+        self.assertIn("LICENSE-MIT", result["license"]["other_root_license_candidates"])
+        self.assertIn(PREFIX + "/contents/LICENSE-APACHE?ref=" + SHA, self.get.calls)
+        self.assertIn(PREFIX + "/contents/LICENSE-MIT?ref=" + SHA, self.get.calls)
+
+    def test_missing_second_license_text_fails_closed(self):
+        self.get.responses[PREFIX + "/contents?ref=" + SHA] = (200, [
+            {"name": "LICENSE-APACHE", "type": "file"},
+            {"name": "LICENSE-MIT", "type": "file"},
+        ])
+        self.get.responses[PREFIX + "/contents/LICENSE-APACHE?ref=" + SHA] = (
+            200, content("Apache License"))
+        with self.assertRaises(IntakeError):
+            self.inspect()
+
     def test_no_root_license_blocks_before_policy_and_overlap(self):
         self.get.responses[PREFIX + "/contents?ref=" + SHA] = (
             200, [{"name": "CONTRIBUTING.md", "type": "file"}])
