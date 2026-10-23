@@ -1,0 +1,204 @@
+diff --git a/scripts/test-backpressure-replay.mjs b/scripts/test-backpressure-replay.mjs
+new file mode 100644
+index 0000000..7ef2e72
+--- /dev/null
++++ b/scripts/test-backpressure-replay.mjs
+@@ -0,0 +1,111 @@
++#!/usr/bin/env node
++// First-party native smoke scenarios for opt-in backlog coalescing. No model or daemon.
++import assert from 'node:assert/strict';
++import {BackpressureDispatcher} from '../source/events/backpressure.ts';
++
++const subscription = id => ({id, kind:'schedule.cron',
++  target:{kind:'command',name:'report'},source:'manifest',ownerSkill:'report'});
++const event = id => ({kind:'schedule.cron',payload:{cron:id},at:1});
++function latch() {
++  let resolve, reject;
++  const promise=new Promise((res,rej)=>{resolve=res;reject=rej;});
++  return {promise,resolve,reject};
++}
++async function testDefaultDrop() {
++  const first=latch(), calls=[], dropped=[];
++  const dispatcher=new BackpressureDispatcher({async dispatch(_sub,e) {
++    calls.push(e.payload.cron);
++    if(calls.length===1) await first.promise;
++  }},{onDrop:(_sub,e)=>dropped.push(e.payload.cron)});
++  const a=dispatcher.dispatch(subscription('s'),event('a'));
++  await dispatcher.dispatch(subscription('s'),event('b'));
++  first.resolve(); await a;
++  assert.deepEqual(calls,['a']);
++  assert.deepEqual(dropped,['b']);
++  dispatcher.dispose();
++  console.log('PASS default busy-event drop preserved');
++}
++async function testOptInReplayLast() {
++  const first=latch(), calls=[], dropped=[];
++  let concurrent=0, peak=0;
++  const dispatcher=new BackpressureDispatcher({async dispatch(_sub,e) {
++    concurrent++;peak=Math.max(peak,concurrent);
++    calls.push(e.payload.cron);
++    if(calls.length===1) await first.promise;
++    concurrent--;
++  }},{replayLatestWhileBusy:true,onDrop:(_sub,e)=>dropped.push(e.payload.cron)});
++  const run=dispatcher.dispatch(subscription('s'),event('a'));
++  await dispatcher.dispatch(subscription('s'),event('b'));
++  await dispatcher.dispatch(subscription('s'),event('c'));
++  assert.deepEqual(calls,['a']);
++  first.resolve();await run;
++  assert.deepEqual(calls,['a','c']);
++  assert.deepEqual(dropped,['b']);
++  assert.equal(peak,1,'only one task at a time for same subscription');
++  dispatcher.dispose();
++  console.log('PASS one latest replay, older pending event coalesced');
++}
++async function testIndependentSubscriptions() {
++  const first=latch(), second=latch(), calls=[];
++  const dispatcher=new BackpressureDispatcher({async dispatch(_sub,e){
++    calls.push(e.payload.cron);
++    await (e.payload.cron==='a'?first.promise:second.promise);
++  }},{replayLatestWhileBusy:true});
++  const a=dispatcher.dispatch(subscription('first'),event('a'));
++  const b=dispatcher.dispatch(subscription('second'),event('b'));
++  assert.deepEqual(calls,['a','b']);
++  first.resolve();second.resolve();
++  await Promise.all([a,b]);dispatcher.dispose();
++  console.log('PASS different subscriptions remain independent');
++}
++async function testDispose() {
++  const first=latch(), calls=[];
++  const dispatcher=new BackpressureDispatcher({async dispatch(_sub,e) {
++    calls.push(e.payload.cron);
++    if(calls.length===1) await first.promise;
++  }},{replayLatestWhileBusy:true});
++  const run=dispatcher.dispatch(subscription('s'),event('a'));
++  await dispatcher.dispatch(subscription('s'),event('b'));
++  dispatcher.dispose();
++  first.resolve();await run;
++  assert.deepEqual(calls,['a']);
++  console.log('PASS shutdown cancels queued replay');
++}
++async function testFailureDoesNotReplay() {
++  const first=latch(), calls=[];
++  const dispatcher=new BackpressureDispatcher({async dispatch(_sub,e) {
++    calls.push(e.payload.cron);
++    if(e.payload.cron==='a') await first.promise;
++  }},{replayLatestWhileBusy:true});
++  const run=dispatcher.dispatch(subscription('s'),event('a'));
++  await dispatcher.dispatch(subscription('s'),event('b'));
++  first.reject(new Error('scripted execution failure'));
++  await assert.rejects(run,/scripted execution failure/);
++  assert.deepEqual(calls,['a'],'do not replay after a failed inner dispatch');
++  await dispatcher.dispatch(subscription('s'),event('c'));
++  assert.deepEqual(calls,['a','c'],'failure releases claim for subsequent events');
++  dispatcher.dispose();
++  console.log('PASS failure aborts queued replay and releases occupancy');
++}
++async function testDebouncedBusyReplay() {
++  const first=latch(), calls=[];
++  const dispatcher=new BackpressureDispatcher({async dispatch(_sub,e) {
++    calls.push(e.kind==='file.changed'?e.payload.file:e.payload.cron);
++    if(calls.length===1) await first.promise;
++  }},{replayLatestWhileBusy:true,debounceMs:10});
++  const run=dispatcher.dispatch(subscription('s'),event('cron'));
++  const sub={...subscription('s'),kind:'file.changed'};
++  dispatcher.dispatch(sub,{kind:'file.changed',payload:{file:'one',eventKind:'change'},at:1});
++  dispatcher.dispatch(sub,{kind:'file.changed',payload:{file:'two',eventKind:'change'},at:2});
++  await new Promise(resolve=>setTimeout(resolve,40));
++  first.resolve();await run;
++  assert.deepEqual(calls,['cron','two']);
++  dispatcher.dispose();
++  console.log('PASS debounced file event replays latest after active work');
++}
++await testDefaultDrop();
++await testOptInReplayLast();
++await testIndependentSubscriptions();
++await testDispose();
++await testFailureDoesNotReplay();
++await testDebouncedBusyReplay();
+diff --git a/source/daemon/daemon.ts b/source/daemon/daemon.ts
+index 5a2c927..42ee2a2 100644
+--- a/source/daemon/daemon.ts
++++ b/source/daemon/daemon.ts
+@@ -97,6 +97,8 @@ export interface DaemonOptions {
+ 	 * so it's opt-in rather than on by default like file-watching/cron.
+ 	 */
+ 	ciWatch?: CiWatchConfig;
++	/** Optional programmatic S2 policy: replay newest event once prior work settles. Default drop. */
++	replayLatestWhileBusy?: boolean;
+ 	/**
+ 	 * Test seam: override how the CI-watch event source is constructed.
+ 	 * Defaults to the real `CiEventSource`. Lets specs verify the
+@@ -275,6 +277,7 @@ export async function startDaemon(opts: DaemonOptions): Promise<DaemonHandle> {
+ 	});
+ 
+ 	const backpressure = new BackpressureDispatcher(skillDispatcher, {
++		replayLatestWhileBusy: opts.replayLatestWhileBusy,
+ 		onDrop: (subscription, event) => {
+ 			console.log(
+ 				`Dropped event (in-flight run): subscription=${subscription.id} ` +
+diff --git a/source/events/backpressure.ts b/source/events/backpressure.ts
+index 14ba06e..6c22546 100644
+--- a/source/events/backpressure.ts
++++ b/source/events/backpressure.ts
+@@ -24,6 +24,12 @@ import type {Event, Subscription, SubscriptionId} from './types';
+ export interface BackpressureOptions {
+ 	/** Override the trailing-edge debounce window. Defaults to 500ms. */
+ 	debounceMs?: number;
++	/**
++	 * Opt-in: while a subscription is running, retain only its newest event
++	 * and dispatch it serially after the current run settles. Default false
++	 * preserves the v1 drop-on-busy behavior. Not enabled by daemon defaults.
++	 */
++	replayLatestWhileBusy?: boolean;
+ 	/**
+ 	 * Called when an event is dropped because a previous run for the same
+ 	 * subscription is in flight. Hook is for telemetry / debug-level logs.
+@@ -41,6 +47,10 @@ export class BackpressureDispatcher implements SubscriptionDispatcher {
+ 		SubscriptionId,
+ 		{sub: Subscription; event: Event}
+ 	> = new Map();
++	private readonly busyLatest: Map<
++		SubscriptionId,
++		{sub: Subscription; event: Event}
++	> = new Map();
+ 
+ 	constructor(
+ 		private readonly inner: SubscriptionDispatcher,
+@@ -77,13 +87,28 @@ export class BackpressureDispatcher implements SubscriptionDispatcher {
+ 		event: Event,
+ 	): Promise<void> {
+ 		if (this.inFlight.has(sub.id)) {
+-			this.options.onDrop?.(sub, event);
++			if (this.options.replayLatestWhileBusy) {
++				const displaced = this.busyLatest.get(sub.id);
++				if (displaced) this.options.onDrop?.(displaced.sub, displaced.event);
++				this.busyLatest.set(sub.id, {sub, event});
++			} else {
++				this.options.onDrop?.(sub, event);
++			}
+ 			return;
+ 		}
+ 		this.inFlight.add(sub.id);
+ 		try {
+-			await this.inner.dispatch(sub, event);
++			let current = {sub, event};
++			while (true) {
++				await this.inner.dispatch(current.sub, current.event);
++				if (this.disposed) break;
++				const latest = this.busyLatest.get(sub.id);
++				if (!latest) break;
++				this.busyLatest.delete(sub.id);
++				current = latest;
++			}
+ 		} finally {
++			this.busyLatest.delete(sub.id);
+ 			this.inFlight.delete(sub.id);
+ 		}
+ 	}
+@@ -98,5 +123,6 @@ export class BackpressureDispatcher implements SubscriptionDispatcher {
+ 		for (const timer of this.debouncers.values()) clearTimeout(timer);
+ 		this.debouncers.clear();
+ 		this.pendingEvents.clear();
++		this.busyLatest.clear();
+ 	}
+ }
