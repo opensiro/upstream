@@ -92,7 +92,17 @@
     },
     {
       "id": "discoveryrsi-campaign-history-integrity",
-      "publication": "QUEUED"
+      "publication": "SUBMITTED",
+      "pr_url": "https://github.com/Gen-Verse/DiscoveryRSI/pull/2",
+      "actor": "xLagerFeuer",
+      "fork": "opensiro-contributions/DiscoveryRSI",
+      "base_branch": "main",
+      "base_sha": "7389e0b58ae50486ab35aa3dcbfa2fa15fea1a91",
+      "head_branch": "opensiro/fix-episode-candidate-snapshot",
+      "head_sha": "03122c3c081fe2e386e3b6e7a250515f82b1ac15",
+      "native_test_receipt": "2026-10-23 genuine DiscoveryRSI core: fixed-script unittest baseline 1 PASS/3 RED; patched 4 PASS/0 FAIL; python3 -m compileall -q src/discovery_rsi tests/test_replay_snapshot_unittest.py and git diff --check PASS. Exact staged patch SHA256 af4c299cf3cf92fc79b2a2417de361fd119c0c362c1dbe6bfc2da8145607b68c matches frozen handoff. No provider/agent tests.",
+      "ci_observation": "External CI not yet claimed; native script-only tests completed.",
+      "publication_readback": "2026-10-23 GET Gen-Verse/DiscoveryRSI#2: state open, draft true, matched head/base SHA and source fork, 2 changed files."
     },
     {
       "id": "orch-resume-checkpoint-idempotency",
