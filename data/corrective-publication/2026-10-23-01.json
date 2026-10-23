@@ -82,7 +82,13 @@
     },
     {
       "id": "agent-context-lab-default-fail-boundary",
-      "publication": "QUEUED"
+      "publication": "BLOCKED",
+      "reason": "2026-10-23: Qin-sor/agent-context-lab@372ecc5 is public but GitHub reports license=null; root inventory contains no LICENSE/COPYING, and README.md provides no explicit license or contribution terms. No permission to license/reuse derivative source in a publicly distributed organization fork is established; mandate forbids bypassing third-party licensing restrictions. Do not create a fork, commit or external Draft PR pending an actual first-party licensing grant.",
+      "blocker_type": "NO_VERIFIABLE_UPSTREAM_LICENSE",
+      "checked_source_sha": "372ecc514d48d8e1e5f92d672a9c2b16f4826b5d",
+      "policy_evidence": "https://github.com/Qin-sor/agent-context-lab",
+      "reviewed_handoff": "pilots/agent-context-lab/CONTRIBUTION_HANDOFF.md",
+      "native_test_note": "Handoff has 3 PASS/3 RED -> 6 PASS source-native tests; not rerun because license preflight fails."
     },
     {
       "id": "discoveryrsi-campaign-history-integrity",
