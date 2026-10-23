@@ -106,7 +106,13 @@
     },
     {
       "id": "orch-resume-checkpoint-idempotency",
-      "publication": "QUEUED"
+      "publication": "BLOCKED",
+      "reason": "2026-10-23: fbrubacher/orch@16960b4 is public but GitHub license=null, root has no LICENSE/COPYING, and README contains no explicit licensing grant. Public view/fork availability is not evidence of permission to redistribute a derivative in opensiro-contributions. The finite mandate forbids bypassing source license restrictions; no fork, branch or PR created.",
+      "blocker_type": "NO_VERIFIABLE_UPSTREAM_LICENSE",
+      "checked_source_sha": "16960b40ed6293e27e4536bbd99d62989264a87e",
+      "policy_evidence": "https://github.com/fbrubacher/orch",
+      "reviewed_handoff": "pilots/orch/CONTRIBUTION_HANDOFF.md",
+      "native_test_note": "No fresh native tests since license gate is not cleared; earlier handoff records 1 PASS / 2 FAIL / 1 ERROR -> 4 PASS."
     },
     {
       "id": "matterloop-taskgraph-checkpoint-recovery",
