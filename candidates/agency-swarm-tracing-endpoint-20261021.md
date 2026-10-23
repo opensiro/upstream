@@ -1,6 +1,6 @@
 ---
 candidate_id: IMPR-AGENCY-SWARM-TRACE-ENDPOINT-20261021
-state: SCREENING
+state: PARKED
 origin_class: ASSESSMENT_INFORMED
 target_repo: VRSEN/agency-swarm
 index_sha: 5393b698bfdfa4ca14d97a79238234eca20694e5
@@ -10,12 +10,12 @@ source_sha: a86d657e12b693be64a8dcb8ead560a7b9a4ef01
 fit_need: PASS
 fit_mechanism: PENDING
 fit_value: PENDING
-fit_scope: PENDING
+fit_scope: FAIL
 ---
 
 # IMPR-AGENCY-SWARM-TRACE-ENDPOINT-20261021 — prevent unexpected trace egress with overridden model endpoint
 
-**State:** `SCREENING`, `ASSESSMENT_INFORMED`, **NOT** assessed S2/S3*/S5 defect. The Index [Agency Swarm assessment](https://github.com/opensiro/vsm-harness-index/blob/5393b698bfdfa4ca14d97a79238234eca20694e5/assessments/ag/agency-swarm.md) maps model/tool-running S1 and optional supporting tracing/guardrail infrastructure but does **not** identify trace transmission to a different provider. The concrete product problem comes from independent [open upstream issue #828](https://github.com/VRSEN/agency-swarm/issues/828), encountered in a source-first sweep, and is **not** retroactively attributed to the Index.
+**State:** `PARKED / BLOCKED_DUPLICATE_OPEN_PR`, `ASSESSMENT_INFORMED`, **NOT** assessed S2/S3*/S5 defect. The Index [Agency Swarm assessment](https://github.com/opensiro/vsm-harness-index/blob/5393b698bfdfa4ca14d97a79238234eca20694e5/assessments/ag/agency-swarm.md) maps model/tool-running S1 and optional supporting tracing/guardrail infrastructure but does **not** identify trace transmission to a different provider. The concrete product problem comes from independent [open upstream issue #828](https://github.com/VRSEN/agency-swarm/issues/828), encountered in a source-first sweep, and is **not** retroactively attributed to the Index.
 
 ## Native behavior and impact
 
@@ -34,6 +34,6 @@ For an explicitly overridden non-default model endpoint, default SDK platform tr
 | Need | `PASS` | Reproducible symptom and user-facing impact described by first-party issue #828 |
 | Mechanism | `PENDING` | Precedence of env override, per-agent base URL and explicit trace opt-in not proven |
 | Counterfactual benefit | `PENDING` | No isolated HTTP egress assertion before/after on current SDK |
-| Scope | `PENDING` | Dependency's tracing ownership, compatibility and existing upstream SDK fix must be checked |
+| Scope | `FAIL` | Existing [upstream PR #841](https://github.com/VRSEN/agency-swarm/pull/841) is OPEN and implements custom-endpoint trace defaults and native tests for this same issue #828. |
 
-**Baseline:** reported issue, current source only partly corroborating, `NOT_RUN` for actual egress. **After:** `NOT_IMPLEMENTED / INCONCLUSIVE`. **Next gate:** isolated fake endpoint and mocked HTTP tracing exporter; assert no requests to unexpected hosts except intentional opt-in, while preserving normal configured tracing. No third-party issue/PR/fork or code was created.
+**2026-10-23 duplicate resolution:** [first-party PR #841](https://github.com/VRSEN/agency-swarm/pull/841) is already OPEN against `main`; it addresses issue #828 with default-off tracing for custom model endpoints, explicit opt-in controls, native/offline tests and documentation. The PR's own reported tests are not OpenSiro-executed validation; no live or native testing was performed in this OpenSiro screen. Do not publish a competing implementation. `PARKED / BLOCKED_DUPLICATE_OPEN_PR`; no external fork, issue, PR or code modification by OpenSiro, and no claim of upstream merge or deployed benefit.
