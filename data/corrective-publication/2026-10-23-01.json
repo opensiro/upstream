@@ -148,7 +148,12 @@
     },
     {
       "id": "evidenceloom-numeric-evidence-validation",
-      "publication": "QUEUED"
+      "publication": "BLOCKED",
+      "blocker_type": "UPSTREAM_ISSUE_AND_DCO_PREREQUISITES",
+      "reason": "simonguo/evidenceloom current CONTRIBUTING.md requires opening/referencing an existing issue before behavior-change PR, signed-off-by DCO on every commit, documentation and README check gates. GitHub issue search found no matching numeric-scale/percent issue; owner mandate authorizes fork/branch/fix/Draft PR but not a separate new third-party issue nor personal DCO legal certification on behalf of the actor. Cannot invent issue or certify contributor rights; no fork/PR created. Apache-2.0 license valid; original pinned patch had native 3 RED/3 PASS to GREEN 6 PASS but was not freshly applied given policy blocker.",
+      "policy_source": "https://github.com/simonguo/evidenceloom/blob/main/CONTRIBUTING.md",
+      "upstream_main_sha": "de30bd4262fe0198dcc349e318fb0c1f1f9fc410",
+      "publication_readback": "No external PR; current CONTRIBUTING.md, DCO.md, PR template and issue searches verified"
     },
     {
       "id": "dsh-harness-one-workflow-state",
