@@ -296,7 +296,10 @@
     },
     {
       "id": "besser-state-transition-validation",
-      "publication": "QUEUED"
+      "publication": "BLOCKED",
+      "blocker_type": "ORG_285_EXTERNAL_PUBLICATION_PAUSE",
+      "reason": "BESSER-PEARL/BESSER-Agentic-Framework current main@548fc529c20da7f4342f2f60f847418f149e9340 (newer than frozen da46d4e); root MIT LICENSE verified, no root CONTRIBUTING.md/AGENTS.md or .github/PULL_REQUEST_TEMPLATE.md found. Exact first-party declaration-time auto-transition ordering bug persists: on authorized VM zhdanov, native source test 5/7 PASS before, 7/7 PASS after; py_compile, diff and reverse patch checks PASS. Local opensiro/fix-auto-transition-order commit a23d34f, source-only patch preserved at pilots/besser/auto-transition-registration-order.patch. All-state upstream PR title inventory paginated; no transition-title match found, semantic duplicates not ruled out. No external Draft because VSM-OSS #285 retains publication pause; no LLM/agent benchmark or merge claimed.",
+      "external_pr": null
     },
     {
       "id": "babyai-task-evaluation-input-contract",
