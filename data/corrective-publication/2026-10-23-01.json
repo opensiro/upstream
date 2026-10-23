@@ -139,7 +139,12 @@
     },
     {
       "id": "cubeloop-checkpointer-session-integrity",
-      "publication": "QUEUED"
+      "publication": "BLOCKED",
+      "blocker_type": "UPSTREAM_BRANCH_AND_INTERACTIVE_SPEC_POLICY",
+      "reason": "cubeplexai/cubeloop current AGENTS.md and CLAUDE.md explicitly require date-prefixed worktree AND date-prefixed branch (YYYY-MM-DD-topic), interactive user-confirmed spec/plan stage and separate user-approved codex:rescue review loop. Frozen owner mandate authorizes only opensiro/* branches, autonomous execution without new project-specific user confirmation, and deterministic script-only tests. Cannot satisfy both sets of requirements; no fork, code, branch or external PR created.",
+      "policy_source": "https://github.com/cubeplexai/cubeloop/blob/main/AGENTS.md",
+      "upstream_main_sha": "6789f50c9ea1aa0ce485082d6f21b8c53c531044",
+      "publication_readback": "No external PR; reviewed current first-party AGENTS.md and CLAUDE.md, MIT license and upstream open PR inventory"
     },
     {
       "id": "evidenceloom-numeric-evidence-validation",
