@@ -24,7 +24,13 @@
     },
     {
       "id": "raven-stale-edit-ledger",
-      "publication": "QUEUED"
+      "publication": "BLOCKED",
+      "reason": "2026-10-23: EverMind-AI/Raven@4315993 AGENTS.md section 2.1 permits only <type>/<snake_case> branch prefixes (fix, feat, etc.); the OpenSiro finite mandate requires opensiro/* working branches. Section 3.7 also requires user confirmation of PR preview. Both are hard first-party contribution rules; no compliant external fork branch/PR may be published within this exact mandate. No new fork, branch or external PR created.",
+      "blocker_type": "UPSTREAM_CONTRIBUTOR_POLICY_CONFLICT",
+      "policy_url": "https://github.com/EverMind-AI/Raven/blob/4315993300e538ec954c79565cbc8585006c8053/AGENTS.md",
+      "checked_source_sha": "4315993300e538ec954c79565cbc8585006c8053",
+      "reviewed_handoff": "pilots/raven/CONTRIBUTION_HANDOFF.md",
+      "readback_note": "2026-10-23: issue EverMind-AI/Raven#1061 open; Apache-2.0; 27 open PRs listed, no exact stopped-turn PR found. No fresh native RED/GREEN run because upstream rules block publication."
     },
     {
       "id": "politik-transaction-denial-return",
