@@ -58,7 +58,6 @@ jobs:
           node citadel/scripts/test-coordination-claim-atomicity.js
           node citadel/scripts/test-coordination-core.js
           git -C citadel diff --check
-      - name: First-party full native suite (Linux Node 22)
-        if: matrix.os == 'ubuntu-latest' && matrix.node == 22
+      - name: First-party strict native suite (all OS/Node combinations)
         working-directory: citadel
-        run: npm test
+        run: node scripts/test-all.js --strict

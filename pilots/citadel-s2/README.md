@@ -38,3 +38,7 @@ The first Windows matrix attempt stopped at SHA validation before running native
 OpenSiro S5 finite Corrective mandate does NOT authorize external publication of this Improvement. No external fork or PR was created. Refresh license, contributor policies, duplicate PRs and head before any authorized delivery. Full suite and remote CI statuses are recorded separately; don't interpret the patch as accepted upstream or as a VSM-grade change.
 
 The v2 patch also routes `unregisterInstance()` through the same serialized claim release, and changes stale-instance sweep to **release the claim before removing its instance record**; a temporarily busy or abandoned lock therefore cannot erase the retry handle. These are source-native safety regressions, not product deployment claims.
+
+## Stricter first-party CI parity
+
+The current contributor policy specifies `node scripts/test-all.js --strict` on Ubuntu, macOS and Windows with Node 22 and 24. Earlier source-pinned CI run [#40036187973](https://github.com/opensiro/upstream/actions/runs/40036187973) confirmed all six native targeted replays and `npm test` on Ubuntu/Node 22. A subsequent CI revision now runs the full **strict** first-party suite on **each of the six combinations**, to match the target's actual PR requirements. This stronger test remains **PENDING** until its own run readback; earlier CI SUCCESS must not be substituted. The archived patch byte hash and first-party pinned source are unchanged.
