@@ -1,0 +1,44 @@
+name: Citadel S2 native atomic-claim replay
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'pilots/citadel-s2/**'
+      - '.github/workflows/citadel-s2-native-replay.yml'
+permissions:
+  contents: read
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: SethGammon/Citadel
+          ref: 63e538c65a5e09384c464bff5892cf6e9f601949
+          path: citadel
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.19.0'
+      - name: Check immutable patch hash
+        run: echo '27cded8a0e5bfc02fd2e0d201d07b4592908ecfe52f5ede9d1684f3038bd3962  pilots/citadel-s2/atomic-claims.patch' | sha256sum --check
+      - name: BEFORE - pinned original must fail regression
+        shell: bash
+        run: |
+          git -C citadel apply --include='scripts/test-coordination-claim-atomicity.js' "$GITHUB_WORKSPACE/pilots/citadel-s2/atomic-claims.patch"
+          if node citadel/scripts/test-coordination-claim-atomicity.js; then
+            echo 'Unexpected baseline PASS'
+            exit 1
+          fi
+      - name: AFTER - patch source and run native regressions
+        shell: bash
+        run: |
+          git -C citadel apply --exclude='scripts/test-coordination-claim-atomicity.js' "$GITHUB_WORKSPACE/pilots/citadel-s2/atomic-claims.patch"
+          node citadel/scripts/test-coordination-claim-atomicity.js
+          node citadel/scripts/test-coordination-core.js
+      - name: Full first-party native suite
+        working-directory: citadel
+        run: npm test
