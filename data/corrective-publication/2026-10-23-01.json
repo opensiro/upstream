@@ -310,7 +310,10 @@
     },
     {
       "id": "henrik-agent-harness-workboard-claim-guards",
-      "publication": "QUEUED"
+      "publication": "BLOCKED",
+      "blocker_type": "CONTRIBUTOR_POLICY_FALSE_COAUTHOR_TRAILER",
+      "reason": "henrik-me/agent-harness root MIT LICENSE verified. Current CONTRIBUTING.md requires every commit to carry exact Co-authored-by: Copilot trailer mechanically; this contribution is not Copilot-authored and false authorship must not be asserted. Policy additionally requires fix/* branch for external bug fixes versus finite OpenSiro mandate opensiro/*, plus full harness lint, sync, native Node tests and PR template. Related closed issue https://github.com/henrik-me/agent-harness/issues/417 covers other-owner active CS detection, so duplicate/accepted scope review remains. No new derivative implementation or commit made in this batch; preserved frozen first-party native patch pilots/henrik-agent-harness/claim-same-cs-race-guard.patch reported 2/4 PASS before and 4/4 after in its bounded prior test. External PR blocked by policy conflict and VSM-OSS #285 publication pause; do not fabricate Copilot contribution.",
+      "external_pr": null
     },
     {
       "id": "phoenix-agent-harness-budget-admission",
