@@ -1,0 +1,29 @@
+{
+  "id": "EVIDENCE-BENCH-RETRIEVAL-ERROR-2026-10-23",
+  "kind": "Improvement",
+  "batch": "assessment-upstream-2026-10-23-11",
+  "candidate_id": "evidence-bench-native-evidence-admission",
+  "function": "scientific evidence admission",
+  "origin": "ASSESSMENT_DERIVED_HYPOTHESIS",
+  "first_party": "kstawiski/evidence-gated-scientific-agent",
+  "first_party_sha": "85b396a824dfad6ec0880cbe07d86d3e24920ae8",
+  "license": "Apache-2.0",
+  "contributor_policy_checked": true,
+  "patch_sha256": "0974cdefa228cfdf37e1b750144e01c269c8f2dee6d9aa8ea01e86dd79b23646",
+  "before": {
+    "test": "tests/test_policy.py::test_error_status_does_not_create_retrieval_evidence",
+    "status": "FAIL",
+    "actual": "successful_calls 1 and URL from error message"
+  },
+  "after": {
+    "test_file": "tests/test_policy.py",
+    "status": "PASS",
+    "count": 16,
+    "negative_status_admission": 0
+  },
+  "clean_source_red_green": "PASS",
+  "adjacent_linting_suite": "BLOCKED_MISSING_HTTPX_DEPENDENCY",
+  "external_publication": "NONE",
+  "model_tests": "NOT_RUN_PROHIBITED",
+  "product_benefit": "NOT_MEASURED"
+}
