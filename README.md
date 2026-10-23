@@ -165,16 +165,23 @@ route is currently active.
 Do not restore the legacy manual `--execute` path or treat a batch
 preview as consent. See [Upstream #28](https://github.com/opensiro/upstream/issues/28).
 
-## Organization fork → upstream PR (manual publication)
+## Organization fork → upstream PR (bounded publication mandate)
 
 The existing credential-owning VM/host has **live verified** one-off fork
 creation in `opensiro-contributions` (Issue [#28](https://github.com/opensiro/upstream/issues/28)).
 A separate [organization-fork PR handoff](docs/ORGANIZATION_FORK_UPSTREAM_PR.md)
 uses **authenticated GETs only** to bind an upstream base and pushed fork
 branch to reviewed SHA/diff evidence. It prepares a REST draft payload,
-**not** an external PR. Publication remains an independently authorized,
-human-owned stage; ownership and reported PAT scopes are not blanket
-permission for arbitrary upstream submissions.
+**not** an external PR. The owner has now separately authorized a **finite
+34-case Corrective publication cohort** on 2026-10-23: see the
+[bounded mandate](docs/CORRECTIVE_PR_PUBLICATION.md),
+[validated queue](data/corrective-publication/2026-10-23-01.json) and
+[new-session handoff](docs/NEXT_SESSION_CORRECTIVE_PR_PROMPT.md).
+For these exact cases only, public fork/working-branch creation and external
+**Draft PR** publication no longer require case-by-case operator approval;
+fresh source/policy checks, authenticated actual write rights and GitHub
+receipts remain mandatory. All other external submissions retain their
+separate human publication decision. No external PR is implied by this record.
 
 ## Exact two-file contribution preparation (source only)
 
@@ -186,7 +193,9 @@ identical upstream/fork bases, pre/post file contents and one
 authenticated, revocable exact stage grant from the **real VM/host**.
 A [source-prepared REST Git Data port](docs/REST_MULTIFILE_PATCH_PORT.md)
 provides the atomic tree/commit/new-ref algorithm; the [CLI host transport and clean Git patch materializer](docs/CLI_HOST_MULTIFILE_RUNTIME.md) also exist as source. **No trusted provider attestor, effective grant issuer or deployed host binding is connected**; offline pass is not authority to push a fork branch.
-External upstream PR publication remains separately human-owned.
+External publication outside the exact Corrective mandate remains separately
+human-owned. Its bounded exception does not activate the general prospective
+fork/patch executor or authorize upstream merges.
 
 ## Fork lifecycle automation
 
