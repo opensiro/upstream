@@ -1,0 +1,261 @@
+diff --git a/agentuniverse/agent/template/is_agent_template.py b/agentuniverse/agent/template/is_agent_template.py
+index a4ca1e8..a8275f9 100644
+--- a/agentuniverse/agent/template/is_agent_template.py
++++ b/agentuniverse/agent/template/is_agent_template.py
+@@ -30,6 +30,7 @@ class ISAgentTemplate(AgentTemplate):
+     # Default configuration
+     checkpoint_count: int = 3
+     max_corrections: int = 2
++    halt_on_unresolved_correction: bool = False
+ 
+     def input_keys(self) -> list[str]:
+         """Define input keys required by this agent.
+@@ -68,6 +69,10 @@ class ISAgentTemplate(AgentTemplate):
+             'max_corrections',
+             self.max_corrections
+         )
++        agent_input['halt_on_unresolved_correction'] = input_object.get_data(
++            'halt_on_unresolved_correction',
++            self.halt_on_unresolved_correction
++        )
+ 
+         return agent_input
+ 
+@@ -226,6 +231,7 @@ class ISAgentTemplate(AgentTemplate):
+             for checkpoint_result in raw_results
+         ]
+         execution_context = planner_result.get('execution_context', {})
++        halted = bool(execution_context.get('halted', False))
+ 
+         # Build comprehensive output
+         output_lines = []
+@@ -236,6 +242,9 @@ class ISAgentTemplate(AgentTemplate):
+         corrections_made = execution_context.get('corrections_made', 0)
+         output_lines.append(f"Total Checkpoints: {total_checkpoints}")
+         output_lines.append(f"Corrections Made: {corrections_made}\n")
++        if halted:
++            reason = execution_context.get('halt_reason', 'UNRESOLVED_SUPERVISION')
++            output_lines.append(f"Execution halted: {reason}")
+ 
+         # Checkpoint details
+         for idx, checkpoint_result in enumerate(is_results):
+@@ -265,7 +274,11 @@ class ISAgentTemplate(AgentTemplate):
+                 output_lines.append(f"\nCorrection Output:\n{corr_output}")
+ 
+         # Final result
+-        if is_results:
++        if halted:
++            # Do not publish a rejected checkpoint as a successful final answer.
++            final_result['output'] = ''
++            final_result['halted'] = True
++        elif is_results:
+             last_checkpoint = is_results[-1]
+             effective_result = last_checkpoint.get('effective_result', {})
+             final_output = (
+@@ -411,5 +424,8 @@ class ISAgentTemplate(AgentTemplate):
+         self.supervision_agent_name = profile.get('supervision', self.supervision_agent_name)
+         self.checkpoint_count = profile.get('checkpoint_count', self.checkpoint_count)
+         self.max_corrections = profile.get('max_corrections', self.max_corrections)
++        self.halt_on_unresolved_correction = profile.get(
++            'halt_on_unresolved_correction', self.halt_on_unresolved_correction
++        )
+ 
+         return self
+diff --git a/agentuniverse/agent/work_pattern/is_work_pattern.py b/agentuniverse/agent/work_pattern/is_work_pattern.py
+index 039324a..49c35de 100644
+--- a/agentuniverse/agent/work_pattern/is_work_pattern.py
++++ b/agentuniverse/agent/work_pattern/is_work_pattern.py
+@@ -33,6 +33,8 @@ class ISWorkPattern(WorkPattern):
+             work_pattern_input (dict): Work pattern input dictionary containing:
+                 - checkpoint_count (int): Number of supervision checkpoints (default: 3)
+                 - max_corrections (int): Maximum number of corrections allowed (default: 2)
++                - halt_on_unresolved_correction (bool): Stop on a rejected checkpoint
++                  once the correction budget is exhausted (default: False).
+             **kwargs: Additional keyword arguments.
+ 
+         Returns:
+@@ -43,6 +45,9 @@ class ISWorkPattern(WorkPattern):
+         is_results = list()
+         checkpoint_count = work_pattern_input.get('checkpoint_count', 3)
+         max_corrections = work_pattern_input.get('max_corrections', 2)
++        halt_on_unresolved = work_pattern_input.get('halt_on_unresolved_correction', False)
++        if not isinstance(halt_on_unresolved, bool):
++            raise ValueError('halt_on_unresolved_correction must be a bool.')
+ 
+         # Track overall execution state
+         execution_context = {
+@@ -105,6 +110,12 @@ class ISWorkPattern(WorkPattern):
+ 
+             is_results.append(checkpoint_result)
+ 
++            if halt_on_unresolved and needs_correction and not corrected:
++                execution_context['halted'] = True
++                execution_context['halt_checkpoint'] = checkpoint_idx
++                execution_context['halt_reason'] = 'UNRESOLVED_SUPERVISION_CORRECTION_LIMIT'
++                break
++
+         return {'result': is_results, 'execution_context': execution_context}
+ 
+     async def async_invoke(self, input_object: InputObject, work_pattern_input: dict, **kwargs) -> dict:
+@@ -115,6 +126,8 @@ class ISWorkPattern(WorkPattern):
+             work_pattern_input (dict): Work pattern input dictionary containing:
+                 - checkpoint_count (int): Number of supervision checkpoints (default: 3)
+                 - max_corrections (int): Maximum number of corrections allowed (default: 2)
++                - halt_on_unresolved_correction (bool): Stop on a rejected checkpoint
++                  once the correction budget is exhausted (default: False).
+             **kwargs: Additional keyword arguments.
+ 
+         Returns:
+@@ -125,6 +138,9 @@ class ISWorkPattern(WorkPattern):
+         is_results = list()
+         checkpoint_count = work_pattern_input.get('checkpoint_count', 3)
+         max_corrections = work_pattern_input.get('max_corrections', 2)
++        halt_on_unresolved = work_pattern_input.get('halt_on_unresolved_correction', False)
++        if not isinstance(halt_on_unresolved, bool):
++            raise ValueError('halt_on_unresolved_correction must be a bool.')
+ 
+         # Track overall execution state
+         execution_context = {
+@@ -187,6 +203,12 @@ class ISWorkPattern(WorkPattern):
+ 
+             is_results.append(checkpoint_result)
+ 
++            if halt_on_unresolved and needs_correction and not corrected:
++                execution_context['halted'] = True
++                execution_context['halt_checkpoint'] = checkpoint_idx
++                execution_context['halt_reason'] = 'UNRESOLVED_SUPERVISION_CORRECTION_LIMIT'
++                break
++
+         return {'result': is_results, 'execution_context': execution_context}
+ 
+     def _invoke_implementation(self, input_object: InputObject, agent_input: dict,
+diff --git a/examples/sample_apps/is_agent_app/README.md b/examples/sample_apps/is_agent_app/README.md
+index e35ec98..c7f0520 100644
+--- a/examples/sample_apps/is_agent_app/README.md
++++ b/examples/sample_apps/is_agent_app/README.md
+@@ -108,6 +108,24 @@ print(f"修正次数: {execution_context.get('corrections_made', 0)}")
+ 
+ ### 自定义配置
+ 
++Optional fail-closed supervision: pass `halt_on_unresolved_correction=True`
++to stop the remaining IS checkpoints when supervision still rejects the work
++but no correction budget remains. In this mode the parsed `output` is empty,
++with `halted=True` and a machine-readable `execution_context.halt_reason`.
++The default remains `False` for backwards compatibility. This gate evaluates
++the supervision verdict; it is not an independent verification of that verdict.
++
++```python
++result = agent.run(
++    input='实现一个复杂的数据结构',
++    checkpoint_count=5,
++    max_corrections=2,
++    halt_on_unresolved_correction=True,
++)
++if result.get('halted'):
++    print(result['execution_context']['halt_reason'])
++```
++
+ ```python
+ # 调整检查点和修正参数
+ result = agent.run(
+diff --git a/tests/test_agentuniverse/unit/agent/test_is_supervision_halt.py b/tests/test_agentuniverse/unit/agent/test_is_supervision_halt.py
+new file mode 100644
+index 0000000..58305b3
+--- /dev/null
++++ b/tests/test_agentuniverse/unit/agent/test_is_supervision_halt.py
+@@ -0,0 +1,95 @@
++"""Deterministic IS supervision budget gate; never runs a model."""
++
++import asyncio
++from typing import ClassVar
++
++import pytest
++
++from agentuniverse.agent.input_object import InputObject
++from agentuniverse.agent.output_object import OutputObject
++from agentuniverse.agent.template.implementation_agent_template import ImplementationAgentTemplate
++from agentuniverse.agent.template.is_agent_template import ISAgentTemplate
++from agentuniverse.agent.template.supervision_agent_template import SupervisionAgentTemplate
++from agentuniverse.agent.work_pattern.is_work_pattern import ISWorkPattern
++
++
++class _Implementation(ImplementationAgentTemplate):
++    calls: ClassVar[list] = []
++
++    def run(self, **kwargs):
++        type(self).calls.append(kwargs)
++        return OutputObject({"output": "unverified", "checkpoint_output": "unverified"})
++
++    async def async_run(self, **kwargs):
++        return self.run(**kwargs)
++
++
++class _Supervision(SupervisionAgentTemplate):
++    calls: ClassVar[list] = []
++
++    def run(self, **kwargs):
++        type(self).calls.append(kwargs)
++        return OutputObject({"needs_correction": True, "feedback": "must revise", "score": 0})
++
++    async def async_run(self, **kwargs):
++        return self.run(**kwargs)
++
++
++def _run(*, async_mode, halt, max_corrections):
++    implementation, supervision = _Implementation(), _Supervision()
++    _Implementation.calls = []
++    _Supervision.calls = []
++    pattern = ISWorkPattern()
++    pattern.implementation, pattern.supervision = implementation, supervision
++    work_input = {
++        "input": "review this work",
++        "checkpoint_count": 3,
++        "max_corrections": max_corrections,
++        "halt_on_unresolved_correction": halt,
++    }
++    if async_mode:
++        result = asyncio.run(pattern.async_invoke(InputObject({"input": "review this work"}), work_input))
++    else:
++        result = pattern.invoke(InputObject({"input": "review this work"}), work_input)
++    return result, implementation, supervision
++
++
++@pytest.mark.parametrize("async_mode", [False, True])
++def test_opt_in_halt_stops_unresolved_supervision_and_withholds_result(async_mode):
++    result, implementation, supervision = _run(
++        async_mode=async_mode, halt=True, max_corrections=1
++    )
++    context = result["execution_context"]
++    assert len(result["result"]) == 2
++    assert len(implementation.calls) == 3  # first work, one correction, next work
++    assert len(supervision.calls) == 2
++    assert context["halted"] is True
++    assert context["halt_checkpoint"] == 1
++    assert context["halt_reason"] == "UNRESOLVED_SUPERVISION_CORRECTION_LIMIT"
++    assert context["corrections_made"] == 1
++    assert context["checkpoint_history"][-1]["corrected"] is False
++    parsed = ISAgentTemplate().parse_result(result)
++    assert parsed["output"] == ""
++    assert parsed["halted"] is True
++    assert "UNRESOLVED_SUPERVISION_CORRECTION_LIMIT" in parsed["full_output"]
++
++
++@pytest.mark.parametrize("async_mode", [False, True])
++def test_default_continues_without_halt_and_retains_output(async_mode):
++    result, implementation, supervision = _run(
++        async_mode=async_mode, halt=False, max_corrections=0
++    )
++    assert len(result["result"]) == 3
++    assert len(implementation.calls) == 3
++    assert len(supervision.calls) == 3
++    assert not result["execution_context"].get("halted", False)
++    assert ISAgentTemplate().parse_result(result)["output"] == "unverified"
++
++
++def test_is_agent_template_exposes_opt_in_setting():
++    template = ISAgentTemplate()
++    parsed = template.parse_input(
++        InputObject({"input": "review this work", "halt_on_unresolved_correction": True}),
++        {},
++    )
++    assert parsed["halt_on_unresolved_correction"] is True
