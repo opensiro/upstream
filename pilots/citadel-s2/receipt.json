@@ -6,25 +6,16 @@
   "function": "S2",
   "source": "SethGammon/Citadel@63e538c65a5e09384c464bff5892cf6e9f601949",
   "license": "MIT",
-  "patch_sha256": "27cded8a0e5bfc02fd2e0d201d07b4592908ecfe52f5ede9d1684f3038bd3962",
+  "patch_sha256": "90c0362e33c825e967f136b1b357e143a6f5647d003857c85a000fe0618fc772",
   "before": "two competing claims both CLAIMED; FAILURE",
-  "after": "5 new native checks PASS; existing coordination core PASS",
-  "full_suite": {
-    "github_actions": {
-      "run_id": 40023436079,
-      "url": "https://github.com/opensiro/upstream/actions/runs/40023436079",
-      "status": "SUCCESS",
-      "gate": "source-pinned BEFORE RED, AFTER GREEN, native npm test PASS"
-    },
-    "local": {
-      "status": "FAIL",
-      "scope": "local full npm test on patched 63e538c",
-      "baseline_controls": "original unmodified 63e538c also fails test-golden-path.js and test-loop-recovery.js",
-      "attribution": "DO_NOT_ATTRIBUTE_TO_PATCH_WITHOUT_EVIDENCE"
-    }
-  },
+  "after": "7 new native checks PASS; existing coordination core PASS",
+  "full_suite": "PENDING_FINAL_RECEIPT",
   "product_benefit": "NOT_MEASURED",
   "external_publication": "NONE",
   "authorization": "INTERNAL_ONLY",
-  "no_llm_testing": true
+  "no_llm_testing": true,
+  "patch_revision": 2,
+  "cross_platform_matrix": "3 OS x 2 Node - PENDING_CURRENT_CI",
+  "sweep_failure_recovery": "PASS",
+  "unregister_lock_consistency": "PASS"
 }

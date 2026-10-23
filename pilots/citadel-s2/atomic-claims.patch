@@ -104,8 +104,33 @@ index c2ff922..b3fc361 100644
  }
  
  function getClaimStatus(options = {}) {
+diff --git a/core/coordination/instances.js b/core/coordination/instances.js
+index 809033a..2094d2d 100644
+--- a/core/coordination/instances.js
++++ b/core/coordination/instances.js
+@@ -9,6 +9,7 @@ const {
+   removeFileIfExists,
+   writeJsonAtomic,
+ } = require('./io');
++const { releaseClaim } = require('./claims');
+ 
+ function getInstanceFile(id, options = {}) {
+   const paths = getCoordinationPaths(options.projectRoot);
+@@ -36,9 +37,10 @@ function registerInstance(id, options = {}) {
+ }
+ 
+ function unregisterInstance(id, options = {}) {
+-  const paths = getCoordinationPaths(options.projectRoot);
++  // Never remove an instance's claim outside the cross-process transaction.
++  // On CLAIM_BUSY, keep the instance record for a later retry.
++  releaseClaim(id, options);
+   removeFileIfExists(getInstanceFile(id, options));
+-  removeFileIfExists(path.join(paths.claimsDir, `${id}.json`));
+ }
+ 
+ function heartbeatInstance(id, options = {}) {
 diff --git a/core/coordination/sweep.js b/core/coordination/sweep.js
-index 3a373a1..13a4b6b 100644
+index 3a373a1..29db61e 100644
 --- a/core/coordination/sweep.js
 +++ b/core/coordination/sweep.js
 @@ -1,17 +1,15 @@
@@ -127,12 +152,14 @@ index 3a373a1..13a4b6b 100644
    const swept = [];
  
    for (const instance of listInstances(options)) {
-@@ -22,7 +20,7 @@ function sweepStaleInstances(options = {}) {
+@@ -21,8 +19,9 @@ function sweepStaleInstances(options = {}) {
+ 
      if (!stale && !dead) continue;
  
++    // Preserve the instance on CLAIM_BUSY so the next sweep can retry.
++    releaseClaim(instance.data.instanceId, options);
      removeFileIfExists(instance.path);
 -    removeFileIfExists(path.join(paths.claimsDir, instance.name));
-+    releaseClaim(instance.data.instanceId, options);
  
      swept.push({
        instanceId: instance.data.instanceId,
@@ -183,10 +210,10 @@ index e6aab32..cea7db6 100644
  if (!discoveryPassed) console.log('Discovery core check failed. Fix discovery relay regressions before shipping.');
 diff --git a/scripts/test-coordination-claim-atomicity.js b/scripts/test-coordination-claim-atomicity.js
 new file mode 100644
-index 0000000..8d46270
+index 0000000..326d0e2
 --- /dev/null
 +++ b/scripts/test-coordination-claim-atomicity.js
-@@ -0,0 +1,101 @@
+@@ -0,0 +1,138 @@
 +#!/usr/bin/env node
 +'use strict';
 +
@@ -198,6 +225,8 @@ index 0000000..8d46270
 +const path = require('path');
 +const { spawn } = require('child_process');
 +const { claimScope, getClaimStatus, releaseClaim } = require('../core/coordination/claims');
++const { registerInstance, unregisterInstance } = require('../core/coordination/instances');
++const { sweepStaleInstances } = require('../core/coordination/sweep');
 +
 +const sleep = ms => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
 +
@@ -286,5 +315,40 @@ index 0000000..8d46270
 +        error => error.code === 'SCOPE_OVERLAP');
 +    });
 +    console.log('PASS: same-process overlap enforcement preserved');
++
++    await withRoot(async root => {
++      const opts = { projectRoot: root };
++      const now = new Date().toISOString();
++      registerInstance('stale-worker', { ...opts, now, pid: 99999999 });
++      claimScope('stale-worker', ['src/stale'], 'build', '', opts);
++      const lock = path.join(root, '.planning', 'coordination', 'claims', '.transaction.lock');
++      fs.mkdirSync(lock);
++      assert.throws(() => sweepStaleInstances(opts),
++        error => error.code === 'CLAIM_BUSY', 'contended sweep must report the busy registry');
++      const record = path.join(root, '.planning', 'coordination', 'instances', 'stale-worker.json');
++      assert(fs.existsSync(record), 'failed claim release must preserve stale instance for retry');
++      fs.rmdirSync(lock);
++      const outcome = sweepStaleInstances(opts);
++      assert.equal(outcome.cleaned, 1, 'retry should sweep preserved instance');
++      assert.equal(getClaimStatus(opts).claims.length, 0);
++      assert(!fs.existsSync(record));
++    });
++    console.log('PASS: failed sweep retains instance until claim release succeeds');
++
++    await withRoot(async root => {
++      const opts = { projectRoot: root };
++      registerInstance('exiting-worker', { ...opts, pid: process.pid });
++      claimScope('exiting-worker', ['src/exiting'], 'build', '', opts);
++      const lock = path.join(root, '.planning', 'coordination', 'claims', '.transaction.lock');
++      fs.mkdirSync(lock);
++      assert.throws(() => unregisterInstance('exiting-worker', opts),
++        error => error.code === 'CLAIM_BUSY', 'unregister must not bypass held claim lock');
++      assert.equal(getClaimStatus(opts).claims.length, 1);
++      fs.rmdirSync(lock);
++      unregisterInstance('exiting-worker', opts);
++      assert.equal(getClaimStatus(opts).claims.length, 0);
++    });
++    console.log('PASS: instance unregister uses atomic claim release');
++
 +  })().catch(error => { console.error(error); process.exitCode = 1; });
 +}

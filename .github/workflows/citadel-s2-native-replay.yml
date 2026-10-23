@@ -32,7 +32,7 @@ jobs:
       - name: Verify exact patch SHA256
         shell: bash
         run: |
-          node -e "const fs=require('node:fs'); const crypto=require('node:crypto'); const path='pilots/citadel-s2/atomic-claims.patch'; const actual=crypto.createHash('sha256').update(fs.readFileSync(path)).digest('hex'); const expected='27cded8a0e5bfc02fd2e0d201d07b4592908ecfe52f5ede9d1684f3038bd3962'; if(actual!==expected){console.error({expected,actual});process.exit(1)};console.log('PATCH_SHA256_PASS')"
+          node -e "const fs=require('node:fs'); const crypto=require('node:crypto'); const path='pilots/citadel-s2/atomic-claims.patch'; const actual=crypto.createHash('sha256').update(fs.readFileSync(path)).digest('hex'); const expected='90c0362e33c825e967f136b1b357e143a6f5647d003857c85a000fe0618fc772'; if(actual!==expected){console.error({expected,actual});process.exit(1)};console.log('PATCH_SHA256_PASS')"
       - name: BEFORE - require specific two-owner race, not arbitrary failure
         shell: bash
         run: |
