@@ -22,5 +22,11 @@
   "validation": "native pytest first-party source only, no LLM/browser model",
   "external_pr": "NONE",
   "product_benefit": "NOT_MEASURED",
-  "claim_scope": "different task_id guard; not full checkpoint integrity"
+  "claim_scope": "different task_id guard; not full checkpoint integrity",
+  "github_ci": {
+    "run_id": 40027316974,
+    "url": "https://github.com/opensiro/upstream/actions/runs/40027316974",
+    "conclusion": "SUCCESS",
+    "validation": "source-pinned expected RED, exact patched AFTER 3 PASS"
+  }
 }
