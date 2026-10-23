@@ -11,6 +11,7 @@ import base64
 import binascii
 import hashlib
 import json
+import math
 import re
 import sys
 from urllib.parse import quote
@@ -20,9 +21,28 @@ from rest_fork_port import StageBlocked, _branch, _repo
 
 MAX_TEXT_BYTES = 256 * 1024
 MAX_ITEMS = 100
+MAX_PAGES = 30
 LICENSE_NAME = re.compile(r"^(licen[sc]e|copying|unlicense)(\.(md|txt|rst))?$", re.I)
-POLICY_NAMES = ("CONTRIBUTING.md", "AGENTS.md", "CLAUDE.md")
+POLICY_NAME = re.compile(
+    r"^(contributing|agents|claude|development|pull_request_template|codeowners)"
+    r"(\.(md|txt|rst))?$", re.I)
+POLICY_FOLDERS = (".github", "docs")
 TOPIC = re.compile(r"[A-Za-z0-9][A-Za-z0-9 ._-]{2,79}\Z")
+
+POLICY_PATTERNS = (
+    ("DCO_SIGNOFF_MENTIONED", r"\bDCO\b|Signed-off-by", "BEFORE_DRAFT"),
+    ("CLA_MENTIONED", r"\bCLA\b|contributor license agreement", "BEFORE_DRAFT"),
+    ("ISSUE_WORKFLOW_MENTIONED", r"\bissue\b|\bassigned\b", "BEFORE_IMPLEMENTATION"),
+    ("BRANCH_NAMING_MENTIONED", r"\bbranch\b|\bbranches\b", "BEFORE_IMPLEMENTATION"),
+    ("TEST_OR_CI_GATE_MENTIONED", r"\bCI\b|\btests?\b|\bchecks?\b", "BEFORE_READY"),
+    ("DRAFT_PR_GATE_MENTIONED",
+     r"\bbefore (?:opening|submitting|creating) (?:a )?(?:draft )?(?:PR|pull request)\b",
+     "BEFORE_DRAFT"),
+    ("READY_PR_GATE_MENTIONED", r"\bready for review\b|\bmark (?:the )?PR ready\b",
+     "BEFORE_READY"),
+    ("MERGE_GATE_MENTIONED", r"\bbefore merg(?:e|ing)\b|\bprior to merg(?:e|ing)\b",
+     "BEFORE_MERGE"),
+)
 
 
 class IntakeError(ValueError):
@@ -49,6 +69,8 @@ def _get(get, path, *, missing_ok=False, list_ok=False):
 
 
 def _contents_path(source, path, ref):
+    if any(part in ("", ".", "..") for part in path.split("/")):
+        raise IntakeError("Unsafe path in repository listing")
     encoded = "/".join(quote(part, safe="") for part in path.split("/"))
     return "/repos/" + source + "/contents/" + encoded + "?ref=" + quote(ref, safe="")
 
@@ -72,7 +94,7 @@ def _file_text(get, source, path, ref):
 def _matches(items, topic):
     if topic is None:
         return []
-    tokens = topic.casefold().split()
+    tokens = set(re.findall(r"[a-z0-9]+", topic.casefold()))
     matches = []
     for item in items:
         if type(item) is not dict:
@@ -80,10 +102,99 @@ def _matches(items, topic):
         title = item.get("title", "")
         if not isinstance(title, str):
             raise IntakeError("Malformed issue/PR title")
-        if all(token in title.casefold() for token in tokens):
+        body = item.get("body") or ""
+        if not isinstance(body, str):
+            raise IntakeError("Malformed issue/PR body")
+        title_tokens = set(re.findall(r"[a-z0-9]+", title.casefold()))
+        body_tokens = set(re.findall(r"[a-z0-9]+", body.casefold()))
+        title_hit = tokens <= title_tokens
+        body_hit = tokens <= body_tokens
+        matched = tokens & (title_tokens | body_tokens)
+        threshold = min(len(tokens), max(2, math.ceil(len(tokens) / 2)))
+        if len(matched) >= threshold:
             matches.append({"number": item.get("number"), "title": title[:200],
-                            "url": item.get("html_url")})
-    return matches[:20]
+                            "url": item.get("html_url"), "state": item.get("state"),
+                            "matched_in": ("title" if title_hit else "body" if body_hit
+                                           else "combined"),
+                            "matched_tokens": sorted(matched)})
+    return matches
+
+
+def _inventory(get, source, kind):
+    """Traverse both open and closed records; bound work and disclose truncation."""
+    collected = []
+    for page in range(1, MAX_PAGES + 1):
+        path = (f"/repos/{source}/{kind}?state=all&per_page={MAX_ITEMS}&page={page}")
+        rows = _get(get, path, list_ok=True)
+        if len(rows) > MAX_ITEMS:
+            raise IntakeError("GitHub inventory page exceeds advertised page size")
+        collected.extend(rows)
+        if len(rows) < MAX_ITEMS:
+            return collected, True, page
+    return collected, False, MAX_PAGES
+
+
+def _policy_paths(get, source, root, sha):
+    """Only bounded first-party paths; templates and nested instructions are not silently ignored."""
+    seen = set()
+    for entry in root:
+        if entry.get("type") == "file" and POLICY_NAME.fullmatch(entry["name"]):
+            seen.add(entry["name"])
+    for folder in POLICY_FOLDERS:
+        if not any(e.get("name") == folder and e.get("type") == "dir" for e in root):
+            continue
+        entries = _get(get, _contents_path(source, folder, sha), list_ok=True)
+        for entry in entries:
+            if (type(entry) is not dict or not isinstance(entry.get("name"), str)
+                    or entry.get("type") not in ("file", "dir")):
+                raise IntakeError("Malformed contributor policy directory: " + folder)
+            if entry["type"] == "file" and POLICY_NAME.fullmatch(entry["name"]):
+                seen.add(folder + "/" + entry["name"])
+            if folder == ".github" and entry["type"] == "dir" and entry["name"] in (
+                    "ISSUE_TEMPLATE", "PULL_REQUEST_TEMPLATE"):
+                templates = _get(get, _contents_path(source, folder + "/" + entry["name"], sha),
+                                 list_ok=True)
+                for child in templates:
+                    if (type(child) is not dict or not isinstance(child.get("name"), str)
+                            or child.get("type") not in ("file", "dir")):
+                        raise IntakeError("Malformed contributor template directory")
+                    if child["type"] == "file" and child["name"].lower().endswith(
+                            (".md", ".txt", ".rst", ".yml", ".yaml")):
+                        seen.add(folder + "/" + entry["name"] + "/" + child["name"])
+    return sorted(seen)
+
+
+def _policy_evidence(contents, path):
+    observations = []
+    for line_number, line in enumerate(contents.splitlines(), 1):
+        for label, pattern, stage in POLICY_PATTERNS:
+            if re.search(pattern, line, re.I):
+                observations.append({"path": path, "line": line_number, "stage": stage,
+                                     "code": label, "excerpt": line.strip()[:240]})
+    if len(observations) > 250:
+        raise IntakeError("Contributor policy evidence limit exceeded: " + path)
+    return observations
+
+
+def _gates(result):
+    """Stages are evidence summaries, never substituted for real approvals."""
+    evidence = result["contributor_policy"]["evidence"]
+    gates = {}
+    for stage in ("BEFORE_IMPLEMENTATION", "BEFORE_DRAFT", "BEFORE_READY", "BEFORE_MERGE"):
+        codes = sorted({e["code"] for e in evidence if e["stage"] == stage})
+        gates[stage] = {"status": "NOT_CLEARED", "policy_hints": codes,
+                        "reasons": ["FIRST_PARTY_POLICY_REVIEW_REQUIRED"]}
+    gates["BEFORE_IMPLEMENTATION"]["reasons"].extend(
+        ["LICENSE_COMPATIBILITY_REVIEW_REQUIRED", "NATIVE_DEFECT_NOT_VERIFIED"])
+    gates["BEFORE_DRAFT"]["reasons"].extend(
+        ["NATIVE_RED_GREEN_REQUIRED", "FORK_ACTOR_AND_DIFF_REQUIRED", "DCO_CLA_IF_APPLICABLE"])
+    gates["BEFORE_READY"]["reasons"].append("REQUIRED_REVIEW_AND_CHECKS_NOT_OBSERVED")
+    gates["BEFORE_MERGE"]["reasons"].append("UPSTREAM_MAINTAINER_MERGE_RESERVED")
+    if result["overlap"]["status"] == "INVENTORY_INCOMPLETE":
+        gates["BEFORE_IMPLEMENTATION"]["reasons"].append("DUPLICATE_INVENTORY_INCOMPLETE")
+    if result["overlap"]["issues"] or result["overlap"]["pull_requests"]:
+        gates["BEFORE_IMPLEMENTATION"]["reasons"].append("POTENTIAL_DUPLICATE_REVIEW_REQUIRED")
+    return gates
 
 
 def inspect_candidate(*, source, branch=None, topic=None, get=public_get):
@@ -99,9 +210,11 @@ def inspect_candidate(*, source, branch=None, topic=None, get=public_get):
         "source": source, "source_branch": branch, "source_sha": None,
         "license": {"verdict": "LICENSE_UNRESOLVED", "spdx_metadata": None,
                     "path": None, "sha256": None, "review_required": True},
-        "contributor_policy": {"paths": [], "hints": [], "review_required": True},
+        "contributor_policy": {"paths": [], "hints": [], "evidence": [],
+                               "review_required": True},
         "overlap": {"topic": topic, "issues": [], "pull_requests": [],
                     "status": "NOT_SEARCHED"},
+        "gates": {}, "reason_codes": ["LICENSE_NOT_VERIFIED"],
         "notes": ["First-party text may contain additional obligations; review is required.",
                   "No POST, fork, patch, PR, license grant or legal sign-off is possible."],
     }
@@ -124,7 +237,7 @@ def inspect_candidate(*, source, branch=None, topic=None, get=public_get):
     result["source_sha"] = sha
 
     root = _get(get, "/repos/" + source + "/contents?ref=" +
-                quote(observed_branch, safe=""), list_ok=True)
+                quote(sha, safe=""), list_ok=True)
     files = {}
     for item in root:
         if type(item) is not dict or not isinstance(item.get("name"), str):
@@ -135,6 +248,9 @@ def inspect_candidate(*, source, branch=None, topic=None, get=public_get):
                             if LICENSE_NAME.fullmatch(name)), key=lambda p: p.casefold())
     if not license_paths:
         result["status"] = "LICENSE_BLOCKED"
+        result["reason_codes"] = ["ROOT_LICENSE_NOT_FOUND"]
+        result["gates"] = {"BEFORE_IMPLEMENTATION": {
+            "status": "BLOCKED", "reasons": ["ROOT_LICENSE_NOT_FOUND"]}}
         result["license"]["verdict"] = "LICENSE_NOT_FOUND_AT_ROOT"
         result["notes"].append(
             "No root LICENSE/COPYING/UNLICENSE observed; do not create a derivative. "
@@ -143,7 +259,7 @@ def inspect_candidate(*, source, branch=None, topic=None, get=public_get):
     if len(license_paths) > 1:
         result["notes"].append("Multiple root license candidates: manual scope review required")
     license_path = license_paths[0]
-    license_text = _file_text(get, source, license_path, observed_branch)
+    license_text = _file_text(get, source, license_path, sha)
     if not license_text.strip():
         raise IntakeError("Observed license file is empty")
     result["license"].update({
@@ -152,38 +268,30 @@ def inspect_candidate(*, source, branch=None, topic=None, get=public_get):
         "other_root_license_candidates": license_paths[1:],
     })
 
-    for path in POLICY_NAMES:
-        actual = files.get(path.casefold())
-        if not actual:
-            continue
-        contents = _file_text(get, source, actual, observed_branch)
+    for actual in _policy_paths(get, source, root, sha):
+        contents = _file_text(get, source, actual, sha)
         result["contributor_policy"]["paths"].append({
             "path": actual, "sha256": hashlib.sha256(contents.encode()).hexdigest()})
-        for label, pattern in (
-            ("DCO_SIGNOFF_MENTIONED", r"\bDCO\b|Signed-off-by"),
-            ("CLA_MENTIONED", r"\bCLA\b|contributor license agreement"),
-            ("ISSUE_WORKFLOW_MENTIONED", r"\bissue\b"),
-            ("BRANCH_NAMING_MENTIONED", r"\bbranch\b|\bbranches\b"),
-            ("TEST_OR_CI_GATE_MENTIONED", r"\bCI\b|\btests?\b|\bchecks?\b"),
-            ("DRAFT_PR_GATE_MENTIONED", r"\bbefore (?:opening|submitting|creating) (?:a )?(?:draft )?(?:PR|pull request)\b"),
-            ("MERGE_GATE_MENTIONED", r"\bbefore merg(?:e|ing)\b|\bprior to merg(?:e|ing)\b"),
-        ):
-            if re.search(pattern, contents, re.I) and label not in result["contributor_policy"]["hints"]:
-                result["contributor_policy"]["hints"].append(label)
+        result["contributor_policy"]["evidence"].extend(_policy_evidence(contents, actual))
+    result["contributor_policy"]["hints"] = sorted({
+        evidence["code"] for evidence in result["contributor_policy"]["evidence"]})
 
     if topic is not None:
-        path = "/repos/" + source
-        issues = _get(get, path + "/issues?state=all&per_page=100", list_ok=True)
-        prs = _get(get, path + "/pulls?state=open&per_page=100", list_ok=True)
+        issues, issues_complete, issues_pages = _inventory(get, source, "issues")
+        prs, prs_complete, prs_pages = _inventory(get, source, "pulls")
         result["overlap"].update({
             "issues": _matches([item for item in issues if "pull_request" not in item], topic),
             "pull_requests": _matches(prs, topic),
-            "status": ("PAGINATION_REQUIRED" if len(issues) >= MAX_ITEMS or len(prs) >= MAX_ITEMS
-                       else "TITLE_HEURISTIC_ONLY_NOT_PROOF_OF_ABSENCE"),
+            "issues_pages": issues_pages, "pull_requests_pages": prs_pages,
+            "issue_count_examined": len(issues), "pull_request_count_examined": len(prs),
+            "status": ("TITLE_BODY_HEURISTIC_ONLY_NOT_PROOF_OF_ABSENCE"
+                       if issues_complete and prs_complete else "INVENTORY_INCOMPLETE"),
         })
-        if len(issues) >= MAX_ITEMS or len(prs) >= MAX_ITEMS:
-            result["notes"].append("Open issue/PR inventory reached page limit; check further pages")
+        if not issues_complete or not prs_complete:
+            result["notes"].append("Issue/PR inventory exceeded bounded page budget")
     result["status"] = "LICENSE_REVIEW_REQUIRED"
+    result["reason_codes"] = ["LICENSE_COMPATIBILITY_REVIEW_REQUIRED"]
+    result["gates"] = _gates(result)
     return result
 
 
@@ -198,7 +306,10 @@ def main(argv=None, *, get=public_get):
                                    topic=args.topic, get=get)
     except (IntakeError, ReadOnlyError, StageBlocked) as exc:
         result = {"status": "INSUFFICIENT_EVIDENCE",
-                  "authorization": "READ_ONLY_NO_WRITES", "reason": str(exc)}
+                  "authorization": "READ_ONLY_NO_WRITES", "reason": str(exc),
+                  "reason_codes": ["SOURCE_EVIDENCE_UNVERIFIED"],
+                  "gates": {"BEFORE_IMPLEMENTATION": {
+                      "status": "BLOCKED", "reasons": ["SOURCE_EVIDENCE_UNVERIFIED"]}}}
     print(json.dumps(result, indent=2, sort_keys=True))
     return 0 if result["status"] == "LICENSE_REVIEW_REQUIRED" else 2
 

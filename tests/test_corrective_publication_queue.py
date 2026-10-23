@@ -24,16 +24,17 @@ class CorrectiveMandateTests(unittest.TestCase):
     def test_exact_finite_snapshot_and_native_only_mode(self):
         board = queue.report(self.data)
         self.assertEqual(board["authorized_count"], 34)
-        self.assertEqual(board["next_candidate"], "oblivion-agent-tool-loop")
-        self.assertEqual(board["counts"], {"QUEUED": 34})
+        self.assertEqual(board["next_candidate"], "raven-stale-edit-ledger")
+        self.assertEqual(board["counts"], {"QUEUED": 33, "SUBMITTED": 1})
         self.assertEqual(board["test_mode"], "NATIVE_SCRIPT_ONLY_NO_LLM_AGENTS")
         self.assertTrue(board["no_external_writes_performed_by_this_command"])
 
     def test_blocked_case_moves_to_next_with_source_history_unchanged(self):
         ledger = copy.deepcopy(self.data)
-        ledger["cases"][0]["publication"] = "BLOCKED"
-        ledger["cases"][0]["reason"] = "The current upstream source already fixed the defect."
-        self.assertEqual(queue.report(ledger)["next_candidate"], "raven-stale-edit-ledger")
+        ledger["cases"][1]["publication"] = "BLOCKED"
+        ledger["cases"][1]["reason"] = "The current upstream source already fixed the defect."
+        self.assertEqual(queue.report(ledger)["next_candidate"],
+                         "politik-transaction-denial-return")
 
     def test_reject_out_of_scope_reordering_and_unsupported_stage(self):
         transforms = (
@@ -41,7 +42,7 @@ class CorrectiveMandateTests(unittest.TestCase):
             lambda d: d["cases"].reverse(),
             lambda d: d["cases"][0].update(id="citadel-native-claim-exclusivity"),
             lambda d: d["cases"][0].update(publication="ACTIVE"),
-            lambda d: d["cases"][0].update(publication="SUBMITTED"),
+            lambda d: d["cases"][1].update(publication="SUBMITTED"),
             lambda d: d["cases"][0].update(pr_url="https://github.com/not-a-pr"),
             lambda d: d.update(candidate_snapshot_sha="0" * 40),
         )
