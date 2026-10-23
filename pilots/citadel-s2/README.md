@@ -31,7 +31,7 @@ The lock directory is an atomic local-filesystem coordination primitive. It seri
 
 Citadel's own contribution policy tests Node 22/24 on Ubuntu, macOS and Windows. The [source-pinned native CI workflow](../../.github/workflows/citadel-s2-native-replay.yml) now replays the specific **BOTH CLAIMED** baseline failure and the exact patched source on a **3 OS × 2 Node** matrix. It verifies the specific before-failure signature so an unrelated crash cannot count as expected RED, while the full first-party `npm test` remains separately required on Ubuntu/Node 22.
 
-The expanded matrix must be read back from the actual current GitHub Actions run before cross-platform PASS can be claimed; the earlier one-run Ubuntu receipt alone does not establish Windows/macOS support. No LLM or agent-quality tests are used.
+The first Windows matrix attempt stopped at SHA validation before running native tests: Git checkout had converted the archived diff from LF to CRLF. The replay workflow now normalizes the diff bytes back to canonical LF, checks the immutable checksum, and resets the pinned Citadel checkout under `core.autocrlf=false` on Windows before applying it. This is CI portability handling, **not** a change to the claimed native defect or a Windows product-fix. The expanded matrix must be read back from the actual current GitHub Actions run before cross-platform PASS can be claimed; the earlier one-run Ubuntu receipt alone does not establish Windows/macOS support. No LLM or agent-quality tests are used.
 
 ## Publication boundary
 

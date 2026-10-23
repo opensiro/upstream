@@ -29,10 +29,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-      - name: Verify exact patch SHA256
+      - name: Normalize Windows first-party checkout to pinned LF source
+        if: runner.os == 'Windows'
         shell: bash
         run: |
-          node -e "const fs=require('node:fs'); const crypto=require('node:crypto'); const path='pilots/citadel-s2/atomic-claims.patch'; const actual=crypto.createHash('sha256').update(fs.readFileSync(path)).digest('hex'); const expected='90c0362e33c825e967f136b1b357e143a6f5647d003857c85a000fe0618fc772'; if(actual!==expected){console.error({expected,actual});process.exit(1)};console.log('PATCH_SHA256_PASS')"
+          git -C citadel config core.autocrlf false
+          git -C citadel reset --hard 63e538c65a5e09384c464bff5892cf6e9f601949
+      - name: Verify exact patch SHA256 after canonicalizing checkout CRLF
+        shell: bash
+        run: |
+          node -e "const fs=require('node:fs');const crypto=require('node:crypto');const path='pilots/citadel-s2/atomic-claims.patch';const normalized=Buffer.from(fs.readFileSync(path,'utf8').split(String.fromCharCode(13,10)).join(String.fromCharCode(10)),'utf8');const actual=crypto.createHash('sha256').update(normalized).digest('hex');const expected='90c0362e33c825e967f136b1b357e143a6f5647d003857c85a000fe0618fc772';if(actual!==expected){console.error({expected,actual});process.exit(1)};fs.writeFileSync(path,normalized);console.log('PATCH_SHA256_PASS')"
       - name: BEFORE - require specific two-owner race, not arbitrary failure
         shell: bash
         run: |
