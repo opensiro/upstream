@@ -1,0 +1,43 @@
+name: Evidence Bench native retrieval status admission
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'pilots/evidence-bench/**'
+      - '.github/workflows/evidence-bench-retrieval-admission.yml'
+permissions:
+  contents: read
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: kstawiski/evidence-gated-scientific-agent
+          ref: 85b396a824dfad6ec0880cbe07d86d3e24920ae8
+          path: evidence-bench
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install minimal dependencies for native policy tests
+        run: python -m pip install 'pytest>=8.4,<10' 'pydantic>=2.11,<3'
+      - name: Check immutable patch hash
+        run: echo '0974cdefa228cfdf37e1b750144e01c269c8f2dee6d9aa8ea01e86dd79b23646  pilots/evidence-bench/retrieval-error-admission.patch' | sha256sum --check
+      - name: BEFORE - original admits failure (expected RED)
+        shell: bash
+        run: |
+          git -C evidence-bench apply --include='tests/test_policy.py' "$GITHUB_WORKSPACE/pilots/evidence-bench/retrieval-error-admission.patch"
+          cd evidence-bench
+          if python -m pytest tests/test_policy.py -q -k 'error_status_does_not_create_retrieval_evidence or success_status_still_records_retrieval'; then
+            echo 'Unexpected baseline PASS'
+            exit 1
+          fi
+      - name: AFTER - classify failed result and run native policy tests
+        shell: bash
+        run: |
+          git -C evidence-bench apply --exclude='tests/test_policy.py' "$GITHUB_WORKSPACE/pilots/evidence-bench/retrieval-error-admission.patch"
+          cd evidence-bench
+          python -m pytest tests/test_policy.py -q
