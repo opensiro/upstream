@@ -331,7 +331,10 @@
     },
     {
       "id": "revka-workflow-validation-contract",
-      "publication": "QUEUED"
+      "publication": "BLOCKED",
+      "blocker_type": "ORG_285_EXTERNAL_PUBLICATION_PAUSE",
+      "reason": "KumihoIO/Revka main@a1acd826502e12a6c2f3d147e488a7d2982c480b matches frozen source. Actual dual-license root LICENSE-APACHE plus LICENSE-MIT contents verified, AGENTS.md, CONTRIBUTING.md and docs/contributing/pr-discipline.md read. On authorized VM zhdanov, sparse source checkout in fix/workflow-deep-dag-validation, local commit 16d1330: native first-party Pydantic workflow DAG test before 3 PASS/1 RecursionError, after 4 PASS/0 FAIL; py_compile, staged diff check and reverse patch check PASS. No workflows, models, agents or external tools run. Targeted all-state PR/issue searches found no recursion-depth title match, semantic absence not attested. Broader Rust cargo fmt/clippy/test and pre-PR CI not executed, so no full upstream gate claimed; submission branch and review-track requirements remain. Frozen patch preserved at pilots/revka/workflow-deep-dag-validation.patch. No external Draft PR because VSM-OSS #285 explicitly retains publication pause.",
+      "external_pr": null
     }
   ]
 }
