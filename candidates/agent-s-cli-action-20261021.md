@@ -1,6 +1,6 @@
 ---
 candidate_id: IMPR-AGENT-S-CLI-ACTION-20261021
-state: SCREENING
+state: PARKED
 origin_class: ASSESSMENT_INFORMED
 target_repo: simular-ai/Agent-S
 index_sha: 5393b698bfdfa4ca14d97a79238234eca20694e5
@@ -10,12 +10,12 @@ source_sha: 15776a8dc659658b1963816ea006f7af1978e595
 fit_need: PASS
 fit_mechanism: PENDING
 fit_value: PENDING
-fit_scope: PENDING
+fit_scope: FAIL
 ---
 
 # IMPR-AGENT-S-CLI-ACTION-20261021 — distinguish terminal action signals from typed task text
 
-**State:** `SCREENING / ASSESSMENT_INFORMED`, **not an Index-diagnosed S1 defect**. The [Agent-S Index assessment](https://github.com/opensiro/vsm-harness-index/blob/5393b698bfdfa4ca14d97a79238234eca20694e5/assessments/ag/agent-s.md) identifies the shipped Agent S3 CLI with screenshot-driven actions and feedback, but does not specifically diagnose substring-based terminal action control.
+**State:** `PARKED / ASSESSMENT_INFORMED`, blocker `BLOCKED_DUPLICATE_OPEN_PR`, **not an Index-diagnosed S1 defect**. The [Agent-S Index assessment](https://github.com/opensiro/vsm-harness-index/blob/5393b698bfdfa4ca14d97a79238234eca20694e5/assessments/ag/agent-s.md) identifies the shipped Agent S3 CLI with screenshot-driven actions and feedback, but does not specifically diagnose substring-based terminal action control.
 
 ## Product-native need
 
@@ -32,6 +32,6 @@ Use the action's **typed terminal status** (`DONE`/`FAIL` as established by the 
 | Need | `PASS` | First-party open issue #235 and current executable CLI substring branches |
 | Mechanism | `PENDING` | Confirm exact status representation, S3/S2.5 differences and avoid overlap with reporter's planned patch |
 | Counterfactual benefit | `PENDING` | No current-source baseline test with a generated typed code string and matched after test |
-| Scope | `PENDING` | Current maintainer PR/ownership, terminal control semantics, GUI runtime and test setup need reinspection |
+| Scope | `FAIL` | First-party [PR #236](https://github.com/simular-ai/Agent-S/pull/236) is open and implements exactly the typed-text vs terminal-action distinction for the S3 and S2.5 CLI paths. |
 
-**Baseline:** reported reproduction and current source corroboration, **not** independently run on a GUI host. **After:** `NOT_IMPLEMENTED`. **Next gate:** a no-GUI unit test using a code string containing “done”, “next” or “wait” as normal user text; first check the issue reporter's incoming PR to avoid duplicate work. No external repository/issue/PR, fork, Index grade or permission was modified.
+**2026-10-23 duplicate resolution:** first-party [PR #236](https://github.com/simular-ai/Agent-S/pull/236) is already OPEN against `main`, supplies exact terminal-action comparisons in both CLIs, and reports native regression tests. Do not send a competing fix or count that PR as OpenSiro authorship. `PARKED / BLOCKED_DUPLICATE_OPEN_PR`; no new source, tests, fork or external PR created by OpenSiro for this candidate. Upstream merge and deployed effect remain unverified.
