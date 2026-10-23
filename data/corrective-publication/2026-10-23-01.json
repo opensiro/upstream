@@ -204,8 +204,8 @@
     {
       "id": "openorbit-approval-boundary-validation",
       "publication": "BLOCKED",
-      "blocker_type": "NO_AUTHORIZED_FORK_EXECUTION_PORT",
-      "reason": "2026-10-23: maneja81/OpenOrbit@2c302423 (default/development branch develop) has MIT license and a real source-native dot-segment path parameter bug. Local two-file fix passed native RED 17/2 -> GREEN 19/0, 1555/1555 full Vitest, eslint, TypeScript and build. However, opensiro-contributions/OpenOrbit does not exist (GitHub GET 404), the active GitHub connector exposes no create-fork operation, and the current execution container has no configured gh credential-owning host. The bounded mandate does not allow substituting a personal fork or bypassing that capability. No external fork, push or PR was created. Recheck if a legitimate create-fork host is restored.",
+      "blocker_type": "ORG_285_EXTERNAL_PUBLICATION_PAUSE",
+      "reason": "2026-10-23: maneja81/OpenOrbit@2c302423 (default/development branch develop) has MIT license and a real source-native dot-segment path parameter bug. Local two-file fix passed native RED 17/2 -> GREEN 19/0, 1555/1555 full Vitest, eslint, TypeScript and build. The public organization fork opensiro-contributions/OpenOrbit was absent at check time. A legitimate authenticated GitHub CLI route was subsequently verified on registered VM zhdanov (without exposing a token), so fork execution is no longer the blocker. No external fork, push or PR was created because VSM-OSS #285 still explicitly pauses publication; source-native tests and full required local checks have passed.",
       "checked_source_sha": "2c30242310c3f2e8453b1116d657e65634e6973e",
       "license": "MIT root LICENSE verified at develop; actual text inspected",
       "native_test_receipt": "2026-10-23 actual electron/main/ai/httpToolRequest.test.ts on OpenOrbit/develop: two added regressions RED 17 pass / 2 fail; local fix GREEN 19 pass / 0 fail; npm test outside sandbox 142 files / 1555 tests PASS; npx eslint src electron, npx tsc -b, npm run build and git diff --check PASS. All tests native/CLI; no LLM or Electron app trial.",
@@ -215,8 +215,8 @@
     {
       "id": "reef-polyp-experiment-queue-contract",
       "publication": "BLOCKED",
-      "blocker_type": "NO_AUTHORIZED_FORK_EXECUTION_PORT",
-      "reason": "2026-10-23: Coral-Bricks-AI/reef@33aefaa (default branch main) has first-party Apache-2.0 text, no contributing policy files observed in root/.github, and no lexical issue/PR duplicate in a complete read-only inventory. Native local Git-only archive replay reproduced the unpushed commit defect, and the bounded 2-file fix passed GREEN. However, opensiro-contributions/reef is absent (GitHub GET 404), while this session lacks an authenticated create-public-fork operation and configured gh execution host. No unauthorized personal fork, external branch, push, or PR was created. Re-evaluate when legitimate org-fork execution is available.",
+      "blocker_type": "ORG_285_EXTERNAL_PUBLICATION_PAUSE",
+      "reason": "2026-10-23: Coral-Bricks-AI/reef@33aefaa (default branch main) has first-party Apache-2.0 text, no contributing policy files observed in root/.github, and no lexical issue/PR duplicate in a complete read-only inventory. Native local Git-only archive replay reproduced the unpushed commit defect, and the bounded 2-file fix passed GREEN. The public organization fork opensiro-contributions/reef was absent at check time; a legitimate authenticated GitHub CLI host was subsequently found on registered VM zhdanov. No fork, external branch, push or PR was created because VSM-OSS #285 explicitly retains the external publication pause.",
       "checked_source_sha": "33aefaa12d78891bf5ba70a0d96b070d471ecc78",
       "license": "Apache-2.0 root LICENSE text verified in read-only intake",
       "native_test_receipt": "2026-10-23 genuine cbq.py with real local git and bare origin: baseline test_native_git_archive_retry_unittest.py 2 PASS / 1 FAIL; local fix 3 PASS / 0 FAIL; python3 -m compileall and git diff --cached --check PASS. No PostgreSQL connection, remote Git push, GPU, agent or model.",
@@ -237,8 +237,8 @@
     {
       "id": "spartan-persistence-recovery-contract",
       "publication": "BLOCKED",
-      "blocker_type": "NO_AUTHORIZED_FORK_EXECUTION_PORT",
-      "reason": "2026-10-23: CorticalComputer/Spartan@8f7b36a main contains the reproducible Soul first-entry backfill parser defect. Apache-2.0 root LICENSE text (plus NOTICE) verified, issue/PR inventory was empty and no first-party contributor policy file found in bounded inspection. Source-native local tests RED 2 pass/2 fail before and GREEN 4 pass/0 fail after minimal two-file repair; py_compile/diff checks PASS. But public opensiro-contributions/Spartan fork does not exist (GitHub GET 404) and this ChatGPT execution surface has no authorized create-public-fork operation/gh credential-owning host. No fork, push or external PR. Reevaluate when compliant fork execution becomes available.",
+      "blocker_type": "ORG_285_EXTERNAL_PUBLICATION_PAUSE",
+      "reason": "2026-10-23: CorticalComputer/Spartan@8f7b36a main contains the reproducible Soul first-entry backfill parser defect. Apache-2.0 root LICENSE text (plus NOTICE) verified, issue/PR inventory was empty and no first-party contributor policy file found in bounded inspection. Source-native local tests RED 2 pass/2 fail before and GREEN 4 pass/0 fail after minimal two-file repair; py_compile/diff checks PASS. The public organization fork opensiro-contributions/Spartan was absent at check time; a legitimate authenticated GitHub CLI route was subsequently verified on registered VM zhdanov. No fork, push or external PR because VSM-OSS #285 explicitly retains publication pause.",
       "checked_source_sha": "8f7b36a2326c0157a82040f8e04b474f4899c3da",
       "license": "Apache-2.0 actual root text verified; NOTICE present",
       "native_test_receipt": "2026-10-23 native ltm._parse_existing_soul_file using temp Markdown fixtures: baseline 2 PASS/2 FAIL; patched 4 PASS/0 FAIL; python3 -m py_compile ltm.py test_native_soul_archive_unittest.py and git diff --cached --check PASS. No model/agent, embedding engine or persistent Soul file.",
@@ -248,8 +248,8 @@
     {
       "id": "cyber-ai-team-autonomy-action-policy",
       "publication": "BLOCKED",
-      "blocker_type": "NO_AUTHORIZED_FORK_EXECUTION_PORT",
-      "reason": "MIT verified at Hyper-AI-Lab/cyber-ai-team@525401e40f34863cc7f4d3b053d437ce7709912f; CONTRIBUTING.md requires ./scripts/quality-gate.sh before proposing a change, and this full gate was not run. The native source-only fix and reproducible tests are implemented locally on opensiro/fix-nonfinite-policy-envelope: before 1/5 PASS (5 failing malformed-value subcases), after 5/5 PASS; py_compile and git diff --check PASS. Neither an authorized fork-creation route nor a target fork exists, therefore no external Draft PR was created. Do not claim full backend QA or publication.",
+      "blocker_type": "ORG_285_EXTERNAL_PUBLICATION_PAUSE",
+      "reason": "MIT verified at Hyper-AI-Lab/cyber-ai-team@525401e40f34863cc7f4d3b053d437ce7709912f; CONTRIBUTING.md requires ./scripts/quality-gate.sh before proposing a change, and this full gate was not run. The native source-only fix and reproducible tests are implemented locally on opensiro/fix-nonfinite-policy-envelope: before 1/5 PASS (5 failing malformed-value subcases), after 5/5 PASS; py_compile and git diff --check PASS. An authenticated GitHub CLI route is now verified on registered VM zhdanov, but no organization fork or external PR was created because VSM-OSS #285 explicitly retains publication pause. The required upstream quality gate is still unrun; do not claim full backend QA or publication.",
       "external_pr": null
     },
     {
