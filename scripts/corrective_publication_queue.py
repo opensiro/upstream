@@ -2,9 +2,9 @@
 """Read-only finite owner-mandated Corrective PR publication queue."""
 
 import argparse
+import hashlib
 import json
 import re
-import subprocess
 import sys
 from collections import Counter
 from pathlib import Path
@@ -14,6 +14,22 @@ LEDGER = ROOT / "data/corrective-publication/2026-10-23-01.json"
 SOURCE_BATCHES = (
     *[f"data/assessment-candidate-batches/2026-10-22-{n:02d}.json" for n in range(1, 8)],
     *[f"data/assessment-candidate-batches/2026-10-23-{n:02d}.json" for n in range(8, 11)],
+)
+# Pinned blob objects from `git ls-tree -r 3dde0736...` on the owning main.
+# The checkout may be shallow on CI; comparing the checked-out bytes to these
+# exact frozen Git blob IDs validates the same manifest content offline.
+FROZEN_SNAPSHOT_SHA = "3dde07363359607476af7b8d6a55026b6b4d6e11"
+SOURCE_BLOBS = (
+    "25ddad96a7c887ac0de970885f50c7bfdab51fe0",
+    "53133d3f9d0bdb48d6375170ae940c9671fd65a0",
+    "d24981b64defbae9c85c7918d99082134b842ed7",
+    "59ad9ddc636bf465658a36740c44b0e4b81d1a70",
+    "a5956e7e6e35e050418ac80a331cd7e9ebfd9c1b",
+    "5000422c8bd75c1de546c0884b9ef5003248976c",
+    "1df1c4e57da327d920a9deb20713e8be7428c65c",
+    "03d22f101e5702f4a1528fd2626f2d09bb816e2b",
+    "698deaf8b27338824525ae7df2f8d2ad39b873ca",
+    "450da815c13dd225ae7038d9ab24c28677f1f2fd",
 )
 TERMINAL = {"SUBMITTED", "BLOCKED", "CLOSED_NO_CHANGE", "CLOSED_UPSTREAM", "MERGED"}
 STATES = TERMINAL | {"QUEUED"}
@@ -25,14 +41,18 @@ class QueueError(ValueError):
 
 
 def _git_show(commit, path):
-    result = subprocess.run(
-        ["git", "-C", str(ROOT), "show", f"{commit}:{path}"],
-        text=True, capture_output=True, check=False,
-    )
-    if result.returncode:
-        raise QueueError(f"Pinned owner commit/file unavailable: {commit}:{path}")
+    if commit != FROZEN_SNAPSHOT_SHA or path not in SOURCE_BATCHES:
+        raise QueueError("Source identity outside frozen 34-case snapshot")
     try:
-        return json.loads(result.stdout)
+        data = (ROOT / path).read_bytes()
+    except OSError as exc:
+        raise QueueError(f"Frozen source manifest missing: {path}") from exc
+    actual_blob = hashlib.sha1(b"blob " + str(len(data)).encode() + b"\0" + data).hexdigest()
+    expected_blob = SOURCE_BLOBS[SOURCE_BATCHES.index(path)]
+    if actual_blob != expected_blob:
+        raise QueueError(f"Frozen source manifest changed: {path}")
+    try:
+        return json.loads(data)
     except ValueError as exc:
         raise QueueError(f"Invalid pinned JSON: {path}") from exc
 
@@ -45,8 +65,8 @@ def validate(ledger):
     if ledger.get("owner_issue") != "https://github.com/opensiro/upstream/issues/56":
         raise QueueError("Wrong publication owner")
     snapshot = ledger.get("candidate_snapshot_sha", "")
-    if not isinstance(snapshot, str) or not HEX40.fullmatch(snapshot):
-        raise QueueError("Exact source snapshot required")
+    if snapshot != FROZEN_SNAPSHOT_SHA:
+        raise QueueError("Exact frozen source snapshot required")
     allowed = []
     for path in SOURCE_BATCHES:
         source = _git_show(snapshot, path)

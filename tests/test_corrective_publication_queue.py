@@ -3,8 +3,10 @@
 import copy
 import importlib.util
 import json
+import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "scripts/corrective_publication_queue.py"
@@ -65,6 +67,17 @@ class CorrectiveMandateTests(unittest.TestCase):
         row["pr_url"] = "https://github.com/opensiro/upstream/pull/123"
         with self.assertRaisesRegex(queue.QueueError, "exact target upstream"):
             queue.validate(ledger)
+
+    def test_shallow_checkout_offline_blob_validation_rejects_mutation(self):
+        original = queue._git_show(queue.FROZEN_SNAPSHOT_SHA, queue.SOURCE_BATCHES[0])
+        self.assertTrue(original["candidates"])
+        with tempfile.TemporaryDirectory() as root:
+            target = Path(root) / queue.SOURCE_BATCHES[0]
+            target.parent.mkdir(parents=True)
+            target.write_text(json.dumps(original) + "\n", encoding="utf-8")
+            with patch.object(queue, "ROOT", Path(root)):
+                with self.assertRaisesRegex(queue.QueueError, "manifest changed"):
+                    queue._git_show(queue.FROZEN_SNAPSHOT_SHA, queue.SOURCE_BATCHES[0])
 
 
 if __name__ == "__main__":
