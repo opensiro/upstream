@@ -130,7 +130,12 @@
     },
     {
       "id": "reins-policy-decision-contract",
-      "publication": "QUEUED"
+      "publication": "BLOCKED",
+      "blocker_type": "UPSTREAM_CONTRIBUTION_GATE",
+      "reason": "First-party shamspias/reins CONTRIBUTING.md requires green `make check` (ruff, mypy, pytest coverage and conformance) plus a `spec/conformance` case for cross-language behavior before PR. Frozen corrective patch supplies only a Python standalone test; ruff and mypy are absent on the owner VM, and the conformance runner drives scripted harness Agent/FakeModel paths excluded by this mandate's script-only/no-agent testing boundary. Narrow current-source RED 2 pass/2 fail and GREEN 4 pass/0 fail, compileall/diff PASS and patch SHA matched, but mandatory gate cannot honestly be certified; no fork, branch or external PR created.",
+      "native_test_receipt": "shamspias/reins@69d5ae7e3f2336366e7567b7a476e7c71608f226: stdlib native script RED 2 pass/2 fail, GREEN 4 pass/0 fail; compileall and git diff --check PASS; exact patch SHA256 5c886ce7577531f67ac38545ece54e8575fa1d6fe12d4ef231212402d3698eaf matched",
+      "policy_source": "https://github.com/shamspias/reins/blob/main/CONTRIBUTING.md",
+      "publication_readback": "No fork/PR; first-party gate unmet"
     },
     {
       "id": "cubeloop-checkpointer-session-integrity",
