@@ -275,7 +275,10 @@
     },
     {
       "id": "agentflow-dag-dependency-state",
-      "publication": "QUEUED"
+      "publication": "BLOCKED",
+      "blocker_type": "POTENTIAL_DUPLICATE_UPSTREAM_PR",
+      "reason": "agentenv/agentflow@eb51a2e7a5c7d65da5718c4a41843098b60c80e0: MIT root LICENSE verified; standard root contributor policy files absent. Native source-level node-id path traversal reproduced before 1/6 PASS, fixed after 6/6 PASS on authorized VM zhdanov in local opensiro/fix-node-artifact-path-id commit f0abd1e; py_compile, diff check and reverse patch check PASS. All-state PR inventory identifies already-open upstream PR https://github.com/agentenv/agentflow/pull/21, which guards the same artifact path traversal at RunStore/API sinks. This is overlapping corrective scope and must be manually de-duplicated; no new external PR or fork publication. Frozen independent patch is pilots/agentflow/node-id-artifact-path-guard.patch, and VSM-OSS #285 publication pause also applies.",
+      "external_pr": null
     },
     {
       "id": "connectonion-approval-tool-admission",
