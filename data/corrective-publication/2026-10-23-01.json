@@ -116,7 +116,17 @@
     },
     {
       "id": "matterloop-taskgraph-checkpoint-recovery",
-      "publication": "QUEUED"
+      "publication": "SUBMITTED",
+      "pr_url": "https://github.com/huleidada/matterloop/pull/11",
+      "actor": "xLagerFeuer",
+      "fork": "opensiro-contributions/matterloop",
+      "base_branch": "main",
+      "base_sha": "a98e384fb02814de3e6ba3902cfee2c041e2d40f",
+      "head_branch": "opensiro/fix-taskgraph-restore-duplicates",
+      "head_sha": "c8dfad22d368e439172293e8bcc50af486d385bb",
+      "native_test_receipt": "current upstream main RED 2 pass / 2 expected failures; patched GREEN 4 pass / 0 fail; compileall and git diff --check PASS; frozen patch SHA256 4db0427bdc9c6a8ba2ea6abb9a8d0fc844711eeee607d0f2b9091e8259847b95 matched staged diff",
+      "ci_observation": "Maintainer CI not claimed; first-party pytest/integration not run",
+      "publication_readback": "GitHub readback PR #11 open/draft true, merged false; head/base SHA, fork owner, two-file diff verified"
     },
     {
       "id": "reins-policy-decision-contract",
