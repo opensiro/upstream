@@ -166,7 +166,17 @@
     },
     {
       "id": "recuris-metaagent-gate-schema",
-      "publication": "QUEUED"
+      "publication": "SUBMITTED",
+      "pr_url": "https://github.com/Gen-Verse/Recuris/pull/2",
+      "actor": "xLagerFeuer",
+      "fork": "opensiro-contributions/Recuris",
+      "base_branch": "main",
+      "base_sha": "7d3745ab787b1206ccd981cb1511100476097266",
+      "head_branch": "opensiro/fix-heldout-gate-invalid-data",
+      "head_sha": "1445a8bf45825a8b5b8e687c236253b810e244d0",
+      "native_test_receipt": "current upstream RED 2 pass / 3 fail / 1 error; GREEN 6 pass / 0 fail / 0 error; compileall/diff-check PASS; patch SHA256 1f129fac0e579bc33ab2b678325b5e1d0e6230e4887f47ae48d0a3049f3e9edc matched staged diff",
+      "ci_observation": "No full benchmark/evolution/LLM tests; GitHub maintainer CI not claimed",
+      "publication_readback": "GitHub readback external PR #2 open/draft true, merged false, actor/fork/head/base exact SHA verified"
     },
     {
       "id": "forgedock-issue-stage-reconciliation",
