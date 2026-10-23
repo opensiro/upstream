@@ -214,7 +214,14 @@
     },
     {
       "id": "reef-polyp-experiment-queue-contract",
-      "publication": "QUEUED"
+      "publication": "BLOCKED",
+      "blocker_type": "NO_AUTHORIZED_FORK_EXECUTION_PORT",
+      "reason": "2026-10-23: Coral-Bricks-AI/reef@33aefaa (default branch main) has first-party Apache-2.0 text, no contributing policy files observed in root/.github, and no lexical issue/PR duplicate in a complete read-only inventory. Native local Git-only archive replay reproduced the unpushed commit defect, and the bounded 2-file fix passed GREEN. However, opensiro-contributions/reef is absent (GitHub GET 404), while this session lacks an authenticated create-public-fork operation and configured gh execution host. No unauthorized personal fork, external branch, push, or PR was created. Re-evaluate when legitimate org-fork execution is available.",
+      "checked_source_sha": "33aefaa12d78891bf5ba70a0d96b070d471ecc78",
+      "license": "Apache-2.0 root LICENSE text verified in read-only intake",
+      "native_test_receipt": "2026-10-23 genuine cbq.py with real local git and bare origin: baseline test_native_git_archive_retry_unittest.py 2 PASS / 1 FAIL; local fix 3 PASS / 0 FAIL; python3 -m compileall and git diff --cached --check PASS. No PostgreSQL connection, remote Git push, GPU, agent or model.",
+      "local_change": "polyp/queue/cbq.py and polyp/queue/test_native_git_archive_retry_unittest.py; branch opensiro/fix-unpushed-archive-retry; staged patch sha256 b9dadcd45a9e31f8353ad9c21a705e1d5214f8b1d8a1bdf5b5d51cc57ec1db0a; equivalent tested frozen pilot patch at pilots/reef/unpushed-archive-commit-retry.patch",
+      "publication_readback": "No external publication; opensiro-contributions/reef GET 404 and no connected create-fork operation available."
     },
     {
       "id": "sifra-runtime-approval-replay",
