@@ -8,7 +8,7 @@
   "authorized_count": 34,
   "scope": "Exact native-tested Corrective AWAITING_EXTERNAL cases from batches 01–10 only; external Draft PR creation in public opensiro-contributions direct forks, subject to verified actor and upstream gates; no external merge.",
   "cases": [
-    {"id": "oblivion-agent-tool-loop", "publication": "SUBMITTED", "pr_url": "https://github.com/Rohith-s-hub/Oblivion-agent/pull/1", "actor": "xLagerFeuer", "base_sha": "7c57fd23ddd9abb5a2795788364f5dcdf3ec87cb", "head_sha": "1967f1df19f80cd34d4a4b70756ae1589e075c8c", "native_test_receipt": "pilots/oblivion-batch-edit/scripted_atomicity_replay.py — native RED at 7c57fd2 and GREEN on public opensiro/fix-batch-edit-preflight, both re-run 2026-10-23; positive controls PASS", "external_state": "OPEN_DRAFT", "readback_date": "2026-10-23"},
+    {"id": "oblivion-agent-tool-loop", "publication": "QUEUED"},
     {"id": "raven-stale-edit-ledger", "publication": "QUEUED"},
     {"id": "politik-transaction-denial-return", "publication": "QUEUED"},
     {"id": "join-the-team-bootstrap-validation", "publication": "QUEUED"},
