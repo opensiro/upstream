@@ -143,11 +143,22 @@ class BatchTests(unittest.TestCase):
         all_previous.update(r["source"] for r in self.tenth["candidates"])
         eleventh = queue.summarize(self.eleventh)
         self.assertEqual(eleventh["total"], 5)
-        self.assertEqual(eleventh["next_candidate"], "citadel-native-claim-exclusivity")
-        self.assertEqual(eleventh["next_stage"], "SCREENING")
-        self.assertEqual(eleventh["stage_counts"]["SCREENING"], 5)
+        self.assertIsNone(eleventh["next_candidate"])
+        self.assertEqual(eleventh["next_stage"], "NO_ACTIONABLE_CANDIDATE")
+        self.assertEqual(eleventh["stage_counts"]["SCREENING"], 0)
+        self.assertEqual(eleventh["stage_counts"]["AWAITING_EXTERNAL"], 4)
+        self.assertEqual(eleventh["stage_counts"]["BLOCKED_EVIDENCE"], 1)
         self.assertEqual(eleventh["test_mode"], "NATIVE_SCRIPT_ONLY_NO_LLM_AGENTS")
         self.assertFalse(all_previous.intersection({r["source"] for r in self.eleventh["candidates"]}))
+
+    def test_batch11_reopened_screening_is_selected_without_external_writes(self):
+        data = copy.deepcopy(self.eleventh)
+        row = data["candidates"][1]
+        row.update(stage="SCREENING", origin="INSUFFICIENT")
+        board = queue.summarize(data)
+        self.assertEqual(board["next_candidate"], "agent-fleet-native-lease-contract")
+        self.assertEqual(board["next_stage"], "SCREENING")
+        self.assertFalse(board["external_writes_authorized"])
 
     def test_no_actionable_after_full_review(self):
         data = copy.deepcopy(self.original)
