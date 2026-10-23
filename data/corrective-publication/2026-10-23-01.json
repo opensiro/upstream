@@ -303,7 +303,10 @@
     },
     {
       "id": "babyai-task-evaluation-input-contract",
-      "publication": "QUEUED"
+      "publication": "BLOCKED",
+      "blocker_type": "ORG_285_EXTERNAL_PUBLICATION_PAUSE",
+      "reason": "mila-iqia/babyai@65fb0cb6f816532a65014bf034a758244e2d5ae7: BSD-3-Clause root LICENSE and CONTRIBUTING.md verified; contributor instructions require fork and feature branch for eventual PR. Local opensiro/fix-native-count-arguments commit b50af15 on authorized VM zhdanov adds CLI positive-count guard. Native test runs the exact first-party ArgumentParser class extracted from AST because isolated VM has no NumPy import (seed-0 branch not tested); before 2/5 PASS, after 5/5 PASS; py_compile and diff check PASS, no RL environment/agent/model evaluation. Full upstream PR and issue title inventories were paginated: no matching numeric count-validation title, semantic absence not established. Original pinned patch pilots/babyai/native-training-argument-guard.patch preserved. No external PR because organizational issue VSM-OSS #285 maintains publication pause.",
+      "external_pr": null
     },
     {
       "id": "henrik-agent-harness-workboard-claim-guards",
