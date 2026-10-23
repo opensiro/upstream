@@ -282,7 +282,10 @@
     },
     {
       "id": "connectonion-approval-tool-admission",
-      "publication": "QUEUED"
+      "publication": "BLOCKED",
+      "blocker_type": "ORG_285_EXTERNAL_PUBLICATION_PAUSE",
+      "reason": "openonion/connectonion current main@87511ba916c3d232f0ee28e94d0fcb915d057b62 (changed from frozen 7011faa), root Apache-2.0 LICENSE verified. Current CONTRIBUTING.md requires make test/make cov and explicit AI-assisted disclosure and genuine reviewer ownership; full suite and human review are not claimed. First-party approval.py AST-native local test adapted to current _denied_by helper on authorized VM zhdanov: before 3/6 PASS, after 6/6 PASS. Local commit 00bda75 on opensiro/fix-control-file-symlink; py_compile and diff check PASS. Search of upstream issues/PRs found broad permission proposals but no specific symlink fix; exhaustive semantic duplicate absence not established. No external Draft because VSM-OSS #285 retains publication pause. Original frozen patch remains pilots/connectonion/control-file-symlink-admission.patch.",
+      "external_pr": null
     },
     {
       "id": "agentuniverse-workflow-input-contract",
