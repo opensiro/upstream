@@ -268,7 +268,10 @@
     },
     {
       "id": "pyflue-sandbox-tool-schema",
-      "publication": "QUEUED"
+      "publication": "BLOCKED",
+      "blocker_type": "ORG_285_EXTERNAL_PUBLICATION_PAUSE",
+      "reason": "SuperagenticAI/pyflue@657c2d1a1b024a0bc137ff3bb252339fa0d5f692: Apache-2.0 LICENSE and CONTRIBUTING.md verified; upstream contributor gate requires ruff, pytest, mkdocs strict, uv build before PR and these full gates were not run. Complete all-state public inventory: 14 issues, 12 PRs, no root-delete duplicate. On authorized VM zhdanov, branch opensiro/fix-virtual-sandbox-root-delete, local commit f910e7b: genuine VirtualSandbox.rm recursive-root failure reproduced before 2/5 PASS and fixed after 5/5 PASS; py_compile, git diff --check and reverse patch check PASS. Exact patch also preserved at pilots/pyflue/virtual-sandbox-root-delete-guard.patch. No external Draft PR because VSM-OSS #285 retains explicit external publication pause; no upstream full CI success claimed.",
+      "external_pr": null
     },
     {
       "id": "agentflow-dag-dependency-state",
