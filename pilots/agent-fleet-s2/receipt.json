@@ -41,5 +41,11 @@
   "product_benefit": "NOT_MEASURED",
   "no_llm_tests": true,
   "external_publication_authorized": false,
-  "typecheck_workflows": "PASS"
+  "typecheck_workflows": "PASS",
+  "github_ci": {
+    "run_id": 40025597817,
+    "url": "https://github.com/opensiro/upstream/actions/runs/40025597817",
+    "status": "SUCCESS",
+    "scope": "pinned original expected RED, patched native tests GREEN, npm test PASS, workflows typecheck PASS"
+  }
 }
