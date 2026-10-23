@@ -180,7 +180,12 @@
     },
     {
       "id": "forgedock-issue-stage-reconciliation",
-      "publication": "QUEUED"
+      "publication": "BLOCKED",
+      "blocker_type": "UPSTREAM_DCO_RIGHTS_CERTIFICATION",
+      "reason": "RapierCraftStudios/ForgeDock CONTRIBUTING.md requires every commit carry personal DCO Signed-off-by, explicitly certifying contributor copyright/right-to-submit and enduring public/commercial redistribution under its dual AGPL/commercial licensing model. The S5 limited publication mandate is not a personal DCO legal attestation; cannot fabricate a sign-off in xLagerFeuer's name. No external fork or PR created. Main also advanced beyond tested pinned source (current 626ce996... vs f5bfee...), so the frozen patch must be rebased/retested after an authorized signer is available.",
+      "policy_source": "https://github.com/RapierCraftStudios/ForgeDock/blob/main/CONTRIBUTING.md",
+      "upstream_main_sha": "626ce996acfd9119679514f1d66972c8f3d02416",
+      "publication_readback": "No external PR; confirmed AGPL-3.0, first-party DCO gate and current upstream SHA"
     },
     {
       "id": "pi-loop-worktree-publication-integrity",
