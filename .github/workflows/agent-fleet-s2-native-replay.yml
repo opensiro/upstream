@@ -1,0 +1,50 @@
+name: Agent Fleet S2 native writer-lease replay
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'pilots/agent-fleet-s2/**'
+      - '.github/workflows/agent-fleet-s2-native-replay.yml'
+permissions:
+  contents: read
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: chankov/agent-fleet
+          ref: 1d846daf52e4b71948cf31448058454db5633241
+          path: agent-fleet
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.19.0'
+          cache: npm
+          cache-dependency-path: agent-fleet/package-lock.json
+      - name: Check exact patch SHA
+        run: echo '702d91ef293cd9db94abc775035bf981b7aecd659cf01fbb7b4c16cf71db40e4  pilots/agent-fleet-s2/stale-lease-atomic-recovery.patch' | sha256sum --check
+      - name: BEFORE - native stale recovery must reproduce double owner
+        shell: bash
+        run: |
+          git -C agent-fleet apply --include='.pi/agent-fleet/scripts/workflows/lib/writer-lease-race.test.ts' --include='.pi/agent-fleet/scripts/workflows/lib/writer-lease-race.worker.mjs' "$GITHUB_WORKSPACE/pilots/agent-fleet-s2/stale-lease-atomic-recovery.patch"
+          if node --test agent-fleet/.pi/agent-fleet/scripts/workflows/lib/writer-lease-race.test.ts; then
+            echo 'Unexpectedly green unmodified first-party recovery'
+            exit 1
+          fi
+      - name: AFTER - production patch and native lease tests
+        shell: bash
+        run: |
+          git -C agent-fleet apply --exclude='.pi/agent-fleet/scripts/workflows/lib/writer-lease-race.test.ts' --exclude='.pi/agent-fleet/scripts/workflows/lib/writer-lease-race.worker.mjs' "$GITHUB_WORKSPACE/pilots/agent-fleet-s2/stale-lease-atomic-recovery.patch"
+          node --test agent-fleet/.pi/agent-fleet/scripts/workflows/lib/writer-lease-race.test.ts agent-fleet/.pi/agent-fleet/scripts/workflows/lib/writer-lease.test.ts
+      - name: Install pinned dependencies without lifecycle scripts
+        working-directory: agent-fleet
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: First-party fast native test suite
+        working-directory: agent-fleet
+        run: npm test
+      - name: Typecheck workflows
+        working-directory: agent-fleet
+        run: npm run typecheck:workflows
