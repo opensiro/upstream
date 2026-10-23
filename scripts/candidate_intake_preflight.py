@@ -22,7 +22,10 @@ from rest_fork_port import StageBlocked, _branch, _repo
 MAX_TEXT_BYTES = 256 * 1024
 MAX_ITEMS = 100
 MAX_PAGES = 30
-LICENSE_NAME = re.compile(r"^(licen[sc]e|copying|unlicense)(\.(md|txt|rst))?$", re.I)
+LICENSE_NAME = re.compile(
+    r"^(licen[sc]e(?:[-_.](?:mit|apache|bsd|isc|mpl|gpl|lgpl|agpl)"
+    r"(?:[-_.]?[0-9]+(?:\.[0-9]+)?)?)?|copying|unlicense)"
+    r"(?:\.(md|txt|rst))?$", re.I)
 POLICY_NAME = re.compile(
     r"^(contributing|agents|claude|development|pull_request_template|codeowners)"
     r"(\.(md|txt|rst))?$", re.I)
@@ -258,13 +261,20 @@ def inspect_candidate(*, source, branch=None, topic=None, get=public_get):
         return result
     if len(license_paths) > 1:
         result["notes"].append("Multiple root license candidates: manual scope review required")
-    license_path = license_paths[0]
-    license_text = _file_text(get, source, license_path, sha)
-    if not license_text.strip():
-        raise IntakeError("Observed license file is empty")
+    license_files = []
+    for license_path in license_paths:
+        license_text = _file_text(get, source, license_path, sha)
+        if not license_text.strip():
+            raise IntakeError("Observed license file is empty: " + license_path)
+        license_files.append({
+            "path": license_path,
+            "sha256": hashlib.sha256(license_text.encode()).hexdigest(),
+        })
     result["license"].update({
-        "verdict": "LICENSE_TEXT_PRESENT_REVIEW_REQUIRED", "path": license_path,
-        "sha256": hashlib.sha256(license_text.encode()).hexdigest(),
+        "verdict": "LICENSE_TEXT_PRESENT_REVIEW_REQUIRED",
+        "path": license_files[0]["path"],
+        "sha256": license_files[0]["sha256"],
+        "files": license_files,
         "other_root_license_candidates": license_paths[1:],
     })
 
