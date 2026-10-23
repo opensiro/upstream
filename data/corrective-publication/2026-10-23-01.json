@@ -261,7 +261,10 @@
     },
     {
       "id": "activegraph-event-patch-invariants",
-      "publication": "QUEUED"
+      "publication": "BLOCKED",
+      "blocker_type": "CONTRIBUTOR_POLICY_ISSUE_FIRST",
+      "reason": "yoheinakajima/activegraph root Apache-2.0 LICENSE and NOTICE verified. Current CONTRIBUTING.md explicitly restricts behavior-changing external PRs to issues-first discussion plus maintainer-set status: ready-for-pr label. Candidate rejects non-object JSON payloads in activegraph/store/serde.py; no matching ready-for-pr issue found in public GitHub issue search for payload, non-object or decode_payload. Existing frozen script-only patch pilots/activegraph/nonobject-event-payload-rejection.patch previously demonstrated RED 2/5 and GREEN 5/5, but no new implementation or tests executed in this batch. Do not open external Draft PR or submit unsolicited behavior-changing code until maintainer policy gate and VSM-OSS #285 publication pause are resolved.",
+      "external_pr": null
     },
     {
       "id": "pyflue-sandbox-tool-schema",
