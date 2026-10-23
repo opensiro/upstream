@@ -157,7 +157,12 @@
     },
     {
       "id": "dsh-harness-one-workflow-state",
-      "publication": "QUEUED"
+      "publication": "BLOCKED",
+      "blocker_type": "UPSTREAM_BRANCH_AND_LIVE_VALIDATION_GATE",
+      "reason": "chumingjun/dsh-harness-one current CONTRIBUTING.md requires short-lived topic branch prefixed feat/, fix/, refactor/, or docs/, while frozen OpenSiro S5 mandate allows only opensiro/* branches. First-party AGENTS.md also lists real dsh plugin execution as a pre-merge verification requirement, which the user's script-only/no-agent test boundary excludes (not needed for Draft but relevant acceptance). We cannot satisfy the explicit branch policy and owner mandate simultaneously; no fork, branch or external PR. Original native script patch tested pinned source previously, not freshly rerun due blocking contributor rule.",
+      "policy_source": "https://github.com/chumingjun/dsh-harness-one/blob/main/CONTRIBUTING.md",
+      "upstream_main_sha": "08aef04761e8c6586efaa4077b49d349d4f0f920",
+      "publication_readback": "No external PR; current AGENTS.md, CONTRIBUTING.md, upstream open PR inventory read"
     },
     {
       "id": "recuris-metaagent-gate-schema",
