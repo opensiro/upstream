@@ -9,8 +9,14 @@ permissions:
   contents: read
 jobs:
   replay:
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
+    name: Native replay / ${{ matrix.os }} / Node ${{ matrix.node }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node: [22, 24]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/checkout@v4
@@ -22,23 +28,31 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
-          node-version: '22.19.0'
-      - name: Check immutable patch hash
-        run: echo '27cded8a0e5bfc02fd2e0d201d07b4592908ecfe52f5ede9d1684f3038bd3962  pilots/citadel-s2/atomic-claims.patch' | sha256sum --check
-      - name: BEFORE - pinned original must fail regression
+          node-version: ${{ matrix.node }}
+      - name: Verify exact patch SHA256
+        shell: bash
+        run: |
+          node -e "const fs=require('node:fs'); const crypto=require('node:crypto'); const path='pilots/citadel-s2/atomic-claims.patch'; const actual=crypto.createHash('sha256').update(fs.readFileSync(path)).digest('hex'); const expected='27cded8a0e5bfc02fd2e0d201d07b4592908ecfe52f5ede9d1684f3038bd3962'; if(actual!==expected){console.error({expected,actual});process.exit(1)};console.log('PATCH_SHA256_PASS')"
+      - name: BEFORE - require specific two-owner race, not arbitrary failure
         shell: bash
         run: |
           git -C citadel apply --include='scripts/test-coordination-claim-atomicity.js' "$GITHUB_WORKSPACE/pilots/citadel-s2/atomic-claims.patch"
-          if node citadel/scripts/test-coordination-claim-atomicity.js; then
-            echo 'Unexpected baseline PASS'
-            exit 1
-          fi
-      - name: AFTER - patch source and run native regressions
+          set +e
+          output=$(node citadel/scripts/test-coordination-claim-atomicity.js 2>&1)
+          status=$?
+          set -e
+          printf '%s\n' "$output"
+          test "$status" -ne 0
+          printf '%s\n' "$output" | grep -F 'CLAIMED,CLAIMED'
+          printf '%s\n' "$output" | grep -F 'AssertionError'
+      - name: AFTER - native coordination tests
         shell: bash
         run: |
           git -C citadel apply --exclude='scripts/test-coordination-claim-atomicity.js' "$GITHUB_WORKSPACE/pilots/citadel-s2/atomic-claims.patch"
           node citadel/scripts/test-coordination-claim-atomicity.js
           node citadel/scripts/test-coordination-core.js
-      - name: Full first-party native suite
+          git -C citadel diff --check
+      - name: First-party full native suite (Linux Node 22)
+        if: matrix.os == 'ubuntu-latest' && matrix.node == 22
         working-directory: citadel
         run: npm test

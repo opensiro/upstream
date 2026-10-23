@@ -25,6 +25,12 @@ The new first-party test script is scripts/test-coordination-claim-atomicity.js,
 
 The lock directory is an atomic local-filesystem coordination primitive. It serializes first-party claim creation and release, including cleanup of stale instances; it waits a bounded period and fails closed if abandoned, never steals the lock. This is not general shared-file write safety, authorization, a remote/filesystem-distributed guarantee, or user-visible model effectiveness. Only native scripts ran; no live model or LLM agents.
 
+## Upstream cross-platform gate
+
+Citadel's own contribution policy tests Node 22/24 on Ubuntu, macOS and Windows. The [source-pinned native CI workflow](../../.github/workflows/citadel-s2-native-replay.yml) now replays the specific **BOTH CLAIMED** baseline failure and the exact patched source on a **3 OS × 2 Node** matrix. It verifies the specific before-failure signature so an unrelated crash cannot count as expected RED, while the full first-party `npm test` remains separately required on Ubuntu/Node 22.
+
+The expanded matrix must be read back from the actual current GitHub Actions run before cross-platform PASS can be claimed; the earlier one-run Ubuntu receipt alone does not establish Windows/macOS support. No LLM or agent-quality tests are used.
+
 ## Publication boundary
 
 OpenSiro S5 finite Corrective mandate does NOT authorize external publication of this Improvement. No external fork or PR was created. Refresh license, contributor policies, duplicate PRs and head before any authorized delivery. Full suite and remote CI statuses are recorded separately; don't interpret the patch as accepted upstream or as a VSM-grade change.
