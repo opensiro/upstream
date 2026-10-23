@@ -236,7 +236,14 @@
     },
     {
       "id": "spartan-persistence-recovery-contract",
-      "publication": "QUEUED"
+      "publication": "BLOCKED",
+      "blocker_type": "NO_AUTHORIZED_FORK_EXECUTION_PORT",
+      "reason": "2026-10-23: CorticalComputer/Spartan@8f7b36a main contains the reproducible Soul first-entry backfill parser defect. Apache-2.0 root LICENSE text (plus NOTICE) verified, issue/PR inventory was empty and no first-party contributor policy file found in bounded inspection. Source-native local tests RED 2 pass/2 fail before and GREEN 4 pass/0 fail after minimal two-file repair; py_compile/diff checks PASS. But public opensiro-contributions/Spartan fork does not exist (GitHub GET 404) and this ChatGPT execution surface has no authorized create-public-fork operation/gh credential-owning host. No fork, push or external PR. Reevaluate when compliant fork execution becomes available.",
+      "checked_source_sha": "8f7b36a2326c0157a82040f8e04b474f4899c3da",
+      "license": "Apache-2.0 actual root text verified; NOTICE present",
+      "native_test_receipt": "2026-10-23 native ltm._parse_existing_soul_file using temp Markdown fixtures: baseline 2 PASS/2 FAIL; patched 4 PASS/0 FAIL; python3 -m py_compile ltm.py test_native_soul_archive_unittest.py and git diff --cached --check PASS. No model/agent, embedding engine or persistent Soul file.",
+      "local_change": "ltm.py and test_native_soul_archive_unittest.py; branch opensiro/fix-first-soul-entry; staged patch sha256 9809a00853b75dcf23bcd649e616153fda353745e7d10ae81d8fdca63b800d8f; equivalent frozen pilot patch at pilots/spartan/soul-first-entry-backfill.patch",
+      "publication_readback": "No external publication; opensiro-contributions/Spartan GET 404 and no connected create-fork operation available."
     },
     {
       "id": "cyber-ai-team-autonomy-action-policy",
