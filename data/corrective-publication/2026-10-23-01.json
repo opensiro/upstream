@@ -189,7 +189,17 @@
     },
     {
       "id": "pi-loop-worktree-publication-integrity",
-      "publication": "QUEUED"
+      "publication": "SUBMITTED",
+      "pr_url": "https://github.com/LEO001020/pi-loop-studio-orchestra/pull/1",
+      "actor": "xLagerFeuer",
+      "fork": "opensiro-contributions/pi-loop-studio-orchestra",
+      "base_branch": "main",
+      "base_sha": "0a6b65c63a0eb11f2e928e773de1774b2c7d5bd7",
+      "head_branch": "opensiro/fix-plan-field-shape",
+      "head_sha": "58308a41f631013b0e6783fb71886dfbd4cfedbd",
+      "native_test_receipt": "current upstream RED 2 pass / 4 fail, GREEN 6 pass / 0 fail (native Node), node --check and git diff --check PASS, patch SHA256 e5fe84d5d3b549ec6de6364a89348ca86ff9fd93b7f7564501a828d2f2be261c matched staged diff",
+      "ci_observation": "Not a real-task acceptance claim under first-party AGENTS.md. No Pi SDK/agent/model/browser/full integration tests run; CI not claimed.",
+      "publication_readback": "GitHub readback external PR #1 open/draft true, merged false, verified actor/fork/head/base SHA"
     },
     {
       "id": "openorbit-approval-boundary-validation",
