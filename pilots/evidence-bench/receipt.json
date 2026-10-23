@@ -25,5 +25,11 @@
   "adjacent_linting_suite": "BLOCKED_MISSING_HTTPX_DEPENDENCY",
   "external_publication": "NONE",
   "model_tests": "NOT_RUN_PROHIBITED",
-  "product_benefit": "NOT_MEASURED"
+  "product_benefit": "NOT_MEASURED",
+  "github_ci": {
+    "run_id": 40026575626,
+    "url": "https://github.com/opensiro/upstream/actions/runs/40026575626",
+    "conclusion": "SUCCESS",
+    "validation": "before native expected failure; patched 16/16 policy tests PASS"
+  }
 }
