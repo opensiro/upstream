@@ -58,7 +58,13 @@
     },
     {
       "id": "maref-run-state-boundary",
-      "publication": "QUEUED"
+      "publication": "BLOCKED",
+      "reason": "2026-10-23: maref-org/maref@8c57c0 is governed by docs/CONSTITUTION.md, AGENTS.md and docs/oss-execution-norm-v1.0.md. The rollback patch changes deletion of newly created files, an external side effect covered by Constitution Article 4 HITL and Article 10 audit/sidecar rules. AGENTS.md requires full pytest tests/ -v --cov plus feature coverage thresholds; current packet has only scoped stdlib RED/GREEN and an unrun first-party pytest, not the required full first-party gate. The finite OpenSiro publication mandate cannot waive independent MAREF HITL/audit/test/CLA rules. No fork, branch or external PR published.",
+      "blocker_type": "UPSTREAM_GOVERNANCE_TEST_GATE",
+      "checked_source_sha": "8c57c098343d15b1d922d8584fbcae0168c7c9f2",
+      "policy_url": "https://github.com/maref-org/maref/blob/main/docs/CONSTITUTION.md",
+      "reviewed_handoff": "pilots/maref/CONTRIBUTION_HANDOFF.md",
+      "test_limitation": "No fresh source test; pinned handoff claims stdlib 2 PASS/1 RED -> 3 PASS/0 FAIL, but first-party pytest and full safety/coverage gates remain unrun."
     },
     {
       "id": "agent-loop-numeric-verifier-grounding",
