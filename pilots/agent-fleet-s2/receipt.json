@@ -1,0 +1,45 @@
+{
+  "id": "AGENT-FLEET-S2-STALE-LEASE-2026-10-23",
+  "kind": "Improvement",
+  "batch": "assessment-upstream-2026-10-23-11",
+  "candidate_id": "agent-fleet-native-lease-contract",
+  "assessment_path": "assessments/ag/agent-fleet-chankov.md",
+  "function": "S2",
+  "origin_label": "ASSESSMENT_DERIVED_HYPOTHESIS",
+  "first_party": "chankov/agent-fleet",
+  "first_party_sha": "1d846daf52e4b71948cf31448058454db5633241",
+  "license": "MIT",
+  "contributor_policy_checked": true,
+  "patch_sha256": "702d91ef293cd9db94abc775035bf981b7aecd659cf01fbb7b4c16cf71db40e4",
+  "before": {
+    "result": "FAIL",
+    "actual": "both concurrent native Node processes returned CLAIMED when recovering original stale lease"
+  },
+  "after": {
+    "result": "PASS",
+    "tests": 3,
+    "failures": 0,
+    "repeat_count": 3,
+    "clean_source_replay": "PASS"
+  },
+  "full_fast_suite": {
+    "patched": {
+      "pass": 591,
+      "fail": 1,
+      "exit": "FAIL"
+    },
+    "unmodified_baseline": {
+      "pass": 588,
+      "fail": 1,
+      "exit": "FAIL"
+    },
+    "same_failure": "parent production capture composes nested Git evidence with pinned nested rules without a provider",
+    "attribution": "UNCHANGED_BASELINE_TEST_FAILURE",
+    "environment": "Node v22.19.0, npm ci --ignore-scripts --no-audit --no-fund"
+  },
+  "external_pr": "NONE",
+  "product_benefit": "NOT_MEASURED",
+  "no_llm_tests": true,
+  "external_publication_authorized": false,
+  "typecheck_workflows": "PASS"
+}
