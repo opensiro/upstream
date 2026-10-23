@@ -1,3 +1,14 @@
+diff --git a/.changeset/fix-stale-writer-lease.md b/.changeset/fix-stale-writer-lease.md
+new file mode 100644
+index 0000000..dd63755
+--- /dev/null
++++ b/.changeset/fix-stale-writer-lease.md
+@@ -0,0 +1,5 @@
++---
++"@chankov/agent-fleet": patch
++---
++
++Serialize stale writer-lease recovery so competing local processes cannot both acquire the same writer lease. Keep a bounded fail-closed response when the guard is abandoned, and add a native two-process regression test.
 diff --git a/.pi/agent-fleet/scripts/workflows/lib/writer-lease-race.test.ts b/.pi/agent-fleet/scripts/workflows/lib/writer-lease-race.test.ts
 new file mode 100644
 index 0000000..75bbc67

@@ -5,7 +5,7 @@
 - **Origin:** frozen assessment candidate batch 11 (`agent-fleet-native-lease-contract`), selected from [Index Agent Fleet assessment](https://github.com/opensiro/vsm-harness-index/blob/main/assessments/ag/agent-fleet-chankov.md) at recorded Index SHA 396a54bb690f8ec7ce966bf9b00b241b30036307. S2=C is bounded to native writer lease for effectful poll merges, not universal hub coordination.
 - **First-party source:** [chankov/agent-fleet@1d846daf52e4b71948cf31448058454db5633241](https://github.com/chankov/agent-fleet/commit/1d846daf52e4b71948cf31448058454db5633241); default main at check time 2026-10-23.
 - **License:** first-party MIT LICENSE verified. CONTRIBUTING says search duplicates and avoid edits to vendored skills; this is not a vendored skill change. Search of existing issues/PRs found no exact stale-lease double-owner fix; dated search is not a guarantee of no future duplicate.
-- **Patch:** [stale-lease-atomic-recovery.patch](stale-lease-atomic-recovery.patch). SHA-256 `702d91ef293cd9db94abc775035bf981b7aecd659cf01fbb7b4c16cf71db40e4`. Four source/test files.
+- **Patch:** [stale-lease-atomic-recovery.patch](stale-lease-atomic-recovery.patch). SHA-256 `f210498f23ef281ce88d0df2ee2c9b58ed466057472d372ecf96c9c354064f05`. Five files (four source/test files plus a required patch-level changeset).
 
 ## Falsifiable native failure
 
@@ -27,3 +27,7 @@ The new two-process test and the existing writer-lease test are wired into the f
 ## Attribution / external publication
 
 **Assessment-derived selection and native correctness effect**, not proof of autonomous S2, increased VSM grade, user productivity or third-party adoption. Only the existing bounded 34-Case Corrective mandate permits external PRs without separate S5 action; **Agent Fleet is an ungranted Improvement and was not published externally**.
+
+## Contributor release gate
+
+First-party `CONTRIBUTING.md` requires changesets for user-visible changes. The updated source patch includes `.changeset/fix-stale-writer-lease.md` targeting `@chankov/agent-fleet` (`patch`), while preserving the exact native behavior evidence. This resolves packaging only, not third-party acceptance or the separate S5 publication grant.

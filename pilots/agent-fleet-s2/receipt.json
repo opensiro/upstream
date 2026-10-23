@@ -10,7 +10,7 @@
   "first_party_sha": "1d846daf52e4b71948cf31448058454db5633241",
   "license": "MIT",
   "contributor_policy_checked": true,
-  "patch_sha256": "702d91ef293cd9db94abc775035bf981b7aecd659cf01fbb7b4c16cf71db40e4",
+  "patch_sha256": "f210498f23ef281ce88d0df2ee2c9b58ed466057472d372ecf96c9c354064f05",
   "before": {
     "result": "FAIL",
     "actual": "both concurrent native Node processes returned CLAIMED when recovering original stale lease"
@@ -42,10 +42,7 @@
   "no_llm_tests": true,
   "external_publication_authorized": false,
   "typecheck_workflows": "PASS",
-  "github_ci": {
-    "run_id": 40025597817,
-    "url": "https://github.com/opensiro/upstream/actions/runs/40025597817",
-    "status": "SUCCESS",
-    "scope": "pinned original expected RED, patched native tests GREEN, npm test PASS, workflows typecheck PASS"
-  }
+  "changeset_required_by_upstream": true,
+  "changeset_included": ".changeset/fix-stale-writer-lease.md",
+  "changeset_bump": "patch"
 }

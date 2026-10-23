@@ -25,7 +25,7 @@ jobs:
           cache: npm
           cache-dependency-path: agent-fleet/package-lock.json
       - name: Check exact patch SHA
-        run: echo '702d91ef293cd9db94abc775035bf981b7aecd659cf01fbb7b4c16cf71db40e4  pilots/agent-fleet-s2/stale-lease-atomic-recovery.patch' | sha256sum --check
+        run: echo 'f210498f23ef281ce88d0df2ee2c9b58ed466057472d372ecf96c9c354064f05  pilots/agent-fleet-s2/stale-lease-atomic-recovery.patch' | sha256sum --check
       - name: BEFORE - native stale recovery must reproduce double owner
         shell: bash
         run: |
