@@ -20,6 +20,23 @@ This supersedes the prior **human-per-PR publication choice only within the enum
 4. Use the existing [authenticated GET preflight](../scripts/upstream_pr_handoff.py) where available. If it returns `PR_BLOCKED_NO_WRITE`, **stop that case** and preserve a precise blocker. In the presence of an explicit compatible host API, the already-authorized publication may then use the GitHub REST `POST /repos/OWNER/REPO/pulls` with an exact verified organization-fork head. Read back the created PR. No synthetic success receipt is accepted.
 5. Only after a **real** public PR readback, record its URL/number, base/head SHAs, tests, actual actor, CI and follow-up state in the separate [publication ledger](../data/corrective-publication/2026-10-23-01.json). Do not rewrite frozen Index assessments or claim upstream merge. Then move to the next queued candidate without waiting for external review.
 
+## Automatable publication preflight vs reserved rights
+
+**Automate routine checks whenever the authorized GitHub/runtime port supports them:** read actual LICENSE and contributor docs, search relevant issue/PRs, detect duplicate fixes, inspect branch naming and target base, run script-only RED/GREEN and static CI-compatible checks, inspect required check timing (before **Draft** vs before **merge**), test repository/fork permissions, and read back publication. Reuse an existing issue when sufficient. Opening a **new** external issue/comment, changing to a non-`opensiro/*` head, or altering a mandated workflow requires the appropriate additional authority; being technically automatable is not permission.
+
+Classify unmet gates instead of reflexively treating all as final `BLOCKED`:
+
+| Observation | Action |
+| --- | --- |
+| Actual license grant missing, incompatible or inconclusive | **Do not create a public derivative**; preserve evidence and block/close as appropriate. |
+| Existing required issue, permitted `opensiro/*` branch or check is mechanically satisfiable | Complete that preflight automatically and proceed when the current mandate covers the action. |
+| Full integration/model/real-agent testing required only **before merge**, but a bounded Draft is allowed | Submit Draft with truthful *not-run/pending* note; do not run prohibited model/agent tests or claim release readiness. |
+| Upstream explicitly requires a branch outside the frozen `opensiro/*` envelope or interactive consent **before any PR** | Preserve `POLICY_CONFLICT`/exact missing right. Propose a separate legitimate scope decision; do not evade the third-party rule. |
+| DCO/CLA certifies contributor rights or another human-only declaration | Verify whether a genuine authenticated contributor has made that attestation; **never forge or silently auto-sign** the owner's legal declaration. |
+| GitHub 403/protected integration or first-party nonnegotiable stop | Record provider/source readback and stop that write, continuing other queue rows only when the operator has not paused the queue. |
+
+This is a **procedural triage rule**, not a change to `corrective_publication_queue.py` state enum, a reopening of already-dispositioned cases, or permission to publish an outside-scope candidate. The Organization's cross-repository change routing is tracked by [Organization #285](https://github.com/opensiro/vsm-oss-organization/issues/285). Any automated executor must still enforce the exact mandate and run its own negative-case tests before activation.
+
 ## Operation and feedback
 
 The bounded work cycle is **source-first → current fit → first-party native RED/GREEN → authentic actor/permission/fork/branch checks → Draft PR → readback → durable result → next case**. Its technical proof is script-only: **never run LLM agents, mocked model-task episodes, model providers, Browser quality trials or benchmarks** as a condition of acceptance. This does not prevent ChatGPT from coordinating repository inspection and GitHub operations as the delegated contributor.
