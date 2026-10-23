@@ -48,7 +48,13 @@
     },
     {
       "id": "join-the-team-bootstrap-validation",
-      "publication": "QUEUED"
+      "publication": "BLOCKED",
+      "reason": "2026-10-23: jpantsjoha/ai-native-developer-experience@e93069b AGENTS.md requires issue/acceptance ownership and the delivery-orchestrator skill before repository changes; its explicit rule says an issue must be filed before code. Current issue #32 and PR #33 are completed/merged for prior adoption delivery; open issues #23/#24 are unrelated to the new bootstrap symlink defect. This finite S5 mandate grants only fork/branch/patch/external Draft PR writes, not new third-party issue creation or maintainer coordination. Stop without violating upstream procedure; no external fork or PR.",
+      "blocker_type": "UPSTREAM_INTAKE_ISSUE_REQUIRED",
+      "checked_source_sha": "e93069b92735ba096abf662f2b9d95a0ebfd36f9",
+      "policy_url": "https://github.com/jpantsjoha/ai-native-developer-experience/blob/e93069b92735ba096abf662f2b9d95a0ebfd36f9/skills/delivery-orchestrator/SKILL.md",
+      "reviewed_handoff": "pilots/join-the-team/CONTRIBUTION_HANDOFF.md",
+      "native_test_note": "No fresh native test run; previous source-tested handoff recorded 2 baseline RED and 131 full-suite PASS, but current first-party intake rule blocks publication."
     },
     {
       "id": "maref-run-state-boundary",
