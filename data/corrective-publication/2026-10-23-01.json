@@ -225,7 +225,14 @@
     },
     {
       "id": "sifra-runtime-approval-replay",
-      "publication": "QUEUED"
+      "publication": "BLOCKED",
+      "blocker_type": "NO_VERIFIABLE_UPSTREAM_LICENSE",
+      "reason": "2026-10-23: atharva1407-sys/SIFRA-Agent-Orchestration-Multi-Agent-Runtime@6856b054 is public but root source has no LICENSE/COPYING/UNLICENSE, GitHub license metadata is null, and first-party README has no explicit copyright/license or contribution grant. Read-only intake returned LICENSE_BLOCKED / ROOT_LICENSE_NOT_FOUND before contributor-policy or duplicate search. A previously frozen technical handoff is not sufficient authority to produce or publicly distribute a new derivative. No fork, branch, code modification or PR in this session; request a first-party permission/license clarification before reconsidering.",
+      "checked_source_sha": "6856b054ba67e4dc4ef499a46732eeed80b5ac68",
+      "license_preflight": "LICENSE_BLOCKED / ROOT_LICENSE_NOT_FOUND",
+      "reviewed_handoff": "pilots/sifra/CONTRIBUTION_HANDOFF.md",
+      "native_test_note": "Previously frozen packet reported 2 PASS/1 RED to 3 PASS/0 FAIL. Not rerun here because license-first intake blocks derivative work.",
+      "publication_readback": "No external fork, branch or Draft PR published."
     },
     {
       "id": "spartan-persistence-recovery-contract",
