@@ -289,7 +289,10 @@
     },
     {
       "id": "agentuniverse-workflow-input-contract",
-      "publication": "QUEUED"
+      "publication": "BLOCKED",
+      "blocker_type": "UPSTREAM_ISSUE_ALREADY_RESOLVED",
+      "reason": "agentuniverse-ai/agentUniverse current master@925101e96a465a7d750701f6d768c835fe30593a is newer than frozen source 254ecd2. Root Apache-2.0 LICENSE and CONTRIBUTING.md verified; policy requires duplicate checks and maintainer communication. The original patch does not apply to current Node._resolve_input_params because upstream now rejects missing input values and incomplete/nonlist reference content with ValueError. Exact matching issue https://github.com/agentuniverse-ai/agentUniverse/issues/3778 closed as completed 2026-10-22. Current code still permits extra or empty reference parts, but the accepted issue scope only required missing/incomplete validation; no independent new defect ticket or native RED/GREEN on current source was established. Do not duplicate resolved corrective work or publish external PR while VSM-OSS #285 pause holds. Original tested frozen patch pilots/agentuniverse/workflow-reference-contract.patch remains historical evidence only.",
+      "external_pr": null
     },
     {
       "id": "besser-state-transition-validation",
