@@ -48,3 +48,17 @@ jobs:
       - name: Typecheck workflows
         working-directory: agent-fleet
         run: npm run typecheck:workflows
+      - name: First-party release manifest check
+        working-directory: agent-fleet
+        run: npm run check:manifest
+      - name: First-party package dry-run (large snapshot history)
+        working-directory: agent-fleet
+        shell: bash
+        timeout-minutes: 8
+        run: |
+          set +e
+          npm run pack:dry > "$RUNNER_TEMP/agent-fleet-pack-dry.log" 2>&1
+          code=$?
+          set -e
+          tail -n 25 "$RUNNER_TEMP/agent-fleet-pack-dry.log"
+          exit "$code"
