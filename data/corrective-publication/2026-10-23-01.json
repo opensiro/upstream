@@ -317,7 +317,10 @@
     },
     {
       "id": "phoenix-agent-harness-budget-admission",
-      "publication": "QUEUED"
+      "publication": "BLOCKED",
+      "blocker_type": "NATIVE_NODE_RUNTIME_UNAVAILABLE",
+      "reason": "Phoenixrr2113/agent-harness main@0f67103affd30a3c778874b890dbd5801cdbd94f matches frozen source; root MIT LICENSE verified; no root CONTRIBUTING.md or .github/PULL_REQUEST_TEMPLATE.md found, targeted all-state issue/PR searches for daily rate retention found no title match. Existing frozen real-TypeScript Node 24 patch pilots/phoenix-agent-harness/day-rate-event-retention.patch had previously demonstrated 2/4 PASS before and 4/4 after. No new derivative code or tests in this batch: registered VM zhdanov and dev-alpha CLI workspace have no node binary, so this pass cannot independently rerun the actual Node 24 test. Do not invent native PASS, external PR, or complete duplicate exclusion. VSM-OSS #285 also retains publication pause.",
+      "external_pr": null
     },
     {
       "id": "harness2-library-persistence-contract",
