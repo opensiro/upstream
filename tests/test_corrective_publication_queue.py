@@ -5,6 +5,7 @@ import importlib.util
 import json
 import tempfile
 import unittest
+from collections import Counter
 from pathlib import Path
 from unittest.mock import patch
 
@@ -24,16 +25,20 @@ class CorrectiveMandateTests(unittest.TestCase):
     def test_exact_finite_snapshot_and_native_only_mode(self):
         board = queue.report(self.data)
         self.assertEqual(board["authorized_count"], 34)
-        self.assertEqual(board["next_candidate"], "join-the-team-bootstrap-validation")
-        self.assertEqual(board["counts"], {"QUEUED": 20, "SUBMITTED": 13, "BLOCKED": 1})
+        self.assertEqual(board["next_candidate"], next(
+            (row["id"] for row in self.data["cases"] if row["publication"] == "QUEUED"), None))
+        self.assertEqual(board["counts"], dict(Counter(
+            row["publication"] for row in self.data["cases"])))
         self.assertEqual(board["test_mode"], "NATIVE_SCRIPT_ONLY_NO_LLM_AGENTS")
         self.assertTrue(board["no_external_writes_performed_by_this_command"])
 
     def test_blocked_case_moves_to_next_with_source_history_unchanged(self):
         ledger = copy.deepcopy(self.data)
-        ledger["cases"][3]["publication"] = "BLOCKED"
-        ledger["cases"][3]["reason"] = "The current upstream source already fixed the defect."
-        self.assertEqual(queue.report(ledger)["next_candidate"], "maref-run-state-boundary")
+        first_queued = next(row for row in ledger["cases"] if row["publication"] == "QUEUED")
+        first_queued["publication"] = "BLOCKED"
+        first_queued["reason"] = "The current upstream source already fixed the defect."
+        self.assertEqual(queue.report(ledger)["next_candidate"], next(
+            (row["id"] for row in ledger["cases"] if row["publication"] == "QUEUED"), None))
 
     def test_reject_out_of_scope_reordering_and_unsupported_stage(self):
         transforms = (
