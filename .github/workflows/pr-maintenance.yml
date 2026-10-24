@@ -36,6 +36,11 @@ jobs:
         run: python3 -m unittest discover -s tests -p 'test_pr_maintenance_watch.py' -v
       - name: Validate exact external watchlist
         run: python3 scripts/pr_maintenance_watch.py --validate-only
+      - name: Live external GitHub read probe (PR read-only token)
+        if: github.event_name == 'pull_request'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 scripts/pr_maintenance_watch.py --probe-only
   watch:
     needs: verify
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
