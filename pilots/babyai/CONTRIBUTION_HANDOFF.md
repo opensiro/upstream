@@ -1,6 +1,8 @@
 # BabyAI — reject non-positive native training and validation counts
 
-**Stage:** `AWAITING_EXTERNAL`. Offline command-line parser patch and script-level regression tests; no external fork, issue, PR, environment episode or agent execution.
+**Stage:** `SUBMITTED_DRAFT` on 2026-10-24. [Upstream Draft PR #128](https://github.com/mila-iqia/babyai/pull/128) from `xLagerFeuer` using the public `opensiro-contributions/babyai` fork; no environment episode or agent execution.
+
+- **External publication readback:** base `65fb0cb6f816532a65014bf034a758244e2d5ae7`, head `ee9746d9ac7010126cbfedac5de174ee65d87b51`, exactly two files changed; OPEN / Draft, no upstream merge claimed.
 
 - **Frozen source:** `mila-iqia/babyai@65fb0cb6f816532a65014bf034a758244e2d5ae7` (BSD-3-Clause license), included `S1=A` Index SHA `396a54bb690f8ec7ce966bf9b00b241b30036307`.
 - **Origin:** `ASSESSMENT_INFORMED`. The Index identifies task/evaluation infrastructure, and the exact script argument deficit was found in `babyai/arguments.py`, a separate deterministic input boundary from the model/environment evaluation in `babyai/evaluate.py`.
@@ -20,4 +22,4 @@
 
 **Exact source patch:** [native-training-argument-guard.patch](native-training-argument-guard.patch), SHA256 `e8ff3276e248490c535c3a6183935a385bd53e4e01a157918a1bac64cfd1f32e`.
 
-**Limits:** The three validated counts are not a complete specification of all training flags. This is an input-schema guard, not a reported improvement in agent training performance. External upstream publication remains human-owned; the technical candidate is complete.
+**Limits:** The three validated counts are not a complete specification of all training flags. This is an input-schema guard, not a reported improvement in agent training performance. External maintainer review and merge remain human-owned; the technical candidate is complete.
