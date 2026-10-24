@@ -16,7 +16,7 @@ The [read-only status procedure](docs/UPSTREAM_STATUS_FRESHNESS.md) checks both 
 
 ### External PR maintenance (adjacent operating pilot)
 
-[Upstream PR Maintenance](docs/PR_MAINTENANCE.md) tracks the external PR review queue, new maintainer change requests and failing CI in the [read-only GitHub-sensing / OpenSiro-inbox #125](https://github.com/opensiro/upstream/issues/125) route. A proposed hourly [workflow](.github/workflows/pr-maintenance.yml) uses an explicit 12-PR watchlist and a deduplicated issue-comment checkpoint; it becomes scheduled only after merging the reviewed workflow to the default branch. Native-only repair and external PR integration still require separate applicable contributor authority. This does **not** admit Upstream as a fourth Organization S1 domain (see [Organization #274](https://github.com/opensiro/vsm-oss-organization/issues/274)).
+[Upstream PR Maintenance](docs/PR_MAINTENANCE.md) tracks the external PR review queue, new or edited maintainer feedback and failing CI in the [read-only GitHub-sensing / OpenSiro-inbox #125](https://github.com/opensiro/upstream/issues/125) route. The hourly [workflow](.github/workflows/pr-maintenance.yml) is merged on `main` and [initial activation was verified](https://github.com/opensiro/upstream/issues/125#issuecomment-6385585447); it uses an explicit 12-PR watchlist and a deduplicated issue-comment checkpoint. Native-only repair and external PR integration still require separate applicable contributor authority. This does **not** admit Upstream as a fourth Organization S1 domain (see [Organization #274](https://github.com/opensiro/vsm-oss-organization/issues/274)).
 
 ## Current work
 

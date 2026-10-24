@@ -148,6 +148,32 @@ class WatchTests(unittest.TestCase):
         x["prs"][URL]["reviews"] = [review(17, author="xLagerFeuer")]
         self.assertEqual(watch.classify(snap(), x), [])
 
+    def test_edited_maintainer_comment_and_inline_review_are_actionable_once(self):
+        old = snap()
+        old["prs"][URL]["comments"] = [comment(12)]
+        old["prs"][URL]["inline"] = [comment(19)]
+        new = copy.deepcopy(old)
+        new["prs"][URL]["comments"][0]["updated_at"] = "2026-10-24T12:00:00Z"
+        new["prs"][URL]["inline"][0]["updated_at"] = "2026-10-24T12:01:00Z"
+        events = watch.classify(old, new)
+        self.assertEqual([e["kind"] for e in events],
+                         ["EDITED_MAINTAINER_COMMENT", "EDITED_REVIEW_COMMENT"])
+        self.assertTrue(all(e["level"] == "action_required" for e in events))
+        self.assertEqual(watch.classify(new, new), [])
+        again = copy.deepcopy(new)
+        again["prs"][URL]["comments"][0]["updated_at"] = "2026-10-24T12:02:00Z"
+        self.assertNotEqual(watch.classify(old, new)[0]["key"],
+                            watch.classify(new, again)[0]["key"])
+
+    def test_edit_detection_ignores_own_comment_and_missing_old_timestamp(self):
+        old = snap()
+        old["prs"][URL]["comments"] = [comment(12, "xLagerFeuer"), comment(13)]
+        old["prs"][URL]["comments"][1]["updated_at"] = None
+        new = copy.deepcopy(old)
+        for x in new["prs"][URL]["comments"]:
+            x["updated_at"] = "2026-10-24T12:00:00Z"
+        self.assertEqual(watch.classify(old, new), [])
+
     def test_status_and_checks_are_separate_from_review(self):
         a, b = snap(), snap()
         b["prs"][URL]["checks"] = [check()]
@@ -197,6 +223,25 @@ class WatchTests(unittest.TestCase):
             self.assertIn(watch.ALERT_PREFIX, m.writes[-2][2]["body"])
             watch.run(m, p)
             self.assertEqual(sum(watch.ALERT_PREFIX in x[2]["body"] for x in m.writes), 1)
+
+    def test_edited_comment_posts_once_per_actual_edit(self):
+        m = MockAPI()
+        m.external = source()
+        m.external["comments"] = [{"id": 20, "user": {"login": "upstream-maintainer"},
+                                   "html_url": URL + "#issuecomment-20",
+                                   "created_at": "2026-10-24T10:00:00Z",
+                                   "updated_at": "2026-10-24T10:00:00Z"}]
+        with tempfile.TemporaryDirectory() as tmp:
+            p = self.write_targets(tmp)
+            watch.run(m, p)  # existing comment is historical baseline
+            self.assertEqual(sum(watch.ALERT_PREFIX in x[2]["body"] for x in m.writes), 0)
+            m.external["comments"][0]["updated_at"] = "2026-10-24T11:00:00Z"
+            self.assertEqual([e["kind"] for e in watch.run(m, p)], ["EDITED_MAINTAINER_COMMENT"])
+            watch.run(m, p)
+            self.assertEqual(sum(watch.ALERT_PREFIX in x[2]["body"] for x in m.writes), 1)
+            m.external["comments"][0]["updated_at"] = "2026-10-24T12:00:00Z"
+            self.assertEqual([e["kind"] for e in watch.run(m, p)], ["EDITED_MAINTAINER_COMMENT"])
+            self.assertEqual(sum(watch.ALERT_PREFIX in x[2]["body"] for x in m.writes), 2)
 
     def test_notification_retry_deduplicated_after_checkpoint_failure(self):
         m = MockAPI()

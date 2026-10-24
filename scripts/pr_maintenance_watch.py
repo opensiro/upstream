@@ -191,12 +191,21 @@ def classify(previous, current, contributor="xLagerFeuer"):
         if before.get("base") != pr["base"]:
             emit("BASE_UPDATED", "info", url)
 
-        for field, kind in (("comments", "NEW_MAINTAINER_COMMENT"),
-                            ("inline", "NEW_REVIEW_COMMENT")):
-            previous_ids = {x["id"] for x in before.get(field, [])}
+        for field, kind, edited_kind in (("comments", "NEW_MAINTAINER_COMMENT", "EDITED_MAINTAINER_COMMENT"),
+                                         ("inline", "NEW_REVIEW_COMMENT", "EDITED_REVIEW_COMMENT")):
+            previous_by_id = {x["id"]: x for x in before.get(field, [])}
             for item in pr[field]:
-                if item["id"] not in previous_ids and human(item["author"], contributor):
+                if not human(item["author"], contributor):
+                    continue
+                past = previous_by_id.get(item["id"])
+                if past is None:
                     emit(kind, "action_required", item["url"], str(item["id"]))
+                elif (past.get("updated_at") and item.get("updated_at")
+                      and past["updated_at"] != item["updated_at"]):
+                    # An upstream maintainer can revise an existing request.
+                    # Keep only public metadata, never comment bodies.
+                    emit(edited_kind, "action_required", item["url"],
+                         f"{item['id']}:{item['updated_at']}")
 
         old_reviews = {x["id"]: x for x in before.get("reviews", [])}
         for item in pr["reviews"]:

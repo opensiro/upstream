@@ -11,10 +11,10 @@
 **Local environment:** the explicit public PR target list in [targets.json](../data/pr-maintenance/targets.json), external GitHub review and status events, external contribution policies, current source revisions and permitted fork branches.
 
 **Current delegated envelope of the read-only monitor:**
-- Observe and compare public PR state, head/base, first-party/inline comments, reviews including `CHANGES_REQUESTED`, check runs and commit status.
+- Observe and compare public PR state, head/base, first-party/inline comments (including edited existing comments), reviews including `CHANGES_REQUESTED`, check runs and commit status.
 - Classify human feedback and failing CI as `ACTION_REQUIRED`; notify only the [OpenSiro inbox #125](https://github.com/opensiro/upstream/issues/125). `APPROVED`, `MERGED`, `CLOSED_UNMERGED`, head/status transitions are information for subsequent reporting, not invitations to merge.
 - Keep an idempotent checkpoint (compressed JSON) as a **single GitHub Actions bot comment** on this issue. An actionable digest has a stable issue-comment marker to prevent duplicate alerts if checkpoint writing failed. First scan establishes a baseline; historical comments do **not** become artificial new events.
-- Schedule **hourly (minute 13, UTC)** after the workflow is merged onto `main`. Also accept manual `workflow_dispatch`. Job summary and issue comments link the original external PRs.
+- Schedule **hourly (minute 13, UTC)** on `main`; also accept manual `workflow_dispatch`. The [first default-branch run](https://github.com/opensiro/upstream/actions/runs/40103888527) succeeded and initialized the checkpoint. Job summary and issue comments link the original external PRs.
 
 **Constrained S1-like maintenance work (human/agent in later execution):**
 1. On `ACTION_REQUIRED`, independently read *current* upstream code, reviewer request, exact PR diff, source and CI failures.
@@ -38,7 +38,8 @@ Current targets are the 12 explicit public external PRs previously verified for 
 
 ## Caveats and activation
 
-- This implementation is **not active on a schedule until merged** into the default branch and Actions is enabled. A successful PR-branch test is not a live monitor.
+- The implementation was merged in [PR #126](https://github.com/opensiro/upstream/pull/126) and activated on `main`. The manual default-branch run succeeded; check [current Actions runs](https://github.com/opensiro/upstream/actions/workflows/pr-maintenance.yml) for subsequent hourly execution, rather than inferring each run from the schedule declaration.
+- New or edited human review comments are actionable signals, not necessarily proven defects or authorized instructions. Inspect the actual updated source comment before triage; deleted comments and missed intermediate edit versions are not reconstructed by polling.
 - GitHub scheduled workflows may run late or be skipped under platform load; `hourly` describes configuration, not guaranteed latency.
 - Monitoring is not the same as event ownership. Maintainer review requests must be independently triaged and closed through an authorized operator.
 - The existing daily portfolio lifecycle freshness check is still authoritative for its historical experimental cohort; this watcher does not overwrite it or mutate the frozen 34-case Corrective ledger.
