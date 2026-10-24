@@ -28,6 +28,10 @@ ALERT_PREFIX = "<!-- opensiro-pr-maintenance-alert-v1:"
 UA = "opensiro-pr-maintenance/1"
 REPO = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
 MAX_PAGES = 10
+# The publication ledger + target manifest review explicitly admits this one
+# additional PR to an existing bot-owned checkpoint without resetting history.
+# All other additions and every removal remain fail-closed migrations.
+APPROVED_CHECKPOINT_ADDITIONS = {"https://github.com/chumingjun/dsh-harness-one/pull/173"}
 FAILURES = {"failure", "timed_out", "action_required", "cancelled"}
 BOT_SUFFIX = "[bot]"
 
@@ -195,7 +199,7 @@ def classify(previous, current, contributor="xLagerFeuer"):
     for url, pr in current["prs"].items():
         before = old.get(url)
         if before is None:
-            events.append((url, "NEW_TRACKED_PR", "info", url))
+            events.append((url, "NEW_TRACKED_PR", "info", url, ""))
             continue
 
         def emit(kind, level, link, fingerprint=""):
@@ -329,10 +333,14 @@ def run(api, targets_path=TARGETS, *, probe_only=False):
         # mergeability responses. Observed API fields remain unmodified.
         source["last_confirmed_conflict"] = observed_conflict
         current["prs"][t["url"]] = source
-    if previous is not None and set(previous["prs"]) != set(current["prs"]):
-        # Explicit watchlist edits are a separate reviewed decision. Do not lose
-        # previously tracked PRs or claim lifecycle outcomes via implicit removal.
-        raise ValueError("Watchlist changed; baseline migration required")
+    if previous is not None:
+        prior_urls = set(previous["prs"])
+        observed_urls = set(current["prs"])
+        # Only the reviewed Workflow One addition is authorized. Preserve all
+        # existing checkpoints and baseline the new PR without replaying its
+        # old reviews/comments as newly actionable events.
+        if prior_urls - observed_urls or not (observed_urls - prior_urls).issubset(APPROVED_CHECKPOINT_ADDITIONS):
+            raise ValueError("Watchlist changed; baseline migration required")
     events = classify(previous, current)
     notifiable = [e for e in events if e["level"] == "action_required" or
                   e["kind"] in {"MERGED", "CLOSED_UNMERGED", "APPROVED", "REOPENED"}]

@@ -7,8 +7,11 @@ on:
   pull_request:
     paths:
       - 'data/pr-maintenance/targets.json'
+      - 'data/corrective-publication/2026-10-23-01.json'
       - 'scripts/pr_maintenance_watch.py'
+      - 'scripts/corrective_publication_queue.py'
       - 'tests/test_pr_maintenance_watch.py'
+      - 'tests/test_corrective_publication_queue.py'
       - 'docs/PR_MAINTENANCE.md'
       - '.github/workflows/pr-maintenance.yml'
 
@@ -34,8 +37,12 @@ jobs:
           python-version: '3.12'
       - name: Deterministic offline tests
         run: python3 -m unittest discover -s tests -p 'test_pr_maintenance_watch.py' -v
+      - name: Validate Corrective publication ledger and complete watcher coverage
+        run: python3 -m unittest discover -s tests -p 'test_corrective_publication_queue.py' -v
       - name: Validate exact external watchlist
         run: python3 scripts/pr_maintenance_watch.py --validate-only
+      - name: Reconcile published Corrective PRs against the watchlist
+        run: python3 scripts/corrective_publication_queue.py validate
       - name: Live external GitHub read probe (PR read-only token)
         if: github.event_name == 'pull_request'
         env:

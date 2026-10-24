@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location("pr_watch", ROOT / "scripts/pr_maintenance_watch.py")
@@ -113,11 +114,13 @@ class WatchTests(unittest.TestCase):
                                 "targets": [{"repository": "Example/project", "number": 3, "url": URL}]}))
         return p
 
-    def test_exact_manifest_has_twelve_targets_and_no_duplicates(self):
+    def test_exact_manifest_has_thirteen_targets_and_no_duplicates(self):
         data = watch.validate_targets()
-        self.assertEqual(len(data["targets"]), 12)
-        self.assertEqual(len({t["url"] for t in data["targets"]}), 12)
+        self.assertEqual(len(data["targets"]), 13)
+        self.assertEqual(len({t["url"] for t in data["targets"]}), 13)
         self.assertIn("https://github.com/cbrock84/headcount/pull/47",
+                      [t["url"] for t in data["targets"]])
+        self.assertIn("https://github.com/chumingjun/dsh-harness-one/pull/173",
                       [t["url"] for t in data["targets"]])
 
     def test_reject_malformed_source_and_duplicate(self):
@@ -256,6 +259,50 @@ class WatchTests(unittest.TestCase):
             self.assertEqual(watch.run(m, p), [])
             self.assertEqual(len(m.writes), 1)  # no-op scan produces zero additional writes
             self.assertEqual(sum(watch.ALERT_PREFIX in r[2]["body"] for r in m.writes), 0)
+
+    def test_reviewed_additive_checkpoint_migration_baselines_without_replay(self):
+        m = MockAPI()
+        m.external = source()
+        extra_url = "https://github.com/chumingjun/dsh-harness-one/pull/173"
+        with tempfile.TemporaryDirectory() as tmp:
+            path = self.write_targets(tmp)
+            watch.run(m, path)
+            targets = json.loads(path.read_text())
+            targets["targets"].append({"repository": "chumingjun/dsh-harness-one", "number": 173,
+                                       "url": extra_url})
+            path.write_text(json.dumps(targets))
+            extra = pr()
+            extra.update(url=extra_url, repository="chumingjun/dsh-harness-one", number=173)
+
+            def snapshot(_, target):
+                return extra if target["url"] == extra_url else pr()
+
+            with patch.object(watch, "snapshot_one", side_effect=snapshot):
+                self.assertEqual([e["kind"] for e in watch.run(m, path, probe_only=True)],
+                                 ["NEW_TRACKED_PR"])
+                self.assertEqual(len(m.writes), 1)  # probe is still read-only
+                self.assertEqual([e["kind"] for e in watch.run(m, path)], ["NEW_TRACKED_PR"])
+                self.assertEqual(len(m.writes), 2)  # checkpoint, no alert
+                self.assertEqual(watch.run(m, path), [])
+                self.assertEqual(len(m.writes), 2)
+                extra["comments"] = [dict(comment(41), url=extra_url + "#issuecomment-41")]
+                self.assertEqual([e["kind"] for e in watch.run(m, path)],
+                                 ["NEW_MAINTAINER_COMMENT"])
+                self.assertEqual(sum(watch.ALERT_PREFIX in x[2]["body"] for x in m.writes), 1)
+
+                targets["targets"] = targets["targets"][:1]
+                path.write_text(json.dumps(targets))
+                before = len(m.writes)
+                with self.assertRaisesRegex(ValueError, "baseline migration required"):
+                    watch.run(m, path)
+                self.assertEqual(len(m.writes), before)
+
+                targets["targets"].append({"repository": "Other/repo", "number": 5,
+                                           "url": "https://github.com/Other/repo/pull/5"})
+                path.write_text(json.dumps(targets))
+                with self.assertRaisesRegex(ValueError, "baseline migration required"):
+                    watch.run(m, path)
+                self.assertEqual(len(m.writes), before)
 
     def test_actual_new_review_posts_one_alert_and_then_checkpoint(self):
         m = MockAPI()
