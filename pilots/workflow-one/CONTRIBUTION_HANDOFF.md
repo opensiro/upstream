@@ -1,6 +1,8 @@
 # Workflow One — active run ID can be overwritten in scheduler registry
 
-**Stage:** `AWAITING_EXTERNAL`. Exact local native script patch only, no external fork, issue, PR, commit, merge or live dsh execution.
+**Stage:** `SUBMITTED_READY_FOR_REVIEW` as of 2026-10-24. [Upstream PR #173](https://github.com/chumingjun/dsh-harness-one/pull/173) is **OPEN / Ready for review**, authored by `xLagerFeuer` using public `opensiro-contributions/dsh-harness-one` fork. The original script-only experiment involved no live dsh execution.
+
+- **Publication readback:** base `08aef04761e8c6586efaa4077b49d349d4f0f920`, head `daa232cac3096e418e70c887079f8bdac4466a14`. Upstream full suite remains unverified; merge belongs to upstream maintainers.
 
 - **Frozen source:** `chumingjun/dsh-harness-one@08aef04761e8c6586efaa4077b49d349d4f0f920`, included `S1=A` Index `396a54bb690f8ec7ce966bf9b00b241b30036307`.
 - **Origin:** `ASSESSMENT_INFORMED`: the assessment locates the workflow state/scheduling boundary. Actual duplicate-ID flaw came from inspecting the current first-party plugin engine `dsh-plugins/dsh-ccpg-orchestrator/lib/engine.js`. Repository instructions explicitly identify the top-level `server/` as legacy, so this packet does not patch that path.

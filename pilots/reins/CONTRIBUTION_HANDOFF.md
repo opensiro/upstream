@@ -23,3 +23,9 @@
 **Exact patch:** [empty-principal-rls-contract.patch](empty-principal-rls-contract.patch), SHA256 `5c886ce7577531f67ac38545ece54e8575fa1d6fe12d4ef231212402d3698eaf`, identical to the tested diff from the frozen Reins checkout. No modifications to the external remote were made.
 
 **Boundaries:** The guard only checks whether a principal identifier is nonempty; it does **not** authenticate it or enforce capability-specific row predicates. The upstream maintainer should run normal pytest plus cross-language conformance/CI before accepting any change. External publication is human-owned; ordinary `continue` immediately advances to CubeLoop instead of waiting for the external PR.
+
+## 2026-10-25 security disclosure routing
+
+Current upstream [SECURITY.md](https://github.com/shamspias/reins/blob/main/SECURITY.md) specifically requests that security vulnerabilities be disclosed privately to the maintainer, not as public GitHub issues. This candidate affects the RLS security admission boundary and therefore cannot be treated as an ordinary public Corrective PR under that policy. The external PR search did not find an identical fix, but **no fresh RED/GREEN or full project gate was run during this pass**. The historical native packet above remains the only test evidence.
+
+**Publication state: BLOCKED by upstream security-reporting policy.** No public fork, branch push, issue, PR or unapproved private message was created. A separate owner-authorised security-disclosure workflow would be required before any upstream submission. Do not interpret the source-only technical packet as an accepted security fix.

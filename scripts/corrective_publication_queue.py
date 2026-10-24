@@ -94,6 +94,8 @@ def validate(ledger):
         if status in {"BLOCKED", "CLOSED_NO_CHANGE", "CLOSED_UPSTREAM"}:
             if not isinstance(case.get("reason"), str) or len(case["reason"]) < 15:
                 raise QueueError(f"Missing closure/blocker evidence: {case['id']}")
+            if case.get("pr_url"):
+                raise QueueError(f"Unpublished case cannot claim a PR: {case['id']}")
         if status in {"SUBMITTED", "MERGED"}:
             url = f"https://github.com/{source['source']}/pull/"
             if not isinstance(case.get("pr_url"), str) or not case["pr_url"].casefold().startswith(url.casefold()):

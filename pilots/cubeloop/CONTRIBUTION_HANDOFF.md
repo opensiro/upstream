@@ -23,3 +23,9 @@
 **Patch:** [memory-checkpoint-copy-boundaries.patch](memory-checkpoint-copy-boundaries.patch), SHA256 `6ca11f1be9da3b897b8724710f440c6f48cb100a95129d45e8de2debb91341a6`, byte-identical to tested first-party source diff. All code testing was in a date-scoped local git worktree on the frozen revision, preserving the upstream checkout; there was no external push.
 
 **Adversarial review:** Deep copies add memory/CPU overhead relative to reference returns; this handoff does not benchmark that overhead. It does not address other checkpoint APIs (pending HITL request objects, answers, snapshots, durable providers), and is not a claim of thread-safe full agent execution. Human-owned external publication remains separate. Generic `continue` advances immediately to Evidence Loom.
+
+## 2026-10-25 upstream contributor-workflow verification
+
+Current `cubeplexai/cubeloop` main is `6789f50c9ea1aa0ce485082d6f21b8c53c531044` (advanced beyond the frozen patch pin). Current [AGENTS.md](https://github.com/cubeplexai/cubeloop/blob/main/AGENTS.md) requires a date-prefixed isolated worktree, interactive collaboration and requirements confirmation before a spec, and an explicit user go-ahead before starting the local Codex review loop; it also requires documentation for features and a PR review loop. The repository has an MIT license; `CONTRIBUTING.md` and `SECURITY.md` were not present. Search found related historical checkpointer PRs but no identical in-memory copy-boundary repair.
+
+**Publication state: BLOCKED by mandatory upstream interactive specification/review gates.** The finite OpenSiro publication mandate does not attest to the project's interactive acceptance of a spec or permission to initiate its local review procedure. The previous native RED/GREEN receipt is historical, not fresh verification against the current head. No external fork, issue, commit, branch push or PR; no fresh test was run in this pass. Move to the next finite-queue candidate.

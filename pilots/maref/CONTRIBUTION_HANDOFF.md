@@ -25,3 +25,11 @@
 **Adversarial review:** This narrowly fixes the missing-file/backup identity error. It does not add atomic file operations, check concurrent source modifications, or address the existing behaviour that ignores deletion errors. It cannot establish end-to-end REL safety, maintainers' acceptance, benchmark gains, or a full MAREF green gate. A maintainer should run the new pytest case and project gates with its proper dependencies and verify the live main version before adopting.
 
 **Continuation:** External publication requires a separately attributable human-owned decision. Generic `continue` must skip this `AWAITING_EXTERNAL` row and advance to `ateles-python-dispatch-gate` in the same frozen five-row batch.
+
+## 2026-10-25 publication-policy gate
+
+Fresh upstream `main` was observed at `5da7f56c59c733c9d0450959619708aba1624e31`, not the historical source-tested pin. The bounded search found no matching fix PR; the open PRs inspected were dependency updates. **No current-main RED/GREEN or full native project suite was run on this pass.** The historical technical packet and its limits above remain unchanged.
+
+MAREF [Constitution Article 10](https://github.com/maref-org/maref/blob/main/docs/CONSTITUTION.md) and the [OSS execution norm](https://github.com/maref-org/maref/blob/main/docs/oss-execution-norm-v1.0.md) explicitly bind external Code Agents to governance observation/admission, audited decisions and project-side controls. Its [AGENTS.md](https://github.com/maref-org/maref/blob/main/AGENTS.md) requires complete coverage tests, a mission record and governance gates before delivery. No attributable current-runtime GaaS/sidecar admission or HITL for MAREF's own external-effect policy has been established. The OpenSiro finite mandate is not an override of these upstream controls, and the user forbids model/agent benchmark execution to satisfy gates.
+
+**Publication state: BLOCKED (unfulfilled MAREF-specific constitutional and project gates).** No upstream fork/branch push/PR or unsupported compliance statement was made. Continue with the next candidate in the fixed OpenSiro queue.
