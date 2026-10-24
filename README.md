@@ -14,6 +14,10 @@ These are **dated observations, not live acceptance rates or productivity scores
 
 The [read-only status procedure](docs/UPSTREAM_STATUS_FRESHNESS.md) checks both the eight-case experimental portfolio and separately submitted `registry.yaml` upstream PRs. It renders `DASHBOARD.md`, `docs/index.html` and the casebook from one local receipt. A daily GitHub Actions job reports drift without using write permissions or automatically changing fit classifications.
 
+### External PR maintenance (adjacent operating pilot)
+
+[Upstream PR Maintenance](docs/PR_MAINTENANCE.md) tracks the external PR review queue, new maintainer change requests and failing CI in the [read-only GitHub-sensing / OpenSiro-inbox #125](https://github.com/opensiro/upstream/issues/125) route. A proposed hourly [workflow](.github/workflows/pr-maintenance.yml) uses an explicit 12-PR watchlist and a deduplicated issue-comment checkpoint; it becomes scheduled only after merging the reviewed workflow to the default branch. Native-only repair and external PR integration still require separate applicable contributor authority. This does **not** admit Upstream as a fourth Organization S1 domain (see [Organization #274](https://github.com/opensiro/vsm-oss-organization/issues/274)).
+
 ## Current work
 
 | External project | OpenSiro fork | Contribution | Upstream status | Fork lifecycle |

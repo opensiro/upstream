@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "system_in_focus": "opensiro/upstream adjacent PR maintenance pilot",
+  "inbox_issue": "https://github.com/opensiro/upstream/issues/125",
+  "watchlist_mode": "explicit_snapshot",
+  "source_selection": "Current open external PRs authored by xLagerFeuer; includes separately verified headcount #47 omitted from GitHub search indexing",
+  "targets": [
+    {
+      "repository": "Gen-Verse/DiscoveryRSI",
+      "number": 2,
+      "url": "https://github.com/Gen-Verse/DiscoveryRSI/pull/2"
+    },
+    {
+      "repository": "Gen-Verse/Recuris",
+      "number": 2,
+      "url": "https://github.com/Gen-Verse/Recuris/pull/2"
+    },
+    {
+      "repository": "LEO001020/pi-loop-studio-orchestra",
+      "number": 1,
+      "url": "https://github.com/LEO001020/pi-loop-studio-orchestra/pull/1"
+    },
+    {
+      "repository": "Onipounds/agent-loop",
+      "number": 1,
+      "url": "https://github.com/Onipounds/agent-loop/pull/1"
+    },
+    {
+      "repository": "Rohith-s-hub/Oblivion-agent",
+      "number": 1,
+      "url": "https://github.com/Rohith-s-hub/Oblivion-agent/pull/1"
+    },
+    {
+      "repository": "SethGammon/Citadel",
+      "number": 366,
+      "url": "https://github.com/SethGammon/Citadel/pull/366"
+    },
+    {
+      "repository": "androoAGI/starnet",
+      "number": 56,
+      "url": "https://github.com/androoAGI/starnet/pull/56"
+    },
+    {
+      "repository": "cbrock84/headcount",
+      "number": 47,
+      "url": "https://github.com/cbrock84/headcount/pull/47"
+    },
+    {
+      "repository": "chankov/agent-fleet",
+      "number": 43,
+      "url": "https://github.com/chankov/agent-fleet/pull/43"
+    },
+    {
+      "repository": "cordfuse/politik",
+      "number": 33,
+      "url": "https://github.com/cordfuse/politik/pull/33"
+    },
+    {
+      "repository": "huleidada/matterloop",
+      "number": 11,
+      "url": "https://github.com/huleidada/matterloop/pull/11"
+    },
+    {
+      "repository": "topoteretes/cognee-community",
+      "number": 434,
+      "url": "https://github.com/topoteretes/cognee-community/pull/434"
+    }
+  ]
+}

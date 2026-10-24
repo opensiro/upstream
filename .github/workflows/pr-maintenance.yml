@@ -1,0 +1,55 @@
+name: External PR review maintenance (hourly inbox)
+
+on:
+  schedule:
+    - cron: '13 * * * *'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'data/pr-maintenance/targets.json'
+      - 'scripts/pr_maintenance_watch.py'
+      - 'tests/test_pr_maintenance_watch.py'
+      - 'docs/PR_MAINTENANCE.md'
+      - '.github/workflows/pr-maintenance.yml'
+
+# Never write to third-party PRs; the only effectful route is this repository's
+# issue #125 as a deduplicated feedback inbox.
+permissions:
+  contents: read
+
+concurrency:
+  group: upstream-pr-maintenance-inbox
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Deterministic offline tests
+        run: python3 -m unittest discover -s tests -p 'test_pr_maintenance_watch.py' -v
+      - name: Validate exact external watchlist
+        run: python3 scripts/pr_maintenance_watch.py --validate-only
+  watch:
+    needs: verify
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Observe reviews, comments, CI and lifecycle; post only to OpenSiro inbox
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 scripts/pr_maintenance_watch.py
