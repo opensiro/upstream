@@ -22,3 +22,9 @@
 **Exact tested patch:** [nested-workspace-engine-guard.patch](nested-workspace-engine-guard.patch), SHA256 `4b0a6e51f45bc253c5988b52120c784dc755b58f5f98b507e878f76f024fd4c5`.
 
 **Limits:** Verifies directory overlap handling only. The preexisting `READ_ONLY_ENGINE_CONFIRMED` info name is not independent proof of OS read-only permissions; no sandbox hardening or quality of generated work is claimed. External PR submission remains human-owned. Generic `continue` advances to Active Graph.
+
+## 2026-10-25 protected runtime review
+
+Verified current `main` still equals pinned `c47d553ad2e1aa547cce000c095a9feda5434ee2`, and read both repository-root AGENTS.md and `docs/CONTRIBUTING.md`/`docs/SECURITY.md`. Despite Apache-2.0 licensing, the [contribution guide](https://github.com/AniruddhaDas1/OniRoute_SwarmAgents/blob/main/docs/CONTRIBUTING.md) freezes Runtime v0.6 behavior and requires a maintainer-approved Architecture Change Request or an authorized release phase for such changes. The patch changes that layer's validation contract, and no ACR approval was verified. The [security guide](https://github.com/AniruddhaDas1/OniRoute_SwarmAgents/blob/main/docs/SECURITY.md) also requests private security disclosure for suspected isolation vulnerabilities. Public PR search found no exact overlap fix.
+
+**Publication state: BLOCKED by frozen-runtime ACR and security-report rules.** No external fork/branch/PR or private advisory was created and no fresh tests were run during this pass. The bounded historical script-only patch remains an internal packet.
