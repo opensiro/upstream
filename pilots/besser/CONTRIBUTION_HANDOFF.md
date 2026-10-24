@@ -1,6 +1,8 @@
 # BESSER — automatic transitions should be exclusive in both registration orders
 
-**Stage:** `AWAITING_EXTERNAL`. Tested first-party native patch. No external fork/issue/PR, LLM model, NLP intent classifier, state-body execution or provider call.
+**Stage:** `SUBMITTED_DRAFT` on 2026-10-24. [Upstream Draft PR #205](https://github.com/BESSER-PEARL/BESSER-Agentic-Framework/pull/205) from `xLagerFeuer` via public `opensiro-contributions/BESSER-Agentic-Framework` fork. No LLM model, NLP intent classifier, state-body execution or provider call was run.
+
+- **External publication readback:** current upstream base `548fc529c20da7f4342f2f60f847418f149e9340`, head `0f97ff5f1374381f1554be48eb33d339a282c8e0`, two files changed; OPEN / Draft, no merge claimed. Earlier pinned source remains a reproducible historic baseline; native tests also reproduced 5/7 → 7/7 against the newer upstream main.
 
 - **Frozen source:** `BESSER-PEARL/BESSER-Agentic-Framework@da46d4e2f0ae477704f7cc1108f1f6ec5209530e` (MIT license), included `S1=A` Index `396a54bb690f8ec7ce966bf9b00b241b30036307`.
 - **Origin:** `ASSESSMENT_INFORMED`. The Index identifies state/transition control; the exact registration-order asymmetry was discovered by inspecting `baf/core/transition/transition_builder.py` and the documented `State.go_to()` invariant.
@@ -20,4 +22,4 @@
 
 **Exact tested patch:** [auto-transition-registration-order.patch](auto-transition-registration-order.patch), SHA256 `206efdecf219f4f1b1344516bf245756f6ef626dfd330287cb45ac066b2bf691`.
 
-**Limits:** This enforces a declaration-time consistency rule only. It does not establish agent behavior under any given event ordering, nor acceptance by the external maintainer. External publication is human-owned. Generic `continue` advances to BabyAI.
+**Limits:** This enforces a declaration-time consistency rule only. It does not establish agent behavior under any given event ordering, nor acceptance by the external maintainer. External review and merge remain human-owned. The next frozen candidate is BabyAI.

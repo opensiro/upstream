@@ -36,7 +36,7 @@
     {"id": "agentflow-dag-dependency-state", "publication": "QUEUED"},
     {"id": "connectonion-approval-tool-admission", "publication": "QUEUED"},
     {"id": "agentuniverse-workflow-input-contract", "publication": "QUEUED"},
-    {"id": "besser-state-transition-validation", "publication": "QUEUED"},
+    {"id": "besser-state-transition-validation", "publication": "SUBMITTED", "pr_url": "https://github.com/BESSER-PEARL/BESSER-Agentic-Framework/pull/205", "actor": "xLagerFeuer", "base_sha": "548fc529c20da7f4342f2f60f847418f149e9340", "head_sha": "0f97ff5f1374381f1554be48eb33d339a282c8e0", "native_test_receipt": "https://github.com/opensiro/upstream/blob/main/pilots/besser/CONTRIBUTION_HANDOFF.md", "observed_at": "2026-10-24", "draft": true},
     {"id": "babyai-task-evaluation-input-contract", "publication": "QUEUED"},
     {"id": "henrik-agent-harness-workboard-claim-guards", "publication": "QUEUED"},
     {"id": "phoenix-agent-harness-budget-admission", "publication": "QUEUED"},

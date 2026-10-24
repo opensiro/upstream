@@ -35,6 +35,7 @@ APPROVED_CHECKPOINT_ADDITIONS = {
     "https://github.com/chumingjun/dsh-harness-one/pull/173",
     "https://github.com/Coral-Bricks-AI/reef/pull/19",
     "https://github.com/CorticalComputer/Spartan/pull/1",
+    "https://github.com/BESSER-PEARL/BESSER-Agentic-Framework/pull/205",
 }
 FAILURES = {"failure", "timed_out", "action_required", "cancelled"}
 BOT_SUFFIX = "[bot]"

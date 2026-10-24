@@ -114,10 +114,10 @@ class WatchTests(unittest.TestCase):
                                 "targets": [{"repository": "Example/project", "number": 3, "url": URL}]}))
         return p
 
-    def test_exact_manifest_has_fifteen_targets_and_no_duplicates(self):
+    def test_exact_manifest_has_sixteen_targets_and_no_duplicates(self):
         data = watch.validate_targets()
-        self.assertEqual(len(data["targets"]), 15)
-        self.assertEqual(len({t["url"] for t in data["targets"]}), 15)
+        self.assertEqual(len(data["targets"]), 16)
+        self.assertEqual(len({t["url"] for t in data["targets"]}), 16)
         self.assertIn("https://github.com/cbrock84/headcount/pull/47",
                       [t["url"] for t in data["targets"]])
         self.assertIn("https://github.com/chumingjun/dsh-harness-one/pull/173",
@@ -125,6 +125,8 @@ class WatchTests(unittest.TestCase):
         self.assertIn("https://github.com/Coral-Bricks-AI/reef/pull/19",
                       [t["url"] for t in data["targets"]])
         self.assertIn("https://github.com/CorticalComputer/Spartan/pull/1",
+                      [t["url"] for t in data["targets"]])
+        self.assertIn("https://github.com/BESSER-PEARL/BESSER-Agentic-Framework/pull/205",
                       [t["url"] for t in data["targets"]])
 
     def test_reject_malformed_source_and_duplicate(self):
@@ -314,11 +316,12 @@ class WatchTests(unittest.TestCase):
         dsh = "https://github.com/chumingjun/dsh-harness-one/pull/173"
         reef = "https://github.com/Coral-Bricks-AI/reef/pull/19"
         spartan = "https://github.com/CorticalComputer/Spartan/pull/1"
+        besser = "https://github.com/BESSER-PEARL/BESSER-Agentic-Framework/pull/205"
 
         def fake_snapshot(_, target):
             item = pr()
             item.update(url=target["url"], repository=target["repository"],
-                        number=target["number"], draft=target["url"] in {reef, spartan})
+                        number=target["number"], draft=target["url"] in {reef, spartan, besser})
             return item
 
         with tempfile.TemporaryDirectory() as tmp:
@@ -350,6 +353,16 @@ class WatchTests(unittest.TestCase):
                 self.assertEqual(len(m.writes), 4)
                 self.assertEqual(watch.run(m, path), [])
                 self.assertEqual(len(m.writes), 4)
+                targets["targets"].append({"repository": "BESSER-PEARL/BESSER-Agentic-Framework",
+                                           "number": 205, "url": besser})
+                path.write_text(json.dumps(targets))
+                self.assertEqual([e["kind"] for e in watch.run(m, path, probe_only=True)],
+                                 ["NEW_TRACKED_PR"])
+                self.assertEqual(len(m.writes), 4)
+                self.assertEqual([e["kind"] for e in watch.run(m, path)], ["NEW_TRACKED_PR"])
+                self.assertEqual(len(m.writes), 5)
+                self.assertEqual(watch.run(m, path), [])
+                self.assertEqual(len(m.writes), 5)
                 self.assertFalse(any(watch.ALERT_PREFIX in write[2]["body"] for write in m.writes))
 
     def test_actual_new_review_posts_one_alert_and_then_checkpoint(self):
