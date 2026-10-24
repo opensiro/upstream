@@ -17,6 +17,8 @@
 - Schedule **hourly (minute 13, UTC)** on `main`; also accept manual `workflow_dispatch`. The [first default-branch run](https://github.com/opensiro/upstream/actions/runs/40103888527) succeeded and initialized the checkpoint. Job summary and issue comments link the original external PRs.
 
 **Constrained S1-like maintenance work (human/agent in later execution):**
+Use the [event triage and closure packet](PR_MAINTENANCE_TRIAGE.md) to bind an actual source event to its admission, source/authority checks and native-test/return receipts.
+
 1. On `ACTION_REQUIRED`, independently read *current* upstream code, reviewer request, exact PR diff, source and CI failures.
 2. Admit only if the requested fix remains within the original reviewed PR scope, source rights, contributor requirements and the operator's actual bounded decision envelope; otherwise `ESCALATED`.
 3. Reproduce the defect and repair on an **authorized** contribution fork branch. Validate with **native deterministic tests only**, no LLM or live agent runs; update the existing PR **only when an operative write mandate covers that update**.
