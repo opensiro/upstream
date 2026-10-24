@@ -3,7 +3,7 @@
   "system_in_focus": "opensiro/upstream adjacent PR maintenance pilot",
   "inbox_issue": "https://github.com/opensiro/upstream/issues/125",
   "watchlist_mode": "explicit_snapshot",
-  "source_selection": "Current open external PRs authored by xLagerFeuer; includes separately verified headcount #47 omitted from GitHub search indexing",
+  "source_selection": "Verified external PRs authored by xLagerFeuer, including frozen Corrective submissions and closed lifecycle cases; headcount #47 was separately confirmed after search omission",
   "targets": [
     {
       "repository": "Gen-Verse/DiscoveryRSI",
@@ -44,6 +44,11 @@
       "repository": "cbrock84/headcount",
       "number": 47,
       "url": "https://github.com/cbrock84/headcount/pull/47"
+    },
+    {
+      "repository": "chumingjun/dsh-harness-one",
+      "number": 173,
+      "url": "https://github.com/chumingjun/dsh-harness-one/pull/173"
     },
     {
       "repository": "chankov/agent-fleet",

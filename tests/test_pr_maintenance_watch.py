@@ -111,11 +111,13 @@ class WatchTests(unittest.TestCase):
                                 "targets": [{"repository": "Example/project", "number": 3, "url": URL}]}))
         return p
 
-    def test_exact_manifest_has_twelve_targets_and_no_duplicates(self):
+    def test_exact_manifest_has_thirteen_targets_and_no_duplicates(self):
         data = watch.validate_targets()
-        self.assertEqual(len(data["targets"]), 12)
-        self.assertEqual(len({t["url"] for t in data["targets"]}), 12)
+        self.assertEqual(len(data["targets"]), 13)
+        self.assertEqual(len({t["url"] for t in data["targets"]}), 13)
         self.assertIn("https://github.com/cbrock84/headcount/pull/47",
+                      [t["url"] for t in data["targets"]])
+        self.assertIn("https://github.com/chumingjun/dsh-harness-one/pull/173",
                       [t["url"] for t in data["targets"]])
 
     def test_reject_malformed_source_and_duplicate(self):
