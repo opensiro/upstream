@@ -28,11 +28,12 @@ ALERT_PREFIX = "<!-- opensiro-pr-maintenance-alert-v1:"
 UA = "opensiro-pr-maintenance/1"
 REPO = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
 MAX_PAGES = 10
+# The publication ledger + target manifest review explicitly admits this one
+# additional PR to an existing bot-owned checkpoint without resetting history.
+# All other additions and every removal remain fail-closed migrations.
+APPROVED_CHECKPOINT_ADDITIONS = {"https://github.com/chumingjun/dsh-harness-one/pull/173"}
 FAILURES = {"failure", "timed_out", "action_required", "cancelled"}
 BOT_SUFFIX = "[bot]"
-# Explicit additive migration accepted in the reviewed Corrective watchlist update.
-# Other additions and any removal still require a separate reviewed migration.
-APPROVED_CHECKPOINT_ADDITIONS = {"https://github.com/chumingjun/dsh-harness-one/pull/173"}
 
 
 def now():
@@ -124,6 +125,10 @@ def snapshot_one(api, target):
         raise ValueError("PR source identity mismatch")
     if pr.get("state") not in ("open", "closed") or type(pr.get("draft")) is not bool:
         raise ValueError("Missing/unknown PR lifecycle")
+    if pr.get("mergeable") is not None and type(pr["mergeable"]) is not bool:
+        raise ValueError("Unexpected PR mergeability")
+    if pr.get("mergeable_state") is not None and not isinstance(pr["mergeable_state"], str):
+        raise ValueError("Unexpected PR mergeability state")
     if pr.get("head", {}).get("sha") is None or pr.get("base", {}).get("sha") is None:
         raise ValueError("Incomplete GitHub PR refs")
     head = pr["head"]["sha"]
@@ -150,6 +155,7 @@ def snapshot_one(api, target):
         "url": target["url"], "repository": repo, "number": num,
         "state": pr["state"], "draft": pr["draft"],
         "merged_at": pr.get("merged_at"), "head": head, "base": pr["base"]["sha"],
+        "mergeable": pr.get("mergeable"), "mergeable_state": pr.get("mergeable_state"),
         "updated_at": pr.get("updated_at"),
         "comments": sorted([compact_comment(c) for c in comments], key=lambda c: c["id"]),
         "reviews": sorted([compact_review(v) for v in reviews], key=lambda v: v["id"]),
@@ -164,6 +170,24 @@ def snapshot_one(api, target):
 
 def human(name, contributor="xLagerFeuer"):
     return isinstance(name, str) and name.lower() != contributor.lower() and not name.endswith(BOT_SUFFIX)
+
+
+def confirmed_conflict(pr):
+    # REST mergeable=null means GitHub is still computing; "blocked" may reflect
+    # checks/policy rather than a source conflict. Only confirmed dirty is actionable.
+    return (pr.get("state") == "open" and pr.get("mergeable") is False
+            and pr.get("mergeable_state") == "dirty")
+
+
+def conflict_observation(pr):
+    """True/False for a settled GitHub result, None while still unknown."""
+    if pr.get("mergeable") is None:
+        return None
+    if pr.get("mergeable") is True:
+        return False
+    if pr.get("mergeable_state") in {"dirty", "blocked", "behind", "clean", "unstable", "has_hooks"}:
+        return confirmed_conflict(pr)
+    return None
 
 
 def classify(previous, current, contributor="xLagerFeuer"):
@@ -193,13 +217,27 @@ def classify(previous, current, contributor="xLagerFeuer"):
             emit("HEAD_UPDATED", "info", url)
         if before.get("base") != pr["base"]:
             emit("BASE_UPDATED", "info", url)
+        # v1 checkpoints before mergeability was added contain neither key.
+        # Do not relabel preexisting conflicts as new when deploying this change.
+        prior_conflict = before.get("last_confirmed_conflict", conflict_observation(before))
+        if prior_conflict is False and confirmed_conflict(pr):
+            emit("MERGE_CONFLICT", "action_required", url, f"{pr['head']}:{pr['base']}")
 
-        for field, kind in (("comments", "NEW_MAINTAINER_COMMENT"),
-                            ("inline", "NEW_REVIEW_COMMENT")):
-            previous_ids = {x["id"] for x in before.get(field, [])}
+        for field, kind, edited_kind in (("comments", "NEW_MAINTAINER_COMMENT", "EDITED_MAINTAINER_COMMENT"),
+                                         ("inline", "NEW_REVIEW_COMMENT", "EDITED_REVIEW_COMMENT")):
+            previous_by_id = {x["id"]: x for x in before.get(field, [])}
             for item in pr[field]:
-                if item["id"] not in previous_ids and human(item["author"], contributor):
+                if not human(item["author"], contributor):
+                    continue
+                past = previous_by_id.get(item["id"])
+                if past is None:
                     emit(kind, "action_required", item["url"], str(item["id"]))
+                elif (past.get("updated_at") and item.get("updated_at")
+                      and past["updated_at"] != item["updated_at"]):
+                    # An upstream maintainer can revise an existing request.
+                    # Keep only public metadata, never comment bodies.
+                    emit(edited_kind, "action_required", item["url"],
+                         f"{item['id']}:{item['updated_at']}")
 
         old_reviews = {x["id"]: x for x in before.get("reviews", [])}
         for item in pr["reviews"]:
@@ -286,12 +324,21 @@ def run(api, targets_path=TARGETS, *, probe_only=False):
     checkpoint_id, previous, posted = inbox_state(api)
     current = {"schema_version": 1, "observed_at": now(), "prs": {}}
     for t in data["targets"]:
-        current["prs"][t["url"]] = snapshot_one(api, t)
+        source = snapshot_one(api, t)
+        previous_pr = previous.get("prs", {}).get(t["url"]) if previous else None
+        observed_conflict = conflict_observation(source)
+        if observed_conflict is None and previous_pr is not None:
+            observed_conflict = previous_pr.get("last_confirmed_conflict", conflict_observation(previous_pr))
+        # Keep the last *settled* state across GitHub's transient null/unknown
+        # mergeability responses. Observed API fields remain unmodified.
+        source["last_confirmed_conflict"] = observed_conflict
+        current["prs"][t["url"]] = source
     if previous is not None:
         prior_urls = set(previous["prs"])
         observed_urls = set(current["prs"])
-        # Preserve all existing checkpoints. Baseline only the explicitly reviewed
-        # Workflow One addition; older comments/CI on it are not replayed.
+        # Only the reviewed Workflow One addition is authorized. Preserve all
+        # existing checkpoints and baseline the new PR without replaying its
+        # old reviews/comments as newly actionable events.
         if prior_urls - observed_urls or not (observed_urls - prior_urls).issubset(APPROVED_CHECKPOINT_ADDITIONS):
             raise ValueError("Watchlist changed; baseline migration required")
     events = classify(previous, current)
