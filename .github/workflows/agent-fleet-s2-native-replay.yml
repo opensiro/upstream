@@ -45,6 +45,10 @@ jobs:
       - name: First-party fast native test suite
         working-directory: agent-fleet
         run: npm test
+      - name: First-party native portability suite
+        working-directory: agent-fleet
+        timeout-minutes: 12
+        run: npm run test:portability
       - name: Typecheck workflows
         working-directory: agent-fleet
         run: npm run typecheck:workflows
