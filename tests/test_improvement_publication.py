@@ -19,6 +19,7 @@ class ImprovementPublicationContractTests(unittest.TestCase):
         self.assertEqual(self.data["allowed_public_fork_owner"], "opensiro-contributions")
         self.assertEqual(self.data["authenticated_actor"], "xLagerFeuer")
         self.assertEqual(self.data["mandate_record"], "https://github.com/opensiro/vsm-oss-organization/issues/287")
+        self.assertIn("Ready for review", self.data["readiness_decision"])
 
     def test_expected_sources_only(self):
         self.assertEqual({c["source"] for c in self.cases}, {"SethGammon/Citadel", "chankov/agent-fleet"})
@@ -31,8 +32,9 @@ class ImprovementPublicationContractTests(unittest.TestCase):
     def test_external_write_scope(self):
         for c in self.cases:
             with self.subTest(c["source"]):
-                self.assertEqual(c["publication"], "SUBMITTED_DRAFT")
-                self.assertTrue(c["pr_draft"])
+                self.assertEqual(c["publication"], "SUBMITTED_READY_FOR_REVIEW")
+                self.assertEqual(c["initial_publication"], "SUBMITTED_DRAFT")
+                self.assertFalse(c["pr_draft"])
                 self.assertFalse(c["pr_merged"])
                 self.assertTrue(c["public_fork"].startswith("opensiro-contributions/"))
                 self.assertEqual(c["fork_parent"], c["source"])

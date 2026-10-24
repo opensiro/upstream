@@ -20,7 +20,7 @@
       "github_native_evidence": "https://github.com/opensiro/upstream/actions/runs/40039135313",
       "native_ci": "SUCCESS_STRICT_ALL_6",
       "license": "MIT",
-      "publication": "SUBMITTED_DRAFT",
+      "publication": "SUBMITTED_READY_FOR_REVIEW",
       "public_fork": "opensiro-contributions/Citadel",
       "fork_parent": "SethGammon/Citadel",
       "external_pr": "https://github.com/SethGammon/Citadel/pull/366",
@@ -30,10 +30,11 @@
       "external_pr_head_branch": "opensiro/fix-s2-atomic-claims",
       "external_pr_head_sha": "f27529aa13071ad828f07aeb76f0415ae50d1371",
       "published_file_count": 5,
-      "pr_draft": true,
+      "pr_draft": false,
       "pr_merged": false,
       "maintainer_feedback": "NOT_OBSERVED",
-      "product_user_benefit": "NOT_MEASURED"
+      "product_user_benefit": "NOT_MEASURED",
+      "initial_publication": "SUBMITTED_DRAFT"
     },
     {
       "id": "agent-fleet-native-lease-contract",
@@ -44,7 +45,7 @@
       "github_native_evidence": "https://github.com/opensiro/upstream/actions/runs/40093167700",
       "native_ci": "SUCCESS_ALL_FIRST_PARTY_RELEASE_GATES",
       "license": "MIT",
-      "publication": "SUBMITTED_DRAFT",
+      "publication": "SUBMITTED_READY_FOR_REVIEW",
       "public_fork": "opensiro-contributions/agent-fleet",
       "fork_parent": "chankov/agent-fleet",
       "external_pr": "https://github.com/chankov/agent-fleet/pull/43",
@@ -54,10 +55,13 @@
       "external_pr_head_branch": "opensiro/fix-s2-writer-lease",
       "external_pr_head_sha": "9647f07e88384fd9360c4d98a0d2ba18f63606de",
       "published_file_count": 5,
-      "pr_draft": true,
+      "pr_draft": false,
       "pr_merged": false,
       "maintainer_feedback": "NOT_OBSERVED",
-      "product_user_benefit": "NOT_MEASURED"
+      "product_user_benefit": "NOT_MEASURED",
+      "initial_publication": "SUBMITTED_DRAFT"
     }
-  ]
+  ],
+  "readiness_decision": "2026-10-24 follow-up owner instruction: switch the same two external Draft PRs to Ready for review, not merge",
+  "readiness_scope": "Only existing external PR #366 and #43; no further repo or publication authorization"
 }
