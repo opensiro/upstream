@@ -32,6 +32,8 @@ The watcher uses Python standard library only and authenticates using the GitHub
 
 Current targets are 13 explicitly verified public external PRs for contributor `xLagerFeuer`, including Headcount #47 (missed by one GitHub search result but directly confirmed OPEN), closed-unmerged StarNet #56, and new Draft Workflow One #173. This list is a versioned scope snapshot and is **not** dynamically widened by an unreviewed search result. Adding/removing targets requires a reviewable manifest change and explicit checkpoint-migration handling. Closed/merged PRs remain in the snapshot to preserve lifecycle evidence until a deliberate archival change.
 
+**Checkpoint migration for #173:** The reviewed watcher code explicitly admits only the additive Workflow One #173 URL into an existing 12-PR checkpoint. All 12 prior snapshots remain intact; #173 starts from its first observed baseline (`NEW_TRACKED_PR`, informational only), so past comments and checks are not replayed as new maintainer requests. Its later real transitions are tracked normally. Any unapproved new target or any removed target still fails closed without inbox writes. The PR-branch live `--probe-only` check exercises this migration without modifying the bot checkpoint; first scheduled/dispatch run after merge persists the 13-PR checkpoint.
+
 `python3 scripts/pr_maintenance_watch.py --validate-only` validates the manifest without network or write operations.
 
 `python3 -m unittest discover -s tests -p test_pr_maintenance_watch.py -v` tests no-repeat notices, genuine review/CI changes, old comment suppression, callback routing and fail-closed behavior without calling GitHub.

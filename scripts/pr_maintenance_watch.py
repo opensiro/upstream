@@ -30,6 +30,9 @@ REPO = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
 MAX_PAGES = 10
 FAILURES = {"failure", "timed_out", "action_required", "cancelled"}
 BOT_SUFFIX = "[bot]"
+# Explicit additive migration accepted in the reviewed Corrective watchlist update.
+# Other additions and any removal still require a separate reviewed migration.
+APPROVED_CHECKPOINT_ADDITIONS = {"https://github.com/chumingjun/dsh-harness-one/pull/173"}
 
 
 def now():
@@ -172,7 +175,7 @@ def classify(previous, current, contributor="xLagerFeuer"):
     for url, pr in current["prs"].items():
         before = old.get(url)
         if before is None:
-            events.append((url, "NEW_TRACKED_PR", "info", url))
+            events.append((url, "NEW_TRACKED_PR", "info", url, ""))
             continue
 
         def emit(kind, level, link, fingerprint=""):
@@ -284,10 +287,13 @@ def run(api, targets_path=TARGETS, *, probe_only=False):
     current = {"schema_version": 1, "observed_at": now(), "prs": {}}
     for t in data["targets"]:
         current["prs"][t["url"]] = snapshot_one(api, t)
-    if previous is not None and set(previous["prs"]) != set(current["prs"]):
-        # Explicit watchlist edits are a separate reviewed decision. Do not lose
-        # previously tracked PRs or claim lifecycle outcomes via implicit removal.
-        raise ValueError("Watchlist changed; baseline migration required")
+    if previous is not None:
+        prior_urls = set(previous["prs"])
+        observed_urls = set(current["prs"])
+        # Preserve all existing checkpoints. Baseline only the explicitly reviewed
+        # Workflow One addition; older comments/CI on it are not replayed.
+        if prior_urls - observed_urls or not (observed_urls - prior_urls).issubset(APPROVED_CHECKPOINT_ADDITIONS):
+            raise ValueError("Watchlist changed; baseline migration required")
     events = classify(previous, current)
     notifiable = [e for e in events if e["level"] == "action_required" or
                   e["kind"] in {"MERGED", "CLOSED_UNMERGED", "APPROVED", "REOPENED"}]
