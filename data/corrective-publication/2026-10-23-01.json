@@ -26,7 +26,7 @@
     {"id": "forgedock-issue-stage-reconciliation", "publication": "QUEUED"},
     {"id": "pi-loop-worktree-publication-integrity", "publication": "SUBMITTED", "pr_url": "https://github.com/LEO001020/pi-loop-studio-orchestra/pull/1", "actor": "xLagerFeuer", "base_sha": "0a6b65c63a0eb11f2e928e773de1774b2c7d5bd7", "head_sha": "58308a41f631013b0e6783fb71886dfbd4cfedbd", "native_test_receipt": "https://github.com/opensiro/upstream/blob/main/pilots/pi-loop-studio/CONTRIBUTION_HANDOFF.md", "observed_at": "2026-10-24"},
     {"id": "openorbit-approval-boundary-validation", "publication": "QUEUED"},
-    {"id": "reef-polyp-experiment-queue-contract", "publication": "QUEUED"},
+    {"id": "reef-polyp-experiment-queue-contract", "publication": "SUBMITTED", "pr_url": "https://github.com/Coral-Bricks-AI/reef/pull/19", "actor": "xLagerFeuer", "base_sha": "33aefaa12d78891bf5ba70a0d96b070d471ecc78", "head_sha": "e7cfa18fa4c3849800328224ac87a822c9eca9ab", "native_test_receipt": "https://github.com/opensiro/upstream/blob/main/pilots/reef/CONTRIBUTION_HANDOFF.md", "observed_at": "2026-10-24", "draft": true},
     {"id": "sifra-runtime-approval-replay", "publication": "QUEUED"},
     {"id": "spartan-persistence-recovery-contract", "publication": "QUEUED"},
     {"id": "cyber-ai-team-autonomy-action-policy", "publication": "QUEUED"},

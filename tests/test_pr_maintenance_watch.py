@@ -114,13 +114,15 @@ class WatchTests(unittest.TestCase):
                                 "targets": [{"repository": "Example/project", "number": 3, "url": URL}]}))
         return p
 
-    def test_exact_manifest_has_thirteen_targets_and_no_duplicates(self):
+    def test_exact_manifest_has_fourteen_targets_and_no_duplicates(self):
         data = watch.validate_targets()
-        self.assertEqual(len(data["targets"]), 13)
-        self.assertEqual(len({t["url"] for t in data["targets"]}), 13)
+        self.assertEqual(len(data["targets"]), 14)
+        self.assertEqual(len({t["url"] for t in data["targets"]}), 14)
         self.assertIn("https://github.com/cbrock84/headcount/pull/47",
                       [t["url"] for t in data["targets"]])
         self.assertIn("https://github.com/chumingjun/dsh-harness-one/pull/173",
+                      [t["url"] for t in data["targets"]])
+        self.assertIn("https://github.com/Coral-Bricks-AI/reef/pull/19",
                       [t["url"] for t in data["targets"]])
 
     def test_reject_malformed_source_and_duplicate(self):
@@ -303,6 +305,39 @@ class WatchTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, "baseline migration required"):
                     watch.run(m, path)
                 self.assertEqual(len(m.writes), before)
+
+    def test_reef_addition_after_workflow_one_preserves_checkpoint_and_no_alert(self):
+        m = MockAPI()
+        m.external = source()
+        dsh = "https://github.com/chumingjun/dsh-harness-one/pull/173"
+        reef = "https://github.com/Coral-Bricks-AI/reef/pull/19"
+
+        def fake_snapshot(_, target):
+            item = pr()
+            item.update(url=target["url"], repository=target["repository"],
+                        number=target["number"], draft=target["url"] == reef)
+            return item
+
+        with tempfile.TemporaryDirectory() as tmp:
+            path = self.write_targets(tmp)
+            with patch.object(watch, "snapshot_one", side_effect=fake_snapshot):
+                self.assertEqual(watch.run(m, path), [])
+                targets = json.loads(path.read_text())
+                targets["targets"].append({"repository": "chumingjun/dsh-harness-one",
+                                           "number": 173, "url": dsh})
+                path.write_text(json.dumps(targets))
+                self.assertEqual([e["kind"] for e in watch.run(m, path)], ["NEW_TRACKED_PR"])
+                targets["targets"].append({"repository": "Coral-Bricks-AI/reef",
+                                           "number": 19, "url": reef})
+                path.write_text(json.dumps(targets))
+                self.assertEqual([e["kind"] for e in watch.run(m, path, probe_only=True)],
+                                 ["NEW_TRACKED_PR"])
+                self.assertEqual(len(m.writes), 2)
+                self.assertEqual([e["kind"] for e in watch.run(m, path)], ["NEW_TRACKED_PR"])
+                self.assertEqual(len(m.writes), 3)  # only checkpoint writes
+                self.assertEqual(watch.run(m, path), [])
+                self.assertEqual(len(m.writes), 3)
+                self.assertFalse(any(watch.ALERT_PREFIX in write[2]["body"] for write in m.writes))
 
     def test_actual_new_review_posts_one_alert_and_then_checkpoint(self):
         m = MockAPI()

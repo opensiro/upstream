@@ -6,6 +6,11 @@
   "source_selection": "Verified external PRs authored by xLagerFeuer, including frozen Corrective submissions and closed lifecycle cases; headcount #47 was separately confirmed after search omission",
   "targets": [
     {
+      "repository": "Coral-Bricks-AI/reef",
+      "number": 19,
+      "url": "https://github.com/Coral-Bricks-AI/reef/pull/19"
+    },
+    {
       "repository": "Gen-Verse/DiscoveryRSI",
       "number": 2,
       "url": "https://github.com/Gen-Verse/DiscoveryRSI/pull/2"

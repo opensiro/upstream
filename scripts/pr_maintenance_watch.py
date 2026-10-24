@@ -28,10 +28,13 @@ ALERT_PREFIX = "<!-- opensiro-pr-maintenance-alert-v1:"
 UA = "opensiro-pr-maintenance/1"
 REPO = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
 MAX_PAGES = 10
-# The publication ledger + target manifest review explicitly admits this one
-# additional PR to an existing bot-owned checkpoint without resetting history.
+# The publication ledger + target manifest review explicitly admits these
+# additional PRs to an existing bot-owned checkpoint without resetting history.
 # All other additions and every removal remain fail-closed migrations.
-APPROVED_CHECKPOINT_ADDITIONS = {"https://github.com/chumingjun/dsh-harness-one/pull/173"}
+APPROVED_CHECKPOINT_ADDITIONS = {
+    "https://github.com/chumingjun/dsh-harness-one/pull/173",
+    "https://github.com/Coral-Bricks-AI/reef/pull/19",
+}
 FAILURES = {"failure", "timed_out", "action_required", "cancelled"}
 BOT_SUFFIX = "[bot]"
 
@@ -336,8 +339,8 @@ def run(api, targets_path=TARGETS, *, probe_only=False):
     if previous is not None:
         prior_urls = set(previous["prs"])
         observed_urls = set(current["prs"])
-        # Only the reviewed Workflow One addition is authorized. Preserve all
-        # existing checkpoints and baseline the new PR without replaying its
+        # Only reviewed additive PR identities are authorized. Preserve all
+        # existing checkpoints and baseline new PRs without replaying their
         # old reviews/comments as newly actionable events.
         if prior_urls - observed_urls or not (observed_urls - prior_urls).issubset(APPROVED_CHECKPOINT_ADDITIONS):
             raise ValueError("Watchlist changed; baseline migration required")
