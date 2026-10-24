@@ -1,8 +1,8 @@
 # BabyAI — reject non-positive native training and validation counts
 
-**Stage:** `SUBMITTED_DRAFT` on 2026-10-24. [Upstream Draft PR #128](https://github.com/mila-iqia/babyai/pull/128) from `xLagerFeuer` using the public `opensiro-contributions/babyai` fork; no environment episode or agent execution.
+**Stage:** `SUBMITTED_READY_FOR_REVIEW` on 2026-10-24. [Upstream PR #128](https://github.com/mila-iqia/babyai/pull/128) from `xLagerFeuer` using the public `opensiro-contributions/babyai` fork; no environment episode or agent execution.
 
-- **External publication readback:** base `65fb0cb6f816532a65014bf034a758244e2d5ae7`, head `ee9746d9ac7010126cbfedac5de174ee65d87b51`, exactly two files changed; OPEN / Draft, no upstream merge claimed.
+- **External publication readback:** base `65fb0cb6f816532a65014bf034a758244e2d5ae7`, head `ee9746d9ac7010126cbfedac5de174ee65d87b51`, exactly two files changed; OPEN / Ready for review, no upstream merge claimed.
 
 - **Frozen source:** `mila-iqia/babyai@65fb0cb6f816532a65014bf034a758244e2d5ae7` (BSD-3-Clause license), included `S1=A` Index SHA `396a54bb690f8ec7ce966bf9b00b241b30036307`.
 - **Origin:** `ASSESSMENT_INFORMED`. The Index identifies task/evaluation infrastructure, and the exact script argument deficit was found in `babyai/arguments.py`, a separate deterministic input boundary from the model/environment evaluation in `babyai/evaluate.py`.

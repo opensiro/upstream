@@ -1,8 +1,8 @@
 # Reef / Polyp — archive replay can falsely report an unpushed commit as published
 
-**Stage:** `SUBMITTED_DRAFT` on 2026-10-24. [Upstream Draft PR #19](https://github.com/Coral-Bricks-AI/reef/pull/19), authored by `xLagerFeuer` using the public `opensiro-contributions/reef` fork. The original preparation/fixture experiment below had no network Git, database or model/agent run.
+**Stage:** `SUBMITTED_READY_FOR_REVIEW` on 2026-10-24. [Upstream PR #19](https://github.com/Coral-Bricks-AI/reef/pull/19), authored by `xLagerFeuer` using the public `opensiro-contributions/reef` fork. The original preparation/fixture experiment below had no network Git, database or model/agent run.
 
-- **External publication readback:** base `33aefaa12d78891bf5ba70a0d96b070d471ecc78`, head `e7cfa18fa4c3849800328224ac87a822c9eca9ab`, two changed files, **OPEN / Draft**, no upstream merge claimed.
+- **External publication readback:** base `33aefaa12d78891bf5ba70a0d96b070d471ecc78`, head `e7cfa18fa4c3849800328224ac87a822c9eca9ab`, two changed files, **OPEN / Ready for review**, no upstream merge claimed.
 
 - **Frozen source:** `Coral-Bricks-AI/reef@33aefaa12d78891bf5ba70a0d96b070d471ecc78` (Apache-2.0), included `S1=A` Index `396a54bb690f8ec7ce966bf9b00b241b30036307`.
 - **Origin:** `ASSESSMENT_INFORMED`. The assessment places Polyp experiment-state, queue and archive protocol in the first-party boundary. This defect comes from direct source inspection of `polyp/queue/cbq.py::git_commit_push`, not from a model experiment.

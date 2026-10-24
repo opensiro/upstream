@@ -76,6 +76,19 @@ class CorrectiveMandateTests(unittest.TestCase):
         monitored = {target["url"] for target in manifest["targets"]}
         self.assertTrue(observed.issubset(monitored))
 
+    def test_review_ready_publication_receipts_are_not_drafts(self):
+        ready_ids = {
+            "dsh-harness-one-workflow-state",
+            "reef-polyp-experiment-queue-contract",
+            "spartan-persistence-recovery-contract",
+            "besser-state-transition-validation",
+            "babyai-task-evaluation-input-contract",
+        }
+        selected = {row["id"]: row for row in self.data["cases"] if row["id"] in ready_ids}
+        self.assertEqual(set(selected), ready_ids)
+        self.assertTrue(all(row["publication"] == "SUBMITTED" and row["draft"] is False
+                            for row in selected.values()))
+
     def test_missing_watched_pr_fails_closed_even_if_ledger_is_valid(self):
         manifest = json.loads(queue.WATCHLIST.read_text(encoding="utf-8"))
         manifest["targets"] = [t for t in manifest["targets"]

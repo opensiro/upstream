@@ -1,8 +1,8 @@
 # Spartan — first Soul archive entry silently skipped on backfill
 
-**Stage:** `SUBMITTED_DRAFT` on 2026-10-24. [Upstream Draft PR #1](https://github.com/CorticalComputer/Spartan/pull/1), authored by `xLagerFeuer` through the public `opensiro-contributions/Spartan` fork. The original regression experiment below was executed offline.
+**Stage:** `SUBMITTED_READY_FOR_REVIEW` on 2026-10-24. [Upstream PR #1](https://github.com/CorticalComputer/Spartan/pull/1), authored by `xLagerFeuer` through the public `opensiro-contributions/Spartan` fork. The original regression experiment below was executed offline.
 
-- **External publication readback:** base `8f7b36a2326c0157a82040f8e04b474f4899c3da`, head `fe55061799561107d3eeffa330cafa0b954e2f4f`, exactly two changed files; OPEN / Draft, no upstream merge claimed.
+- **External publication readback:** base `8f7b36a2326c0157a82040f8e04b474f4899c3da`, head `fe55061799561107d3eeffa330cafa0b954e2f4f`, exactly two changed files; OPEN / Ready for review, no upstream merge claimed.
 
 - **Frozen source:** `CorticalComputer/Spartan@8f7b36a2326c0157a82040f8e04b474f4899c3da` (Apache-2.0), included `S1=A` Index `396a54bb690f8ec7ce966bf9b00b241b30036307`.
 - **Origin:** `ASSESSMENT_INFORMED`; the Index covers persistent Soul/LTM backfill, but the specific delimiter problem was found by inspecting first-party `ltm.py::_parse_existing_soul_file`.
