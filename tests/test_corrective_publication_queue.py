@@ -34,11 +34,18 @@ class CorrectiveMandateTests(unittest.TestCase):
 
     def test_blocked_case_moves_to_next_with_source_history_unchanged(self):
         ledger = copy.deepcopy(self.data)
-        first_queued = next(row for row in ledger["cases"] if row["publication"] == "QUEUED")
+        # The real finite ledger may be exhausted. Create a two-item queue in
+        # memory so the transition remains independently testable thereafter.
+        first_queued, second_queued = [
+            row for row in ledger["cases"] if row["publication"] == "BLOCKED"
+        ][:2]
+        for row in (first_queued, second_queued):
+            row["publication"] = "QUEUED"
+            row.pop("reason", None)
+        self.assertEqual(queue.report(ledger)["next_candidate"], first_queued["id"])
         first_queued["publication"] = "BLOCKED"
         first_queued["reason"] = "The current upstream source already fixed the defect."
-        self.assertEqual(queue.report(ledger)["next_candidate"], next(
-            (row["id"] for row in ledger["cases"] if row["publication"] == "QUEUED"), None))
+        self.assertEqual(queue.report(ledger)["next_candidate"], second_queued["id"])
 
     def test_reject_out_of_scope_reordering_and_unsupported_stage(self):
         transforms = (
