@@ -11,6 +11,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 LEDGER = ROOT / "data/corrective-publication/2026-10-23-01.json"
+WATCHLIST = ROOT / "data/pr-maintenance/targets.json"
 SOURCE_BATCHES = (
     *[f"data/assessment-candidate-batches/2026-10-22-{n:02d}.json" for n in range(1, 8)],
     *[f"data/assessment-candidate-batches/2026-10-23-{n:02d}.json" for n in range(8, 11)],
@@ -110,8 +111,40 @@ def validate(ledger):
     return ledger
 
 
+def validate_monitored_submissions(ledger, watchlist_path=WATCHLIST):
+    """Fail closed if a published Corrective PR is absent from the hourly watcher."""
+    validate(ledger)
+    try:
+        watchlist = json.loads(Path(watchlist_path).read_text(encoding="utf-8"))
+    except (OSError, ValueError) as exc:
+        raise QueueError("Cannot verify external PR maintenance watchlist") from exc
+    if (not isinstance(watchlist, dict) or watchlist.get("schema_version") != 1
+            or watchlist.get("watchlist_mode") != "explicit_snapshot"
+            or not isinstance(watchlist.get("targets"), list)):
+        raise QueueError("Unexpected maintenance watchlist schema")
+    watched = set()
+    for target in watchlist["targets"]:
+        if not isinstance(target, dict):
+            raise QueueError("Malformed maintenance target")
+        repo, number, url = (target.get(k) for k in ("repository", "number", "url"))
+        if (not isinstance(repo, str) or not isinstance(number, int)
+                or isinstance(number, bool) or number <= 0
+                or url != f"https://github.com/{repo}/pull/{number}"):
+            raise QueueError("Malformed maintenance target identity")
+        if url in watched:
+            raise QueueError(f"Duplicate maintenance target: {url}")
+        watched.add(url)
+    missing = sorted(case["pr_url"] for case in ledger["cases"]
+                     if case["publication"] in {"SUBMITTED", "MERGED"}
+                     and case["pr_url"] not in watched)
+    if missing:
+        raise QueueError("Published Corrective PR missing from hourly maintenance: " + ", ".join(missing))
+    return True
+
+
 def report(ledger):
     validate(ledger)
+    validate_monitored_submissions(ledger)
     counts = Counter(x["publication"] for x in ledger["cases"])
     item = next((x["id"] for x in ledger["cases"] if x["publication"] == "QUEUED"), None)
     return {
