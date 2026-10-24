@@ -121,6 +121,10 @@ def snapshot_one(api, target):
         raise ValueError("PR source identity mismatch")
     if pr.get("state") not in ("open", "closed") or type(pr.get("draft")) is not bool:
         raise ValueError("Missing/unknown PR lifecycle")
+    if pr.get("mergeable") is not None and type(pr["mergeable"]) is not bool:
+        raise ValueError("Unexpected PR mergeability")
+    if pr.get("mergeable_state") is not None and not isinstance(pr["mergeable_state"], str):
+        raise ValueError("Unexpected PR mergeability state")
     if pr.get("head", {}).get("sha") is None or pr.get("base", {}).get("sha") is None:
         raise ValueError("Incomplete GitHub PR refs")
     head = pr["head"]["sha"]
@@ -147,6 +151,7 @@ def snapshot_one(api, target):
         "url": target["url"], "repository": repo, "number": num,
         "state": pr["state"], "draft": pr["draft"],
         "merged_at": pr.get("merged_at"), "head": head, "base": pr["base"]["sha"],
+        "mergeable": pr.get("mergeable"), "mergeable_state": pr.get("mergeable_state"),
         "updated_at": pr.get("updated_at"),
         "comments": sorted([compact_comment(c) for c in comments], key=lambda c: c["id"]),
         "reviews": sorted([compact_review(v) for v in reviews], key=lambda v: v["id"]),
@@ -161,6 +166,24 @@ def snapshot_one(api, target):
 
 def human(name, contributor="xLagerFeuer"):
     return isinstance(name, str) and name.lower() != contributor.lower() and not name.endswith(BOT_SUFFIX)
+
+
+def confirmed_conflict(pr):
+    # REST mergeable=null means GitHub is still computing; "blocked" may reflect
+    # checks/policy rather than a source conflict. Only confirmed dirty is actionable.
+    return (pr.get("state") == "open" and pr.get("mergeable") is False
+            and pr.get("mergeable_state") == "dirty")
+
+
+def conflict_observation(pr):
+    """True/False for a settled GitHub result, None while still unknown."""
+    if pr.get("mergeable") is None:
+        return None
+    if pr.get("mergeable") is True:
+        return False
+    if pr.get("mergeable_state") in {"dirty", "blocked", "behind", "clean", "unstable", "has_hooks"}:
+        return confirmed_conflict(pr)
+    return None
 
 
 def classify(previous, current, contributor="xLagerFeuer"):
@@ -190,6 +213,11 @@ def classify(previous, current, contributor="xLagerFeuer"):
             emit("HEAD_UPDATED", "info", url)
         if before.get("base") != pr["base"]:
             emit("BASE_UPDATED", "info", url)
+        # v1 checkpoints before mergeability was added contain neither key.
+        # Do not relabel preexisting conflicts as new when deploying this change.
+        prior_conflict = before.get("last_confirmed_conflict", conflict_observation(before))
+        if prior_conflict is False and confirmed_conflict(pr):
+            emit("MERGE_CONFLICT", "action_required", url, f"{pr['head']}:{pr['base']}")
 
         for field, kind, edited_kind in (("comments", "NEW_MAINTAINER_COMMENT", "EDITED_MAINTAINER_COMMENT"),
                                          ("inline", "NEW_REVIEW_COMMENT", "EDITED_REVIEW_COMMENT")):
@@ -292,7 +320,15 @@ def run(api, targets_path=TARGETS, *, probe_only=False):
     checkpoint_id, previous, posted = inbox_state(api)
     current = {"schema_version": 1, "observed_at": now(), "prs": {}}
     for t in data["targets"]:
-        current["prs"][t["url"]] = snapshot_one(api, t)
+        source = snapshot_one(api, t)
+        previous_pr = previous.get("prs", {}).get(t["url"]) if previous else None
+        observed_conflict = conflict_observation(source)
+        if observed_conflict is None and previous_pr is not None:
+            observed_conflict = previous_pr.get("last_confirmed_conflict", conflict_observation(previous_pr))
+        # Keep the last *settled* state across GitHub's transient null/unknown
+        # mergeability responses. Observed API fields remain unmodified.
+        source["last_confirmed_conflict"] = observed_conflict
+        current["prs"][t["url"]] = source
     if previous is not None and set(previous["prs"]) != set(current["prs"]):
         # Explicit watchlist edits are a separate reviewed decision. Do not lose
         # previously tracked PRs or claim lifecycle outcomes via implicit removal.
