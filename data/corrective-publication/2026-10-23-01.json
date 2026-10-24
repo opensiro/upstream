@@ -6,7 +6,7 @@
   "mandate_doc": "docs/CORRECTIVE_PR_PUBLICATION.md",
   "issued_at": "2026-10-23",
   "authorized_count": 34,
-  "scope": "Exact native-tested Corrective AWAITING_EXTERNAL cases from batches 01–10 only; external Draft PR creation in public opensiro-contributions direct forks, subject to verified actor and upstream gates; no external merge.",
+  "scope": "Exact native-tested Corrective AWAITING_EXTERNAL cases from batches 01–10 only; external Ready-for-review PRs for fully gated fixes, or Draft when genuinely blocked, in public opensiro-contributions direct forks; verified actor and upstream gates required; no external merge. 2026-10-24 owner correction supersedes Draft-only publication state.",
   "cases": [
     {"id": "oblivion-agent-tool-loop", "publication": "SUBMITTED", "pr_url": "https://github.com/Rohith-s-hub/Oblivion-agent/pull/1", "actor": "xLagerFeuer", "base_sha": "7c57fd23ddd9abb5a2795788364f5dcdf3ec87cb", "head_sha": "1967f1df19f80cd34d4a4b70756ae1589e075c8c", "native_test_receipt": "https://github.com/opensiro/upstream/blob/main/pilots/oblivion-batch-edit/CONTRIBUTION_HANDOFF.md", "observed_at": "2026-10-24"},
     {"id": "raven-stale-edit-ledger", "publication": "QUEUED"},
@@ -39,7 +39,7 @@
     {"id": "besser-state-transition-validation", "publication": "SUBMITTED", "pr_url": "https://github.com/BESSER-PEARL/BESSER-Agentic-Framework/pull/205", "actor": "xLagerFeuer", "base_sha": "548fc529c20da7f4342f2f60f847418f149e9340", "head_sha": "0f97ff5f1374381f1554be48eb33d339a282c8e0", "native_test_receipt": "https://github.com/opensiro/upstream/blob/main/pilots/besser/CONTRIBUTION_HANDOFF.md", "observed_at": "2026-10-24", "draft": false},
     {"id": "babyai-task-evaluation-input-contract", "publication": "SUBMITTED", "pr_url": "https://github.com/mila-iqia/babyai/pull/128", "actor": "xLagerFeuer", "base_sha": "65fb0cb6f816532a65014bf034a758244e2d5ae7", "head_sha": "ee9746d9ac7010126cbfedac5de174ee65d87b51", "native_test_receipt": "https://github.com/opensiro/upstream/blob/main/pilots/babyai/CONTRIBUTION_HANDOFF.md", "observed_at": "2026-10-24", "draft": false},
     {"id": "henrik-agent-harness-workboard-claim-guards", "publication": "QUEUED"},
-    {"id": "phoenix-agent-harness-budget-admission", "publication": "QUEUED"},
+    {"id": "phoenix-agent-harness-budget-admission", "publication": "SUBMITTED", "pr_url": "https://github.com/Phoenixrr2113/agent-harness/pull/1", "actor": "xLagerFeuer", "base_sha": "0f67103affd30a3c778874b890dbd5801cdbd94f", "head_sha": "bc9b2b3f1f051bc6fe64ace767eb071faeacf2bd", "native_test_receipt": "https://github.com/opensiro/upstream/blob/corrective/reef-19-register-watch/pilots/phoenix-agent-harness/CONTRIBUTION_HANDOFF.md", "observed_at": "2026-10-24", "draft": false},
     {"id": "harness2-library-persistence-contract", "publication": "QUEUED"},
     {"id": "revka-workflow-validation-contract", "publication": "QUEUED"}
   ]

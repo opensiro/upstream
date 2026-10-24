@@ -37,6 +37,7 @@ APPROVED_CHECKPOINT_ADDITIONS = {
     "https://github.com/CorticalComputer/Spartan/pull/1",
     "https://github.com/BESSER-PEARL/BESSER-Agentic-Framework/pull/205",
     "https://github.com/mila-iqia/babyai/pull/128",
+    "https://github.com/Phoenixrr2113/agent-harness/pull/1",
 }
 FAILURES = {"failure", "timed_out", "action_required", "cancelled"}
 BOT_SUFFIX = "[bot]"

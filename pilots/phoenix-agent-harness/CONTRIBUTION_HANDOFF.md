@@ -1,6 +1,6 @@
 # Phoenix Agent Harness — preserve day-rate events for the full day window
 
-**Status:** bounded, native source-only technical packet, `ASSESSMENT_INFORMED` / `AWAITING_EXTERNAL`. No external fork, issue, PR, provider or agent execution. External publication remains human-owned.
+**Status:** `ASSESSMENT_INFORMED` / `SUBMITTED_READY_FOR_REVIEW`. Public upstream [Phoenix Agent Harness #1](https://github.com/Phoenixrr2113/agent-harness/pull/1) is **OPEN, `draft: false`**, authored by authenticated `xLagerFeuer` under the finite owner mandate. External review and merge are not implied.
 
 ## First-party evidence
 
@@ -24,7 +24,7 @@ node --experimental-strip-types tests/rate-day-window-native.test.mjs
 | Hour window ignores older-than-hour history | PASS | PASS |
 | Day window discards events older than 24h | PASS | PASS |
 
-**Result: 2 PASS / 2 FAIL → 4 PASS / 0 FAIL.** `git apply --reverse --check` on the patched source: PASS. The external repository's dependency-heavy Vitest suite was not executed and is not claimed to pass.
+**Result: 2 PASS / 2 FAIL → 4 PASS / 0 FAIL.** `git apply --reverse --check` on the patched source: PASS. At live publication, two matching regression cases were also added to the existing upstream Vitest suite: `npm exec -- vitest run tests/rate-limiter.test.ts` **14/14 PASS**; `npm run lint` **PASS** (Node 24.22.1, dependencies installed with `npm ci --ignore-scripts`). The standalone `.mjs` reproduction file was local test evidence and **was not included in the external PR**; the actual external changed files are `src/runtime/rate-limiter.ts` and `tests/rate-limiter.test.ts`. Full suite not run.
 
 ## Scoped correction
 
@@ -33,6 +33,13 @@ node --experimental-strip-types tests/rate-day-window-native.test.mjs
 - The retention horizon in `recordEvent()` is corrected from one hour to the longest first-party supported window, 24 hours. Minute/hour checks continue to filter by their own windows; unrelated provider and agent code is unchanged.
 - GitHub PR search for a matching retention fix found no exact candidate in the inspected results; this is not a guarantee of no overlap. Confirm against current upstream before publication.
 
-## Pending handoff
+## External PR publication and next action
 
-Only an authorized human/fork owner may ask for assignment if required, run full upstream CI with installed dependencies and publish the patch. Current work completes the bounded technical step but does not count as external contribution or proof of LLM safety.
+- **Upstream:** [Phoenixrr2113/agent-harness #1](https://github.com/Phoenixrr2113/agent-harness/pull/1); `state: open`, `draft: false`, actor `xLagerFeuer`, observed 2026-10-24.
+- **Direct public fork:** `opensiro-contributions/agent-harness`, branch `opensiro/fix/day-rate-retention`; verified parent `Phoenixrr2113/agent-harness`.
+- **Base SHA:** `0f67103affd30a3c778874b890dbd5801cdbd94f`. **Head SHA:** `bc9b2b3f1f051bc6fe64ace767eb071faeacf2bd`.
+- **Exact diff:** two files (runtime source and existing Vitest suite); no unrelated files, secrets, agents or providers.
+- **Native checks:** 4/4 isolated after fix, 14/14 scoped upstream Vitest, TypeScript lint PASS. GitGuardian security check had passed on the first external PR readback; broader upstream CI, acceptance and merge are pending.
+- **Maintenance:** exact PR URL is registered in the finite publication ledger and hourly review target list, with additive checkpoint migration.
+
+No further mutation to the external PR is needed until first-party CI or a maintainer requests changes within the bounded scope. The next publication candidate may proceed without waiting for merge.
