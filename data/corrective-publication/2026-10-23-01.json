@@ -20,7 +20,14 @@
       "head_sha": "1967f1df19f80cd34d4a4b70756ae1589e075c8c",
       "native_test_receipt": "2026-10-23: real Oblivion-agent@7c57fd2 RED (first file mutates when second old_text invalid), fork HEAD 1967f1d GREEN (no partial mutation); valid sequential same-path + independent-file controls PASS; py_compile and git diff --check PASS; model-free pilots/oblivion-batch-edit/scripted_atomicity_replay.py.",
       "ci_observation": "2026-10-23 GitHub commit status readback: 0 contexts; aggregate pending; do not claim CI passed.",
-      "publication_readback": "2026-10-23: GET /repos/Rohith-s-hub/Oblivion-agent/pulls/1 returned state=open, draft=true, one changed file, verified head/base SHA."
+      "publication_readback": "2026-10-23: GET /repos/Rohith-s-hub/Oblivion-agent/pulls/1 returned state=open, draft=true, one changed file, verified head/base SHA.",
+      "readiness_state": "READY_FOR_REVIEW",
+      "current_pr_state": "open",
+      "current_pr_draft": false,
+      "current_pr_merged": false,
+      "first_published_as_draft": true,
+      "readiness_readback_date": "2026-10-24",
+      "readiness_evidence": "2026-10-24 authenticated GitHub PR readback: https://github.com/Rohith-s-hub/Oblivion-agent/pull/1 state=open, draft=false, merged=false; unchanged head/base SHA. No reviewer comments and no PR-specific CI checks observed."
     },
     {
       "id": "raven-stale-edit-ledger",
@@ -44,7 +51,14 @@
       "head_sha": "23570ac446c5e84d20fd8794c9b578e8245c3a43",
       "native_test_receipt": "2026-10-23: first-party Politik@c1fa731 with regression added: node --import tsx tests/containment.test.ts baseline RED 16 PASS / 1 FAIL. Patched 17 PASS / 0 FAIL; npm run build (tsc --noEmit) PASS, git diff --check PASS. Exact diff sha256 3a68922871fe7395f2118225d1477f0ec3f4297f3f3daf88b9c4f359037eeb4b matches frozen handoff; no LLM/agent tests.",
       "ci_observation": "2026-10-23 GitHub commit statuses: 0 contexts observed; aggregate pending; no full-suite CI PASS claimed.",
-      "publication_readback": "2026-10-23 GitHub GET /repos/cordfuse/politik/pulls/33: state=open, draft=true, head_repo=opensiro-contributions/politik, 2 changed files, matched base/head SHA."
+      "publication_readback": "2026-10-23 GitHub GET /repos/cordfuse/politik/pulls/33: state=open, draft=true, head_repo=opensiro-contributions/politik, 2 changed files, matched base/head SHA.",
+      "readiness_state": "READY_FOR_REVIEW",
+      "current_pr_state": "open",
+      "current_pr_draft": false,
+      "current_pr_merged": false,
+      "first_published_as_draft": true,
+      "readiness_readback_date": "2026-10-24",
+      "readiness_evidence": "2026-10-24 authenticated GitHub PR readback: https://github.com/cordfuse/politik/pull/33 state=open, draft=false, merged=false; unchanged head/base SHA. No reviewer comments and no PR-specific CI checks observed."
     },
     {
       "id": "join-the-team-bootstrap-validation",
@@ -78,7 +92,14 @@
       "head_sha": "c0135171cb38e74a70108b6b8b6afde57e9d223e",
       "native_test_receipt": "2026-10-23 source first-party test_numeric_notation.py: baseline 1 PASS / 3 RED; patched 4 PASS / 0 FAIL. python3 -m compileall -q agent_loop tests/test_numeric_notation.py and git diff --check PASS. Exact staged diff SHA256 c95110e9a0c22f3c51b12143564b78514942aef1200898e015405931a6cea33c matched frozen patch. tests/test_agent.py includes FakeModel/mock episodes and was deliberately not run.",
       "ci_observation": "CI checks not yet established/read; no CI PASS claimed.",
-      "publication_readback": "2026-10-23 GET PR #1 returned open Draft, correct source fork, matching head/base SHA, two changed files."
+      "publication_readback": "2026-10-23 GET PR #1 returned open Draft, correct source fork, matching head/base SHA, two changed files.",
+      "readiness_state": "READY_FOR_REVIEW",
+      "current_pr_state": "open",
+      "current_pr_draft": false,
+      "current_pr_merged": false,
+      "first_published_as_draft": true,
+      "readiness_readback_date": "2026-10-24",
+      "readiness_evidence": "2026-10-24 authenticated GitHub PR readback: https://github.com/Onipounds/agent-loop/pull/1 state=open, draft=false, merged=false; unchanged head/base SHA. No reviewer comments and no PR-specific CI checks observed."
     },
     {
       "id": "agent-context-lab-default-fail-boundary",
@@ -102,7 +123,14 @@
       "head_sha": "03122c3c081fe2e386e3b6e7a250515f82b1ac15",
       "native_test_receipt": "2026-10-23 genuine DiscoveryRSI core: fixed-script unittest baseline 1 PASS/3 RED; patched 4 PASS/0 FAIL; python3 -m compileall -q src/discovery_rsi tests/test_replay_snapshot_unittest.py and git diff --check PASS. Exact staged patch SHA256 af4c299cf3cf92fc79b2a2417de361fd119c0c362c1dbe6bfc2da8145607b68c matches frozen handoff. No provider/agent tests.",
       "ci_observation": "External CI not yet claimed; native script-only tests completed.",
-      "publication_readback": "2026-10-23 GET Gen-Verse/DiscoveryRSI#2: state open, draft true, matched head/base SHA and source fork, 2 changed files."
+      "publication_readback": "2026-10-23 GET Gen-Verse/DiscoveryRSI#2: state open, draft true, matched head/base SHA and source fork, 2 changed files.",
+      "readiness_state": "READY_FOR_REVIEW",
+      "current_pr_state": "open",
+      "current_pr_draft": false,
+      "current_pr_merged": false,
+      "first_published_as_draft": true,
+      "readiness_readback_date": "2026-10-24",
+      "readiness_evidence": "2026-10-24 authenticated GitHub PR readback: https://github.com/Gen-Verse/DiscoveryRSI/pull/2 state=open, draft=false, merged=false; unchanged head/base SHA. No reviewer comments and no PR-specific CI checks observed."
     },
     {
       "id": "orch-resume-checkpoint-idempotency",
@@ -126,7 +154,14 @@
       "head_sha": "c8dfad22d368e439172293e8bcc50af486d385bb",
       "native_test_receipt": "current upstream main RED 2 pass / 2 expected failures; patched GREEN 4 pass / 0 fail; compileall and git diff --check PASS; frozen patch SHA256 4db0427bdc9c6a8ba2ea6abb9a8d0fc844711eeee607d0f2b9091e8259847b95 matched staged diff",
       "ci_observation": "Maintainer CI not claimed; first-party pytest/integration not run",
-      "publication_readback": "GitHub readback PR #11 open/draft true, merged false; head/base SHA, fork owner, two-file diff verified"
+      "publication_readback": "GitHub readback PR #11 open/draft true, merged false; head/base SHA, fork owner, two-file diff verified",
+      "readiness_state": "READY_FOR_REVIEW",
+      "current_pr_state": "open",
+      "current_pr_draft": false,
+      "current_pr_merged": false,
+      "first_published_as_draft": true,
+      "readiness_readback_date": "2026-10-24",
+      "readiness_evidence": "2026-10-24 authenticated GitHub PR readback: https://github.com/huleidada/matterloop/pull/11 state=open, draft=false, merged=false; unchanged head/base SHA. No reviewer comments and no PR-specific CI checks observed."
     },
     {
       "id": "reins-policy-decision-contract",
@@ -176,7 +211,14 @@
       "head_sha": "1445a8bf45825a8b5b8e687c236253b810e244d0",
       "native_test_receipt": "current upstream RED 2 pass / 3 fail / 1 error; GREEN 6 pass / 0 fail / 0 error; compileall/diff-check PASS; patch SHA256 1f129fac0e579bc33ab2b678325b5e1d0e6230e4887f47ae48d0a3049f3e9edc matched staged diff",
       "ci_observation": "No full benchmark/evolution/LLM tests; GitHub maintainer CI not claimed",
-      "publication_readback": "GitHub readback external PR #2 open/draft true, merged false, actor/fork/head/base exact SHA verified"
+      "publication_readback": "GitHub readback external PR #2 open/draft true, merged false, actor/fork/head/base exact SHA verified",
+      "readiness_state": "READY_FOR_REVIEW",
+      "current_pr_state": "open",
+      "current_pr_draft": false,
+      "current_pr_merged": false,
+      "first_published_as_draft": true,
+      "readiness_readback_date": "2026-10-24",
+      "readiness_evidence": "2026-10-24 authenticated GitHub PR readback: https://github.com/Gen-Verse/Recuris/pull/2 state=open, draft=false, merged=false; unchanged head/base SHA. No reviewer comments and no PR-specific CI checks observed."
     },
     {
       "id": "forgedock-issue-stage-reconciliation",
@@ -199,7 +241,14 @@
       "head_sha": "58308a41f631013b0e6783fb71886dfbd4cfedbd",
       "native_test_receipt": "current upstream RED 2 pass / 4 fail, GREEN 6 pass / 0 fail (native Node), node --check and git diff --check PASS, patch SHA256 e5fe84d5d3b549ec6de6364a89348ca86ff9fd93b7f7564501a828d2f2be261c matched staged diff",
       "ci_observation": "Not a real-task acceptance claim under first-party AGENTS.md. No Pi SDK/agent/model/browser/full integration tests run; CI not claimed.",
-      "publication_readback": "GitHub readback external PR #1 open/draft true, merged false, verified actor/fork/head/base SHA"
+      "publication_readback": "GitHub readback external PR #1 open/draft true, merged false, verified actor/fork/head/base SHA",
+      "readiness_state": "READY_FOR_REVIEW",
+      "current_pr_state": "open",
+      "current_pr_draft": false,
+      "current_pr_merged": false,
+      "first_published_as_draft": true,
+      "readiness_readback_date": "2026-10-24",
+      "readiness_evidence": "2026-10-24 authenticated GitHub PR readback: https://github.com/LEO001020/pi-loop-studio-orchestra/pull/1 state=open, draft=false, merged=false; unchanged head/base SHA. No reviewer comments and no PR-specific CI checks observed."
     },
     {
       "id": "openorbit-approval-boundary-validation",

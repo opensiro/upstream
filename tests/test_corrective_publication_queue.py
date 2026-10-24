@@ -76,6 +76,20 @@ class CorrectiveMandateTests(unittest.TestCase):
         with self.assertRaisesRegex(queue.QueueError, "exact target upstream"):
             queue.validate(ledger)
 
+    def test_seven_external_corrective_prs_ready_for_review(self):
+        submitted = [c for c in self.data['cases'] if c['publication'] == 'SUBMITTED']
+        self.assertEqual(len(submitted), 7)
+        for c in submitted:
+            with self.subTest(c['id']):
+                self.assertEqual(c['readiness_state'], 'READY_FOR_REVIEW')
+                self.assertTrue(c['first_published_as_draft'])
+                self.assertEqual(c['current_pr_state'], 'open')
+                self.assertFalse(c['current_pr_draft'])
+                self.assertFalse(c['current_pr_merged'])
+                self.assertEqual(c['readiness_readback_date'], '2026-10-24')
+                self.assertIn(c['pr_url'], c['readiness_evidence'])
+        self.assertEqual(len([c for c in self.data['cases'] if c['publication']=='BLOCKED']),27)
+
     def test_shallow_checkout_offline_blob_validation_rejects_mutation(self):
         original = queue._git_show(queue.FROZEN_SNAPSHOT_SHA, queue.SOURCE_BATCHES[0])
         self.assertTrue(original["candidates"])
