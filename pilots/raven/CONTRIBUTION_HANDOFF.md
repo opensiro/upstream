@@ -28,3 +28,17 @@ The measured change separates the next turn's step from the old late step. It do
 ## Return and remaining authority
 
 This is a local technical packet, not a published fork or Raven PR. External publication remains human-owned in Upstream #56; revisit on a distinct attributable grant, fresh maintainer response or targeted command. Before publishing, refresh main/PR overlap, recheck the two unrelated Vitest CLI-gate discrepancies in normal CI, and follow Raven's AGENTS.md rules (including its commit, branch and review gates). Generic continue skips this **AWAITING_EXTERNAL** row and selects the next eligible candidate.
+
+
+## 2026-10-25 fresh-main revalidation and policy stop
+
+Current first-party Raven `main`: `37bee1714914d260e994899ba1292e1ebd515ebb`. Original issue [#1061](https://github.com/EverMind-AI/Raven/issues/1061) remained open; no matching external fix PR was identified in the bounded search. The old packet patch no longer applied cleanly to `runtime.cancel.test.ts` due to upstream test fixture evolution, so the same narrow change and two cases were adapted to current source.
+
+- Current-main source diff: [stopped-turn-step-boundary-20261025.patch](stopped-turn-step-boundary-20261025.patch), SHA256 `38262c76af572d0ee09de71e165e5a9eed681b9e4c0468f230b9d1da1064b0df`. Only `ui-web/src/state/session/stages.ts` and `runtime.cancel.test.ts` changed. Prepared in an isolated checkout on local branch `fix/reset_stopped_turn_step_boundary`; **not committed or pushed to Raven**.
+- First-party RED: both new deterministic cases failed on genuine pre-change `main`, producing `['a1', 'a-tailb1']` instead of `['a1', 'a-tail', 'b1']`. After applying the two `reset(rt)` calls, matched GREEN **2/2 PASS**.
+- Focused native four-file Vitest: **67/67 PASS**.
+- Full `ui-web/npm test`: **254 files, 4,277/4,277 PASS**, no failures. A first restricted runner produced two false-negative CLI-gate assertions because Node child process creation returned `spawnSync EPERM` with empty output; after running the same full suite with permitted subprocess creation, both `check-css` and `check-class-namespace` passed. An additional early missing-file failure was caused by a deliberately sparse checkout that omitted `raven/acp/updates.py`, not by the product patch; the first-party `raven/` source was restored before the final full run.
+- `npm run type-check` PASS; `npm run lint` PASS with four existing React hooks warnings and zero errors; `npm run build` PASS; `git diff --check` PASS. No model, provider or agent run was performed.
+- Source policy: current [Raven AGENTS.md](https://github.com/EverMind-AI/Raven/blob/main/AGENTS.md) sections 2.2, 3.4, 3.6, 3.7 require base confirmation, an explicit contributor **commit** and **push** prompt, and PR-description preview confirmation before creation. The OpenSiro finite publication mandate does not override the downstream project policy. **Publication state: BLOCKED (project approval workflow)** pending those exact acknowledgements; no Raven external PR URL, head commit or CI is claimed. Continue the next finite queue row.
+
+This is still `ASSESSMENT_INFORMED`, not `ASSESSMENT_DERIVED`. The proven behavior is step separation across the next turn, not guaranteed discard of all late frames.
