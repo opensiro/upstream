@@ -1,6 +1,8 @@
 # Spartan — first Soul archive entry silently skipped on backfill
 
-**Stage:** `AWAITING_EXTERNAL`. Tested exact-source Python script patch; external fork, PR and maintainer delivery are **not executed**.
+**Stage:** `SUBMITTED_DRAFT` on 2026-10-24. [Upstream Draft PR #1](https://github.com/CorticalComputer/Spartan/pull/1), authored by `xLagerFeuer` through the public `opensiro-contributions/Spartan` fork. The original regression experiment below was executed offline.
+
+- **External publication readback:** base `8f7b36a2326c0157a82040f8e04b474f4899c3da`, head `fe55061799561107d3eeffa330cafa0b954e2f4f`, exactly two changed files; OPEN / Draft, no upstream merge claimed.
 
 - **Frozen source:** `CorticalComputer/Spartan@8f7b36a2326c0157a82040f8e04b474f4899c3da` (Apache-2.0), included `S1=A` Index `396a54bb690f8ec7ce966bf9b00b241b30036307`.
 - **Origin:** `ASSESSMENT_INFORMED`; the Index covers persistent Soul/LTM backfill, but the specific delimiter problem was found by inspecting first-party `ltm.py::_parse_existing_soul_file`.
@@ -20,4 +22,4 @@
 
 **Exact tested patch:** [soul-first-entry-backfill.patch](soul-first-entry-backfill.patch), SHA256 `a73d260a5a6cbcd49077f7aa2e1586d567c3d26586fa7c877750bc5d4a3d4b66`. Both patch and test are real code; no simulated LLM-agent outcome is claimed.
 
-**Limits:** This shows one backfill parser input-shape regression only. It does not establish that actual production Soul archives always begin with top-of-file frontmatter, nor assert end-to-end persistence durability or model improvement. External publication stays with the human owner; continue advances to Cyber AI Team.
+**Limits:** This shows one backfill parser input-shape regression only. It does not establish that actual production Soul archives always begin with top-of-file frontmatter, nor assert end-to-end persistence durability or model improvement. External maintainer review and merge stay with the human owner; the next candidate is Cyber AI Team.

@@ -28,7 +28,7 @@
     {"id": "openorbit-approval-boundary-validation", "publication": "QUEUED"},
     {"id": "reef-polyp-experiment-queue-contract", "publication": "SUBMITTED", "pr_url": "https://github.com/Coral-Bricks-AI/reef/pull/19", "actor": "xLagerFeuer", "base_sha": "33aefaa12d78891bf5ba70a0d96b070d471ecc78", "head_sha": "e7cfa18fa4c3849800328224ac87a822c9eca9ab", "native_test_receipt": "https://github.com/opensiro/upstream/blob/main/pilots/reef/CONTRIBUTION_HANDOFF.md", "observed_at": "2026-10-24", "draft": true},
     {"id": "sifra-runtime-approval-replay", "publication": "QUEUED"},
-    {"id": "spartan-persistence-recovery-contract", "publication": "QUEUED"},
+    {"id": "spartan-persistence-recovery-contract", "publication": "SUBMITTED", "pr_url": "https://github.com/CorticalComputer/Spartan/pull/1", "actor": "xLagerFeuer", "base_sha": "8f7b36a2326c0157a82040f8e04b474f4899c3da", "head_sha": "fe55061799561107d3eeffa330cafa0b954e2f4f", "native_test_receipt": "https://github.com/opensiro/upstream/blob/main/pilots/spartan/CONTRIBUTION_HANDOFF.md", "observed_at": "2026-10-24", "draft": true},
     {"id": "cyber-ai-team-autonomy-action-policy", "publication": "QUEUED"},
     {"id": "oniroute-validation-boundary", "publication": "QUEUED"},
     {"id": "activegraph-event-patch-invariants", "publication": "QUEUED"},

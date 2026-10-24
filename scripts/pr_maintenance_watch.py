@@ -34,6 +34,7 @@ MAX_PAGES = 10
 APPROVED_CHECKPOINT_ADDITIONS = {
     "https://github.com/chumingjun/dsh-harness-one/pull/173",
     "https://github.com/Coral-Bricks-AI/reef/pull/19",
+    "https://github.com/CorticalComputer/Spartan/pull/1",
 }
 FAILURES = {"failure", "timed_out", "action_required", "cancelled"}
 BOT_SUFFIX = "[bot]"

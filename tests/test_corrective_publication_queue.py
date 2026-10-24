@@ -25,7 +25,7 @@ class CorrectiveMandateTests(unittest.TestCase):
         board = queue.report(self.data)
         self.assertEqual(board["authorized_count"], 34)
         self.assertEqual(board["next_candidate"], "raven-stale-edit-ledger")
-        self.assertEqual(board["counts"], {"QUEUED": 25, "SUBMITTED": 9})
+        self.assertEqual(board["counts"], {"QUEUED": 24, "SUBMITTED": 10})
         self.assertEqual(board["test_mode"], "NATIVE_SCRIPT_ONLY_NO_LLM_AGENTS")
         self.assertTrue(board["no_external_writes_performed_by_this_command"])
 
@@ -68,10 +68,10 @@ class CorrectiveMandateTests(unittest.TestCase):
         with self.assertRaisesRegex(queue.QueueError, "exact target upstream"):
             queue.validate(ledger)
 
-    def test_all_nine_published_patches_are_monitored(self):
+    def test_all_ten_published_patches_are_monitored(self):
         self.assertTrue(queue.validate_monitored_submissions(self.data))
         observed = {c["pr_url"] for c in self.data["cases"] if c["publication"] == "SUBMITTED"}
-        self.assertEqual(len(observed), 9)
+        self.assertEqual(len(observed), 10)
         manifest = json.loads(queue.WATCHLIST.read_text(encoding="utf-8"))
         monitored = {target["url"] for target in manifest["targets"]}
         self.assertTrue(observed.issubset(monitored))
