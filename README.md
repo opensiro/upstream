@@ -4,6 +4,14 @@ This repository is the public **portfolio and lifecycle registry** for OpenSiro'
 
 It is **not** a monorepo of forks, a mirror of upstream code, a claim of upstream endorsement, or a new organizational control plane. Each working fork remains a separate GitHub repository.
 
+## OpenSiro ecosystem bootstrap and scope
+
+For cross-repository work, start with the [VSM OSS bootstrap](https://github.com/opensiro/vsm-oss-organization/blob/main/START_HERE.md) and [ecosystem owner map](https://github.com/opensiro/vsm-oss-organization/blob/main/docs/ECOSYSTEM.md), then return to this repository's [contribution rules](CONTRIBUTING.md), [local work](https://github.com/opensiro/upstream/issues/56), and exact owning issue/PR. The [Organization TODO](https://github.com/opensiro/vsm-oss-organization/blob/main/TODO.md) schedules only its currently bounded OSS work, **not** this repository's separate contribution queue.
+
+**Boundary:** Upstream is an **adjacent** repository, not an admitted fourth operational S1 domain of the bounded Organization. [Organization #274](https://github.com/opensiro/vsm-oss-organization/issues/274) owns that prospective S5 boundary choice. Cross-links improve navigation; they do not grant S3/S3* authority, make Organization routing policy binding here, or change external PR rights.
+
+Repository-local standards/settings alignment is tracked separately in [Upstream #130](https://github.com/opensiro/upstream/issues/130); this README link change does **not** enable branch deletion or select a license.
+
 ## Public impact dashboard
 
 **[Open the Upstream Dashboard →](DASHBOARD.md)** — readable on GitHub. It shows the eight experimental upstream interventions, separately verified external PR states, historical product-native fit (**60% of completed fit reviews** in the pinned experiment), primary evidence and distinct verification dates. For a filterable browser view see [`docs/index.html`](docs/index.html) (HTML file; GitHub Pages publishing is not enabled by these files).
