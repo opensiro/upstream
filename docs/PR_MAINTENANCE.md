@@ -1,5 +1,7 @@
 # Upstream PR Maintenance — bounded review-and-repair work cell
 
+> **Deployment vs proposal (2026-10-25):** The hourly read-only monitor is live on the current default branch with **13** targets. [PR #129](https://github.com/opensiro/upstream/pull/129) proposes an **18-target** additive update, with a migration guard; no new targets become part of the live scheduled watcher until that PR is merged and its first real checkpoint migration succeeds. A direct [18-URL GitHub readback](../reports/2026-10-25-upstream-operational-readiness.md) is a dated observation, **not** proof that the scheduled watcher already covers 18 or that an agent autonomously closes maintainer feedback.
+
 **Owning issue:** [opensiro/upstream #125](https://github.com/opensiro/upstream/issues/125). Related empirical upstream improvement [#56](https://github.com/opensiro/upstream/issues/56).
 
 **Current organizational boundary:** This is an **adjacent Upstream-local S1-like operating pilot**, **NOT** a fourth operational S1 admitted into the bounded OpenSiro VSM OSS organization. Admission remains proposed at [Organization #274](https://github.com/opensiro/vsm-oss-organization/issues/274) and requires its own attributable S5 decision, contract update, and evidence. A cron job, a GitHub App, or a bot is not itself an S1 or an autonomy-grade assertion.
