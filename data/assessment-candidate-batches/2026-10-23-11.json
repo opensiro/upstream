@@ -31,8 +31,16 @@
       "handoff_url": "https://github.com/opensiro/upstream/pull/118",
       "external_action": "NOT_EXECUTED",
       "product_benefit": "BOUNDED_NATIVE_CORRECTNESS_ONLY",
-      "experiment_cycle": "INCOMPLETE_NO_EXTERNAL_ACCEPTANCE",
-      "observed_native_change": "two conflicting first-party S2 claims: 2 admitted before / one overlap blocked after"
+      "experiment_cycle": "INCOMPLETE_STRICT_CAUSAL_CHAIN",
+      "observed_native_change": "two conflicting first-party S2 claims: 2 admitted before / one overlap blocked after",
+      "separate_publication": {
+        "ledger": "https://github.com/opensiro/upstream/blob/main/data/improvement-publication/2026-10-24-01.json",
+        "external_pr": "https://github.com/SethGammon/Citadel/pull/366",
+        "outcome": "MERGED_UPSTREAM",
+        "merged_at": "2026-10-25T21:26:14Z",
+        "merge_commit_sha": "45727eb8f54d616686e51f049e7b11035af35e96",
+        "verified_at": "2026-10-26"
+      }
     },
     {
       "id": "agent-fleet-native-lease-contract",
@@ -58,8 +66,16 @@
       "handoff_url": "https://github.com/opensiro/upstream/pull/119",
       "external_action": "NOT_EXECUTED",
       "product_benefit": "BOUNDED_NATIVE_CORRECTNESS_ONLY",
-      "experiment_cycle": "INCOMPLETE_NO_EXTERNAL_ACCEPTANCE",
-      "observed_native_change": "concurrent stale-owner recovery: 2 leases acquired before / one LEASE_HELD after"
+      "experiment_cycle": "INCOMPLETE_STRICT_CAUSAL_CHAIN",
+      "observed_native_change": "concurrent stale-owner recovery: 2 leases acquired before / one LEASE_HELD after",
+      "separate_publication": {
+        "ledger": "https://github.com/opensiro/upstream/blob/main/data/improvement-publication/2026-10-24-01.json",
+        "external_pr": "https://github.com/chankov/agent-fleet/pull/43",
+        "outcome": "MERGED_UPSTREAM",
+        "merged_at": "2026-10-24T20:47:51Z",
+        "merge_commit_sha": "212bbf6e2f26addb24c448070f8c8ac404da376e",
+        "verified_at": "2026-10-26"
+      }
     },
     {
       "id": "evidence-bench-native-evidence-admission",
