@@ -151,6 +151,34 @@ class BatchTests(unittest.TestCase):
         self.assertEqual(eleventh["test_mode"], "NATIVE_SCRIPT_ONLY_NO_LLM_AGENTS")
         self.assertFalse(all_previous.intersection({r["source"] for r in self.eleventh["candidates"]}))
 
+    def test_batch11_later_merges_do_not_rewrite_historical_screening(self):
+        expected = {
+            "citadel-native-claim-exclusivity": (
+                "https://github.com/SethGammon/Citadel/pull/366",
+                "45727eb8f54d616686e51f049e7b11035af35e96",
+            ),
+            "agent-fleet-native-lease-contract": (
+                "https://github.com/chankov/agent-fleet/pull/43",
+                "212bbf6e2f26addb24c448070f8c8ac404da376e",
+            ),
+        }
+        by_id = {row["id"]: row for row in self.eleventh["candidates"]}
+        for candidate_id, (url, merge_sha) in expected.items():
+            with self.subTest(candidate=candidate_id):
+                row = by_id[candidate_id]
+                self.assertEqual(row["stage"], "AWAITING_EXTERNAL")
+                self.assertEqual(row["external_action"], "NOT_EXECUTED")
+                self.assertEqual(row["experiment_cycle"], "INCOMPLETE_STRICT_CAUSAL_CHAIN")
+                self.assertEqual(row["separate_publication"]["external_pr"], url)
+                self.assertEqual(row["separate_publication"]["outcome"], "MERGED_UPSTREAM")
+                self.assertEqual(row["separate_publication"]["merge_commit_sha"], merge_sha)
+        for candidate_id in (
+            "evidence-bench-native-evidence-admission",
+            "fara-native-checkpoint-integrity",
+            "herd-native-quest-ownership",
+        ):
+            self.assertNotIn("separate_publication", by_id[candidate_id])
+
     def test_batch11_reopened_screening_is_selected_without_external_writes(self):
         data = copy.deepcopy(self.eleventh)
         row = data["candidates"][1]
