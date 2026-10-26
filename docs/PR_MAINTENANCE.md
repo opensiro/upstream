@@ -4,7 +4,7 @@
 
 **Owning issue:** [opensiro/upstream #125](https://github.com/opensiro/upstream/issues/125). Related empirical upstream improvement [#56](https://github.com/opensiro/upstream/issues/56).
 
-**Current organizational boundary:** This is an **adjacent Upstream-local S1-like operating pilot**, **NOT** a fourth operational S1 admitted into the bounded OpenSiro VSM OSS organization. Admission remains proposed at [Organization #274](https://github.com/opensiro/vsm-oss-organization/issues/274) and requires its own attributable S5 decision, contract update, and evidence. A cron job, a GitHub App, or a bot is not itself an S1 or an autonomy-grade assertion.
+**Current organizational boundary (2026-10-26):** Upstream Contributions is the **fourth admitted operational S1 domain** of the bounded OpenSiro VSM OSS organization after the applied [Organization #274](https://github.com/opensiro/vsm-oss-organization/issues/274) S5 decision and [application #292](https://github.com/opensiro/vsm-oss-organization/pull/292). This PR Maintenance workflow is still a **read-only detector/inbox** inside that domain; the distinct #274 operational witness remains pending. A cron job, GitHub App, or bot is not by itself evidence of an S1 decision owner or an autonomy grade.
 
 ## Operational purpose and decisions
 

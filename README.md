@@ -8,7 +8,7 @@ It is **not** a monorepo of forks, a mirror of upstream code, a claim of upstrea
 
 For cross-repository work, start with the [VSM OSS bootstrap](https://github.com/opensiro/vsm-oss-organization/blob/main/START_HERE.md), [Organization contributor intake](https://github.com/opensiro/vsm-oss-organization/blob/main/CONTRIBUTOR_START.md), and [ecosystem owner map](https://github.com/opensiro/vsm-oss-organization/blob/main/docs/ECOSYSTEM.md), then return to this repository's [contribution rules](CONTRIBUTING.md), [local work](https://github.com/opensiro/upstream/issues/56), and exact owning issue/PR. The [Organization TODO](https://github.com/opensiro/vsm-oss-organization/blob/main/TODO.md) selects only explicitly scheduled, already tracked work; it does **not** overwrite this repository's separate contribution queue.
 
-**Boundary application:** the legitimate Organization S5 parent selected **`ADMIT_WITH_ENVELOPE`** for Upstream Contributions as the fourth operational S1 domain in [#274](https://github.com/opensiro/vsm-oss-organization/issues/274#issuecomment-6420871211). This parent choice becomes the applied six-repository boundary only after the Organization application PR, normal checks/integration and exact default-branch readback. Upstream still owns its contribution portfolio, activity/maintenance outcomes and source policy; cross-links do **not** grant external publication/merge, S3/S3* authority or autonomy grades.
+**Applied boundary (2026-10-26):** the legitimate Organization S5 parent selected **`ADMIT_WITH_ENVELOPE`** for Upstream Contributions in [#274](https://github.com/opensiro/vsm-oss-organization/issues/274#issuecomment-6420871211). [Organization application PR #292](https://github.com/opensiro/vsm-oss-organization/pull/292) and [S5 return PR #294](https://github.com/opensiro/vsm-oss-organization/pull/294) merged, and the owning default-branch scope now contains **four operational S1 domains / six repositories**. The bounded S1 operational witness remains pending under #274. Upstream owns its contribution portfolio and maintenance outcomes; domain membership does **not** grant third-party publication/merge rights, S3/S3* authority, or autonomy grades.
 
 Repository-local standards/settings alignment is tracked separately in [Upstream #130](https://github.com/opensiro/upstream/issues/130); this README link change does **not** enable branch deletion or select a license.
 
@@ -98,8 +98,8 @@ without creating any fork or PR.
 
 This assessment-to-contribution test is **distinct** from generic OSS discovery,
 this repository's existing portfolio and normal contributor-selected upstream
-issues. It neither admits a fourth Organization S1 domain nor activates
-P1/connected writes or external PR publication.
+issues. This test does **not** decide Organization S1 membership (already
+applied under #274) or activate P1/connected writes or external PR publication.
 
 For a **single read-only assessment-linked proposal and test-file plan**,
 [`scripts/assessment_driven_handoff.py`](scripts/assessment_driven_handoff.py)
@@ -132,7 +132,7 @@ authorization. See [the proposal schema and limitations](docs/BATCH_PROPOSALS.md
 
 ## OSM autonomy-transfer design (prospective)
 
-[OSM delegation design](docs/OSM_DELEGATION_DESIGN.md) maps the proposed progression from agent-owned local preparation to a complete **unpublished** contribution package, while external PR publication remains a separate human right. It is a design for **future attributable delegation**, not an effective mandate, a new S1 domain, or a bypass of the current exact-stage execution gate. [Organization #274](https://github.com/opensiro/vsm-oss-organization/issues/274) still owns the reserved boundary decision.
+[OSM delegation design](docs/OSM_DELEGATION_DESIGN.md) maps the proposed progression from agent-owned local preparation to a complete **unpublished** contribution package, while external PR publication remains a separate human right. It is a design for **future attributable delegation**, not an effective write mandate, autonomy-grade claim, or bypass of the current exact-stage execution gate. [Organization #274](https://github.com/opensiro/vsm-oss-organization/issues/274) has applied S1 membership; any future authority transfer requires its own effective decision and implementation.
 
 ## Control Plane preparation handoff (read-only)
 
