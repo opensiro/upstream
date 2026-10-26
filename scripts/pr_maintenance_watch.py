@@ -39,7 +39,12 @@ APPROVED_CHECKPOINT_ADDITIONS = {
     "https://github.com/mila-iqia/babyai/pull/128",
     "https://github.com/Phoenixrr2113/agent-harness/pull/1",
 }
-FAILURES = {"failure", "timed_out", "action_required", "cancelled"}
+CHECK_CONCLUSIONS = {
+    "failure": ("CI_FAILED", "action_required"),
+    "timed_out": ("CI_TIMED_OUT", "action_required"),
+    "action_required": ("CI_ACTION_REQUIRED", "action_required"),
+    "cancelled": ("CI_CANCELLED", "info"),
+}
 BOT_SUFFIX = "[bot]"
 
 
@@ -263,8 +268,10 @@ def classify(previous, current, contributor="xLagerFeuer"):
         old_checks = {(x["id"], x.get("conclusion")) for x in before.get("checks", [])}
         # Check results can change on same head without a new PR event.
         for x in pr.get("checks", []):
-            if x.get("conclusion") in FAILURES and (x["id"], x["conclusion"]) not in old_checks:
-                emit("CI_FAILED", "action_required", x.get("url"), f"{x['id']}:{x.get('completed_at')}")
+            conclusion = x.get("conclusion")
+            if conclusion in CHECK_CONCLUSIONS and (x["id"], conclusion) not in old_checks:
+                kind, level = CHECK_CONCLUSIONS[conclusion]
+                emit(kind, level, x.get("url"), f"{x['id']}:{x.get('completed_at')}")
         if pr["legacy_status"] in {"failure", "error"} and pr["legacy_status"] != before.get("legacy_status"):
             emit("CI_LEGACY_FAILED", "action_required", url, pr["head"] + ":" + pr["legacy_status"])
 
