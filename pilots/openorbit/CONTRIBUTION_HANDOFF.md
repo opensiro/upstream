@@ -21,3 +21,9 @@
 **Exact tested patch:** [dot-segment-path-parameter-guard.patch](dot-segment-path-parameter-guard.patch), SHA256 `f90c3a02aa8e759f30289a402e5d03657031049f64936095b1acb1ac382b5ae9`. Byte-identical to source diff on pinned checkout. `npm ci --ignore-scripts` installed lockfile dependencies without executing package lifecycle scripts.
 
 **Limits:** This proves request-construction correctness for path placeholders, not exploitability against any particular HTTP service, upstream acceptance, or the quality of agent decisions. Human-owned external publication remains separate. Generic `continue` moves to Reef.
+
+## 2026-10-25 security reporting gate
+
+Current [SECURITY.md](https://github.com/maneja81/OpenOrbit/blob/develop/SECURITY.md) requires reporting security issues through **private GitHub Security Advisories**, rather than a public issue. `develop` is the current default branch and supported security-fix line; the repository has an MIT license, no root `AGENTS.md`/`CONTRIBUTING.md`, and no matching public dot-segment patch was found in the PR search. Because the patch protects an HTTP tool endpoint path from surprising dot-segment normalization, treat it as security-sensitive without asserting that exploitation has been proven.
+
+**Publication state: BLOCKED by private security disclosure route.** The OpenSiro finite PR mandate does not authorize making a private report or ignoring the upstream's disclosure policy. No public fork, issue, PR or fresh native test was created in this pass; the historical RED/GREEN patch remains available only as an internal technical packet.

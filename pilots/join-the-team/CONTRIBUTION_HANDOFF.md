@@ -28,3 +28,11 @@ Patch: [`bootstrap-symlink-boundary.patch`](bootstrap-symlink-boundary.patch). I
 **Adversarial limitation:** This narrow fix guards canonicalised paths at preflight time; it does not claim to close a concurrent symlink-substitution (TOCTOU) race between the check and `write_bytes()`. Hardening against concurrent adversaries would require a separate design and native test plan.
 
 **External handoff:** A human owner may later verify this exact patch against fresh upstream `main`, check for maintainer overlap and repository rules, rerun native tests and explicitly authorise publication. Generic `continue` **skips** this `AWAITING_EXTERNAL` row and advances to `maref-run-state-boundary`.
+
+## 2026-10-25 current-fit and contributor-policy stop
+
+The current upstream `main` remains `e93069b92735ba096abf662f2b9d95a0ebfd36f9`, exactly the source revision used for the original native patch. The preflight still checks `Path.exists()` for destinations without a symlink/canonical-target admission guard. There is no newly published fix PR for this exact defect in the bounded search. The old source-tested native receipts above are preserved; **the tests were not re-run in this 2026-10-25 pass**.
+
+Current [AGENTS.md](https://github.com/jpantsjoha/ai-native-developer-experience/blob/main/AGENTS.md) requires reviewing the status/roadmap, checking for active delivery lanes, coordinating with the active owner and using the delivery-orchestrator work contract. Its [delivery-orchestrator](https://github.com/jpantsjoha/ai-native-developer-experience/blob/main/skills/delivery-orchestrator/SKILL.md) requires a tracked issue before starting code. The previous adoption lane [#32](https://github.com/jpantsjoha/ai-native-developer-experience/issues/32) / [#33](https://github.com/jpantsjoha/ai-native-developer-experience/pull/33) was closed and merged, and no open issue for the symlink escape or corresponding open PR was found. The finite OpenSiro Corrective publication grant covers forks/branches/PRs, not an independent third-party issue or owner-coordination write.
+
+**Publication: BLOCKED by the upstream intake/coordination policy.** No fork, branch push, external issue or PR was created on this pass. Continue with the next frozen candidate; do not treat this policy gate as failure of the previously tested source patch.

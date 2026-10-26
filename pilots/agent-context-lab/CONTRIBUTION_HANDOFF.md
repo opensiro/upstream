@@ -26,3 +26,11 @@
 **Adversarial review:** The strict `True` requirement intentionally rejects legacy truthy nonbool checks, so adoption should inspect any third-party evidence check integrations before merging. A configured check returning literal `True` still does not independently prove correctness of that check's implementation. This change is not a general proof of verifier soundness, symlink safety, or operational autonomy.
 
 **Continuation:** External publication remains human-owned. Generic `continue` skips this `AWAITING_EXTERNAL` row and advances to `discoveryrsi-campaign-history-integrity`.
+
+## 2026-10-25 licence gate
+
+Upstream `main` still resolves to the original source-tested SHA `372ecc514d48d8e1e5f92d672a9c2b16f4826b5d`. The first-party `harness/verifier.py` still contains the same empty-evidence and truthiness paths. Bounded PR search found no matching fix. This pass did **not** re-run native tests, so the historical RED/GREEN receipt above remains the technical evidence.
+
+The upstream public repository has **no root LICENSE**, GitHub's live repository API reports `license: null`, and no `CONTRIBUTING.md` or explicit licence grant was found. Being public is not a reusable code licence. The finite OpenSiro publication mandate explicitly stops when licence or contributor rights cannot be confirmed.
+
+**Publication: BLOCKED (missing upstream licence).** No external fork, commit or PR was created. Continue with the next fixed Corrective candidate without treating the previously measured bug as fixed.

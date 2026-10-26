@@ -1,5 +1,7 @@
 # Active Graph — stored event accepts JSON values outside object shape
 
+**2026-10-25 publication review:** [CONTRIBUTING.md](https://github.com/yoheinakajima/activegraph/blob/main/CONTRIBUTING.md) limits unsolicited external code PRs to truly trivial changes that do not alter test expectations. Behavior changes require an issue, maintainer scope agreement and the explicit `status: ready-for-pr` label. This decoder change adds a new regression contract and is not trivial under that definition; no matching gate-approved issue was found. Apache-2.0 license is present, no DCO is required, but the maintainer's pre-approval gate controls. **BLOCKED**; no external PR, issue, fork or fresh test this pass. The older test receipt below is not a current CI result.
+
 **Stage:** `AWAITING_EXTERNAL`. Exact-source native regression patch, no external fork/PR, behavior or model-agent execution.
 
 - **Frozen source:** `yoheinakajima/activegraph@50d8405923b79e4e823a73a3045bb969436a872c` (Apache-2.0), included `S1=A` Index `396a54bb690f8ec7ce966bf9b00b241b30036307`.

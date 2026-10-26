@@ -5,6 +5,7 @@ import importlib.util
 import json
 import tempfile
 import unittest
+from collections import Counter
 from pathlib import Path
 from unittest.mock import patch
 
@@ -24,16 +25,27 @@ class CorrectiveMandateTests(unittest.TestCase):
     def test_exact_finite_snapshot_and_native_only_mode(self):
         board = queue.report(self.data)
         self.assertEqual(board["authorized_count"], 34)
-        self.assertEqual(board["next_candidate"], "raven-stale-edit-ledger")
-        self.assertEqual(board["counts"], {"QUEUED": 26, "SUBMITTED": 8})
+        self.assertEqual(board["next_candidate"], next(
+            (row["id"] for row in self.data["cases"] if row["publication"] == "QUEUED"), None))
+        self.assertEqual(board["counts"], dict(Counter(
+            row["publication"] for row in self.data["cases"])))
         self.assertEqual(board["test_mode"], "NATIVE_SCRIPT_ONLY_NO_LLM_AGENTS")
         self.assertTrue(board["no_external_writes_performed_by_this_command"])
 
     def test_blocked_case_moves_to_next_with_source_history_unchanged(self):
         ledger = copy.deepcopy(self.data)
-        ledger["cases"][1]["publication"] = "BLOCKED"
-        ledger["cases"][1]["reason"] = "The current upstream source already fixed the defect."
-        self.assertEqual(queue.report(ledger)["next_candidate"], "join-the-team-bootstrap-validation")
+        # The real finite ledger may be exhausted. Create a two-item queue in
+        # memory so the transition remains independently testable thereafter.
+        first_queued, second_queued = [
+            row for row in ledger["cases"] if row["publication"] == "BLOCKED"
+        ][:2]
+        for row in (first_queued, second_queued):
+            row["publication"] = "QUEUED"
+            row.pop("reason", None)
+        self.assertEqual(queue.report(ledger)["next_candidate"], first_queued["id"])
+        first_queued["publication"] = "BLOCKED"
+        first_queued["reason"] = "The current upstream source already fixed the defect."
+        self.assertEqual(queue.report(ledger)["next_candidate"], second_queued["id"])
 
     def test_reject_out_of_scope_reordering_and_unsupported_stage(self):
         transforms = (
@@ -68,13 +80,27 @@ class CorrectiveMandateTests(unittest.TestCase):
         with self.assertRaisesRegex(queue.QueueError, "exact target upstream"):
             queue.validate(ledger)
 
-    def test_all_eight_published_patches_are_monitored(self):
+    def test_all_thirteen_published_patches_are_monitored(self):
         self.assertTrue(queue.validate_monitored_submissions(self.data))
         observed = {c["pr_url"] for c in self.data["cases"] if c["publication"] == "SUBMITTED"}
-        self.assertEqual(len(observed), 8)
+        self.assertEqual(len(observed), 13)
         manifest = json.loads(queue.WATCHLIST.read_text(encoding="utf-8"))
         monitored = {target["url"] for target in manifest["targets"]}
         self.assertTrue(observed.issubset(monitored))
+
+    def test_review_ready_publication_receipts_are_not_drafts(self):
+        ready_ids = {
+            "dsh-harness-one-workflow-state",
+            "reef-polyp-experiment-queue-contract",
+            "spartan-persistence-recovery-contract",
+            "besser-state-transition-validation",
+            "babyai-task-evaluation-input-contract",
+            "phoenix-agent-harness-budget-admission",
+        }
+        selected = {row["id"]: row for row in self.data["cases"] if row["id"] in ready_ids}
+        self.assertEqual(set(selected), ready_ids)
+        self.assertTrue(all(row["publication"] == "SUBMITTED" and row["draft"] is False
+                            for row in selected.values()))
 
     def test_missing_watched_pr_fails_closed_even_if_ledger_is_valid(self):
         manifest = json.loads(queue.WATCHLIST.read_text(encoding="utf-8"))

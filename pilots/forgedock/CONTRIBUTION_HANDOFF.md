@@ -22,3 +22,9 @@
 **Exact patch:** [equal-version-remote-divergence.patch](equal-version-remote-divergence.patch), SHA256 `fa48410f79038108f116c8233a9c2ad5fe3dadf5ec535b3267d87af8e6b32264`, byte-identical to tested source diff.
 
 **Limitations:** The test proves only deterministic tie handling in the reconciliation function. It does not demonstrate that a same-version conflict occurs frequently in a deployed pipeline, nor prove end-to-end recovery or external upstream acceptance. Follow ForgeDock's North Star/dossier rules before any external submission. `continue` advances to Pi Loop Studio.
+
+## 2026-10-25 contributor-rights prerequisite
+
+Current [CONTRIBUTING.md](https://github.com/RapierCraftStudios/ForgeDock/blob/main/CONTRIBUTING.md) explicitly requires a personal DCO sign-off on **every commit** in support of its AGPL-3.0/commercial dual-license business model. The finite OpenSiro publication mandate does not itself constitute the GitHub signatory's legal certification or authorize someone else to sign on their behalf. Current [AGENTS.md](https://github.com/RapierCraftStudios/ForgeDock/blob/main/AGENTS.md) also routes through `NORTHSTAR.md` and authoritative shared command workflow.
+
+**Publication state: BLOCKED by mandatory DCO/legal-rights prerequisite.** No external fork, PR, issue, branch push or fresh native test was run in this pass. The historical RED/GREEN is bounded to the pinned version, not current project certification. Move to the next authorized candidate.
