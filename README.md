@@ -4,6 +4,14 @@ This repository is the public **portfolio and lifecycle registry** for OpenSiro'
 
 It is **not** a monorepo of forks, a mirror of upstream code, a claim of upstream endorsement, or a new organizational control plane. Each working fork remains a separate GitHub repository.
 
+## OpenSiro ecosystem bootstrap and scope
+
+For cross-repository work, start with the [VSM OSS bootstrap](https://github.com/opensiro/vsm-oss-organization/blob/main/START_HERE.md) and [ecosystem owner map](https://github.com/opensiro/vsm-oss-organization/blob/main/docs/ECOSYSTEM.md), then return to this repository's [contribution rules](CONTRIBUTING.md), [local work](https://github.com/opensiro/upstream/issues/56), and exact owning issue/PR. The [Organization TODO](https://github.com/opensiro/vsm-oss-organization/blob/main/TODO.md) schedules only its currently bounded OSS work, **not** this repository's separate contribution queue.
+
+**Boundary:** Upstream is an **adjacent** repository, not an admitted fourth operational S1 domain of the bounded Organization. [Organization #274](https://github.com/opensiro/vsm-oss-organization/issues/274) owns that prospective S5 boundary choice. Cross-links improve navigation; they do not grant S3/S3* authority, make Organization routing policy binding here, or change external PR rights.
+
+Repository-local standards/settings alignment is tracked separately in [Upstream #130](https://github.com/opensiro/upstream/issues/130); this README link change does **not** enable branch deletion or select a license.
+
 ## Public impact dashboard
 
 **[Open the Upstream Dashboard →](DASHBOARD.md)** — readable on GitHub. It shows the eight experimental upstream interventions, separately verified external PR states, historical product-native fit (**60% of completed fit reviews** in the pinned experiment), primary evidence and distinct verification dates. For a filterable browser view see [`docs/index.html`](docs/index.html) (HTML file; GitHub Pages publishing is not enabled by these files).
@@ -16,11 +24,11 @@ The [read-only status procedure](docs/UPSTREAM_STATUS_FRESHNESS.md) checks both 
 
 ### External PR maintenance (adjacent operating pilot)
 
-[Upstream PR Maintenance](docs/PR_MAINTENANCE.md) tracks the external PR review queue, new or edited maintainer feedback and failing CI in the [read-only GitHub-sensing / OpenSiro-inbox #125](https://github.com/opensiro/upstream/issues/125) route. The hourly [workflow](.github/workflows/pr-maintenance.yml) is merged on `main` and [initial activation was verified](https://github.com/opensiro/upstream/issues/125#issuecomment-6385585447). Its current default-branch checkpoint covers **13** targets; reviewable [PR #129](https://github.com/opensiro/upstream/pull/129) adds five external Ready-for-review Corrective PRs for a proposed **18-target** watchlist. That extension is not active until integration and checkpoint migration are verified. Native-only repair and external PR integration still require separate applicable contributor authority. This does **not** admit Upstream as a fourth Organization S1 domain (see [Organization #274](https://github.com/opensiro/vsm-oss-organization/issues/274)).
+[Upstream PR Maintenance](docs/PR_MAINTENANCE.md) tracks the external PR review queue, new or edited maintainer feedback and failing CI in the [read-only GitHub-sensing / OpenSiro-inbox #125](https://github.com/opensiro/upstream/issues/125) route. The hourly [workflow](.github/workflows/pr-maintenance.yml) is merged on `main` and [initial activation was verified](https://github.com/opensiro/upstream/issues/125#issuecomment-6385585447). Merged [PR #129](https://github.com/opensiro/upstream/pull/129) expands the default-branch manifest to **18** explicitly tracked external PRs. The previously persisted **13-target** checkpoint must still complete its additive migration in an actual scheduled or manual watch run; verify activation from the [inbox #125](https://github.com/opensiro/upstream/issues/125) and [Actions history](https://github.com/opensiro/upstream/actions/workflows/pr-maintenance.yml). Native-only repair and external PR integration still require separate applicable contributor authority. This does **not** admit Upstream as a fourth Organization S1 domain (see [Organization #274](https://github.com/opensiro/vsm-oss-organization/issues/274)).
 
 ### Operational-readiness review (2026-10-25)
 
-The [source-backed Upstream readiness review](reports/2026-10-25-upstream-operational-readiness.md) separates the finite Corrective result (**13 SUBMITTED / 21 BLOCKED / 0 QUEUED on unmerged PR #129**) from default-branch deployment, external PR maintenance, the strict functional experiment [#56](https://github.com/opensiro/upstream/issues/56), and Organization S1 admission. This dated observation is not a new authorization, external PR acceptance rate or assessment result. A fresh chat must inspect the exact PR branch while it remains unmerged.
+The [source-backed Upstream readiness review](reports/2026-10-25-upstream-operational-readiness.md) recorded the finite Corrective result (**13 SUBMITTED / 21 BLOCKED / 0 QUEUED**) on the then-unmerged PR #129 branch. [PR #129](https://github.com/opensiro/upstream/pull/129) was subsequently merged, but live watcher checkpoint migration and external PR outcomes require separate readback. This dated observation is not a new authorization, external PR acceptance rate, functional effect result, or Organization S1 admission.
 
 ## Current work
 
