@@ -1,0 +1,21 @@
+{
+  "id": "CITADEL-S2-ATOMIC-2026-10-23",
+  "kind": "Improvement",
+  "lineage": "ASSESSMENT_DERIVED_HYPOTHESIS",
+  "index_assessment": "https://github.com/opensiro/vsm-harness-index/blob/main/assessments/ci/citadel.md",
+  "function": "S2",
+  "source": "SethGammon/Citadel@63e538c65a5e09384c464bff5892cf6e9f601949",
+  "license": "MIT",
+  "patch_sha256": "90c0362e33c825e967f136b1b357e143a6f5647d003857c85a000fe0618fc772",
+  "before": "two competing claims both CLAIMED; FAILURE",
+  "after": "7 new native checks PASS; existing coordination core PASS",
+  "full_suite": "PENDING_FINAL_RECEIPT",
+  "product_benefit": "NOT_MEASURED",
+  "external_publication": "NONE",
+  "authorization": "INTERNAL_ONLY",
+  "no_llm_testing": true,
+  "patch_revision": 2,
+  "cross_platform_matrix": "3 OS x 2 Node - PENDING_CURRENT_CI",
+  "sweep_failure_recovery": "PASS",
+  "unregister_lock_consistency": "PASS"
+}
