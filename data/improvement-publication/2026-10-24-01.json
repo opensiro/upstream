@@ -20,7 +20,7 @@
       "github_native_evidence": "https://github.com/opensiro/upstream/actions/runs/40039135313",
       "native_ci": "SUCCESS_STRICT_ALL_6",
       "license": "MIT",
-      "publication": "SUBMITTED_READY_FOR_REVIEW",
+      "publication": "MERGED_UPSTREAM",
       "public_fork": "opensiro-contributions/Citadel",
       "fork_parent": "SethGammon/Citadel",
       "external_pr": "https://github.com/SethGammon/Citadel/pull/366",
@@ -31,10 +31,17 @@
       "external_pr_head_sha": "f27529aa13071ad828f07aeb76f0415ae50d1371",
       "published_file_count": 5,
       "pr_draft": false,
-      "pr_merged": false,
-      "maintainer_feedback": "NOT_OBSERVED",
+      "pr_merged": true,
+      "maintainer_feedback": "MERGED_BY_MAINTAINER",
       "product_user_benefit": "NOT_MEASURED",
-      "initial_publication": "SUBMITTED_DRAFT"
+      "initial_publication": "SUBMITTED_DRAFT",
+      "merged_at": "2026-10-25T21:26:14Z",
+      "merged_by": "SethGammon",
+      "merge_commit_sha": "45727eb8f54d616686e51f049e7b11035af35e96",
+      "merged_pr_head_sha": "3567a5b6c3db98b8bd48886be6ce8be35f9bbd3c",
+      "merged_pr_base_sha": "a11a354768d78cdfa5cf1052015921d3a3584696",
+      "merge_note": "Original published head f27529a to final 3567a5b comparison changed only .github/workflows/hol-plugin-scanner.yml; no end-user benefit measurement.",
+      "merged_readback_date": "2026-10-26"
     },
     {
       "id": "agent-fleet-native-lease-contract",
@@ -45,7 +52,7 @@
       "github_native_evidence": "https://github.com/opensiro/upstream/actions/runs/40093167700",
       "native_ci": "SUCCESS_ALL_FIRST_PARTY_RELEASE_GATES",
       "license": "MIT",
-      "publication": "SUBMITTED_READY_FOR_REVIEW",
+      "publication": "MERGED_UPSTREAM",
       "public_fork": "opensiro-contributions/agent-fleet",
       "fork_parent": "chankov/agent-fleet",
       "external_pr": "https://github.com/chankov/agent-fleet/pull/43",
@@ -56,12 +63,20 @@
       "external_pr_head_sha": "9647f07e88384fd9360c4d98a0d2ba18f63606de",
       "published_file_count": 5,
       "pr_draft": false,
-      "pr_merged": false,
-      "maintainer_feedback": "NOT_OBSERVED",
+      "pr_merged": true,
+      "maintainer_feedback": "APPROVED_THEN_MERGED",
       "product_user_benefit": "NOT_MEASURED",
-      "initial_publication": "SUBMITTED_DRAFT"
+      "initial_publication": "SUBMITTED_DRAFT",
+      "merged_at": "2026-10-24T20:47:51Z",
+      "merged_by": "chankov",
+      "merge_commit_sha": "212bbf6e2f26addb24c448070f8c8ac404da376e",
+      "merged_pr_head_sha": "9647f07e88384fd9360c4d98a0d2ba18f63606de",
+      "merged_pr_base_sha": "1d846daf52e4b71948cf31448058454db5633241",
+      "merge_note": "Upstream review #5639943957 APPROVED; original patch head equals final merged head.",
+      "merged_readback_date": "2026-10-26"
     }
   ],
   "readiness_decision": "2026-10-24 follow-up owner instruction: switch the same two external Draft PRs to Ready for review, not merge",
-  "readiness_scope": "Only existing external PR #366 and #43; no further repo or publication authorization"
+  "readiness_scope": "Only existing external PR #366 and #43; no further repo or publication authorization",
+  "disposition_update": "2026-10-26: GitHub first-party PR readback confirms both merged by original upstream maintainers. Prior Draft and Ready history is preserved; no new external writes by this reconciliation."
 }
