@@ -6,6 +6,21 @@
   "source_selection": "Verified external PRs authored by xLagerFeuer, including frozen Corrective submissions and closed lifecycle cases; headcount #47 was separately confirmed after search omission",
   "targets": [
     {
+      "repository": "BESSER-PEARL/BESSER-Agentic-Framework",
+      "number": 205,
+      "url": "https://github.com/BESSER-PEARL/BESSER-Agentic-Framework/pull/205"
+    },
+    {
+      "repository": "Coral-Bricks-AI/reef",
+      "number": 19,
+      "url": "https://github.com/Coral-Bricks-AI/reef/pull/19"
+    },
+    {
+      "repository": "CorticalComputer/Spartan",
+      "number": 1,
+      "url": "https://github.com/CorticalComputer/Spartan/pull/1"
+    },
+    {
       "repository": "Gen-Verse/DiscoveryRSI",
       "number": 2,
       "url": "https://github.com/Gen-Verse/DiscoveryRSI/pull/2"
@@ -24,6 +39,11 @@
       "repository": "Onipounds/agent-loop",
       "number": 1,
       "url": "https://github.com/Onipounds/agent-loop/pull/1"
+    },
+    {
+      "repository": "Phoenixrr2113/agent-harness",
+      "number": 1,
+      "url": "https://github.com/Phoenixrr2113/agent-harness/pull/1"
     },
     {
       "repository": "Rohith-s-hub/Oblivion-agent",
@@ -64,6 +84,11 @@
       "repository": "huleidada/matterloop",
       "number": 11,
       "url": "https://github.com/huleidada/matterloop/pull/11"
+    },
+    {
+      "repository": "mila-iqia/babyai",
+      "number": 128,
+      "url": "https://github.com/mila-iqia/babyai/pull/128"
     },
     {
       "repository": "topoteretes/cognee-community",

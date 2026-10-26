@@ -1,5 +1,7 @@
 # Cyber AI Team — nonfinite or negative policy-envelope numbers admitted
 
+**2026-10-25 publication review:** Current [SECURITY.md](https://github.com/Hyper-AI-Lab/cyber-ai-team/blob/main/SECURITY.md) requires private security reports via GitHub Security Advisories or an initial nonspecific request for a private channel. This exact packet concerns a bypass of owner financial/action policy admission by nonfinite numbers, so treat it as security-sensitive. MIT license and normal contributor guidance are present, but the private reporting rule controls. **BLOCKED — no public corrective PR or private report within the existing mandate.** No new tests or external writes were performed; evidence below is the older bounded native packet.
+
 **Stage:** `AWAITING_EXTERNAL`. Bounded source-only patch and tests; no external fork, upstream PR, business action or live agent/service run.
 
 - **Frozen source:** `Hyper-AI-Lab/cyber-ai-team@525401e40f34863cc7f4d3b053d437ce7709912f` (MIT), included `S1=A` Index `396a54bb690f8ec7ce966bf9b00b241b30036307`.

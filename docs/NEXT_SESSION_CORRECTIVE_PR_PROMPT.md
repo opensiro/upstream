@@ -1,6 +1,8 @@
 # OpenSiro — Corrective Upstream PR Publication (new-session handoff)
 
-Continue the existing external Corrective PR publication lane of [OpenSiro Upstream #56](https://github.com/opensiro/upstream/issues/56), *not* a new assessment batch, new proposal-only simulation or new VSM organizational domain. Work through the 34 verified source-native technical packets **serially** and publish eligible external Draft PRs using the bounded owner-confirmed delegation.
+> **Current terminal checkpoint — 2026-10-25:** The exact ledger on [OpenSiro PR #129](https://github.com/opensiro/upstream/pull/129) contains **13 SUBMITTED / 21 BLOCKED / 0 QUEUED**. The 34-case publication pass is exhausted. `main` still has older figures while #129 is unmerged. A new Control Plane chat must inspect #129's head instead of re-publishing earlier cases. **Do not restart the finite queue** unless the legitimate owner explicitly reopens a specific case with sufficient new authority/evidence. Continue separately with [external PR maintenance #125](https://github.com/opensiro/upstream/issues/125) or the [strict functional improvement experiment #56](https://github.com/opensiro/upstream/issues/56). See the [operational-readiness review](../reports/2026-10-25-upstream-operational-readiness.md).
+
+The historical instructions below apply only if a specific case is **explicitly reopened** under the bounded Corrective lane of [OpenSiro Upstream #56](https://github.com/opensiro/upstream/issues/56). They are not a new assessment batch, proposal-only simulation or VSM organizational domain. The 2026-10-24 owner amendment selects **Ready for review** for complete fixes; Draft applies only to objectively unfinished work. Any contrary older Draft-only wording below is superseded.
 
 ## Mandatory bootstrap
 

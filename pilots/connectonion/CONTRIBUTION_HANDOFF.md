@@ -1,5 +1,7 @@
 # ConnectOnion — control-file write admission bypass through symbolic links
 
+**2026-10-25 publication review:** [SECURITY.md](https://github.com/openonion/connectonion/blob/main/SECURITY.md) explicitly bars public GitHub PRs/discussions disclosing vulnerabilities; use private GitHub security advisory instead. The proposed symlink check prevents writes through aliases into `.co/` control/credential files, a security-sensitive admission bypass. Apache-2.0 license and generic contributing rules exist but do not supersede this policy. **BLOCKED** pending separately authorized private disclosure. No external fork, issue, PR or private report, and no fresh native testing this pass; older receipts below remain bounded.
+
 **Stage:** `AWAITING_EXTERNAL`. Native code-only patch packet; **no** external fork, issue, PR, tool action, model simulation or provider request.
 
 - **Frozen source:** `openonion/connectonion@7011faa911e2563e485f865db5be60f6e595f1bd` (Apache-2.0 license); included `S1=A` Index SHA `396a54bb690f8ec7ce966bf9b00b241b30036307`.
