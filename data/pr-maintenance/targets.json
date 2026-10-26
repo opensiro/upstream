@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "system_in_focus": "opensiro/upstream adjacent PR maintenance pilot",
+  "system_in_focus": "opensiro/upstream — admitted Upstream Contributions S1 domain; PR maintenance read-only watcher",
   "inbox_issue": "https://github.com/opensiro/upstream/issues/125",
   "watchlist_mode": "explicit_snapshot",
   "source_selection": "Verified external PRs authored by xLagerFeuer, including frozen Corrective submissions and closed lifecycle cases; headcount #47 was separately confirmed after search omission",
