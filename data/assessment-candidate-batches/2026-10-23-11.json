@@ -15,10 +15,32 @@
       "reviewed_at": "2026-10-17",
       "function": "S1",
       "finding": "Inspect the shipped first-party JavaScript scope/coordination claim admission for conflicting claims and stale ownership with finite synthetic claim records. Run only native scripts against authentic admission functions; never invoke a coding-model route, archon or fleet.",
-      "stage": "SCREENING",
-      "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/SethGammon/Citadel/blob/38f3a4e7fa13cd48cfbedde872778b847af6c842/core/coordination/claims.js"]
+      "stage": "AWAITING_EXTERNAL",
+      "origin": "ASSESSMENT_DERIVED",
+      "fit": {
+        "need": "PASS",
+        "mechanism": "PASS",
+        "counterfactual": "PASS",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/SethGammon/Citadel/blob/38f3a4e7fa13cd48cfbedde872778b847af6c842/core/coordination/claims.js",
+        "https://github.com/opensiro/upstream/pull/118",
+        "https://github.com/opensiro/upstream/actions/runs/40023436079"
+      ],
+      "handoff_url": "https://github.com/opensiro/upstream/pull/118",
+      "external_action": "NOT_EXECUTED",
+      "product_benefit": "BOUNDED_NATIVE_CORRECTNESS_ONLY",
+      "experiment_cycle": "INCOMPLETE_STRICT_CAUSAL_CHAIN",
+      "observed_native_change": "two conflicting first-party S2 claims: 2 admitted before / one overlap blocked after",
+      "separate_publication": {
+        "ledger": "https://github.com/opensiro/upstream/blob/main/data/improvement-publication/2026-10-24-01.json",
+        "external_pr": "https://github.com/SethGammon/Citadel/pull/366",
+        "outcome": "MERGED_UPSTREAM",
+        "merged_at": "2026-10-25T21:26:14Z",
+        "merge_commit_sha": "45727eb8f54d616686e51f049e7b11035af35e96",
+        "verified_at": "2026-10-26"
+      }
     },
     {
       "id": "agent-fleet-native-lease-contract",
@@ -28,10 +50,32 @@
       "reviewed_at": "2026-10-17",
       "function": "S1",
       "finding": "Screen bundled local dispatcher and writer-lease coordination logic for stale-lease, double-owner or invalid path admission using genuine first-party pure scripts and fixed state, without invoking Pi, agent personas, task work or external runtime.",
-      "stage": "SCREENING",
-      "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/chankov/agent-fleet/blob/d260099e67911d38f7cfbe90bd30b2639c2fd4b6/.pi/agent-fleet/scripts"]
+      "stage": "AWAITING_EXTERNAL",
+      "origin": "ASSESSMENT_DERIVED",
+      "fit": {
+        "need": "PASS",
+        "mechanism": "PASS",
+        "counterfactual": "PASS",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/chankov/agent-fleet/blob/d260099e67911d38f7cfbe90bd30b2639c2fd4b6/.pi/agent-fleet/scripts",
+        "https://github.com/opensiro/upstream/pull/119",
+        "https://github.com/opensiro/upstream/actions/runs/40025597817"
+      ],
+      "handoff_url": "https://github.com/opensiro/upstream/pull/119",
+      "external_action": "NOT_EXECUTED",
+      "product_benefit": "BOUNDED_NATIVE_CORRECTNESS_ONLY",
+      "experiment_cycle": "INCOMPLETE_STRICT_CAUSAL_CHAIN",
+      "observed_native_change": "concurrent stale-owner recovery: 2 leases acquired before / one LEASE_HELD after",
+      "separate_publication": {
+        "ledger": "https://github.com/opensiro/upstream/blob/main/data/improvement-publication/2026-10-24-01.json",
+        "external_pr": "https://github.com/chankov/agent-fleet/pull/43",
+        "outcome": "MERGED_UPSTREAM",
+        "merged_at": "2026-10-24T20:47:51Z",
+        "merge_commit_sha": "212bbf6e2f26addb24c448070f8c8ac404da376e",
+        "verified_at": "2026-10-26"
+      }
     },
     {
       "id": "evidence-bench-native-evidence-admission",
@@ -41,10 +85,25 @@
       "reviewed_at": "2026-10-17",
       "function": "S1",
       "finding": "Inspect first-party Python scientific evidence policy, linting and provenance schema boundaries for deterministic unsupported-payload admission using fixed in-memory data and native tests only; do not run scientific tasks, ADK agents, model critics or API providers.",
-      "stage": "SCREENING",
-      "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/kstawiski/evidence-gated-scientific-agent/blob/85b396a824dfad6ec0880cbe07d86d3e24920ae8/scientific_agent/policy.py", "https://github.com/kstawiski/evidence-gated-scientific-agent/blob/85b396a824dfad6ec0880cbe07d86d3e24920ae8/scientific_agent/provenance.py"]
+      "stage": "AWAITING_EXTERNAL",
+      "origin": "ASSESSMENT_DERIVED",
+      "fit": {
+        "need": "PASS",
+        "mechanism": "PASS",
+        "counterfactual": "PASS",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/kstawiski/evidence-gated-scientific-agent/blob/85b396a824dfad6ec0880cbe07d86d3e24920ae8/scientific_agent/policy.py",
+        "https://github.com/kstawiski/evidence-gated-scientific-agent/blob/85b396a824dfad6ec0880cbe07d86d3e24920ae8/scientific_agent/provenance.py",
+        "https://github.com/opensiro/upstream/pull/120",
+        "https://github.com/opensiro/upstream/actions/runs/40026575626"
+      ],
+      "handoff_url": "https://github.com/opensiro/upstream/pull/120",
+      "external_action": "NOT_EXECUTED",
+      "product_benefit": "BOUNDED_NATIVE_CORRECTNESS_ONLY",
+      "experiment_cycle": "INCOMPLETE_NO_EXTERNAL_ACCEPTANCE",
+      "observed_native_change": "retrieval status=error counted successful before / no evidence admission after"
     },
     {
       "id": "herd-native-quest-ownership",
@@ -54,10 +113,20 @@
       "reviewed_at": "2026-10-17",
       "function": "S1",
       "finding": "Inspect first-party Node quest ownership and worker/session metadata persistence for race-safe admission or malformed state using only local deterministic script fixtures; never dispatch the commander, launch a worker, or invoke a model or machine agent.",
-      "stage": "SCREENING",
+      "stage": "BLOCKED_EVIDENCE",
       "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/NickGuAI/Herd/tree/fbda6618c7b53524faddbed070e4fbc14970e412"]
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/NickGuAI/Herd/tree/fbda6618c7b53524faddbed070e4fbc14970e412",
+        "https://github.com/NickGuAI/Herd/blob/main/LICENSE",
+        "https://github.com/NickGuAI/Herd/blob/main/CONTRIBUTING.md"
+      ],
+      "blocker": "AGPL-3.0-only with CLA acknowledgement required for upstream PR; no first-party native test suite in published release and no verified RED/GREEN candidate. Need scope, licensing and independent native evidence before admission."
     },
     {
       "id": "fara-native-checkpoint-integrity",
@@ -67,10 +136,24 @@
       "reviewed_at": "2026-10-17",
       "function": "S1",
       "finding": "Inspect first-party Python browser trajectory checkpoint and critical-resume input validation using fixed data structures only. No Playwright browser launch, live desktop interaction, Fara model agent, benchmark rollout, or hosted inference is permitted.",
-      "stage": "SCREENING",
-      "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/microsoft/fara/blob/a675d6d61c41c47ae87bacefeab22caad18e3e84/src/fara/core/run_context.py"]
+      "stage": "AWAITING_EXTERNAL",
+      "origin": "ASSESSMENT_DERIVED",
+      "fit": {
+        "need": "PASS",
+        "mechanism": "PASS",
+        "counterfactual": "PASS",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/microsoft/fara/blob/a675d6d61c41c47ae87bacefeab22caad18e3e84/src/fara/core/run_context.py",
+        "https://github.com/opensiro/upstream/pull/121",
+        "https://github.com/opensiro/upstream/actions/runs/40027316974"
+      ],
+      "handoff_url": "https://github.com/opensiro/upstream/pull/121",
+      "external_action": "NOT_EXECUTED",
+      "product_benefit": "BOUNDED_NATIVE_CORRECTNESS_ONLY",
+      "experiment_cycle": "INCOMPLETE_NO_EXTERNAL_ACCEPTANCE",
+      "observed_native_change": "mismatched checkpoint task_id accepted before / rejected after"
     }
   ]
 }
