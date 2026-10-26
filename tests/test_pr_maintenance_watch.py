@@ -202,6 +202,45 @@ class WatchTests(unittest.TestCase):
         c["prs"][URL]["state"] = "closed"
         self.assertEqual([e["kind"] for e in watch.classify(b, c)], ["MERGED"])
 
+    def test_check_conclusions_have_distinct_meaning_and_no_replay(self):
+        cases = [
+            ("failure", "CI_FAILED", "action_required"),
+            ("timed_out", "CI_TIMED_OUT", "action_required"),
+            ("action_required", "CI_ACTION_REQUIRED", "action_required"),
+            ("cancelled", "CI_CANCELLED", "info"),
+        ]
+        for conclusion, kind, level in cases:
+            with self.subTest(conclusion=conclusion):
+                before, after = snap(), snap()
+                after["prs"][URL]["checks"] = [check(conclusion=conclusion)]
+                events = watch.classify(before, after)
+                self.assertEqual([(e["kind"], e["level"]) for e in events], [(kind, level)])
+                self.assertEqual(watch.classify(after, after), [])
+        old = snap()
+        old["prs"][URL]["checks"] = [check(conclusion="failure")]
+        new = copy.deepcopy(old)
+        new["prs"][URL]["checks"] = [check(conclusion="action_required")]
+        self.assertEqual([e["kind"] for e in watch.classify(old, new)], ["CI_ACTION_REQUIRED"])
+
+    def test_cancelled_check_is_checkpointed_but_not_alerted(self):
+        api = MockAPI()
+        api.external = source()
+        with tempfile.TemporaryDirectory() as tmp:
+            target_path = self.write_targets(tmp)
+            watch.run(api, target_path)
+            api.external["checks"] = [{
+                "id": 77, "name": "native", "status": "completed",
+                "conclusion": "cancelled", "html_url": URL + "/checks/77",
+                "completed_at": "2026-10-24T11:00:00Z",
+            }]
+            self.assertEqual([e["kind"] for e in watch.run(api, target_path)], ["CI_CANCELLED"])
+            self.assertFalse(any(watch.ALERT_PREFIX in w[2]["body"] for w in api.writes))
+            self.assertEqual(watch.run(api, target_path), [])
+            api.external["checks"][0]["conclusion"] = "action_required"
+            self.assertEqual([e["kind"] for e in watch.run(api, target_path)],
+                             ["CI_ACTION_REQUIRED"])
+            self.assertEqual(sum(watch.ALERT_PREFIX in w[2]["body"] for w in api.writes), 1)
+
     def test_new_confirmed_merge_conflict_alerts_once_not_policy_block(self):
         old, new = snap(), snap()
         new["prs"][URL]["mergeable"] = False
