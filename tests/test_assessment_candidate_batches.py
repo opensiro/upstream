@@ -172,6 +172,11 @@ class BatchTests(unittest.TestCase):
                 self.assertEqual(row["separate_publication"]["external_pr"], url)
                 self.assertEqual(row["separate_publication"]["outcome"], "MERGED_UPSTREAM")
                 self.assertEqual(row["separate_publication"]["merge_commit_sha"], merge_sha)
+                self.assertEqual(row["separate_publication"]["verified_at"], "2026-10-26")
+                self.assertEqual(
+                    row["separate_publication"]["ledger"],
+                    "https://github.com/opensiro/upstream/blob/main/data/improvement-publication/2026-10-24-01.json",
+                )
         for candidate_id in (
             "evidence-bench-native-evidence-admission",
             "fara-native-checkpoint-integrity",
