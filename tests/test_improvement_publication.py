@@ -32,10 +32,10 @@ class ImprovementPublicationContractTests(unittest.TestCase):
     def test_external_write_scope(self):
         for c in self.cases:
             with self.subTest(c["source"]):
-                self.assertEqual(c["publication"], "SUBMITTED_READY_FOR_REVIEW")
+                self.assertEqual(c["publication"], "MERGED_UPSTREAM")
                 self.assertEqual(c["initial_publication"], "SUBMITTED_DRAFT")
                 self.assertFalse(c["pr_draft"])
-                self.assertFalse(c["pr_merged"])
+                self.assertTrue(c["pr_merged"])
                 self.assertTrue(c["public_fork"].startswith("opensiro-contributions/"))
                 self.assertEqual(c["fork_parent"], c["source"])
                 self.assertEqual(c["published_file_count"], 5)
@@ -44,7 +44,13 @@ class ImprovementPublicationContractTests(unittest.TestCase):
                 self.assertEqual(c["source_baseline_sha"], c["external_pr_base_sha"])
                 for key in ("patch_sha256", "source_baseline_sha", "external_pr_head_sha"):
                     self.assertEqual(len(c[key]), 64 if key=="patch_sha256" else 40)
-                self.assertEqual(c["maintainer_feedback"], "NOT_OBSERVED")
+                self.assertIn(c["maintainer_feedback"], {"MERGED_BY_MAINTAINER", "APPROVED_THEN_MERGED"})
+                self.assertEqual(len(c["merge_commit_sha"]), 40)
+                self.assertEqual(len(c["merged_pr_head_sha"]), 40)
+                self.assertEqual(len(c["merged_pr_base_sha"]), 40)
+                self.assertIn("T", c["merged_at"])
+                self.assertEqual(c["merged_readback_date"], "2026-10-26")
+                self.assertTrue(c["merged_by"])
                 self.assertEqual(c["product_user_benefit"], "NOT_MEASURED")
 
     def test_original_corrective_queue_unchanged_scope(self):
@@ -52,7 +58,10 @@ class ImprovementPublicationContractTests(unittest.TestCase):
         self.assertEqual(corrective["authorized_count"], 34)
         self.assertEqual(len(corrective["cases"]), 34)
         self.assertNotEqual(corrective["mandate_id"], self.data["mandate_id"])
-        self.assertTrue(all(c["publication"] == "QUEUED" for c in corrective["cases"]))
+        self.assertEqual(len({c["id"] for c in corrective["cases"]}), 34)
+        self.assertTrue(all(c["publication"] in {
+            "QUEUED", "SUBMITTED", "BLOCKED", "MERGED", "CLOSED_NO_CHANGE", "CLOSED_UPSTREAM"
+        } for c in corrective["cases"]))
 
 if __name__ == "__main__":
     unittest.main()
