@@ -91,7 +91,7 @@ The completed [Kram source-only technical packet](../pilots/kram-s2/CONTRIBUTION
 | Already-delegated local code/fork stage, if any | Actual fork/Upstream owner under an **effective actor-bound mandate** | Stage-specific scope, provider readback and attributable intervention |
 | External fork write and PR publication outside the exact 34-case mandate | Applicable human/fork owner; publication otherwise **human-owned** | Exact separate authorization; pending cases are passed over |
 | Frozen 34-case Corrective Draft PR publication | Owner's dated finite mandate; authenticated contribution actor | Recheck source/permissions/policy, read back provider PR and update separate queue; no upstream merge |
-| Maintain or change fourth bounded Upstream S1 domain | Organization S5 parent, **not this batch** | Admission already applied under #274; operational S1 witness remains pending #6, without automatic autonomy scoring or added external rights |
+| Maintain or change fourth bounded Upstream S1 domain | Organization S5 parent, **not this batch** | Admission already applied under #274; operational S1 construction witness remains pending under item 6 of Organization #274, without automatic autonomy scoring or added external rights |
 | External acceptance/merge | External maintainer | Actual external PR/disposition, never inferred from local CI |
 
 The runner is a **source-first operating practice**, not a positive `S1=A` assessment, S2 scheduler proof or new grant. The selected Index/Skills Methodology still owns VSM classification. Any manual intervention must be attributed to its real decision owner.
