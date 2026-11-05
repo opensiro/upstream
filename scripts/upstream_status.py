@@ -170,6 +170,7 @@ def render_markdown(snapshot, cases, observed):
     lines = ["# Upstream contributions — Dashboard", "",
              f"> **External PR states verified:** {date} · **Experimental fit snapshot:** {snapshot['as_of']}.",
              "> Lifecycle is a dated public GitHub observation; fit and attribution belong to the Organization experiment.", "",
+             "The separate [Resolved Upstream PR Acceptance metric](docs/RESOLVED_PR_ACCEPTANCE.md) follows the 18-PR maintenance cohort with a source-dated [#125 inbox report](https://github.com/opensiro/upstream/issues/125); it excludes pending/unverifiable PRs and is **not** the eight-case experimental fit metric.", "",
              "### Upstream intervention outcomes (observed)", "",
              "| Interventions | Projects | Merged | Open | Closed unmerged |",
              "| :---: | :---: | :---: | :---: | :---: |",
@@ -243,7 +244,8 @@ def html_regions(snapshot, cases, observed):
         fit = item["fit"]
         search = esc(" ".join((case["project"], case["title"], case["note"])).lower(), quote=True)
         rows.append(f'<tr class="item" data-outcome="{status}" data-fit="{fit}" data-search="{search}"><td><a class="project" href="https://github.com/opensiro/upstream/blob/main/cases/{esc(case["case"], quote=True)}">{esc(case["project"])}</a><div class="intervention">{esc(case["title"])}</div></td><td>{pr}</td><td><span class="pill {css}">{label}</span></td><td><span class="pill fit-{fit}">{FIT_LABELS[fit]}</span></td><td class="note">{esc(case["note"])}</td></tr>')
-    source = (f'<p>External PR lifecycle last verified <strong style="display:inline">{esc(observed["observed_at"])}</strong>: <a href="https://github.com/opensiro/upstream/blob/main/data/upstream-lifecycle.json">read-only PR receipts</a>. This is a dated observation, not real-time GitHub telemetry.</p>\n'
+    source = (f'<p>The separately tracked <a href="https://github.com/opensiro/upstream/blob/main/docs/RESOLVED_PR_ACCEPTANCE.md">resolved PR acceptance metric</a> belongs to the 18-target maintenance cohort, with a source-dated <a href="https://github.com/opensiro/upstream/issues/125">inbox report</a>; pending and unverifiable PRs are excluded. It is not this historical eight-case experiment.</p>\n'
+              f'<p>External PR lifecycle last verified <strong style="display:inline">{esc(observed["observed_at"])}</strong>: <a href="https://github.com/opensiro/upstream/blob/main/data/upstream-lifecycle.json">read-only PR receipts</a>. This is a dated observation, not real-time GitHub telemetry.</p>\n'
               f'<p>Fit is a separate historical <a href="https://github.com/opensiro/vsm-oss-organization/blob/main/experiments/upstream-intervention-fit/snapshot.json">Organization-owned experiment</a> (`as_of` {esc(snapshot["as_of"])}). PR merges cannot update product-native fit automatically. The <a href="https://github.com/opensiro/upstream/blob/main/cases/README.md">casebook</a> holds contextual evidence.</p>')
     separate = "\n".join(
         f'<p><a href="{esc(entry["pr"]["url"], quote=True)}">{esc(entry["id"])} PR ↗</a> — {LABELS[entry["pr"]["lifecycle"]]} (verified {esc(observed["registry_verified_at"])}). Outside the eight-case fit cohort.</p>'
