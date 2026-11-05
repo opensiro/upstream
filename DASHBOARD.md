@@ -3,6 +3,8 @@
 > **External PR states verified:** 2026-10-22T16:03:07+00:00 · **Experimental fit snapshot:** 2026-10-12.
 > Lifecycle is a dated public GitHub observation; fit and attribution belong to the Organization experiment.
 
+The separate [Resolved Upstream PR Acceptance metric](docs/RESOLVED_PR_ACCEPTANCE.md) follows the 18-PR maintenance cohort with a source-dated [#125 inbox report](https://github.com/opensiro/upstream/issues/125); it excludes pending/unverifiable PRs and is **not** the eight-case experimental fit metric.
+
 ### Upstream intervention outcomes (observed)
 
 | Interventions | Projects | Merged | Open | Closed unmerged |
