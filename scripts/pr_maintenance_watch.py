@@ -51,6 +51,11 @@ CHECK_CONCLUSIONS = {
 BOT_SUFFIX = "[bot]"
 TRANSIENT_READ_HTTP = {429, 502, 503, 504}
 GET_ATTEMPTS = 3
+# This is an explicit, reviewed source-availability exception, not a PR
+# outcome. It stays in the 18-PR cohort and is checked for exactly HTTP 404 on
+# every run. Unexpected sources and every other error remain fail-closed.
+KNOWN_404_SOURCE = "https://github.com/cbrock84/headcount/pull/47"
+KNOWN_404_MODE = "verify_404_only"
 
 
 def now():
@@ -65,7 +70,8 @@ def validate_targets(path=TARGETS):
         raise ValueError("Unexpected inbox identity")
     seen = set()
     for item in data["targets"]:
-        if set(item) != {"repository", "number", "url"}:
+        allowed = {"repository", "number", "url"}
+        if set(item) not in (allowed, allowed | {"monitoring"}):
             raise ValueError(f"Unexpected target keys: {item}")
         repo, number = item["repository"], item["number"]
         if not isinstance(repo, str) or not REPO.fullmatch(repo):
@@ -74,6 +80,9 @@ def validate_targets(path=TARGETS):
             raise ValueError("Invalid pull number")
         if item["url"] != f"https://github.com/{repo}/pull/{number}":
             raise ValueError("PR URL does not match its structured identity")
+        if "monitoring" in item and (item["url"] != KNOWN_404_SOURCE or
+                                     item["monitoring"] != KNOWN_404_MODE):
+            raise ValueError("Unreviewed source-availability exception")
         if item["url"] in seen:
             raise ValueError("Duplicate target")
         seen.add(item["url"])
@@ -154,6 +163,18 @@ def compact_review(x):
 def snapshot_one(api, target):
     repo, num = target["repository"], target["number"]
     prefix = f"/repos/{repo}"
+    if target.get("monitoring") == KNOWN_404_MODE:
+        try:
+            api.get(f"{prefix}/pulls/{num}")
+        except HTTPError as exc:
+            if exc.code == 404:
+                # No stale PR metadata, fabricated closure or inherited review
+                # events are inserted into the current checkpoint.
+                return {"url": target["url"], "repository": repo, "number": num,
+                        "availability": "unverifiable", "reason": "HTTP_404"}
+            raise
+        raise ValueError(f"Reviewed 404 exception became accessible: {target['url']}; "
+                         "remove monitoring exception after source review")
     pr = api.get(f"{prefix}/pulls/{num}")
     if pr.get("html_url") != target["url"] or pr.get("number") != num:
         raise ValueError("PR source identity mismatch")
@@ -238,6 +259,16 @@ def classify(previous, current, contributor="xLagerFeuer"):
 
         def emit(kind, level, link, fingerprint=""):
             events.append((url, kind, level, link or url, fingerprint))
+
+        # Availability is not a lifecycle. Never compare missing fields to an
+        # old observed PR: that would fabricate a close, reopen or review.
+        if pr.get("availability") == "unverifiable":
+            if before.get("availability") != "unverifiable":
+                emit("SOURCE_UNVERIFIABLE", "action_required", url, pr["reason"])
+            continue
+        if before.get("availability") == "unverifiable":
+            emit("SOURCE_RESTORED", "action_required", url)
+            continue
 
         was_merged = bool(before.get("merged_at"))
         is_merged = bool(pr.get("merged_at"))
@@ -339,9 +370,12 @@ def inbox_state(api):
     return (markers[0]["id"] if markers else None), state, posted
 
 
-def render(events, scanned, initial=False):
+def render(events, scanned, initial=False, unverifiable=0):
     lines = [f"### Upstream PR Maintenance — {now()}", "",
-             f"Scanned **{scanned}** pinned external PRs. "
+             (f"Scanned **{scanned}** accessible pinned external PRs; "
+              f"**{unverifiable}** explicitly UNVERIFIABLE (HTTP 404) of "
+              f"**{scanned + unverifiable}** retained targets. " if unverifiable else
+              f"Scanned **{scanned}** pinned external PRs. ")
              + ("Initial baseline captured; historical activity was not reported as new." if initial else
                 f"Found **{len(events)}** new transitions."),
              ""]
@@ -362,12 +396,13 @@ def run(api, targets_path=TARGETS, *, probe_only=False):
     for t in data["targets"]:
         source = snapshot_one(api, t)
         previous_pr = previous.get("prs", {}).get(t["url"]) if previous else None
-        observed_conflict = conflict_observation(source)
-        if observed_conflict is None and previous_pr is not None:
-            observed_conflict = previous_pr.get("last_confirmed_conflict", conflict_observation(previous_pr))
-        # Keep the last *settled* state across GitHub's transient null/unknown
-        # mergeability responses. Observed API fields remain unmodified.
-        source["last_confirmed_conflict"] = observed_conflict
+        if source.get("availability") != "unverifiable":
+            observed_conflict = conflict_observation(source)
+            if observed_conflict is None and previous_pr is not None:
+                observed_conflict = previous_pr.get("last_confirmed_conflict", conflict_observation(previous_pr))
+            # Keep the last *settled* state across GitHub's transient null/unknown
+            # mergeability responses. Observed API fields remain unmodified.
+            source["last_confirmed_conflict"] = observed_conflict
         current["prs"][t["url"]] = source
     if previous is not None:
         prior_urls = set(previous["prs"])
@@ -380,27 +415,29 @@ def run(api, targets_path=TARGETS, *, probe_only=False):
     events = classify(previous, current)
     notifiable = [e for e in events if e["level"] == "action_required" or
                   e["kind"] in {"MERGED", "CLOSED_UNMERGED", "APPROVED", "REOPENED"}]
+    unavailable = sum(x.get("availability") == "unverifiable" for x in current["prs"].values())
+    scanned = len(data["targets"]) - unavailable
     if probe_only:
-        print(render(events, len(data["targets"]), initial=previous is None))
+        print(render(events, scanned, initial=previous is None, unverifiable=unavailable))
         print("PROBE_ONLY: no GitHub writes")
         return events
     if previous is not None and notifiable:
         unique = sorted({e["key"] for e in notifiable})
         alert_id = hashlib.sha256(" ".join(unique).encode()).hexdigest()
         if alert_id not in posted:
-            summary = render(notifiable, len(data["targets"]))
+            summary = render(notifiable, scanned, unverifiable=unavailable)
             api.request(f"/repos/{INBOX_REPO}/issues/{INBOX_NUMBER}/comments",
                         method="POST", payload={"body": ALERT_PREFIX + alert_id + " -->\n" + summary})
     # Do not edit the inbox checkpoint when no relevant PR state changed.
     if previous is not None and current["prs"] == previous["prs"]:
-        print(render(events, len(data["targets"])))
+        print(render(events, scanned, unverifiable=unavailable))
         return events
     # Only persist the next checkpoint after any required notification succeeds.
     body = encode_checkpoint(current) + "\n\nMachine-only deduplication checkpoint. "
     body += "PR comments and reviews remain authoritative on their external GitHub URLs."
     path = f"/repos/{INBOX_REPO}/issues/comments/{checkpoint_id}" if checkpoint_id else f"/repos/{INBOX_REPO}/issues/{INBOX_NUMBER}/comments"
     api.request(path, method="PATCH" if checkpoint_id else "POST", payload={"body": body})
-    print(render(events, len(data["targets"]), initial=previous is None))
+    print(render(events, scanned, initial=previous is None, unverifiable=unavailable))
     return events
 
 

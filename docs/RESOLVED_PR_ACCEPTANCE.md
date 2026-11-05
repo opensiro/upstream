@@ -24,7 +24,7 @@ The target set changes **only** through a reviewed watchlist change, with the ex
 
 ## Implementation and persistence
 
-The stdlib-only [`scripts/resolved_pr_acceptance.py`](../scripts/resolved_pr_acceptance.py) reads each GitHub PR directly using the existing watcher GitHub transport and validates its URL and PR number. Unlike the strict review/CI **event watcher**, this independent reporting path can explicitly classify a 404 as unavailable and still report the remaining verified lifecycle outcomes. It never changes the event watcher's checkpoint, deduplication or fail-closed behavior.
+The stdlib-only [`scripts/resolved_pr_acceptance.py`](../scripts/resolved_pr_acceptance.py) reads **all 18** GitHub PRs directly using the existing watcher GitHub transport and validates each returned URL and PR number. Every 404 is explicitly classified as unavailable and excluded from the acceptance denominator. This remains independent of the stricter review/CI **event watcher**: the latter checks its single reviewed Headcount #47 `verify_404_only` exception, reports **17 fully observed / 1 unavailable**, and fails closed on any other missing source. Neither route can silently reinterpret an unavailable PR as a rejection. Acceptance reporting never changes the event watcher's checkpoint or deduplication.
 
 ```bash
 python3 scripts/resolved_pr_acceptance.py --validate-only
