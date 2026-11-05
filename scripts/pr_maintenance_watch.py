@@ -9,13 +9,16 @@ from __future__ import annotations
 import argparse
 import base64
 import hashlib
+from http.client import RemoteDisconnected
 import json
 import os
 from pathlib import Path
 import re
 import sys
+import time
 from datetime import datetime, timezone
 from urllib.parse import urlencode, urlparse
+from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 import zlib
 
@@ -46,6 +49,8 @@ CHECK_CONCLUSIONS = {
     "cancelled": ("CI_CANCELLED", "info"),
 }
 BOT_SUFFIX = "[bot]"
+TRANSIENT_READ_HTTP = {429, 502, 503, 504}
+GET_ATTEMPTS = 3
 
 
 def now():
@@ -94,8 +99,25 @@ class Github:
                    "Authorization": f"Bearer {self.token}"}
         if body is not None:
             headers["Content-Type"] = "application/json"
-        with urlopen(Request(url, data=body, method=method, headers=headers), timeout=25) as response:
-            return json.load(response), response.headers.get("Link", "")
+        # Only GET is safe to retry. In particular, repeating an issue-comment
+        # POST after a lost response can duplicate a notification.
+        attempts = GET_ATTEMPTS if method == "GET" else 1
+        for attempt in range(attempts):
+            try:
+                with urlopen(Request(url, data=body, method=method, headers=headers), timeout=25) as response:
+                    return json.load(response), response.headers.get("Link", "")
+            except HTTPError as exc:
+                if method == "GET" and exc.code in TRANSIENT_READ_HTTP and attempt + 1 < attempts:
+                    time.sleep(0.25 * (attempt + 1))
+                    continue
+                print(f"GITHUB_API_ERROR {method} {path}: HTTP {exc.code}", file=sys.stderr)
+                raise
+            except (RemoteDisconnected, URLError, TimeoutError, ConnectionResetError) as exc:
+                if method == "GET" and attempt + 1 < attempts:
+                    time.sleep(0.25 * (attempt + 1))
+                    continue
+                print(f"GITHUB_TRANSPORT_ERROR {method} {path}: {type(exc).__name__}", file=sys.stderr)
+                raise
 
     def get(self, path):
         return self.request(path)[0]

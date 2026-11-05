@@ -18,6 +18,7 @@ from pathlib import Path
 import re
 import sys
 from urllib.parse import urlparse
+from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
 
@@ -29,8 +30,12 @@ REGISTRY = ROOT / "registry.yaml"
 MARKDOWN = ROOT / "DASHBOARD.md"
 HTML = ROOT / "docs/index.html"
 CASEBOOK = ROOT / "cases/README.md"
-LABELS = {"merged": "Merged", "open": "Open", "closed_unmerged": "Closed unmerged"}
+LABELS = {"merged": "Merged", "open": "Open", "closed_unmerged": "Closed unmerged",
+          "unverifiable": "Unverifiable"}
 FIT_LABELS = {"pass": "Pass", "pending": "Pending", "fail": "Fail"}
+# Explicitly reviewed inaccessible source. New 404s are errors until their
+# identities and provenance are reviewed; an outage must not become a dashboard.
+KNOWN_UNVERIFIABLE = {"https://github.com/cbrock84/headcount/pull/47"}
 
 
 def json_text(value):
@@ -93,8 +98,18 @@ def public_pr(url: str):
     token = os.getenv("GITHUB_TOKEN")
     if token:
         headers["Authorization"] = f"Bearer {token}"
-    with urlopen(Request(pr_api_url(url), headers=headers), timeout=20) as response:
-        data = json.load(response)
+    try:
+        with urlopen(Request(pr_api_url(url), headers=headers), timeout=20) as response:
+            data = json.load(response)
+    except HTTPError as exc:
+        if exc.code == 404 and url in KNOWN_UNVERIFIABLE:
+            return {"url": url, "lifecycle": "unverifiable", "merged_at": None,
+                    "updated_at": None, "reason": "HTTP_404"}
+        raise ValueError(f"GitHub PR read failed at {url}: HTTP {exc.code}") from exc
+    if data.get("html_url") != url or data.get("number") != int(url.rsplit("/", 1)[1]):
+        raise ValueError(f"GitHub PR identity mismatch at {url}")
+    if data.get("merged_at") is not None and data.get("state") != "closed":
+        raise ValueError(f"GitHub PR has contradictory merge state at {url}")
     if data.get("merged_at"):
         lifecycle = "merged"
     elif data.get("state") == "open":
@@ -139,6 +154,17 @@ def load_verified():
     for record in observed["records"]:
         if record["lifecycle"] not in LABELS:
             raise ValueError(f"Unknown lifecycle: {record['lifecycle']}")
+        for source in (record["original_pr"], record.get("landing_pr")):
+            if source is None:
+                continue
+            if source["lifecycle"] not in LABELS:
+                raise ValueError(f"Unknown source lifecycle: {source['lifecycle']}")
+            if source["lifecycle"] == "unverifiable" and (
+                    source["url"] not in KNOWN_UNVERIFIABLE or
+                    source.get("reason") != "HTTP_404" or
+                    source.get("merged_at") is not None or
+                    source.get("updated_at") is not None):
+                raise ValueError("Unreviewed or contradictory unverifiable source")
     if observed["schema_version"] != 2:
         raise ValueError("Lifecycle receipt schema must be v2 with registry verification")
     if [(r["id"], r["pr"]["url"]) for r in observed["registry_records"]] != [
@@ -168,13 +194,14 @@ def render_markdown(snapshot, cases, observed):
     rate = snapshot["primary_metric"]
     date = observed["observed_at"]
     lines = ["# Upstream contributions — Dashboard", "",
-             f"> **External PR states verified:** {date} · **Experimental fit snapshot:** {snapshot['as_of']}.",
+             f"> **External PR sources checked:** {date} · **Experimental fit snapshot:** {snapshot['as_of']}.",
              "> Lifecycle is a dated public GitHub observation; fit and attribution belong to the Organization experiment.", "",
              "The separate [Resolved Upstream PR Acceptance metric](docs/RESOLVED_PR_ACCEPTANCE.md) follows the 18-PR maintenance cohort with a source-dated [#125 inbox report](https://github.com/opensiro/upstream/issues/125); it excludes pending/unverifiable PRs and is **not** the eight-case experimental fit metric.", "",
              "### Upstream intervention outcomes (observed)", "",
-             "| Interventions | Projects | Merged | Open | Closed unmerged |",
-             "| :---: | :---: | :---: | :---: | :---: |",
-             f"| **{count}** | **{repos}** | **{outcomes['merged']}** | **{outcomes['open']}** | **{outcomes['closed_unmerged']}** |", "",
+             "| Interventions | Projects | Merged | Open | Closed unmerged | Unverifiable |",
+             "| :---: | :---: | :---: | :---: | :---: | :---: |",
+             f"| **{count}** | **{repos}** | **{outcomes['merged']}** | **{outcomes['open']}** | **{outcomes['closed_unmerged']}** | **{outcomes['unverifiable']}** |", "",
+             "An unavailable PR is **not** an open PR or a rejection. Its last known outcome remains historical evidence, not a current assertion.", "",
              "### Product-native fit (separate historical experiment)", "",
              "| Fit rate of completed reviews | Pass | Pending | Fail |",
              "| :---: | :---: | :---: | :---: |",
@@ -202,7 +229,7 @@ def render_markdown(snapshot, cases, observed):
     lines += ["", "**Attribution:** Henterprise original #1 and merged replacement #3 count as **one intervention**. StarNet maintainer's independent implementation is **not** counted as a contributor PR merge. GitHub PR lifecycle alone does not prove a functional VSM S2 improvement.", "",
               "### Provenance and refresh", "",
               f"- Historical fit snapshot: [Organization ledger](https://github.com/opensiro/vsm-oss-organization/blob/main/experiments/upstream-intervention-fit/snapshot.json), pinned here as [`data/upstream-fit-snapshot.json`](data/upstream-fit-snapshot.json) (`as_of` {snapshot['as_of']}).",
-              f"- PR observations: [`data/upstream-lifecycle.json`](data/upstream-lifecycle.json), last verified {date}. They do **not** imply that GitHub statuses are live at viewing time.",
+              f"- PR observations: [`data/upstream-lifecycle.json`](data/upstream-lifecycle.json), checked {date}; unavailable sources are explicitly marked. They do **not** imply that GitHub statuses are live at viewing time.",
               "- [Public casebook](cases/README.md) provides contextual evidence. [`registry.yaml`](registry.yaml) submission PR states are verified separately and excluded from the experimental cohort.",
               "- Refresh: `python3 scripts/upstream_status.py --refresh` then `--render`; test with `--check-generated` and `--check-live`. External PR checks are read-only; publication is a reviewed PR.", "",
               "_External maintainers retain decision authority; no upstream endorsement is implied._", ""]
@@ -221,7 +248,7 @@ def html_regions(snapshot, cases, observed):
     outcomes, fits = stats(snapshot, observed)
     total = len(observed["records"])
     rate = snapshot["primary_metric"]
-    meta = (f'<span>PR states verified · {html.escape(observed["observed_at"])}</span>'
+    meta = (f'<span>PR sources checked · {html.escape(observed["observed_at"])}</span>'
             f'<span>Fit snapshot · {html.escape(snapshot["as_of"])}</span><span>Dated, not live telemetry</span>')
     metrics = (f'<div class="metric"><div class="kpi-name">Total interventions</div><div class="number">{total}</div><div class="kpi-foot">Distinct contributions, not PR count</div></div>\n'
                f'<div class="metric"><div class="kpi-name">Upstream projects</div><div class="number">{len(set(x["upstream_repository"] for x in snapshot["interventions"]))}</div><div class="kpi-foot">External OSS repositories</div></div>\n'
@@ -231,7 +258,9 @@ def html_regions(snapshot, cases, observed):
            f'<div class="legend"><div class="legend-line"><span class="dot good"></span>Pass<strong>{fits["pass"]}</strong></div><div class="legend-line"><span class="dot warn"></span>Pending<strong>{fits["pending"]}</strong></div><div class="legend-line"><span class="dot bad"></span>Fail<strong>{fits["fail"]}</strong></div><div class="legend-line"><span class="dot"></span>Reviewed<strong>{rate["denominator_completed_reviews"]} / {total}</strong></div></div>')
     outcome_bars = "\n".join(
         f'<div><div class="barlabel"><span>{label}</span><strong>{outcomes[kind]}</strong></div><div class="track"><div class="fill {cls}" style="width:{100 * outcomes[kind] / total:.1f}%"></div></div></div>'
-        for kind, label, cls in (("merged", "Merged", "merged"), ("open", "Open", "open"), ("closed_unmerged", "Closed without merge", "closed")))
+        for kind, label, cls in (("merged", "Merged", "merged"), ("open", "Open", "open"),
+                                 ("closed_unmerged", "Closed without merge", "closed"),
+                                 ("unverifiable", "Unverifiable", "unverifiable")))
     rows = []
     for item, case, record in github_rows(snapshot, cases, observed):
         esc = html.escape
@@ -245,7 +274,7 @@ def html_regions(snapshot, cases, observed):
         search = esc(" ".join((case["project"], case["title"], case["note"])).lower(), quote=True)
         rows.append(f'<tr class="item" data-outcome="{status}" data-fit="{fit}" data-search="{search}"><td><a class="project" href="https://github.com/opensiro/upstream/blob/main/cases/{esc(case["case"], quote=True)}">{esc(case["project"])}</a><div class="intervention">{esc(case["title"])}</div></td><td>{pr}</td><td><span class="pill {css}">{label}</span></td><td><span class="pill fit-{fit}">{FIT_LABELS[fit]}</span></td><td class="note">{esc(case["note"])}</td></tr>')
     source = (f'<p>The separately tracked <a href="https://github.com/opensiro/upstream/blob/main/docs/RESOLVED_PR_ACCEPTANCE.md">resolved PR acceptance metric</a> belongs to the 18-target maintenance cohort, with a source-dated <a href="https://github.com/opensiro/upstream/issues/125">inbox report</a>; pending and unverifiable PRs are excluded. It is not this historical eight-case experiment.</p>\n'
-              f'<p>External PR lifecycle last verified <strong style="display:inline">{esc(observed["observed_at"])}</strong>: <a href="https://github.com/opensiro/upstream/blob/main/data/upstream-lifecycle.json">read-only PR receipts</a>. This is a dated observation, not real-time GitHub telemetry.</p>\n'
+              f'<p>External PR lifecycle observed <strong style="display:inline">{esc(observed["observed_at"])}</strong>: <a href="https://github.com/opensiro/upstream/blob/main/data/upstream-lifecycle.json">read-only PR receipts</a>. Unverifiable sources are explicitly unknown, not silently treated as open or rejected. This is dated evidence, not real-time telemetry.</p>\n'
               f'<p>Fit is a separate historical <a href="https://github.com/opensiro/vsm-oss-organization/blob/main/experiments/upstream-intervention-fit/snapshot.json">Organization-owned experiment</a> (`as_of` {esc(snapshot["as_of"])}). PR merges cannot update product-native fit automatically. The <a href="https://github.com/opensiro/upstream/blob/main/cases/README.md">casebook</a> holds contextual evidence.</p>')
     separate = "\n".join(
         f'<p><a href="{esc(entry["pr"]["url"], quote=True)}">{esc(entry["id"])} PR ↗</a> — {LABELS[entry["pr"]["lifecycle"]]} (verified {esc(observed["registry_verified_at"])}). Outside the eight-case fit cohort.</p>'

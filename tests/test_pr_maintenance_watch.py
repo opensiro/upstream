@@ -1,11 +1,14 @@
 """Offline deterministic tests for Upstream's bounded PR maintenance watcher."""
 import copy
+from http.client import RemoteDisconnected
 import importlib.util
+import io
 import json
 from pathlib import Path
 import tempfile
 import unittest
 from unittest.mock import patch
+from urllib.error import HTTPError
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location("pr_watch", ROOT / "scripts/pr_maintenance_watch.py")
@@ -514,6 +517,34 @@ class WatchTests(unittest.TestCase):
     def test_checkpoint_never_leaks_token(self):
         with self.assertRaisesRegex(ValueError, "GITHUB_TOKEN required"):
             watch.Github("")
+
+    def test_transient_get_retries_but_never_retries_write(self):
+        class Response(io.BytesIO):
+            headers = {"Link": ""}
+
+        api = watch.Github("dummy-test-token")
+        response = Response(b'{"state":"open"}')
+        with patch.object(watch, "urlopen", side_effect=[RemoteDisconnected("closed"), response]) as remote, \
+             patch.object(watch.time, "sleep") as delay:
+            self.assertEqual({"state": "open"}, api.get("/repos/example/x/pulls/1"))
+            self.assertEqual(2, remote.call_count)
+            delay.assert_called_once()
+
+        with patch.object(watch, "urlopen", side_effect=RemoteDisconnected("lost response")) as remote, \
+             patch.object(watch.time, "sleep") as delay:
+            with self.assertRaises(RemoteDisconnected):
+                api.request("/repos/opensiro/upstream/issues/125/comments", method="POST", payload={"body": "test"})
+            self.assertEqual(1, remote.call_count)
+            delay.assert_not_called()
+
+    def test_404_stays_fail_closed_and_is_not_retried(self):
+        api = watch.Github("dummy-test-token")
+        with patch.object(watch, "urlopen", side_effect=HTTPError("https://api.github.com/test", 404, "Not Found", {}, None)) as remote, \
+             patch.object(watch.time, "sleep") as delay:
+            with self.assertRaises(HTTPError):
+                api.get("/repos/example/x/pulls/47")
+            self.assertEqual(1, remote.call_count)
+            delay.assert_not_called()
 
 
 if __name__ == "__main__":
