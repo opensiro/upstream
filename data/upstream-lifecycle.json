@@ -1,15 +1,16 @@
 {
   "fit_snapshot_sha256": "c98b91863e3ec44533bd1df1a73cf06eb1cda74f119f5f9459b67c09a74cb92d",
-  "observed_at": "2026-10-22T16:03:07+00:00",
+  "observed_at": "2026-11-05T17:36:18+00:00",
   "records": [
     {
       "id": "headcount-47",
       "landing_pr": null,
-      "lifecycle": "open",
+      "lifecycle": "unverifiable",
       "original_pr": {
-        "lifecycle": "open",
+        "lifecycle": "unverifiable",
         "merged_at": null,
-        "updated_at": "2026-10-17T16:26:47Z",
+        "reason": "HTTP_404",
+        "updated_at": null,
         "url": "https://github.com/cbrock84/headcount/pull/47"
       }
     },
@@ -87,11 +88,11 @@
     {
       "id": "starnet-55",
       "landing_pr": null,
-      "lifecycle": "open",
+      "lifecycle": "closed_unmerged",
       "original_pr": {
-        "lifecycle": "open",
+        "lifecycle": "closed_unmerged",
         "merged_at": null,
-        "updated_at": "2026-10-17T16:26:50Z",
+        "updated_at": "2026-10-24T15:33:07Z",
         "url": "https://github.com/androoAGI/starnet/pull/56"
       }
     }
@@ -107,6 +108,6 @@
       }
     }
   ],
-  "registry_verified_at": "2026-10-22T16:47:43Z",
+  "registry_verified_at": "2026-11-05T17:36:18+00:00",
   "schema_version": 2
 }

@@ -63,7 +63,8 @@
     {
       "repository": "cbrock84/headcount",
       "number": 47,
-      "url": "https://github.com/cbrock84/headcount/pull/47"
+      "url": "https://github.com/cbrock84/headcount/pull/47",
+      "monitoring": "verify_404_only"
     },
     {
       "repository": "chumingjun/dsh-harness-one",

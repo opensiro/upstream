@@ -1,11 +1,15 @@
 """Offline deterministic tests for Upstream's bounded PR maintenance watcher."""
 import copy
+from contextlib import redirect_stdout
+from http.client import RemoteDisconnected
 import importlib.util
+import io
 import json
 from pathlib import Path
 import tempfile
 import unittest
 from unittest.mock import patch
+from urllib.error import HTTPError
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location("pr_watch", ROOT / "scripts/pr_maintenance_watch.py")
@@ -132,6 +136,108 @@ class WatchTests(unittest.TestCase):
                       [t["url"] for t in data["targets"]])
         self.assertIn("https://github.com/Phoenixrr2113/agent-harness/pull/1",
                       [t["url"] for t in data["targets"]])
+        exceptions = [t for t in data["targets"] if t.get("monitoring")]
+        self.assertEqual(exceptions, [{"repository": "cbrock84/headcount", "number": 47,
+                                      "url": watch.KNOWN_404_SOURCE,
+                                      "monitoring": watch.KNOWN_404_MODE}])
+
+    def test_availability_only_scope_rejects_unreviewed_target_and_mode(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = self.write_targets(tmp)
+            data = json.loads(path.read_text())
+            data["targets"][0]["monitoring"] = watch.KNOWN_404_MODE
+            path.write_text(json.dumps(data))
+            with self.assertRaisesRegex(ValueError, "Unreviewed source-availability"):
+                watch.validate_targets(path)
+            data["targets"][0]["url"] = watch.KNOWN_404_SOURCE
+            data["targets"][0]["repository"] = "cbrock84/headcount"
+            data["targets"][0]["number"] = 47
+            data["targets"][0]["monitoring"] = "ignore_all_errors"
+            path.write_text(json.dumps(data))
+            with self.assertRaisesRegex(ValueError, "Unreviewed source-availability"):
+                watch.validate_targets(path)
+
+    def test_exact_known_404_is_reported_but_other_PR_events_continue(self):
+        class AvailabilityAPI(MockAPI):
+            restored = False
+
+            def get(self, path):
+                if path == "/repos/cbrock84/headcount/pulls/47":
+                    if self.restored:
+                        return {"html_url": watch.KNOWN_404_SOURCE, "number": 47,
+                                "state": "open"}
+                    raise HTTPError("https://api.github.com" + path, 404, "Not Found", {}, None)
+                return super().get(path)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            path = self.write_targets(tmp)
+            data = json.loads(path.read_text())
+            data["targets"].append({"repository": "cbrock84/headcount", "number": 47,
+                                    "url": watch.KNOWN_404_SOURCE,
+                                    "monitoring": watch.KNOWN_404_MODE})
+            path.write_text(json.dumps(data))
+            api = AvailabilityAPI()
+            api.external = source()
+            prior = snap()
+            # This preexisting accessible Headcount entry is historical evidence;
+            # it must never become a fabricated lifecycle transition on 404.
+            prior["prs"][watch.KNOWN_404_SOURCE] = {**pr(),
+                "url": watch.KNOWN_404_SOURCE, "repository": "cbrock84/headcount",
+                "number": 47}
+            api.issue_comments = [{"id": 1, "body": watch.encode_checkpoint(prior),
+                                   "user": {"login": "github-actions[bot]"}}]
+            out = io.StringIO()
+            with redirect_stdout(out):
+                self.assertEqual([e["kind"] for e in watch.run(api, path, probe_only=True)],
+                                 ["SOURCE_UNVERIFIABLE"])
+            self.assertIn("Scanned **1** accessible", out.getvalue())
+            self.assertIn("**1** explicitly UNVERIFIABLE", out.getvalue())
+            self.assertEqual(api.writes, [])
+
+            self.assertEqual([e["kind"] for e in watch.run(api, path)],
+                             ["SOURCE_UNVERIFIABLE"])
+            self.assertEqual(len(api.writes), 2)  # one alert, then checkpoint
+            current = watch.decode_checkpoint(api.issue_comments[0]["body"])
+            self.assertEqual(current["prs"][watch.KNOWN_404_SOURCE]["reason"], "HTTP_404")
+            self.assertNotIn("state", current["prs"][watch.KNOWN_404_SOURCE])
+            self.assertEqual(watch.run(api, path), [])
+            self.assertEqual(len(api.writes), 2)
+
+            # An unrelated real maintainer comment still produces a real alert.
+            api.external["comments"] = [{"id": 72, "user": {"login": "maintainer"},
+                                          "html_url": URL + "#issuecomment-72",
+                                          "created_at": "2026-11-05T00:00:00Z",
+                                          "updated_at": "2026-11-05T00:00:00Z"}]
+            self.assertEqual([e["kind"] for e in watch.run(api, path)],
+                             ["NEW_MAINTAINER_COMMENT"])
+            self.assertEqual(len(api.writes), 4)
+
+            # Exact source availability recovery is not silently accepted;
+            # the reviewed waiver must be removed before resuming monitoring.
+            api.restored = True
+            with self.assertRaisesRegex(ValueError, "became accessible"):
+                watch.run(api, path)
+            self.assertEqual(len(api.writes), 4)
+
+    def test_ordinary_404_still_fails_before_any_checkpoint_write(self):
+        class LostAPI(MockAPI):
+            def get(self, path):
+                if path == "/repos/Example/project/pulls/3":
+                    raise HTTPError("https://api.github.com" + path, 404, "Not Found", {}, None)
+                return super().get(path)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            api = LostAPI()
+            api.external = source()
+            with self.assertRaises(HTTPError):
+                watch.run(api, self.write_targets(tmp))
+            self.assertEqual(api.writes, [])
+
+    def test_source_restored_is_not_misclassified_as_a_new_lifecycle_event(self):
+        before = snap({"url": URL, "repository": "Example/project", "number": 3,
+                       "availability": "unverifiable", "reason": "HTTP_404"})
+        self.assertEqual([e["kind"] for e in watch.classify(before, snap())],
+                         ["SOURCE_RESTORED"])
 
     def test_reject_malformed_source_and_duplicate(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -514,6 +620,34 @@ class WatchTests(unittest.TestCase):
     def test_checkpoint_never_leaks_token(self):
         with self.assertRaisesRegex(ValueError, "GITHUB_TOKEN required"):
             watch.Github("")
+
+    def test_transient_get_retries_but_never_retries_write(self):
+        class Response(io.BytesIO):
+            headers = {"Link": ""}
+
+        api = watch.Github("dummy-test-token")
+        response = Response(b'{"state":"open"}')
+        with patch.object(watch, "urlopen", side_effect=[RemoteDisconnected("closed"), response]) as remote, \
+             patch.object(watch.time, "sleep") as delay:
+            self.assertEqual({"state": "open"}, api.get("/repos/example/x/pulls/1"))
+            self.assertEqual(2, remote.call_count)
+            delay.assert_called_once()
+
+        with patch.object(watch, "urlopen", side_effect=RemoteDisconnected("lost response")) as remote, \
+             patch.object(watch.time, "sleep") as delay:
+            with self.assertRaises(RemoteDisconnected):
+                api.request("/repos/opensiro/upstream/issues/125/comments", method="POST", payload={"body": "test"})
+            self.assertEqual(1, remote.call_count)
+            delay.assert_not_called()
+
+    def test_404_stays_fail_closed_and_is_not_retried(self):
+        api = watch.Github("dummy-test-token")
+        with patch.object(watch, "urlopen", side_effect=HTTPError("https://api.github.com/test", 404, "Not Found", {}, None)) as remote, \
+             patch.object(watch.time, "sleep") as delay:
+            with self.assertRaises(HTTPError):
+                api.get("/repos/example/x/pulls/47")
+            self.assertEqual(1, remote.call_count)
+            delay.assert_not_called()
 
 
 if __name__ == "__main__":
