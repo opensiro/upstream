@@ -62,6 +62,25 @@ canonical Index main SHA, ancestral pin, count of upstream main manifests,
 open PRs, active PR manifests and exact conflicts.
 `CLEAR_PREVIEW_ONLY` is **not** a reservation or an admission.
 
+## Default: human-owned merge decision, no reservation activation
+
+The repository owner may keep ordinary `batch upstream` work **manual at merge**:
+
+1. Agents independently prepare source-linked, reviewable five-row proposals.
+   They may use the GET-only preflight without a reservation branch.
+2. Immediately before an owner decision, re-run the preflight against current
+   Index and Upstream GitHub state. A collision or incomplete visibility means
+   **do not merge that proposal** without reconciling the competing source.
+3. The owner decides which PR, if any, to merge. A green preflight or green CI
+   is evidence for the review, **not** authority for an automatic merge or
+   third-party publication.
+
+This path does **not** require the CAS reservation branch or a new required CI
+setting. It protects the accepted `main` state through human review, but it
+**does not prevent duplicated work before review** or make two simultaneous
+manual decisions atomic. If that cost becomes material, the opt-in CAS branch
+can be separately reviewed and enabled for early source admission.
+
 Writing a claim requires a separately reviewed adoption decision and repository
 permissions, plus `--write-claim`; this document does not instruct operators to
 initialize the ledger branch or treat a successful claim as full admission.
