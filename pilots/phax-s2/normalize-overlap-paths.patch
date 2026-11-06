@@ -1,0 +1,95 @@
+diff --git a/src/domain/planOverlap/compute.ts b/src/domain/planOverlap/compute.ts
+index bde837c..33ad41c 100644
+--- a/src/domain/planOverlap/compute.ts
++++ b/src/domain/planOverlap/compute.ts
+@@ -1,3 +1,4 @@
++import { posix } from "node:path";
+ import { REGENERATED_ARTIFACTS } from "./generatedArtifacts.js";
+ import type {
+   ConflictSeverity,
+@@ -17,9 +18,9 @@ export function buildFootprint(input: PlanInput): PlanFootprint {
+   const optional = new Set<string>();
+ 
+   for (const phase of input.phases) {
+-    for (const p of phase.create) create.add(p);
+-    for (const p of phase.edit) edit.add(p);
+-    for (const p of phase.optional) optional.add(p);
++    for (const p of phase.create) create.add(posix.normalize(p));
++    for (const p of phase.edit) edit.add(posix.normalize(p));
++    for (const p of phase.optional) optional.add(posix.normalize(p));
+   }
+ 
+   const all = new Set<string>([...create, ...edit, ...optional]);
+@@ -149,8 +150,10 @@ export function computePlanOverlap(inputs: readonly PlanInput[]): PlanOverlapRes
+ }
+ 
+ export function buildLandedFootprint(input: LandedInput): PlanFootprint {
+-  const create = new Set<string>(input.added);
+-  const edit = new Set<string>([...input.modified, ...input.deletedOrRenamed]);
++  const create = new Set<string>(input.added.map((p) => posix.normalize(p)));
++  const edit = new Set<string>(
++    [...input.modified, ...input.deletedOrRenamed].map((p) => posix.normalize(p)),
++  );
+   const optional = new Set<string>();
+   const all = new Set<string>([...create, ...edit]);
+   return { id: input.id, label: input.label, create, edit, optional, all };
+diff --git a/tests/unit/planOverlap/compute.test.ts b/tests/unit/planOverlap/compute.test.ts
+index ed15da5..01609c1 100644
+--- a/tests/unit/planOverlap/compute.test.ts
++++ b/tests/unit/planOverlap/compute.test.ts
+@@ -1,8 +1,10 @@
+ import { describe, expect, it } from "vitest";
+ import {
+   buildFootprint,
++  buildLandedFootprint,
+   classifyShared,
+   computePlanOverlap,
++  computeReadjustmentImpact,
+ } from "../../../src/domain/planOverlap/compute.js";
+ import type { PlanInput } from "../../../src/domain/planOverlap/types.js";
+ 
+@@ -146,6 +148,43 @@ describe("classifyShared", () => {
+ });
+ 
+ describe("computePlanOverlap", () => {
++  it("recognizes the same path across equivalent relative spellings", () => {
++    const a: PlanInput = {
++      id: "a",
++      label: "A",
++      phases: [{ create: [], edit: ["./src/widget.ts"], optional: [] }],
++    };
++    const b: PlanInput = {
++      id: "b",
++      label: "B",
++      phases: [{ create: [], edit: ["src/widget.ts"], optional: [] }],
++    };
++    const result = computePlanOverlap([a, b]);
++    expect(result.edges).toHaveLength(1);
++    expect(result.edges[0]?.severity).toBe("medium");
++    expect(result.edges[0]?.shared[0]?.path).toBe("src/widget.ts");
++    expect(result.cleanPairs).toHaveLength(0);
++  });
++
++  it("detects a landed file change with an equivalent planned path", () => {
++    const landed = buildLandedFootprint({
++      id: "landed",
++      label: "Landed run",
++      added: [],
++      modified: ["src/widget.ts"],
++      deletedOrRenamed: [],
++    });
++    const plan = buildFootprint({
++      id: "planned",
++      label: "Planned run",
++      phases: [{ create: [], edit: ["./src/widget.ts"], optional: [] }],
++    });
++    const result = computeReadjustmentImpact(landed, [plan]);
++    expect(result.impacted).toHaveLength(1);
++    expect(result.impacted[0]?.shared[0]?.path).toBe("src/widget.ts");
++    expect(result.unaffected).toHaveLength(0);
++  });
++
+   it("two disjoint plans → no edges, both in cleanPairs, one wave", () => {
+     const result = computePlanOverlap([planA, planB]);
+     expect(result.edges).toHaveLength(0);
+     expect(result.cleanPairs).toHaveLength(1);
