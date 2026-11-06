@@ -26,6 +26,11 @@ class EmptyGithub:
     def get(self, path):
         if path == "/repos/opensiro/upstream/branches/main":
             return {"commit": {"sha": "1" * 40}}
+        if path == "/repos/opensiro/vsm-harness-index/branches/main":
+            return {"commit": {"sha": "6" * 40}}
+        if path.startswith("/repos/opensiro/vsm-harness-index/compare/"):
+            pin = path.rsplit("/", 1)[1].split("...", 1)[0]
+            return {"status": "ahead", "behind_by": 0, "base_commit": {"sha": pin}}
         if path == "/repos/opensiro/upstream/git/commits/" + "1" * 40:
             return {"tree": {"sha": "4" * 40}}
         if path == "/repos/opensiro/upstream/git/trees/" + "4" * 40 + "?recursive=1":

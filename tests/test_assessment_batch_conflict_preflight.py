@@ -18,6 +18,7 @@ mod = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(mod)
 ORIGINAL = ROOT / "data/assessment-candidate-batches/2026-10-22-01.json"
 MAIN_SHA, BLOB_SHA, PR_SHA, TREE_SHA = "1" * 40, "2" * 40, "3" * 40, "4" * 40
+INDEX_MAIN_SHA = "6" * 40
 MAIN_PATH = "data/assessment-candidate-batches/2026-10-22-97.json"
 PR_PATH = "data/assessment-candidate-batches/2026-10-22-98.json"
 
@@ -31,13 +32,17 @@ def blob(payload):
 
 
 class FakeGithub:
-    def __init__(self, *, main=None, pr=None, broken=None, changed=False, truncated=False):
+    def __init__(self, *, main=None, pr=None, broken=None, changed=False, truncated=False,
+                 index_relation="ahead", index_changed=False):
         self.main = main
         self.pr = pr
         self.broken = broken
         self.changed = changed
         self.truncated = truncated
+        self.index_relation = index_relation
+        self.index_changed = index_changed
         self.branch_reads = 0
+        self.index_reads = 0
 
     def get(self, path):
         if path == self.broken:
@@ -45,6 +50,13 @@ class FakeGithub:
         if path == "/repos/opensiro/upstream/branches/main":
             self.branch_reads += 1
             return {"commit": {"sha": "9" * 40 if self.changed and self.branch_reads > 1 else MAIN_SHA}}
+        if path == "/repos/opensiro/vsm-harness-index/branches/main":
+            self.index_reads += 1
+            return {"commit": {"sha": "8" * 40 if self.index_changed and self.index_reads > 1 else INDEX_MAIN_SHA}}
+        if path.startswith("/repos/opensiro/vsm-harness-index/compare/"):
+            pin = path.rsplit("/", 1)[1].split("...", 1)[0]
+            return {"status": self.index_relation, "behind_by": 0 if self.index_relation != "diverged" else 1,
+                    "base_commit": {"sha": pin}}
         if path == f"/repos/opensiro/upstream/git/commits/{MAIN_SHA}":
             return {"tree": {"sha": TREE_SHA}}
         if path == f"/repos/opensiro/upstream/git/trees/{TREE_SHA}?recursive=1":
@@ -109,6 +121,8 @@ class PreflightTests(unittest.TestCase):
         self.assertEqual(report["main_manifest_count"], 1)
         self.assertEqual(report["active_pr_manifest_count"], 1)
         self.assertEqual(report["open_pr_count"], 1)
+        self.assertTrue(report["index_sha_attested_reachable"])
+        self.assertEqual(report["canonical_index_main_sha"], INDEX_MAIN_SHA)
 
     def test_merged_source_casefold_collision_is_blocked(self):
         merged = self.unrelated()
@@ -137,11 +151,16 @@ class PreflightTests(unittest.TestCase):
     def test_visibility_failure_truncated_tree_and_changed_main_fail_closed(self):
         for reader, message in ((FakeGithub(truncated=True), "incomplete canonical main tree"),
                                 (FakeGithub(changed=True), "repository changed during preflight"),
+                                (FakeGithub(index_changed=True), "repository changed during preflight"),
                                 (FakeGithub(broken=f"/repos/opensiro/upstream/git/trees/{TREE_SHA}?recursive=1"),
                                  "BLOCKED_GITHUB_VISIBILITY")):
             with self.subTest(message=message):
                 with self.assertRaisesRegex(mod.BatchError, message):
                     mod.preflight(self.original, self.index, reader)
+
+    def test_diverged_index_pin_fails_closed(self):
+        with self.assertRaisesRegex(mod.BatchError, "BLOCKED_INDEX_PROVENANCE"):
+            mod.preflight(self.original, self.index, FakeGithub(index_relation="diverged"))
 
     def test_invalid_index_pin_and_partial_cohort_fail_before_github(self):
         manifest = copy.deepcopy(self.original)

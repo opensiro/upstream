@@ -19,6 +19,7 @@ from urllib.request import HTTPRedirectHandler, Request, build_opener
 from assessment_candidate_batches import BatchError, validate
 
 REPO = "opensiro/upstream"
+INDEX_REPO = "opensiro/vsm-harness-index"
 PREFIX = "data/assessment-candidate-batches/"
 FILE_PATTERN = re.compile(r"data/assessment-candidate-batches/[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{2}\.json\Z")
 NAME_PATTERN = re.compile(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+\Z")
@@ -107,16 +108,35 @@ def _open_snapshot(reader):
     return snapshot
 
 
+def _branch_sha(reader, repository):
+    branch = reader.get(f"/repos/{repository}/branches/main")
+    sha = branch.get("commit", {}).get("sha") if isinstance(branch, dict) else None
+    if not isinstance(sha, str) or not re.fullmatch(r"[0-9a-f]{40}", sha):
+        raise BatchError("BLOCKED_GITHUB_VISIBILITY: missing canonical " + repository + " main SHA")
+    return sha
+
+
+def _attest_canonical_index(index_sha, reader):
+    """Require the exact frozen Index commit to be reachable from canonical main."""
+    main_sha = _branch_sha(reader, INDEX_REPO)
+    comparison = reader.get(f"/repos/{INDEX_REPO}/compare/{index_sha}...{main_sha}")
+    if (not isinstance(comparison, dict)
+            or comparison.get("status") not in {"ahead", "identical"}
+            or comparison.get("behind_by") != 0
+            or not isinstance(comparison.get("base_commit"), dict)
+            or comparison["base_commit"].get("sha") != index_sha):
+        raise BatchError("BLOCKED_INDEX_PROVENANCE: frozen Index SHA is not an ancestor of canonical main")
+    return main_sha
+
+
 def preflight(manifest, index_root, reader, *, own_pr=None):
     """Prove no visible collision in one stable read window, NOT atomic admission."""
     validate(manifest, index_root)
     if len(manifest["candidates"]) != 5:
         raise BatchError("Preflight requires exactly five assessed sources")
     proposed = {normalize(x["source"]) for x in manifest["candidates"]}
-    branch = reader.get(f"/repos/{REPO}/branches/main")
-    main_sha = branch.get("commit", {}).get("sha") if isinstance(branch, dict) else None
-    if not isinstance(main_sha, str) or not re.fullmatch(r"[0-9a-f]{40}", main_sha):
-        raise BatchError("BLOCKED_GITHUB_VISIBILITY: missing canonical main SHA")
+    index_main_sha = _attest_canonical_index(manifest["index_sha"], reader)
+    main_sha = _branch_sha(reader, REPO)
     commit = reader.get(f"/repos/{REPO}/git/commits/{main_sha}")
     tree_sha = commit.get("tree", {}).get("sha") if isinstance(commit, dict) else None
     if not isinstance(tree_sha, str) or not re.fullmatch(r"[0-9a-f]{40}", tree_sha):
@@ -174,10 +194,10 @@ def preflight(manifest, index_root, reader, *, own_pr=None):
         raise BatchError("BLOCKED_GITHUB_VISIBILITY: own PR must contain exactly one matching manifest")
 
     # Detect changes during pagination and blob reads; still NOT an atomic lock.
-    final_branch = reader.get(f"/repos/{REPO}/branches/main")
-    final_sha = final_branch.get("commit", {}).get("sha") if isinstance(final_branch, dict) else None
+    final_sha = _branch_sha(reader, REPO)
+    final_index_sha = _branch_sha(reader, INDEX_REPO)
     final_prs = _open_snapshot(reader)
-    if (main_sha != final_sha or
+    if (main_sha != final_sha or index_main_sha != final_index_sha or
             {n: p["head"]["sha"] for n, p in prs.items()} !=
             {n: p["head"]["sha"] for n, p in final_prs.items()}):
         raise BatchError("BLOCKED_GITHUB_VISIBILITY: repository changed during preflight")
@@ -187,6 +207,8 @@ def preflight(manifest, index_root, reader, *, own_pr=None):
     return {
         "status": "BLOCKED_DUPLICATE_SOURCE" if collisions else "CLEAR_PREVIEW_ONLY",
         "batch_id": manifest["batch_id"], "sources": sorted(proposed),
+        "canonical_index_main_sha": index_main_sha,
+        "index_sha_attested_reachable": True,
         "main_sha": main_sha, "main_manifest_count": len(merged_paths),
         "open_pr_count": len(prs), "active_pr_manifest_count": active_manifest_count,
         "collisions": collisions, "remote_visibility_checked": True,

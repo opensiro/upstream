@@ -11,13 +11,16 @@ It is deliberately *not* a new scheduler, VSM assessor or permission issuer.
 
 1. Validate the entire five-row candidate manifest against a **local Index checkout
    at the manifest's exact frozen `index_sha`**, including included status, S1=A,
-   reviewed source commit and assessment identity. No remote Index attestation is
-   claimed from this local-only check.
+   reviewed source commit and assessment identity. The standalone reservation
+   **preview** only checks that local frozen object.
 2. For an explicit **write**, perform a **GET-only live collision preflight**:
    read canonical `upstream/main`'s Git tree and every merged frozen batch
    manifest, enumerate **all** open PRs and their changed batch manifests,
    then repeat main/open-PR head inventory to detect changes during the read.
-   A duplicate normalized source, truncated API page/tree, malformed response,
+   First attest that the exact frozen Index SHA is reachable from the current
+   `opensiro/vsm-harness-index/main` by GitHub's commit comparison endpoint;
+   repeat its main SHA after the scan. A duplicate normalized source,
+   unreachable Index SHA, truncated API page/tree, malformed response,
    inaccessible PR head or rate-limit failure blocks the write. A caller may
    identify its own PR only when it holds exactly one matching manifest.
 3. Fetch the **existing** reservation branch. A missing/unreadable ref or an
@@ -55,7 +58,8 @@ python3 scripts/assessment_batch_conflict_preflight.py \
 
 The preflight reads public GitHub data anonymously or uses an ordinary
 `GITHUB_TOKEN` when present; errors fail closed. Its receipt reports the
-count of main manifests, open PRs, active PR manifests and exact conflicts.
+canonical Index main SHA, ancestral pin, count of upstream main manifests,
+open PRs, active PR manifests and exact conflicts.
 `CLEAR_PREVIEW_ONLY` is **not** a reservation or an admission.
 
 Writing a claim requires a separately reviewed adoption decision and repository
@@ -64,8 +68,6 @@ initialize the ledger branch or treat a successful claim as full admission.
 
 ## Critical remaining gates before operational use
 
-- **Canonical remote visibility:** compare the exact Index ref to the owning
-  canonical remote. The current script proves only its checked-out SHA.
 - **Cross-ref atomicity:** the read-only preflight now scans merged batch
   manifests and all visible open draft PRs, but GitHub's main and PR heads
   can change **after** that scan, while only reservation commits are serialized
@@ -98,4 +100,5 @@ unavailable reservation refs. No GitHub or model provider is invoked.
 
 The preflight fixtures also cover complete merged/open-source scans, casefold
 collisions, exact-own-PR matching, missing Index pins, truncated GitHub trees,
-API visibility failures and a changing main SHA.
+API visibility failures, a canonical Index ancestry mismatch, and changing
+Index/Upstream main SHAs.
