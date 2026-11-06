@@ -15,7 +15,7 @@
       "reviewed_at": "2026-11-05",
       "function": "S2",
       "finding": "The assessed S2=C witness is an exclusive task/worker claim and completed-prerequisite gate. Check whether every native claim entry point, including direct manual API dispatch, enforces exactly one active task per agent and only admits ready tasks; use first-party engine functions with fixed in-memory state, no running agents.",
-      "stage": "ACTIVE",
+      "stage": "AWAITING_EXTERNAL",
       "origin": "ASSESSMENT_DERIVED",
       "fit": {
         "need": "PASS",
@@ -33,6 +33,7 @@
       "observed_native_change": "First-party Node suite with two additional regression tests: original source 9 PASS / 2 FAIL; exact local fix 11 PASS / 0 FAIL; clean pinned Git worktree replay also 11 PASS / 0 FAIL.",
       "product_benefit": "BOUNDED_NATIVE_CORRECTNESS_ONLY",
       "experiment_cycle": "INCOMPLETE_NO_EXTERNAL_DELIVERY",
+      "handoff_url": "https://github.com/opensiro/upstream/pull/141",
       "external_action": "NOT_EXECUTED"
     },
     {
@@ -79,7 +80,7 @@
       "reviewed_at": "2026-11-05",
       "function": "S2",
       "finding": "Assessment credits first-party file-intersection checks that serialize overlapping builder waves and a single integrator. Inspect current source file-scope collision classification and admission for a falsifiable safe native change; do not invoke actual builder agents, model calls or dry-run agent episodes.",
-      "stage": "ACTIVE",
+      "stage": "AWAITING_EXTERNAL",
       "origin": "ASSESSMENT_DERIVED",
       "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
       "evidence": [
@@ -91,6 +92,7 @@
       "observed_native_change": "Native source-helper Node tests: original 2 PASS / 3 FAIL, patched 5 PASS / 0 FAIL; original repo wiring script 36 PASS with patch. Clean pinned Git worktree patch replay: 5 Node tests PASS and 36 Python repository-wiring tests PASS.",
       "product_benefit": "BOUNDED_NATIVE_CORRECTNESS_ONLY",
       "experiment_cycle": "INCOMPLETE_NO_EXTERNAL_DELIVERY",
+      "handoff_url": "https://github.com/opensiro/upstream/pull/141",
       "external_action": "NOT_EXECUTED"
     },
     {
