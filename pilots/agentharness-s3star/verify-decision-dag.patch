@@ -1,0 +1,225 @@
+diff --git a/src/agent_harness/cli.py b/src/agent_harness/cli.py
+index 72b4e99..7d56184 100644
+--- a/src/agent_harness/cli.py
++++ b/src/agent_harness/cli.py
+@@ -249,8 +249,13 @@ def replay(
+ def inspect(
+     run_id: Annotated[str | None, typer.Argument(help="Run ID to inspect (omit to list all)")] = None,
+     storage: Annotated[str, typer.Option("--storage", help="Path to runs directory")] = ".harness/runs",
++    verify: Annotated[bool, typer.Option("--verify", help="Check persisted decision hashes and parent links")] = False,
+ ):
+     """Inspect past agent runs and view their decision graph trajectories."""
++    if verify and not run_id:
++        console.print("[red]Error: --verify requires a specific run ID.[/red]")
++        raise typer.Exit(code=2)
++
+     storage_path = Path(storage).resolve()
+     if not storage_path.exists():
+         console.print("[yellow]No runs found in storage directory.[/yellow]")
+@@ -279,6 +284,16 @@ def inspect(
+         console.print(f"[red]Error: Run '{run_id}' not found in '{storage_path}'.[/red]")
+         return
+ 
++    if verify:
++        report = dag.verify_integrity()
++        if report.ok:
++            console.print(f"[green]Integrity: PASS[/green] ({report.checked_nodes} nodes)")
++        else:
++            console.print(f"[red]Integrity: FAIL[/red] ({report.checked_nodes} nodes)")
++            for finding in report.findings:
++                console.print(f"[red]{finding.code}[/red]: {finding.node_id or '(DAG)'}")
++            raise typer.Exit(code=1)
++
+     console.print(Panel(f"[bold cyan]Run ID:[/bold cyan] {dag.run_id}\n[bold]Goal:[/bold] {dag.goal}", title="Decision DAG Details"))
+     trajectory = dag.get_trajectory()
+ 
+diff --git a/src/agent_harness/graph/decision_dag.py b/src/agent_harness/graph/decision_dag.py
+index 2c2740f..afc4195 100644
+--- a/src/agent_harness/graph/decision_dag.py
++++ b/src/agent_harness/graph/decision_dag.py
+@@ -46,6 +46,19 @@ class DecisionNode(BaseModel):
+         return hasher.hexdigest()
+ 
+ 
++class IntegrityFinding(BaseModel):
++    """A machine-readable reason a saved decision DAG failed validation."""
++
++    code: str
++    node_id: str | None = None
++
++
++class IntegrityReport(BaseModel):
++    ok: bool
++    checked_nodes: int
++    findings: list[IntegrityFinding] = Field(default_factory=list)
++
++
+ class DecisionDAG:
+     def __init__(self, run_id: str, goal: str):
+         self.run_id = run_id
+@@ -55,6 +68,7 @@ class DecisionDAG:
+         self.root_node_id: str | None = None
+         self.current_leaf_id: str | None = None
+         self.step_counter = 0
++        self._duplicate_loaded_ids: list[str] = []
+ 
+         # Create and insert root GOAL node
+         root = DecisionNode(
+@@ -154,6 +168,54 @@ class DecisionDAG:
+         branches = {node.branch_id for node in self.nodes_by_id.values()}
+         return sorted(branches)
+ 
++    def verify_integrity(self) -> IntegrityReport:
++        """Recheck stored payload/type hashes and parent links without modifying the DAG.
++
++        This detects accidental or partial changes to the hashed contents of a
++        saved trajectory. Hashes do not authenticate the writer, nor cover all
++        node metadata; a party able to rewrite every hash can forge a new DAG.
++        """
++        findings: list[IntegrityFinding] = []
++
++        if self.root_node_id not in self.nodes_by_id:
++            findings.append(IntegrityFinding(code="MISSING_ROOT", node_id=self.root_node_id))
++        if self.current_leaf_id not in self.nodes_by_id:
++            findings.append(IntegrityFinding(code="MISSING_LEAF", node_id=self.current_leaf_id))
++        if not nx.is_directed_acyclic_graph(self.graph):
++            findings.append(IntegrityFinding(code="CYCLE_DETECTED"))
++        for duplicate_id in self._duplicate_loaded_ids:
++            findings.append(IntegrityFinding(code="DUPLICATE_NODE_ID", node_id=duplicate_id))
++
++        for node_id, node in self.nodes_by_id.items():
++            if node_id != node.id:
++                findings.append(IntegrityFinding(code="NODE_ID_MISMATCH", node_id=node_id))
++            if node_id == self.root_node_id and (
++                node.parent_ids or node.node_type != NodeType.GOAL
++            ):
++                findings.append(IntegrityFinding(code="INVALID_ROOT", node_id=node_id))
++            if len(node.parent_ids) != len(set(node.parent_ids)):
++                findings.append(IntegrityFinding(code="DUPLICATE_PARENT", node_id=node_id))
++
++            parent_hashes = []
++            for parent_id in node.parent_ids:
++                parent = self.nodes_by_id.get(parent_id)
++                if parent is None:
++                    findings.append(IntegrityFinding(code="MISSING_PARENT", node_id=node_id))
++                else:
++                    parent_hashes.append(parent.content_hash)
++            # Incomplete parent sets are never accepted, even when a hash
++            # accidentally matches one computed without the missing parents.
++            if len(parent_hashes) != len(node.parent_ids):
++                continue
++            if node.content_hash != node.compute_hash(parent_hashes):
++                findings.append(IntegrityFinding(code="HASH_MISMATCH", node_id=node_id))
++
++        return IntegrityReport(
++            ok=not findings,
++            checked_nodes=len(self.nodes_by_id),
++            findings=findings,
++        )
++
+     def to_cytoscape_elements(self) -> list[dict[str, Any]]:
+         """Export graph into Cytoscape.js elements for web visualizer."""
+         elements = []
+@@ -201,6 +263,8 @@ class DecisionDAG:
+ 
+         for raw_node in data.get("nodes", []):
+             node = DecisionNode.model_validate(raw_node)
++            if node.id in dag.nodes_by_id:
++                dag._duplicate_loaded_ids.append(node.id)
+             dag.nodes_by_id[node.id] = node
+             dag.graph.add_node(node.id, data=node.model_dump())
+             for pid in node.parent_ids:
+diff --git a/tests/unit/test_cli.py b/tests/unit/test_cli.py
+index 130818a..345b7af 100644
+--- a/tests/unit/test_cli.py
++++ b/tests/unit/test_cli.py
+@@ -1,6 +1,9 @@
++import json
++
+ from typer.testing import CliRunner
+ 
+ from agent_harness.cli import app
++from agent_harness.graph.decision_dag import DecisionDAG, NodeType
+ 
+ runner = CliRunner()
+ 
+@@ -53,3 +56,29 @@ def test_cli_replay_help():
+     res = runner.invoke(app, ["replay", "--help"])
+     assert res.exit_code == 0
+     assert "Replay previously recorded" in res.stdout
++
++
++def test_inspect_verify_detects_tampered_saved_dag(tmp_path):
++    storage = tmp_path / "runs"
++    storage.mkdir()
++    dag = DecisionDAG("audit-test", "inspect journal")
++    dag.create_child_node(NodeType.OBSERVATION, "response", {"result": "untampered"})
++    path = storage / "audit-test.json"
++    path.write_text(json.dumps(dag.to_dict()), encoding="utf-8")
++
++    intact = runner.invoke(app, ["inspect", "audit-test", "--storage", str(storage), "--verify"])
++    assert intact.exit_code == 0
++    assert "Integrity: PASS" in intact.stdout
++
++    changed = json.loads(path.read_text(encoding="utf-8"))
++    changed["nodes"][-1]["payload"]["result"] = "modified"
++    path.write_text(json.dumps(changed), encoding="utf-8")
++    broken = runner.invoke(app, ["inspect", "audit-test", "--storage", str(storage), "--verify"])
++    assert broken.exit_code != 0
++    assert "HASH_MISMATCH" in broken.stdout
++
++
++def test_inspect_verify_requires_explicit_run_id(tmp_path):
++    result = runner.invoke(app, ["inspect", "--storage", str(tmp_path), "--verify"])
++    assert result.exit_code == 2
++    assert "requires a specific run ID" in result.stdout
+diff --git a/tests/unit/test_decision_dag.py b/tests/unit/test_decision_dag.py
+index e840e43..da611de 100644
+--- a/tests/unit/test_decision_dag.py
++++ b/tests/unit/test_decision_dag.py
+@@ -52,3 +52,45 @@ def test_dag_serialization(sample_dag):
+ 
+     cytoscape_elements = restored.to_cytoscape_elements()
+     assert len(cytoscape_elements) >= 2
++
++
++def test_saved_dag_integrity_detects_modified_tool_observation(sample_dag):
++    observation = sample_dag.create_child_node(
++        NodeType.OBSERVATION, "tool output", {"stdout": "original response"}
++    )
++    saved = sample_dag.to_dict()
++    saved["nodes"][-1]["payload"]["stdout"] = "tampered response"
++
++    restored = DecisionDAG.from_dict(saved)
++    report = restored.verify_integrity()
++    assert report.ok is False
++    assert report.checked_nodes == 2
++    assert any(f.code == "HASH_MISMATCH" and f.node_id == observation.id for f in report.findings)
++
++
++def test_saved_dag_integrity_rejects_missing_parent_and_valid_roundtrip(sample_dag):
++    child = sample_dag.create_child_node(NodeType.TOOL_CALL, "call", {"args": [1, 2]})
++    intact = DecisionDAG.from_dict(sample_dag.to_dict())
++    assert intact.verify_integrity().ok is True
++
++    broken = sample_dag.to_dict()
++    broken["nodes"][-1]["parent_ids"] = ["does-not-exist"]
++    report = DecisionDAG.from_dict(broken).verify_integrity()
++    assert report.ok is False
++    assert any(f.code == "MISSING_PARENT" and f.node_id == child.id for f in report.findings)
++
++
++def test_saved_dag_integrity_detects_tampered_root_goal(sample_dag):
++    data = sample_dag.to_dict()
++    data["nodes"][0]["payload"]["goal"] = "substituted goal"
++    report = DecisionDAG.from_dict(data).verify_integrity()
++    assert report.ok is False
++    assert any(f.code == "HASH_MISMATCH" for f in report.findings)
++
++
++def test_saved_dag_integrity_detects_duplicate_serialized_node_ids(sample_dag):
++    data = sample_dag.to_dict()
++    data["nodes"].append(data["nodes"][0].copy())
++    report = DecisionDAG.from_dict(data).verify_integrity()
++    assert report.ok is False
++    assert any(f.code == "DUPLICATE_NODE_ID" for f in report.findings)
