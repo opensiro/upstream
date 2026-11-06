@@ -15,14 +15,15 @@
       "reviewed_at": "2026-11-05",
       "function": "S2",
       "finding": "The assessed S2=C witness groups specialist jobs and rejects concurrent use of one connector. Check whether team-group admission and parent-chat uniqueness remain sound under competing starts or partial group-launch failure, using genuine first-party Python functions and fixed state without starting any model worker.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "fit": {"need": "FAIL", "mechanism": "PASS", "counterfactual": "FAIL", "scope": "PASS"},
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/1e2d2b1c48e3b8d846d6911c98e4b76f1c6f1340/assessments/ja/jarvis-ai-council.md",
         "https://github.com/berkesecicii/free-multi-agent-ai-council/blob/20a93de357da82c39255932da71dfb12aeea2f49/team_runner.py",
         "https://github.com/berkesecicii/free-multi-agent-ai-council/blob/20a93de357da82c39255932da71dfb12aeea2f49/app.py"
-      ]
+      ],
+      "screening_result": "A synthetic simultaneous direct call to start_team bypassing the HTTP entry can double-register a team, but the real first-party ThreadingHTTPServer.do_POST holds the same shared RLock around every store.action('team-start'). The supposed race cannot be reproduced through the supported native entry without removing that guard. No credible product defect or useful patch has been established; experimental direct-call-only patch and test were discarded. MIT license; lexical public team-concurrency issue/PR search found no matching report. No agent/provider ran."
     },
     {
       "id": "talktorana-memory-concurrent-save",
@@ -32,14 +33,22 @@
       "reviewed_at": "2026-11-04",
       "function": "S2",
       "finding": "The assessed S2=C witness serializes and verifies shared session-memory updates. Screen current first-party memory.py plus test_memory_concurrency.py for a falsifiable lost-update or stale-write failure between separate sessions, with isolated files and no agent or provider invocation.",
-      "stage": "SCREENING",
-      "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "stage": "AWAITING_EXTERNAL",
+      "origin": "ASSESSMENT_DERIVED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/1e2d2b1c48e3b8d846d6911c98e4b76f1c6f1340/assessments/ag/agent-harness-talktorana.md",
         "https://github.com/talktorana/agent-harness/blob/4d5e11d16e4e9755c4282634778f112c44e21d12/memory.py",
-        "https://github.com/talktorana/agent-harness/blob/4d5e11d16e4e9755c4282634778f112c44e21d12/test_memory_concurrency.py"
-      ]
+        "https://github.com/talktorana/agent-harness/blob/4d5e11d16e4e9755c4282634778f112c44e21d12/test_memory_concurrency.py",
+        "https://github.com/talktorana/agent-harness/blob/7b2f57b70849c33fb38c6188ab12ceff42cd099c/memory.py"
+      ],
+      "patch_path": "pilots/talktorana-memory-s2/concurrent-revise-retire.patch",
+      "patch_sha256": "0256bed316e87edae27bf4d19ffe97f74d4810f7d1ab168ae26a622feda42fa8",
+      "observed_native_change": "Two genuine MemoryStore mutator-vs-append interleavings FAIL on untouched first-party 7b2f57b (lost accepted note); after the bounded reentrant-lock fix, 7/7 native tests PASS including the five original memory concurrency tests. A disposable clean pinned source replay of the exact archived patch passes git apply --check, the seven tests and git diff --check.",
+      "product_benefit": "BOUNDED_NATIVE_CORRECTNESS_ONLY",
+      "experiment_cycle": "INCOMPLETE_NO_EXTERNAL_DELIVERY",
+      "handoff_url": "https://github.com/opensiro/upstream/pull/147",
+      "external_action": "NOT_EXECUTED"
     },
     {
       "id": "agentorg-shared-resource-claims",
@@ -49,13 +58,16 @@
       "reviewed_at": "2026-11-04",
       "function": "S2",
       "finding": "The assessed S2=C mechanism prevents two independently operating Actors from owning the same shared resource. Test the current first-party claims.ts admission/release path for conflicting versus disjoint resource claims and stale-owner handling with native isolated fixtures, without launching model agents.",
-      "stage": "SCREENING",
+      "stage": "BLOCKED_EVIDENCE",
       "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "fit": {"need": "PENDING", "mechanism": "PASS", "counterfactual": "PENDING", "scope": "PENDING"},
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/1e2d2b1c48e3b8d846d6911c98e4b76f1c6f1340/assessments/ag/agentorg.md",
-        "https://github.com/uniac-ai/AgentOrg/blob/25e116cb719989ce568b272016b1936668efbf5f/src/domain/claims.ts"
-      ]
+        "https://github.com/uniac-ai/AgentOrg/blob/25e116cb719989ce568b272016b1936668efbf5f/src/domain/claims.ts",
+        "https://github.com/uniac-ai/AgentOrg/blob/21b83698c60cf2b581aa50373a84265161c7c2e1/src/storage/sqlite/index.ts",
+        "https://github.com/uniac-ai/AgentOrg/pull/41"
+      ],
+      "blocker": "Current MIT first-party claim/release path is synchronous and SQLite-backed; no source-supported concurrent wrong-owner native failure is established inside the documented single-Hub boundary. The obvious cross-process read-then-replace concern is not yet shown as a supported mode. Node 24 is present, but npm run build fails because tsc/dependencies are unavailable; no genuine first-party native regression could be run. Need a supported interleaving or multi-server contract plus dependency-enabled native test before proposing a code change. Public overlap search found the original claims feature PR #41, not an independently verified defect. No agent/provider or external write."
     },
     {
       "id": "deepseek-mesh-capacity-release",
@@ -65,14 +77,16 @@
       "reviewed_at": "2026-11-04",
       "function": "S2",
       "finding": "The assessed S2=C witness uses a worker mesh and queue/pump to attenuate worker-node overcommit across Executor jobs. Inspect the first-party mesh, scheduling and release paths for inconsistent capacity admission or failure recovery under fixed offline Node fixtures, not live agent/provider execution.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "fit": {"need": "FAIL", "mechanism": "PASS", "counterfactual": "FAIL", "scope": "PASS"},
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/1e2d2b1c48e3b8d846d6911c98e4b76f1c6f1340/assessments/de/deepseek-super-agent.md",
         "https://github.com/LofiSu/deepseek-super-agent/blob/a1985c06b2c1520f14b54817e22f73542f9e2d7d/src/harness/mesh.ts",
-        "https://github.com/LofiSu/deepseek-super-agent/blob/a1985c06b2c1520f14b54817e22f73542f9e2d7d/test/worker-mesh.test.ts"
-      ]
+        "https://github.com/LofiSu/deepseek-super-agent/blob/a1985c06b2c1520f14b54817e22f73542f9e2d7d/test/worker-mesh.test.ts",
+        "https://github.com/LofiSu/deepseek-super-agent/blob/e705e872796ed1900fa6b42093136e577861de7f/src/runtime.ts"
+      ],
+      "screening_result": "Current MIT source e705e872 supports explicit least-loaded capacity, ticket-sticky assignment, release and offline/unregister handling. Eight direct Node 24 assertions on the genuine first-party WorkerMeshRegistry all PASS (capacity refusal, ticket reuse, release, offline and node removal); the source-integrated runtime releases after transaction commit and existing native tests explicitly cover assignment failures and queue skips. No independently falsified native behavior or need for a patch was established. Vitest's broader scripted-model episodes were deliberately not run; no live agent/provider or external write."
     },
     {
       "id": "phax-cross-run-overlap-reconciliation",
@@ -82,14 +96,25 @@
       "reviewed_at": "2026-11-02",
       "function": "S2",
       "finding": "The assessed S2=C constructor detects cross-run file overlap and routes affected plan commitments into an approval-gated adjustment. Test whether current first-party overlap analysis misclassifies create/delete or path alias changes and whether the unchanged plan is preserved when adjustment is withheld, using native deterministic fixtures only.",
-      "stage": "SCREENING",
-      "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "stage": "AWAITING_EXTERNAL",
+      "origin": "ASSESSMENT_DERIVED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/1e2d2b1c48e3b8d846d6911c98e4b76f1c6f1340/assessments/ph/phax.md",
         "https://github.com/lbdremy/phax/blob/3a9457a63ad8e2b6e6cd6ba63ce38366450c1499/src/app/analyzePlanOverlap.ts",
-        "https://github.com/lbdremy/phax/blob/3a9457a63ad8e2b6e6cd6ba63ce38366450c1499/src/app/adjustPlan.ts"
-      ]
+        "https://github.com/lbdremy/phax/blob/3a9457a63ad8e2b6e6cd6ba63ce38366450c1499/src/app/adjustPlan.ts",
+        "https://github.com/lbdremy/phax/blob/1eeff6b0792ce90edf0e11b18557613f3aa7dae9/src/domain/planOverlap/compute.ts",
+        "https://github.com/lbdremy/phax/blob/1eeff6b0792ce90edf0e11b18557613f3aa7dae9/src/schemas/phaxPlan.ts",
+        "https://github.com/lbdremy/phax/pull/117"
+      ],
+      "patch_path": "pilots/phax-s2/normalize-overlap-paths.patch",
+      "patch_sha256": "7281e253723a43b4c926befb0897a0658ef321e58a3b0178871b16afdf7c6607",
+      "observed_native_change": "Two pure genuine first-party domain assertions FAIL on untouched source 1eeff6b: equivalent repo-relative plan paths are falsely disjoint and a landed modification is falsely unaffected. After POSIX lexical path normalization, 8 direct native Node 24 assertions PASS, including two regressions and six controls. Detached clean pinned replay passes git apply --check, apply, eight assertions and git diff --check. First-party Vitest dependencies are absent; its added tests were not run via Vitest.",
+      "product_benefit": "BOUNDED_NATIVE_CORRECTNESS_ONLY",
+      "experiment_cycle": "INCOMPLETE_NO_EXTERNAL_DELIVERY",
+      "handoff_url": "https://github.com/opensiro/upstream/pull/147",
+      "external_action": "NOT_EXECUTED",
+      "limit": "Lexical path normalization does not resolve symlinks or absolute-root aliases. Interactive approval-withheld adjustment behavior was inspected but not empirically exercised, because no model or interactive session was authorized."
     }
   ]
 }
