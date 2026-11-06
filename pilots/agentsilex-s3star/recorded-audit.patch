@@ -1,0 +1,198 @@
+diff --git a/README.md b/README.md
+index ff01299..35ae38b 100644
+--- a/README.md
++++ b/README.md
+@@ -167,6 +167,18 @@ Phoenix will show a complete trace tree of your agent workflow, including all to
+ - **Custom Agent Behaviors** - Pluggable callback system for implementing custom behaviors (ReAct, Chain-of-Thought, logging, etc.)
+ - **Agent Evaluation Framework** - Test and evaluate agent performance with built-in metrics (tool trajectory, response matching, LLM-as-judge)
+ 
++For a separate, read-only audit of **previously recorded** agent work, use
++`AgentEvaluator(agent=None, evaluators=[...]).evaluate_recorded(golden_set, actual_by_eval_id)`.
++The second argument maps each expected evaluation ID to its saved `DialogTurn`
++list. Unlike `evaluate()`, this does not rerun the operational agent. It
++rejects missing/extra cases, duplicate identifiers, empty metric sets and
++truncated turn lists rather than reporting a misleading pass. Select
++`ResponseMatchEvaluator` with `SimilarityMetric.EXACT` and/or
++`ToolTrajectoryEvaluator` for a fully deterministic offline audit; choosing a
++model-backed judge explicitly opts back into model use. Recorded data is not
++cryptographically authenticated and this API does not itself establish
++independent organizational authority.
++
+ ### 🚀 Roadmap
+ 
+ - [ ] **Guardrails** - Input/output validation and safety checks for agent responses
+diff --git a/src/agentsilex/evaluation/agent_evaluator.py b/src/agentsilex/evaluation/agent_evaluator.py
+index c24edbb..a8320e7 100644
+--- a/src/agentsilex/evaluation/agent_evaluator.py
++++ b/src/agentsilex/evaluation/agent_evaluator.py
+@@ -17,11 +17,13 @@ from agentsilex.session import Session
+ 
+ 
+ class AgentEvaluator:
+-    def __init__(self, agent: Agent, evaluators: List[BaseMetricEvaluator]):
++    def __init__(self, agent: Agent | None, evaluators: List[BaseMetricEvaluator]):
+         self.agent = agent
+         self.evaluators = evaluators
+ 
+     def evaluate(self, eval_set: EvalSet) -> EvalSetResult:
++        if self.agent is None:
++            raise ValueError("evaluate requires an agent; use evaluate_recorded for offline evidence")
+         eval_set_result = EvalSetResult(
+             passed=True, total_cases=0, passed_cases=0, case_results=[]
+         )
+@@ -69,6 +71,57 @@ class AgentEvaluator:
+ 
+         return eval_set_result
+ 
++    def evaluate_recorded(
++        self, eval_set: EvalSet, recorded: dict[str, List[DialogTurn]]
++    ) -> EvalSetResult:
++        """Score supplied trajectories without running any operational agent.
++
++        ``eval_set`` is independently supplied expected behavior; ``recorded``
++        maps each eval ID to saved actual turns. Identity, coverage and turn
++        counts must match exactly so an incomplete audit cannot silently pass.
++
++        This path never calls ``Runner`` or ``self.agent``. Individual metric
++        evaluators are caller-provided: choose deterministic metrics for a
++        provider-free audit, rather than a model-backed judge.
++        """
++        if not self.evaluators:
++            raise ValueError("at least one metric evaluator is required for recorded audit")
++        if not eval_set.cases:
++            raise ValueError("recorded audit requires at least one expected case")
++
++        eval_ids = [case.eval_id for case in eval_set.cases]
++        if len(eval_ids) != len(set(eval_ids)):
++            raise ValueError("duplicate eval_id in expected cases")
++        metric_names = [metric.name for metric in self.evaluators]
++        if len(metric_names) != len(set(metric_names)):
++            raise ValueError("duplicate metric name in recorded audit")
++        if set(recorded) != set(eval_ids):
++            missing = sorted(set(eval_ids) - set(recorded))
++            extra = sorted(set(recorded) - set(eval_ids))
++            raise ValueError(f"recorded case IDs do not match expected cases: missing={missing}, extra={extra}")
++
++        for case in eval_set.cases:
++            if len(recorded[case.eval_id]) != len(case.dialog_session):
++                raise ValueError(f"recorded turn count differs for eval_id {case.eval_id!r}")
++
++        result = EvalSetResult(passed=True, total_cases=0, passed_cases=0, case_results=[])
++        for case in eval_set.cases:
++            actual_turns = recorded[case.eval_id]
++            metric_results = {
++                metric.name: metric.evaluate(actual_turns, case.dialog_session)
++                for metric in self.evaluators
++            }
++            case_passed = all(metric.passed for metric in metric_results.values())
++            result.total_cases += 1
++            result.passed_cases += int(case_passed)
++            result.passed = result.passed and case_passed
++            result.case_results.append(
++                EvalCaseResult(eval_id=case.eval_id, passed=case_passed, metric_results=metric_results)
++            )
++
++        result.metric_summaries = self._compute_metric_summaries(result.case_results)
++        return result
++
+     def _compute_metric_summaries(
+         self, case_results: List[EvalCaseResult]
+     ) -> dict[str, MetricSummary]:
+diff --git a/tests/test_recorded_evaluator.py b/tests/test_recorded_evaluator.py
+new file mode 100644
+index 0000000..9802485
+--- /dev/null
++++ b/tests/test_recorded_evaluator.py
+@@ -0,0 +1,92 @@
++"""Offline independent scoring of recorded agent work; no model or runner calls."""
++
++import pytest
++
++from agentsilex.evaluation import (
++    AgentEvaluator,
++    DialogTurn,
++    EvalCase,
++    EvalSet,
++    ResponseMatchEvaluator,
++    SimilarityMetric,
++    ToolTrajectoryEvaluator,
++)
++
++
++def turn(answer: str) -> DialogTurn:
++    return DialogTurn(user_utterance="task", agent_response=answer, tools_used=[])
++
++
++def gold_set() -> EvalSet:
++    return EvalSet(
++        cases=[
++            EvalCase(eval_id="first", dialog_session=[turn("safe")]),
++            EvalCase(eval_id="second", dialog_session=[turn("correct")]),
++        ]
++    )
++
++
++def auditor() -> AgentEvaluator:
++    # No operational agent is available to this independent offline auditor.
++    return AgentEvaluator(
++        agent=None,
++        evaluators=[
++            ResponseMatchEvaluator(threshold=1.0, metric=SimilarityMetric.EXACT),
++            ToolTrajectoryEvaluator(threshold=1.0),
++        ],
++    )
++
++
++def test_recorded_evaluation_scores_saved_work_without_agent_execution():
++    result = auditor().evaluate_recorded(
++        gold_set(), {"first": [turn("safe")], "second": [turn("wrong")]}
++    )
++    assert result.total_cases == 2
++    assert result.passed_cases == 1
++    assert result.passed is False
++    assert [case.passed for case in result.case_results] == [True, False]
++    assert result.metric_summaries["response_match"].pass_rate == 0.5
++    assert result.metric_summaries["tool_trajectory"].pass_rate == 1.0
++
++
++@pytest.mark.parametrize(
++    "recorded",
++    [
++        {"first": [turn("safe")]},
++        {"first": [turn("safe")], "second": [turn("correct")], "ghost": []},
++    ],
++)
++def test_recorded_evaluation_requires_exact_case_identity(recorded):
++    with pytest.raises(ValueError, match="recorded"):
++        auditor().evaluate_recorded(gold_set(), recorded)
++
++
++def test_recorded_evaluation_rejects_shorter_trajectory():
++    with pytest.raises(ValueError, match="turn"):
++        auditor().evaluate_recorded(
++            gold_set(), {"first": [], "second": [turn("correct")]}
++        )
++
++
++def test_recorded_evaluation_rejects_duplicate_ground_truth_ids():
++    data = EvalSet(cases=[EvalCase(eval_id="a", dialog_session=[])] * 2)
++    with pytest.raises(ValueError, match="duplicate"):
++        auditor().evaluate_recorded(data, {"a": []})
++
++
++def test_recorded_evaluation_rejects_missing_evaluation_criteria():
++    no_metrics = AgentEvaluator(agent=None, evaluators=[])
++    with pytest.raises(ValueError, match="metric"):
++        no_metrics.evaluate_recorded(gold_set(), {})
++
++
++def test_recorded_evaluation_rejects_duplicate_metric_names():
++    metric = ResponseMatchEvaluator(threshold=1.0, metric=SimilarityMetric.EXACT)
++    duplicate_metrics = AgentEvaluator(agent=None, evaluators=[metric, metric])
++    with pytest.raises(ValueError, match="duplicate metric"):
++        duplicate_metrics.evaluate_recorded(gold_set(), {})
++
++
++def test_recorded_evaluation_rejects_empty_corpus():
++    with pytest.raises(ValueError, match="at least one expected"):
++        auditor().evaluate_recorded(EvalSet(cases=[]), {})
