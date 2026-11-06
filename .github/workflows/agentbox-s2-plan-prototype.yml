@@ -1,0 +1,66 @@
+name: AgentBox S2 optional manager-plan native tests
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/agentbox-s2-plan-prototype.yml'
+      - 'pilots/agentbox-s2/prototype/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-pinned-native-prototype:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          path: opensiro
+          persist-credentials: false
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: madarco/agentbox
+          ref: 605ee75d63319003c188bc532d4e5b2ba36a51d6
+          path: agentbox
+          persist-credentials: false
+      - name: Confirm source pin and copy additive prototype only
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C agentbox rev-parse HEAD)" = 605ee75d63319003c188bc532d4e5b2ba36a51d6
+          test -z "$(git -C agentbox status --porcelain)"
+          cp opensiro/pilots/agentbox-s2/prototype/task-overlap-plan.ts agentbox/apps/cli/src/lib/task-overlap-plan.ts
+          cp opensiro/pilots/agentbox-s2/prototype/task-overlap-plan.test.ts agentbox/apps/cli/test/task-overlap-plan.test.ts
+          test "$(git -C agentbox ls-files --others --exclude-standard | wc -l)" -eq 2
+          test -z "$(git -C agentbox diff --name-only)"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: pnpm/action-setup@v4
+        with:
+          version: '9.15.0'
+          run_install: false
+      - name: Install pinned first-party deps
+        working-directory: agentbox
+        timeout-minutes: 10
+        run: pnpm install --frozen-lockfile
+      - name: Build first-party AgentBox packages
+        working-directory: agentbox
+        timeout-minutes: 17
+        run: pnpm build
+      - name: Execute proposed pure native Vitest tests
+        working-directory: agentbox
+        timeout-minutes: 5
+        run: pnpm --filter @madarco/agentbox exec vitest run test/task-overlap-plan.test.ts
+      - name: Typecheck AgentBox CLI with proposed new module
+        working-directory: agentbox
+        timeout-minutes: 5
+        run: pnpm --filter @madarco/agentbox typecheck
+      - name: Ensure tracked upstream files unchanged
+        working-directory: agentbox
+        run: |
+          set -euo pipefail
+          test -z "$(git diff --name-only)"
+          test "$(git ls-files --others --exclude-standard | wc -l)" -eq 2
