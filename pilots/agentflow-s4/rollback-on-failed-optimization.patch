@@ -1,0 +1,255 @@
+diff --git a/README.md b/README.md
+index 031fdc0..f903ff4 100644
+--- a/README.md
++++ b/README.md
+@@ -363,7 +363,9 @@ Successful evolutions are stored under `.agentflow/tuned_agents/<name>/versions/
+ 
+ ## Graph Optimization Rounds
+ 
+-Run multiple optimization rounds over your graph with top-level `optimizer` and `n_run`. Use this when you want AgentFlow to let the optimizer rewrite the graph between rounds; the validation step only checks that the edited pipeline loads and passes schema validation, not that the edits are semantically better.
++Run multiple optimization rounds over your graph with top-level `optimizer` and `n_run`. Use this when you want AgentFlow to let the optimizer rewrite the graph between rounds. By default, validation only checks that the edited pipeline loads and passes schema validation; it does not establish that the edits are better.
++
++For a bounded safeguard, set `rollback_on_failed_optimization=True` (default: `False`). If an edited graph subsequently fails during execution after an earlier round succeeded, AgentFlow retains the failed child run and its logs but restores the last successful graph and output for the remaining rounds and final selected result. The optimization session records `selected_child_run_id`, `rolled_back_child_run_ids`, and `optimization_pipeline_rolled_back` events. A canceled run is never turned into success by this option, and a structurally valid or successfully completed run is **not** proof of improved quality, cost, or usefulness.
+ 
+ Artifacts and logs for each round live under `.agentflow/runs/<run_id>/optimization/round-XXX/`.
+ 
+@@ -374,6 +376,7 @@ with Graph(
+     "optimization-demo",
+     optimizer="codex",
+     n_run=2,
++    rollback_on_failed_optimization=True,
+     concurrency=2,
+ ) as g:
+     plan = codex(task_id="plan", prompt="Outline the tasks required to finish the ticket.")
+diff --git a/agentflow/dsl.py b/agentflow/dsl.py
+index e74b697..9d11aba 100644
+--- a/agentflow/dsl.py
++++ b/agentflow/dsl.py
+@@ -127,6 +127,7 @@ class Graph:
+         working_dir: str = ".",
+         optimizer: str | None = None,
+         n_run: int = 1,
++        rollback_on_failed_optimization: bool = False,
+         concurrency: int = 4,
+         fail_fast: bool = False,
+         max_iterations: int = 10,
+@@ -142,6 +143,7 @@ class Graph:
+         self.working_dir = working_dir
+         self.optimizer = optimizer
+         self.n_run = n_run
++        self.rollback_on_failed_optimization = rollback_on_failed_optimization
+         self.concurrency = concurrency
+         self.fail_fast = fail_fast
+         self.max_iterations = max_iterations
+@@ -185,6 +187,7 @@ class Graph:
+         if self.optimizer is not None:
+             payload["optimizer"] = self.optimizer
+         payload["n_run"] = self.n_run
++        payload["rollback_on_failed_optimization"] = self.rollback_on_failed_optimization
+         payload["concurrency"] = self.concurrency
+         payload["fail_fast"] = self.fail_fast
+         payload["max_iterations"] = self.max_iterations
+diff --git a/agentflow/orchestrator.py b/agentflow/orchestrator.py
+index 6709eda..2b776ab 100644
+--- a/agentflow/orchestrator.py
++++ b/agentflow/orchestrator.py
+@@ -378,7 +378,13 @@ class Orchestrator:
+         parent.optimization_session = optimization_session
+ 
+         current_pipeline = parent.pipeline
++        rollback_enabled = parent.pipeline.rollback_on_failed_optimization
+         final_child: RunRecord | None = None
++        last_successful_child: RunRecord | None = None
++        last_successful_pipeline: PipelineSpec | None = None
++        if rollback_enabled:
++            optimization_session.setdefault("selected_child_run_id", None)
++            optimization_session.setdefault("rolled_back_child_run_ids", [])
+ 
+         def _optimizer_failure_summary(
+             label: str,
+@@ -468,6 +474,34 @@ class Orchestrator:
+             (round_dir / GRAPH_REPORT_FILENAME).write_text(json.dumps(graph_report, ensure_ascii=False, indent=2), encoding="utf-8")
+             await self.store.persist_run(parent_run_id)
+ 
++            if rollback_enabled:
++                if final_child.status == RunStatus.COMPLETED:
++                    last_successful_child = final_child
++                    last_successful_pipeline = current_pipeline
++                    optimization_session["selected_child_run_id"] = final_child.id
++                elif final_child.status == RunStatus.FAILED and last_successful_child is not None:
++                    # The edited graph passed structural validation but failed
++                    # its actual native execution. Do not promote this failed
++                    # revision into the following optimization round or final
++                    # selected output. Retain its failed child/run receipt.
++                    failed_child_id = final_child.id
++                    current_pipeline = last_successful_pipeline
++                    final_child = last_successful_child
++                    parent.nodes = deepcopy(final_child.nodes)
++                    parent.pipeline = current_pipeline
++                    optimization_session["rolled_back_child_run_ids"].append(failed_child_id)
++                    parent.optimization_session = optimization_session
++                    await self._publish(
++                        parent_run_id,
++                        "optimization_pipeline_rolled_back",
++                        round_number=round_number,
++                        failed_child_run_id=failed_child_id,
++                        selected_child_run_id=final_child.id,
++                        reason="optimized graph failed during execution",
++                    )
++                    await self.store.persist_run(parent_run_id)
++                    continue
++
+             if round_number >= current_pipeline.n_run or self._should_cancel(parent_run_id):
+                 continue
+ 
+@@ -571,7 +605,13 @@ class Orchestrator:
+                 )
+ 
+             current_pipeline = loaded_pipeline.model_copy(
+-                update={"optimizer": optimizer_name, "n_run": parent.pipeline.n_run}
++                update={
++                    "optimizer": optimizer_name,
++                    "n_run": parent.pipeline.n_run,
++                    # Generated graph edits may not downgrade an owner-set
++                    # rollback policy during the same optimization session.
++                    "rollback_on_failed_optimization": rollback_enabled,
++                }
+             )
+             parent.pipeline = current_pipeline
+             await self._publish(
+diff --git a/agentflow/specs.py b/agentflow/specs.py
+index 78be28a..3f08f8d 100644
+--- a/agentflow/specs.py
++++ b/agentflow/specs.py
+@@ -2337,6 +2337,10 @@ class PipelineSpec(BaseModel):
+     working_dir: str = "."
+     optimizer: str | None = None
+     n_run: int = Field(default=1, ge=1)
++    # Opt-in: keep the last successful graph when an optimizer revision fails
++    # in an actual subsequent round. This is a failure-regression guard, not
++    # a claim that successful runs have better quality or lower cost.
++    rollback_on_failed_optimization: bool = False
+     concurrency: int = Field(default=4, ge=1)
+     fail_fast: bool = False
+     max_iterations: int = Field(default=10, ge=1)
+diff --git a/tests/test_graph_optimizer.py b/tests/test_graph_optimizer.py
+index 89273be..e0ba3bf 100644
+--- a/tests/test_graph_optimizer.py
++++ b/tests/test_graph_optimizer.py
+@@ -17,6 +17,7 @@ from agentflow.graph_optimizer import (
+     write_editable_pipeline_python,
+ )
+ from agentflow.loader import load_pipeline_from_path
++from agentflow.dsl import Graph
+ from agentflow.specs import PipelineSpec, RunStatus
+ from agentflow.tuned_agents import CommandExecution
+ from tests.test_orchestrator import make_orchestrator
+@@ -57,6 +58,12 @@ def test_pipeline_spec_requires_optimizer_when_n_run_exceeds_one(tmp_path):
+         )
+ 
+ 
++def test_graph_dsl_exposes_opt_in_rollback_without_enabling_it_by_default():
++    assert Graph("default").to_payload()["rollback_on_failed_optimization"] is False
++    opt_in = Graph("guarded", optimizer="codex", n_run=2, rollback_on_failed_optimization=True)
++    assert opt_in.to_payload()["rollback_on_failed_optimization"] is True
++
++
+ def test_pipeline_spec_requires_at_least_one_node(tmp_path):
+     with pytest.raises(ValidationError, match="pipeline must contain at least one node"):
+         PipelineSpec.model_validate(
+@@ -127,6 +134,95 @@ def test_orchestrator_runs_graph_optimization_rounds(tmp_path, monkeypatch):
+     assert (round_one_dir / GENERATED_PIPELINE_EDITED_FILENAME).exists()
+ 
+ 
++@pytest.mark.parametrize("rollback", [False, True])
++def test_optimization_rollback_preserves_last_successful_graph(tmp_path, monkeypatch, rollback):
++    """A structurally valid edited graph can still fail when actually executed."""
++    orchestrator = make_orchestrator(tmp_path)
++
++    def fake_optimizer(_optimizer, *, prompt: str, repo_dir: Path, runtime_dir: Path, env: dict[str, str]):
++        pipeline_path = repo_dir / "pipeline.py"
++        source = pipeline_path.read_text(encoding="utf-8")
++        assert "'id': 'plan'" in source
++        pipeline_path.write_text(source.replace("'id': 'plan'", "'id': 'fail_always'"), encoding="utf-8")
++        return CommandExecution(command="optimizer", exit_code=0, stdout="valid but failing graph", stderr="")
++
++    monkeypatch.setattr("agentflow.orchestrator._run_optimizer", fake_optimizer)
++    config = {
++        "name": "graph-opt-rollback",
++        "working_dir": str(tmp_path),
++        "optimizer": "codex",
++        "n_run": 2,
++        "nodes": [{"id": "plan", "agent": "codex", "prompt": "stable result"}],
++    }
++    if rollback:
++        config["rollback_on_failed_optimization"] = True
++    pipeline = PipelineSpec.model_validate(config)
++
++    submitted = asyncio.run(orchestrator.submit(pipeline))
++    final = asyncio.run(orchestrator.wait(submitted.id, timeout=5))
++    child_run_ids = final.optimization_session["child_run_ids"]
++    assert len(child_run_ids) == 2
++    assert orchestrator.store.get_run(child_run_ids[0]).status == RunStatus.COMPLETED
++    assert orchestrator.store.get_run(child_run_ids[1]).status == RunStatus.FAILED
++
++    if rollback:
++        assert final.status == RunStatus.COMPLETED
++        assert list(final.nodes) == ["plan"]
++        assert final.pipeline.nodes[0].id == "plan"
++        assert final.optimization_session["selected_child_run_id"] == child_run_ids[0]
++        assert final.optimization_session["rolled_back_child_run_ids"] == [child_run_ids[1]]
++    else:
++        assert final.status == RunStatus.FAILED
++        assert list(final.nodes) == ["fail_always"]
++        assert final.pipeline.nodes[0].id == "fail_always"
++
++
++def test_optimization_rollback_retries_safe_graph_on_remaining_rounds(tmp_path, monkeypatch):
++    orchestrator = make_orchestrator(tmp_path)
++    optimizer_calls: list[str] = []
++
++    def failing_optimizer(_optimizer, *, prompt: str, repo_dir: Path, runtime_dir: Path, env: dict[str, str]):
++        path = repo_dir / "pipeline.py"
++        source = path.read_text(encoding="utf-8")
++        optimizer_calls.append(source)
++        assert "'id': 'plan'" in source
++        # An optimizer cannot remove the owner-set recovery policy.
++        path.write_text(
++            source.replace("'id': 'plan'", "'id': 'fail_always'").replace(
++                "'rollback_on_failed_optimization': True",
++                "'rollback_on_failed_optimization': False",
++            ),
++            encoding="utf-8",
++        )
++        return CommandExecution(command="optimizer", exit_code=0, stdout="bad but valid edit", stderr="")
++
++    monkeypatch.setattr("agentflow.orchestrator._run_optimizer", failing_optimizer)
++    pipeline = PipelineSpec.model_validate(
++        {
++            "name": "three-round-fallback",
++            "working_dir": str(tmp_path),
++            "optimizer": "codex",
++            "n_run": 3,
++            "rollback_on_failed_optimization": True,
++            "nodes": [{"id": "plan", "agent": "codex", "prompt": "original"}],
++        }
++    )
++    submitted = asyncio.run(orchestrator.submit(pipeline))
++    completed = asyncio.run(orchestrator.wait(submitted.id, timeout=5))
++    assert completed.status == RunStatus.COMPLETED
++    ids = completed.optimization_session["child_run_ids"]
++    assert [orchestrator.store.get_run(id_).status for id_ in ids] == [
++        RunStatus.COMPLETED,
++        RunStatus.FAILED,
++        RunStatus.COMPLETED,
++    ]
++    assert completed.optimization_session["rolled_back_child_run_ids"] == [ids[1]]
++    assert completed.optimization_session["selected_child_run_id"] == ids[2]
++    assert completed.pipeline.rollback_on_failed_optimization is True
++    assert completed.nodes["plan"].output == "original"
++    assert len(optimizer_calls) == 1
++
++
+ def test_orchestrator_retries_invalid_optimized_pipeline_with_error_context(tmp_path, monkeypatch):
+     orchestrator = make_orchestrator(tmp_path)
+     prompts: list[str] = []
