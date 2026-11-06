@@ -4,6 +4,19 @@ This repository is the public **portfolio and lifecycle registry** for OpenSiro'
 
 It is **not** a monorepo of forks, a mirror of upstream code, a claim of upstream endorsement, or a new organizational control plane. Each working fork remains a separate GitHub repository.
 
+## Quick navigation
+
+| What you want to do | Start here |
+| --- | --- |
+| Propose or prepare a contribution | [CONTRIBUTING.md](CONTRIBUTING.md) — repository-local rules; external writes retain their own gates |
+| See tracked projects and current outcomes | [registry.yaml](registry.yaml) and [DASHBOARD.md](DASHBOARD.md) |
+| Follow submitted external PRs | [PR maintenance](docs/PR_MAINTENANCE.md) and [status freshness](docs/UPSTREAM_STATUS_FRESHNESS.md) |
+| Review evidence for prior interventions | [Casebook](cases/README.md) and the relevant `projects/` or `pilots/` record |
+| Understand assessment-derived improvements | [Assessment-to-improvement protocol](docs/ASSESSMENT_TO_IMPROVEMENT.md) |
+| Locate implementation and checks | `scripts/`, `tests/`, `.github/workflows/`; durable procedures and policies live in `docs/` and `policies/` |
+
+The table is a navigation aid, not a new queue, approval policy or replacement for the exact owning issue/PR.
+
 ## OpenSiro ecosystem bootstrap and scope
 
 For cross-repository work, start with the [VSM OSS bootstrap](https://github.com/opensiro/vsm-oss-organization/blob/main/START_HERE.md), [Organization contributor intake](https://github.com/opensiro/vsm-oss-organization/blob/main/CONTRIBUTOR_START.md), and [ecosystem owner map](https://github.com/opensiro/vsm-oss-organization/blob/main/docs/ECOSYSTEM.md), then return to this repository's [contribution rules](CONTRIBUTING.md), [local work](https://github.com/opensiro/upstream/issues/56), and exact owning issue/PR. The [Organization TODO](https://github.com/opensiro/vsm-oss-organization/blob/main/TODO.md) selects only explicitly scheduled, already tracked work; it does **not** overwrite this repository's separate contribution queue.
