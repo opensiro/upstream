@@ -13,14 +13,21 @@ It is deliberately *not* a new scheduler, VSM assessor or permission issuer.
    at the manifest's exact frozen `index_sha`**, including included status, S1=A,
    reviewed source commit and assessment identity. No remote Index attestation is
    claimed from this local-only check.
-2. Fetch the **existing** reservation branch. A missing/unreadable ref or an
+2. For an explicit **write**, perform a **GET-only live collision preflight**:
+   read canonical `upstream/main`'s Git tree and every merged frozen batch
+   manifest, enumerate **all** open PRs and their changed batch manifests,
+   then repeat main/open-PR head inventory to detect changes during the read.
+   A duplicate normalized source, truncated API page/tree, malformed response,
+   inaccessible PR head or rate-limit failure blocks the write. A caller may
+   identify its own PR only when it holds exactly one matching manifest.
+3. Fetch the **existing** reservation branch. A missing/unreadable ref or an
    unexpected tree fails closed; the script never bootstraps a branch implicitly.
-3. Replay append-only `CLAIM` / `RELEASE` events. Sources are compared by
+4. Replay append-only `CLAIM` / `RELEASE` events. Sources are compared by
    case-folded `owner/repo` identity. A live claim or duplicate batch ID fails.
    Releases must cite a reviewed Upstream issue/PR and preserve the claimant,
    exact source set and an auditable reason. Recovery is a *separate reviewed
    ledger change*, not a TTL or silent eviction.
-4. Default CLI mode previews the claim. The explicit `--write-claim` option
+5. Default CLI mode previews the claim. The explicit `--write-claim` option
    creates a Git commit **without modifying the checkout** and attempts an
    ordinary, non-forced, fast-forward push to the ledger ref. If two writers
    read the same parent, at most one can publish its different child; the
@@ -37,6 +44,20 @@ python3 scripts/assessment_source_reservations.py \
   --evidence https://github.com/opensiro/upstream/issues/144
 ```
 
+Independent **read-only remote preflight** (does not require the reservation
+branch or make any write):
+
+```bash
+python3 scripts/assessment_batch_conflict_preflight.py \
+  data/assessment-candidate-batches/2026-11-06-13.json \
+  --index-root /path/to/exact-pinned-vsm-harness-index
+```
+
+The preflight reads public GitHub data anonymously or uses an ordinary
+`GITHUB_TOKEN` when present; errors fail closed. Its receipt reports the
+count of main manifests, open PRs, active PR manifests and exact conflicts.
+`CLEAR_PREVIEW_ONLY` is **not** a reservation or an admission.
+
 Writing a claim requires a separately reviewed adoption decision and repository
 permissions, plus `--write-claim`; this document does not instruct operators to
 initialize the ledger branch or treat a successful claim as full admission.
@@ -45,10 +66,11 @@ initialize the ledger branch or treat a successful claim as full admission.
 
 - **Canonical remote visibility:** compare the exact Index ref to the owning
   canonical remote. The current script proves only its checked-out SHA.
-- **Merged and open work:** machine-check all historical merged batch manifests
-  and *every* currently active open draft PR immediately before claim, then
-  revalidate at review/merge. A CAS claim alone does not discover legacy
-  unreserved drafts, a recent main merge or GitHub repository renames.
+- **Cross-ref atomicity:** the read-only preflight now scans merged batch
+  manifests and all visible open draft PRs, but GitHub's main and PR heads
+  can change **after** that scan, while only reservation commits are serialized
+  by CAS. Revalidate at review/merge and ensure admitted work uses the gate.
+  A GitHub repository rename/alias is not resolved by case folding alone.
 - **Required CI/admission:** provide a reviewable check verifying source
   disjointness, provenance, per-row gates, and the authoritative reservation
   ledger. Existing `validate/status/next` remain read-only and unchanged.
@@ -67,7 +89,13 @@ reservation event; its receipt explicitly reports `admission_attested: false`.
 
 `python3 -m unittest tests/test_assessment_source_reservations.py -v`
 
+`python3 -m unittest tests/test_assessment_batch_conflict_preflight.py -v`
+
 The tests use a local bare Git remote. They exercise two workers with the same
 parent, a losing non-fast-forward push, case-alias collisions, append-only
 release/recovery semantics, exact Index HEAD mismatch, incomplete cohorts and
 unavailable reservation refs. No GitHub or model provider is invoked.
+
+The preflight fixtures also cover complete merged/open-source scans, casefold
+collisions, exact-own-PR matching, missing Index pins, truncated GitHub trees,
+API visibility failures and a changing main SHA.

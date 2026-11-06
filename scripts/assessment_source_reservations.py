@@ -8,6 +8,7 @@ Never force-update the ledger branch or use its existence as publication authori
 
 import argparse
 import json
+import os
 import re
 import subprocess
 import sys
@@ -15,6 +16,7 @@ import uuid
 from pathlib import Path
 
 from assessment_candidate_batches import BatchError, validate
+from assessment_batch_conflict_preflight import GithubReader, preflight
 
 LEDGER_REF = "refs/heads/batch-upstream-reservations"
 SOURCE = re.compile(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+\Z")
@@ -111,13 +113,21 @@ def fetch_ledger(root, remote):
     return parent, ledger
 
 
-def claim(root, remote, manifest_path, index_root, evidence, *, write=False):
+def claim(root, remote, manifest_path, index_root, evidence, *, write=False,
+          preflight_reader=None, own_pr=None):
     """Prepare an atomic cohort claim; non-force Git push is the sole CAS operation."""
     manifest = json.loads(Path(manifest_path).read_text(encoding="utf-8"))
     validate(manifest, index_root)
     if len(manifest["candidates"]) != 5:
         raise BatchError("Claim requires exactly five assessed sources")
     sources = [candidate["source"] for candidate in manifest["candidates"]]
+    visibility = None
+    if write:
+        if preflight_reader is None:
+            raise BatchError("BLOCKED_GITHUB_VISIBILITY: live merged/open PR preflight required")
+        visibility = preflight(manifest, index_root, preflight_reader, own_pr=own_pr)
+        if visibility["status"] != "CLEAR_PREVIEW_ONLY":
+            raise BatchError("BLOCKED_DUPLICATE_SOURCE: " + json.dumps(visibility["collisions"]))
     parent, ledger = fetch_ledger(root, remote)
     event = {"action": "CLAIM", "batch_id": manifest["batch_id"],
              "event_id": uuid.uuid4().hex,
@@ -128,7 +138,8 @@ def claim(root, remote, manifest_path, index_root, evidence, *, write=False):
                "parent_sha": parent, "status": "PREVIEW_ONLY",
                "reservation_ref": LEDGER_REF, "external_writes_authorized": False,
                "admission_attested": False,
-               "warning": "Merged manifests and open PR proposals require separate checks"}
+               "visibility": visibility,
+               "warning": "Main and open PR refs can change after preflight; CI must revalidate at merge"}
     if not write:
         return receipt
     payload = json.dumps(updated, indent=2, sort_keys=True) + "\n"
@@ -154,11 +165,14 @@ def main(argv=None):
     parser.add_argument("--git-root", type=Path, default=Path.cwd())
     parser.add_argument("--remote", default="origin")
     parser.add_argument("--evidence", required=True, help="Existing Upstream issue/PR URL")
+    parser.add_argument("--own-pr", type=int, help="Proposal's own PR; identity checked against GitHub")
     parser.add_argument("--write-claim", action="store_true", help="Explicit opt-in Git ref write; no external PR")
     args = parser.parse_args(argv)
     try:
         result = claim(args.git_root, args.remote, args.manifest,
-                       args.index_root, args.evidence, write=args.write_claim)
+                       args.index_root, args.evidence, write=args.write_claim,
+                       preflight_reader=GithubReader(os.environ.get("GITHUB_TOKEN")) if args.write_claim else None,
+                       own_pr=args.own_pr)
     except (BatchError, ValueError, OSError) as exc:
         parser.exit(2, f"RESERVATION_BLOCKED: {exc}\n")
     print(json.dumps(result, indent=2, sort_keys=True))

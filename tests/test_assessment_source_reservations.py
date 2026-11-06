@@ -20,6 +20,24 @@ MANIFEST = ROOT / "data/assessment-candidate-batches/2026-10-22-01.json"
 EVIDENCE = "https://github.com/opensiro/upstream/issues/144"
 
 
+class EmptyGithub:
+    """Complete, fixed empty merged/open inventory for local CAS-only tests."""
+
+    def get(self, path):
+        if path == "/repos/opensiro/upstream/branches/main":
+            return {"commit": {"sha": "1" * 40}}
+        if path == "/repos/opensiro/upstream/git/commits/" + "1" * 40:
+            return {"tree": {"sha": "4" * 40}}
+        if path == "/repos/opensiro/upstream/git/trees/" + "4" * 40 + "?recursive=1":
+            return {"truncated": False, "tree": []}
+        raise AssertionError("Unexpected API path: " + path)
+
+    def pages(self, path):
+        if path == "/repos/opensiro/upstream/pulls?state=open":
+            return []
+        raise AssertionError("Unexpected API pagination: " + path)
+
+
 def git(root, *args):
     return subprocess.check_output(["git", "-C", str(root), *args], text=True).strip()
 
@@ -104,16 +122,24 @@ class ReservationTests(unittest.TestCase):
             before_two = mod.fetch_ledger(two, "origin")
             self.assertEqual(before_one[0], before_two[0])
             with patch.object(mod, "fetch_ledger", return_value=before_one):
-                receipt = mod.claim(one, "origin", left, index, EVIDENCE, write=True)
+                receipt = mod.claim(one, "origin", left, index, EVIDENCE,
+                                    write=True, preflight_reader=EmptyGithub())
             self.assertEqual(receipt["status"], "CLAIMED_CAS")
             self.assertFalse(receipt["admission_attested"])
             with patch.object(mod, "fetch_ledger", return_value=before_two):
                 with self.assertRaisesRegex(mod.BatchError, "non-fast-forward CAS rejected"):
-                    mod.claim(two, "origin", right, index, EVIDENCE, write=True)
+                    mod.claim(two, "origin", right, index, EVIDENCE,
+                              write=True, preflight_reader=EmptyGithub())
             _, ledger = mod.fetch_ledger(two, "origin")
             self.assertEqual(len(ledger["events"]), 1)
             with self.assertRaisesRegex(mod.BatchError, "BLOCKED_CONCURRENT_RESERVATION"):
                 mod.claim(two, "origin", right, index, EVIDENCE, write=False)
+
+    def test_write_requires_live_github_visibility(self):
+        with tempfile.TemporaryDirectory() as temp:
+            one, _, index, left, _ = self._fixture(Path(temp))
+            with self.assertRaisesRegex(mod.BatchError, "live merged/open PR preflight required"):
+                mod.claim(one, "origin", left, index, EVIDENCE, write=True)
 
     def test_index_pin_and_full_five_are_mandatory(self):
         with tempfile.TemporaryDirectory() as temp:
