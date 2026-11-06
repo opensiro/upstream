@@ -1,0 +1,84 @@
+diff --git a/src/main.rs b/src/main.rs
+index 8b6660f..29eb67d 100644
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -1414,7 +1414,8 @@ struct ExperimentalConfig {
+ 
+ #[derive(Debug, Deserialize)]
+ struct SubagentConfig {
+-    harness: String,
++    #[serde(default)]
++    harness: Option<String>,
+     #[serde(default)]
+     harnesses: BTreeMap<String, kit::SubagentHarnessPolicy>,
+ }
+@@ -1473,6 +1474,16 @@ impl Config {
+                 format!("invalid config {}: {error}", path.display()),
+             )
+         })?;
++        if config
++            .subagent
++            .as_ref()
++            .is_some_and(|subagent| subagent.harness.is_none())
++        {
++            eprintln!(
++                "warning: incomplete [subagent] config in {}: missing `subagent.harness`; using the built-in harness and ignoring incomplete subagent policies. Set it with `kit config set subagent.harness <name>`",
++                path.display()
++            );
++        }
+         config.config_dir = config_dir;
+         config.config_path = Some(config_path);
+         Ok(config)
+@@ -1583,13 +1594,14 @@ impl Config {
+         let policies = self
+             .subagent
+             .as_ref()
++            .filter(|value| value.harness.is_some())
+             .map(|value| value.harnesses.clone())
+             .unwrap_or_default();
+         let harnesses = kit::AcpHarnesses::new(self.acp.clone())?.with_model_policies(policies)?;
+         let selected = self
+             .subagent
+             .as_ref()
+-            .map(|value| value.harness.clone())
++            .and_then(|value| value.harness.clone())
+             .unwrap_or_else(|| kit::BUILTIN_HARNESS.into());
+         if !harnesses.contains(&selected) {
+             return Err(format!("unknown subagent ACP harness {selected:?}"));
+@@ -3179,6 +3191,36 @@ mod tests {
+         assert!(config.plugin_runtime(directory.path()).await.is_err());
+     }
+ 
++    #[test]
++    fn partial_subagent_harness_allows_config_load_without_selecting_external_backend() {
++        let directory = tempfile::tempdir().unwrap();
++        let path = directory.path().join("config.toml");
++        fs::write(
++            &path,
++            "[acp.claude]\ncommand = 'true'\n\n[subagent.harnesses.\"acp.claude\".models]\nfable = 'example-model'\n",
++        )
++        .unwrap();
++        let original = fs::read_to_string(&path).unwrap();
++        let config = Config::load(&path).expect("partial subagent must not block startup");
++        let (harnesses, selected) = config.harnesses().expect("fallback must be valid");
++        assert_eq!(selected, kit::BUILTIN_HARNESS);
++        assert!(harnesses.contains(kit::BUILTIN_HARNESS));
++        assert_eq!(original, fs::read_to_string(&path).unwrap());
++    }
++
++    #[test]
++    fn partial_subagent_harness_does_not_mask_invalid_policy_types() {
++        let directory = tempfile::tempdir().unwrap();
++        let path = directory.path().join("config.toml");
++        fs::write(
++            &path,
++            "[subagent.harnesses.\"acp.claude\".models]\nfable = 42\n",
++        )
++        .unwrap();
++        let error = Config::load(&path).expect_err("invalid policy type should fail");
++        assert!(error.to_string().contains("invalid config"), "{error}");
++    }
++
+     #[test]
+     fn subagent_names_are_rejected_as_unknown_configuration() {
+         let directory = tempfile::tempdir().unwrap();
