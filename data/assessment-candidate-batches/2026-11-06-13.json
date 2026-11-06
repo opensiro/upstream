@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-06-13",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "1e2d2b1c48e3b8d846d6911c98e4b76f1c6f1340",
+  "frozen_at": "2026-11-06",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Thirteenth source-disjoint five-assessment screening cohort selected from the current included Index S1=A, S2=C records. All 60 sources in the preceding 12 merged manifests are excluded case-insensitively; no additional open Upstream assessment-batch PR was visible at selection. Prioritize source-specific S2 interference mechanisms and feasible offline first-party Python/Node tests; these are questions, not known bugs. Current public source heads and licenses were inspected. Screening is serial; no live models, provider calls, browser episodes, external fork/PR publication, Index regrade or autonomy claim.",
+  "candidates": [
+    {
+      "id": "jarvis-council-connector-group-admission",
+      "assessment_path": "assessments/ja/jarvis-ai-council.md",
+      "source": "berkesecicii/free-multi-agent-ai-council",
+      "review_ref": "20a93de357da82c39255932da71dfb12aeea2f49",
+      "reviewed_at": "2026-11-05",
+      "function": "S2",
+      "finding": "The assessed S2=C witness groups specialist jobs and rejects concurrent use of one connector. Check whether team-group admission and parent-chat uniqueness remain sound under competing starts or partial group-launch failure, using genuine first-party Python functions and fixed state without starting any model worker.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/1e2d2b1c48e3b8d846d6911c98e4b76f1c6f1340/assessments/ja/jarvis-ai-council.md",
+        "https://github.com/berkesecicii/free-multi-agent-ai-council/blob/20a93de357da82c39255932da71dfb12aeea2f49/team_runner.py",
+        "https://github.com/berkesecicii/free-multi-agent-ai-council/blob/20a93de357da82c39255932da71dfb12aeea2f49/app.py"
+      ]
+    },
+    {
+      "id": "talktorana-memory-concurrent-save",
+      "assessment_path": "assessments/ag/agent-harness-talktorana.md",
+      "source": "talktorana/agent-harness",
+      "review_ref": "4d5e11d16e4e9755c4282634778f112c44e21d12",
+      "reviewed_at": "2026-11-04",
+      "function": "S2",
+      "finding": "The assessed S2=C witness serializes and verifies shared session-memory updates. Screen current first-party memory.py plus test_memory_concurrency.py for a falsifiable lost-update or stale-write failure between separate sessions, with isolated files and no agent or provider invocation.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/1e2d2b1c48e3b8d846d6911c98e4b76f1c6f1340/assessments/ag/agent-harness-talktorana.md",
+        "https://github.com/talktorana/agent-harness/blob/4d5e11d16e4e9755c4282634778f112c44e21d12/memory.py",
+        "https://github.com/talktorana/agent-harness/blob/4d5e11d16e4e9755c4282634778f112c44e21d12/test_memory_concurrency.py"
+      ]
+    },
+    {
+      "id": "agentorg-shared-resource-claims",
+      "assessment_path": "assessments/ag/agentorg.md",
+      "source": "uniac-ai/AgentOrg",
+      "review_ref": "25e116cb719989ce568b272016b1936668efbf5f",
+      "reviewed_at": "2026-11-04",
+      "function": "S2",
+      "finding": "The assessed S2=C mechanism prevents two independently operating Actors from owning the same shared resource. Test the current first-party claims.ts admission/release path for conflicting versus disjoint resource claims and stale-owner handling with native isolated fixtures, without launching model agents.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/1e2d2b1c48e3b8d846d6911c98e4b76f1c6f1340/assessments/ag/agentorg.md",
+        "https://github.com/uniac-ai/AgentOrg/blob/25e116cb719989ce568b272016b1936668efbf5f/src/domain/claims.ts"
+      ]
+    },
+    {
+      "id": "deepseek-mesh-capacity-release",
+      "assessment_path": "assessments/de/deepseek-super-agent.md",
+      "source": "LofiSu/deepseek-super-agent",
+      "review_ref": "a1985c06b2c1520f14b54817e22f73542f9e2d7d",
+      "reviewed_at": "2026-11-04",
+      "function": "S2",
+      "finding": "The assessed S2=C witness uses a worker mesh and queue/pump to attenuate worker-node overcommit across Executor jobs. Inspect the first-party mesh, scheduling and release paths for inconsistent capacity admission or failure recovery under fixed offline Node fixtures, not live agent/provider execution.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/1e2d2b1c48e3b8d846d6911c98e4b76f1c6f1340/assessments/de/deepseek-super-agent.md",
+        "https://github.com/LofiSu/deepseek-super-agent/blob/a1985c06b2c1520f14b54817e22f73542f9e2d7d/src/harness/mesh.ts",
+        "https://github.com/LofiSu/deepseek-super-agent/blob/a1985c06b2c1520f14b54817e22f73542f9e2d7d/test/worker-mesh.test.ts"
+      ]
+    },
+    {
+      "id": "phax-cross-run-overlap-reconciliation",
+      "assessment_path": "assessments/ph/phax.md",
+      "source": "lbdremy/phax",
+      "review_ref": "3a9457a63ad8e2b6e6cd6ba63ce38366450c1499",
+      "reviewed_at": "2026-11-02",
+      "function": "S2",
+      "finding": "The assessed S2=C constructor detects cross-run file overlap and routes affected plan commitments into an approval-gated adjustment. Test whether current first-party overlap analysis misclassifies create/delete or path alias changes and whether the unchanged plan is preserved when adjustment is withheld, using native deterministic fixtures only.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/1e2d2b1c48e3b8d846d6911c98e4b76f1c6f1340/assessments/ph/phax.md",
+        "https://github.com/lbdremy/phax/blob/3a9457a63ad8e2b6e6cd6ba63ce38366450c1499/src/app/analyzePlanOverlap.ts",
+        "https://github.com/lbdremy/phax/blob/3a9457a63ad8e2b6e6cd6ba63ce38366450c1499/src/app/adjustPlan.ts"
+      ]
+    }
+  ]
+}
