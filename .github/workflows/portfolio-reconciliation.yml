@@ -50,7 +50,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Reconcile exact external PRs; publish only this run summary
+      - name: Reconcile exact external PRs; preserve one dated observation
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python3 scripts/portfolio_reconcile.py --report >> "$GITHUB_STEP_SUMMARY"
+        run: python3 scripts/portfolio_reconcile.py --report --output-json "$RUNNER_TEMP/upstream-portfolio-observation.json" >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload bounded history artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: upstream-portfolio-observation-${{ github.run_id }}
+          path: ${{ runner.temp }}/upstream-portfolio-observation.json
+          if-no-files-found: error
+          retention-days: 90

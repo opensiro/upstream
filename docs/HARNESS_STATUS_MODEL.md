@@ -21,7 +21,7 @@ There is deliberately **no harness-level `FIXED` status**. For example, one harn
 4. **Registry** project identities and PRs come from `registry.yaml` and the same dated lifecycle receipt. An OpenSiro fork's maintenance lifecycle is not conflated with an external PR outcome.
 5. **PR watcher** `data/pr-maintenance/targets.json` marks monitored URLs already known in the model. It creates a `monitor:` placeholder **only if** a watched PR has no existing intervention. Monitoring does not prove a fix or grant a publication right.
 
-The [existing Portfolio Dashboard](../DASHBOARD.md) remains the eight-intervention experimental presentation, with distinct fit metrics. The [new joined inventory](../HARNESS_STATUS.md) answers the different operational question: *what has happened to each individual improvement of each upstream harness?*
+The [existing Portfolio Dashboard](../DASHBOARD.md) remains the eight-intervention historical presentation, with the original Product-native fit metric **deprecated** and preserved only in the frozen archive. The [new joined inventory](../HARNESS_STATUS.md) answers the different operational question: *what has happened to each individual improvement of each upstream harness?*
 
 ## Read-only operations
 

@@ -11,8 +11,10 @@ from __future__ import annotations
 import argparse
 from collections import Counter
 from datetime import datetime, timezone
+import hashlib
 import json
 import os
+from pathlib import Path
 import re
 from urllib.error import HTTPError
 
@@ -70,6 +72,14 @@ def cohort():
     return [{"url": url, "groups": sorted(groups)} for url, groups in sorted(urls.items())]
 
 
+def cohort_fingerprint(records):
+    """Hash exact PR URL/group membership; outcomes must not affect this key."""
+    identities = sorted(({"url": row["url"], "groups": sorted(row["groups"])}
+                         for row in records), key=lambda row: row["url"])
+    canonical = json.dumps(identities, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
 def final_closed_event(api, repository, number):
     events = api.pages(f"/repos/{repository}/issues/{number}/events?per_page=100")
     if not isinstance(events, list):
@@ -109,7 +119,8 @@ def observe(api, targets=None, *, observed_at=None):
             row["closure"] = final_closed_event(api, repo, number)
         records.append(row)
     return {"schema_version": 1, "observed_at": observed_at or datetime.now(
-        timezone.utc).isoformat(timespec="seconds"), "records": records}
+        timezone.utc).isoformat(timespec="seconds"),
+        "cohort_sha256": cohort_fingerprint(records), "records": records}
 
 
 def summarize(report, *, group=None):
@@ -118,6 +129,8 @@ def summarize(report, *, group=None):
     records = report["records"]
     if not records or len({r["url"] for r in records}) != len(records):
         raise ValueError("Empty or duplicate portfolio records")
+    if "cohort_sha256" in report and report["cohort_sha256"] != cohort_fingerprint(records):
+        raise ValueError("Portfolio cohort fingerprint mismatch")
     selected = []
     for row in records:
         identity(row["url"])
@@ -183,8 +196,11 @@ def main():
     mode.add_argument("--validate-only", action="store_true", help="Offline input/identity validation")
     mode.add_argument("--report", action="store_true", help="Read-only live exact-PR reconciliation")
     parser.add_argument("--format", choices=("markdown", "json"), default="markdown")
+    parser.add_argument("--output-json", type=Path, help="Write the same observation to a local JSON artifact")
     args = parser.parse_args()
     if args.validate_only:
+        if args.output_json:
+            parser.error("--output-json requires --report")
         targets = cohort()
         print(f"Validated {len(targets)} exact unique PR identities across three existing source cohorts")
         return
@@ -192,6 +208,12 @@ def main():
     # necessary for bounded, reliable GitHub API reads; no write route used.
     api = pr_maintenance_watch.Github(os.environ.get("GITHUB_TOKEN", ""))
     report = observe(api)
+    # All API reads, identity checks and schema checks must finish before a
+    # historical artifact can be emitted; no partial observation is saved.
+    summarize(report)
+    if args.output_json:
+        args.output_json.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n",
+                                    encoding="utf-8")
     print(json.dumps(report, indent=2, ensure_ascii=False) if args.format == "json" else render(report))
 
 
