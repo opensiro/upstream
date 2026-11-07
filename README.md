@@ -11,6 +11,7 @@ It is **not** a monorepo of forks, a mirror of upstream code, a claim of upstrea
 | Propose or prepare a contribution | [CONTRIBUTING.md](CONTRIBUTING.md) — repository-local rules; external writes retain their own gates |
 | See tracked projects and current outcomes | [registry.yaml](registry.yaml) and [DASHBOARD.md](DASHBOARD.md) |
 | Follow submitted external PRs | [PR maintenance](docs/PR_MAINTENANCE.md) and [status freshness](docs/UPSTREAM_STATUS_FRESHNESS.md) |
+| Interpret closed PRs and replacements | [Closure attribution / portfolio reconciliation (2026-11-07)](reports/2026-11-07-external-pr-closure-attribution.md) — dated read-only evidence, not the live acceptance metric |
 | Review evidence for prior interventions | [Casebook](cases/README.md) and the relevant `projects/` or `pilots/` record |
 | Understand assessment-derived improvements | [Assessment-to-improvement protocol](docs/ASSESSMENT_TO_IMPROVEMENT.md) |
 | Locate implementation and checks | `scripts/`, `tests/`, `.github/workflows/`; durable procedures and policies live in `docs/` and `policies/` |
