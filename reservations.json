@@ -1,4 +1,17 @@
 {
   "schema_version": 1,
-  "events": []
+  "events": [
+    {
+      "action": "CLAIM",
+      "claim_id": "65d7127a80bd978a7983ac6e01c65d22",
+      "task_id": "outcomes-observe-check-20261107",
+      "actor": "chatgpt-upstream-auto-20261107",
+      "resources": [
+        "intervention:verified-external-outcomes"
+      ],
+      "owner_issue": 159,
+      "evidence_url": "https://github.com/opensiro/upstream/issues/159",
+      "timestamp": "2026-11-07T16:39:46Z"
+    }
+  ]
 }
