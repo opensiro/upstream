@@ -43,7 +43,7 @@ See [UPSTREAMING.md](UPSTREAMING.md) for the full ownership and lifecycle rules.
 
 1. **External PR lifecycle:** open, merged, closed without merge, or unverifiable. Verified at the exact external PR; closure is not necessarily maintainer rejection.
 2. **Product-native technical effect:** reproduced and measured separately, using deterministic source-native tests—not live LLM or browser-agent quality trials. See [functional effects](docs/FUNCTIONAL_EFFECTS.md) and [assessment-to-improvement](docs/ASSESSMENT_TO_IMPROVEMENT.md).
-3. **Experimental intervention fit:** the historical four-gate study is owned by Organization and is **not** recomputed from merge counts.
+3. **Deprecated historical Product-native fit:** the original four-gate study is preserved under Organization for archival reproduction only; it is **not an active metric** and is not recomputed from merge counts. This does not remove source-native engineering diligence.
 
 The operational [resolved-PR acceptance](docs/RESOLVED_PR_ACCEPTANCE.md) concerns its own **18 explicitly watched PRs**, with the formula `merged / (merged + closed_unmerged)`; pending and unverifiable PRs are excluded. A broader portfolio reconciliation must keep its different denominator and intervention identities explicit. The [2026-11-07 closure-attribution report](reports/2026-11-07-external-pr-closure-attribution.md) documents reviewed reasons, separate from machine-observed events.
 

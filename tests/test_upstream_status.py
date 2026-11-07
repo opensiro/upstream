@@ -78,7 +78,8 @@ class UpstreamStatusTests(unittest.TestCase):
         markdown = status.render_markdown(snapshot, cases, observed)
         self.assertIn("| **8** | **7** | **4** | **0** | **3** | **1** |", markdown)
         self.assertIn("Unverifiable", markdown)
-        self.assertIn("60% (3/5)", markdown)
+        self.assertNotIn("60% (3/5)", markdown)
+        self.assertIn("former Product-native fit KPI is **deprecated**", markdown)
         self.assertIn("Original PR", markdown)
         self.assertIn("### Separately tracked OpenSiro-owned fork contributions", markdown)
         self.assertIn("cognee-community", markdown)
@@ -87,8 +88,12 @@ class UpstreamStatusTests(unittest.TestCase):
         self.assertEqual(first, status.render_html(first, snapshot, cases, observed))
         self.assertEqual(8, first.count('<tr class="item"'))
         self.assertIn("cognee-community PR", first)
-        self.assertIn('data-outcome="merged" data-fit="pending"', first)
+        self.assertIn('data-outcome="merged" data-search=', first)
         self.assertIn('data-outcome="unverifiable"', first)
+        self.assertNotIn('data-fit=', first)
+        self.assertNotIn('<div class="kpi-name">Product-native fit</div>', first)
+        self.assertNotIn('aria-label="Filter by fit"', first)
+        self.assertIn("Historical fit study — retired", first)
         self.assertEqual(status.render_casebook(status.CASEBOOK.read_text(), snapshot, cases, observed),
                          status.CASEBOOK.read_text())
 

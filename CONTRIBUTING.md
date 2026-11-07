@@ -19,7 +19,7 @@ All pull requests run the read-only offline `repository-integrity` unit-test job
 
 The [casebook](cases/README.md) is a read-only portfolio view of interventions recorded under the [Organization upstream-intervention-fit experiment](https://github.com/opensiro/vsm-oss-organization/tree/main/experiments/upstream-intervention-fit). Include both successes and failures, link first-party PR/review/commit evidence, and distinguish a submitted PR from a merged PR and from an independently landed maintainer implementation.
 
-Do **not** create duplicate `registry.yaml` fork-lifecycle records for personal contributor forks just to track an experiment. Do **not** assign or update a product-native fit gate here independently: change the Organization-owned observation with evidence and then refresh this view. The experimental fit label is neither maintainer approval nor a VSM assessment result.
+Do **not** create duplicate `registry.yaml` fork-lifecycle records for personal contributor forks just to track the casebook. The Organization-owned Product-native fit experiment is now **deprecated and frozen**: do not assign new fit grades, append to its observations or refresh its aggregate percentage. Preserve the historical labels for audit while maintaining new evidence and PR states in Upstream-owned operational records.
 
 ## Keeping the public dashboard accurate
 

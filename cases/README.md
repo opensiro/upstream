@@ -1,6 +1,6 @@
-# Product-native fit — external intervention cases
+# Deprecated Product-native fit — historical intervention casebook
 
-**Contextual case review:** 2026-10-17. **Fit classification source:** [Organization's experimental `upstream-intervention-fit` ledger](https://github.com/opensiro/vsm-oss-organization/tree/main/experiments/upstream-intervention-fit), pinned snapshot `as_of: 2026-10-12`. **External PR states** in the table below come from [separately verified receipts](../data/upstream-lifecycle.json), not from that historical fit snapshot. Neither is live telemetry.
+**DEPRECATED (2026-11-07):** the Product-native fit ratio and four-gate grades are frozen historical research, not active performance metrics. **Contextual case review:** 2026-10-17. **Legacy fit source:** [Organization's archived `upstream-intervention-fit` ledger](https://github.com/opensiro/vsm-oss-organization/tree/main/experiments/upstream-intervention-fit), pinned snapshot `as_of: 2026-10-12`. **External PR states** below come from [separately verified receipts](../data/upstream-lifecycle.json), not from historical fit. Neither source is live telemetry.
 
 ## Question
 
@@ -23,7 +23,7 @@ Would an OpenSiro-shaped contribution be useful to the upstream project **even i
 
 For attributable closure actors and the distinction between voluntary supersession, independently implemented functionality and a maintainer's scope refusal, see the [dated 2026-11-07 external PR closure reconciliation](../reports/2026-11-07-external-pr-closure-attribution.md). It does not change this frozen eight-case experiment or its fit labels.
 
-The experimental snapshot reports **3 pass / 2 fail / 3 pending**, i.e. `3 / (3+2) = 60%` of completed *fit reviews*. This is **not** an upstream merge rate or a contributor productivity score; consult the [live source snapshot](https://github.com/opensiro/vsm-oss-organization/blob/main/experiments/upstream-intervention-fit/snapshot.json) before quoting it later.
+The frozen snapshot historically reported **3 pass / 2 fail / 3 pending**, or `3 / (3+2) = 60%` of completed fit reviews. **This retired value must not be reported as a current KPI**, upstream acceptance rate or contributor productivity score. Its [frozen source snapshot](https://github.com/opensiro/vsm-oss-organization/blob/main/experiments/upstream-intervention-fit/snapshot.json) remains for reproducibility.
 
 ## Ownership boundary
 
@@ -33,4 +33,4 @@ The experimental snapshot reports **3 pass / 2 fail / 3 pending**, i.e. `3 / (3+
 - [Cognee Community](../projects/cognee/README.md) is a **separate OpenSiro-owned fork contribution** in [`registry.yaml`](../registry.yaml), not part of this eight-case experimental cohort.
 - These cases use publicly verified [`xLagerFeuer` forks](https://github.com/xLagerFeuer); they are **not** presented as seven `opensiro/*` forks, and no fork-archive or maintainership decision is inferred.
 
-If the experiment's classifications change, update them in the **Organization ledger first**, then synchronize this presentation; never silently upgrade a fit gate on the strength of a merge.
+**Do not reopen or extend the deprecated fit scoring.** New contributions are recorded in Upstream-owned operational ledgers; current external PR lifecycle comes from exact GitHub source readback. Historical gate labels remain here only to preserve the original audit trail.

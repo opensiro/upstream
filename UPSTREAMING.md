@@ -4,14 +4,14 @@
 
 ## Responsibilities
 
-The domain manages evidence-backed upstream improvement proposals, pinned product-native patches and tests, local contribution and fork life cycles, submitted external PR maintenance, and source-linked portfolio reporting. It does not own VSM semantics, the general assessment method, canonical Index findings, Organization's intervention-fit classification or the authority to merge into a third-party project.
+The domain manages evidence-backed upstream improvement proposals, pinned product-native patches and tests, local contribution and fork life cycles, submitted external PR maintenance, and source-linked portfolio reporting. It does not own VSM semantics, the general assessment method, canonical Index findings, Organization's **deprecated historical** intervention-fit classification or the authority to merge into a third-party project.
 
 ## Source-of-truth separation
 
 | Subject | Authoritative source | Local materialization |
 | --- | --- | --- |
 | Canonical general harness assessments | [Index](https://github.com/opensiro/vsm-harness-index), [Skills methodology](https://github.com/opensiro/vsm-harness-skills) | Frozen assessment references in batches and pilot evidence |
-| Four-gate historical intervention-fit judgments | [Organization experiment](https://github.com/opensiro/vsm-oss-organization/tree/main/experiments/upstream-intervention-fit) | Pinned `data/upstream-fit-snapshot.json`; generated casebook/dashboard |
+| Deprecated four-gate intervention-fit judgments | [Organization historical experiment](https://github.com/opensiro/vsm-oss-organization/tree/main/experiments/upstream-intervention-fit) | Frozen `data/upstream-fit-snapshot.json` for casebook identity/audit; **no active fit KPI** |
 | Current external PR status | Exact third-party GitHub PR | `data/upstream-lifecycle.json`; explicit `data/pr-maintenance/targets.json`; dated observations |
 | PR closing actor | Final applicable GitHub issue `closed` event | Dated portfolio report; no automatic assertion about motive |
 | OpenSiro-owned fork maintenance | Fork and owner-reviewed local decision | `registry.yaml`, `projects/<slug>/README.md` |
