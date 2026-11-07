@@ -12,6 +12,7 @@ The root [README.md](../README.md) is the public handoff. [AGENTS.md](../AGENTS.
 | Native effect evidence, not adoption | [FUNCTIONAL_EFFECTS.md](FUNCTIONAL_EFFECTS.md) |
 | External PR maintenance and triage | [PR_MAINTENANCE.md](PR_MAINTENANCE.md) · [PR_MAINTENANCE_TRIAGE.md](PR_MAINTENANCE_TRIAGE.md) |
 | Official resolved-PR acceptance | [RESOLVED_PR_ACCEPTANCE.md](RESOLVED_PR_ACCEPTANCE.md) |
+| Dated external PR observations and bounded history | [PORTFOLIO_HISTORY.md](PORTFOLIO_HISTORY.md) |
 | External PR state freshness | [UPSTREAM_STATUS_FRESHNESS.md](UPSTREAM_STATUS_FRESHNESS.md) |
 | Cross-lane status model | [HARNESS_STATUS_MODEL.md](HARNESS_STATUS_MODEL.md) |
 | Corrective publication authority | [CORRECTIVE_PR_PUBLICATION.md](CORRECTIVE_PR_PUBLICATION.md) |

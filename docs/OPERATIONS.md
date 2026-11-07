@@ -30,11 +30,16 @@ The unfiltered [repository-integrity workflow](../.github/workflows/repository-i
 | --- | --- | --- |
 | [PR maintenance](../.github/workflows/pr-maintenance.yml) | Hourly and manual | Read external PR reviews/CI; update only this repo's bounded issue #125 inbox |
 | [Resolved PR acceptance](RESOLVED_PR_ACCEPTANCE.md) | Alongside maintenance | Observe the separate 18-target cohort and update its own bot-owned summary in #125 |
-| [Portfolio reconciliation](../.github/workflows/portfolio-reconciliation.yml) | Daily and manual | GET exact watched, historical and registered PRs; write **only** the workflow run summary; no issue edit, Git commit or external write |
+| [Portfolio reconciliation](../.github/workflows/portfolio-reconciliation.yml) | Daily and manual | GET exact watched, historical and registered PRs; write the run summary **and a 90-day JSON artifact**; no issue edit, Git commit or external write |
 | [Status freshness](../.github/workflows/upstream-status-freshness.yml) | Daily | Verify stored lifecycle against live PRs; fail on drift, no auto-change |
 | `python3 scripts/portfolio_reconcile.py --report` | Operator run with `GITHUB_TOKEN` | Report exact PR lifecycle, final closing actor (if evidenced) and cohort-separated counts |
 
 The portfolio union uses existing manifests, not an inferred GitHub author-search corpus. The live reconciler is not permitted to change the official 18-target watcher or conclude why a human closed a PR. For an observed drift, create a reviewed change to the relevant receipt; do not silently modify the primary ledgers on a timer.
+
+The per-run JSON artifact includes an observation timestamp, all exact PR URLs with
+their separate cohort memberships and a `cohort_sha256` identity fingerprint.
+See [portfolio history](PORTFOLIO_HISTORY.md) for retention, comparability and
+the important distinction between observed PR merging and verified adoption.
 
 To refresh the existing **pinned casebook and registry PR receipts**, use:
 
@@ -53,7 +58,7 @@ The optional refresh writes local files and must be reviewed in a PR. The daily 
 | Layer | Current/proposed state | Safe next step |
 | --- | --- | --- |
 | Data model and navigation | Standardized local contract; existing multiple ledgers remain distinct | Audit every new source/metric against ownership table |
-| Reconciliation sensing | Automatic 18-PR watcher and broader read-only union; dated casebook receipts | Verify live summaries and add regression cases before expanding manifests |
+| Reconciliation sensing | Automatic 18-PR watcher and broader read-only union; bounded 90-day observation artifacts | Verify first live artifact and add regression cases before expanding manifests |
 | Cross-batch source coordination | Optional, dormant Git compare-and-swap prototype under [#144](https://github.com/opensiro/upstream/issues/144) | Integrate only with an explicit collision policy and reviewed activation |
 | Connected external fork/patch/PR executor | Code prepared, general stage grant **inactive** under [#6](https://github.com/opensiro/upstream/issues/6) | Separate S5 exact-stage mandate and real host/provider rights test |
 | Automatic external PR merge, irreversible closure, fork archive | **Not authorized** | Individual attributable human decision and destination-repo rules |

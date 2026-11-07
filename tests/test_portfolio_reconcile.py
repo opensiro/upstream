@@ -2,9 +2,12 @@
 
 import importlib.util
 import io
+import json
 import sys
 from pathlib import Path
+import tempfile
 import unittest
+from unittest.mock import patch
 from urllib.error import HTTPError
 
 
@@ -76,6 +79,9 @@ class PortfolioReconcileTests(unittest.TestCase):
         self.assertEqual(broad["rate"], 0.5)
         self.assertEqual(watch["rate"], 1.0)
         self.assertEqual(report["records"][1]["closure"]["actor"], "last")
+        self.assertEqual(len(report["cohort_sha256"]), 64)
+        flipped = [dict(row, outcome="merged") for row in report["records"]]
+        self.assertEqual(report["cohort_sha256"], portfolio.cohort_fingerprint(flipped))
         self.assertEqual(len([x for x in api.calls if x[0] == "PAGES"]), 1)
         output = portfolio.render(report)
         self.assertIn("50.0% (1/2)", output)
@@ -117,6 +123,34 @@ class PortfolioReconcileTests(unittest.TestCase):
             {"url": BASE + "1", "groups": ["casebook"], "outcome": "merged"}]}
         with self.assertRaisesRegex(ValueError, "duplicate"):
             portfolio.summarize(report)
+
+    def test_tampered_cohort_fingerprint_fails_closed(self):
+        report = portfolio.observe(FakeAPI({1: payload(1)}), [entry(1)])
+        report["records"][0]["groups"] = ["casebook"]
+        with self.assertRaisesRegex(ValueError, "fingerprint"):
+            portfolio.summarize(report)
+
+    def test_report_writes_one_identical_local_artifact_only_after_success(self):
+        report = portfolio.observe(FakeAPI({1: payload(1)}), [entry(1)],
+                                   observed_at="2026-11-07T12:00:00Z")
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory) / "observation.json"
+            argv = ["portfolio_reconcile.py", "--report", "--output-json", str(target)]
+            with patch.object(sys, "argv", argv), patch.object(
+                    portfolio.pr_maintenance_watch, "Github"), patch.object(
+                    portfolio, "observe", return_value=report) as observer, patch(
+                    "builtins.print"):
+                portfolio.main()
+            observer.assert_called_once()
+            self.assertEqual(json.loads(target.read_text(encoding="utf-8")), report)
+
+            target.unlink()
+            with patch.object(sys, "argv", argv), patch.object(
+                    portfolio.pr_maintenance_watch, "Github"), patch.object(
+                    portfolio, "observe", side_effect=ValueError("source unavailable")):
+                with self.assertRaisesRegex(ValueError, "source unavailable"):
+                    portfolio.main()
+            self.assertFalse(target.exists())
 
 
 if __name__ == "__main__":
