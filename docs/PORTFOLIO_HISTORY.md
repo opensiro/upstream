@@ -33,10 +33,13 @@ in interventions and are **not** an expanded 25-intervention acceptance cohort.
 
 ## Limits and next stage
 
-- This is a **bounded, expiring history**, not a permanent archive or a public
-  site dashboard. Keep required long-term receipts in a separately reviewed
-  durable record before GitHub deletes artifacts. GitHub may also remove
-  artifacts earlier under repository/retention rules.
+- This workflow's artifacts are a **bounded, expiring history**, not a permanent
+  archive. The separate [public site](https://opensiro.com/upstream-portfolio.html)
+  now displays the latest successfully materialized observation, and its
+  [published JSON](https://opensiro.com/assets/upstream-portfolio-observation.json)
+  is committed with source SHA to the site's Git history. That site history
+  provides dated revisions but is **not an immutable independent audit log**.
+  GitHub may remove workflow artifacts under repository/retention rules.
 - A first successful live scheduled/manual `observe` job and downloadable
   artifact must be verified before claiming active historical coverage.
 - PR `merged` / `closed_unmerged` states do not establish why a contributor's
@@ -48,6 +51,10 @@ in interventions and are **not** an expanded 25-intervention acceptance cohort.
 - The workflow has **read-only** `contents` permission; no issue, Git commit,
   cross-repository writes, automatic PR publication or merge rights are added.
 
-Follow-up: verify the first artifact, then separately review a durable history
-store and website presentation from a source-of-truth owner. A passing CI
-run does not itself prove the scheduled job produced any live artifact.
+The website's own [sync procedure](https://github.com/opensiro/opensiro.com/blob/main/docs/UPSTREAM_PORTFOLIO_SYNC.md)
+uses this Upstream repository's collector and explicit live GitHub PR evidence;
+it neither changes the original 18-target watchlist nor computes Organization
+verified adoption. As of 2026-11-07, the first site source observation and
+Pages deployment were verified independently; the **first scheduled Upstream
+artifact run remains to be verified**. A passing CI run is not proof of a
+live artifact. A longer-term immutable history store remains a separate design.

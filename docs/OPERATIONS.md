@@ -41,6 +41,10 @@ The per-run JSON artifact includes an observation timestamp, all exact PR URLs w
 their separate cohort memberships and a `cohort_sha256` identity fingerprint.
 See [portfolio history](PORTFOLIO_HISTORY.md) for retention, comparability and
 the important distinction between observed PR merging and verified adoption.
+The [public Upstream PR status page](https://opensiro.com/upstream-portfolio.html)
+is a separately deployed, source-dated consumer managed by
+[`opensiro/opensiro.com`](https://github.com/opensiro/opensiro.com/blob/main/docs/UPSTREAM_PORTFOLIO_SYNC.md).
+It does not own Upstream cohorts or turn PR merging into verified adoption.
 
 To refresh the existing **pinned casebook and registry PR receipts**, use:
 
