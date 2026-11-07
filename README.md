@@ -11,7 +11,7 @@ This repository is a **contribution portfolio and operating system**, not a fork
 | Explore the contribution portfolio | [public source-dated PR metrics](https://opensiro.com/upstream-portfolio.html) · [GitHub dashboard](DASHBOARD.md) · [cross-lane harness status](HARNESS_STATUS.md) |
 | See OpenSiro-owned working forks | [registry.yaml](registry.yaml) · [project records](projects/) |
 | Examine interventions and evidence | [casebook](cases/README.md) · [technical pilots](pilots/README.md) |
-| Follow external pull requests | [PR maintenance](docs/PR_MAINTENANCE.md) · [resolved-PR metric](docs/RESOLVED_PR_ACCEPTANCE.md) |
+| Follow external pull requests | [PR maintenance](docs/PR_MAINTENANCE.md) · [resolved-PR metric](docs/RESOLVED_PR_ACCEPTANCE.md) · [verified external outcome evidence](docs/VERIFIED_EXTERNAL_OUTCOMES.md) |
 | Propose or review a contribution | [CONTRIBUTING.md](CONTRIBUTING.md) · [Upstream operating contract](UPSTREAMING.md) |
 | Understand architecture or automation | [Documentation map](docs/README.md) · [operations](docs/OPERATIONS.md) |
 
@@ -39,11 +39,12 @@ Follow the current OpenSiro [START_HERE.md](https://github.com/opensiro/vsm-oss-
 
 See [UPSTREAMING.md](UPSTREAMING.md) for the full ownership and lifecycle rules. The Index owns canonical VSM harness assessments; [Skills](https://github.com/opensiro/vsm-harness-skills) owns assessment methodology; [Profile](https://github.com/opensiro/vsm-harness-profile) owns VSM semantics.
 
-## Three different outcomes
+## Distinct evidence layers
 
 1. **External PR lifecycle:** open, merged, closed without merge, or unverifiable. Verified at the exact external PR; closure is not necessarily maintainer rejection.
 2. **Product-native technical effect:** reproduced and measured separately, using deterministic source-native tests—not live LLM or browser-agent quality trials. See [functional effects](docs/FUNCTIONAL_EFFECTS.md) and [assessment-to-improvement](docs/ASSESSMENT_TO_IMPROVEMENT.md).
-3. **Deprecated historical Product-native fit:** the original four-gate study is preserved under Organization for archival reproduction only; it is **not an active metric** and is not recomputed from merge counts. This does not remove source-native engineering diligence.
+3. **Verified external outcome:** externally accepted contribution with source-pinned native evidence and attributable first-party disposition. A [new read-only verifier](docs/VERIFIED_EXTERNAL_OUTCOMES.md) emits evidence **candidates**; Organization has **not** yet claimed its primary metric or inferred deployed benefit.
+4. **Deprecated historical Product-native fit:** the original four-gate study is preserved under Organization for archival reproduction only; it is **not an active metric** and is not recomputed from merge counts. This does not remove source-native engineering diligence.
 
 The operational [resolved-PR acceptance](docs/RESOLVED_PR_ACCEPTANCE.md) concerns its own **18 explicitly watched PRs**, with the formula `merged / (merged + closed_unmerged)`; pending and unverifiable PRs are excluded. A broader portfolio reconciliation must keep its different denominator and intervention identities explicit. The [2026-11-07 closure-attribution report](reports/2026-11-07-external-pr-closure-attribution.md) documents reviewed reasons, separate from machine-observed events.
 
@@ -66,6 +67,7 @@ python3 scripts/harness_status.py --check
 python3 scripts/pr_maintenance_watch.py --validate-only
 python3 scripts/resolved_pr_acceptance.py --validate-only
 python3 scripts/portfolio_reconcile.py --validate-only
+python3 scripts/verified_external_outcomes.py --validate-only
 ```
 
 External live checks and issue-inbox updates are **separate** opt-in or scheduled operations; see [operations](docs/OPERATIONS.md). Do not edit generated files by hand.

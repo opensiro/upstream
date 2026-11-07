@@ -20,6 +20,7 @@ python3 scripts/pr_maintenance_watch.py --validate-only
 python3 scripts/resolved_pr_acceptance.py --validate-only
 python3 scripts/corrective_publication_queue.py validate
 python3 scripts/portfolio_reconcile.py --validate-only
+python3 scripts/verified_external_outcomes.py --validate-only
 ```
 
 The unfiltered [repository-integrity workflow](../.github/workflows/repository-integrity.yml) runs offline tests on every internal PR and on pushes to `main`. It does **not** itself prove that GitHub branch protection requires that check; that administrator-controlled setting is tracked separately by [Organization #305](https://github.com/opensiro/vsm-oss-organization/issues/305).
@@ -31,9 +32,11 @@ The unfiltered [repository-integrity workflow](../.github/workflows/repository-i
 | [PR maintenance](../.github/workflows/pr-maintenance.yml) | Hourly and manual | Read external PR reviews/CI; update only this repo's bounded issue #125 inbox |
 | [Resolved PR acceptance](RESOLVED_PR_ACCEPTANCE.md) | Alongside maintenance | Observe the separate 18-target cohort and update its own bot-owned summary in #125 |
 | [Portfolio reconciliation](../.github/workflows/portfolio-reconciliation.yml) | Daily and manual | GET exact watched, historical and registered PRs; write the run summary **and a 90-day JSON artifact**; no issue edit, Git commit or external write |
+| [Verified external outcome evidence](../.github/workflows/verified-external-outcomes.yml) | Daily and manual | Recheck intervention identities, third-party disposition and pinned native CI; publish **candidate-only** status artifact, not the Organization KPI; read-only |
 | [Status freshness](../.github/workflows/upstream-status-freshness.yml) | Daily | Verify stored lifecycle against live PRs; fail on drift, no auto-change |
 | [Lifecycle proposal](../.github/workflows/upstream-status-proposal.yml) | Daily read-only; explicit manual Draft PR option | GET the same pinned PRs; if the lifecycle changed, upload an exact-scope patch. An internal Draft PR is created **only** on an explicit `workflow_dispatch.create_draft_pr=true`; no scheduled repository write |
 | `python3 scripts/portfolio_reconcile.py --report` | Operator run with `GITHUB_TOKEN` | Report exact PR lifecycle, final closing actor (if evidenced) and cohort-separated counts |
+| `python3 scripts/verified_external_outcomes.py --report` | Operator run with `GITHUB_TOKEN` | Separately screen verified outcome **candidates**; semantic/replacement chains remain reviewable |
 
 The portfolio union uses existing manifests, not an inferred GitHub author-search corpus. The live reconciler is not permitted to change the official 18-target watcher or conclude why a human closed a PR. For an observed drift, create a reviewed change to the relevant receipt; do not silently modify the primary ledgers on a timer.
 
@@ -45,6 +48,8 @@ The [public Upstream PR status page](https://opensiro.com/upstream-portfolio.htm
 is a separately deployed, source-dated consumer managed by
 [`opensiro/opensiro.com`](https://github.com/opensiro/opensiro.com/blob/main/docs/UPSTREAM_PORTFOLIO_SYNC.md).
 It does not own Upstream cohorts or turn PR merging into verified adoption.
+See [the explicit verified-outcome gate](VERIFIED_EXTERNAL_OUTCOMES.md) for
+the separate evidence statuses and the remaining Organization collector gate.
 
 To refresh the existing **pinned casebook and registry PR receipts**, use:
 
@@ -77,6 +82,7 @@ reviewer must run/verify required tests and source receipts before any merge.
 | --- | --- | --- |
 | Data model and navigation | Standardized local contract; existing multiple ledgers remain distinct | Audit every new source/metric against ownership table |
 | Reconciliation sensing | Automatic 18-PR watcher and broader read-only union; bounded 90-day observation artifacts | Verify first live artifact and add regression cases before expanding manifests |
+| Verified external outcomes | Source-checked 24-intervention candidate cohort; pinned native CI and maintainer-merge verification on pre-reviewed Improvement cases | Verify first live evidence artifact, review ambiguous cases, introduce accepted owner ledger before any Organization metric claim |
 | Lifecycle status correction | Daily read-only patch proposals; opt-in internal Draft PR only | Verify first live patch, configure explicit Actions PR permission if needed, require human merge; scheduled auto-PR activation remains a separate decision |
 | Cross-batch source coordination | Optional, dormant Git compare-and-swap prototype under [#144](https://github.com/opensiro/upstream/issues/144) | Integrate only with an explicit collision policy and reviewed activation |
 | Connected external fork/patch/PR executor | Code prepared, general stage grant **inactive** under [#6](https://github.com/opensiro/upstream/issues/6) | Separate S5 exact-stage mandate and real host/provider rights test |
