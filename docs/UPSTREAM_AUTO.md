@@ -1,15 +1,15 @@
-# Upstream Auto — bounded task arbitration (proposal / preview)
+# Upstream Auto — bounded task arbitration
 
 **Owning issue:** [Upstream #161](https://github.com/opensiro/upstream/issues/161).
-**Current status:** protocol and read-only inspection only. This document does not
-activate an unattended executor, a general task reservation service, or new
-external GitHub write rights. A request for `upstream auto` must not claim that
-parallel-safe execution is already implemented.
+**Current scope:** on-demand agent selection and a tested, opt-in **internal**
+task reservation primitive. This is not a deployed unattended agent, a general
+GitHub-write grant, or an autonomous external contributor. The task's owning
+contract remains the executor for native actions.
 
 ## Purpose and recursion
 
 `upstream auto` is an Upstream Contributions **S1-local** operator route. Its
-eventual purpose is to select and resume bounded work among existing Upstream
+purpose is to select and resume bounded work among existing Upstream
 lanes when multiple agent sessions are active, without duplicating the work.
 
 It is **not** the Organization global `TODO.md` scheduler, a new S3 commitment
@@ -21,13 +21,13 @@ Locks, queue state and a router alone never establish `S2=C` or `S2=A`.
 
 ## Command contract
 
-| Command | Current behavior | Future admission condition |
+| Command | Current behavior | Hard limit |
 | --- | --- | --- |
-| `upstream auto status` | Read-only, live source-first preview of currently eligible, pending, reserved and blocked work; explain uncertainty. | Existing Upstream owner issues and authenticated first-party evidence. |
-| `upstream auto` | Return `NOT_IMPLEMENTED_EXECUTOR` plus a bounded preview and exact missing gate. Do **not** start/reserve an arbitrary open issue. | A separately reviewed, tested task-claim protocol and bounded executor under #161. |
-| `upstream auto resume` | Return `NOT_IMPLEMENTED_TASK_CLAIM` unless there is an independently verified existing owner-specific task reservation; then route to that *existing* owner workflow, subject to its gates. | Readback of an auditable claim and task-specific safe recovery. |
+| `upstream auto status` | An agent reads live Upstream owner evidence, prepares a short-lived worklist and runs the deterministic read-only selector against the current task-CAS ledger. | Returns a **preview**, not proof of admission or execution. |
+| `upstream auto` | One bounded agent session: source-first S1 admission, live-worklist preview, optional atomic reservation, then one action in the already-owning task route followed by an attributable handoff/release. | If live task claims, tools or the exact task authority are absent, report `NOT_IMPLEMENTED_EXECUTOR` or the specific blocker; do not run work unreserved. |
+| `upstream auto resume` | Re-read the declared actor's existing task claims, revalidate refs and continue one existing owner lane. | Missing/invalid claim returns `NOT_IMPLEMENTED_TASK_CLAIM` or `BLOCKED_RESERVATION_VISIBILITY`; no silent claim theft or release. |
 
-The eventual executor may dispatch these existing owner tasks, never substitute
+The dispatcher may select these existing owner tasks, never substitute
 its own authority or issue lifecycle:
 
 | Lane | Current Upstream owner | Routing invariant |
@@ -42,7 +42,7 @@ must supply current actionable evidence and the required S1 admission rights.
 No generic `auto` dispatch may override a frozen cohort, a live PR reviewer, a
 separate publication mandate, or a task's own `STOP` and read-only restrictions.
 
-## Read-only preview and selection proposal
+## Read-only selection and balancing
 
 1. Re-read Organization [START_HERE](https://github.com/opensiro/vsm-oss-organization/blob/main/START_HERE.md), the Upstream default branch and the exact owner issues above.
 2. Distinguish `ACTIONABLE`, `AWAITING_EXTERNAL`, `BLOCKED_EVIDENCE`, `CLAIMED`,
@@ -55,25 +55,90 @@ separate publication mandate, or a task's own `STOP` and read-only restrictions.
    speculative discovery; balance lane WIP, starvation and risk. Explain each
    suggested priority with time-of-check source refs, without promoting a
    deterministic score to agent-owned S2 discretion.
-5. Return an inspection receipt: `SOURCE_CUT`, `ELIGIBLE`, `BUSY`, `BLOCKED`,
-   `SUGGESTED_NEXT`, `DECISION_OWNER`, and `MISSING_GATE`. If data are absent,
-   use `NO_VERIFIED_ELIGIBLE_WORK` or `BLOCKED_VISIBILITY`.
+5. Record a short-lived, attributable JSON worklist containing `schema_version=1`,
+   exact `upstream_main_sha`, `observed_at` and at most 100 task cards. Each
+   card specifies `task_id`, `lane`, exact `owner_issue`, `resources`, direct
+   first-party GitHub `evidence_url`, `queued_at`, task `observed_at`, `status`,
+   `priority` (`P0`–`P3`), non-external `operation` and a pinned `head_sha` for
+   PR targets. An **agent**, not the file, owns and documents the S1 admission
+   judgment; arbitrary open issues and unverified source claims are excluded.
+6. Run `python3 scripts/upstream_auto.py status --manifest /path/to/fresh-worklist.json`.
+   The script reads the dedicated Git ledger, validates source-cut and task
+   freshness (maximum 60 minutes), normalizes identities, filters busy/blocked
+   tasks and lane WIP limits, then proposes a reproducible `selected` task.
+   Return `NO_VERIFIED_ELIGIBLE_WORK` or `BLOCKED_RESERVATION_VISIBILITY`
+   rather than guessing from incomplete GitHub visibility.
 
-This preview makes **no write**, takes no reservation and creates no new
-Organization `NOW`/`NEXT` entry. Until the actual concurrent task-claim
-protocol is accepted, it must not certify the suggested task as exclusively
-allocated to this agent.
+The selector sorts by explicit priority, age (bounded anti-starvation boost),
+and work-class weight: urgent maintainer/CI feedback and existing outcomes
+generally precede speculative new screening. WIP caps are `maintenance=2`,
+`outcomes=2`, `portfolio=1`, `batch=1`. These are provisional workload
+heuristics, **not** VSM S2 decisions by themselves. `status` makes **no write**,
+takes no reservation and creates no new Organization `NOW`/`NEXT` entry.
 
-## Requirements before an executable `upstream auto`
+## CAS claims, recovery, and bounded execution
+
+The separate first-party Git branch `refs/heads/upstream-auto-task-reservations`
+contains exactly `reservations.json` (append-only `CLAIM` / `RELEASE` events).
+For a selected admitted task, an agent may run:
+
+```bash
+python3 scripts/upstream_auto.py claim --manifest /path/to/fresh-worklist.json --actor agent-session-1 --write-claim
+python3 scripts/upstream_auto.py resume --actor agent-session-1
+python3 scripts/upstream_auto.py release --claim-id <claim_id> --actor agent-session-1 --reason "Reviewed and recorded owner handoff" --evidence-url https://github.com/opensiro/upstream/issues/161 --write-release
+```
+
+The `--write-*` options are **explicit opt-in Git writes to this Upstream-owned
+ledger only**, requiring a Git credential with effective rights. No external
+fork, comment, PR, merge or third-party mutation is performed by the script.
+The claim checks the live Upstream main SHA, owning issue state and PR head/
+lifecycle where applicable, then commits a new Git tree against the fetched
+ledger head. A **non-force** push is its compare-and-swap admission. Losing
+a race yields `BLOCKED_CONCURRENT_RESERVATION` and requires a fresh read;
+different unclaimed resources can proceed after re-planning.
+
+The declared `--actor` is an audit label, **not cryptographic authentication**;
+actual Git/provider permission remains a separate gate. A successful claim
+only reserves the named local task. The agent must **revalidate current
+source, owner permissions and task-specific tests before any work**, execute
+at most one admitted action, record the actual owner result, and release with
+an attributable reason. A release does not itself prove successful execution.
+`resume` never silently reassigns a claim. Claims older than 24 hours are
+reported as `STALE_CLAIM_UNRESOLVED` until auditable recovery; they are not
+automatically stolen, expired or treated as completed.
+
+The existing five-source batch source-CAS branch is **separate**. A batch
+task must name one frozen batch and its five sources, and must have all five
+already reserved by that batch in the source-CAS ledger before this generic
+task claim is written. A generic task claim alone cannot admit a new cohort.
+There is no proven atomic transaction **across both** Git-ledger branches;
+source-overlapping cross-protocol work must be rechecked at the actual owner
+gate and treated as blocked when its safe serialization cannot be proven.
+
+If Git credentials, the task-ledger branch, live evidence or task-specific
+rights are missing, the agent stops at the read-only preview or a precise
+`BLOCKED_*` receipt. A ChatGPT/GitHub connector can carry equivalent Git
+objects and a compare-and-swap ref update **only** if its own permissions and
+expected-head protection are verified; the CLI does not create that authority.
+An eligible connector-driven CAS uses this **same** event schema and strict
+append-only replay, fetches the live ledger ref SHA and single-file tree,
+creates the new ledger blob/tree/child commit, updates the same ref with an
+`expected_sha` lease and **non-force** semantics, then performs authenticated
+readback. A rejected lease means `BLOCKED_CONCURRENT_RESERVATION` and a fresh
+re-plan; it never authorizes a force update or retry against an unseen head.
+
+## Remaining boundaries and acceptance evidence
 
 - A versioned inventory and task identity for each eligible owner route,
   including source/PR refs and no double-count of multi-PR interventions.
-- A task-specific atomic claim/admission or equivalent race-free serialization
-  for **non-batch** work. Batch source-CAS is not a general lock.
+- A shared task-level atomic claim/admission is implemented for **Upstream Auto
+  participants**. Batch source-CAS is still not a general lock; callers not
+  using this task ledger remain outside its collision guarantee.
 - Auditable recovery from interrupted/stale work. No silent expiry, theft,
   branch rewrite or fabricated closure.
-- Bounded execution (one admitted work unit per invocation), explicit retry
-  limits, native validation and receipts to the owning issue/ledger.
+- The agent, not this script, is the bounded executor (one admitted work unit
+  per invocation). Native validation and receipts to the owning issue/ledger
+  remain task-specific responsibilities and are not fabricated by a claim.
 - Concurrent fixture tests: same-task collision, disjoint-task progress,
   missing visibility, stale claim, live PR head change, blocked grant,
   fairness/WIP and unchanged five-row batch order.

@@ -8,7 +8,7 @@ The root [README.md](../README.md) is the public handoff. [AGENTS.md](../AGENTS.
 | --- | --- |
 | Tests, automation, scheduled sensing, generated views | [OPERATIONS.md](OPERATIONS.md) |
 | Five-source upstream screening | [ASSESSMENT_CANDIDATE_BATCHES.md](ASSESSMENT_CANDIDATE_BATCHES.md) |
-| Upstream Auto (task-balancing proposal / read-only preview) | [UPSTREAM_AUTO.md](UPSTREAM_AUTO.md) · [owner issue #161](https://github.com/opensiro/upstream/issues/161) |
+| Upstream Auto (on-demand task balancing and opt-in CAS claims) | [UPSTREAM_AUTO.md](UPSTREAM_AUTO.md) · [owner issue #161](https://github.com/opensiro/upstream/issues/161) |
 | Assessment → testable external improvement | [ASSESSMENT_TO_IMPROVEMENT.md](ASSESSMENT_TO_IMPROVEMENT.md) |
 | Native effect evidence, not adoption | [FUNCTIONAL_EFFECTS.md](FUNCTIONAL_EFFECTS.md) |
 | External PR maintenance and triage | [PR_MAINTENANCE.md](PR_MAINTENANCE.md) · [PR_MAINTENANCE_TRIAGE.md](PR_MAINTENANCE_TRIAGE.md) |
