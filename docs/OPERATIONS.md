@@ -63,6 +63,6 @@ This is a migration path beyond a pilot's manually maintained reports, **not** a
 ## Branch and PR hygiene
 
 - GitHub currently has automatic branch deletion **after future merges**, and `main` reports as protected. Exact protection requirements may require an administrator readback.
-- As of 2026-11-07, 21 internal PRs remained open and six closed-unmerged PR branches were deliberately retained; [#150](https://github.com/opensiro/upstream/issues/150) is the review queue. Do not delete a retained branch based on age or naming alone.
+- The [pre-refactor inventory from 2026-11-07](../reports/2026-11-07-internal-pr-branch-inventory.md) matched **21 open PRs + 6 retained closed-unmerged PR branches + protected main**. Opening this refactor PR #153 adds another head, so these are **not live counts**. [#150](https://github.com/opensiro/upstream/issues/150) is the review queue; do not delete a retained branch based on age or naming alone.
 - Before any deletion verify the precise ref/SHA, no open PR targeting or using it, any closed-PR evidence-retention decision, and branch protection. [#130](https://github.com/opensiro/upstream/issues/130) owns the prior cleanup receipt.
 - The 2026-11-07 [closure-attribution PR #152](https://github.com/opensiro/upstream/pull/152) is a reviewable dated report; the reconciler reports source events, not a substitute for human motive attribution.
