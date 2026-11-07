@@ -15,10 +15,10 @@ class UpstreamAutoContractTests(unittest.TestCase):
         self.assertIn("NOT_IMPLEMENTED_EXECUTOR", CONTRACT)
         self.assertIn("NOT_IMPLEMENTED_TASK_CLAIM", CONTRACT)
         self.assertIn("NO_VERIFIED_ELIGIBLE_WORK", CONTRACT)
-        self.assertIn("BLOCKED_VISIBILITY", CONTRACT)
+        self.assertIn("BLOCKED_RESERVATION_VISIBILITY", CONTRACT)
 
     def test_source_cas_is_not_general_task_lock(self):
-        self.assertIn("Batch source-CAS is not a general lock", CONTRACT)
+        self.assertIn("Batch source-CAS is still not a general lock", CONTRACT)
         self.assertIn("same-task collision", CONTRACT)
         self.assertIn("disjoint-task progress", CONTRACT)
         self.assertIn("five-row batch order", CONTRACT)
