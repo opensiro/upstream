@@ -102,3 +102,8 @@ performed. A partial or unexpected source error fails the observation.
 Risk-based independent review remains appropriate for ambiguous attribution;
 routine exact-identity CI readback does not itself require a fabricated S3*
 assessment. Third-party maintainers remain the only owners of external merge.
+
+The dated [2026-11-07 manual first-party readback](OUTCOME_AGENT_READBACK_2026-11-07.md)
+is an **agent-authored candidate dossier**, not a successful `observe` run,
+an accepted outcome ledger or an Organization metric. Its volatile status
+snapshot must be revalidated against the next complete live workflow artifact.
