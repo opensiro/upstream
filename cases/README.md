@@ -21,6 +21,8 @@ Would an OpenSiro-shaped contribution be useful to the upstream project **even i
 
 **Do not add PR counts:** eight **interventions**, not nine PRs. Henterprise's original #1 and its maintainer's replacement #3 are one accepted intervention, with distinct author and merger roles. StarNet #56 is **not** a merged PR and the maintainer's code must not be misattributed as the contributor's own commit.
 
+For attributable closure actors and the distinction between voluntary supersession, independently implemented functionality and a maintainer's scope refusal, see the [dated 2026-11-07 external PR closure reconciliation](../reports/2026-11-07-external-pr-closure-attribution.md). It does not change this frozen eight-case experiment or its fit labels.
+
 The experimental snapshot reports **3 pass / 2 fail / 3 pending**, i.e. `3 / (3+2) = 60%` of completed *fit reviews*. This is **not** an upstream merge rate or a contributor productivity score; consult the [live source snapshot](https://github.com/opensiro/vsm-oss-organization/blob/main/experiments/upstream-intervention-fit/snapshot.json) before quoting it later.
 
 ## Ownership boundary

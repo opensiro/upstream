@@ -22,6 +22,12 @@ If there are no resolved cases, the value is `N/A`, not 0% or 100%. Every displa
 
 The target set changes **only** through a reviewed watchlist change, with the existing #125 checkpoint migration controls. Every rate is conditional on that exact cohort; changes in its membership can change the metric independently of a maintainer's decision. Do not compare across revisions without recording which cohort each date used.
 
+### Closure is not rejection or absent product impact
+
+For exact `CLOSED_UNMERGED` PRs, GitHub PR state supplies the lifecycle numerator/denominator; **issue `closed` events** supply the closure actor; PR discussion, replacement links and first-party commits may separately support the reason or downstream outcome. These are different fields of evidence. An author can close an already-merged replacement's original, or close a proposed patch after its idea was implemented independently. Neither makes that original PR `MERGED`, and neither alone establishes a maintainer rejection. Likewise, a self-closure without an explanatory comment does not establish a motive.
+
+The [2026-11-07 dated portfolio/closure reconciliation](../reports/2026-11-07-external-pr-closure-attribution.md) cross-checks all four known closed-without-merge PRs against exact GitHub events and distinguishes the **18 watched PRs**, **25 distinct PR URLs** and **24 represented interventions**. Its broader, manually interpreted figures are **not** substituted for the reviewed 18-target operational acceptance report or a new automated adoption metric.
+
 ## Implementation and persistence
 
 The stdlib-only [`scripts/resolved_pr_acceptance.py`](../scripts/resolved_pr_acceptance.py) reads **all 18** GitHub PRs directly using the existing watcher GitHub transport and validates each returned URL and PR number. Every 404 is explicitly classified as unavailable and excluded from the acceptance denominator. This remains independent of the stricter review/CI **event watcher**: the latter checks its single reviewed Headcount #47 `verify_404_only` exception, reports **17 fully observed / 1 unavailable**, and fails closed on any other missing source. Neither route can silently reinterpret an unavailable PR as a rejection. Acceptance reporting never changes the event watcher's checkpoint or deduplication.

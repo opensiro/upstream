@@ -3,7 +3,7 @@
 - **Upstream:** [androoAGI/starnet](https://github.com/androoAGI/starnet)
 - **Contributor fork:** [xLagerFeuer/starnet](https://github.com/xLagerFeuer/starnet)
 - **Upstream issue:** [#55](https://github.com/androoAGI/starnet/issues/55)
-- **Original contributor PR:** [#56](https://github.com/androoAGI/starnet/pull/56), still **open** and not merged at the 2026-10-17 check.
+- **Original contributor PR:** [#56](https://github.com/androoAGI/starnet/pull/56), open at the historical 2026-10-17 check; **closed without merge by contributor `xLagerFeuer` on 2026-10-24** as an already-implemented duplicate ([closure comment](https://github.com/androoAGI/starnet/pull/56#issuecomment-6386069014), [GitHub events](https://api.github.com/repos/androoAGI/starnet/issues/56/events)).
 - **First-party upstream implementation:** [`dc9633b`](https://github.com/androoAGI/starnet/commit/dc9633bb05434e236509583cd1b226140f8d3f67), authored by upstream maintainer @androoAGI on 2026-10-07, explicitly stating **idea by @xLagerFeuer**.
 - **Product-native fit:** **pass** (experimental ledger 2026-10-12).
 
@@ -15,6 +15,6 @@ The upstream maintainer's implementation reuses `VoiceLive.statusSnapshot()`, th
 
 ## Critical distinction
 
-This is an **upstream-adopted idea**, **not** a merged contributor PR and not proof that the maintainer merged @xLagerFeuer's source commits. Keep the original PR history and its current lifecycle distinct from the maintainer's own commit; do not reapply an already-implemented duplicate change.
+This is an **upstream-adopted idea**, **not** a merged contributor PR and not proof that the maintainer merged @xLagerFeuer's source commits. Keep the contributor's voluntary `CLOSED_UNMERGED` PR event distinct from the maintainer-authored implementation; do not reapply an already-implemented duplicate change.
 
 **Gate result (ledger):** all four fit gates pass, independently of the OpenSiro grade. [Canonical experimental observation](https://github.com/opensiro/vsm-oss-organization/blob/main/experiments/upstream-intervention-fit/observations.json).
