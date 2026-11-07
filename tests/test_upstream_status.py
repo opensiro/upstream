@@ -128,6 +128,43 @@ class UpstreamStatusTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "cognee-community"):
             status.check_live(fetch=cognee_merged)
 
+    def test_proposal_writes_only_on_verified_lifecycle_drift(self):
+        def moved(url):
+            result = self.fake_fetch(url)
+            if url.endswith("/434"):
+                result["lifecycle"] = "merged"
+                result["merged_at"] = "2026-11-07T12:00:00Z"
+            return result
+
+        with tempfile.TemporaryDirectory() as directory:
+            files = {label: Path(directory) / label for label in
+                     ("upstream.json", "dashboard.md", "dashboard.html", "casebook.md")}
+            for src, label in ((status.LIVE, "upstream.json"),
+                               (status.MARKDOWN, "dashboard.md"),
+                               (status.HTML, "dashboard.html"),
+                               (status.CASEBOOK, "casebook.md")):
+                files[label].write_text(src.read_text(encoding="utf-8"), encoding="utf-8")
+            substitutions = {"LIVE": files["upstream.json"],
+                             "MARKDOWN": files["dashboard.md"],
+                             "HTML": files["dashboard.html"],
+                             "CASEBOOK": files["casebook.md"]}
+            with patch.multiple(status, **substitutions):
+                before = {name: path.read_bytes() for name, path in files.items()}
+                self.assertEqual(status.propose_if_drift(fetch=self.fake_fetch), [])
+                self.assertEqual(before, {name: path.read_bytes() for name, path in files.items()})
+                with self.assertRaises(OSError):
+                    status.propose_if_drift(fetch=lambda _: (_ for _ in ()).throw(OSError("API unavailable")))
+                self.assertEqual(before, {name: path.read_bytes() for name, path in files.items()})
+
+                changed = status.propose_if_drift(fetch=moved)
+                self.assertEqual([item[0] for item in changed], ["cognee-community"])
+                self.assertEqual({name for name, path in files.items()
+                                  if path.read_bytes() != before[name]},
+                                 {"upstream.json", "dashboard.md", "dashboard.html"})
+                self.assertEqual("merged", status.load_verified()[2]["registry_records"][0]["pr"]["lifecycle"])
+                self.assertEqual(status.render_markdown(*status.load_verified()),
+                                 files["dashboard.md"].read_text(encoding="utf-8"))
+
 
 if __name__ == "__main__":
     unittest.main()

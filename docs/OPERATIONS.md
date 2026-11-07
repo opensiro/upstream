@@ -32,6 +32,7 @@ The unfiltered [repository-integrity workflow](../.github/workflows/repository-i
 | [Resolved PR acceptance](RESOLVED_PR_ACCEPTANCE.md) | Alongside maintenance | Observe the separate 18-target cohort and update its own bot-owned summary in #125 |
 | [Portfolio reconciliation](../.github/workflows/portfolio-reconciliation.yml) | Daily and manual | GET exact watched, historical and registered PRs; write the run summary **and a 90-day JSON artifact**; no issue edit, Git commit or external write |
 | [Status freshness](../.github/workflows/upstream-status-freshness.yml) | Daily | Verify stored lifecycle against live PRs; fail on drift, no auto-change |
+| [Lifecycle proposal](../.github/workflows/upstream-status-proposal.yml) | Daily read-only; explicit manual Draft PR option | GET the same pinned PRs; if the lifecycle changed, upload an exact-scope patch. An internal Draft PR is created **only** on an explicit `workflow_dispatch.create_draft_pr=true`; no scheduled repository write |
 | `python3 scripts/portfolio_reconcile.py --report` | Operator run with `GITHUB_TOKEN` | Report exact PR lifecycle, final closing actor (if evidenced) and cohort-separated counts |
 
 The portfolio union uses existing manifests, not an inferred GitHub author-search corpus. The live reconciler is not permitted to change the official 18-target watcher or conclude why a human closed a PR. For an observed drift, create a reviewed change to the relevant receipt; do not silently modify the primary ledgers on a timer.
@@ -53,12 +54,26 @@ python3 scripts/upstream_status.py --check-generated
 
 The optional refresh writes local files and must be reviewed in a PR. The daily live check does **not** automatically refresh on failure.
 
+To generate a source-backed, **local-only** patch when the lifecycle actually
+changed, run `python3 scripts/upstream_status.py --propose-if-drift` and inspect
+the resulting Git diff. If no lifecycle state changed, the command leaves all
+files untouched, including observation timestamps. Unknown PR states, source
+errors and pinned-identity changes fail without writing a successful patch.
+The [guarded workflow](../.github/workflows/upstream-status-proposal.yml) runs
+this preparation daily and retains a 30-day patch artifact. Only an explicit
+human workflow dispatch with the `create_draft_pr` input can open/update the
+single **internal** bot Draft PR; this also depends on GitHub Actions PR-create
+permissions being enabled. Draft PR generation is not branch-protection or CI
+bypass. `GITHUB_TOKEN`-created PRs may not trigger standard PR checks; their
+reviewer must run/verify required tests and source receipts before any merge.
+
 ## Scaling without crossing the publication gate
 
 | Layer | Current/proposed state | Safe next step |
 | --- | --- | --- |
 | Data model and navigation | Standardized local contract; existing multiple ledgers remain distinct | Audit every new source/metric against ownership table |
 | Reconciliation sensing | Automatic 18-PR watcher and broader read-only union; bounded 90-day observation artifacts | Verify first live artifact and add regression cases before expanding manifests |
+| Lifecycle status correction | Daily read-only patch proposals; opt-in internal Draft PR only | Verify first live patch, configure explicit Actions PR permission if needed, require human merge; scheduled auto-PR activation remains a separate decision |
 | Cross-batch source coordination | Optional, dormant Git compare-and-swap prototype under [#144](https://github.com/opensiro/upstream/issues/144) | Integrate only with an explicit collision policy and reviewed activation |
 | Connected external fork/patch/PR executor | Code prepared, general stage grant **inactive** under [#6](https://github.com/opensiro/upstream/issues/6) | Separate S5 exact-stage mandate and real host/provider rights test |
 | Automatic external PR merge, irreversible closure, fork archive | **Not authorized** | Individual attributable human decision and destination-repo rules |

@@ -303,6 +303,20 @@ def expected_outputs():
 def check_live(fetch=public_pr):
     _, _, old = load_verified()
     new = collect(fetch=fetch)
+    diff = lifecycle_diff(old, new)
+    if diff:
+        raise ValueError(f"External PR lifecycle drift (stored, current): {diff}. Run --refresh then --render; open a reviewed PR.")
+    return len(new["records"])
+
+
+def lifecycle_diff(old, new):
+    if old["fit_snapshot_sha256"] != new["fit_snapshot_sha256"]:
+        raise ValueError("Pinned Organization fit snapshot changed: refresh required")
+    if [r["id"] for r in old["records"]] != [r["id"] for r in new["records"]]:
+        raise ValueError("Intervention identities changed; manual review required")
+    if [(r["id"], r["pr"]["url"]) for r in old["registry_records"]] != [
+            (r["id"], r["pr"]["url"]) for r in new["registry_records"]]:
+        raise ValueError("Registry PR identities changed; manual review required")
     diff = [(a["id"], a["lifecycle"], b["lifecycle"])
             for a, b in zip(old["records"], new["records"])
             if a["id"] != b["id"] or a["lifecycle"] != b["lifecycle"] or
@@ -312,17 +326,32 @@ def check_live(fetch=public_pr):
              for a, b in zip(old["registry_records"], new["registry_records"])
              if a["id"] != b["id"] or a["pr"]["url"] != b["pr"]["url"] or
              a["pr"]["lifecycle"] != b["pr"]["lifecycle"]]
-    if old["fit_snapshot_sha256"] != new["fit_snapshot_sha256"]:
-        raise ValueError("Pinned Organization fit snapshot changed: refresh required")
-    if diff:
-        raise ValueError(f"External PR lifecycle drift (stored, current): {diff}. Run --refresh then --render; open a reviewed PR.")
-    return len(new["records"])
+    return diff
+
+
+def propose_if_drift(fetch=public_pr):
+    """Prepare only a changed lifecycle receipt and derived views for review.
+
+    This mutates only local working-tree files, never GitHub. External source
+    reads and all rendering finish before any file is changed.
+    """
+    snapshot, cases, old = load_verified()
+    new = collect(fetch=fetch)
+    diff = lifecycle_diff(old, new)
+    if not diff:
+        return []
+    outputs = {LIVE: json_text(new), MARKDOWN: render_markdown(snapshot, cases, new),
+               HTML: render_html(HTML.read_text(encoding="utf-8"), snapshot, cases, new),
+               CASEBOOK: render_casebook(CASEBOOK.read_text(encoding="utf-8"), snapshot, cases, new)}
+    for path, content in outputs.items():
+        path.write_text(content, encoding="utf-8")
+    return diff
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     group = parser.add_mutually_exclusive_group(required=True)
-    for flag in ("refresh", "render", "check-generated", "check-live"):
+    for flag in ("refresh", "render", "check-generated", "check-live", "propose-if-drift"):
         group.add_argument(f"--{flag}", action="store_true")
     args = parser.parse_args()
     try:
@@ -331,6 +360,10 @@ def main():
             result = collect()
             LIVE.write_text(json_text(result), encoding="utf-8")
             print(f"Saved {len(result['records'])} verified interventions to {LIVE.relative_to(ROOT)}")
+        elif args.propose_if_drift:
+            diff = propose_if_drift()
+            print(f"Prepared {len(diff)} PR lifecycle changes for a reviewed internal patch" if diff else
+                  "No PR lifecycle changes; no local files modified")
         elif args.check_live:
             print(f"No external PR lifecycle drift across {check_live()} interventions")
         else:

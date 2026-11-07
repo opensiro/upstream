@@ -41,6 +41,13 @@ The daily workflow `.github/workflows/upstream-status-freshness.yml` has only `c
 
 The Organization's experimental **fit classifications and cohort are deprecated and frozen**. Do not repin them for new scoring or refresh a legacy rate. The local SHA-256 binding still protects the historical identity/provenance of this eight-intervention cohort while Upstream-owned PR states may be refreshed and rendered separately.
 
+Daily [guarded lifecycle proposal](../.github/workflows/upstream-status-proposal.yml)
+can now prepare a local diff and 30-day patch artifact **only for an observed
+PR lifecycle transition**. It cannot change the archived fit source, add PRs,
+or push on the daily schedule. A human-triggered workflow option can create
+one internal Draft PR if GitHub permissions allow; neither PR publication nor
+merge is automatic on scheduled sensing.
+
 ## Attribution and historical evidence
 
 - Henterprise source-contributor PR #1 closed and a maintainer-authored replacement #3 merged; the receipt includes **both** but the cohort counts **one** intervention, with contributor and merger roles distinct in the Organization ledger.

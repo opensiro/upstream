@@ -14,6 +14,7 @@ The root [README.md](../README.md) is the public handoff. [AGENTS.md](../AGENTS.
 | Official resolved-PR acceptance | [RESOLVED_PR_ACCEPTANCE.md](RESOLVED_PR_ACCEPTANCE.md) |
 | Dated external PR observations and bounded history | [PORTFOLIO_HISTORY.md](PORTFOLIO_HISTORY.md) |
 | External PR state freshness | [UPSTREAM_STATUS_FRESHNESS.md](UPSTREAM_STATUS_FRESHNESS.md) |
+| Guarded status-drift patch and manual Draft PR | [OPERATIONS.md](OPERATIONS.md#external-observation-read-only) |
 | Cross-lane status model | [HARNESS_STATUS_MODEL.md](HARNESS_STATUS_MODEL.md) |
 | Corrective publication authority | [CORRECTIVE_PR_PUBLICATION.md](CORRECTIVE_PR_PUBLICATION.md) |
 | Control Plane → local prepare | [CONTROL_PLANE_HANDOFF.md](CONTROL_PLANE_HANDOFF.md) |
