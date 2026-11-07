@@ -8,14 +8,14 @@ This repository is a **contribution portfolio and operating system**, not a fork
 
 | I want to… | Start here |
 | --- | --- |
-| Explore the contribution portfolio | [GitHub dashboard](DASHBOARD.md) · [cross-lane harness status](HARNESS_STATUS.md) |
+| Explore the contribution portfolio | [public source-dated PR metrics](https://opensiro.com/upstream-portfolio.html) · [GitHub dashboard](DASHBOARD.md) · [cross-lane harness status](HARNESS_STATUS.md) |
 | See OpenSiro-owned working forks | [registry.yaml](registry.yaml) · [project records](projects/) |
 | Examine interventions and evidence | [casebook](cases/README.md) · [technical pilots](pilots/README.md) |
 | Follow external pull requests | [PR maintenance](docs/PR_MAINTENANCE.md) · [resolved-PR metric](docs/RESOLVED_PR_ACCEPTANCE.md) |
 | Propose or review a contribution | [CONTRIBUTING.md](CONTRIBUTING.md) · [Upstream operating contract](UPSTREAMING.md) |
 | Understand architecture or automation | [Documentation map](docs/README.md) · [operations](docs/OPERATIONS.md) |
 
-The dashboard is a **dated, generated view**. For the latest merge, closure or review outcome, inspect the linked external GitHub PR. An unavailable PR is not automatically a rejection.
+The dashboards are **dated, generated views**. The public website is a consumer of this repository's read-only PR observer, not the owner of a new adoption metric. For the latest merge, closure or review outcome, inspect the linked external GitHub PR. An unavailable PR is not automatically a rejection.
 
 ## I'm AI
 
