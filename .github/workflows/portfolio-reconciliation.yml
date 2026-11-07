@@ -1,0 +1,56 @@
+name: External PR portfolio reconciliation (read-only)
+
+on:
+  schedule:
+    - cron: '43 4 * * *'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'data/pr-maintenance/targets.json'
+      - 'data/upstream-fit-snapshot.json'
+      - 'registry.yaml'
+      - 'scripts/portfolio_reconcile.py'
+      - 'tests/test_portfolio_reconcile.py'
+      - '.github/workflows/portfolio-reconciliation.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: upstream-portfolio-reconcile-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Offline source identity and contract tests
+        run: |
+          python3 scripts/portfolio_reconcile.py --validate-only
+          python3 -m unittest discover -s tests -p 'test_portfolio_reconcile.py' -v
+
+  observe:
+    needs: verify
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Reconcile exact external PRs; publish only this run summary
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 scripts/portfolio_reconcile.py --report >> "$GITHUB_STEP_SUMMARY"

@@ -1,267 +1,75 @@
-# OpenSiro — upstream contributions
+# OpenSiro Upstream Contributions
 
-This repository is the public **portfolio and lifecycle registry** for OpenSiro's contributions to third-party open-source projects.
+OpenSiro's public, evidence-backed record of contributions to **third-party open-source projects**: what was investigated, what was prepared or submitted, what maintainers did, and what remains unresolved.
 
-It is **not** a monorepo of forks, a mirror of upstream code, a claim of upstream endorsement, or a new organizational control plane. Each working fork remains a separate GitHub repository.
+This repository is a **contribution portfolio and operating system**, not a fork monorepo, upstream endorsement, VSM assessment index, or an independent authority to publish changes into other projects.
 
-## Quick navigation
+## I'm human
 
-| What you want to do | Start here |
+| I want to… | Start here |
 | --- | --- |
-| Propose or prepare a contribution | [CONTRIBUTING.md](CONTRIBUTING.md) — repository-local rules; external writes retain their own gates |
-| See tracked projects and current outcomes | [registry.yaml](registry.yaml) and [DASHBOARD.md](DASHBOARD.md) |
-| Follow submitted external PRs | [PR maintenance](docs/PR_MAINTENANCE.md) and [status freshness](docs/UPSTREAM_STATUS_FRESHNESS.md) |
-| Interpret closed PRs and replacements | [Closure attribution / portfolio reconciliation (2026-11-07)](reports/2026-11-07-external-pr-closure-attribution.md) — dated read-only evidence, not the live acceptance metric |
-| Review evidence for prior interventions | [Casebook](cases/README.md) and the relevant `projects/` or `pilots/` record |
-| Understand assessment-derived improvements | [Assessment-to-improvement protocol](docs/ASSESSMENT_TO_IMPROVEMENT.md) |
-| Locate implementation and checks | `scripts/`, `tests/`, `.github/workflows/`; durable procedures and policies live in `docs/` and `policies/` |
+| Explore the contribution portfolio | [GitHub dashboard](DASHBOARD.md) · [cross-lane harness status](HARNESS_STATUS.md) |
+| See OpenSiro-owned working forks | [registry.yaml](registry.yaml) · [project records](projects/) |
+| Examine interventions and evidence | [casebook](cases/README.md) · [technical pilots](pilots/README.md) |
+| Follow external pull requests | [PR maintenance](docs/PR_MAINTENANCE.md) · [resolved-PR metric](docs/RESOLVED_PR_ACCEPTANCE.md) |
+| Propose or review a contribution | [CONTRIBUTING.md](CONTRIBUTING.md) · [Upstream operating contract](UPSTREAMING.md) |
+| Understand architecture or automation | [Documentation map](docs/README.md) · [operations](docs/OPERATIONS.md) |
 
-The table is a navigation aid, not a new queue, approval policy or replacement for the exact owning issue/PR.
+The dashboard is a **dated, generated view**. For the latest merge, closure or review outcome, inspect the linked external GitHub PR. An unavailable PR is not automatically a rejection.
 
-## OpenSiro ecosystem bootstrap and scope
+## I'm AI
 
-For cross-repository work, start with the [VSM OSS bootstrap](https://github.com/opensiro/vsm-oss-organization/blob/main/START_HERE.md), [Organization contributor intake](https://github.com/opensiro/vsm-oss-organization/blob/main/CONTRIBUTOR_START.md), and [ecosystem owner map](https://github.com/opensiro/vsm-oss-organization/blob/main/docs/ECOSYSTEM.md), then return to this repository's [contribution rules](CONTRIBUTING.md), [local work](https://github.com/opensiro/upstream/issues/56), and exact owning issue/PR. The [Organization TODO](https://github.com/opensiro/vsm-oss-organization/blob/main/TODO.md) selects only explicitly scheduled, already tracked work; it does **not** overwrite this repository's separate contribution queue.
+Follow the current OpenSiro [START_HERE.md](https://github.com/opensiro/vsm-oss-organization/blob/main/START_HERE.md) → [ecosystem owner map](https://github.com/opensiro/vsm-oss-organization/blob/main/docs/ECOSYSTEM.md) → the exact owning issue/PR. Read this repository's [AGENTS.md](AGENTS.md) and [UPSTREAMING.md](UPSTREAMING.md) before modifying any data or automation.
 
-**Applied boundary (2026-10-26):** the legitimate Organization S5 parent selected **`ADMIT_WITH_ENVELOPE`** for Upstream Contributions in [#274](https://github.com/opensiro/vsm-oss-organization/issues/274#issuecomment-6420871211). [Organization application PR #292](https://github.com/opensiro/vsm-oss-organization/pull/292) and [S5 return PR #294](https://github.com/opensiro/vsm-oss-organization/pull/294) merged, and the owning default-branch scope now contains **four operational S1 domains / six repositories**. The separate bounded S1 **construction** witness for gate #6 was accepted under [Organization #274](https://github.com/opensiro/vsm-oss-organization/issues/274), based on the source-first decision/correction/closure in [Upstream #139](https://github.com/opensiro/upstream/issues/139) and [merged PR #140](https://github.com/opensiro/upstream/pull/140), with post-merge workflow readback. This is not an `S1=A` autonomy grade or third-party acceptance. Upstream owns its contribution portfolio and maintenance outcomes; domain membership does **not** grant third-party publication/merge rights, S3/S3* authority, or autonomy grades.
+- **Already scheduled work:** [Organization TODO.md](https://github.com/opensiro/vsm-oss-organization/blob/main/TODO.md). An arbitrary open PR does not become the next scheduled task.
+- **New, unclassified or cross-domain work:** [Organization contributor entry](https://github.com/opensiro/vsm-oss-organization/blob/main/CONTRIBUTOR_START.md).
+- **Upstream-owned work:** the specific local issue/PR defines the evidence, frozen inputs, tests and authorization boundary. [PR portfolio triage #150](https://github.com/opensiro/upstream/issues/150) and [repository standards #130](https://github.com/opensiro/upstream/issues/130) are review queues, not instructions to merge, close or delete.
 
-Repository-local standards/settings alignment is tracked separately in [Upstream #130](https://github.com/opensiro/upstream/issues/130); this README link change does **not** enable branch deletion or select a license.
+## What belongs here
 
-## Public impact dashboard
+| Surface | Responsibility | Source of truth |
+| --- | --- | --- |
+| `registry.yaml`, `projects/` | OpenSiro-owned forks, individual contribution status and fork maintenance | Reviewed local records corroborated by the external PR/fork |
+| `data/assessment-candidate-batches/` | Pinned five-source technical screening batches and dispositions | Frozen batch manifests; [batch contract](docs/ASSESSMENT_CANDIDATE_BATCHES.md) |
+| `pilots/`, `cases/` | Patches, native replay receipts and the historical eight-intervention experiment view | Pinned product-native evidence; [Organization fit experiment](https://github.com/opensiro/vsm-oss-organization/tree/main/experiments/upstream-intervention-fit) owns fit |
+| `data/corrective-publication/`, `data/improvement-publication/` | Separate finite publication cohorts | Their own explicitly bounded grants and ledgers |
+| `data/pr-maintenance/` | Explicitly reviewed external PR watchlist | Exact external PRs; [watcher](docs/PR_MAINTENANCE.md) |
+| `scripts/`, `tests/`, `.github/workflows/` | Deterministic checks, read-only sensing and explicitly gated operations | Source code and CI; [operations](docs/OPERATIONS.md) |
+| `DASHBOARD.md`, `HARNESS_STATUS.md`, `docs/index.html` | Generated portfolio projections | Their input ledgers and renderers, not manual edits |
 
-**[Open the Upstream Dashboard →](DASHBOARD.md)** — readable on GitHub. It shows the eight experimental upstream interventions, separately verified external PR states, historical product-native fit (**60% of completed fit reviews** in the pinned experiment), primary evidence and distinct verification dates. For a filterable browser view see [`docs/index.html`](docs/index.html) (HTML file; GitHub Pages publishing is not enabled by these files).
+See [UPSTREAMING.md](UPSTREAMING.md) for the full ownership and lifecycle rules. The Index owns canonical VSM harness assessments; [Skills](https://github.com/opensiro/vsm-harness-skills) owns assessment methodology; [Profile](https://github.com/opensiro/vsm-harness-profile) owns VSM semantics.
 
-**[Open the cross-lane Harness Status →](HARNESS_STATUS.md)** — the read-only operational inventory across frozen technical batches, separately authorized Corrective/Improvement publication ledgers, the historical experimental casebook, the Cognee registry and the bounded PR watcher. It groups by **harness → independent interventions → external PR(s)** and preserves batch membership as context, so several fixes for one harness do not collapse into one misleading `fixed` status. It is a derived, source-dated projection, not a live PR dashboard. See the [data model and commands](docs/HARNESS_STATUS_MODEL.md); `python3 scripts/harness_status.py --filter actionable|awaiting-external|blocked|merged` supports focused inspection without modifying any ledger.
+## Three different outcomes
 
-These are **dated observations, not live acceptance rates or productivity scores**. The [Organization-owned snapshot](https://github.com/opensiro/vsm-oss-organization/blob/main/experiments/upstream-intervention-fit/snapshot.json) is authoritative for fit and attribution; [`data/upstream-lifecycle.json`](data/upstream-lifecycle.json) is this repository's independently checked public PR-state receipt. Neither establishes a VSM autonomy grade nor modifies external rights under the newly selected organizational S1 envelope.
+1. **External PR lifecycle:** open, merged, closed without merge, or unverifiable. Verified at the exact external PR; closure is not necessarily maintainer rejection.
+2. **Product-native technical effect:** reproduced and measured separately, using deterministic source-native tests—not live LLM or browser-agent quality trials. See [functional effects](docs/FUNCTIONAL_EFFECTS.md) and [assessment-to-improvement](docs/ASSESSMENT_TO_IMPROVEMENT.md).
+3. **Experimental intervention fit:** the historical four-gate study is owned by Organization and is **not** recomputed from merge counts.
 
-### Keeping the portfolio current
+The operational [resolved-PR acceptance](docs/RESOLVED_PR_ACCEPTANCE.md) concerns its own **18 explicitly watched PRs**, with the formula `merged / (merged + closed_unmerged)`; pending and unverifiable PRs are excluded. A broader portfolio reconciliation must keep its different denominator and intervention identities explicit. The [2026-11-07 closure-attribution report](reports/2026-11-07-external-pr-closure-attribution.md) documents reviewed reasons, separate from machine-observed events.
 
-The [read-only status procedure](docs/UPSTREAM_STATUS_FRESHNESS.md) checks both the eight-case experimental portfolio and separately submitted `registry.yaml` upstream PRs. It renders `DASHBOARD.md`, `docs/index.html` and the casebook from one local receipt. A daily GitHub Actions job reports drift without using write permissions or automatically changing fit classifications.
+An **Index assessment** can motivate the separate [assessment-driven S1 function test](docs/ASSESSMENT_DRIVEN_S1_TEST.md), which starts from pinned canonical evidence and asks whether a source-native change is worthwhile. This is distinct from the [generic OSS proposal preview](docs/BATCH_PROPOSALS.md), including ordinary issue-driven improvement work. Neither workflow grants external publication rights.
 
-### External PR maintenance (bounded S1 operating pilot)
+## Operating boundary
 
-[Upstream PR Maintenance](docs/PR_MAINTENANCE.md) tracks the external PR review queue, new or edited maintainer feedback and failing CI in the [read-only GitHub-sensing / OpenSiro-inbox #125](https://github.com/opensiro/upstream/issues/125) route. The hourly [workflow](.github/workflows/pr-maintenance.yml) is merged on `main` and [initial activation was verified](https://github.com/opensiro/upstream/issues/125#issuecomment-6385585447). Merged [PR #129](https://github.com/opensiro/upstream/pull/129) expanded the default-branch manifest to **18** explicitly tracked external PRs. Native-only repair and external PR integration still require separate applicable contributor authority. The S5 domain choice grants no automatic review-repair or external-posting authority.
+Upstream Contributions is the **fourth admitted S1 domain** within OpenSiro's public OSS boundary ([Organization #274](https://github.com/opensiro/vsm-oss-organization/issues/274)). That does **not** grant third-party repository write rights, automatic external PR publication/merge, independent S3/S3* authority, or a VSM autonomy grade.
 
-The 18-target watcher reported [merged DSH #173](https://github.com/opensiro/upstream/issues/125#issuecomment-6493469117) and [DiscoveryRSI #2](https://github.com/opensiro/upstream/issues/125#issuecomment-6518564217) on 2026-10-29/30, confirming a post-#129 scan of all 18; check Actions for continued execution. The separate [Resolved PR Acceptance](docs/RESOLVED_PR_ACCEPTANCE.md) report calculates **merged / (merged + closed without merge)** over those reviewed targets, excluding pending and unverifiable sources. Its source-dated summary is maintained in [inbox #125](https://github.com/opensiro/upstream/issues/125) after actual default-branch activation; it is not the eight-case experimental fit metric or a VSM grade. [Owning task #137](https://github.com/opensiro/upstream/issues/137) preserves the formula, original observation and handoff.
+Source preparation, offline native tests and GitHub read-only observation are distinct from privileged actions. The finite [Corrective publication mandate](docs/CORRECTIVE_PR_PUBLICATION.md) does not activate the general [fork executor](docs/AUTOMATIC_FORK_EXECUTOR_RECOVERY.md); [Issue #6](https://github.com/opensiro/upstream/issues/6) owns that separate gate. Never treat a selected batch, an approval text in a file or a successful unit test as an effective external write grant.
 
-### Operational-readiness review (2026-10-25)
+The proposed autonomy-transfer model at [docs/OSM_DELEGATION_DESIGN.md](docs/OSM_DELEGATION_DESIGN.md) is **design only**, not an issued standing mandate.
 
-The [source-backed Upstream readiness review](reports/2026-10-25-upstream-operational-readiness.md) recorded the finite Corrective result (**13 SUBMITTED / 21 BLOCKED / 0 QUEUED**) on the then-unmerged PR #129 branch. [PR #129](https://github.com/opensiro/upstream/pull/129) was subsequently merged, but live watcher checkpoint migration and external PR outcomes require separate readback. This dated observation is not a new authorization, external PR acceptance rate, functional effect result, or Organization S1 admission.
-
-## Current work
-
-| External project | OpenSiro fork | Contribution | Upstream status | Fork lifecycle |
-| --- | --- | --- | --- | --- |
-| [Cognee Community](https://github.com/topoteretes/cognee-community) | [opensiro/cognee-community](https://github.com/opensiro/cognee-community) | [Canonical OpenSiro VSM assessment source](projects/cognee/README.md) | [PR #434 — submitted](https://github.com/topoteretes/cognee-community/pull/434) | **Active** |
-
-Machine-readable current state: [`registry.yaml`](registry.yaml). Research and testing evidence is linked in project profiles.
-
-## Assessment-shaped external intervention cases
-
-A separate [product-native fit casebook](cases/README.md) documents **eight** publicly evidenced interventions into other OSS harnesses that originated from or were shaped by OpenSiro assessment/research. It includes accepted, still-open, and unsuccessful work. Most are in **personal contributor forks**, not OpenSiro-owned forks, so their fork-maintenance state is **not** inferred or added to `registry.yaml`.
-
-The [Organization experimental ledger](https://github.com/opensiro/vsm-oss-organization/tree/main/experiments/upstream-intervention-fit) remains the source of truth for the four fit gates, participant attribution and deduplication. The casebook is a linked portfolio view, **not** an upstream endorsement, an acceptance rate or a VSM grade claim.
-
-## Assessment-derived product improvement (separate test)
-
-The [functional effect ledger](docs/FUNCTIONAL_EFFECTS.md) records source-native
-before/after observations and their limits separately from external PR lifecycle
-and Organization fit. It is deliberately explicit about **unmeasured real-user
-benefit**; regenerate its Markdown from
-`data/functional-effects.json` using `scripts/functional_effects.py`.
-
-**Test rule:** assessment-derived upstream pilots use **deterministic native script/CLI tests only**. Pinned product-code baselines, matched after-tests and regressions are sufficient for a bounded technical effect; **live LLM agents, model calls and Browser agent-quality tests are out of scope**. Deployed end-user benefit, external PR acceptance and VSM grade changes remain separate unproven claims. See the [binding validation policy](docs/ASSESSMENT_TO_IMPROVEMENT.md#mandatory-validation-boundary--native-scripted-tests-only).
-
-The [Kram S2 replay](pilots/kram-s2/README.md) is the current strongest
-Index-first native-tool result: a pinned real Go `edit_file` source path
-reproduced concurrent lost updates and a local scoped patch eliminated those
-losses in repeated fixture runs. The supplied `delegate_task` replay still
-uses a synthetic child-task selector; it does **not** establish provider-driven
-agent productivity, user benefit, upstream adoption or an S2 grade change.
-
-The [assessment-to-improvement protocol](docs/ASSESSMENT_TO_IMPROVEMENT.md)
-distinguishes **assessment-derived** functional interventions, **assessment-informed**
-engineering fixes and generic upstream contributions. The stronger test starts
-from an actual Index function finding, confirms independent product-native
-value and measures behavior **before and after** the change; neither a higher
-VSM grade nor a merged PR is its success criterion. [Upstream #56](https://github.com/opensiro/upstream/issues/56)
-tracks the next Index-first pilot. The already prepared
-[HarnessDesk #1772](pilots/harnessdesk-1772/ASSESSMENT_LINKAGE_2026-10-20.md)
-socket reliability fix is classified as **assessment-informed**, not a
-completed assessment-derived improvement experiment.
-
-## Two independent status dimensions
-
-**Contribution outcome** tracks the result *at upstream*: `research`, `preparing`, `submitted`, `merged`, `closed`, or `not-accepted`. Only a verified upstream merge is marked `merged`.
-
-**Fork lifecycle** tracks the OpenSiro repository itself: `active`, `maintained`, or `archived`. An archived fork does **not** imply that its upstream contribution was accepted.
-
-Typical sequence: **Fork → Research → Implement → Submit → Upstream outcome → Maintain or archive**. Projects can stay `maintained` indefinitely.
-
-## Archiving policy
-
-Before archiving an inactive fork, verify that its planned PRs are resolved or intentionally closed, no known maintenance obligations remain, and this registry contains its final outcome and upstream links. Archive the **public GitHub fork**, retaining its history; do not silently delete it. A need for continued maintenance is reason to keep it active. A fork may be unarchived if maintenance resumes.
-
-The archived state is an explicit decision, **not an automatic action triggered by merged PRs**.
-
-## Assessment-driven S1 function test
-
-The Organization Control Plane command `test S1 function: upstream contributions`
-uses the [assessment-driven S1 test contract](docs/ASSESSMENT_DRIVEN_S1_TEST.md).
-It **starts with a pinned canonical Index assessment of an AI harness**, then
-independently checks whether that finding motivates a real upstream-native
-change. A familiar fork, unrelated GitHub issue or lower VSM grade is
-insufficient. The result may legitimately be `NO_ELIGIBLE_ASSESSMENT_CANDIDATE`
-without creating any fork or PR.
-
-This assessment-to-contribution test is **distinct** from generic OSS discovery,
-this repository's existing portfolio and normal contributor-selected upstream
-issues. This test does **not** decide Organization S1 membership (already
-applied under #274) or activate P1/connected writes or external PR publication.
-
-For a **single read-only assessment-linked proposal and test-file plan**,
-[`scripts/assessment_driven_handoff.py`](scripts/assessment_driven_handoff.py)
-composes the local [Index-object origin preflight](scripts/assessment_origin_preflight.py)
-with the existing [exact prepare-stage handoff](docs/CONTROL_PLANE_HANDOFF.md).
-It returns one non-authorizing packet, never a fork, push or external PR. A
-local git checkout and proposal fields do **not** prove live canonical Index
-origin, external native fit, or authenticated operator authorization.
-
-## Conversation-first contribution proposals (read-only)
-
-[Batch proposal preview](docs/BATCH_PROPOSALS.md) is a **provider-agnostic,
-local-only** way to review up to ten possible contributions before an owner
-approves anything. Every candidate states the target system's problem,
-planned change, **expected (unverified) benefit**, validation and evidence.
-It can display the operator's **proposed selection** in JSON or plain text.
+## Validate locally
 
 ```bash
-python3 scripts/batch_proposals.py --manifest /path/to/upstream-YYYYMMDD-name.json --draft --select candidate-a,candidate-c --scope 'candidate-a=create_public_fork' --format text
+python3 -m unittest discover -s tests -v
+python3 scripts/upstream_status.py --check-generated
+python3 scripts/harness_status.py --check
+python3 scripts/pr_maintenance_watch.py --validate-only
+python3 scripts/resolved_pr_acceptance.py --validate-only
+python3 scripts/portfolio_reconcile.py --validate-only
 ```
 
-The optional `--scope` can **reduce** the stages proposed for each
-selected candidate; it cannot add a new action. Without it, a selected
-candidate retains all proposed stages for preview. The result includes
-`selection_scope_sha256` binding the exact per-candidate stage subset.
+External live checks and issue-inbox updates are **separate** opt-in or scheduled operations; see [operations](docs/OPERATIONS.md). Do not edit generated files by hand.
 
-This command never contacts GitHub, creates forks, publishes external PRs
-or records an approval. Selection and SHA-256 identifiers are **not**
-authorization. See [the proposal schema and limitations](docs/BATCH_PROPOSALS.md).
+## Contribution and license policy
 
-## OSM autonomy-transfer design (prospective)
-
-[OSM delegation design](docs/OSM_DELEGATION_DESIGN.md) maps the proposed progression from agent-owned local preparation to a complete **unpublished** contribution package, while external PR publication remains a separate human right. It is a design for **future attributable delegation**, not an effective write mandate, autonomy-grade claim, or bypass of the current exact-stage execution gate. [Organization #274](https://github.com/opensiro/vsm-oss-organization/issues/274) has applied S1 membership; any future authority transfer requires its own effective decision and implementation.
-
-## Control Plane preparation handoff (read-only)
-
-The existing [OpenSiro OSS Control Plane](https://github.com/opensiro/vsm-oss-organization/blob/main/docs/AGENT_CONTROL_PLANE.md)
-can present an [exact prepare-stage handoff](docs/CONTROL_PLANE_HANDOFF.md)
-for one selected external contribution. The local
-[`control_plane_handoff.py`](scripts/control_plane_handoff.py) validates
-one candidate and one proposed `prepare_contribution` action, binding its
-selected stage, working fork, pinned base revision, branch, test file and
-content digest. It returns `ACTION_PREPARED_NOT_AUTHORIZED` and performs
-**no GitHub calls or writes**. A distinct current-session operator decision
-and working trusted GitHub port are still required for actual changes.
-
-## Working fork destination: opensiro-contributions (currently blocked)
-
-For Index-assessment-derived contributions, the intended working-fork
-namespace is `opensiro-contributions`, **not an ad hoc personal fork**.
-See the [provider/authority/branch-aware fork handoff](docs/OPENSIRO_CONTRIBUTIONS_FORK_ROUTE.md)
-and tracked [Upstream #28](https://github.com/opensiro/upstream/issues/28).
-The existing Control Plane is the only operator entry. The
-[source-prepared fork-stage adapter](docs/CONNECTED_FORK_ADAPTER.md) and
-[first live pilot contract](docs/FIRST_LIVE_FORK_TEST.md) require a pinned
-working branch/SHA and independently verified new-fork readback. They **do not
-expose a connected native create-fork operation or effective exact-stage
-authorization**. Do not describe old Draft PR #18, unit-test fake providers
-or preview-only workflows as fork creation. A candidate requiring a nondefault
-branch must prove that exact ref exists in the resulting authorized fork
-before preparation.
-
-## Automatic fork execution: existing REST route, currently gated
-
-OpenSiro already has a source-prepared [REST fork client](scripts/create_fork.py)
-from [PR #5](https://github.com/opensiro/upstream/pull/5). Its
-write-capable workflow was intentionally disabled by
-[PR #8](https://github.com/opensiro/upstream/pull/8) pending a trustworthy
-approval boundary. A **new custom MCP plugin is not a prerequisite**:
-either a protected batch-only Actions/REST executor or a native connected
-fork action could satisfy the [upstream execution contract](docs/AUTOMATIC_FORK_EXECUTOR_RECOVERY.md)
-once its **actual provider rights and separately authenticated exact-scope
-Control Plane authorization** are verified. The
-[GitHub CLI execution-host route](docs/CLI_FORK_HOST.md) allows reuse of
-an existing **credential-owning VM/host** without naming or depending on
-an orchestration application; a reported existing PAT still needs an
-execution-user identity and effective permission check. Neither write
-route is currently active.
-Do not restore the legacy manual `--execute` path or treat a batch
-preview as consent. See [Upstream #28](https://github.com/opensiro/upstream/issues/28).
-
-## Organization fork → upstream PR (bounded publication mandate)
-
-The existing credential-owning VM/host has **live verified** one-off fork
-creation in `opensiro-contributions` (Issue [#28](https://github.com/opensiro/upstream/issues/28)).
-A separate [organization-fork PR handoff](docs/ORGANIZATION_FORK_UPSTREAM_PR.md)
-uses **authenticated GETs only** to bind an upstream base and pushed fork
-branch to reviewed SHA/diff evidence. It prepares a REST draft payload,
-**not** an external PR. The owner has now separately authorized a **finite
-34-case Corrective publication cohort** on 2026-10-23: see the
-[bounded mandate](docs/CORRECTIVE_PR_PUBLICATION.md),
-[validated queue](data/corrective-publication/2026-10-23-01.json) and
-[new-session handoff](docs/NEXT_SESSION_CORRECTIVE_PR_PROMPT.md).
-For these exact cases only, public fork/working-branch creation and external
-**Draft PR** publication no longer require case-by-case operator approval;
-fresh source/policy checks, authenticated actual write rights and GitHub
-receipts remain mandatory. All other external submissions retain their
-separate human publication decision. No external PR is implied by this record.
-
-## Exact two-file contribution preparation (source only)
-
-A [bounded two-file preparation stage](docs/CONNECTED_MULTIFILE_STAGE.md)
-now supports the **proposed** production-source-plus-new-regression patch
-shape needed for HarnessDesk #1772, while preserving the original
-single-test-file adapter unchanged. It binds entire patch bytes, pinned
-identical upstream/fork bases, pre/post file contents and one
-authenticated, revocable exact stage grant from the **real VM/host**.
-A [source-prepared REST Git Data port](docs/REST_MULTIFILE_PATCH_PORT.md)
-provides the atomic tree/commit/new-ref algorithm; the [CLI host transport and clean Git patch materializer](docs/CLI_HOST_MULTIFILE_RUNTIME.md) also exist as source. **No trusted provider attestor, effective grant issuer or deployed host binding is connected**; offline pass is not authority to push a fork branch.
-External publication outside the exact Corrective mandate remains separately
-human-owned. Its bounded exception does not activate the general prospective
-fork/patch executor or authorize upstream merges.
-
-## Fork lifecycle automation
-
-The manually dispatched [fork lifecycle workflow](.github/workflows/fork-lifecycle.yml)
-is **preview-only on `main`** after [PR #8](https://github.com/opensiro/upstream/pull/8).
-It no longer offers an `execute` input, privileged create job or credential
-reference. The [public fork preflight](docs/FORK_PUBLIC_PREFLIGHT.md) now checks
-live source/working-branch SHA, declared license and destination public
-visibility using **anonymous GET requests only**; a green public preflight
-is never fork authority. The old [fork lifecycle handoff](docs/FORK_LIFECYCLE.md) is historical
-and **not** a deployment checklist.
-
-[Activation issue #6](https://github.com/opensiro/upstream/issues/6)
-tracks future execution. The [non-executable authorization and stage contract](docs/BATCH_EXECUTION_BOUNDARY.md)
-specifies how a same-session connected agent or separately verified
-headless runner could accept **one exact operator decision** without
-conflating chat selection with GitHub permissions. The old
-[Draft PR #7](https://github.com/opensiro/upstream/pull/7) is superseded
-by the merged preview and is **not merge-ready**.
-
-A narrowly limited [connected-stage preparation adapter](docs/CONNECTED_STAGE_ADAPTER.md)
-now supplies **source-prepared, mock-tested** one-file test preparation in an
-existing writable fork, gated by a trusted session authorization callback.
-It is **not connected to a live host** and **not an approved contribution**;
-no fork or external PR execution is enabled. It remains under Issue #6.
-
-**Do not provision `UPSTREAM_FORK_TOKEN` or execute demonstration batch #001.**
-Neither proposal preview nor fork planning grants external PR publication,
-archiving or a new VSM OSS organizational boundary.
-
-## Contributions
-
-For a new project, add a record to `registry.yaml` and a short `projects/<slug>/README.md`. See [CONTRIBUTING.md](CONTRIBUTING.md).
-
-This registry is maintained independently from Cognee's own repositories. Draft work in OpenSiro forks must not be represented as an upstream PR or merge.
+Use [CONTRIBUTING.md](CONTRIBUTING.md) for local records, [UPSTREAMING.md](UPSTREAMING.md) for source precedence and [repository standards #130](https://github.com/opensiro/upstream/issues/130) for the unresolved original-code/documentation license choice. **No root LICENSE has been adopted yet.** Do not infer permission to relicense third-party patches or original prose, and do not silently merge the proposed [license PR #1](https://github.com/opensiro/upstream/pull/1).
