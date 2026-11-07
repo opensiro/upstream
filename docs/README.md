@@ -13,6 +13,7 @@ The root [README.md](../README.md) is the public handoff. [AGENTS.md](../AGENTS.
 | External PR maintenance and triage | [PR_MAINTENANCE.md](PR_MAINTENANCE.md) · [PR_MAINTENANCE_TRIAGE.md](PR_MAINTENANCE_TRIAGE.md) |
 | Official resolved-PR acceptance | [RESOLVED_PR_ACCEPTANCE.md](RESOLVED_PR_ACCEPTANCE.md) |
 | Dated external PR observations and bounded history | [PORTFOLIO_HISTORY.md](PORTFOLIO_HISTORY.md) |
+| Verified external outcomes — candidate evidence gate, not claimed KPI | [VERIFIED_EXTERNAL_OUTCOMES.md](VERIFIED_EXTERNAL_OUTCOMES.md) |
 | External PR state freshness | [UPSTREAM_STATUS_FRESHNESS.md](UPSTREAM_STATUS_FRESHNESS.md) |
 | Guarded status-drift patch and manual Draft PR | [OPERATIONS.md](OPERATIONS.md#external-observation-read-only) |
 | Cross-lane status model | [HARNESS_STATUS_MODEL.md](HARNESS_STATUS_MODEL.md) |

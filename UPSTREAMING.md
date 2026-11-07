@@ -49,6 +49,7 @@ Every report must identify the cohort, observation time, source and whether it c
 | Functional effects view | `scripts/functional_effects.py` | Its deterministic validation |
 | Resolved-PR inbox summary | `scripts/resolved_pr_acceptance.py` | 18-target manifest and GitHub exact-PR readback |
 | Broad portfolio observation | `scripts/portfolio_reconcile.py` | `--validate-only` offline, `--report` live; no repository writes |
+| Verified external outcome candidate evidence | `scripts/verified_external_outcomes.py` | [Evidence contract](docs/VERIFIED_EXTERNAL_OUTCOMES.md), `--validate-only` offline, `--report` live; no Organization KPI claim |
 
 Do not manually change generated rows. Refresh upstream PR receipts atomically after a verified state change and review the resulting diff. CI tests and reviewable PRs are the local integration path, not authority for third-party writes.
 

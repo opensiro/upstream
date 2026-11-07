@@ -24,6 +24,7 @@ python3 -m unittest discover -s tests -v
 python3 scripts/upstream_status.py --check-generated
 python3 scripts/harness_status.py --check
 python3 scripts/portfolio_reconcile.py --validate-only
+python3 scripts/verified_external_outcomes.py --validate-only
 ```
 
 For live checks, privileges, repository branches and retained closed PRs, follow [docs/OPERATIONS.md](docs/OPERATIONS.md) and the exact owning issue. A successful offline mock is not authorization for a network write.

@@ -46,6 +46,9 @@ in interventions and are **not** an expanded 25-intervention acceptance cohort.
   PR closed, deployed functional improvement, or Organization-owned
   `verified_external_outcomes`. No `Product-native fit` scores are generated:
   that experimental metric is **DEPRECATED**.
+- The separate [verified external outcome evidence workflow](VERIFIED_EXTERNAL_OUTCOMES.md)
+  adds proof-linked **candidate** classifications and its own 90-day artifact.
+  It does not turn this lifecycle observation into an accepted Organization KPI.
 - Changes to the watched cohort require source review and a new fingerprint;
   comparing across cohort revisions requires an explicit reviewed mapping.
 - The workflow has **read-only** `contents` permission; no issue, Git commit,
