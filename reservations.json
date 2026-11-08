@@ -159,6 +159,23 @@
       "evidence_url": "https://github.com/opensiro/upstream/issues/150",
       "timestamp": "2026-11-08T12:37:11Z",
       "reason": "DONE: PR #70 exact-head and current-main integration review recorded in Upstream #150 comment 6721570747; maintainer-policy gate retained."
+    },
+    {
+      "action": "RELEASE",
+      "claim_id": "1b495dc8e608a5eb09084ec9375f9336",
+      "batch_id": "e2476d10bd4489421a7686f90e54c52e",
+      "task_id": "outcomes-observe-failure-42477979466",
+      "coordinator": "chatgpt-upstream-auto-batch-20261108",
+      "actor": "chatgpt-upstream-auto-batch-20261108",
+      "resources": [
+        "intervention:verified-external-outcomes",
+        "source:opensiro/upstream"
+      ],
+      "owner_issue": 159,
+      "operation": "INTERNAL_PREPARE",
+      "evidence_url": "https://github.com/opensiro/upstream/issues/159",
+      "timestamp": "2026-11-08T12:43:03Z",
+      "reason": "FIX_PREPARED: first scheduled observe crash diagnosed; internal PR #166 open with repository-integrity and PR maintenance CI success. Recorded owner #159 comment 6721626681; live observer artifact still blocked."
     }
   ]
 }
