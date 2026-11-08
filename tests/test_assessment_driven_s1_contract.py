@@ -62,22 +62,36 @@ class AssessmentDrivenS1ContractTests(unittest.TestCase):
         self.assertIn("ACTION_PREPARED_NOT_AUTHORIZED", self.handoff)
         self.assertIn("not a separate bot", self.handoff)
 
-    def test_current_s1_test_cannot_create_a_fork_or_submit_external_pr(self):
+    def test_admitted_domain_does_not_activate_execution_or_external_rights(self):
         for phrase in (
             "read-only",
-            "activated automation", 
+            "admitted Upstream S1 domain",
+            "does **not** activate an independent executor",
+            "widen publication rights",
+            "authorize GitHub writes",
             "existing fork",
             "does **not** prove new fork creation",
             "trusted current-session",
-            "new S1 domain", 
-            "not",
+            "P1",
         ):
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase.lower(), self.spec.lower())
-        self.assertIn("PROPOSED", self.spec)
-        self.assertIn("permission to modify GitHub", self.spec)
-        self.assertIn("**not** an activated automation", self.spec)
-        self.assertIn("P1", self.spec)
+
+    def test_strict_derived_cases_require_prospective_hypothesis_and_ci_receipt(self):
+        protocol = (
+            ROOT / "docs" / "ASSESSMENT_TO_IMPROVEMENT.md"
+        ).read_text(encoding="utf-8")
+        batches = (
+            ROOT / "docs" / "ASSESSMENT_CANDIDATE_BATCHES.md"
+        ).read_text(encoding="utf-8")
+        for document in (self.spec, protocol, batches):
+            with self.subTest(document=document[:75]):
+                self.assertRegex(document.lower(), r"before (?:fresh|inspecting)|\*\*before\*\* investigating")
+                self.assertIn("BLOCKED_INDEPENDENT_EXECUTION", document)
+                self.assertIn("runner", document.lower())
+        self.assertIn("not directly run them as their validator", self.spec)
+        self.assertIn("merely increasing confidence", protocol)
+        self.assertIn("C → A", protocol)
 
 
 if __name__ == "__main__":
