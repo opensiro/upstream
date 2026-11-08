@@ -85,28 +85,30 @@ offline validation only. No scheduled GitHub commits, issue updates, external
 publication, PR merge, retroactive ledger edits or cross-repository writes are
 performed. A partial or unexpected source error fails the observation.
 
-## Accepted outcome ledger v1 — owner-review gate
+## Accepted outcome ledger v1 — Upstream owner-decision gate
 
 The separately versioned
 [`data/verified-external-outcomes/accepted-v1.json`](../data/verified-external-outcomes/accepted-v1.json)
-is **intentionally empty** until explicit owner review of individual evidence.
+is **intentionally empty** until an explicit, attributable Upstream owner
+decision on individual evidence.
 The two `VERIFIED` Improvement candidates are **not silently imported**. An
 empty accepted ledger yields `UNCLAIMED_SEMANTIC_EVIDENCE`, not a claimed zero
 for the Organization metric.
 
 Each proposed accepted entry must identify one existing source intervention,
 the **complete original/replacement PR chain** and effective PR, exact external
-merge SHA/timestamp, immutable native test receipt, and a separate Upstream
-GitHub PR review (`APPROVED`) attributed to a reviewer other than the
-contributor. Its decision scope is `ACCEPTED_MERGED_CHANGE_ONLY`, with
-`benefit_claim=NOT_MEASURED`. This scope never asserts runtime deployment or
-productivity. A review URL must refer to a real first-party `APPROVED` review;
-merely inserting a URL into JSON cannot satisfy the live gate.
+merge SHA/timestamp, immutable native test receipt, and a merged Upstream
+decision PR attributable to the authorized owner. Its decision scope is
+`ACCEPTED_MERGED_CHANGE_ONLY`, with `benefit_claim=NOT_MEASURED`. This scope
+never asserts runtime deployment or productivity. A decision URL must refer to
+a real first-party Upstream PR merged by the named owner; inserting a URL into
+JSON cannot satisfy the live gate. The owner may also be the contributor.
+An independent `S3*` auditor or second `APPROVED` reviewer is **not** required
+inside the ordinary Upstream S1 loop.
 
-The reviewed Upstream decision PR must itself be **merged**, with its final
-head exactly the approved commit. To bind the approval to the evidence rather
-than an unrelated PR, its description must contain three exact standalone
-lines (substitute source-backed values; these are not an acceptance decision):
+To bind the owner's decision to evidence rather than an unrelated PR, the
+decision PR's description must contain three exact standalone lines (substitute
+source-backed values; the marker lines alone are not acceptance):
 
 ```text
 Outcome-Acceptance: <intervention_id>
@@ -114,18 +116,19 @@ Outcome-Merge: <40-character external merge SHA>
 Outcome-Native-Receipt: <immutable GitHub native evidence URL>
 ```
 
-Only after that separately reviewed decision has merged may the accepted-v1
-entry point to its GitHub approval URL. The ledger change itself remains a
-separate reviewable PR.
+Only after that owner decision PR has merged may the accepted-v1 entry point
+to its URL. The ledger change itself remains a separate reviewable PR; ordinary
+CI and provenance checks still apply, without a second-person review gate.
 
 `scripts/accepted_external_outcomes.py` checks source IDs and replacement
 chains offline, then compares **all** candidate IDs and source/cohort digests
 against the complete current live observation. For every accepted entry it
 independently re-fetches the external PR disposition, native CI and (where
-needed) post-publication source compare, plus the exact GitHub approval. Any
-drift, missing receipt, ambiguous status or review failure aborts the export.
+needed) post-publication source compare, plus the exact merged Upstream owner
+decision PR. Any drift, missing receipt, ambiguous status or invalid decision
+aborts the export.
 Version 1 accepts **only** the observer's `VERIFIED` cases; `PENDING_REVIEW`
-Corrective/casebook/registry cases require a separately reviewed semantic
+Corrective/casebook/registry cases require an explicitly scoped semantic
 acceptance extension rather than an automatic override.
 
 ```bash
@@ -148,11 +151,11 @@ the primary metric or website may claim the result.
 
 1. Verify a successful **live workflow run and artifact**; do not substitute
    offline mocks or passing CI for a real observation.
-2. Review ambiguous human disposition, native receipt and replacement-chain
+2. Decide ambiguous human disposition, native receipt and replacement-chain
    evidence in an Upstream-owned PR. Preserve accepted historical provenance.
-3. Review actual entries in the owner-reviewed, versioned **accepted outcome
+3. Record actual entries in the owner-decided, versioned **accepted outcome
    ledger** using exact first-party evidence. The v1 validator and empty
-   baseline are in place, **not** the reviewer decisions; never use a raw
+   baseline are in place, **not** the owner decisions; never use a raw
    merged-PR count as this ledger.
 4. Only then extend the Organization generic metrics collector from
    `unclaimed_semantic_evidence` to a value gated on the validated Upstream

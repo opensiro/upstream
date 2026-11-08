@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Fail-closed owner-reviewed outcomes ledger; never infer acceptance from merge.
+"""Fail-closed owner-decision outcomes ledger; never infer acceptance from merge.
 
 An empty ledger intentionally means no Organization-claimable value. A nonempty
-ledger must be checked against a fresh, complete observer report and an exact
-GitHub APPROVED review before its entries are eligible for owner-side export.
+ledger must be checked against a fresh, complete observer report and an exact,
+attributable Upstream owner decision before entries are eligible for export.
+Independent S3* review is not part of this ordinary S1 acceptance loop.
 """
 
 from __future__ import annotations
@@ -23,15 +24,14 @@ import verified_external_outcomes as observer
 
 ROOT = Path(__file__).resolve().parents[1]
 LEDGER = ROOT / "data/verified-external-outcomes/accepted-v1.json"
-REVIEW_URL = re.compile(
-    r"https://github\.com/opensiro/upstream/pull/([1-9][0-9]*)"
-    r"#pullrequestreview-([1-9][0-9]*)\Z"
-)
+DECISION_PR_URL = re.compile(r"https://github\.com/opensiro/upstream/pull/([1-9][0-9]*)\Z")
 SHA = re.compile(r"[0-9a-f]{40}\Z")
-LOGIN = re.compile(r"[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?\Z")
+# Current Upstream-local decision owner, not a new Organization S5 delegation.
+# Changes to this list require an attributable source-owned authority decision.
+DECISION_OWNERS = frozenset({"xLagerFeuer"})
 ENTRY_KEYS = frozenset({"intervention_id", "source_pr_urls", "effective_pr_url",
                         "merge_commit_sha", "merged_at", "native_receipt",
-                        "reviewer_login", "review_url", "decision", "benefit_claim"})
+                        "decision_actor", "decision_pr_url", "decision", "benefit_claim"})
 
 
 def load_ledger(path=LEDGER):
@@ -43,7 +43,7 @@ def load_ledger(path=LEDGER):
         raise ValueError("Unknown accepted outcome ledger schema/scope")
     cohort, _ = observer.cohort()
     source = {item["id"]: item for item in cohort}
-    ids, urls, reviews = set(), set(), set()
+    ids, urls, decisions = set(), set(), set()
     for row in data["accepted"]:
         if not isinstance(row, dict) or set(row) != ENTRY_KEYS:
             raise ValueError("Incomplete or unknown accepted outcome entry")
@@ -68,18 +68,14 @@ def load_ledger(path=LEDGER):
             raise ValueError("Native evidence must use immutable first-party receipt")
         if row["decision"] != "ACCEPTED_MERGED_CHANGE_ONLY" or row["benefit_claim"] != "NOT_MEASURED":
             raise ValueError("Unreviewed decision or deployed-benefit claim")
-        login = row["reviewer_login"]
-        if not isinstance(login, str) or not LOGIN.fullmatch(login):
-            raise ValueError("Missing identifiable reviewer")
-        review = row["review_url"]
-        if not isinstance(review, str) or not REVIEW_URL.fullmatch(review) or review in reviews:
-            raise ValueError("Missing, duplicate or non-native Upstream approval reference")
-        reviews.add(review)
-        # A reviewer approval is required; the contributor's own approval is
-        # insufficient evidence of a separately controlled acceptance decision.
-        actor = source[identity].get("actor") or source[identity]["source"].get("actor")
-        if actor and login.lower() == actor.lower():
-            raise ValueError("Contributor cannot self-accept an external outcome")
+        actor = row["decision_actor"]
+        if not isinstance(actor, str) or actor not in DECISION_OWNERS:
+            raise ValueError("No authorized Upstream decision owner")
+        decision_url = row["decision_pr_url"]
+        if (not isinstance(decision_url, str) or not DECISION_PR_URL.fullmatch(decision_url)
+                or decision_url in decisions):
+            raise ValueError("Missing, duplicate or non-native Upstream decision PR")
+        decisions.add(decision_url)
     return data
 
 
@@ -124,14 +120,14 @@ def validate_observation(report):
 
 
 def verify_accepted(ledger, report, api):
-    """Only exact machine-verified rows with genuine GitHub review are eligible.
+    """Only exact machine-verified rows with owner-attributed decisions are eligible.
 
     Semantic overrides (Corrective/casebook/registry PENDING_REVIEW) intentionally
-    require a separately reviewed extension; v1 must not silently promote them.
+    require a separately scoped source-owned extension, not an S3* review.
     """
     candidates = validate_observation(report)
     if ledger["accepted"] and api is None:
-        raise ValueError("Live GitHub approval revalidation required for accepted records")
+        raise ValueError("Live GitHub owner-decision revalidation required for accepted records")
     result = []
     source = {item["id"]: item for item in observer.cohort()[0]}
     for row in ledger["accepted"]:
@@ -149,37 +145,29 @@ def verify_accepted(ledger, report, api):
                 or any(fresh.get(key) != entry.get(key) for key in (
                     "pr_urls", "pr_states", "merged_at", "merge_commit_sha", "native_receipt"))):
             raise ValueError("Accepted entry differs from current first-party GitHub evidence")
-        match = REVIEW_URL.fullmatch(row["review_url"])
-        review = api.get(f"/repos/opensiro/upstream/pulls/{match.group(1)}/reviews/{match.group(2)}")
-        if (review.get("html_url") != row["review_url"]
-                or review.get("state") != "APPROVED"
-                or (review.get("user") or {}).get("login", "").lower()
-                != row["reviewer_login"].lower()
-                or not review.get("submitted_at")
-                or not SHA.fullmatch(review.get("commit_id") or "")):
-            raise ValueError("GitHub first-party owner review not verified")
-        # An APPROVED review of an unrelated PR cannot authorize this outcome.
-        # The reviewed, merged Upstream PR must identify the exact intervention,
-        # native receipt and merge SHA in the reviewed decision's PR body.
-        number = match.group(1)
-        reviewed_pr = api.get(f"/repos/opensiro/upstream/pulls/{number}")
+        # Owner action is an S1 decision, not an S3* audit. A merged Upstream PR
+        # by the named owner, with exact evidence markers, is the attributable
+        # decision record; an APPROVED review by a second person is optional.
+        number = DECISION_PR_URL.fullmatch(row["decision_pr_url"]).group(1)
+        decided_pr = api.get(f"/repos/opensiro/upstream/pulls/{number}")
         markers = {
             f"Outcome-Acceptance: {row['intervention_id']}",
             f"Outcome-Merge: {row['merge_commit_sha']}",
             f"Outcome-Native-Receipt: {row['native_receipt']}",
         }
-        if (reviewed_pr.get("html_url") != f"https://github.com/opensiro/upstream/pull/{number}"
-                or reviewed_pr.get("state") != "closed" or not reviewed_pr.get("merged_at")
-                or reviewed_pr.get("head", {}).get("sha") != review["commit_id"]
-                or reviewed_pr.get("base", {}).get("repo", {}).get("full_name") != "opensiro/upstream"
-                or not isinstance(reviewed_pr.get("body"), str)
-                or not markers.issubset(set(reviewed_pr["body"].splitlines()))):
-            raise ValueError("Approval PR does not attest this exact accepted intervention")
+        if (decided_pr.get("html_url") != row["decision_pr_url"]
+                or decided_pr.get("state") != "closed" or not decided_pr.get("merged_at")
+                or (decided_pr.get("user") or {}).get("login") != row["decision_actor"]
+                or (decided_pr.get("merged_by") or {}).get("login") != row["decision_actor"]
+                or decided_pr.get("base", {}).get("repo", {}).get("full_name") != "opensiro/upstream"
+                or not isinstance(decided_pr.get("body"), str)
+                or not markers.issubset(set(decided_pr["body"].splitlines()))):
+            raise ValueError("Owner decision PR does not attest this exact accepted intervention")
         result.append({"intervention_id": row["intervention_id"],
                        "external_pr_url": row["effective_pr_url"],
                        "merge_commit_sha": row["merge_commit_sha"],
                        "native_receipt": row["native_receipt"],
-                       "acceptance_review": row["review_url"],
+                       "owner_decision": row["decision_pr_url"],
                        "benefit_claim": "NOT_MEASURED"})
     return {"schema_version": 1, "source": "opensiro/upstream",
             "metric_status": "UPSTREAM_REVIEWED_SOURCE_ONLY" if result
