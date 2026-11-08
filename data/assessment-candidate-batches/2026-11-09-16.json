@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-09-16",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "46219bf103b0b122d86abc3ca70ae3d8bc820e2c",
+  "frozen_at": "2026-11-09",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "UPSTREAM UPGRADE BATCH 16: five highest recent reviewed distinct included S1=A/S2=C Index assessments on main@46219bf103b0b122d86abc3ca70ae3d8bc820e2c, excluding all 75 preceding assessment batch candidates and visible open Upstream PRs. Before target source/issue/PR inspection, prospective VSM S2 native weaknesses, null cases and falsifiers preregistered at immutable commit 9610f56cb6e163fa3b36cd0eb31d7eb2231e8dbe. No reservations or external rights inferred. Test only through distinct deterministic runner after independent first-party fit.",
+  "candidates": [
+    {
+      "id": "gifford-loop-budget-generation-fence",
+      "assessment_path": "assessments/gi/gifford.md",
+      "source": "smellak/gifford",
+      "review_ref": "b618cff69f3f83a4513304c55ef34fd13bfd50f5",
+      "reviewed_at": "2026-11-05",
+      "function": "S2",
+      "finding": "Index S2=C records versioned inter-agent conversation loop budget, pause and human extension. Prospectively test whether in-flight stale-generation delivery or concurrent pause/extension bypasses the bounded admission relation; null if per-delivery CAS and paused-state fences already cover it.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/gi/gifford.md"
+      ]
+    },
+    {
+      "id": "dougong-detached-child-workspace-exclusion",
+      "assessment_path": "assessments/do/dougong.md",
+      "source": "zhanghaojie513/Dougong",
+      "review_ref": "5d7ff991baa0da919c580f418ed5415b50ba3a94",
+      "reviewed_at": "2026-11-04",
+      "function": "S2",
+      "finding": "Index S2=C records a shared workspace mutex for exclusive tools and separately scoped dispatcher resource leases. Prospectively test whether async detached child write effects escape a parent spawn lease and overlap independent ACP session writes; null if child tool execution acquires the same gate.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/do/dougong.md"
+      ]
+    },
+    {
+      "id": "turri-module-lane-failure-release",
+      "assessment_path": "assessments/tu/turri.md",
+      "source": "turri-oss/turri",
+      "review_ref": "47b578cafcab669a0ed3c02b9d0f1d5e17fcd8fa",
+      "reviewed_at": "2026-11-04",
+      "function": "S2",
+      "finding": "Index S2=C records deterministic module/dependency lane collision reservation and wait/retry. Prospectively test whether an aborted or failed pulse strands an occupied ancestor lane and starves an eligible waiting job; null if all terminal paths release or reap correctly.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/tu/turri.md"
+      ]
+    },
+    {
+      "id": "pi-foreman-worktree-alias-ownership",
+      "assessment_path": "assessments/pi/pi-foreman.md",
+      "source": "Shredi/pi-foreman",
+      "review_ref": "8f8c473cc2332602373d03850d4826eea2f79f51",
+      "reviewed_at": "2026-11-04",
+      "function": "S2",
+      "finding": "Index S2=C records per-session owned worktree/cwd/branch guard for parallel builders. Prospectively test whether symlink/path aliases or changed subprocess cwd bypass the nonowner write/push guard; null if canonical containment and session identity already close all supported paths.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/pi/pi-foreman.md"
+      ]
+    },
+    {
+      "id": "kehai-child-slot-cancellation-recovery",
+      "assessment_path": "assessments/ke/kehai.md",
+      "source": "sh1ny/kehai",
+      "review_ref": "170d97ae4f89ccda16e513abc4d9a531f8558c38",
+      "reviewed_at": "2026-11-04",
+      "function": "S2",
+      "finding": "Index S2=C records deterministic live child-agent/job admission caps with wait/cancel feedback. Prospectively test whether concurrent cancellation or child exit leaves a slot stranded and rejects a new eligible job; null if supervisor cleanup already reliably recycles capacity.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ke/kehai.md"
+      ]
+    }
+  ]
+}
