@@ -34,11 +34,12 @@ grep -q 'Ran 2 tests' "${RUN_DIR}/after.log"
 grep -q '^OK$' "${RUN_DIR}/after.log"
 grep -q '^OK$' "${RUN_DIR}/control_delete.log"
 grep -q '^OK$' "${RUN_DIR}/control_idempotent.log"
-python3 -m compileall -q Code_Structure/collaboration/core.py tests/test_collaboration.py
+python3 -m compileall -q Clouds_Coder.py tests/test_collaboration.py
+python3 split_coder.py Clouds_Coder.py -o Code_Structure --update --self-check > "${RUN_DIR}/regenerated.log" 2>&1
 
 echo "SOURCE_PIN=${PIN}"
 echo "PACKET_PIN=${PACKET_REV}"
 echo "RUN_DIR=${RUN_DIR}"
 echo "BEFORE_STATUS=${BEFORE_STATUS} (two expected native failures)"
 echo 'AFTER_STATUS=PASS (two regression cases, two original controls)'
-sha256sum "${RUN_DIR}/before.log" "${RUN_DIR}/after.log" "${RUN_DIR}/control_delete.log" "${RUN_DIR}/control_idempotent.log"
+sha256sum "${RUN_DIR}/before.log" "${RUN_DIR}/after.log" "${RUN_DIR}/control_delete.log" "${RUN_DIR}/control_idempotent.log" "${RUN_DIR}/regenerated.log"
