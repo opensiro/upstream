@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-08-14",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "8ef26789403d7cf682e67dcc7985a0317a76bb00",
+  "frozen_at": "2026-11-08",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "UPSTREAM UPGRADE BATCH: prospective Index-first S2=C hypothesis cohort, five source-disjoint included S1=A assessments on exact Index main 8ef26789403d7cf682e67dcc7985a0317a76bb00. No current third-party target implementation, issues or PRs inspected before this immutable checkpoint. All 65 rows from 13 merged cohorts and visible open Upstream PR titles/source reservations excluded. Each row is a question, not verified defect or intervention; serial source-native need/mechanism/counterfactual/scope and separate deterministic runner required for any strict-derived benefit. Dormant CAS ref not activated; external publication not authorized.",
+  "candidates": [
+    {
+      "id": "go-sre-shared-target-rate-accounting",
+      "assessment_path": "assessments/go/go-sre-harness.md",
+      "source": "rainyZhou2/SreAgentHarness",
+      "review_ref": "218c2ce880cbbda33df6464b78aef96d201be913",
+      "reviewed_at": "2026-11-08",
+      "function": "S2",
+      "finding": "Index S2=C describes tenant-shared target/action intent windows across independent incident runs. Prospectively test whether a refused or retried request is counted in a way that prematurely exhausts a target window, or a boundary-time request bypasses the shared limit; verify different targets remain independent.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/8ef26789403d7cf682e67dcc7985a0317a76bb00/assessments/go/go-sre-harness.md"
+      ]
+    },
+    {
+      "id": "meka-cross-session-stale-edit-fencing",
+      "assessment_path": "assessments/me/meka.md",
+      "source": "k4yt3x/meka",
+      "review_ref": "b7c188a831f888e8accecc1bbe7bd95a7a0112c8",
+      "reviewed_at": "2026-11-05",
+      "function": "S2",
+      "finding": "Index S2=C identifies host-wide path write locks plus per-agent read stamps across parent/child registries. Prospectively test whether a stale edit from a sibling session is refused under equivalent path aliases while independent files remain writable; falsify if existing normalization/freshness checks already cover all supported aliases.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/8ef26789403d7cf682e67dcc7985a0317a76bb00/assessments/me/meka.md"
+      ]
+    },
+    {
+      "id": "runloop-reservation-recovery-and-settlement",
+      "assessment_path": "assessments/ru/runloop.md",
+      "source": "murilo-bassan/durable-agent-runtime",
+      "review_ref": "1d68208d017d27d1b21805753b51a3872c888a52",
+      "reviewed_at": "2026-11-05",
+      "function": "S2",
+      "finding": "Index S2=C describes shared-owner atomic token reservations and settlement across concurrent goal runs. Prospectively test failure/retry at reservation-to-settlement boundaries: a released or retried claim must not strand budget or double-credit an owner while another run proceeds.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/8ef26789403d7cf682e67dcc7985a0317a76bb00/assessments/ru/runloop.md"
+      ]
+    },
+    {
+      "id": "agentwork-conflict-rework-idempotence",
+      "assessment_path": "assessments/ag/agentwork.md",
+      "source": "Sinkear/agentwork",
+      "review_ref": "3aecbef55ac694d64cb77403092aa850279b60a8",
+      "reviewed_at": "2026-11-05",
+      "function": "S2",
+      "finding": "Index S2=C records failed shared-goal integration returning the exact assignee to a new revision against the latest base. Prospectively test repeated/conflicting integration completion notices and retry: only one repair should be queued, previous verified state invalidated, and unrelated changes unaffected.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/8ef26789403d7cf682e67dcc7985a0317a76bb00/assessments/ag/agentwork.md"
+      ]
+    },
+    {
+      "id": "tirith-write-path-alias-claim-boundary",
+      "assessment_path": "assessments/ti/tirith.md",
+      "source": "andreseloysv/Tirith",
+      "review_ref": "be358146324a8a9c98e6649938205328160c79cf",
+      "reviewed_at": "2026-11-04",
+      "function": "S2",
+      "finding": "Index S2=C credits SQLite atomic claims, attempt fencing and ancestor/descendant write-path collisions. Prospectively test whether equivalent normalized write-path declarations and stale attempts can evade shared scope exclusion while genuinely disjoint paths can still be claimed.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/8ef26789403d7cf682e67dcc7985a0317a76bb00/assessments/ti/tirith.md"
+      ]
+    }
+  ]
+}
