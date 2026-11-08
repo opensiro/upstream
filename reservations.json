@@ -25,6 +25,19 @@
       "evidence_url": "https://github.com/opensiro/upstream/issues/159",
       "timestamp": "2026-11-07T16:40:41Z",
       "reason": "BLOCKED: observe job skipped, artifact missing; recorded first-party read-only evidence in Upstream #159 comment 6710016161"
+    },
+    {
+      "action": "CLAIM",
+      "actor": "chatgpt-upstream-auto-20261108",
+      "claim_id": "906c592fd8b138a37bad28ac65f35554",
+      "evidence_url": "https://github.com/opensiro/upstream/pull/111",
+      "owner_issue": 150,
+      "resources": [
+        "pr:opensiro/upstream#111",
+        "source:opensiro/upstream"
+      ],
+      "task_id": "portfolio-pr111-review-20261108",
+      "timestamp": "2026-11-08T11:29:13Z"
     }
   ]
 }
