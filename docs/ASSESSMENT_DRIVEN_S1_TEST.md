@@ -231,7 +231,7 @@ These labels are test observations, **not** a canonical `S1=A/C/C(P)` grade.
   digest or `authorize=True` mock as a real operator decision.
 - **Preserve:** generic external OSS discovery, the portfolio/casebook,
   separate local Upstream mandate authority, manual external PR publication,
-  existing stage-specific permission gates and the unresolved S5 admission.
+  existing stage-specific permission gates and the bounded S5 admission.
 
 **Sources of truth:** Index owns assessments; Profile/Skills own semantics and
 assessment method; Upstream owns contribution proposal/implementation/outcomes;
