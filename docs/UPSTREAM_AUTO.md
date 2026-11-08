@@ -51,6 +51,19 @@ separate publication mandate, or a task's own `STOP` and read-only restrictions.
 3. Normalize source identity, intervention ID and PR target before comparing
    work. Existing five-source CAS claims cover their **batch** domain; they
    do not prove exclusive ownership of PR-maintenance or outcome-review tasks.
+   **Resource scope follows the operation, not just the repository:**
+   - `READ_ONLY_REVIEW` of one PR reserves its exact `pr:owner/repo#number`
+     identity, **not** `source:owner/repo`. Other independent PR reviews in
+     the same repository may be selected in parallel. This is a deliberate
+     manifest contract: stale broad source locks in new PR review cards fail
+     validation rather than silently serializing every review.
+   - `INTERNAL_PREPARE` needs explicit `source:owner/repo` locks for each PR
+     target, in addition to the PR key. Mutable work therefore remains
+     conservatively serialized at repository scope until a separately
+     reviewed, complete path/branch/dependency lock scheme exists.
+   - A source-level claim is still mandatory for each frozen batch member,
+     and intervention-specific review without a PR retains its exact
+     intervention identity. No PR-level lock substitutes for batch source CAS.
 4. Prefer genuine maintainer review/CI events and safely resumable work over
    speculative discovery; balance lane WIP, starvation and risk. Explain each
    suggested priority with time-of-check source refs, without promoting a
@@ -72,7 +85,9 @@ separate publication mandate, or a task's own `STOP` and read-only restrictions.
 The selector sorts by explicit priority, age (bounded anti-starvation boost),
 and work-class weight: urgent maintainer/CI feedback and existing outcomes
 generally precede speculative new screening. WIP caps are `maintenance=2`,
-`outcomes=2`, `portfolio=1`, `batch=1`. These are provisional workload
+`outcomes=2`, `batch=1`. Portfolio uses **two independent read-only reviews**
+and **one mutable preparation** as separate per-operation caps, with a total
+ceiling of three. These are provisional workload
 heuristics, **not** VSM S2 decisions by themselves. `status` makes **no write**,
 takes no reservation and creates no new Organization `NOW`/`NEXT` entry.
 
@@ -103,6 +118,17 @@ only reserves the named local task. The agent must **revalidate current
 source, owner permissions and task-specific tests before any work**, execute
 at most one admitted action, record the actual owner result, and release with
 an attributable reason. A release does not itself prove successful execution.
+New claim/release events additionally record `operation` to make WIP
+attribution reproducible after the original worklist expires. Historic ledger
+events without that field remain readable; until release, a legacy portfolio
+claim consumes **both** operation caps conservatively and cannot be silently
+reclassified by a new task proposal.
+
+At **any** subsequent mutable write or integration boundary the native owner
+must re-read the exact PR head and base, changed files including rename/delete
+identities, and relevant dependencies, then prove the writes do not overlap
+or serialize them. A read-only task's disjoint changed-file preview is **not**
+proof of merge compatibility, nor authority to modify a branch or merge.
 `resume` never silently reassigns a claim. Claims older than 24 hours are
 reported as `STALE_CLAIM_UNRESOLVED` until auditable recovery; they are not
 automatically stolen, expired or treated as completed.
