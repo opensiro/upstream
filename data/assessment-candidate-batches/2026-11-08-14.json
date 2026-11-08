@@ -81,6 +81,7 @@
       "test_path": "pilots/runloop-s2/test_budget_finalization.py",
       "test_sha256": "8b500a4ce56a14212f2b6ce5e1506ef0e5422231e74f509a95e0bc1bc70759fe",
       "observed_native_change": "A separately executed, SHA-pinned GitHub Actions PostgreSQL 16 / Python 3.11 run #42493920695 reproduced both preregistered budget finalization failures on untouched first-party code: duplicate settle made remaining 1100 rather than 750 and release after settle made it 1350 rather than 750. After the reservation-id and once-only finalization patch, 8/8 first-party native tests passed (three new regressions/controls and five original budget tests), and git diff --check passed. No chatbot-executed native test, provider or agent session occurred.",
+      "outcome": "BENEFIT_SUPPORTED",
       "product_benefit": "BOUNDED_NATIVE_CORRECTNESS_ONLY",
       "experiment_cycle": "INCOMPLETE_NO_EXTERNAL_DELIVERY",
       "handoff_url": "https://github.com/opensiro/upstream/pull/174",
