@@ -112,17 +112,22 @@
       "reviewed_at": "2026-11-04",
       "function": "S2",
       "finding": "Index S2=C records deterministic live child-agent/job admission caps with wait/cancel feedback. Prospectively test whether concurrent cancellation or child exit leaves a slot stranded and rejects a new eligible job; null if supervisor cleanup already reliably recycles capacity.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
       },
       "evidence": [
-        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ke/kehai.md"
-      ]
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ke/kehai.md",
+        "https://github.com/sh1ny/kehai/blob/170d97ae4f89ccda16e513abc4d9a531f8558c38/lib/src/jobs/supervisor.dart",
+        "https://github.com/sh1ny/kehai/blob/170d97ae4f89ccda16e513abc4d9a531f8558c38/test/jobs/agent_job_test.dart",
+        "https://github.com/sh1ny/kehai/blob/170d97ae4f89ccda16e513abc4d9a531f8558c38/test/jobs/supervisor_test.dart",
+        "https://github.com/sh1ny/kehai/blob/170d97ae4f89ccda16e513abc4d9a531f8558c38/test/jobs/reconcile_test.dart"
+      ],
+      "disposition_note": "Supervisor reserves synchronously before await, counts only slotHeld jobs, and _run's finally clears slotHeld and removes map entry on all results/errors. Handoff, orphan and failed-storage paths also release early on terminal settlement. Native first-party tests verify 4-agent bound, next admission after child exit, 16-job bound after cancellation and concurrent exit/cancel terminal idempotence. No source-supported capacity leak; native tests were not executed by the assistant."
     }
   ]
 }
