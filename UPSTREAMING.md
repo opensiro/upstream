@@ -22,6 +22,10 @@ The domain manages evidence-backed upstream improvement proposals, pinned produc
 
 Do not reconcile discrepancies by changing the wrong owner. A current PR readback may require updating an Upstream receipt, but it never silently updates the Organization fit snapshot.
 
+## Native test execution boundary
+
+The native test **packet and receipts** are Upstream-owned; the external harness's **CI execution** belongs in a stage-authorized `opensiro-contributions/<target>` working fork or a separately controlled deterministic runner. Use [the native CI placement contract](docs/NATIVE_CI_EXECUTION.md) before introducing any target-specific GitHub Actions file. The existence of an OpenSiro-owned fork or a validated patch never grants new fork, branch, PR or maintainer rights; [#6](https://github.com/opensiro/upstream/issues/6) remains the general executor gate.
+
 ## Contribution lifecycle
 
 1. **Admit and pin a source:** verify project identity, revision, license and stage-specific rights. New standard `batch upstream` screening freezes five distinct Index-origin sources under [the batch contract](docs/ASSESSMENT_CANDIDATE_BATCHES.md); it is not the Index assessment publication queue.

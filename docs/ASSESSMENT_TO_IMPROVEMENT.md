@@ -45,6 +45,12 @@ The aim is **more valid assessment-derived discoveries and demonstrated product 
 
 This applies prospectively to new strict-derived validation under [#56](https://github.com/opensiro/upstream/issues/56); it does not invalidate historical source-tested `ASSESSMENT_INFORMED` patches, retrofit old records, instantiate a runner, or grant external write rights.
 
+## Where native CI runs
+
+**New external-harness-specific workflows belong outside `opensiro/upstream` CI.** Use the [native CI placement contract](NATIVE_CI_EXECUTION.md): `opensiro/upstream` retains research checkpoints, patch/test packets and attributed before/after receipts, while permitted `opensiro-contributions/<target>` working forks or a separately controlled deterministic host execute the target's native tests. An available external original repository may run CI only under its actual owner's permissions. A successful earlier Upstream pilot workflow remains historical evidence, not precedent for committing one new Upstream workflow per harness.
+
+The independent runner requirement, real first-party code path, licensing, exact source pins and external-stage grants are **unchanged**. A missing authorized executor is `BLOCKED_INDEPENDENT_EXECUTION`; a passing repository-integrity check is not native product validation.
+
 ## Mandatory validation boundary — native scripted tests only
 
 **Operator decision (2026-10-22; applies to this experiment and subsequent assessment-to-upstream pilots):** validate changes using **deterministic scripts, native source tests, CLI/tool-level integration tests and first-party regression suites only**. **Do not run, request, require or list as a next gate any live LLM-agent session, model API/provider call, Browser agent-quality trial, paid inference or human-user trial.** An agent-shaped fixture may supply fixed actions/stubbed choices only when the test actually executes the target's native code path; it must be labeled as scripted, never passed off as a model-agent run. Do not invent a surrogate product behavior that bypasses the actual relevant mechanism.

@@ -10,6 +10,12 @@ Use [UPSTREAMING.md](../UPSTREAMING.md) for data ownership and permission bounda
 4. Validate local ledgers and generated views. CI passing does not imply external acceptance or an S5 grant.
 5. Separate the reviewable internal merge, external PR submission, PR repair, and eventual fork archival as distinct decision points.
 
+## External native CI placement
+
+Use [native CI placement](NATIVE_CI_EXECUTION.md) for assessment-derived and ordinary source-native patches. The `.github/workflows/` files here are for Upstream's own validation, read-only observation and explicitly gated operations, **not** a new workflow per outside project. First-party before/after tests run in an authorized `opensiro-contributions` working fork or separately controlled deterministic runner; retain independently attributable logs, source/test/patch pins and outcome receipts here. Never infer permission to create a fork or publish a PR from the existence of a test workflow.
+
+Project-specific legacy workflows are migration candidates, not automatically deletable: preserve their runs, active triggers and evidence before moving or retiring them. In particular, [Draft PR #174](https://github.com/opensiro/upstream/pull/174) has an already completed Runloop CI pilot; that historical run is not a reason to add its workflow to `main`.
+
 ## Offline verification
 
 ```bash
