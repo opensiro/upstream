@@ -15,16 +15,18 @@
       "reviewed_at": "2026-11-05",
       "function": "S2",
       "finding": "Index S2=C records versioned inter-agent conversation loop budget, pause and human extension. Prospectively test whether in-flight stale-generation delivery or concurrent pause/extension bypasses the bounded admission relation; null if per-delivery CAS and paused-state fences already cover it.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
       },
       "evidence": [
-        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/gi/gifford.md"
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/gi/gifford.md",
+        "https://github.com/smellak/gifford/blob/33c4b4c3f3b5b7083eca6f2f530a8bac5a68a854/internal/channel/loop_admission.go",
+        "https://github.com/smellak/gifford/blob/33c4b4c3f3b5b7083eca6f2f530a8bac5a68a854/internal/channel/loops_test.go"
       ]
     },
     {
