@@ -209,6 +209,22 @@
       "evidence_url": "https://github.com/opensiro/upstream/issues/150",
       "timestamp": "2026-11-08T13:12:50Z",
       "reason": "DONE: exact-source PR #111 merge-conflict repair pushed non-force, 593 tests and exact-head CI passed; owner #150 receipt 6721927872. Internal PR remains open for policy disposition."
+    },
+    {
+      "action": "CLAIM",
+      "claim_id": "cfa94b1b4ed7bf5437bf4074ac132404",
+      "batch_id": "5a615ad641f1c1cf7bdb8bb0965d42a4",
+      "task_id": "portfolio-harnessdesk-54-macos-rerun-20261108",
+      "coordinator": "chatgpt-upstream-auto-batch-20261108d",
+      "actor": "chatgpt-upstream-auto-batch-20261108d",
+      "resources": [
+        "pr:opensiro/upstream#54",
+        "source:opensiro/upstream"
+      ],
+      "owner_issue": 150,
+      "operation": "INTERNAL_PREPARE",
+      "evidence_url": "https://github.com/opensiro/upstream/pull/54",
+      "timestamp": "2026-11-08T13:14:02Z"
     }
   ]
 }
