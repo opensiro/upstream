@@ -62,17 +62,22 @@
       "reviewed_at": "2026-11-04",
       "function": "S2",
       "finding": "Index S2=C records deterministic module/dependency lane collision reservation and wait/retry. Prospectively test whether an aborted or failed pulse strands an occupied ancestor lane and starves an eligible waiting job; null if all terminal paths release or reap correctly.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
       },
       "evidence": [
-        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/tu/turri.md"
-      ]
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/tu/turri.md",
+        "https://github.com/turri-oss/turri/blob/4c00ff0b8befda112d9f061921a23920607f0d39/src/regenerate/jobs.ts",
+        "https://github.com/turri-oss/turri/blob/4c00ff0b8befda112d9f061921a23920607f0d39/src/regenerate/pulse-files.ts",
+        "https://github.com/turri-oss/turri/blob/4c00ff0b8befda112d9f061921a23920607f0d39/src/regenerate/ledger.ts",
+        "https://github.com/turri-oss/turri/blob/4c00ff0b8befda112d9f061921a23920607f0d39/tests/regenerate/jobs.test.ts"
+      ],
+      "disposition_note": "The run result (including abort/failure) becomes a fulfilled Job; completion gives back capacity, then registers the job as done and deletes owned lanes; dependencies use allSettled. Ledger file write, log write and pulse cleanup errors are caught. No supported starvation path or reproducible improvement identified. Exceptional user-provided warn throwing is outside the normal lane terminal path and not a validated need."
     },
     {
       "id": "pi-foreman-worktree-alias-ownership",
