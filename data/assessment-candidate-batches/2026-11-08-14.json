@@ -15,17 +15,21 @@
       "reviewed_at": "2026-11-08",
       "function": "S2",
       "finding": "Index S2=C describes tenant-shared target/action intent windows across independent incident runs. Prospectively test whether a refused or retried request is counted in a way that prematurely exhausts a target window, or a boundary-time request bypasses the shared limit; verify different targets remain independent.",
-      "stage": "SCREENING",
+      "stage": "BLOCKED_EVIDENCE",
       "origin": "INSUFFICIENT",
       "fit": {
         "need": "PENDING",
-        "mechanism": "PENDING",
+        "mechanism": "PASS",
         "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "scope": "FAIL"
       },
       "evidence": [
-        "https://github.com/opensiro/vsm-harness-index/blob/8ef26789403d7cf682e67dcc7985a0317a76bb00/assessments/go/go-sre-harness.md"
-      ]
+        "https://github.com/opensiro/vsm-harness-index/blob/8ef26789403d7cf682e67dcc7985a0317a76bb00/assessments/go/go-sre-harness.md",
+        "https://github.com/rainyZhou2/SreAgentHarness/blob/218c2ce880cbbda33df6464b78aef96d201be913/internal/policy/rules.go",
+        "https://github.com/rainyZhou2/SreAgentHarness/blob/218c2ce880cbbda33df6464b78aef96d201be913/internal/store/pg/triggers.go"
+      ],
+      "blocker": "No top-level source license grant or recognized GitHub SPDX license at the unchanged reviewed/current ref. First-party rate rules explicitly count planned action intents; counting a denied/retried intent is not established as a defect in the intended policy. No source-native falsifying boundary-time or cross-target test/maintainer need has been observed, and the indexed source has no checked-in Go _test.go suite. Need licensing clarity and a demonstrated supported native defect before any patch; no external write or model test.",
+      "screening_result": "S2 mechanism is a tenant/tool/target action-intent count in Postgres evaluated by the configured rate rule; the assessed hypothesis remains unconfirmed, not a proved improvement. Public issue/PR inventory has no matching rate-limit change (2026-11-08)."
     },
     {
       "id": "meka-cross-session-stale-edit-fencing",
@@ -35,17 +39,20 @@
       "reviewed_at": "2026-11-05",
       "function": "S2",
       "finding": "Index S2=C identifies host-wide path write locks plus per-agent read stamps across parent/child registries. Prospectively test whether a stale edit from a sibling session is refused under equivalent path aliases while independent files remain writable; falsify if existing normalization/freshness checks already cover all supported aliases.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
       },
       "evidence": [
-        "https://github.com/opensiro/vsm-harness-index/blob/8ef26789403d7cf682e67dcc7985a0317a76bb00/assessments/me/meka.md"
-      ]
+        "https://github.com/opensiro/vsm-harness-index/blob/8ef26789403d7cf682e67dcc7985a0317a76bb00/assessments/me/meka.md",
+        "https://github.com/k4yt3x/meka/blob/9078b2e0f1b511e307479e11ffc30b951c5ec597/src/tools/file.rs",
+        "https://github.com/k4yt3x/meka/blob/9078b2e0f1b511e307479e11ffc30b951c5ec597/src/workspace.rs"
+      ],
+      "screening_result": "Current AGPL-3.0 source master@9078b2e already resolves supported file destinations to canonical paths, coordinates first-party file writes through one host-shared lock, checks recorded read freshness and refuses stale edits; explicit force=true is a supported override. No source-supported alias overwrite beyond those protections or maintainer need was independently shown. Hypothesis not substantiated; no patch and no chatbot-native test."
     },
     {
       "id": "runloop-reservation-recovery-and-settlement",
@@ -55,17 +62,30 @@
       "reviewed_at": "2026-11-05",
       "function": "S2",
       "finding": "Index S2=C describes shared-owner atomic token reservations and settlement across concurrent goal runs. Prospectively test failure/retry at reservation-to-settlement boundaries: a released or retried claim must not strand budget or double-credit an owner while another run proceeds.",
-      "stage": "SCREENING",
-      "origin": "INSUFFICIENT",
+      "stage": "AWAITING_EXTERNAL",
+      "origin": "ASSESSMENT_DERIVED",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "PASS",
+        "mechanism": "PASS",
+        "counterfactual": "PASS",
+        "scope": "PASS"
       },
       "evidence": [
-        "https://github.com/opensiro/vsm-harness-index/blob/8ef26789403d7cf682e67dcc7985a0317a76bb00/assessments/ru/runloop.md"
-      ]
+        "https://github.com/opensiro/vsm-harness-index/blob/8ef26789403d7cf682e67dcc7985a0317a76bb00/assessments/ru/runloop.md",
+        "https://github.com/murilo-bassan/durable-agent-runtime/blob/1d68208d017d27d1b21805753b51a3872c888a52/runtime/budget.py",
+        "https://github.com/opensiro/upstream/actions/runs/42493920695",
+        "https://github.com/opensiro/upstream/pull/174"
+      ],
+      "patch_path": "pilots/runloop-s2/idempotent-budget-finalization.patch",
+      "patch_sha256": "b6e06c18de6917ea6dac1503b92dd3c24283b497111596da8ed7988e75e3d333",
+      "test_path": "pilots/runloop-s2/test_budget_finalization.py",
+      "test_sha256": "8b500a4ce56a14212f2b6ce5e1506ef0e5422231e74f509a95e0bc1bc70759fe",
+      "observed_native_change": "A separately executed, SHA-pinned GitHub Actions PostgreSQL 16 / Python 3.11 run #42493920695 reproduced both preregistered budget finalization failures on untouched first-party code: duplicate settle made remaining 1100 rather than 750 and release after settle made it 1350 rather than 750. After the reservation-id and once-only finalization patch, 8/8 first-party native tests passed (three new regressions/controls and five original budget tests), and git diff --check passed. No chatbot-executed native test, provider or agent session occurred.",
+      "product_benefit": "BOUNDED_NATIVE_CORRECTNESS_ONLY",
+      "experiment_cycle": "INCOMPLETE_NO_EXTERNAL_DELIVERY",
+      "handoff_url": "https://github.com/opensiro/upstream/pull/174",
+      "external_action": "NOT_EXECUTED",
+      "limit": "Benefit is confined to pinned SQL token-ledger correctness under the scripted fixture. No production/real-model throughput, third-party maintainer acceptance, Index grade change or external fork write is claimed. Archive the one-off Upstream CI runner recipe and shift any future rerun to a separately permissioned fork/host before integration."
     },
     {
       "id": "agentwork-conflict-rework-idempotence",
@@ -75,17 +95,21 @@
       "reviewed_at": "2026-11-05",
       "function": "S2",
       "finding": "Index S2=C records failed shared-goal integration returning the exact assignee to a new revision against the latest base. Prospectively test repeated/conflicting integration completion notices and retry: only one repair should be queued, previous verified state invalidated, and unrelated changes unaffected.",
-      "stage": "SCREENING",
+      "stage": "BLOCKED_EVIDENCE",
       "origin": "INSUFFICIENT",
       "fit": {
         "need": "PENDING",
-        "mechanism": "PENDING",
+        "mechanism": "PASS",
         "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "scope": "PASS"
       },
       "evidence": [
-        "https://github.com/opensiro/vsm-harness-index/blob/8ef26789403d7cf682e67dcc7985a0317a76bb00/assessments/ag/agentwork.md"
-      ]
+        "https://github.com/opensiro/vsm-harness-index/blob/8ef26789403d7cf682e67dcc7985a0317a76bb00/assessments/ag/agentwork.md",
+        "https://github.com/Sinkear/agentwork/blob/3aecbef55ac694d64cb77403092aa850279b60a8/internal/service/subgoal.go",
+        "https://github.com/Sinkear/agentwork/blob/3aecbef55ac694d64cb77403092aa850279b60a8/internal/service/run.go"
+      ],
+      "blocker": "Current MIT MarkChangeIntegrated(false) omits RowsAffected checks for state transitions, but enqueueSubGoalRunTx coalesces pending same-role runs in one transaction; a duplicate finished-run repair or unsupported repeated completion callback is not yet proven through the actual first-party entry point. No separate deterministic native runner baseline or maintainer need verifies the proposed repeat conflict bug. Require a supported interleaving and native failure before proposing a patch; no external write or model test.",
+      "screening_result": "Source suggests a possible edge when a conflict completion is repeated after the prior assignee run finishes, but coalescing limits ordinary concurrent duplicate enqueue. This is a question, not a reproduced native flaw. Public issue/PR inventory has no matching conflict-repeat report (2026-11-08)."
     },
     {
       "id": "tirith-write-path-alias-claim-boundary",
@@ -95,17 +119,21 @@
       "reviewed_at": "2026-11-04",
       "function": "S2",
       "finding": "Index S2=C credits SQLite atomic claims, attempt fencing and ancestor/descendant write-path collisions. Prospectively test whether equivalent normalized write-path declarations and stale attempts can evade shared scope exclusion while genuinely disjoint paths can still be claimed.",
-      "stage": "SCREENING",
+      "stage": "BLOCKED_EVIDENCE",
       "origin": "INSUFFICIENT",
       "fit": {
         "need": "PENDING",
         "mechanism": "PENDING",
         "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "scope": "FAIL"
       },
       "evidence": [
-        "https://github.com/opensiro/vsm-harness-index/blob/8ef26789403d7cf682e67dcc7985a0317a76bb00/assessments/ti/tirith.md"
-      ]
+        "https://github.com/opensiro/vsm-harness-index/blob/8ef26789403d7cf682e67dcc7985a0317a76bb00/assessments/ti/tirith.md",
+        "https://github.com/andreseloysv/Tirith/blob/be358146324a8a9c98e6649938205328160c79cf/collector/tirith/coordination.py",
+        "https://github.com/andreseloysv/Tirith/blob/e225cbd5e8f384bbe43d219c552b7461fc78e9ff/README.md"
+      ],
+      "blocker": "The Index-reviewed Python collector/coordination.py implementation is absent from current MIT main@e225cbd5; the first-party project now ships a Rust daemon/worktree design with a materially changed coordination architecture. The preregistered old SQLite write-claim alias hypothesis cannot be mapped onto the live product without a fresh Rust-native boundary review and test contract; no change or effect is asserted.",
+      "screening_result": "Structural source drift from reviewed Python collector to Rust app/bin/rust tree invalidates the old code-path target; this cohort preserves the original Index question and stops rather than silently reinterpret a new Rust issue as assessment-derived."
     }
   ]
 }

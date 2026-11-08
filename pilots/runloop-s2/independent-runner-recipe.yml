@@ -1,3 +1,6 @@
+# Archived runner recipe: deliberately outside .github/workflows/.
+# Historical run: https://github.com/opensiro/upstream/actions/runs/42493920695
+# Activate only in an independently authorized execution repository/branch.
 name: Upgrade batch 14 - runloop independent native test
 
 on:
