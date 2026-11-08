@@ -143,6 +143,22 @@
       "evidence_url": "https://github.com/opensiro/upstream/issues/150",
       "timestamp": "2026-11-08T12:37:06Z",
       "reason": "DONE: PR #69 exact-head and current-main integration review recorded in Upstream #150 comment 6721570747; no merge or external write."
+    },
+    {
+      "action": "RELEASE",
+      "claim_id": "ce3ae82a7e4eb0015b00182c2e6ae75f",
+      "batch_id": "e2476d10bd4489421a7686f90e54c52e",
+      "task_id": "portfolio-kit-70-review-20261108",
+      "coordinator": "chatgpt-upstream-auto-batch-20261108",
+      "actor": "chatgpt-upstream-auto-batch-20261108",
+      "resources": [
+        "pr:opensiro/upstream#70"
+      ],
+      "owner_issue": 150,
+      "operation": "READ_ONLY_REVIEW",
+      "evidence_url": "https://github.com/opensiro/upstream/issues/150",
+      "timestamp": "2026-11-08T12:37:11Z",
+      "reason": "DONE: PR #70 exact-head and current-main integration review recorded in Upstream #150 comment 6721570747; maintainer-policy gate retained."
     }
   ]
 }
