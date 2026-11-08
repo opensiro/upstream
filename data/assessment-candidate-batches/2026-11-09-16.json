@@ -37,17 +37,22 @@
       "reviewed_at": "2026-11-04",
       "function": "S2",
       "finding": "Index S2=C records a shared workspace mutex for exclusive tools and separately scoped dispatcher resource leases. Prospectively test whether async detached child write effects escape a parent spawn lease and overlap independent ACP session writes; null if child tool execution acquires the same gate.",
-      "stage": "SCREENING",
+      "stage": "BLOCKED_EVIDENCE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
+        "need": "PASS",
+        "mechanism": "PASS",
         "counterfactual": "PENDING",
         "scope": "PENDING"
       },
       "evidence": [
-        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/do/dougong.md"
-      ]
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/do/dougong.md",
+        "https://github.com/zhanghaojie513/Dougong/blob/bc222656bd7387df6c9a106ef46cc63f5f8c4af3/src/Dougong.Agent/ToolResourceGate.cs",
+        "https://github.com/zhanghaojie513/Dougong/blob/bc222656bd7387df6c9a106ef46cc63f5f8c4af3/src/Dougong.Agent/FileTools.cs",
+        "https://github.com/zhanghaojie513/Dougong/blob/bc222656bd7387df6c9a106ef46cc63f5f8c4af3/src/Dougong.Cli/SessionComposition.cs",
+        "https://github.com/zhanghaojie513/Dougong/blob/5d7ff991baa0da919c580f418ed5415b50ba3a94/spike/Dougong.Agent.Comparison/WorkspaceLockChecks.cs"
+      ],
+      "blocker": "The first-party shared-workspace-exclusive path and instance-private keyed file resource path are separated, including for detached child dispatchers. No mixed-keyed-file versus workspace-exclusive regression or safe scheduler counterfactual is established; a blanket lock would serialize valid disjoint file operations. .NET 10 native runner/toolchain is not currently available on the connected host; do not claim derived benefit."
     },
     {
       "id": "turri-module-lane-failure-release",
