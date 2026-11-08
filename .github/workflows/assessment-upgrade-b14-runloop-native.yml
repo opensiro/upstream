@@ -1,0 +1,73 @@
+name: Upgrade batch 14 - runloop independent native test
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/assessment-upgrade-b14-runloop-native.yml"
+      - "pilots/runloop-s2/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  before-after:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: runtime
+          POSTGRES_PASSWORD: runtime
+          POSTGRES_DB: runtime
+        ports:
+          - 55432:5432
+        options: >-
+          --health-cmd "pg_isready -U runtime"
+          --health-interval 2s
+          --health-timeout 5s
+          --health-retries 30
+    steps:
+      - name: Checkout independent test packet
+        uses: actions/checkout@v4
+        with:
+          path: upstream
+          persist-credentials: false
+      - name: Checkout exact first-party source
+        uses: actions/checkout@v4
+        with:
+          repository: murilo-bassan/durable-agent-runtime
+          ref: 1d68208d017d27d1b21805753b51a3872c888a52
+          path: target
+          persist-credentials: false
+      - name: Set up test interpreter
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Matched native before and after
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd target
+          test "$(git rev-parse HEAD)" = "1d68208d017d27d1b21805753b51a3872c888a52"
+          sha256sum ../upstream/pilots/runloop-s2/idempotent-budget-finalization.patch
+          sha256sum ../upstream/pilots/runloop-s2/test_budget_finalization.py
+          cp ../upstream/pilots/runloop-s2/test_budget_finalization.py tests/test_upgrade_budget_finalization.py
+          python -m pip install -r requirements-dev.txt
+          set +e
+          python -m pytest -q tests/test_upgrade_budget_finalization.py > /tmp/upgrade-b14-before.log 2>&1
+          baseline_exit=$?
+          set -e
+          echo "=== untouched first-party source baseline ==="
+          sed -n '1,140p' /tmp/upgrade-b14-before.log
+          if [ "$baseline_exit" -eq 0 ]; then
+            echo "Expected baseline regressions did not reproduce"
+            exit 1
+          fi
+          grep -q "2 failed, 1 passed" /tmp/upgrade-b14-before.log
+          git apply --check ../upstream/pilots/runloop-s2/idempotent-budget-finalization.patch
+          git apply ../upstream/pilots/runloop-s2/idempotent-budget-finalization.patch
+          echo "=== bounded patch and original budget controls ==="
+          python -m pytest -q tests/test_budget_prompts.py tests/test_upgrade_budget_finalization.py
+          git diff --check
