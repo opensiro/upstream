@@ -94,5 +94,27 @@ class AssessmentDrivenS1ContractTests(unittest.TestCase):
         self.assertIn("C → A", protocol)
 
 
+    def test_two_upstream_batch_modes_search_vsm_hypotheses_without_new_queue(self):
+        batches = (
+            ROOT / "docs" / "ASSESSMENT_CANDIDATE_BATCHES.md"
+        ).read_text(encoding="utf-8")
+        for phrase in (
+            "Control Plane command: `batch upstream`",
+            "Control Plane command: `upstream upgrade batch`",
+            "Both batch commands search",
+            "five",
+            "not five pre-approved patches",
+            "ASSESSMENT_INFORMED",
+            "ASSESSMENT_DERIVED",
+            "before** fresh upstream code/issue inspection",
+            "distinct deterministic CI/runner",
+            "BLOCKED_INDEPENDENT_EXECUTION",
+            "not** create a new scheduler",
+            "no separate active `batch upgrade` command",
+        ):
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, batches)
+
+
 if __name__ == "__main__":
     unittest.main()
