@@ -64,7 +64,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python3 scripts/verified_external_outcomes.py --report --output-json "$RUNNER_TEMP/upstream-external-outcomes.json" >> "$GITHUB_STEP_SUMMARY"
-      - name: Validate accepted outcomes against live source and owner review
+      - name: Validate accepted outcomes against live source and owner decision
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |

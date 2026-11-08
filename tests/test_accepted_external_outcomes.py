@@ -18,7 +18,7 @@ import test_verified_external_outcomes as fixtures
 import verified_external_outcomes as observer
 
 
-REVIEW_URL = "https://github.com/opensiro/upstream/pull/159#pullrequestreview-123456"
+DECISION_URL = "https://github.com/opensiro/upstream/pull/177"
 
 
 def candidate():
@@ -35,8 +35,8 @@ def decision(item=None):
             "merge_commit_sha": src["merge_commit_sha"],
             "merged_at": src["merged_at"],
             "native_receipt": src["github_native_evidence"],
-            "reviewer_login": "reviewer-one",
-            "review_url": REVIEW_URL,
+            "decision_actor": "xLagerFeuer",
+            "decision_pr_url": DECISION_URL,
             "decision": "ACCEPTED_MERGED_CHANGE_ONLY",
             "benefit_claim": "NOT_MEASURED"}
 
@@ -75,16 +75,14 @@ def fake_report(accepted_item=None):
             "records": records}
 
 
-def approved_api(item=None):
+def owner_decision_api(item=None):
     item = item or candidate()
     api = fixtures.improved_api(item)
-    api.responses["/repos/opensiro/upstream/pulls/159/reviews/123456"] = {
-        "html_url": REVIEW_URL, "state": "APPROVED",
-        "user": {"login": "reviewer-one"},
-        "submitted_at": "2026-11-08T16:01:00Z", "commit_id": "a" * 40}
-    api.responses["/repos/opensiro/upstream/pulls/159"] = {
-        "html_url": "https://github.com/opensiro/upstream/pull/159",
+    api.responses["/repos/opensiro/upstream/pulls/177"] = {
+        "html_url": DECISION_URL,
         "state": "closed", "merged_at": "2026-11-08T16:02:00Z",
+        "user": {"login": "xLagerFeuer"},
+        "merged_by": {"login": "xLagerFeuer"},
         "head": {"sha": "a" * 40},
         "base": {"repo": {"full_name": "opensiro/upstream"}},
         "body": "\n".join((f"Outcome-Acceptance: {item['id']}",
@@ -102,15 +100,16 @@ class AcceptedExternalOutcomeTests(unittest.TestCase):
         self.assertEqual(result["metric_status"], "UNCLAIMED_SEMANTIC_EVIDENCE")
         self.assertFalse(result["organization_metric_claimed"])
 
-    def test_valid_reviewed_improvement_is_source_only_not_organization_kpi(self):
+    def test_valid_owner_decision_is_source_only_not_organization_kpi(self):
         item = candidate()
         ledger = validate_local(proposed_ledger(decision(item)))
-        result = accepted.verify_accepted(ledger, fake_report(item), approved_api(item))
+        result = accepted.verify_accepted(ledger, fake_report(item), owner_decision_api(item))
         self.assertEqual(result["accepted_count"], 1)
         self.assertEqual(result["metric_status"], "UPSTREAM_REVIEWED_SOURCE_ONLY")
         self.assertFalse(result["organization_metric_claimed"])
+        self.assertEqual(result["accepted"][0]["owner_decision"], DECISION_URL)
 
-    def test_duplicate_id_or_review_is_rejected(self):
+    def test_duplicate_id_or_decision_is_rejected(self):
         with self.assertRaisesRegex(ValueError, "duplicate accepted"):
             validate_local(proposed_ledger(decision(), decision()))
 
@@ -129,10 +128,15 @@ class AcceptedExternalOutcomeTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "immutable"):
             validate_local(proposed_ledger(row))
 
-    def test_actor_self_review_cannot_be_accepted(self):
+    def test_owner_may_also_be_contributor_without_s3star_review(self):
+        self.assertEqual(candidate()["actor"], "xLagerFeuer")
+        self.assertEqual(validate_local(proposed_ledger(decision()))["accepted"][0]
+                         ["decision_actor"], "xLagerFeuer")
+
+    def test_unattributed_non_owner_decision_cannot_be_accepted(self):
         row = decision()
-        row["reviewer_login"] = candidate()["actor"]
-        with self.assertRaisesRegex(ValueError, "self-accept"):
+        row["decision_actor"] = "unrelated-contributor"
+        with self.assertRaisesRegex(ValueError, "decision owner"):
             validate_local(proposed_ledger(row))
 
     def test_unsupported_benefit_claim_or_extra_field_rejected(self):
@@ -163,37 +167,41 @@ class AcceptedExternalOutcomeTests(unittest.TestCase):
         report = fake_report()
         ledger = validate_local(proposed_ledger(decision()))
         with self.assertRaisesRegex(ValueError, "machine-verified"):
-            accepted.verify_accepted(ledger, report, approved_api())
+            accepted.verify_accepted(ledger, report, owner_decision_api())
 
     def test_no_api_for_nonempty_acceptance_fails_closed(self):
         ledger = validate_local(proposed_ledger(decision()))
         with self.assertRaisesRegex(ValueError, "Live GitHub"):
             accepted.verify_accepted(ledger, fake_report(candidate()), None)
 
-    def test_github_review_must_be_approved_and_attributed(self):
+    def test_github_owner_decision_must_be_merged_and_attributed(self):
         item = candidate()
         ledger = validate_local(proposed_ledger(decision()))
-        api = approved_api(item)
-        api.responses["/repos/opensiro/upstream/pulls/159/reviews/123456"]["state"] = "COMMENTED"
-        with self.assertRaisesRegex(ValueError, "review not verified"):
-            accepted.verify_accepted(ledger, fake_report(item), api)
-
-    def test_unrelated_or_unmerged_review_pr_cannot_authorize_outcome(self):
-        item = candidate()
-        ledger = validate_local(proposed_ledger(decision()))
-        api = approved_api(item)
-        api.responses["/repos/opensiro/upstream/pulls/159"]["body"] = "Looks good, unrelated PR."
+        api = owner_decision_api(item)
+        api.responses["/repos/opensiro/upstream/pulls/177"]["merged_by"]["login"] = "another-user"
         with self.assertRaisesRegex(ValueError, "does not attest"):
             accepted.verify_accepted(ledger, fake_report(item), api)
-        api = approved_api(item)
-        api.responses["/repos/opensiro/upstream/pulls/159"]["merged_at"] = None
+
+    def test_unrelated_or_unmerged_decision_pr_cannot_authorize_outcome(self):
+        item = candidate()
+        ledger = validate_local(proposed_ledger(decision()))
+        api = owner_decision_api(item)
+        api.responses["/repos/opensiro/upstream/pulls/177"]["body"] = "Looks good, unrelated PR."
+        with self.assertRaisesRegex(ValueError, "does not attest"):
+            accepted.verify_accepted(ledger, fake_report(item), api)
+        api = owner_decision_api(item)
+        api.responses["/repos/opensiro/upstream/pulls/177"]["merged_at"] = None
+        with self.assertRaisesRegex(ValueError, "does not attest"):
+            accepted.verify_accepted(ledger, fake_report(item), api)
+        api = owner_decision_api(item)
+        api.responses["/repos/opensiro/upstream/pulls/177"]["user"]["login"] = "unrelated"
         with self.assertRaisesRegex(ValueError, "does not attest"):
             accepted.verify_accepted(ledger, fake_report(item), api)
 
     def test_reobserve_external_first_party_evidence_not_only_artifact(self):
         item = candidate()
         ledger = validate_local(proposed_ledger(decision()))
-        api = approved_api(item)
+        api = owner_decision_api(item)
         api.responses[fixtures.pr_path(item["pr_urls"][0])]["user"]["login"] = "intruder"
         with self.assertRaisesRegex(ValueError, "current first-party"):
             accepted.verify_accepted(ledger, fake_report(item), api)
