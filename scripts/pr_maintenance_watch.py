@@ -30,6 +30,11 @@ CHECKPOINT_PREFIX = "<!-- opensiro-pr-maintenance-checkpoint-v1:"
 ALERT_PREFIX = "<!-- opensiro-pr-maintenance-alert-v1:"
 UA = "opensiro-pr-maintenance/1"
 REPO = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
+# GitHub compares immutable revisions with three literal dots. This one exact
+# route is safe; a general '..' allowance would admit path traversal.
+SHA_COMPARE_PATH = re.compile(
+    r"^/repos/(?!\.{1,2}/)[A-Za-z0-9_.-]+/"
+    r"(?!\.{1,2}/)[A-Za-z0-9_.-]+/compare/[0-9a-f]{40}\.\.\.[0-9a-f]{40}$")
 MAX_PAGES = 10
 # The publication ledger + target manifest review explicitly admits these
 # additional PRs to an existing bot-owned checkpoint without resetting history.
@@ -98,7 +103,8 @@ class Github:
         self.token = token
 
     def request(self, path, method="GET", payload=None):
-        if not path.startswith("/") or "//" in path or ".." in path:
+        if (not isinstance(path, str) or not path.startswith("/") or "//" in path
+                or (".." in path and not SHA_COMPARE_PATH.fullmatch(path))):
             raise ValueError("Unsafe API path")
         url = "https://api.github.com" + path
         body = json.dumps(payload).encode() if payload is not None else None

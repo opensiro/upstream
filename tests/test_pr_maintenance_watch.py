@@ -111,6 +111,33 @@ def source():
 
 
 class WatchTests(unittest.TestCase):
+    def test_github_compare_route_accepts_only_exact_immutable_sha_pairs(self):
+        left, right = "a" * 40, "b" * 40
+        path = f"/repos/opensiro/upstream/compare/{left}...{right}"
+        response = io.BytesIO(b'{"status":"ahead"}')
+        response.headers = {}
+        with patch.object(watch, "urlopen", return_value=response) as opener:
+            self.assertEqual(watch.Github("test-token").get(path), {"status": "ahead"})
+            self.assertEqual(opener.call_count, 1)
+            self.assertEqual(opener.call_args.args[0].full_url,
+                             "https://api.github.com" + path)
+
+        unsafe = (
+            "/repos/opensiro/upstream/../secrets",
+            f"/repos/../upstream/compare/{left}...{right}",
+            f"/repos/opensiro/../compare/{left}...{right}",
+            f"/repos/opensiro/upstream/compare/{left}...{right}/../secrets",
+            f"/repos/opensiro/upstream/compare/{left}...main",
+            f"/repos/opensiro/upstream/compare/{left}...{right}/extra",
+            "/repos/opensiro//upstream/issues/1",
+        )
+        with patch.object(watch, "urlopen") as opener:
+            for candidate in unsafe:
+                with self.subTest(candidate=candidate):
+                    with self.assertRaisesRegex(ValueError, "Unsafe API path"):
+                        watch.Github("test-token").get(candidate)
+            opener.assert_not_called()
+
     def write_targets(self, root):
         p = Path(root) / "targets.json"
         p.write_text(json.dumps({"schema_version": 1,
