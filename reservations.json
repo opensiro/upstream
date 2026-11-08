@@ -81,6 +81,52 @@
       "task_id": "portfolio-harnessdesk-55-review-20261108",
       "timestamp": "2026-11-08T11:41:24Z",
       "reason": "Completed exact-source read-only PR #55 vs #54 review, evidence recorded in Upstream #150 comment 6721033751; no PR-state changes."
+    },
+    {
+      "action": "CLAIM",
+      "claim_id": "7dd1a7230efcdb0b405a720c44084b7f",
+      "batch_id": "e2476d10bd4489421a7686f90e54c52e",
+      "task_id": "portfolio-agent-code-69-review-20261108",
+      "coordinator": "chatgpt-upstream-auto-batch-20261108",
+      "actor": "chatgpt-upstream-auto-batch-20261108",
+      "resources": [
+        "pr:opensiro/upstream#69"
+      ],
+      "owner_issue": 150,
+      "operation": "READ_ONLY_REVIEW",
+      "evidence_url": "https://github.com/opensiro/upstream/pull/69",
+      "timestamp": "2026-11-08T12:32:13Z"
+    },
+    {
+      "action": "CLAIM",
+      "claim_id": "ce3ae82a7e4eb0015b00182c2e6ae75f",
+      "batch_id": "e2476d10bd4489421a7686f90e54c52e",
+      "task_id": "portfolio-kit-70-review-20261108",
+      "coordinator": "chatgpt-upstream-auto-batch-20261108",
+      "actor": "chatgpt-upstream-auto-batch-20261108",
+      "resources": [
+        "pr:opensiro/upstream#70"
+      ],
+      "owner_issue": 150,
+      "operation": "READ_ONLY_REVIEW",
+      "evidence_url": "https://github.com/opensiro/upstream/pull/70",
+      "timestamp": "2026-11-08T12:32:13Z"
+    },
+    {
+      "action": "CLAIM",
+      "claim_id": "1b495dc8e608a5eb09084ec9375f9336",
+      "batch_id": "e2476d10bd4489421a7686f90e54c52e",
+      "task_id": "outcomes-observe-failure-42477979466",
+      "coordinator": "chatgpt-upstream-auto-batch-20261108",
+      "actor": "chatgpt-upstream-auto-batch-20261108",
+      "resources": [
+        "intervention:verified-external-outcomes",
+        "source:opensiro/upstream"
+      ],
+      "owner_issue": 159,
+      "operation": "INTERNAL_PREPARE",
+      "evidence_url": "https://github.com/opensiro/upstream/issues/159",
+      "timestamp": "2026-11-08T12:32:13Z"
     }
   ]
 }
