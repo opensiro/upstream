@@ -76,11 +76,20 @@ def fake_report(accepted_item=None):
 
 
 def approved_api(item=None):
-    api = fixtures.improved_api(item or candidate())
+    item = item or candidate()
+    api = fixtures.improved_api(item)
     api.responses["/repos/opensiro/upstream/pulls/159/reviews/123456"] = {
         "html_url": REVIEW_URL, "state": "APPROVED",
         "user": {"login": "reviewer-one"},
         "submitted_at": "2026-11-08T16:01:00Z", "commit_id": "a" * 40}
+    api.responses["/repos/opensiro/upstream/pulls/159"] = {
+        "html_url": "https://github.com/opensiro/upstream/pull/159",
+        "state": "closed", "merged_at": "2026-11-08T16:02:00Z",
+        "head": {"sha": "a" * 40},
+        "base": {"repo": {"full_name": "opensiro/upstream"}},
+        "body": "\n".join((f"Outcome-Acceptance: {item['id']}",
+                          f"Outcome-Merge: {item['source']['merge_commit_sha']}",
+                          f"Outcome-Native-Receipt: {item['source']['github_native_evidence']}"))}
     return api
 
 
@@ -167,6 +176,18 @@ class AcceptedExternalOutcomeTests(unittest.TestCase):
         api = approved_api(item)
         api.responses["/repos/opensiro/upstream/pulls/159/reviews/123456"]["state"] = "COMMENTED"
         with self.assertRaisesRegex(ValueError, "review not verified"):
+            accepted.verify_accepted(ledger, fake_report(item), api)
+
+    def test_unrelated_or_unmerged_review_pr_cannot_authorize_outcome(self):
+        item = candidate()
+        ledger = validate_local(proposed_ledger(decision()))
+        api = approved_api(item)
+        api.responses["/repos/opensiro/upstream/pulls/159"]["body"] = "Looks good, unrelated PR."
+        with self.assertRaisesRegex(ValueError, "does not attest"):
+            accepted.verify_accepted(ledger, fake_report(item), api)
+        api = approved_api(item)
+        api.responses["/repos/opensiro/upstream/pulls/159"]["merged_at"] = None
+        with self.assertRaisesRegex(ValueError, "does not attest"):
             accepted.verify_accepted(ledger, fake_report(item), api)
 
     def test_reobserve_external_first_party_evidence_not_only_artifact(self):

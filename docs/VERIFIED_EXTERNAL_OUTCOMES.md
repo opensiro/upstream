@@ -103,6 +103,21 @@ contributor. Its decision scope is `ACCEPTED_MERGED_CHANGE_ONLY`, with
 productivity. A review URL must refer to a real first-party `APPROVED` review;
 merely inserting a URL into JSON cannot satisfy the live gate.
 
+The reviewed Upstream decision PR must itself be **merged**, with its final
+head exactly the approved commit. To bind the approval to the evidence rather
+than an unrelated PR, its description must contain three exact standalone
+lines (substitute source-backed values; these are not an acceptance decision):
+
+```text
+Outcome-Acceptance: <intervention_id>
+Outcome-Merge: <40-character external merge SHA>
+Outcome-Native-Receipt: <immutable GitHub native evidence URL>
+```
+
+Only after that separately reviewed decision has merged may the accepted-v1
+entry point to its GitHub approval URL. The ledger change itself remains a
+separate reviewable PR.
+
 `scripts/accepted_external_outcomes.py` checks source IDs and replacement
 chains offline, then compares **all** candidate IDs and source/cohort digests
 against the complete current live observation. For every accepted entry it

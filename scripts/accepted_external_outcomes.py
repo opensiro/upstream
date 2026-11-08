@@ -158,6 +158,23 @@ def verify_accepted(ledger, report, api):
                 or not review.get("submitted_at")
                 or not SHA.fullmatch(review.get("commit_id") or "")):
             raise ValueError("GitHub first-party owner review not verified")
+        # An APPROVED review of an unrelated PR cannot authorize this outcome.
+        # The reviewed, merged Upstream PR must identify the exact intervention,
+        # native receipt and merge SHA in the reviewed decision's PR body.
+        number = match.group(1)
+        reviewed_pr = api.get(f"/repos/opensiro/upstream/pulls/{number}")
+        markers = {
+            f"Outcome-Acceptance: {row['intervention_id']}",
+            f"Outcome-Merge: {row['merge_commit_sha']}",
+            f"Outcome-Native-Receipt: {row['native_receipt']}",
+        }
+        if (reviewed_pr.get("html_url") != f"https://github.com/opensiro/upstream/pull/{number}"
+                or reviewed_pr.get("state") != "closed" or not reviewed_pr.get("merged_at")
+                or reviewed_pr.get("head", {}).get("sha") != review["commit_id"]
+                or reviewed_pr.get("base", {}).get("repo", {}).get("full_name") != "opensiro/upstream"
+                or not isinstance(reviewed_pr.get("body"), str)
+                or not markers.issubset(set(reviewed_pr["body"].splitlines()))):
+            raise ValueError("Approval PR does not attest this exact accepted intervention")
         result.append({"intervention_id": row["intervention_id"],
                        "external_pr_url": row["effective_pr_url"],
                        "merge_commit_sha": row["merge_commit_sha"],
