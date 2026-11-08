@@ -12,8 +12,11 @@ on:
       - 'registry.yaml'
       - 'data/pr-maintenance/targets.json'
       - 'scripts/verified_external_outcomes.py'
+      - 'scripts/accepted_external_outcomes.py'
       - 'scripts/portfolio_reconcile.py'
       - 'tests/test_verified_external_outcomes.py'
+      - 'tests/test_accepted_external_outcomes.py'
+      - 'data/verified-external-outcomes/**'
       - '.github/workflows/verified-external-outcomes.yml'
 
 permissions:
@@ -39,6 +42,8 @@ jobs:
         run: |
           python3 scripts/verified_external_outcomes.py --validate-only
           python3 -m unittest discover -s tests -p 'test_verified_external_outcomes.py' -v
+          python3 scripts/accepted_external_outcomes.py --validate-only
+          python3 -m unittest discover -s tests -p 'test_accepted_external_outcomes.py' -v
 
   observe:
     needs: validate
@@ -59,10 +64,19 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python3 scripts/verified_external_outcomes.py --report --output-json "$RUNNER_TEMP/upstream-external-outcomes.json" >> "$GITHUB_STEP_SUMMARY"
-      - name: Upload read-only candidate ledger
+      - name: Validate accepted outcomes against live source and owner review
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 scripts/accepted_external_outcomes.py \
+            --observation-json "$RUNNER_TEMP/upstream-external-outcomes.json" \
+            --output-json "$RUNNER_TEMP/upstream-accepted-outcomes.json"
+      - name: Upload candidate and separately labeled accepted-source ledgers
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: upstream-external-outcomes-${{ github.run_id }}
-          path: ${{ runner.temp }}/upstream-external-outcomes.json
+          path: |
+            ${{ runner.temp }}/upstream-external-outcomes.json
+            ${{ runner.temp }}/upstream-accepted-outcomes.json
           if-no-files-found: error
           retention-days: 90

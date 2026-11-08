@@ -85,15 +85,60 @@ offline validation only. No scheduled GitHub commits, issue updates, external
 publication, PR merge, retroactive ledger edits or cross-repository writes are
 performed. A partial or unexpected source error fails the observation.
 
+## Accepted outcome ledger v1 — owner-review gate
+
+The separately versioned
+[`data/verified-external-outcomes/accepted-v1.json`](../data/verified-external-outcomes/accepted-v1.json)
+is **intentionally empty** until explicit owner review of individual evidence.
+The two `VERIFIED` Improvement candidates are **not silently imported**. An
+empty accepted ledger yields `UNCLAIMED_SEMANTIC_EVIDENCE`, not a claimed zero
+for the Organization metric.
+
+Each proposed accepted entry must identify one existing source intervention,
+the **complete original/replacement PR chain** and effective PR, exact external
+merge SHA/timestamp, immutable native test receipt, and a separate Upstream
+GitHub PR review (`APPROVED`) attributed to a reviewer other than the
+contributor. Its decision scope is `ACCEPTED_MERGED_CHANGE_ONLY`, with
+`benefit_claim=NOT_MEASURED`. This scope never asserts runtime deployment or
+productivity. A review URL must refer to a real first-party `APPROVED` review;
+merely inserting a URL into JSON cannot satisfy the live gate.
+
+`scripts/accepted_external_outcomes.py` checks source IDs and replacement
+chains offline, then compares **all** candidate IDs and source/cohort digests
+against the complete current live observation. For every accepted entry it
+independently re-fetches the external PR disposition, native CI and (where
+needed) post-publication source compare, plus the exact GitHub approval. Any
+drift, missing receipt, ambiguous status or review failure aborts the export.
+Version 1 accepts **only** the observer's `VERIFIED` cases; `PENDING_REVIEW`
+Corrective/casebook/registry cases require a separately reviewed semantic
+acceptance extension rather than an automatic override.
+
+```bash
+python3 scripts/accepted_external_outcomes.py --validate-only
+python3 -m unittest discover -s tests -p 'test_accepted_external_outcomes.py' -v
+# After a successful read-only observe, with GITHUB_TOKEN for nonempty ledgers:
+python3 scripts/accepted_external_outcomes.py \
+  --observation-json /tmp/upstream-external-outcomes.json \
+  --output-json /tmp/upstream-accepted-outcomes.json
+```
+
+The existing workflow adds the separately labeled accepted-source JSON into
+the **same 90-day artifact**; it does not create another workflow/job or a
+GitHub write. Even a nonempty, valid export is
+`UPSTREAM_REVIEWED_SOURCE_ONLY` with `organization_metric_claimed=false`.
+An Organization-owned collector and reviewable PR remain mandatory before
+the primary metric or website may claim the result.
+
 ## Next gate: publish the actual primary metric
 
 1. Verify a successful **live workflow run and artifact**; do not substitute
    offline mocks or passing CI for a real observation.
 2. Review ambiguous human disposition, native receipt and replacement-chain
    evidence in an Upstream-owned PR. Preserve accepted historical provenance.
-3. Define an owner-reviewed, versioned **accepted outcome ledger** whose exact
-   records can be revalidated from first-party evidence and included without
-   double counting; never use a raw merged-PR count as this ledger.
+3. Review actual entries in the owner-reviewed, versioned **accepted outcome
+   ledger** using exact first-party evidence. The v1 validator and empty
+   baseline are in place, **not** the reviewer decisions; never use a raw
+   merged-PR count as this ledger.
 4. Only then extend the Organization generic metrics collector from
    `unclaimed_semantic_evidence` to a value gated on the validated Upstream
    accepted ledger. The public site may display the result **after** that
