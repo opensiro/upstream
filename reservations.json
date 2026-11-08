@@ -272,6 +272,38 @@
       "owner_issue": 150,
       "operation": "READ_ONLY_REVIEW",
       "timestamp": "2026-11-08T13:20:52.432Z"
+    },
+    {
+      "action": "RELEASE",
+      "claim_id": "ac08add94c5a49fceafb758188120828",
+      "task_id": "portfolio-agent-fleet-119-archive-review-20261108",
+      "resources": [
+        "pr:opensiro/upstream#119"
+      ],
+      "evidence_url": "https://github.com/opensiro/upstream/issues/150#issuecomment-6722023130",
+      "batch_id": "95d2b8e5f1c08f2f9ea7e1283036715e",
+      "coordinator": "chatgpt-upstream-auto-batch-20261108e",
+      "actor": "chatgpt-upstream-auto-batch-20261108e",
+      "owner_issue": 150,
+      "operation": "READ_ONLY_REVIEW",
+      "timestamp": "2026-11-08T13:22:11.103Z",
+      "reason": "DONE: read-only first-party external merge reconciliation; ledger main and internal archive Draft preserved, no double counting, owner receipt 6722023130."
+    },
+    {
+      "action": "RELEASE",
+      "claim_id": "735f6dcc09d95eae6a12f407866291e8",
+      "task_id": "portfolio-citadel-118-archive-review-20261108",
+      "resources": [
+        "pr:opensiro/upstream#118"
+      ],
+      "evidence_url": "https://github.com/opensiro/upstream/issues/150#issuecomment-6722023130",
+      "batch_id": "95d2b8e5f1c08f2f9ea7e1283036715e",
+      "coordinator": "chatgpt-upstream-auto-batch-20261108e",
+      "actor": "chatgpt-upstream-auto-batch-20261108e",
+      "owner_issue": 150,
+      "operation": "READ_ONLY_REVIEW",
+      "timestamp": "2026-11-08T13:22:11.103Z",
+      "reason": "DONE: read-only first-party external merge reconciliation; ledger main and internal archive Draft preserved, no double counting, owner receipt 6722023130."
     }
   ]
 }
