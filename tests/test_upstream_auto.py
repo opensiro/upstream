@@ -26,15 +26,18 @@ def stamp(dt):
 
 
 def task(id, *, lane="maintenance", repo="example/repo", priority="P2",
-         queued_hours=1, status="ACTIONABLE", resources=None):
+         queued_hours=1, status="ACTIONABLE", resources=None,
+         pr_number=4, operation="READ_ONLY_REVIEW"):
     if resources is None:
-        resources = [f"source:{repo}", f"pr:{repo}#4"]
+        resources = [f"pr:{repo}#{pr_number}"]
+        if operation == "INTERNAL_PREPARE":
+            resources.append(f"source:{repo}")
     return {"task_id": id, "lane": lane, "owner_issue": mod.LANE_OWNER[lane],
             "resources": resources,
-            "evidence_url": f"https://github.com/{repo}/pull/4",
+            "evidence_url": f"https://github.com/{repo}/pull/{pr_number}",
             "queued_at": stamp(NOW - timedelta(hours=queued_hours)),
             "observed_at": stamp(NOW - timedelta(minutes=3)),
-            "status": status, "priority": priority, "operation": "READ_ONLY_REVIEW",
+            "status": status, "priority": priority, "operation": operation,
             "head_sha": HEAD if any(k.startswith("pr:") for k in resources) else None}
 
 
@@ -52,8 +55,10 @@ class FakeReader:
                     "/repos/opensiro/upstream/issues/150",
                     "/repos/opensiro/upstream/issues/56"):
             return {"state": "open"}
-        if path in ("/repos/example/repo/pulls/4", "/repos/other/repo/pulls/4"):
-            return {"state": "open", "head": {"sha": HEAD}}
+        if path in ("/repos/example/repo/pulls/4", "/repos/other/repo/pulls/4",
+                    "/repos/opensiro/upstream/pulls/111", "/repos/opensiro/upstream/pulls/55"):
+            return {"state": "open", "head": {"sha": HEAD},
+                    "base": {"sha": SHA}}
         raise AssertionError("Unexpected GitHub API path: " + path)
 
 
@@ -115,12 +120,105 @@ class UpstreamAutoTests(unittest.TestCase):
         with self.assertRaisesRegex(mod.AutoError, "exact target PR"):
             mod.validate_manifest(manifest(item), now=NOW)
         item["evidence_url"] = "https://github.com/example/repo/pull/4"
+        self.assertEqual(mod.validate_manifest(manifest(item), now=NOW)[0]["resources"],
+                         ["pr:example/repo#4"])
+        item["resources"] = ["source:example/repo", "pr:example/repo#4"]
+        with self.assertRaisesRegex(mod.AutoError, "READ_ONLY_REVIEW PR"):
+            mod.validate_manifest(manifest(item), now=NOW)
+        item["operation"] = "INTERNAL_PREPARE"
+        self.assertEqual(mod.validate_manifest(manifest(item), now=NOW)[0]["operation"],
+                         "INTERNAL_PREPARE")
         item["resources"] = ["pr:example/repo#4"]
-        with self.assertRaisesRegex(mod.AutoError, "source resource lock"):
+        with self.assertRaisesRegex(mod.AutoError, "requires source locks"):
             mod.validate_manifest(manifest(item), now=NOW)
         item["resources"] = ["source:EXAMPLE/REPO", "source:example/repo", "pr:example/repo#4"]
         with self.assertRaisesRegex(mod.AutoError, "duplicate resource key"):
             mod.validate_manifest(manifest(item), now=NOW)
+
+    def test_independent_portfolio_pr_reviews_do_not_take_repo_wide_lock(self):
+        pr111 = task("portfolio:111", lane="portfolio", repo="opensiro/upstream", pr_number=111)
+        pr55 = task("portfolio:55", lane="portfolio", repo="opensiro/upstream", pr_number=55)
+        worklist = manifest(pr111, pr55)
+        self.assertEqual(mod.validate_manifest(worklist, now=NOW)[0]["resources"],
+                         ["pr:opensiro/upstream#111"])
+        with tempfile.TemporaryDirectory() as temp:
+            one, two = make_fixture(Path(temp))
+            first = mod.claim(one, "origin", worklist, "agent-one", task_id=pr111["task_id"],
+                              write=True, reader=FakeReader(), now=NOW)
+            self.assertEqual(first["status"], "WRITTEN_CAS")
+            view = mod.plan(worklist, mod.fetch_ledger(two, "origin")[1], now=NOW)
+            self.assertEqual(view["selected"]["task_id"], pr55["task_id"])
+            duplicate = copy.deepcopy(pr111)
+            duplicate["task_id"] = "portfolio:duplicate111"
+            self.assertIn({"task_id": duplicate["task_id"], "reason": "CLAIMED_RESOURCE"},
+                          mod.plan(manifest(duplicate), mod.fetch_ledger(two, "origin")[1],
+                                   now=NOW)["blocked"])
+            second = mod.claim(two, "origin", worklist, "agent-two", task_id=pr55["task_id"],
+                               write=True, reader=FakeReader(), now=NOW)
+            self.assertEqual(second["status"], "WRITTEN_CAS")
+            active = mod.replay(mod.fetch_ledger(one, "origin")[1])
+            self.assertEqual(len(active), 2)
+            self.assertEqual({e["operation"] for e in active.values()}, {"READ_ONLY_REVIEW"})
+            third = task("portfolio:third", lane="portfolio", repo="other/repo")
+            third_view = mod.plan(manifest(third), mod.fetch_ledger(one, "origin")[1], now=NOW)
+            self.assertIn({"task_id": third["task_id"], "reason": "PORTFOLIO_OPERATION_WIP_CAP"},
+                          third_view["blocked"])
+
+    def test_overlapping_mutable_portfolio_pr_tasks_remain_serial(self):
+        first = task("portfolio:write111", lane="portfolio", repo="opensiro/upstream",
+                     pr_number=111, operation="INTERNAL_PREPARE")
+        second = task("portfolio:write55", lane="portfolio", repo="opensiro/upstream",
+                      pr_number=55, operation="INTERNAL_PREPARE")
+        active = {"schema_version": 1, "events": [{"action": "CLAIM", "claim_id": "a" * 32,
+                  "task_id": first["task_id"], "actor": "agent-one", "resources": sorted(first["resources"]),
+                  "owner_issue": 150, "evidence_url": first["evidence_url"],
+                  "operation": "INTERNAL_PREPARE", "timestamp": stamp(NOW)}]}
+        view = mod.plan(manifest(first, second), active, now=NOW)
+        self.assertIn({"task_id": second["task_id"], "reason": "CLAIMED_RESOURCE"}, view["blocked"])
+        distinct = task("portfolio:write-other", lane="portfolio", repo="other/repo",
+                        operation="INTERNAL_PREPARE")
+        view = mod.plan(manifest(distinct), active, now=NOW)
+        self.assertIn({"task_id": distinct["task_id"], "reason": "PORTFOLIO_OPERATION_WIP_CAP"},
+                      view["blocked"])
+
+    def test_legacy_portfolio_claim_is_conservative_and_release_replays(self):
+        old = task("portfolio:old111", lane="portfolio", repo="opensiro/upstream", pr_number=111)
+        historical = {"action": "CLAIM", "claim_id": "a" * 32,
+                      "task_id": old["task_id"], "actor": "agent-one",
+                      "resources": ["pr:opensiro/upstream#111", "source:opensiro/upstream"],
+                      "owner_issue": 150, "evidence_url": old["evidence_url"],
+                      "timestamp": stamp(NOW)}
+        remaining = task("portfolio:review55", lane="portfolio", repo="opensiro/upstream",
+                         pr_number=55)
+        write = task("portfolio:write55", lane="portfolio", repo="opensiro/upstream",
+                     pr_number=55, operation="INTERNAL_PREPARE")
+        ledger = {"schema_version": 1, "events": [historical]}
+        view = mod.plan(manifest(remaining, write), ledger, now=NOW)
+        self.assertEqual(view["selected"]["task_id"], remaining["task_id"])
+        self.assertIn({"task_id": write["task_id"], "reason": "CLAIMED_RESOURCE"}, view["blocked"])
+        other_write = task("portfolio:write-other", lane="portfolio", repo="other/repo",
+                           operation="INTERNAL_PREPARE")
+        other_view = mod.plan(manifest(other_write), ledger, now=NOW)
+        self.assertIn({"task_id": other_write["task_id"],
+                       "reason": "PORTFOLIO_OPERATION_WIP_CAP"}, other_view["blocked"])
+        released = {**historical, "action": "RELEASE", "timestamp": stamp(NOW),
+                    "reason": "Legacy review handoff recorded to owner"}
+        self.assertEqual(mod.replay({"schema_version": 1, "events": [historical, released]}), {})
+
+    def test_new_claim_operation_is_attributable_and_cannot_change_on_release(self):
+        item = task("portfolio:new", lane="portfolio", repo="opensiro/upstream", pr_number=111)
+        event = {"action": "CLAIM", "claim_id": "a" * 32, "task_id": item["task_id"],
+                 "actor": "agent-one", "resources": item["resources"],
+                 "owner_issue": 150, "evidence_url": item["evidence_url"],
+                 "operation": "READ_ONLY_REVIEW", "timestamp": stamp(NOW)}
+        release = {**event, "action": "RELEASE", "reason": "Attributable complete owner handoff"}
+        self.assertEqual(mod.replay({"schema_version": 1, "events": [event, release]}), {})
+        tampered = {**release, "operation": "INTERNAL_PREPARE"}
+        with self.assertRaisesRegex(mod.AutoError, "Release requires active original"):
+            mod.replay({"schema_version": 1, "events": [event, tampered]})
+        malformed = {**event, "operation": ["READ_ONLY_REVIEW"]}
+        with self.assertRaisesRegex(mod.AutoError, "Unknown task claim operation"):
+            mod.replay({"schema_version": 1, "events": [malformed]})
 
     def test_blocked_or_empty_proposal_is_not_auto_promoted(self):
         blocked = task("maintenance:blocked", status="AWAITING_EXTERNAL")
@@ -163,6 +261,19 @@ class UpstreamAutoTests(unittest.TestCase):
         item = task("maintenance:review")
         self.assertEqual(mod.live_preflight(manifest(item), item, FakeReader())["status"],
                          "LIVE_PREFLIGHT_PASS")
+        mutable = task("portfolio:prepare", lane="portfolio", operation="INTERNAL_PREPARE")
+        self.assertEqual(mod.live_preflight(manifest(mutable), mutable, FakeReader())
+                         ["pr_base_shas"]["example/repo#4"], SHA)
+
+        class MissingBase(FakeReader):
+            def get(self, path):
+                data = super().get(path)
+                if path.endswith("/pulls/4"):
+                    data.pop("base", None)
+                return data
+
+        with self.assertRaisesRegex(mod.AutoError, "BLOCKED_PR_BASE_VISIBILITY"):
+            mod.live_preflight(manifest(mutable), mutable, MissingBase())
 
         class MovedHead(FakeReader):
             def get(self, path):

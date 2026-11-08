@@ -30,8 +30,9 @@ class AutoError(ValueError):
 LEDGER_REF = "refs/heads/upstream-auto-task-reservations"
 LANE_OWNER = {"maintenance": 125, "outcomes": 159, "portfolio": 150,
               "batch": 56}
-LANE_WIP_CAP = {"maintenance": 2, "outcomes": 2, "portfolio": 1,
+LANE_WIP_CAP = {"maintenance": 2, "outcomes": 2, "portfolio": 3,
                 "batch": 1}
+PORTFOLIO_OPERATION_WIP_CAP = {"READ_ONLY_REVIEW": 2, "INTERNAL_PREPARE": 1}
 LANE_BONUS = {"maintenance": 8, "outcomes": 7, "batch": 5,
               "portfolio": 4}
 PRIORITY_BASE = {"P0": 100, "P1": 70, "P2": 40, "P3": 10}
@@ -48,6 +49,7 @@ TASK_FIELDS = {"task_id", "lane", "owner_issue", "resources",
                "priority", "operation", "head_sha"}
 EVENT_FIELDS = {"action", "claim_id", "task_id", "actor", "resources",
                 "owner_issue", "evidence_url", "timestamp"}
+EVENT_OPERATION = {"operation"}
 
 
 def _timestamp(value):
@@ -111,7 +113,7 @@ def validate_manifest(data, *, now=None):
             raise AutoError("Unknown task admission status")
         if raw["priority"] not in PRIORITY_BASE:
             raise AutoError("Unknown task priority")
-        if raw["operation"] not in {"READ_ONLY_REVIEW", "INTERNAL_PREPARE"}:
+        if not isinstance(raw["operation"], str) or raw["operation"] not in {"READ_ONLY_REVIEW", "INTERNAL_PREPARE"}:
             raise AutoError("External writes are not an Upstream Auto task operation")
         queue_time, observed = _timestamp(raw["queued_at"]), _timestamp(raw["observed_at"])
         if queue_time > observed or observed > snapshot or now - observed > timedelta(minutes=60):
@@ -131,8 +133,13 @@ def validate_manifest(data, *, now=None):
         evidence_url = _issue_url(raw["evidence_url"])
         pr_refs = [k[3:] for k in keys if k.startswith("pr:")]
         evidence = urlparse(evidence_url).path.casefold()
-        if any("source:" + name.split("#", 1)[0] not in keys for name in pr_refs):
-            raise AutoError("PR task needs its normalized source resource lock")
+        if pr_refs and raw["operation"] == "READ_ONLY_REVIEW" and any(
+                key.startswith("source:") for key in keys):
+            raise AutoError("READ_ONLY_REVIEW PR must lock the exact PR, not a repository-wide source")
+        if raw["operation"] == "INTERNAL_PREPARE" and (
+                not any(key.startswith("source:") for key in keys)
+                or any("source:" + name.split("#", 1)[0] not in keys for name in pr_refs)):
+            raise AutoError("INTERNAL_PREPARE requires source locks for mutable PR resources")
         if pr_refs and not any(evidence == "/" + name.replace("#", "/pull/") for name in pr_refs):
             raise AutoError("PR work evidence must link to its exact target PR")
         task = dict(raw, resources=keys)
@@ -161,8 +168,14 @@ def replay(ledger):
         _issue_url(event["evidence_url"])
         _timestamp(event["timestamp"])
         keys = _resources(event["resources"])
+        if ("operation" in event and
+                (not isinstance(event["operation"], str)
+                 or event["operation"] not in PORTFOLIO_OPERATION_WIP_CAP)):
+            raise AutoError("Unknown task claim operation")
         if action == "CLAIM":
-            if set(event) != EVENT_FIELDS or claim_id in seen or event["task_id"] in {x["task_id"] for x in active.values()}:
+            if (set(event) not in (EVENT_FIELDS, EVENT_FIELDS | EVENT_OPERATION)
+                    or claim_id in seen
+                    or event["task_id"] in {x["task_id"] for x in active.values()}):
                 raise AutoError("Duplicate task claim")
             collision = [k for k in keys if k in resources]
             if collision:
@@ -172,10 +185,12 @@ def replay(ledger):
             seen.add(claim_id)
         else:
             prior = active.get(claim_id)
-            if (set(event) != EVENT_FIELDS | {"reason"}
+            if (set(event) not in (EVENT_FIELDS | {"reason"},
+                                   EVENT_FIELDS | EVENT_OPERATION | {"reason"})
                     or prior is None or not isinstance(event["reason"], str)
                     or len(event["reason"].strip()) < 15
                     or _timestamp(event["timestamp"]) < _timestamp(prior["timestamp"])
+                    or event.get("operation") != prior.get("operation")
                     or any(event[k] != prior[k] for k in ("task_id", "actor", "resources", "owner_issue"))):
                 raise AutoError("Release requires active original claim, actor and auditable reason")
             for key in keys:
@@ -191,17 +206,19 @@ def plan(manifest, ledger, *, now=None):
     active = replay(ledger)
     busy = {key for event in active.values() for key in event["resources"]}
     lane_active = {lane: 0 for lane in LANE_OWNER}
+    portfolio_operations = {op: 0 for op in PORTFOLIO_OPERATION_WIP_CAP}
     for event in active.values():
-        lane = next((t["lane"] for t in tasks if t["task_id"] == event["task_id"]), None)
+        # Claims may outlive a worklist; never trust the new proposal to
+        # reclassify an already held reservation's operation or owner lane.
+        lane = next((k for k, v in LANE_OWNER.items() if v == event["owner_issue"]), None)
         if lane is not None:
             lane_active[lane] += 1
-    # Existing claims not present in the input must still count against WIP.
-    # Their lane is derivable from stable owner issue, not current manifest.
-    for event in active.values():
-        if not any(t["task_id"] == event["task_id"] for t in tasks):
-            lane = next((k for k, v in LANE_OWNER.items() if v == event["owner_issue"]), None)
-            if lane is not None:
-                lane_active[lane] += 1
+        if lane == "portfolio":
+            # Historical v1 claims have no operation field. Conservatively
+            # count each toward both operation caps until released.
+            modes = (event["operation"],) if "operation" in event else PORTFOLIO_OPERATION_WIP_CAP
+            for mode in modes:
+                portfolio_operations[mode] += 1
     eligible, blocked = [], []
     for task in tasks:
         if task["status"] != "ACTIONABLE":
@@ -212,6 +229,10 @@ def plan(manifest, ledger, *, now=None):
             continue
         if lane_active[task["lane"]] >= LANE_WIP_CAP[task["lane"]]:
             blocked.append({"task_id": task["task_id"], "reason": "LANE_WIP_CAP"})
+            continue
+        if (task["lane"] == "portfolio" and
+                portfolio_operations[task["operation"]] >= PORTFOLIO_OPERATION_WIP_CAP[task["operation"]]):
+            blocked.append({"task_id": task["task_id"], "reason": "PORTFOLIO_OPERATION_WIP_CAP"})
             continue
         age_hours = max(0, (now - _timestamp(task["queued_at"])).total_seconds() // 3600)
         score = PRIORITY_BASE[task["priority"]] + min(60, age_hours * 2) + LANE_BONUS[task["lane"]]
@@ -258,6 +279,7 @@ def live_preflight(manifest, task, reader):
     """Live source identity/PR state gate; semantic actionability remains agent-owned."""
     if reader is None:
         raise AutoError("BLOCKED_GITHUB_VISIBILITY: live reader required before claim")
+    base_shas = {}
     try:
         branch = reader.get("/repos/opensiro/upstream/branches/main")
         if branch.get("commit", {}).get("sha") != manifest["upstream_main_sha"]:
@@ -273,6 +295,11 @@ def live_preflight(manifest, task, reader):
             pr = reader.get(f"/repos/{repo}/pulls/{number}")
             if pr.get("head", {}).get("sha") != task["head_sha"]:
                 raise AutoError("BLOCKED_PR_HEAD_CHANGED: re-read before dispatch")
+            if task["operation"] == "INTERNAL_PREPARE":
+                base_sha = pr.get("base", {}).get("sha")
+                if not isinstance(base_sha, str) or not SHA.fullmatch(base_sha):
+                    raise AutoError("BLOCKED_PR_BASE_VISIBILITY: mutable PR base not pinned")
+                base_shas[identifier] = base_sha
             if task["lane"] in {"maintenance", "portfolio"} and pr.get("state") != "open":
                 raise AutoError("BLOCKED_PR_LIFECYCLE: review target no longer open")
     except AutoError:
@@ -280,7 +307,8 @@ def live_preflight(manifest, task, reader):
     except (BatchError, KeyError, TypeError, ValueError, OSError) as exc:
         raise AutoError("BLOCKED_GITHUB_VISIBILITY: incomplete first-party readback") from exc
     return {"owner_issue": task["owner_issue"], "main_sha": manifest["upstream_main_sha"],
-            "head_sha": task["head_sha"], "status": "LIVE_PREFLIGHT_PASS"}
+            "head_sha": task["head_sha"], "pr_base_shas": base_shas,
+            "status": "LIVE_PREFLIGHT_PASS"}
 
 
 def _append(root, remote, parent, ledger, event, *, write):
@@ -331,6 +359,7 @@ def claim(root, remote, manifest, actor, *, task_id=None, write=False, reader=No
     event = {"action": "CLAIM", "claim_id": uuid.uuid4().hex,
              "task_id": task_ref, "actor": actor, "resources": selected["resources"],
              "owner_issue": selected["owner_issue"],
+             "operation": task["operation"],
              "evidence_url": selected["evidence_url"],
              "timestamp": now.strftime("%Y-%m-%dT%H:%M:%SZ")}
     receipt = _append(root, remote, parent, ledger, event, write=write)
@@ -354,6 +383,7 @@ def resume(root, remote, actor, *, now=None):
         age = now - _timestamp(event["timestamp"])
         result.append({"claim_id": event["claim_id"], "task_id": event["task_id"],
                        "owner_issue": event["owner_issue"], "resources": event["resources"],
+                       "operation": event.get("operation", "UNKNOWN_LEGACY"),
                        "status": "STALE_CLAIM_UNRESOLVED" if age > timedelta(hours=24) else "CLAIMED_NEEDS_REVALIDATION"})
     return {"status": "RESUME_INSPECTION_ONLY", "claims": result}
 
