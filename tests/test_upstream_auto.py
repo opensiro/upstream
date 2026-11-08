@@ -86,6 +86,36 @@ def make_fixture(base):
 
 
 class UpstreamAutoTests(unittest.TestCase):
+    def test_existing_fractional_utc_claims_replay_without_widening_manifest(self):
+        item = task("portfolio:fractional", lane="portfolio", repo="opensiro/upstream",
+                    pr_number=119)
+        claim = {"action": "CLAIM", "claim_id": "f" * 32,
+                 "task_id": item["task_id"], "actor": "agent-one",
+                 "resources": item["resources"], "owner_issue": 150,
+                 "operation": "READ_ONLY_REVIEW", "evidence_url": item["evidence_url"],
+                 "timestamp": "2026-11-07T16:58:52.432Z"}
+        release = {**claim, "action": "RELEASE",
+                   "timestamp": "2026-11-07T16:59:11.103Z",
+                   "reason": "Reviewed and recorded owner evidence"}
+        historic = {"schema_version": 1, "events": [claim, release]}
+        self.assertEqual(mod.replay(historic), {})
+        self.assertEqual(mod.plan_batch(manifest(item), historic, now=NOW)["selected_count"], 1)
+        active = {"schema_version": 1, "events": [claim]}
+        self.assertEqual(mod.replay(active)[claim["claim_id"]], claim)
+        reversed_within_second = {**release, "timestamp": "2026-11-07T16:58:52.103Z"}
+        with self.assertRaisesRegex(mod.AutoError, "Release requires active original"):
+            mod.replay({"schema_version": 1, "events": [claim, reversed_within_second]})
+
+        for invalid in ("2026-11-07T16:58:52.1234567Z",
+                        "2026-11-07T16:58:52.432+00:00",
+                        "2026-11-07T16:58:52.432Zjunk",
+                        "2026-11-07T16:58:99.432Z"):
+            with self.subTest(invalid=invalid), self.assertRaises(mod.AutoError):
+                mod.replay({"schema_version": 1, "events": [{**claim, "timestamp": invalid}]})
+        with self.assertRaisesRegex(mod.AutoError, "Invalid UTC timestamp"):
+            mod.validate_manifest({**manifest(item),
+                                   "observed_at": "2026-11-07T17:00:00.123Z"}, now=NOW)
+
     def test_priority_urgent_feedback_and_age_fairness(self):
         high = task("maintenance:urgent", priority="P0", queued_hours=1)
         ordinary = task("outcomes:normal", lane="outcomes", repo="other/repo",
