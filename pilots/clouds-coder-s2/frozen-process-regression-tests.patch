@@ -1,7 +1,7 @@
 diff --git a/tests/test_collaboration.py b/tests/test_collaboration.py
 --- a/tests/test_collaboration.py
 +++ b/tests/test_collaboration.py
-@@ -322,6 +322,63 @@ class CollaborationStoreTests(unittest.TestCase):
+@@ -322,6 +322,59 @@ class CollaborationStoreTests(unittest.TestCase):
          self.assertEqual(self.store.list_conflicts(
              self.project["project_id"], status="open"), [])
  
