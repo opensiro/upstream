@@ -5,7 +5,7 @@
 
 A harness may have several independent interventions and PRs. A historical `AWAITING_EXTERNAL` batch state **remains historical** even when a separate publication ledger later confirms an upstream merge. All external submission/acceptance claims below come from the linked owning source; `SUBMITTED_UNVERIFIED_LIVE` means **no current PR-state claim**.
 
-**Scope:** 83 harnesses · 84 interventions · 25 unique external PR URLs · 15 assessment batches · 18 monitored PR targets.
+**Scope:** 88 harnesses · 89 interventions · 25 unique external PR URLs · 16 assessment batches · 18 monitored PR targets.
 
 ## Harness overview
 
@@ -79,21 +79,26 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | [ruslantrachuk/dark-factory](https://github.com/ruslantrachuk/dark-factory) | 1 | 1 | 0 | 0 | 0 |
 | [sergeiwallace/ai-chassis](https://github.com/sergeiwallace/ai-chassis) | 1 | 0 | 0 | 0 | 1 |
 | [SethGammon/Citadel](https://github.com/SethGammon/Citadel) | 1 | 1 | 1 | 1 | 0 |
+| [sh1ny/kehai](https://github.com/sh1ny/kehai) | 1 | 0 | 0 | 0 | 0 |
 | [shamspias/reins](https://github.com/shamspias/reins) | 1 | 1 | 0 | 0 | 1 |
 | [shaneburrell/quikagent](https://github.com/shaneburrell/quikagent) | 1 | 0 | 0 | 0 | 1 |
 | [shep-ai/shep](https://github.com/shep-ai/shep) | 2 | 0 | 2 | 2 | 0 |
+| [Shredi/pi-foreman](https://github.com/Shredi/pi-foreman) | 1 | 0 | 0 | 0 | 0 |
 | [simonguo/evidenceloom](https://github.com/simonguo/evidenceloom) | 1 | 1 | 0 | 0 | 1 |
 | [Sinkear/agentwork](https://github.com/Sinkear/agentwork) | 1 | 0 | 0 | 0 | 1 |
+| [smellak/gifford](https://github.com/smellak/gifford) | 1 | 0 | 0 | 0 | 0 |
 | [SuperagenticAI/pyflue](https://github.com/SuperagenticAI/pyflue) | 1 | 1 | 0 | 0 | 1 |
 | [Szotasz/marveen](https://github.com/Szotasz/marveen) | 1 | 0 | 1 | 1 | 0 |
 | [talktorana/agent-harness](https://github.com/talktorana/agent-harness) | 1 | 1 | 0 | 0 | 0 |
 | [topoteretes/cognee-community](https://github.com/topoteretes/cognee-community) | 1 | 0 | 1 | 0 | 0 |
+| [turri-oss/turri](https://github.com/turri-oss/turri) | 1 | 0 | 0 | 0 | 0 |
 | [uniac-ai/AgentOrg](https://github.com/uniac-ai/AgentOrg) | 1 | 0 | 0 | 0 | 1 |
 | [vinhnx/VTCode](https://github.com/vinhnx/VTCode) | 1 | 0 | 0 | 0 | 1 |
 | [xincode-ai/xin-code](https://github.com/xincode-ai/xin-code) | 1 | 0 | 0 | 0 | 1 |
 | [xpressabhi/agentic-sdlc-control-plane](https://github.com/xpressabhi/agentic-sdlc-control-plane) | 1 | 0 | 0 | 0 | 1 |
 | [yoheinakajima/activegraph](https://github.com/yoheinakajima/activegraph) | 1 | 1 | 0 | 0 | 1 |
 | [zenodea/zaino](https://github.com/zenodea/zaino) | 1 | 0 | 0 | 0 | 0 |
+| [zhanghaojie513/Dougong](https://github.com/zhanghaojie513/Dougong) | 1 | 0 | 0 | 0 | 1 |
 
 ## Interventions (one row per independent change)
 
@@ -167,22 +172,27 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | ruslantrachuk/dark-factory | [assessment:dark-factory-s2-wave-disjointness](data/assessment-candidate-batches/2026-11-06-12.json) | S2 | AWAITING_EXTERNAL | NOT_SUBMITTED | — | assessment-upstream-2026-11-06-12 | Refresh source; check external publication grant |
 | sergeiwallace/ai-chassis | [assessment:ai-chassis-s2-idempotent-claim](data/assessment-candidate-batches/2026-11-06-12.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-06-12 | Obtain missing native evidence |
 | SethGammon/Citadel | [assessment:citadel-native-claim-exclusivity](data/assessment-candidate-batches/2026-10-23-11.json) | S1 | AWAITING_EXTERNAL | MERGED_UPSTREAM | [#366](https://github.com/SethGammon/Citadel/pull/366) | assessment-upstream-2026-10-23-11 | Accepted externally; no new delivery claim |
+| sh1ny/kehai | [assessment:kehai-child-slot-cancellation-recovery](data/assessment-candidate-batches/2026-11-09-16.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-16 | No code change justified |
 | shamspias/reins | [assessment:reins-policy-decision-contract](data/assessment-candidate-batches/2026-10-22-06.json) | S1 | AWAITING_EXTERNAL | BLOCKED_PUBLICATION | — | assessment-upstream-2026-10-22-06 | Resolve documented publication gate |
 | shaneburrell/quikagent | [assessment:quikagent-overlap-waves](data/assessment-candidate-batches/2026-10-22-02.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-10-22-02 | Obtain missing native evidence |
 | shep-ai/shep | [portfolio:shep-933](cases/shep.md#933-agent-coordination) | — | NOT_TRACKED | MERGED | [#933](https://github.com/shep-ai/shep/pull/933) | casebook | Accepted externally; no new delivery claim |
 | shep-ai/shep | [portfolio:shep-934](cases/shep.md#934-esm-worker-startup) | — | NOT_TRACKED | MERGED | [#934](https://github.com/shep-ai/shep/pull/934) | casebook | Accepted externally; no new delivery claim |
+| Shredi/pi-foreman | [assessment:pi-foreman-worktree-alias-ownership](data/assessment-candidate-batches/2026-11-09-16.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-16 | No code change justified |
 | simonguo/evidenceloom | [assessment:evidenceloom-numeric-evidence-validation](data/assessment-candidate-batches/2026-10-22-06.json) | S1 | AWAITING_EXTERNAL | BLOCKED_PUBLICATION | — | assessment-upstream-2026-10-22-06 | Resolve documented publication gate |
 | Sinkear/agentwork | [assessment:agentwork-conflict-rework-idempotence](data/assessment-candidate-batches/2026-11-08-14.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-08-14 | Obtain missing native evidence |
+| smellak/gifford | [assessment:gifford-loop-budget-generation-fence](data/assessment-candidate-batches/2026-11-09-16.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-16 | No code change justified |
 | SuperagenticAI/pyflue | [assessment:pyflue-sandbox-tool-schema](data/assessment-candidate-batches/2026-10-23-08.json) | S1 | AWAITING_EXTERNAL | BLOCKED_PUBLICATION | — | assessment-upstream-2026-10-23-08 | Resolve documented publication gate |
 | Szotasz/marveen | [portfolio:marveen-1516](cases/marveen.md) | — | NOT_TRACKED | MERGED | [#1516](https://github.com/Szotasz/marveen/pull/1516) | casebook | Accepted externally; no new delivery claim |
 | talktorana/agent-harness | [assessment:talktorana-memory-concurrent-save](data/assessment-candidate-batches/2026-11-06-13.json) | S2 | AWAITING_EXTERNAL | NOT_SUBMITTED | — | assessment-upstream-2026-11-06-13 | Refresh source; check external publication grant |
 | topoteretes/cognee-community | [registry:cognee-community](registry.yaml) | — | NOT_TRACKED | OPEN | [#434](https://github.com/topoteretes/cognee-community/pull/434) | registry | Check current maintainer/CI outcome |
+| turri-oss/turri | [assessment:turri-module-lane-failure-release](data/assessment-candidate-batches/2026-11-09-16.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-16 | No code change justified |
 | uniac-ai/AgentOrg | [assessment:agentorg-shared-resource-claims](data/assessment-candidate-batches/2026-11-06-13.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-06-13 | Obtain missing native evidence |
 | vinhnx/VTCode | [assessment:vtcode-worktree-reconcile-name](data/assessment-candidate-batches/2026-10-22-02.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-10-22-02 | Obtain missing native evidence |
 | xincode-ai/xin-code | [assessment:xin-code-executor-permission](data/assessment-candidate-batches/2026-10-22-02.json) | S1 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-10-22-02 | Obtain missing native evidence |
 | xpressabhi/agentic-sdlc-control-plane | [assessment:conductor-sdlc-s2-replan-closure](data/assessment-candidate-batches/2026-11-06-12.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-06-12 | Obtain missing native evidence |
 | yoheinakajima/activegraph | [assessment:activegraph-event-patch-invariants](data/assessment-candidate-batches/2026-10-23-08.json) | S1 | AWAITING_EXTERNAL | BLOCKED_PUBLICATION | — | assessment-upstream-2026-10-23-08 | Resolve documented publication gate |
 | zenodea/zaino | [assessment:zaino-shared-stale-write](data/assessment-candidate-batches/2026-10-22-02.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-10-22-02 | No code change justified |
+| zhanghaojie513/Dougong | [assessment:dougong-detached-child-workspace-exclusion](data/assessment-candidate-batches/2026-11-09-16.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-09-16 | Obtain missing native evidence |
 
 ## Provenance and usage
 
