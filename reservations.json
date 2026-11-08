@@ -127,6 +127,22 @@
       "operation": "INTERNAL_PREPARE",
       "evidence_url": "https://github.com/opensiro/upstream/issues/159",
       "timestamp": "2026-11-08T12:32:13Z"
+    },
+    {
+      "action": "RELEASE",
+      "claim_id": "7dd1a7230efcdb0b405a720c44084b7f",
+      "batch_id": "e2476d10bd4489421a7686f90e54c52e",
+      "task_id": "portfolio-agent-code-69-review-20261108",
+      "coordinator": "chatgpt-upstream-auto-batch-20261108",
+      "actor": "chatgpt-upstream-auto-batch-20261108",
+      "resources": [
+        "pr:opensiro/upstream#69"
+      ],
+      "owner_issue": 150,
+      "operation": "READ_ONLY_REVIEW",
+      "evidence_url": "https://github.com/opensiro/upstream/issues/150",
+      "timestamp": "2026-11-08T12:37:06Z",
+      "reason": "DONE: PR #69 exact-head and current-main integration review recorded in Upstream #150 comment 6721570747; no merge or external write."
     }
   ]
 }
