@@ -190,7 +190,7 @@ def main():
     if args.validate_only:
         if args.output_json:
             parser.error("--output-json requires --observation-json")
-        print(f"Validated accepted-v1 schema and {len(ledger['accepted'])} proposed owner "
+        print(f"Validated accepted-v1 schema and {len(ledger['accepted'])} recorded owner "
               "decisions; no KPI or live evidence inferred")
         return
     report = json.loads(args.observation_json.read_text(encoding="utf-8"))

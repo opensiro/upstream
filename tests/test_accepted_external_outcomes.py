@@ -93,12 +93,26 @@ def owner_decision_api(item=None):
 
 class AcceptedExternalOutcomeTests(unittest.TestCase):
     def test_empty_versioned_ledger_stays_unclaimed(self):
-        ledger = accepted.load_ledger()
+        ledger = validate_local(proposed_ledger())
         self.assertEqual(ledger, proposed_ledger())
         result = accepted.verify_accepted(ledger, fake_report(), None)
         self.assertEqual(result["accepted_count"], 0)
         self.assertEqual(result["metric_status"], "UNCLAIMED_SEMANTIC_EVIDENCE")
         self.assertFalse(result["organization_metric_claimed"])
+
+    def test_current_ledger_tracks_two_explicit_owner_decisions_without_benefit_claims(self):
+        ledger = accepted.load_ledger()
+        self.assertEqual({row["intervention_id"] for row in ledger["accepted"]}, {
+            "improvement:agent-fleet-native-lease-contract",
+            "improvement:citadel-native-claim-exclusivity",
+        })
+        self.assertEqual({row["decision_pr_url"] for row in ledger["accepted"]}, {
+            "https://github.com/opensiro/upstream/pull/177",
+            "https://github.com/opensiro/upstream/pull/178",
+        })
+        self.assertTrue(all(row["decision_actor"] == "xLagerFeuer"
+                            and row["benefit_claim"] == "NOT_MEASURED"
+                            for row in ledger["accepted"]))
 
     def test_valid_owner_decision_is_source_only_not_organization_kpi(self):
         item = candidate()

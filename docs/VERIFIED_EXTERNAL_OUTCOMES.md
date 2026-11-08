@@ -89,11 +89,12 @@ performed. A partial or unexpected source error fails the observation.
 
 The separately versioned
 [`data/verified-external-outcomes/accepted-v1.json`](../data/verified-external-outcomes/accepted-v1.json)
-is **intentionally empty** until an explicit, attributable Upstream owner
-decision on individual evidence.
-The two `VERIFIED` Improvement candidates are **not silently imported**. An
-empty accepted ledger yields `UNCLAIMED_SEMANTIC_EVIDENCE`, not a claimed zero
-for the Organization metric.
+contains two explicitly owner-accepted Improvement interventions: Agent Fleet
+([decision #177](https://github.com/opensiro/upstream/pull/177)) and Citadel
+([decision #178](https://github.com/opensiro/upstream/pull/178)). These entries
+require live revalidation against their original first-party evidence; their
+presence in JSON alone is not an Organization KPI claim. An empty or invalid
+accepted ledger still must not be reported as a claimed zero.
 
 Each proposed accepted entry must identify one existing source intervention,
 the **complete original/replacement PR chain** and effective PR, exact external
@@ -153,10 +154,10 @@ the primary metric or website may claim the result.
    offline mocks or passing CI for a real observation.
 2. Decide ambiguous human disposition, native receipt and replacement-chain
    evidence in an Upstream-owned PR. Preserve accepted historical provenance.
-3. Record actual entries in the owner-decided, versioned **accepted outcome
-   ledger** using exact first-party evidence. The v1 validator and empty
-   baseline are in place, **not** the owner decisions; never use a raw
-   merged-PR count as this ledger.
+3. Revalidate actual entries in the owner-decided, versioned **accepted outcome
+   ledger** using exact first-party evidence. Decisions #177 and #178 provide
+   the two bounded Improvement entries; never substitute a raw merged-PR count
+   for this ledger or infer deployed benefit.
 4. Only then extend the Organization generic metrics collector from
    `unclaimed_semantic_evidence` to a value gated on the validated Upstream
    accepted ledger. The public site may display the result **after** that
