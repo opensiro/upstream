@@ -38,6 +38,20 @@
       ],
       "task_id": "portfolio-pr111-review-20261108",
       "timestamp": "2026-11-08T11:29:13Z"
+    },
+    {
+      "action": "RELEASE",
+      "actor": "chatgpt-upstream-auto-20261108",
+      "claim_id": "906c592fd8b138a37bad28ac65f35554",
+      "evidence_url": "https://github.com/opensiro/upstream/issues/150",
+      "owner_issue": 150,
+      "resources": [
+        "pr:opensiro/upstream#111",
+        "source:opensiro/upstream"
+      ],
+      "task_id": "portfolio-pr111-review-20261108",
+      "timestamp": "2026-11-08T11:32:43Z",
+      "reason": "Completed one source-pinned read-only PR #111 integration review; recorded conflict/test receipt on Upstream #150 comment 6720952334; held merge."
     }
   ]
 }
