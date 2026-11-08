@@ -7,7 +7,9 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
+from threading import Barrier
 from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -139,6 +141,49 @@ class ReservationTests(unittest.TestCase):
             self.assertEqual(len(ledger["events"]), 1)
             with self.assertRaisesRegex(mod.BatchError, "BLOCKED_CONCURRENT_RESERVATION"):
                 mod.claim(two, "origin", right, index, EVIDENCE, write=False)
+
+    def test_simultaneous_git_pushes_report_attributable_cas_conflict(self):
+        """Actual local bare-remote push race, not merely a mocked stale fetch."""
+        with tempfile.TemporaryDirectory() as temp:
+            one, two, index, left, right = self._fixture(Path(temp))
+            barrier = Barrier(2)
+            original_git = mod._git
+            rejected_push_stderr = []
+
+            def concurrent_git(root, *args, **kwargs):
+                if args and args[0] == "push":
+                    barrier.wait(timeout=10)
+                result = original_git(root, *args, **kwargs)
+                if args and args[0] == "push" and result.returncode:
+                    rejected_push_stderr.append(result.stderr)
+                return result
+
+            with patch.object(mod, "_git", side_effect=concurrent_git):
+                with ThreadPoolExecutor(max_workers=2) as pool:
+                    futures = [
+                        pool.submit(mod.claim, one, "origin", left, index, EVIDENCE,
+                                    write=True, preflight_reader=EmptyGithub()),
+                        pool.submit(mod.claim, two, "origin", right, index, EVIDENCE,
+                                    write=True, preflight_reader=EmptyGithub()),
+                    ]
+                    outcomes = []
+                    for future in futures:
+                        try:
+                            outcomes.append(future.result(timeout=15))
+                        except mod.BatchError as exc:
+                            outcomes.append(str(exc))
+
+            successes = [x for x in outcomes if isinstance(x, dict)]
+            losses = [x for x in outcomes if isinstance(x, str)]
+            self.assertEqual(len(successes), 1, outcomes)
+            self.assertEqual(len(losses), 1, outcomes)
+            self.assertIn("BLOCKED_CONCURRENT_RESERVATION", losses[0], rejected_push_stderr)
+            _, ledger = mod.fetch_ledger(one, "origin")
+            self.assertEqual(len(ledger["events"]), 1)
+            self.assertEqual(len(mod.replay(ledger)), 5)
+            with self.assertRaisesRegex(mod.BatchError, "BLOCKED_CONCURRENT_RESERVATION"):
+                mod.claim(two, "origin", right if successes[0]["batch_id"] == self.original["batch_id"]
+                          else left, index, EVIDENCE, write=False)
 
     def test_write_requires_live_github_visibility(self):
         with tempfile.TemporaryDirectory() as temp:
