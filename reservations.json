@@ -304,6 +304,36 @@
       "operation": "READ_ONLY_REVIEW",
       "timestamp": "2026-11-08T13:22:11.103Z",
       "reason": "DONE: read-only first-party external merge reconciliation; ledger main and internal archive Draft preserved, no double counting, owner receipt 6722023130."
+    },
+    {
+      "action": "CLAIM",
+      "claim_id": "7dcf70051b1b0255518ba1ca7fe7e710",
+      "batch_id": "e0d2fce6542b6ab31359f0a7f28d8791",
+      "task_id": "portfolio-cognee-21-submission-alignment-20261108",
+      "coordinator": "chatgpt-upstream-auto-batch-20261108root",
+      "actor": "chatgpt-upstream-auto-batch-20261108root",
+      "resources": [
+        "pr:opensiro/upstream#21"
+      ],
+      "owner_issue": 150,
+      "operation": "READ_ONLY_REVIEW",
+      "evidence_url": "https://github.com/opensiro/upstream/pull/21",
+      "timestamp": "2026-11-08T13:53:29Z"
+    },
+    {
+      "action": "CLAIM",
+      "claim_id": "1580c81b2127add0fea3bd98c4a0769b",
+      "batch_id": "e0d2fce6542b6ab31359f0a7f28d8791",
+      "task_id": "portfolio-harnessdesk-54-55-consolidation-20261108",
+      "coordinator": "chatgpt-upstream-auto-batch-20261108root",
+      "actor": "chatgpt-upstream-auto-batch-20261108root",
+      "resources": [
+        "pr:opensiro/upstream#54"
+      ],
+      "owner_issue": 150,
+      "operation": "READ_ONLY_REVIEW",
+      "evidence_url": "https://github.com/opensiro/upstream/pull/54",
+      "timestamp": "2026-11-08T13:53:29Z"
     }
   ]
 }
