@@ -25,6 +25,7 @@ Locks, queue state and a router alone never establish `S2=C` or `S2=A`.
 | --- | --- | --- |
 | `upstream auto status` | An agent reads live Upstream owner evidence, prepares a short-lived worklist and runs the deterministic read-only selector against the current task-CAS ledger. | Returns a **preview**, not proof of admission or execution. |
 | `upstream auto` | One bounded agent session: source-first S1 admission, live-worklist preview, optional atomic reservation, then one action in the already-owning task route followed by an attributable handoff/release. | If live task claims, tools or the exact task authority are absent, report `NOT_IMPLEMENTED_EXECUTOR` or the specific blocker; do not run work unreserved. |
+| `upstream auto batch` | One on-demand **batch of up to five independent admitted tasks** (configurable 1–10). Select a conflict-free set across lanes, atomically reserve its tasks, hand each claim to a named worker, then execute each through its existing owner route and report outcomes. | The CLI implements planning and an all-or-nothing task reservation, **not** a generic task executor. No automatic worker spawning, scheduling, external publication or merges. |
 | `upstream auto resume` | Re-read the declared actor's existing task claims, revalidate refs and continue one existing owner lane. | Missing/invalid claim returns `NOT_IMPLEMENTED_TASK_CLAIM` or `BLOCKED_RESERVATION_VISIBILITY`; no silent claim theft or release. |
 
 The dispatcher may select these existing owner tasks, never substitute
@@ -91,6 +92,52 @@ ceiling of three. These are provisional workload
 heuristics, **not** VSM S2 decisions by themselves. `status` makes **no write**,
 takes no reservation and creates no new Organization `NOW`/`NEXT` entry.
 
+### Batch sizing and balancing
+
+`upstream auto batch` treats a batch as a **collection of Upstream Auto task
+claims**, not as the separate five-source technical-assessment cohort.
+
+1. The operator builds one freshly observed, owner-admitted worklist exactly as
+   for `status`; unknown tasks are never filled in to reach a numeric target.
+2. The planner repeatedly chooses the top eligible task, provisionally claims
+   its exact resources and increments its lane/operation WIP, then re-runs
+   selection against the remaining capacity. This prevents a high-scoring
+   duplicate from entering the same batch and permits distinct PR reviews of
+   the same repository when their locks are genuinely independent.
+3. Default size is **up to five** tasks; `--count 1..10` is an upper bound, not
+   an instruction to invent tasks. Empty input returns
+   `NO_VERIFIED_ELIGIBLE_WORK`; an under-filled result is marked `PARTIAL` with
+   the blocked reasons.
+4. A committing call first checks **every selected** owner/PR live preflight
+   and, where needed, the independent five-source CAS. It then appends all
+   task `CLAIM` events in **one non-force Git CAS commit**. A lost CAS race or
+   any failed preflight leaves none of that invocation's claims committed.
+5. Each claim carries one shared `batch_id`, a `coordinator` actor and the
+   attributable worker `actor`. With `--workers worker-1,worker-2`, tasks are
+   assigned round-robin to the named workers; this command does **not** start
+   those sessions. Without `--workers`, all tasks belong to the single
+   coordinator and should be executed sequentially.
+6. The responsible worker must re-read its owner issue and native stage gates,
+   carry out the bounded action, persist actual task evidence in that owner's
+   record, and release **its own** claim. Other workers' claims are not released
+   just because one task has completed. A failed or interrupted task remains
+   visible through `resume` and requires an auditable handoff.
+
+Example — preview first, then explicitly reserve for already available agents:
+
+```bash
+python3 scripts/upstream_auto.py batch --manifest /path/to/fresh-worklist.json --count 5
+python3 scripts/upstream_auto.py batch --manifest /path/to/fresh-worklist.json --count 5 --actor coordinator-1 --workers worker-1,worker-2 --write-claim
+python3 scripts/upstream_auto.py resume --actor worker-1
+python3 scripts/upstream_auto.py resume --actor worker-2
+```
+
+The returned batch receipt contains claim IDs, pinned Upstream main/PR
+preflights, worker allocations and an explicit `work_executed=false`. It is a
+handoff for bounded **real work by the owning lane**, not an assertion that
+five external OSS contributions have been made. The claim only affects the
+task reservation ledger; no new authority is obtained from grouping tasks.
+
 ## CAS claims, recovery, and bounded execution
 
 The separate first-party Git branch `refs/heads/upstream-auto-task-reservations`
@@ -123,6 +170,9 @@ attribution reproducible after the original worklist expires. Historic ledger
 events without that field remain readable; until release, a legacy portfolio
 claim consumes **both** operation caps conservatively and cannot be silently
 reclassified by a new task proposal.
+Batch claim events also carry `batch_id` and `coordinator` while preserving
+the v1 ledger and support for historical individual events. A release must
+preserve these immutable identities, so per-worker outcomes remain attributable.
 
 At **any** subsequent mutable write or integration boundary the native owner
 must re-read the exact PR head and base, changed files including rename/delete
