@@ -85,27 +85,38 @@ offline validation only. No scheduled GitHub commits, issue updates, external
 publication, PR merge, retroactive ledger edits or cross-repository writes are
 performed. A partial or unexpected source error fails the observation.
 
-## Accepted outcome ledger v1 — Upstream owner-decision gate
+## Automatic accepted-source export — bounded S1 evidence rule
 
-The separately versioned
+The `observe` job automatically exports every candidate whose live result is
+`VERIFIED` as `ACCEPTED_MERGED_CHANGE_ONLY`, with
+`acceptance_basis=DETERMINISTIC_VERIFIED_MERGE` and
+`benefit_claim=NOT_MEASURED`. No per-intervention owner consent, GitHub
+`APPROVED` review or independent S3* audit is needed for this narrow
+deterministic outcome. The selection is made from the **complete, source-digest
+checked observation**, then each positive case is **re-evaluated from live
+first-party external PR and native CI APIs** before export. An unverified,
+unmerged, incomplete, drifted, stale or ambiguous result cannot be accepted.
+
+The previously versioned
 [`data/verified-external-outcomes/accepted-v1.json`](../data/verified-external-outcomes/accepted-v1.json)
-contains two explicitly owner-accepted Improvement interventions: Agent Fleet
+retains **optional historical decision provenance** for the two originally
+owner-accepted Improvement interventions: Agent Fleet
 ([decision #177](https://github.com/opensiro/upstream/pull/177)) and Citadel
-([decision #178](https://github.com/opensiro/upstream/pull/178)). These entries
-require live revalidation against their original first-party evidence; their
-presence in JSON alone is not an Organization KPI claim. An empty or invalid
-accepted ledger still must not be reported as a claimed zero.
+([decision #178](https://github.com/opensiro/upstream/pull/178)). Membership
+in this manually maintained file **does not determine automatic acceptance**:
+new machine-`VERIFIED` interventions are counted even when absent from it.
+Legacy records must still have exact first-party evidence and attributable
+merged decision PRs; a stale or counterfeit historical claim fails closed.
+Do not add new entries merely to obtain automatic acceptance.
 
-Each proposed accepted entry must identify one existing source intervention,
+Each historical entry identifies one existing source intervention,
 the **complete original/replacement PR chain** and effective PR, exact external
 merge SHA/timestamp, immutable native test receipt, and a merged Upstream
 decision PR attributable to the authorized owner. Its decision scope is
 `ACCEPTED_MERGED_CHANGE_ONLY`, with `benefit_claim=NOT_MEASURED`. This scope
-never asserts runtime deployment or productivity. A decision URL must refer to
-a real first-party Upstream PR merged by the named owner; inserting a URL into
-JSON cannot satisfy the live gate. The owner may also be the contributor.
-An independent `S3*` auditor or second `APPROVED` reviewer is **not** required
-inside the ordinary Upstream S1 loop.
+never asserts runtime deployment or productivity. A historical decision URL
+must refer to a real first-party Upstream PR merged by the named owner; inserting
+a URL into JSON cannot satisfy historical-provenance validation.
 
 To bind the owner's decision to evidence rather than an unrelated PR, the
 decision PR's description must contain three exact standalone lines (substitute
@@ -117,25 +128,22 @@ Outcome-Merge: <40-character external merge SHA>
 Outcome-Native-Receipt: <immutable GitHub native evidence URL>
 ```
 
-Only after that owner decision PR has merged may the accepted-v1 entry point
-to its URL. The ledger change itself remains a separate reviewable PR; ordinary
-CI and provenance checks still apply, without a second-person review gate.
+The historical ledger may link an owner decision only after its merge. This is
+additional audit provenance, **not** the route that every new outcome must use.
 
-`scripts/accepted_external_outcomes.py` checks source IDs and replacement
-chains offline, then compares **all** candidate IDs and source/cohort digests
-against the complete current live observation. For every accepted entry it
-independently re-fetches the external PR disposition, native CI and (where
-needed) post-publication source compare, plus the exact merged Upstream owner
-decision PR. Any drift, missing receipt, ambiguous status or invalid decision
-aborts the export.
-Version 1 accepts **only** the observer's `VERIFIED` cases; `PENDING_REVIEW`
-Corrective/casebook/registry cases require an explicitly scoped semantic
-acceptance extension rather than an automatic override.
+`scripts/accepted_external_outcomes.py` checks source IDs, replacement
+chains and source/cohort digests against the complete current live observation.
+For **every `VERIFIED` candidate** it independently re-fetches first-party
+disposition, native CI and (where needed) post-publication source compare.
+If an optional historical decision exists, its exact provenance is checked
+too. Drift, missing receipt, ambiguous status or invalid historical provenance
+aborts the export. `PENDING_REVIEW` Corrective/casebook/registry cases remain
+outside automatic acceptance and need an explicitly scoped semantic path.
 
 ```bash
 python3 scripts/accepted_external_outcomes.py --validate-only
 python3 -m unittest discover -s tests -p 'test_accepted_external_outcomes.py' -v
-# After a successful read-only observe, with GITHUB_TOKEN for nonempty ledgers:
+# After a successful read-only observe, with GITHUB_TOKEN for live revalidation:
 python3 scripts/accepted_external_outcomes.py \
   --observation-json /tmp/upstream-external-outcomes.json \
   --output-json /tmp/upstream-accepted-outcomes.json
@@ -144,7 +152,7 @@ python3 scripts/accepted_external_outcomes.py \
 The existing workflow adds the separately labeled accepted-source JSON into
 the **same 90-day artifact**; it does not create another workflow/job or a
 GitHub write. Even a nonempty, valid export is
-`UPSTREAM_REVIEWED_SOURCE_ONLY` with `organization_metric_claimed=false`.
+`UPSTREAM_ACCEPTED_SOURCE_ONLY` with `organization_metric_claimed=false`.
 An Organization-owned collector and reviewable PR remain mandatory before
 the primary metric or website may claim the result.
 
@@ -154,10 +162,10 @@ the primary metric or website may claim the result.
    offline mocks or passing CI for a real observation.
 2. Decide ambiguous human disposition, native receipt and replacement-chain
    evidence in an Upstream-owned PR. Preserve accepted historical provenance.
-3. Revalidate actual entries in the owner-decided, versioned **accepted outcome
-   ledger** using exact first-party evidence. Decisions #177 and #178 provide
-   the two bounded Improvement entries; never substitute a raw merged-PR count
-   for this ledger or infer deployed benefit.
+3. Revalidate the automatically generated **accepted-source export** against
+   exact first-party evidence. Retain decisions #177 and #178 as provenance,
+   not as repeatable per-contribution approval gates. Never substitute a raw
+   merged-PR count or infer deployed benefit.
 4. Only then extend the Organization generic metrics collector from
    `unclaimed_semantic_evidence` to a value gated on the validated Upstream
    accepted ledger. The public site may display the result **after** that
