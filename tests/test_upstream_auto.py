@@ -98,6 +98,140 @@ class UpstreamAutoTests(unittest.TestCase):
         self.assertEqual(mod.plan(manifest(old, recent), {"schema_version": 1, "events": []},
                                   now=NOW)["selected"]["task_id"], old["task_id"])
 
+    def test_batch_selector_packs_five_independent_tasks_with_shared_wip(self):
+        tasks = [
+            task("maintenance:urgent", priority="P0"),
+            task("maintenance:duplicate", priority="P1"),
+            task("maintenance:second", repo="other/repo", priority="P1"),
+            task("outcomes:first", lane="outcomes", repo="outcomes/a", priority="P1"),
+            task("outcomes:second", lane="outcomes", repo="outcomes/b", priority="P2"),
+            task("portfolio:111", lane="portfolio", repo="opensiro/upstream", pr_number=111),
+            task("portfolio:55", lane="portfolio", repo="opensiro/upstream", pr_number=55),
+        ]
+        view = mod.plan_batch(manifest(*tasks), {"schema_version": 1, "events": []},
+                              size=5, now=NOW)
+        self.assertEqual(view["fill"], "FULL")
+        self.assertEqual(view["selected_count"], 5)
+        ids = {item["task_id"] for item in view["selected"]}
+        self.assertIn("maintenance:urgent", ids)
+        self.assertNotIn("maintenance:duplicate", ids)
+        self.assertEqual(len([item for item in view["selected"] if item["lane"] == "maintenance"]), 2)
+        self.assertIn({"task_id": "maintenance:duplicate", "reason": "CLAIMED_RESOURCE"}, view["blocked"])
+        self.assertEqual(len({key for item in view["selected"] for key in item["resources"]}),
+                         sum(len(item["resources"]) for item in view["selected"]))
+
+    def test_batch_size_partial_fill_and_no_work(self):
+        only = task("maintenance:only")
+        source = {"schema_version": 1, "events": []}
+        view = mod.plan_batch(manifest(only), source, size=5, now=NOW)
+        self.assertEqual((view["selected_count"], view["requested_count"], view["fill"]),
+                         (1, 5, "PARTIAL"))
+        self.assertEqual(source["events"], [])
+        self.assertEqual(mod.plan_batch(manifest(), source, now=NOW)["status"],
+                         "NO_VERIFIED_ELIGIBLE_WORK")
+        for bad in (0, 11, -1, True, 1.5):
+            with self.subTest(size=bad), self.assertRaisesRegex(mod.AutoError, "Batch size"):
+                mod.plan_batch(manifest(only), source, size=bad, now=NOW)
+
+    def test_batch_atomic_claim_release_and_resume(self):
+        first = task("portfolio:111", lane="portfolio", repo="opensiro/upstream", pr_number=111)
+        second = task("portfolio:55", lane="portfolio", repo="opensiro/upstream", pr_number=55)
+        inp = manifest(first, second)
+        with tempfile.TemporaryDirectory() as temp:
+            one, two = make_fixture(Path(temp))
+            before, _ = mod.fetch_ledger(one, "origin")
+            receipt = mod.claim_batch(one, "origin", inp, "agent-batch", size=5,
+                                      workers=["worker-one", "worker-two"],
+                                      write=True, reader=FakeReader(), now=NOW)
+            self.assertEqual(receipt["status"], "WRITTEN_CAS")
+            self.assertEqual(receipt["fill"], "PARTIAL")
+            self.assertEqual(receipt["selected_count"], 2)
+            self.assertFalse(receipt["work_executed"])
+            self.assertFalse(receipt["external_writes_authorized"])
+            self.assertEqual(git(one, "rev-parse", receipt["claim_commit"] + "^"), before)
+            _, ledger = mod.fetch_ledger(two, "origin")
+            self.assertEqual(len(ledger["events"]), 2)
+            self.assertEqual({ev["batch_id"] for ev in ledger["events"]}, {receipt["batch_id"]})
+            ongoing = [*mod.resume(two, "origin", "worker-one", now=NOW)["claims"],
+                       *mod.resume(two, "origin", "worker-two", now=NOW)["claims"]]
+            self.assertEqual(len(ongoing), 2)
+            self.assertEqual({entry["batch_id"] for entry in ongoing}, {receipt["batch_id"]})
+            self.assertEqual({entry["coordinator"] for entry in ongoing}, {"agent-batch"})
+            self.assertEqual({entry["actor"] for entry in receipt["claims"]},
+                             {"worker-one", "worker-two"})
+            self.assertEqual(mod.resume(two, "origin", "agent-batch", now=NOW)["claims"], [])
+            with self.assertRaisesRegex(mod.AutoError, "NO_VERIFIED_ELIGIBLE_WORK"):
+                mod.claim_batch(two, "origin", inp, "another-agent", write=True,
+                                reader=FakeReader(), now=NOW)
+            with self.assertRaisesRegex(mod.AutoError, "only original actor"):
+                mod.release(two, "origin", receipt["claims"][0]["claim_id"], "agent-batch",
+                            "First PR review recorded to owner issue", first["evidence_url"], now=NOW)
+            mod.release(two, "origin", receipt["claims"][0]["claim_id"], "worker-one",
+                        "First PR review recorded to owner issue", first["evidence_url"],
+                        write=True, now=NOW)
+            _, after = mod.fetch_ledger(one, "origin")
+            self.assertEqual(len(mod.replay(after)), 1)
+            self.assertEqual(next(iter(mod.replay(after).values()))["batch_id"], receipt["batch_id"])
+
+    def test_batch_coordinator_and_worker_roster_cannot_be_tampered(self):
+        event = {"action": "CLAIM", "claim_id": "a" * 32, "batch_id": "b" * 32,
+                 "coordinator": "agent-batch", "task_id": "maintenance:one",
+                 "actor": "worker-one", "resources": ["pr:example/repo#4"],
+                 "owner_issue": 125, "operation": "READ_ONLY_REVIEW",
+                 "evidence_url": "https://github.com/example/repo/pull/4",
+                 "timestamp": stamp(NOW)}
+        release = {**event, "action": "RELEASE", "reason": "Owner confirmed worker handoff"}
+        self.assertEqual(mod.replay({"schema_version": 1, "events": [event, release]}), {})
+        with self.assertRaisesRegex(mod.AutoError, "Release requires active original"):
+            mod.replay({"schema_version": 1, "events": [event,
+                       {**release, "coordinator": "other-agent"}]})
+        with self.assertRaisesRegex(mod.AutoError, "Malformed batch coordinator"):
+            mod.replay({"schema_version": 1, "events": [{**event, "coordinator": "bad value"}]})
+        with tempfile.TemporaryDirectory() as temp:
+            one, _ = make_fixture(Path(temp))
+            with self.assertRaisesRegex(mod.AutoError, "Worker roster"):
+                mod.claim_batch(one, "origin", manifest(task("maintenance:one")),
+                                "agent-batch", workers=["same", "same"], now=NOW)
+
+    def test_batch_preflight_failure_never_leaves_partial_claims(self):
+        first = task("portfolio:111", lane="portfolio", repo="opensiro/upstream", pr_number=111)
+        second = task("portfolio:55", lane="portfolio", repo="opensiro/upstream", pr_number=55)
+
+        class SecondHeadMoved(FakeReader):
+            def get(self, path):
+                data = super().get(path)
+                if path.endswith("/pulls/55"):
+                    data["head"]["sha"] = "f" * 40
+                return data
+
+        with tempfile.TemporaryDirectory() as temp:
+            one, _ = make_fixture(Path(temp))
+            before, _ = mod.fetch_ledger(one, "origin")
+            with self.assertRaisesRegex(mod.AutoError, "BLOCKED_PR_HEAD_CHANGED"):
+                mod.claim_batch(one, "origin", manifest(first, second), "agent-batch",
+                                write=True, reader=SecondHeadMoved(), now=NOW)
+            after, ledger = mod.fetch_ledger(one, "origin")
+            self.assertEqual(before, after)
+            self.assertEqual(ledger["events"], [])
+
+    def test_batch_cas_race_one_winner_and_replan(self):
+        first = task("portfolio:111", lane="portfolio", repo="opensiro/upstream", pr_number=111)
+        second = task("portfolio:55", lane="portfolio", repo="opensiro/upstream", pr_number=55)
+        with tempfile.TemporaryDirectory() as temp:
+            one, two = make_fixture(Path(temp))
+            stale = mod.fetch_ledger(two, "origin")
+            own = mod.claim_batch(one, "origin", manifest(first), "first-agent", size=1,
+                                  write=True, reader=FakeReader(), now=NOW)
+            self.assertEqual(own["selected_count"], 1)
+            with patch.object(mod, "fetch_ledger", return_value=stale):
+                with self.assertRaisesRegex(mod.AutoError, "BLOCKED_CONCURRENT_RESERVATION"):
+                    mod.claim_batch(two, "origin", manifest(first, second), "second-agent",
+                                    write=True, reader=FakeReader(), now=NOW)
+            fresh = mod.claim_batch(two, "origin", manifest(first, second), "second-agent",
+                                    write=True, reader=FakeReader(), now=NOW)
+            self.assertEqual([item["task_id"] for item in fresh["claims"]], [second["task_id"]])
+            self.assertEqual(len(mod.replay(mod.fetch_ledger(one, "origin")[1])), 2)
+
     def test_duplicate_id_stale_evidence_and_forbidden_operation_fail_closed(self):
         item = task("maintenance:test")
         with self.assertRaisesRegex(mod.AutoError, "Duplicate or malformed"):

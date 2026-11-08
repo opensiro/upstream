@@ -8,6 +8,7 @@ No external repository mutation, background daemon, or VSM grade is implied.
 """
 
 import argparse
+import copy
 import json
 import os
 import re
@@ -36,6 +37,8 @@ PORTFOLIO_OPERATION_WIP_CAP = {"READ_ONLY_REVIEW": 2, "INTERNAL_PREPARE": 1}
 LANE_BONUS = {"maintenance": 8, "outcomes": 7, "batch": 5,
               "portfolio": 4}
 PRIORITY_BASE = {"P0": 100, "P1": 70, "P2": 40, "P3": 10}
+BATCH_DEFAULT_SIZE = 5
+BATCH_MAX_SIZE = 10
 TASK_KEY = re.compile(r"[a-z0-9][a-z0-9._:#/-]{2,159}\Z")
 RESOURCE_KEY = re.compile(
     r"(?:source:[a-z0-9_.-]+/[a-z0-9_.-]+|"
@@ -50,6 +53,8 @@ TASK_FIELDS = {"task_id", "lane", "owner_issue", "resources",
 EVENT_FIELDS = {"action", "claim_id", "task_id", "actor", "resources",
                 "owner_issue", "evidence_url", "timestamp"}
 EVENT_OPERATION = {"operation"}
+EVENT_BATCH = {"batch_id"}
+EVENT_COORDINATOR = {"coordinator"}
 
 
 def _timestamp(value):
@@ -172,8 +177,17 @@ def replay(ledger):
                 (not isinstance(event["operation"], str)
                  or event["operation"] not in PORTFOLIO_OPERATION_WIP_CAP)):
             raise AutoError("Unknown task claim operation")
+        if ("batch_id" in event and
+                (not isinstance(event["batch_id"], str)
+                 or not re.fullmatch(r"[0-9a-f]{32}", event["batch_id"]))):
+            raise AutoError("Malformed task batch identity")
+        if ("coordinator" in event and
+                ("batch_id" not in event or not isinstance(event["coordinator"], str)
+                 or not ACTOR.fullmatch(event["coordinator"]))):
+            raise AutoError("Malformed batch coordinator")
         if action == "CLAIM":
-            if (set(event) not in (EVENT_FIELDS, EVENT_FIELDS | EVENT_OPERATION)
+            if (not EVENT_FIELDS <= set(event)
+                    or set(event) - EVENT_FIELDS - EVENT_OPERATION - EVENT_BATCH - EVENT_COORDINATOR
                     or claim_id in seen
                     or event["task_id"] in {x["task_id"] for x in active.values()}):
                 raise AutoError("Duplicate task claim")
@@ -185,12 +199,14 @@ def replay(ledger):
             seen.add(claim_id)
         else:
             prior = active.get(claim_id)
-            if (set(event) not in (EVENT_FIELDS | {"reason"},
-                                   EVENT_FIELDS | EVENT_OPERATION | {"reason"})
+            if (not EVENT_FIELDS | {"reason"} <= set(event)
+                    or set(event) - EVENT_FIELDS - EVENT_OPERATION - EVENT_BATCH - EVENT_COORDINATOR - {"reason"}
                     or prior is None or not isinstance(event["reason"], str)
                     or len(event["reason"].strip()) < 15
                     or _timestamp(event["timestamp"]) < _timestamp(prior["timestamp"])
                     or event.get("operation") != prior.get("operation")
+                    or event.get("batch_id") != prior.get("batch_id")
+                    or event.get("coordinator") != prior.get("coordinator")
                     or any(event[k] != prior[k] for k in ("task_id", "actor", "resources", "owner_issue"))):
                 raise AutoError("Release requires active original claim, actor and auditable reason")
             for key in keys:
@@ -245,6 +261,57 @@ def plan(manifest, ledger, *, now=None):
             "eligible": eligible, "blocked": blocked, "active_claims": len(active),
             "upstream_main_sha": manifest["upstream_main_sha"],
             "warning": "Manifest actionability is an agent proposal, not live attestation or permission to execute"}
+
+
+def plan_batch(manifest, ledger, *, size=BATCH_DEFAULT_SIZE, now=None):
+    """Choose independent tasks against *combined* resources and lane WIP caps.
+
+    Each provisional selection is replayed as an in-memory claim before the
+    next choice. This uses the same admission/conflict oracle as one-task plan;
+    it never changes the live Git ledger.
+    """
+    if type(size) is not int or not 1 <= size <= BATCH_MAX_SIZE:
+        raise AutoError(f"Batch size must be between 1 and {BATCH_MAX_SIZE}")
+    now = now or datetime.now(timezone.utc)
+    simulated = copy.deepcopy(ledger)
+    selected = []
+    last_view = None
+    used_ids = {event.get("claim_id") for event in simulated.get("events", [])
+                if isinstance(event, dict)}
+    next_claim_id = 1
+    for index in range(size):
+        last_view = plan(manifest, simulated, now=now)
+        candidate = last_view["selected"]
+        if candidate is None:
+            break
+        task = next(t for t in manifest["tasks"] if t["task_id"] == candidate["task_id"])
+        selected.append(candidate)
+        while f"{next_claim_id:032x}" in used_ids:
+            next_claim_id += 1
+        preview_claim_id = f"{next_claim_id:032x}"
+        used_ids.add(preview_claim_id)
+        next_claim_id += 1
+        simulated["events"].append({
+            "action": "CLAIM", "claim_id": preview_claim_id,
+            "task_id": task["task_id"], "actor": "batch-preview",
+            "resources": candidate["resources"],
+            "owner_issue": candidate["owner_issue"],
+            "operation": task["operation"],
+            "evidence_url": candidate["evidence_url"],
+            "timestamp": now.strftime("%Y-%m-%dT%H:%M:%SZ")})
+    # The final view includes simulated reservations for chosen tasks; report
+    # only the remaining work as blocked, never mark chosen work as blocked.
+    if len(selected) == size:
+        last_view = plan(manifest, simulated, now=now)
+    picked = {item["task_id"] for item in selected}
+    return {"status": "PREVIEW_ONLY" if selected else "NO_VERIFIED_ELIGIBLE_WORK",
+            "selected": selected, "selected_count": len(selected),
+            "requested_count": size,
+            "fill": "FULL" if len(selected) == size else "PARTIAL",
+            "blocked": [item for item in last_view["blocked"] if item["task_id"] not in picked],
+            "active_claims": len(replay(ledger)),
+            "upstream_main_sha": manifest["upstream_main_sha"],
+            "warning": "Preview is not live admission or task execution; owner gates remain controlling"}
 
 
 def _git(root, *args, input_text=None, allow_failure=False):
@@ -311,8 +378,8 @@ def live_preflight(manifest, task, reader):
             "status": "LIVE_PREFLIGHT_PASS"}
 
 
-def _append(root, remote, parent, ledger, event, *, write):
-    updated = {"schema_version": 1, "events": ledger["events"] + [event]}
+def _append_events(root, remote, parent, ledger, events, *, write):
+    updated = {"schema_version": 1, "events": ledger["events"] + events}
     replay(updated)
     if not write:
         return {"status": "PREVIEW_ONLY", "parent_sha": parent}
@@ -320,7 +387,7 @@ def _append(root, remote, parent, ledger, event, *, write):
     blob = _git(root, "hash-object", "-w", "--stdin", input_text=payload).stdout.strip()
     tree = _git(root, "mktree", input_text=f"100644 blob {blob}\treservations.json\n").stdout.strip()
     commit = _git(root, "commit-tree", tree, "-p", parent,
-                  input_text=f"Upstream Auto {event['action'].lower()} {event['task_id']}\n").stdout.strip()
+                  input_text=f"Upstream Auto {events[0]['action'].lower()} {len(events)} task(s)\n").stdout.strip()
     pushed = _git(root, "push", remote, f"{commit}:{LEDGER_REF}", allow_failure=True)
     if pushed.returncode:
         error = pushed.stderr.casefold()
@@ -328,6 +395,26 @@ def _append(root, remote, parent, ledger, event, *, write):
             raise AutoError("BLOCKED_CONCURRENT_RESERVATION: Git CAS lost; re-fetch and re-plan")
         raise AutoError("RESERVATION_PUSH_BLOCKED: Git remote rejected the task reservation write")
     return {"status": "WRITTEN_CAS", "claim_commit": commit, "parent_sha": parent}
+
+
+def _append(root, remote, parent, ledger, event, *, write):
+    return _append_events(root, remote, parent, ledger, [event], write=write)
+
+
+def _check_batch_source_cas(root, remote, tasks):
+    for selected in tasks:
+        if selected["lane"] != "batch":
+            continue
+        # The Upstream Auto task ledger cannot replace the five-source CAS.
+        try:
+            _, source_ledger = fetch_batch_ledger(root, remote)
+            source_owners = replay_batch(source_ledger)
+        except BatchError as exc:
+            raise AutoError("BLOCKED_BATCH_SOURCE_CAS: source reservation unavailable") from exc
+        batch = next(k[len("batch:"):] for k in selected["resources"] if k.startswith("batch:"))
+        sources = [k[len("source:"):] for k in selected["resources"] if k.startswith("source:")]
+        if any(source_owners.get(source) != batch for source in sources):
+            raise AutoError("BLOCKED_BATCH_SOURCE_CAS: five sources not reserved to frozen batch")
 
 
 def claim(root, remote, manifest, actor, *, task_id=None, write=False, reader=None, now=None):
@@ -343,17 +430,8 @@ def claim(root, remote, manifest, actor, *, task_id=None, write=False, reader=No
     if selected is None:
         raise AutoError("BLOCKED_TASK_NOT_AVAILABLE: occupied, unadmitted or WIP cap")
     task = next(t for t in manifest["tasks"] if t["task_id"] == task_ref)
-    if write and task["lane"] == "batch":
-        # This separate source-CAS is mandatory; the task lease cannot replace it.
-        try:
-            _, source_ledger = fetch_batch_ledger(root, remote)
-            source_owners = replay_batch(source_ledger)
-        except BatchError as exc:
-            raise AutoError("BLOCKED_BATCH_SOURCE_CAS: source reservation unavailable") from exc
-        batch = next(k[len("batch:"):] for k in selected["resources"] if k.startswith("batch:"))
-        sources = [k[len("source:"):] for k in selected["resources"] if k.startswith("source:")]
-        if any(source_owners.get(source) != batch for source in sources):
-            raise AutoError("BLOCKED_BATCH_SOURCE_CAS: five sources not reserved to frozen batch")
+    if write:
+        _check_batch_source_cas(root, remote, [selected])
     # Validate even when planning only, but never imply unverified external authority.
     preflight = live_preflight(manifest, task, reader) if write else None
     event = {"action": "CLAIM", "claim_id": uuid.uuid4().hex,
@@ -374,6 +452,54 @@ def claim(root, remote, manifest, actor, *, task_id=None, write=False, reader=No
     return receipt
 
 
+def claim_batch(root, remote, manifest, actor, *, size=BATCH_DEFAULT_SIZE,
+                workers=None, write=False, reader=None, now=None):
+    """Reserve an eligible multi-task handoff atomically in one non-force CAS.
+
+    This does not execute any task. No reservations are written if *any* chosen
+    task fails preflight or the ledger CAS loses a concurrent race.
+    """
+    now = now or datetime.now(timezone.utc)
+    if not isinstance(actor, str) or not ACTOR.fullmatch(actor):
+        raise AutoError("Invalid attributable actor")
+    workers = [actor] if workers is None else workers
+    if (not isinstance(workers, list) or not 1 <= len(workers) <= BATCH_MAX_SIZE
+            or any(not isinstance(w, str) or not ACTOR.fullmatch(w) for w in workers)
+            or len(workers) != len(set(workers))):
+        raise AutoError("Worker roster needs 1–10 distinct attributable actors")
+    parent, ledger = fetch_ledger(root, remote)
+    selection = plan_batch(manifest, ledger, size=size, now=now)
+    if not selection["selected"]:
+        raise AutoError("NO_VERIFIED_ELIGIBLE_WORK: nothing admitted for the batch")
+    if not write:
+        return selection
+    _check_batch_source_cas(root, remote, selection["selected"])
+    batch_id = uuid.uuid4().hex
+    events, receipts = [], []
+    for index, selected in enumerate(selection["selected"]):
+        task = next(t for t in manifest["tasks"] if t["task_id"] == selected["task_id"])
+        preflight = live_preflight(manifest, task, reader)
+        worker = workers[index % len(workers)]
+        event = {"action": "CLAIM", "claim_id": uuid.uuid4().hex,
+                 "batch_id": batch_id, "task_id": task["task_id"],
+                 "coordinator": actor, "actor": worker, "resources": selected["resources"],
+                 "owner_issue": selected["owner_issue"], "operation": task["operation"],
+                 "evidence_url": selected["evidence_url"],
+                 "timestamp": now.strftime("%Y-%m-%dT%H:%M:%SZ")}
+        events.append(event)
+        receipts.append({"claim_id": event["claim_id"], "task_id": task["task_id"],
+                         "actor": worker, "lane": task["lane"],
+                         "owner_issue": selected["owner_issue"],
+                         "resources": selected["resources"], "live_preflight": preflight})
+    result = _append_events(root, remote, parent, ledger, events, write=True)
+    result.update({"batch_id": batch_id, "actor": actor, "selected_count": len(events),
+                   "requested_count": size, "fill": selection["fill"],
+                   "claims": receipts, "blocked": selection["blocked"],
+                   "external_writes_authorized": False, "work_executed": False,
+                   "next": "For EACH claim, re-check its owning issue and stage gate, execute and record one bounded native task action, then release its claim individually"})
+    return result
+
+
 def resume(root, remote, actor, *, now=None):
     now = now or datetime.now(timezone.utc)
     _, ledger = fetch_ledger(root, remote)
@@ -382,6 +508,8 @@ def resume(root, remote, actor, *, now=None):
     for event in records:
         age = now - _timestamp(event["timestamp"])
         result.append({"claim_id": event["claim_id"], "task_id": event["task_id"],
+                       "batch_id": event.get("batch_id"),
+                       "coordinator": event.get("coordinator"),
                        "owner_issue": event["owner_issue"], "resources": event["resources"],
                        "operation": event.get("operation", "UNKNOWN_LEGACY"),
                        "status": "STALE_CLAIM_UNRESOLVED" if age > timedelta(hours=24) else "CLAIMED_NEEDS_REVALIDATION"})
@@ -410,12 +538,15 @@ def release(root, remote, claim_id, actor, reason, evidence_url, *, write=False,
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("status", "claim", "resume", "release"))
+    parser.add_argument("command", choices=("status", "batch", "claim", "resume", "release"))
     parser.add_argument("--manifest", type=Path)
     parser.add_argument("--git-root", type=Path, default=Path.cwd())
     parser.add_argument("--remote", default="origin")
     parser.add_argument("--actor")
+    parser.add_argument("--workers", help="Comma-separated worker actor roster for batch claims; no agents are spawned")
     parser.add_argument("--task-id")
+    parser.add_argument("--count", type=int, default=BATCH_DEFAULT_SIZE,
+                        help="Maximum independent tasks in batch mode (default: 5, max: 10)")
     parser.add_argument("--claim-id")
     parser.add_argument("--reason")
     parser.add_argument("--evidence-url")
@@ -424,13 +555,23 @@ def main(argv=None):
     args = parser.parse_args(argv)
     try:
         manifest = json.loads(args.manifest.read_text(encoding="utf-8")) if args.manifest else None
-        if args.command in {"status", "claim"} and manifest is None:
+        if args.command in {"status", "batch", "claim"} and manifest is None:
             raise AutoError("A fresh agent-reviewed --manifest is required")
-        if args.command in {"claim", "resume", "release"} and not args.actor:
+        if (args.command in {"claim", "resume", "release"}
+                or (args.command == "batch" and args.write_claim)) and not args.actor:
             raise AutoError("An attributable --actor is required")
         if args.command == "status":
             _, ledger = fetch_ledger(args.git_root, args.remote)
             result = plan(manifest, ledger)
+        elif args.command == "batch":
+            if args.write_claim:
+                result = claim_batch(args.git_root, args.remote, manifest, args.actor,
+                                     size=args.count, write=True,
+                                     workers=args.workers.split(",") if args.workers is not None else None,
+                                     reader=GithubReader(os.environ.get("GITHUB_TOKEN")))
+            else:
+                _, ledger = fetch_ledger(args.git_root, args.remote)
+                result = plan_batch(manifest, ledger, size=args.count)
         elif args.command == "claim":
             result = claim(args.git_root, args.remote, manifest, args.actor,
                            task_id=args.task_id, write=args.write_claim,
