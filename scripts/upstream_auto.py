@@ -67,6 +67,22 @@ def _timestamp(value):
         raise AutoError("Invalid UTC date") from exc
 
 
+def _event_timestamp(value):
+    """Read existing millisecond ledger events without widening worklist input.
+
+    Some connector-written historical CLAIM/RELEASE events used ISO UTC
+    fractional seconds. Future first-party events still emit whole seconds.
+    The append-only ledger must remain replayable without rewriting history.
+    """
+    if isinstance(value, str) and re.fullmatch(
+            r"[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{1,6}Z", value):
+        try:
+            return datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%fZ").replace(tzinfo=timezone.utc)
+        except ValueError as exc:
+            raise AutoError("Invalid UTC date") from exc
+    return _timestamp(value)
+
+
 def _issue_url(value):
     if not isinstance(value, str):
         raise AutoError("Missing first-party evidence URL")
@@ -171,7 +187,7 @@ def replay(ledger):
                 or type(event["owner_issue"]) is not int or event["owner_issue"] not in LANE_OWNER.values()):
             raise AutoError("Malformed claim identity")
         _issue_url(event["evidence_url"])
-        _timestamp(event["timestamp"])
+        _event_timestamp(event["timestamp"])
         keys = _resources(event["resources"])
         if ("operation" in event and
                 (not isinstance(event["operation"], str)
@@ -203,7 +219,7 @@ def replay(ledger):
                     or set(event) - EVENT_FIELDS - EVENT_OPERATION - EVENT_BATCH - EVENT_COORDINATOR - {"reason"}
                     or prior is None or not isinstance(event["reason"], str)
                     or len(event["reason"].strip()) < 15
-                    or _timestamp(event["timestamp"]) < _timestamp(prior["timestamp"])
+                    or _event_timestamp(event["timestamp"]) < _event_timestamp(prior["timestamp"])
                     or event.get("operation") != prior.get("operation")
                     or event.get("batch_id") != prior.get("batch_id")
                     or event.get("coordinator") != prior.get("coordinator")
@@ -506,7 +522,7 @@ def resume(root, remote, actor, *, now=None):
     records = [event for event in replay(ledger).values() if event["actor"] == actor]
     result = []
     for event in records:
-        age = now - _timestamp(event["timestamp"])
+        age = now - _event_timestamp(event["timestamp"])
         result.append({"claim_id": event["claim_id"], "task_id": event["task_id"],
                        "batch_id": event.get("batch_id"),
                        "coordinator": event.get("coordinator"),
