@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Fail-closed owner-decision outcomes ledger; never infer acceptance from merge.
+"""Fail-closed evidence-based acceptance of narrowly verified external merges.
 
-An empty ledger intentionally means no Organization-claimable value. A nonempty
-ledger must be checked against a fresh, complete observer report and an exact,
-attributable Upstream owner decision before entries are eligible for export.
-Independent S3* review is not part of this ordinary S1 acceptance loop.
+The live observer's strict VERIFIED status is sufficient for the bounded
+ACCEPTED_MERGED_CHANGE_ONLY result after independent first-party API recheck.
+The versioned owner-decision ledger preserves optional historical provenance,
+not a per-intervention acceptance gate. Ambiguous cases remain unaccepted;
+no S3* audit, deployed-benefit assertion or Organization KPI is implied.
 """
 
 from __future__ import annotations
@@ -120,57 +121,72 @@ def validate_observation(report):
 
 
 def verify_accepted(ledger, report, api):
-    """Only exact machine-verified rows with owner-attributed decisions are eligible.
+    """Automatically accept exact machine-VERIFIED merged changes.
 
     Semantic overrides (Corrective/casebook/registry PENDING_REVIEW) intentionally
-    require a separately scoped source-owned extension, not an S3* review.
+    require a separately scoped source-owned extension, not a fabricated verdict.
     """
     candidates = validate_observation(report)
-    if ledger["accepted"] and api is None:
-        raise ValueError("Live GitHub owner-decision revalidation required for accepted records")
+    verified = [row for row in candidates.values() if row["status"] == "VERIFIED"]
+    if (verified or ledger["accepted"]) and api is None:
+        raise ValueError("Live GitHub evidence revalidation required for accepted records")
     result = []
-    source = {item["id"]: item for item in observer.cohort()[0]}
-    for row in ledger["accepted"]:
-        entry = candidates[row["intervention_id"]]
-        if (entry["status"] != "VERIFIED" or entry["reason_codes"]
+    owner_history = {row["intervention_id"]: row for row in ledger["accepted"]}
+    # The cohort's deterministic order, not artifact row order or manual
+    # decision-ledger membership, defines the accepted export.
+    for item in observer.cohort()[0]:
+        entry = candidates[item["id"]]
+        history = owner_history.get(item["id"])
+        if entry["status"] != "VERIFIED":
+            if history:
+                raise ValueError("Historic owner decision no longer has machine-verified evidence")
+            continue
+        if (entry["reason_codes"]
                 or entry.get("pr_states", [])[-1:] != ["merged"]
-                or entry.get("merged_at") != row["merged_at"]
-                or entry.get("merge_commit_sha") != row["merge_commit_sha"]
-                or entry.get("native_receipt") != row["native_receipt"]):
-            raise ValueError("Accepted entry lacks exact machine-verified live evidence")
+                or not isinstance(entry.get("merged_at"), str)
+                or not SHA.fullmatch(entry.get("merge_commit_sha") or "")
+                or not observer.immutable_native_receipt(entry.get("native_receipt") or "")):
+            raise ValueError("VERIFIED candidate lacks exact merged native evidence")
         # The observer artifact alone is not a proof: re-check first-party PR,
         # landed source delta and native CI against the current GitHub API.
-        fresh = observer.evaluate(api, source[row["intervention_id"]])
+        fresh = observer.evaluate(api, item)
         if (fresh["status"] != "VERIFIED" or fresh["reason_codes"]
                 or any(fresh.get(key) != entry.get(key) for key in (
                     "pr_urls", "pr_states", "merged_at", "merge_commit_sha", "native_receipt"))):
             raise ValueError("Accepted entry differs from current first-party GitHub evidence")
-        # Owner action is an S1 decision, not an S3* audit. A merged Upstream PR
-        # by the named owner, with exact evidence markers, is the attributable
-        # decision record; an APPROVED review by a second person is optional.
-        number = DECISION_PR_URL.fullmatch(row["decision_pr_url"]).group(1)
-        decided_pr = api.get(f"/repos/opensiro/upstream/pulls/{number}")
-        markers = {
-            f"Outcome-Acceptance: {row['intervention_id']}",
-            f"Outcome-Merge: {row['merge_commit_sha']}",
-            f"Outcome-Native-Receipt: {row['native_receipt']}",
-        }
-        if (decided_pr.get("html_url") != row["decision_pr_url"]
-                or decided_pr.get("state") != "closed" or not decided_pr.get("merged_at")
-                or (decided_pr.get("user") or {}).get("login") != row["decision_actor"]
-                or (decided_pr.get("merged_by") or {}).get("login") != row["decision_actor"]
-                or decided_pr.get("base", {}).get("repo", {}).get("full_name") != "opensiro/upstream"
-                or not isinstance(decided_pr.get("body"), str)
-                or not markers.issubset(set(decided_pr["body"].splitlines()))):
-            raise ValueError("Owner decision PR does not attest this exact accepted intervention")
-        result.append({"intervention_id": row["intervention_id"],
-                       "external_pr_url": row["effective_pr_url"],
-                       "merge_commit_sha": row["merge_commit_sha"],
-                       "native_receipt": row["native_receipt"],
-                       "owner_decision": row["decision_pr_url"],
-                       "benefit_claim": "NOT_MEASURED"})
+        accepted = {"intervention_id": item["id"],
+                    "external_pr_url": item["pr_urls"][-1],
+                    "merge_commit_sha": entry["merge_commit_sha"],
+                    "native_receipt": entry["native_receipt"],
+                    "decision": "ACCEPTED_MERGED_CHANGE_ONLY",
+                    "acceptance_basis": "DETERMINISTIC_VERIFIED_MERGE",
+                    "benefit_claim": "NOT_MEASURED"}
+        if history:
+            # Preserve the two historical owner decisions as extra provenance.
+            # Their existence is not required for any future VERIFIED entry.
+            if (history["merge_commit_sha"] != entry["merge_commit_sha"]
+                    or history["merged_at"] != entry["merged_at"]
+                    or history["native_receipt"] != entry["native_receipt"]):
+                raise ValueError("Historic owner decision differs from live source")
+            number = DECISION_PR_URL.fullmatch(history["decision_pr_url"]).group(1)
+            decided_pr = api.get(f"/repos/opensiro/upstream/pulls/{number}")
+            markers = {
+                f"Outcome-Acceptance: {history['intervention_id']}",
+                f"Outcome-Merge: {history['merge_commit_sha']}",
+                f"Outcome-Native-Receipt: {history['native_receipt']}",
+            }
+            if (decided_pr.get("html_url") != history["decision_pr_url"]
+                    or decided_pr.get("state") != "closed" or not decided_pr.get("merged_at")
+                    or (decided_pr.get("user") or {}).get("login") != history["decision_actor"]
+                    or (decided_pr.get("merged_by") or {}).get("login") != history["decision_actor"]
+                    or decided_pr.get("base", {}).get("repo", {}).get("full_name") != "opensiro/upstream"
+                    or not isinstance(decided_pr.get("body"), str)
+                    or not markers.issubset(set(decided_pr["body"].splitlines()))):
+                raise ValueError("Historic owner decision PR does not attest this intervention")
+            accepted["owner_decision"] = history["decision_pr_url"]
+        result.append(accepted)
     return {"schema_version": 1, "source": "opensiro/upstream",
-            "metric_status": "UPSTREAM_REVIEWED_SOURCE_ONLY" if result
+            "metric_status": "UPSTREAM_ACCEPTED_SOURCE_ONLY" if result
                              else "UNCLAIMED_SEMANTIC_EVIDENCE",
             "observed_at": report["observed_at"],
             "source_sha256": report["source_sha256"],
@@ -194,8 +210,7 @@ def main():
               "decisions; no KPI or live evidence inferred")
         return
     report = json.loads(args.observation_json.read_text(encoding="utf-8"))
-    api = (pr_maintenance_watch.Github(os.environ.get("GITHUB_TOKEN", ""))
-           if ledger["accepted"] else None)
+    api = pr_maintenance_watch.Github(os.environ.get("GITHUB_TOKEN", ""))
     result = verify_accepted(ledger, report, api)
     if args.output_json:
         args.output_json.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")

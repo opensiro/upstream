@@ -1,4 +1,4 @@
-"""Accepted external outcome ledger must fail closed on counterfeit acceptance."""
+"""Deterministic external outcome acceptance must fail closed on weak evidence."""
 
 from collections import Counter
 import copy
@@ -61,9 +61,11 @@ def fake_report(accepted_item=None):
                         "reason_codes": ["EXTERNAL_PR_NOT_MERGED"],
                         "merged_at": None, "merge_commit_sha": None})
     if accepted_item:
-        actual = observer.evaluate(fixtures.improved_api(accepted_item), accepted_item)
-        index = next(i for i, row in enumerate(records) if row["id"] == accepted_item["id"])
-        records[index] = actual
+        items = accepted_item if isinstance(accepted_item, (tuple, list)) else [accepted_item]
+        for item in items:
+            actual = observer.evaluate(fixtures.improved_api(item), item)
+            index = next(i for i, row in enumerate(records) if row["id"] == item["id"])
+            records[index] = actual
     counts = Counter(row["status"] for row in records)
     return {"schema_version": 1, "observed_at": datetime.now(timezone.utc).isoformat(),
             "source_sha256": observer.digest_sources(),
@@ -119,9 +121,42 @@ class AcceptedExternalOutcomeTests(unittest.TestCase):
         ledger = validate_local(proposed_ledger(decision(item)))
         result = accepted.verify_accepted(ledger, fake_report(item), owner_decision_api(item))
         self.assertEqual(result["accepted_count"], 1)
-        self.assertEqual(result["metric_status"], "UPSTREAM_REVIEWED_SOURCE_ONLY")
+        self.assertEqual(result["metric_status"], "UPSTREAM_ACCEPTED_SOURCE_ONLY")
         self.assertFalse(result["organization_metric_claimed"])
         self.assertEqual(result["accepted"][0]["owner_decision"], DECISION_URL)
+
+    def test_verified_change_auto_accepted_without_owner_decision(self):
+        item = candidate()
+        ledger = validate_local(proposed_ledger())
+        result = accepted.verify_accepted(ledger, fake_report(item), fixtures.improved_api(item))
+        self.assertEqual(result["accepted_count"], 1)
+        self.assertEqual(result["metric_status"], "UPSTREAM_ACCEPTED_SOURCE_ONLY")
+        self.assertEqual(result["accepted"][0]["acceptance_basis"],
+                         "DETERMINISTIC_VERIFIED_MERGE")
+        self.assertEqual(result["accepted"][0]["decision"],
+                         "ACCEPTED_MERGED_CHANGE_ONLY")
+        self.assertNotIn("owner_decision", result["accepted"][0])
+        self.assertEqual(result["accepted"][0]["benefit_claim"], "NOT_MEASURED")
+        self.assertFalse(result["organization_metric_claimed"])
+
+    def test_all_machine_verified_cases_are_accepted_without_ledger_membership(self):
+        items = [item for item in observer.cohort()[0] if item["kind"] == "improvement"]
+        self.assertEqual(len(items), 2)
+        api = fixtures.improved_api(items[0])
+        api.responses.update(fixtures.improved_api(items[1]).responses)
+        result = accepted.verify_accepted(validate_local(proposed_ledger()),
+                                          fake_report(items), api)
+        self.assertEqual(result["accepted_count"], 2)
+        self.assertEqual({row["intervention_id"] for row in result["accepted"]},
+                         {item["id"] for item in items})
+        self.assertTrue(all("owner_decision" not in row
+                            and row["acceptance_basis"] == "DETERMINISTIC_VERIFIED_MERGE"
+                            for row in result["accepted"]))
+
+    def test_no_api_for_automatic_verified_candidate_fails_closed(self):
+        ledger = validate_local(proposed_ledger())
+        with self.assertRaisesRegex(ValueError, "Live GitHub"):
+            accepted.verify_accepted(ledger, fake_report(candidate()), None)
 
     def test_duplicate_id_or_decision_is_rejected(self):
         with self.assertRaisesRegex(ValueError, "duplicate accepted"):
@@ -180,8 +215,23 @@ class AcceptedExternalOutcomeTests(unittest.TestCase):
     def test_machine_pending_review_cannot_be_promoted_by_human_field(self):
         report = fake_report()
         ledger = validate_local(proposed_ledger(decision()))
-        with self.assertRaisesRegex(ValueError, "machine-verified"):
+        with self.assertRaisesRegex(ValueError, "no longer has machine-verified"):
             accepted.verify_accepted(ledger, report, owner_decision_api())
+
+    def test_pending_review_cannot_auto_accept_even_with_valid_api(self):
+        ledger = validate_local(proposed_ledger())
+        result = accepted.verify_accepted(ledger, fake_report(), fixtures.improved_api(candidate()))
+        self.assertEqual(result["accepted_count"], 0)
+        self.assertEqual(result["metric_status"], "UNCLAIMED_SEMANTIC_EVIDENCE")
+
+    def test_inconsistent_verified_artifact_fails_without_owner_decision(self):
+        item = candidate()
+        report = fake_report(item)
+        record = next(row for row in report["records"] if row["id"] == item["id"])
+        record["merge_commit_sha"] = "1" * 40
+        with self.assertRaisesRegex(ValueError, "current first-party"):
+            accepted.verify_accepted(validate_local(proposed_ledger()),
+                                     report, fixtures.improved_api(item))
 
     def test_no_api_for_nonempty_acceptance_fails_closed(self):
         ledger = validate_local(proposed_ledger(decision()))
@@ -219,6 +269,13 @@ class AcceptedExternalOutcomeTests(unittest.TestCase):
         api.responses[fixtures.pr_path(item["pr_urls"][0])]["user"]["login"] = "intruder"
         with self.assertRaisesRegex(ValueError, "current first-party"):
             accepted.verify_accepted(ledger, fake_report(item), api)
+
+    def test_auto_accept_reobserves_first_party_without_owner_history(self):
+        item = candidate()
+        api = fixtures.improved_api(item)
+        api.responses[fixtures.pr_path(item["pr_urls"][0])]["user"]["login"] = "intruder"
+        with self.assertRaisesRegex(ValueError, "current first-party"):
+            accepted.verify_accepted(validate_local(proposed_ledger()), fake_report(item), api)
 
 
 if __name__ == "__main__":
