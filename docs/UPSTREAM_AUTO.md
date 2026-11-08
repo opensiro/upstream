@@ -158,6 +158,13 @@ lifecycle where applicable, then commits a new Git tree against the fetched
 ledger head. A **non-force** push is its compare-and-swap admission. Losing
 a race yields `BLOCKED_CONCURRENT_RESERVATION` and requires a fresh read;
 different unclaimed resources can proceed after re-planning.
+Git may report the losing concurrent ref update as `incorrect old value
+provided` (not only `non-fast-forward`); this is a CAS conflict, not a
+permission failure. A deterministic test sends two separate Git clients into
+the same local bare remote concurrently and requires one winner, one
+`BLOCKED_CONCURRENT_RESERVATION`, and successful fresh-head re-planning.
+That **offline process-level contention test** does not prove two independent
+AI agents executed owner work or exercised production GitHub permissions.
 
 The declared `--actor` is an audit label, **not cryptographic authentication**;
 actual Git/provider permission remains a separate gate. A successful claim

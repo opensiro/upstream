@@ -407,7 +407,8 @@ def _append_events(root, remote, parent, ledger, events, *, write):
     pushed = _git(root, "push", remote, f"{commit}:{LEDGER_REF}", allow_failure=True)
     if pushed.returncode:
         error = pushed.stderr.casefold()
-        if any(label in error for label in ("non-fast-forward", "fetch first", "stale info")):
+        if any(label in error for label in ("non-fast-forward", "fetch first", "stale info",
+                                            "incorrect old value provided")):
             raise AutoError("BLOCKED_CONCURRENT_RESERVATION: Git CAS lost; re-fetch and re-plan")
         raise AutoError("RESERVATION_PUSH_BLOCKED: Git remote rejected the task reservation write")
     return {"status": "WRITTEN_CAS", "claim_commit": commit, "parent_sha": parent}
