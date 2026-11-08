@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-09-16",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "46219bf103b0b122d86abc3ca70ae3d8bc820e2c",
+  "frozen_at": "2026-11-09",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "UPSTREAM UPGRADE BATCH 16: five highest recent reviewed distinct included S1=A/S2=C Index assessments on main@46219bf103b0b122d86abc3ca70ae3d8bc820e2c, excluding all 75 preceding assessment batch candidates and visible open Upstream PRs. Before target source/issue/PR inspection, prospective VSM S2 native weaknesses, null cases and falsifiers preregistered at immutable commit 9610f56cb6e163fa3b36cd0eb31d7eb2231e8dbe. No reservations or external rights inferred. Test only through distinct deterministic runner after independent first-party fit.",
+  "candidates": [
+    {
+      "id": "gifford-loop-budget-generation-fence",
+      "assessment_path": "assessments/gi/gifford.md",
+      "source": "smellak/gifford",
+      "review_ref": "b618cff69f3f83a4513304c55ef34fd13bfd50f5",
+      "reviewed_at": "2026-11-05",
+      "function": "S2",
+      "finding": "Index S2=C records versioned inter-agent conversation loop budget, pause and human extension. Prospectively test whether in-flight stale-generation delivery or concurrent pause/extension bypasses the bounded admission relation; null if per-delivery CAS and paused-state fences already cover it.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/gi/gifford.md",
+        "https://github.com/smellak/gifford/blob/33c4b4c3f3b5b7083eca6f2f530a8bac5a68a854/internal/channel/loop_admission.go",
+        "https://github.com/smellak/gifford/blob/33c4b4c3f3b5b7083eca6f2f530a8bac5a68a854/internal/channel/loops_test.go"
+      ]
+    },
+    {
+      "id": "dougong-detached-child-workspace-exclusion",
+      "assessment_path": "assessments/do/dougong.md",
+      "source": "zhanghaojie513/Dougong",
+      "review_ref": "5d7ff991baa0da919c580f418ed5415b50ba3a94",
+      "reviewed_at": "2026-11-04",
+      "function": "S2",
+      "finding": "Index S2=C records a shared workspace mutex for exclusive tools and separately scoped dispatcher resource leases. Prospectively test whether async detached child write effects escape a parent spawn lease and overlap independent ACP session writes; null if child tool execution acquires the same gate.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PASS",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/do/dougong.md",
+        "https://github.com/zhanghaojie513/Dougong/blob/bc222656bd7387df6c9a106ef46cc63f5f8c4af3/src/Dougong.Agent/ToolResourceGate.cs",
+        "https://github.com/zhanghaojie513/Dougong/blob/bc222656bd7387df6c9a106ef46cc63f5f8c4af3/src/Dougong.Agent/FileTools.cs",
+        "https://github.com/zhanghaojie513/Dougong/blob/bc222656bd7387df6c9a106ef46cc63f5f8c4af3/src/Dougong.Cli/SessionComposition.cs",
+        "https://github.com/zhanghaojie513/Dougong/blob/5d7ff991baa0da919c580f418ed5415b50ba3a94/spike/Dougong.Agent.Comparison/WorkspaceLockChecks.cs"
+      ],
+      "blocker": "The first-party shared-workspace-exclusive path and instance-private keyed file resource path are separated, including for detached child dispatchers. No mixed-keyed-file versus workspace-exclusive regression or safe scheduler counterfactual is established; a blanket lock would serialize valid disjoint file operations. .NET 10 native runner/toolchain is not currently available on the connected host; do not claim derived benefit."
+    },
+    {
+      "id": "turri-module-lane-failure-release",
+      "assessment_path": "assessments/tu/turri.md",
+      "source": "turri-oss/turri",
+      "review_ref": "47b578cafcab669a0ed3c02b9d0f1d5e17fcd8fa",
+      "reviewed_at": "2026-11-04",
+      "function": "S2",
+      "finding": "Index S2=C records deterministic module/dependency lane collision reservation and wait/retry. Prospectively test whether an aborted or failed pulse strands an occupied ancestor lane and starves an eligible waiting job; null if all terminal paths release or reap correctly.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/tu/turri.md",
+        "https://github.com/turri-oss/turri/blob/4c00ff0b8befda112d9f061921a23920607f0d39/src/regenerate/jobs.ts",
+        "https://github.com/turri-oss/turri/blob/4c00ff0b8befda112d9f061921a23920607f0d39/src/regenerate/pulse-files.ts",
+        "https://github.com/turri-oss/turri/blob/4c00ff0b8befda112d9f061921a23920607f0d39/src/regenerate/ledger.ts",
+        "https://github.com/turri-oss/turri/blob/4c00ff0b8befda112d9f061921a23920607f0d39/tests/regenerate/jobs.test.ts"
+      ],
+      "disposition_note": "The run result (including abort/failure) becomes a fulfilled Job; completion gives back capacity, then registers the job as done and deletes owned lanes; dependencies use allSettled. Ledger file write, log write and pulse cleanup errors are caught. No supported starvation path or reproducible improvement identified. Exceptional user-provided warn throwing is outside the normal lane terminal path and not a validated need."
+    },
+    {
+      "id": "pi-foreman-worktree-alias-ownership",
+      "assessment_path": "assessments/pi/pi-foreman.md",
+      "source": "Shredi/pi-foreman",
+      "review_ref": "8f8c473cc2332602373d03850d4826eea2f79f51",
+      "reviewed_at": "2026-11-04",
+      "function": "S2",
+      "finding": "Index S2=C records per-session owned worktree/cwd/branch guard for parallel builders. Prospectively test whether symlink/path aliases or changed subprocess cwd bypass the nonowner write/push guard; null if canonical containment and session identity already close all supported paths.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/pi/pi-foreman.md",
+        "https://github.com/Shredi/pi-foreman/blob/feef667e3cb0d8d209bc0ffcaf34169ac1d285b0/extensions/git-guard/index.ts",
+        "https://github.com/Shredi/pi-foreman/blob/feef667e3cb0d8d209bc0ffcaf34169ac1d285b0/scripts/git_guard.py",
+        "https://github.com/Shredi/pi-foreman/blob/feef667e3cb0d8d209bc0ffcaf34169ac1d285b0/tests/test_git_guard_foreman_checkout.py",
+        "https://github.com/Shredi/pi-foreman/blob/feef667e3cb0d8d209bc0ffcaf34169ac1d285b0/tests/test_git_guard_scratch_realpath.py"
+      ],
+      "disposition_note": "The required child shell extension passes exact session and cwd to git_guard, fails closed on interpreter/error, and git_guard realpath-canonicalizes checkout and candidate git write targets (including -C, --git-dir, --work-tree, and cd). First-party tests include symlinked checkout and scratch, nested owned worktree, and nonowner write refusals. Explicit documented limit: command-string guard, not a subprocess sandbox; direct execution inside a script is out of protection contract. No supported-path bypass or justified native patch shown."
+    },
+    {
+      "id": "kehai-child-slot-cancellation-recovery",
+      "assessment_path": "assessments/ke/kehai.md",
+      "source": "sh1ny/kehai",
+      "review_ref": "170d97ae4f89ccda16e513abc4d9a531f8558c38",
+      "reviewed_at": "2026-11-04",
+      "function": "S2",
+      "finding": "Index S2=C records deterministic live child-agent/job admission caps with wait/cancel feedback. Prospectively test whether concurrent cancellation or child exit leaves a slot stranded and rejects a new eligible job; null if supervisor cleanup already reliably recycles capacity.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ke/kehai.md",
+        "https://github.com/sh1ny/kehai/blob/170d97ae4f89ccda16e513abc4d9a531f8558c38/lib/src/jobs/supervisor.dart",
+        "https://github.com/sh1ny/kehai/blob/170d97ae4f89ccda16e513abc4d9a531f8558c38/test/jobs/agent_job_test.dart",
+        "https://github.com/sh1ny/kehai/blob/170d97ae4f89ccda16e513abc4d9a531f8558c38/test/jobs/supervisor_test.dart",
+        "https://github.com/sh1ny/kehai/blob/170d97ae4f89ccda16e513abc4d9a531f8558c38/test/jobs/reconcile_test.dart"
+      ],
+      "disposition_note": "Supervisor reserves synchronously before await, counts only slotHeld jobs, and _run's finally clears slotHeld and removes map entry on all results/errors. Handoff, orphan and failed-storage paths also release early on terminal settlement. Native first-party tests verify 4-agent bound, next admission after child exit, 16-job bound after cancellation and concurrent exit/cancel terminal idempotence. No source-supported capacity leak; native tests were not executed by the assistant."
+    }
+  ]
+}
