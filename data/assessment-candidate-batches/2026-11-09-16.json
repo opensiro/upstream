@@ -87,17 +87,22 @@
       "reviewed_at": "2026-11-04",
       "function": "S2",
       "finding": "Index S2=C records per-session owned worktree/cwd/branch guard for parallel builders. Prospectively test whether symlink/path aliases or changed subprocess cwd bypass the nonowner write/push guard; null if canonical containment and session identity already close all supported paths.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
       },
       "evidence": [
-        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/pi/pi-foreman.md"
-      ]
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/pi/pi-foreman.md",
+        "https://github.com/Shredi/pi-foreman/blob/feef667e3cb0d8d209bc0ffcaf34169ac1d285b0/extensions/git-guard/index.ts",
+        "https://github.com/Shredi/pi-foreman/blob/feef667e3cb0d8d209bc0ffcaf34169ac1d285b0/scripts/git_guard.py",
+        "https://github.com/Shredi/pi-foreman/blob/feef667e3cb0d8d209bc0ffcaf34169ac1d285b0/tests/test_git_guard_foreman_checkout.py",
+        "https://github.com/Shredi/pi-foreman/blob/feef667e3cb0d8d209bc0ffcaf34169ac1d285b0/tests/test_git_guard_scratch_realpath.py"
+      ],
+      "disposition_note": "The required child shell extension passes exact session and cwd to git_guard, fails closed on interpreter/error, and git_guard realpath-canonicalizes checkout and candidate git write targets (including -C, --git-dir, --work-tree, and cd). First-party tests include symlinked checkout and scratch, nested owned worktree, and nonowner write refusals. Explicit documented limit: command-string guard, not a subprocess sandbox; direct execution inside a script is out of protection contract. No supported-path bypass or justified native patch shown."
     },
     {
       "id": "kehai-child-slot-cancellation-recovery",
