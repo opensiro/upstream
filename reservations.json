@@ -242,6 +242,36 @@
       "evidence_url": "https://github.com/opensiro/upstream/issues/150",
       "timestamp": "2026-11-08T13:16:21Z",
       "reason": "DONE: cancelled PR #54 macOS job rerun attempt 2 passed all native steps; exact-head owner #150 evidence comment 6721963127. PR held open for #55 consolidation review."
+    },
+    {
+      "action": "CLAIM",
+      "claim_id": "ac08add94c5a49fceafb758188120828",
+      "task_id": "portfolio-agent-fleet-119-archive-review-20261108",
+      "resources": [
+        "pr:opensiro/upstream#119"
+      ],
+      "evidence_url": "https://github.com/opensiro/upstream/pull/119",
+      "batch_id": "95d2b8e5f1c08f2f9ea7e1283036715e",
+      "coordinator": "chatgpt-upstream-auto-batch-20261108e",
+      "actor": "chatgpt-upstream-auto-batch-20261108e",
+      "owner_issue": 150,
+      "operation": "READ_ONLY_REVIEW",
+      "timestamp": "2026-11-08T13:20:52.432Z"
+    },
+    {
+      "action": "CLAIM",
+      "claim_id": "735f6dcc09d95eae6a12f407866291e8",
+      "task_id": "portfolio-citadel-118-archive-review-20261108",
+      "resources": [
+        "pr:opensiro/upstream#118"
+      ],
+      "evidence_url": "https://github.com/opensiro/upstream/pull/118",
+      "batch_id": "95d2b8e5f1c08f2f9ea7e1283036715e",
+      "coordinator": "chatgpt-upstream-auto-batch-20261108e",
+      "actor": "chatgpt-upstream-auto-batch-20261108e",
+      "owner_issue": 150,
+      "operation": "READ_ONLY_REVIEW",
+      "timestamp": "2026-11-08T13:20:52.432Z"
     }
   ]
 }
