@@ -192,6 +192,23 @@
       "operation": "INTERNAL_PREPARE",
       "evidence_url": "https://github.com/opensiro/upstream/pull/111",
       "timestamp": "2026-11-08T13:09:01Z"
+    },
+    {
+      "action": "RELEASE",
+      "claim_id": "b657a18f40636200b2feebeadac85f28",
+      "batch_id": "a5d600a24a1f67a91d1067a692f8175a",
+      "task_id": "portfolio-intake-111-conflict-repair-20261108",
+      "coordinator": "chatgpt-upstream-auto-batch-20261108c",
+      "actor": "chatgpt-upstream-auto-batch-20261108c",
+      "resources": [
+        "pr:opensiro/upstream#111",
+        "source:opensiro/upstream"
+      ],
+      "owner_issue": 150,
+      "operation": "INTERNAL_PREPARE",
+      "evidence_url": "https://github.com/opensiro/upstream/issues/150",
+      "timestamp": "2026-11-08T13:12:50Z",
+      "reason": "DONE: exact-source PR #111 merge-conflict repair pushed non-force, 593 tests and exact-head CI passed; owner #150 receipt 6721927872. Internal PR remains open for policy disposition."
     }
   ]
 }
