@@ -15,10 +15,11 @@
       "reviewed_at": "2026-11-04",
       "function": "S2",
       "finding": "Index S2=C records launch flock, canonical task-store locks and session/worktree exclusion. Prospectively test whether an exit after a seat/session record but before live worker establishment leaves stale ownership blocking a safe retry; null if the supported lifecycle reconciles every crash boundary.",
-      "stage": "SCREENING",
+      "stage": "BLOCKED_EVIDENCE",
       "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/po/posse.md", "https://github.com/opensiro/upstream/blob/1ff55966c8f7b88ebe8909ee4e74347faafba22d/data/assessment-candidate-batches/2026-11-09-17-HYPOTHESES.md"]
+      "fit": {"need": "PENDING", "mechanism": "PASS", "counterfactual": "PENDING", "scope": "PASS"},
+      "evidence": ["https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/po/posse.md", "https://github.com/opensiro/upstream/blob/1ff55966c8f7b88ebe8909ee4e74347faafba22d/data/assessment-candidate-batches/2026-11-09-17-HYPOTHESES.md", "https://github.com/ranger360ai/posse/blob/7d3446efb6f3be24c2528d32b9ed83e9a051b08a/internal/posse/launchlock.go", "https://github.com/ranger360ai/posse/blob/7d3446efb6f3be24c2528d32b9ed83e9a051b08a/internal/posse/autoreap.go", "https://github.com/ranger360ai/posse/blob/7d3446efb6f3be24c2528d32b9ed83e9a051b08a/internal/posse/launchlock_test.go"],
+      "blocker": "The first-party flock is kernel-released on process death and the dispatch sweep/reaper uses persisted prompt-grace, current session status and residue guards. This defeats a stale *lock-file* diagnosis but does not independently establish whether a crash after session metadata write and before confirmed live worker/prompt can strand a reusable seat under every supported launcher entry. No source-native crash-point test or validated safe counterfactual was found in the examined contract. Do not substitute a stale-PID cleanup (the lock PID is diagnostic only), or claim a product defect."
     },
     {
       "id": "northcua-stale-preparation-lease-turnover",
@@ -28,10 +29,11 @@
       "reviewed_at": "2026-11-04",
       "function": "S2",
       "finding": "Index S2=C records persisted task attempts, heartbeat/lease claims and single-use prepared reservation. Prospectively test late preparation after attempt expiry and successor reclaim; null if exact attempt fences already prevent stale device/environment adoption and release.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/no/northcua.md", "https://github.com/opensiro/upstream/blob/1ff55966c8f7b88ebe8909ee4e74347faafba22d/data/assessment-candidate-batches/2026-11-09-17-HYPOTHESES.md"]
+      "fit": {"need": "FAIL", "mechanism": "PASS", "counterfactual": "FAIL", "scope": "PASS"},
+      "evidence": ["https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/no/northcua.md", "https://github.com/opensiro/upstream/blob/1ff55966c8f7b88ebe8909ee4e74347faafba22d/data/assessment-candidate-batches/2026-11-09-17-HYPOTHESES.md", "https://github.com/beipo-ai/NorthCUA/blob/3a84026a1affa77f3ffeca9c58012eabf6824733/northcua/batch/preparation/sqlite_store.py", "https://github.com/beipo-ai/NorthCUA/blob/3a84026a1affa77f3ffeca9c58012eabf6824733/northcua/batch/preparation/manager.py"],
+      "disposition_note": "A reserved/preparing/prepared task has a unique reservation_token; _update_status requires the captured (task_id, attempt, reservation_token, current_status) in a SQLite transaction, so a late old preparer cannot promote a replaced row. Assignment additionally checks current runner_id, exact attempt, PREPARED status and remaining TTL. Expiry/cancellation schedules unassigned release. No supported stale-preparation adoption path or justified patch established; inspected source only, no native execution claimed."
     },
     {
       "id": "orchestragent-stale-integration-test-verdict",
@@ -41,10 +43,11 @@
       "reviewed_at": "2026-11-04",
       "function": "S2",
       "finding": "Index S2=C records serialized merges, affected-test gates and rebase feedback for parallel builder worktrees. Prospectively test whether a stale test verdict survives integration-head drift; null if final locked-head recheck is mandatory.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/or/orchestragent-orch.md", "https://github.com/opensiro/upstream/blob/1ff55966c8f7b88ebe8909ee4e74347faafba22d/data/assessment-candidate-batches/2026-11-09-17-HYPOTHESES.md"]
+      "fit": {"need": "FAIL", "mechanism": "PASS", "counterfactual": "FAIL", "scope": "PASS"},
+      "evidence": ["https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/or/orchestragent-orch.md", "https://github.com/opensiro/upstream/blob/1ff55966c8f7b88ebe8909ee4e74347faafba22d/data/assessment-candidate-batches/2026-11-09-17-HYPOTHESES.md", "https://github.com/Orchestragent/orchestragent/blob/533d06b440654e0f9c9654c80945a751796747e5/src/orchestragent/orch_run.py#L3848-L3910"],
+      "disposition_note": "_merge enters integration_change, cherry-picks under git_lock, reads the resulting merged HEAD and changed paths, computes affected previously merged-task tests at that exact merged HEAD, executes the gate on a worktree at merged and then records the verified head. The prospective stale pre-merge test verdict is not the implemented path. No supported head-drift gap or native patch justified; no model or native test was executed."
     },
     {
       "id": "7ar-harness-stale-pr-head-feedback",
@@ -54,10 +57,11 @@
       "reviewed_at": "2026-11-04",
       "function": "S2",
       "finding": "Index S2=C records dependency release and PR CI/conflict fix-round feedback. Prospectively test whether older green CI/mergeability for the same PR is accepted after a newer fix-round head; null if exact SHA checks or native provider semantics fence every decision.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/7a/7ar-harness.md", "https://github.com/opensiro/upstream/blob/1ff55966c8f7b88ebe8909ee4e74347faafba22d/data/assessment-candidate-batches/2026-11-09-17-HYPOTHESES.md"]
+      "fit": {"need": "FAIL", "mechanism": "PASS", "counterfactual": "FAIL", "scope": "PASS"},
+      "evidence": ["https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/7a/7ar-harness.md", "https://github.com/opensiro/upstream/blob/1ff55966c8f7b88ebe8909ee4e74347faafba22d/data/assessment-candidate-batches/2026-11-09-17-HYPOTHESES.md", "https://github.com/7ar-chat/harness/blob/989a3a5e5d5cc14ece07281542c25b17df40c87a/features/factory/forge/loop.go#L485-L760"],
+      "disposition_note": "CI transitions/events are explicitly keyed to e.pr.HeadSHA and a new head starts a new settled-green interval; the gate is also recorded per SHA. The actual Forge.Merge call supplies that expected head SHA and treats a head-moved conflict as a reason to evaluate again. No old-green-to-new-head admission path supported by the inspected native loop; no source-native test execution or patch claimed."
     },
     {
       "id": "swarmos-stale-worker-publish-fence",
@@ -67,10 +71,11 @@
       "reviewed_at": "2026-11-03",
       "function": "S2",
       "finding": "Index S2=C records Git CAS fenced claims, revocation and artifact/checkpoint revalidation. Prospectively test stale worker publication after lease takeover; null if every supported shared publication edge requires current claim CAS.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
-      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
-      "evidence": ["https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/sw/swarmos.md", "https://github.com/opensiro/upstream/blob/1ff55966c8f7b88ebe8909ee4e74347faafba22d/data/assessment-candidate-batches/2026-11-09-17-HYPOTHESES.md"]
+      "fit": {"need": "FAIL", "mechanism": "PASS", "counterfactual": "FAIL", "scope": "PASS"},
+      "evidence": ["https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/sw/swarmos.md", "https://github.com/opensiro/upstream/blob/1ff55966c8f7b88ebe8909ee4e74347faafba22d/data/assessment-candidate-batches/2026-11-09-17-HYPOTHESES.md", "https://github.com/supernovae/SwarmOS/blob/f591d6739eeabbd074d04b5b680bb77ae5abdeb3/internal/coordination/store.go", "https://github.com/supernovae/SwarmOS/blob/f591d6739eeabbd074d04b5b680bb77ae5abdeb3/internal/workflow/execute_run.go", "https://github.com/supernovae/SwarmOS/issues/473", "https://github.com/supernovae/SwarmOS/pull/475"],
+      "disposition_note": "The current GitStore publishes issue state with checkpoint/PR branch in atomic pushes with captured --force-with-lease predecessors; execute_run rechecks LeaseManager.CheckClaim at worker and import boundaries. First-party #473 and merged #475 (2026-11-07) already cover exported lease-write methods after expiry/release/replacement with ErrClaimFence and unchanged state refs. Those preexisting maintainer-owned tests are not an assessment-derived OpenSiro native execution or product improvement. No supported unguarded publication edge identified; do not duplicate the closed upstream task."
     }
   ]
 }
