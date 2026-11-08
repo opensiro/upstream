@@ -26,3 +26,11 @@
 **Adversarial review:** `repository_context` is currently defined on `WorkflowState` but not read by the shipped orchestrator control loop, so this is a correctness fix to the persistence contract, **not evidence of improved actual agent resume success**. The patch does not enforce `STATE_VERSION`, test concurrent checkpoint writers, or guarantee filesystem durability after a power loss. Maintainership should run the full suite and decide whether this unused context field is intended to be persisted.
 
 **Continuation:** External publication remains human-owned. Generic `continue` skips this `AWAITING_EXTERNAL` row and advances to `matterloop-taskgraph-checkpoint-recovery`.
+
+## 2026-10-25 publication licence gate
+
+Upstream `main` remains the original tested SHA `16960b40ed6293e27e4536bbd99d62989264a87e`; the omitted `repository_context` and `updated_at` roundtrip fields are still visible. No overlapping fix PR was identified in the bounded search. The previous first-party RED/GREEN is preserved, but **no current-session tests were run**.
+
+The upstream public repository has **no LICENSE file**, and its live GitHub repository API reports `license: null`; neither `CONTRIBUTING.md` nor an explicit external contribution licence was found. Public source visibility alone does not grant reuse rights.
+
+**Publication: BLOCKED (missing upstream licence).** No fork, push, commit or external PR was created. The candidate remains part of the frozen 34-case history; the next queued row is selected by the finite ledger.

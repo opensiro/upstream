@@ -1,5 +1,7 @@
 # SIFRA — timed-out code-mode continuation retains host-tool access
 
+**2026-10-25 publication review:** Current public `atharva1407-sys/SIFRA-Agent-Orchestration-Multi-Agent-Runtime` has no root LICENSE, AGENTS.md, CONTRIBUTING.md or SECURITY.md. **BLOCKED — no verified third-party source redistribution license.** Do not create a fork/PR under the finite OpenSiro mandate until the rights question is resolved. No new code/test execution or external write during this review; the old RED/GREEN receipt below is historical.
+
 **Stage:** `AWAITING_EXTERNAL`. This is a tested, source-only patch packet. No external fork, issue, PR, DBOS workflow, provider or LLM agent was executed.
 
 - **Frozen source:** `atharva1407-sys/SIFRA-Agent-Orchestration-Multi-Agent-Runtime@6856b054ba67e4dc4ef499a46732eeed80b5ac68`, included `S1=A` Index `396a54bb690f8ec7ce966bf9b00b241b30036307`.

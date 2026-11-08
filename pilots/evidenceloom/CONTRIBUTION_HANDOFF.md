@@ -23,3 +23,9 @@
 **Exact patch:** [unicode-spaced-numeric-scale.patch](unicode-spaced-numeric-scale.patch), SHA256 `185b89c27de2bed91d3f22b9898bd3c37d73cd15a3e71155a1d0afe22546c983`, equal to the tested genuine-source diff. External code remains local, unpushed.
 
 **Limitations:** This checks only known Unicode grouping spaces; it does not establish correctness for every Unicode separator, percent notation, saved source artifact or independent claim. It does not certify surrounding prose. An upstream maintainer would still need full regression and language/UI parity review. External contribution remains human-owned; `continue` advances to Workflow One.
+
+## 2026-10-25 contributor policy verification
+
+Current [CONTRIBUTING.md](https://github.com/simonguo/evidenceloom/blob/main/CONTRIBUTING.md) requires an issue for user-facing behavior changes, user-facing documentation, and all commits signed off under the [DCO](https://github.com/simonguo/evidenceloom/blob/main/DCO.md). It expressly treats contribution as a DCO certification and agreement to Apache-2.0. Apache-2.0 license is present; no repository-root AGENTS.md was found. No duplicate PR matched the numeric-scale issue in the search performed.
+
+**Publication state: BLOCKED by contributor DCO/issue prerequisites.** The finite OpenSiro PR-publication mandate forbids false author/legal attestations and does not establish the signatory's separate DCO assent. Do not fabricate the required sign-off or bypass the prerequisite issue. No external issue, fork, branch, commit, PR or fresh native test was run in this pass. The historical narrow RED/GREEN packet is not a new end-to-end verification.

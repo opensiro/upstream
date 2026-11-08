@@ -1,5 +1,7 @@
 # agentUniverse — validate structured workflow reference inputs before resolution
 
+**2026-10-25 upstream change review:** [agentUniverse PR #3779](https://github.com/agentuniverse-ai/agentUniverse/pull/3779), by `X-LightYear`, **MERGED** 2026-10-22, already changed this same static resolver to reject missing input values and non-list/short references. Current master `925101e96a465a7d750701f6d768c835fe30593a` contains these guards. The old patch therefore overlaps merged implementation and is no longer an applicable isolated change. Its stricter checks (`len == 2` and nonblank string elements) may remain useful but would need a separately scoped current-base RED/GREEN and duplicate/maintainer review; do not falsely claim the full original edge case has been cured by #3779. **BLOCKED as stale overlapping packet.** No external PR/fork or fresh tests in this pass.
+
 **Stage:** `AWAITING_EXTERNAL`. Native code/fixture-only contribution packet. No external fork, PR, workflow execution, LLM agent, model-provider API or hosted test.
 
 - **Frozen source:** `agentuniverse-ai/agentUniverse@254ecd280f54c2d2de654bbe5373e9f947d2dedf` (Apache-2.0). Included `S1=A` Index `396a54bb690f8ec7ce966bf9b00b241b30036307`.

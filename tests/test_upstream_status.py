@@ -1,10 +1,13 @@
 """Offline tests for PR-state authority, replacement counting and generated views."""
 
 import importlib.util
+from io import BytesIO
+import json
 from pathlib import Path
 import tempfile
 import unittest
 from unittest.mock import patch
+from urllib.error import HTTPError
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -16,8 +19,11 @@ SPEC.loader.exec_module(status)
 class UpstreamStatusTests(unittest.TestCase):
     def fake_fetch(self, url):
         # Two PRs in Henterprise count once, not twice; Shep reflects merge.
+        if url.endswith("headcount/pull/47"):
+            return {"url": url, "lifecycle": "unverifiable", "merged_at": None,
+                    "updated_at": None, "reason": "HTTP_404"}
         merged = any(part in url for part in ("marveen/pull/1516", "henterprise/pull/3", "shep/pull/933", "shep/pull/934"))
-        closed = any(part in url for part in ("henterprise/pull/1", "scion/pull/2047", "oh-my-agent/pull/819"))
+        closed = any(part in url for part in ("henterprise/pull/1", "scion/pull/2047", "oh-my-agent/pull/819", "starnet/pull/56"))
         return {"url": url, "lifecycle": "merged" if merged else "closed_unmerged" if closed else "open",
                 "merged_at": "2026-10-19T00:00:00Z" if merged else None, "updated_at": "2026-10-19T00:00:00Z"}
 
@@ -27,7 +33,7 @@ class UpstreamStatusTests(unittest.TestCase):
         self.assertEqual(8, len(cases))
         observed = status.collect(fetch=self.fake_fetch)
         outcomes, fits = status.stats(snapshot, observed)
-        self.assertEqual({"merged": 4, "open": 2, "closed_unmerged": 2}, dict(outcomes))
+        self.assertEqual({"merged": 4, "closed_unmerged": 3, "unverifiable": 1}, dict(outcomes))
         self.assertEqual({"pass": 3, "pending": 3, "fail": 2}, dict(fits))
         self.assertEqual(8, len(observed["records"]))
         self.assertEqual([{"id": "cognee-community", "url": "https://github.com/topoteretes/cognee-community/pull/434"}],
@@ -50,11 +56,30 @@ class UpstreamStatusTests(unittest.TestCase):
         with self.assertRaises(OSError):
             status.collect(fetch=lambda _: (_ for _ in ()).throw(OSError("rate limited")))
 
+    def test_exact_known_404_is_unverifiable_not_open_or_closed(self):
+        url = "https://github.com/cbrock84/headcount/pull/47"
+        with patch.object(status, "urlopen", side_effect=HTTPError(url, 404, "Not Found", {}, None)):
+            self.assertEqual("unverifiable", status.public_pr(url)["lifecycle"])
+            with self.assertRaisesRegex(ValueError, "HTTP 404"):
+                status.public_pr("https://github.com/shep-ai/shep/pull/933")
+        with patch.object(status, "urlopen", side_effect=HTTPError(url, 403, "Forbidden", {}, None)):
+            with self.assertRaisesRegex(ValueError, "HTTP 403"):
+                status.public_pr(url)
+
+    def test_source_identity_mismatch_fails_closed(self):
+        url = "https://github.com/shep-ai/shep/pull/933"
+        raw = json.dumps({"html_url": url, "number": 934, "state": "open", "merged_at": None})
+        with patch.object(status, "urlopen", return_value=BytesIO(raw.encode())):
+            with self.assertRaisesRegex(ValueError, "identity mismatch"):
+                status.public_pr(url)
+
     def test_generation_and_idempotence(self):
         snapshot, cases, observed = status.load_verified()
         markdown = status.render_markdown(snapshot, cases, observed)
-        self.assertIn("| **8** | **7** | **4** | **2** | **2** |", markdown)
-        self.assertIn("60% (3/5)", markdown)
+        self.assertIn("| **8** | **7** | **4** | **0** | **3** | **1** |", markdown)
+        self.assertIn("Unverifiable", markdown)
+        self.assertNotIn("60% (3/5)", markdown)
+        self.assertIn("former Product-native fit KPI is **deprecated**", markdown)
         self.assertIn("Original PR", markdown)
         self.assertIn("### Separately tracked OpenSiro-owned fork contributions", markdown)
         self.assertIn("cognee-community", markdown)
@@ -63,7 +88,12 @@ class UpstreamStatusTests(unittest.TestCase):
         self.assertEqual(first, status.render_html(first, snapshot, cases, observed))
         self.assertEqual(8, first.count('<tr class="item"'))
         self.assertIn("cognee-community PR", first)
-        self.assertIn('data-outcome="merged" data-fit="pending"', first)
+        self.assertIn('data-outcome="merged" data-search=', first)
+        self.assertIn('data-outcome="unverifiable"', first)
+        self.assertNotIn('data-fit=', first)
+        self.assertNotIn('<div class="kpi-name">Product-native fit</div>', first)
+        self.assertNotIn('aria-label="Filter by fit"', first)
+        self.assertIn("Historical fit study — retired", first)
         self.assertEqual(status.render_casebook(status.CASEBOOK.read_text(), snapshot, cases, observed),
                          status.CASEBOOK.read_text())
 
@@ -97,6 +127,43 @@ class UpstreamStatusTests(unittest.TestCase):
             return result
         with self.assertRaisesRegex(ValueError, "cognee-community"):
             status.check_live(fetch=cognee_merged)
+
+    def test_proposal_writes_only_on_verified_lifecycle_drift(self):
+        def moved(url):
+            result = self.fake_fetch(url)
+            if url.endswith("/434"):
+                result["lifecycle"] = "merged"
+                result["merged_at"] = "2026-11-07T12:00:00Z"
+            return result
+
+        with tempfile.TemporaryDirectory() as directory:
+            files = {label: Path(directory) / label for label in
+                     ("upstream.json", "dashboard.md", "dashboard.html", "casebook.md")}
+            for src, label in ((status.LIVE, "upstream.json"),
+                               (status.MARKDOWN, "dashboard.md"),
+                               (status.HTML, "dashboard.html"),
+                               (status.CASEBOOK, "casebook.md")):
+                files[label].write_text(src.read_text(encoding="utf-8"), encoding="utf-8")
+            substitutions = {"LIVE": files["upstream.json"],
+                             "MARKDOWN": files["dashboard.md"],
+                             "HTML": files["dashboard.html"],
+                             "CASEBOOK": files["casebook.md"]}
+            with patch.multiple(status, **substitutions):
+                before = {name: path.read_bytes() for name, path in files.items()}
+                self.assertEqual(status.propose_if_drift(fetch=self.fake_fetch), [])
+                self.assertEqual(before, {name: path.read_bytes() for name, path in files.items()})
+                with self.assertRaises(OSError):
+                    status.propose_if_drift(fetch=lambda _: (_ for _ in ()).throw(OSError("API unavailable")))
+                self.assertEqual(before, {name: path.read_bytes() for name, path in files.items()})
+
+                changed = status.propose_if_drift(fetch=moved)
+                self.assertEqual([item[0] for item in changed], ["cognee-community"])
+                self.assertEqual({name for name, path in files.items()
+                                  if path.read_bytes() != before[name]},
+                                 {"upstream.json", "dashboard.md", "dashboard.html"})
+                self.assertEqual("merged", status.load_verified()[2]["registry_records"][0]["pr"]["lifecycle"])
+                self.assertEqual(status.render_markdown(*status.load_verified()),
+                                 files["dashboard.md"].read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":

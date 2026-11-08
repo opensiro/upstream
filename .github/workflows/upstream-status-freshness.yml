@@ -10,9 +10,17 @@ on:
       - 'data/dashboard-cases.json'
       - 'registry.yaml'
       - 'scripts/upstream_status.py'
+      - 'scripts/harness_status.py'
       - 'tests/test_upstream_status.py'
+      - 'tests/test_harness_status.py'
+      - 'data/assessment-candidate-batches/**'
+      - 'data/corrective-publication/**'
+      - 'data/improvement-publication/**'
+      - 'data/pr-maintenance/targets.json'
       - 'DASHBOARD.md'
+      - 'HARNESS_STATUS.md'
       - 'docs/index.html'
+      - 'docs/HARNESS_STATUS_MODEL.md'
       - 'docs/UPSTREAM_STATUS_FRESHNESS.md'
       - 'cases/README.md'
       - '.github/workflows/upstream-status-freshness.yml'
@@ -33,6 +41,10 @@ jobs:
         run: python3 -m unittest discover -s tests -p 'test_upstream_status.py'
       - name: Check generated dashboard and casebook (offline)
         run: python3 scripts/upstream_status.py --check-generated
+      - name: Test joined harness intervention status (offline)
+        run: python3 -m unittest discover -s tests -p 'test_harness_status.py'
+      - name: Check generated joined harness status (offline)
+        run: python3 scripts/harness_status.py --check
       - name: Verify current public PR lifecycle (GET only)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

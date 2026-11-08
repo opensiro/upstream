@@ -1,5 +1,7 @@
 # PyFlue — virtual sandbox allows recursive deletion of its own root
 
+**2026-10-25 publication review:** Current [SECURITY.md](https://github.com/SuperagenticAI/pyflue/blob/main/SECURITY.md) directs suspected vulnerabilities to private security contact, not public issues. The root-recursive-delete behavior concerns the sandbox's destructive permission boundary, so disclosure must follow that policy. Apache-2.0 and ordinary [CONTRIBUTING.md](https://github.com/SuperagenticAI/pyflue/blob/main/CONTRIBUTING.md) exist, but do not override private security reporting. **BLOCKED:** no external fork/PR or unapproved private report; no fresh native test. The packet below is historical bounded evidence.
+
 **Stage:** `AWAITING_EXTERNAL`. Native source-only patch packet; no external fork/PR, model, provider or agent run.
 
 - **Frozen source:** `SuperagenticAI/pyflue@657c2d1a1b024a0bc137ff3bb252339fa0d5f692` (root Apache-2.0 text), included `S1=A` Index `396a54bb690f8ec7ce966bf9b00b241b30036307`.

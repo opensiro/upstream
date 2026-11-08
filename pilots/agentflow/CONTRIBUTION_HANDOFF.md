@@ -1,5 +1,7 @@
 # AgentFlow — node IDs escape first-party artifact path boundaries
 
+**2026-10-25 duplicate-PR review:** Current `agentenv/agentflow` default `master` remains at frozen `eb51a2e7a5c7d65da5718c4a41843098b60c80e0`. However, another contributor has already opened [PR #21 — contain run artifact paths](https://github.com/agentenv/agentflow/pull/21), OPEN/Ready, head `6a329e36c6ac814b233bcb12455a9c30e2deaeb4`, covering `run_id`, `node_id`, artifact name, API route and store boundaries. This subsumes the narrow node-ID path-admission intent. **BLOCKED as overlapping existing upstream work; no duplicate PR**. No fork, branch push or fresh native tests this pass. Re-evaluate once PR #21 resolves.
+
 **Stage:** `AWAITING_EXTERNAL`. Exact tested native source patch; **no** external fork, issue, PR, provider call, task agent or simulated model run.
 
 - **Frozen first-party source:** `agentenv/agentflow@eb51a2e7a5c7d65da5718c4a41843098b60c80e0`; included `S1=A` Index `396a54bb690f8ec7ce966bf9b00b241b30036307`.

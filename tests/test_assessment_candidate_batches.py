@@ -143,11 +143,55 @@ class BatchTests(unittest.TestCase):
         all_previous.update(r["source"] for r in self.tenth["candidates"])
         eleventh = queue.summarize(self.eleventh)
         self.assertEqual(eleventh["total"], 5)
-        self.assertEqual(eleventh["next_candidate"], "citadel-native-claim-exclusivity")
-        self.assertEqual(eleventh["next_stage"], "SCREENING")
-        self.assertEqual(eleventh["stage_counts"]["SCREENING"], 5)
+        self.assertIsNone(eleventh["next_candidate"])
+        self.assertEqual(eleventh["next_stage"], "NO_ACTIONABLE_CANDIDATE")
+        self.assertEqual(eleventh["stage_counts"]["SCREENING"], 0)
+        self.assertEqual(eleventh["stage_counts"]["AWAITING_EXTERNAL"], 4)
+        self.assertEqual(eleventh["stage_counts"]["BLOCKED_EVIDENCE"], 1)
         self.assertEqual(eleventh["test_mode"], "NATIVE_SCRIPT_ONLY_NO_LLM_AGENTS")
         self.assertFalse(all_previous.intersection({r["source"] for r in self.eleventh["candidates"]}))
+
+    def test_batch11_later_merges_do_not_rewrite_historical_screening(self):
+        expected = {
+            "citadel-native-claim-exclusivity": (
+                "https://github.com/SethGammon/Citadel/pull/366",
+                "45727eb8f54d616686e51f049e7b11035af35e96",
+            ),
+            "agent-fleet-native-lease-contract": (
+                "https://github.com/chankov/agent-fleet/pull/43",
+                "212bbf6e2f26addb24c448070f8c8ac404da376e",
+            ),
+        }
+        by_id = {row["id"]: row for row in self.eleventh["candidates"]}
+        for candidate_id, (url, merge_sha) in expected.items():
+            with self.subTest(candidate=candidate_id):
+                row = by_id[candidate_id]
+                self.assertEqual(row["stage"], "AWAITING_EXTERNAL")
+                self.assertEqual(row["external_action"], "NOT_EXECUTED")
+                self.assertEqual(row["experiment_cycle"], "INCOMPLETE_STRICT_CAUSAL_CHAIN")
+                self.assertEqual(row["separate_publication"]["external_pr"], url)
+                self.assertEqual(row["separate_publication"]["outcome"], "MERGED_UPSTREAM")
+                self.assertEqual(row["separate_publication"]["merge_commit_sha"], merge_sha)
+                self.assertEqual(row["separate_publication"]["verified_at"], "2026-10-26")
+                self.assertEqual(
+                    row["separate_publication"]["ledger"],
+                    "https://github.com/opensiro/upstream/blob/main/data/improvement-publication/2026-10-24-01.json",
+                )
+        for candidate_id in (
+            "evidence-bench-native-evidence-admission",
+            "fara-native-checkpoint-integrity",
+            "herd-native-quest-ownership",
+        ):
+            self.assertNotIn("separate_publication", by_id[candidate_id])
+
+    def test_batch11_reopened_screening_is_selected_without_external_writes(self):
+        data = copy.deepcopy(self.eleventh)
+        row = data["candidates"][1]
+        row.update(stage="SCREENING", origin="INSUFFICIENT")
+        board = queue.summarize(data)
+        self.assertEqual(board["next_candidate"], "agent-fleet-native-lease-contract")
+        self.assertEqual(board["next_stage"], "SCREENING")
+        self.assertFalse(board["external_writes_authorized"])
 
     def test_no_actionable_after_full_review(self):
         data = copy.deepcopy(self.original)
