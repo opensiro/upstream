@@ -65,7 +65,9 @@ jobs:
             echo "Expected baseline regressions did not reproduce"
             exit 1
           fi
-          grep -q "2 failed, 1 passed" /tmp/upgrade-b14-before.log
+          grep -q 'FAILED tests/test_upgrade_budget_finalization.py::test_duplicate_settle_does_not_double_refund' /tmp/upgrade-b14-before.log
+          grep -q 'FAILED tests/test_upgrade_budget_finalization.py::test_release_after_settle_is_not_another_refund' /tmp/upgrade-b14-before.log
+          grep -q 'FF[.]' /tmp/upgrade-b14-before.log
           git apply --check ../upstream/pilots/runloop-s2/idempotent-budget-finalization.patch
           git apply ../upstream/pilots/runloop-s2/idempotent-budget-finalization.patch
           echo "=== bounded patch and original budget controls ==="
