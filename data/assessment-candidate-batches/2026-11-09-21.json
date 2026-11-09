@@ -1,0 +1,221 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-09-21",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "46219bf103b0b122d86abc3ca70ae3d8bc820e2c",
+  "frozen_at": "2026-11-09",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "UPSTREAM UPGRADE BATCH 21, explicit operator size ten. Selected ten distinct included Index S1=A/S2=C assessments with concrete, varied prospective native S2 coordination hypotheses; excluded all 105 sources claimed in integrated batches 01-20 and current open Upstream PR source claims. Exact Index main pinned and per-row prospective hypothesis immutable at commit 95d9306537e0cdf6877942215a53ff679f561b7b before fresh target source/issue inspection. Order by reviewed_at descending. These are testable questions, not established defects or external publication rights.",
+  "candidates": [
+    {
+      "id": "model-citizen-stale-base-integration",
+      "assessment_path": "assessments/ag/agent-harness-now-model-citizen.md",
+      "source": "JakeSelby/model-citizen",
+      "review_ref": "af9693b97480c7b801c57c43863b116f4116808c",
+      "reviewed_at": "2026-10-30",
+      "function": "S2",
+      "finding": "Worktree-per-builder isolation and dirty-state refusal leave integration/reconciliation to the caller. Prospective check: A builder branch prepared from an older base may be integrated or cleaned up after another sibling lands on main without detecting a now-conflicting shared/generated file.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ag/agent-harness-now-model-citizen.md",
+        "https://github.com/opensiro/upstream/blob/95d9306537e0cdf6877942215a53ff679f561b7b/data/assessment-candidate-batches/2026-11-09-21-HYPOTHESES.md"
+      ]
+    },
+    {
+      "id": "super-pi-beam-symlink-path-alias",
+      "assessment_path": "assessments/su/super-pi-beam.md",
+      "source": "oleksandr/super-pi-beam",
+      "review_ref": "03c6afd6d8250eaeb4ebca039290f95a9ab73227",
+      "reviewed_at": "2026-10-29",
+      "function": "S2",
+      "finding": "Registry-keyed same-node FileLock serializes Local edits by expanded filesystem path; Index explicitly excludes symlink aliases from the demonstrated guarantee. Prospective check: Two supported paths through a symlink alias and its real target may acquire distinct locks yet mutate one file concurrently, violating same-file exclusion.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/su/super-pi-beam.md",
+        "https://github.com/opensiro/upstream/blob/95d9306537e0cdf6877942215a53ff679f561b7b/data/assessment-candidate-batches/2026-11-09-21-HYPOTHESES.md"
+      ]
+    },
+    {
+      "id": "histh-readonly-delegate-tool-batch",
+      "assessment_path": "assessments/hi/histh.md",
+      "source": "ayandexyz/Honey-I-Shrunk-the-Harness",
+      "review_ref": "f2aff641e55c2e6bb8c55a8fb82b67bdf2addd1a",
+      "reviewed_at": "2026-10-29",
+      "function": "S2",
+      "finding": "Read-only child tool modes and planToolBatches allow parallel nonmutating delegates while serializing mutating delegations. Prospective check: A composite or dynamically resolved child tool batch might be classified as safe for parallel execution despite a reachable filesystem mutation.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/hi/histh.md",
+        "https://github.com/opensiro/upstream/blob/95d9306537e0cdf6877942215a53ff679f561b7b/data/assessment-candidate-batches/2026-11-09-21-HYPOTHESES.md"
+      ]
+    },
+    {
+      "id": "codemowers-canonical-resource-alias",
+      "assessment_path": "assessments/co/codemowers-agent.md",
+      "source": "codemowers/agent",
+      "review_ref": "d056e1414b3e2e6f0f2c387bdab2c540bd26730d",
+      "reviewed_at": "2026-10-28",
+      "function": "S2",
+      "finding": "Agent-scoped Task dedup relies on canonical URI identity, deterministic Task names and create collision checks. Prospective check: Two equivalent supported issue/resource URL spellings may produce different task identities and start duplicate worker commitments.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/co/codemowers-agent.md",
+        "https://github.com/opensiro/upstream/blob/95d9306537e0cdf6877942215a53ff679f561b7b/data/assessment-candidate-batches/2026-11-09-21-HYPOTHESES.md"
+      ]
+    },
+    {
+      "id": "octop-canceled-inbox-lock-release",
+      "assessment_path": "assessments/oc/octop-harness.md",
+      "source": "TencentCloud/octop-harness",
+      "review_ref": "68b5423bb80ecef7fca57ba5a37d9a2bdcbf12d2",
+      "reviewed_at": "2026-10-28",
+      "function": "S2",
+      "finding": "Async TeamInbox serializes peer targets and source-thread followups with locks, references, cancellation and callbacks. Prospective check: Canceling a queued or in-flight peer job at the target/source-lock handoff may retain a lock/reference or deliver a stale callback to a later source turn.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/oc/octop-harness.md",
+        "https://github.com/opensiro/upstream/blob/95d9306537e0cdf6877942215a53ff679f561b7b/data/assessment-candidate-batches/2026-11-09-21-HYPOTHESES.md"
+      ]
+    },
+    {
+      "id": "agnes-failed-child-worktree-retention",
+      "assessment_path": "assessments/ag/agnes-harness.md",
+      "source": "AgnesAI-Labs/agnes-harness",
+      "review_ref": "98bc11572ba162bcdf6ce2b29612a44508faf951",
+      "reviewed_at": "2026-10-28",
+      "function": "S2",
+      "finding": "Child execution binds isolated Git worktrees and conservatively retains dirty/unmerged/in-use state for later reconciliation. Prospective check: An exception between child completion and cleanup may remove or orphan the isolated worktree even though uncommitted child edits remain.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ag/agnes-harness.md",
+        "https://github.com/opensiro/upstream/blob/95d9306537e0cdf6877942215a53ff679f561b7b/data/assessment-candidate-batches/2026-11-09-21-HYPOTHESES.md"
+      ]
+    },
+    {
+      "id": "rokartur-stale-anchor-partial-replacement",
+      "assessment_path": "assessments/ag/agent-rokartur.md",
+      "source": "rokartur/agent",
+      "review_ref": "f02a473edd8a08368876e45a641f8ed8c2a4c85d",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Hashline anchors reject stale edits after a parallel writer changes the same shared coding workspace. Prospective check: A stale anchored replacement with one still-matching neighboring line could be accepted after a competing writer modifies the targeted range.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ag/agent-rokartur.md",
+        "https://github.com/opensiro/upstream/blob/95d9306537e0cdf6877942215a53ff679f561b7b/data/assessment-candidate-batches/2026-11-09-21-HYPOTHESES.md"
+      ]
+    },
+    {
+      "id": "hrn-reclaimed-lease-live-owner",
+      "assessment_path": "assessments/hr/hrn.md",
+      "source": "cristiangirlea/harness",
+      "review_ref": "16d27aea0d7276d411fa1e93d2208b66f4fa39e0",
+      "reviewed_at": "2026-10-26",
+      "function": "S2",
+      "finding": "Atomic issue and workspace slot leases use process identity checks to reject duplicate task claims and permit release/reuse. Prospective check: A stale-process or PID-reuse condition may cause lease takeover while the original owner is still live, admitting duplicate work into one slot.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/hr/hrn.md",
+        "https://github.com/opensiro/upstream/blob/95d9306537e0cdf6877942215a53ff679f561b7b/data/assessment-candidate-batches/2026-11-09-21-HYPOTHESES.md"
+      ]
+    },
+    {
+      "id": "davecode-independent-cli-lock",
+      "assessment_path": "assessments/da/davecode.md",
+      "source": "DMRLZZ/DaveCode",
+      "review_ref": "271910253a005845174c2410dc15675877a9883e",
+      "reviewed_at": "2026-10-24",
+      "function": "S2",
+      "finding": "A shared in-process WorkspaceLock prevents runner and goal entry from colliding in the same project's Git checkout. Prospective check: Two separately launched supported CLI instances for the same project may each create a fresh in-memory lock and mutate one checkout simultaneously.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/da/davecode.md",
+        "https://github.com/opensiro/upstream/blob/95d9306537e0cdf6877942215a53ff679f561b7b/data/assessment-candidate-batches/2026-11-09-21-HYPOTHESES.md"
+      ]
+    },
+    {
+      "id": "ambient-approval-chain-rejection",
+      "assessment_path": "assessments/am/ambient-cli.md",
+      "source": "AmbientCrypto/ambient-cli",
+      "review_ref": "46dfd8aada3eb73f4446b6b2e3c34c6b3c7a68b9",
+      "reviewed_at": "2026-10-24",
+      "function": "S2",
+      "finding": "Per-wave promise chains serialize approval and question resolutions from independent child S1s. Prospective check: If one approval/question callback rejects, its rejected tail may prevent a subsequent legitimate child prompt from being presented.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/am/ambient-cli.md",
+        "https://github.com/opensiro/upstream/blob/95d9306537e0cdf6877942215a53ff679f561b7b/data/assessment-candidate-batches/2026-11-09-21-HYPOTHESES.md"
+      ]
+    }
+  ]
+}
