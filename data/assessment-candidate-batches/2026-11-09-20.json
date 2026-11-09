@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-09-20",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "46219bf103b0b122d86abc3ca70ae3d8bc820e2c",
+  "frozen_at": "2026-11-09",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "UPSTREAM UPGRADE BATCH 20, explicit operator size ten. Ten most recently reviewed nonduplicate included Index S1=A/S2=C sources after the 90 rows of integrated batches 01-18, the five source claims already checkpointed on active batch-19 branch, and open upstream PR source claims. Descending reviewed_at and descending assessment-path tie order. The accompanying prospective hypotheses file is a pre-current-target-source checkpoint; ten native questions, not confirmed defects, product benefits, or external-stage rights.",
+  "candidates": [
+    {
+      "id": "lacp-nested-path-reservation-alias",
+      "assessment_path": "assessments/la/lacp.md",
+      "source": "0xNyk/lacp",
+      "review_ref": "e31f134b689afd6a71d94b0420682d1f528d6fa1",
+      "reviewed_at": "2026-11-02",
+      "function": "S2",
+      "finding": "Index S2=C exposes path normalization and collision report between two independent swarm reservation scopes. Predict nested path aliases can evade warnings; falsify by first-party CLI cases for accepted spellings and disjoint-prefix controls.",
+      "stage": "SCREENING", "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/la/lacp.md"]
+    },
+    {
+      "id": "agent-runtime-canceled-workspace-request",
+      "assessment_path": "assessments/tr/tripolskypetr-agent-runtime.md",
+      "source": "tripolskypetr/agent-runtime",
+      "review_ref": "b7150aacb08333a75c7a53510007dc11df2e2446",
+      "reviewed_at": "2026-11-01", "function": "S2",
+      "finding": "Index S2=C uses a promise-tail queue around destructive shared workspace reset and collection. Predict a rejected or aborted request could release queue admission before full cleanup; falsify with native async interleaving and no-provider controls.",
+      "stage": "SCREENING", "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/tr/tripolskypetr-agent-runtime.md"]
+    },
+    {
+      "id": "stiracore-foreground-arrival-effect-gate",
+      "assessment_path": "assessments/st/stiracore.md",
+      "source": "Resolver-TNG/StiraCore",
+      "review_ref": "2dee27f3c99c4f63b1ef2a7e377482d40c527996",
+      "reviewed_at": "2026-11-01", "function": "S2",
+      "finding": "Index S2=C uses foreground TurnLock preempt signalling against background grant-child effect admission. Predict a foreground arrival between precheck and new effect could be missed; null if the supported safe-boundary contract already handles it.",
+      "stage": "SCREENING", "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/st/stiracore.md"]
+    },
+    {
+      "id": "pi-native-canceled-child-scope-release",
+      "assessment_path": "assessments/pi/pi-native.md",
+      "source": "nurmdrafi/pi-native",
+      "review_ref": "b4e99cf3d2f60a1fd5e810bdfcbcbf47b3692e8f",
+      "reviewed_at": "2026-11-01", "function": "S2",
+      "finding": "Index S2=C reserves declared overlapping child write scopes and provider slots, releasing on results. Predict failed launch/cancellation leaves a slot or scope orphan; null if all supported terminal paths run release.",
+      "stage": "SCREENING", "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/pi/pi-native.md"]
+    },
+    {
+      "id": "neopanic-orphaned-child-claim-recovery",
+      "assessment_path": "assessments/ne/neopanic-harness.md",
+      "source": "NeoPanic/harness3",
+      "review_ref": "cb6c8e57eb0adac3f2ec1f4da1a98e52e2967063",
+      "reviewed_at": "2026-11-01", "function": "S2",
+      "finding": "Index S2=C uses transactional task claims and dependent split-child ownership. Predict crash after claim leaves a child/parent stuck without safe recovery; falsify if first-party orphan handling or operator-mediated contract already closes it.",
+      "stage": "SCREENING", "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ne/neopanic-harness.md"]
+    },
+    {
+      "id": "android-agent-long-action-lease-expiry",
+      "assessment_path": "assessments/an/android-agent-runtime.md",
+      "source": "NoHarry/android-agent-runtime",
+      "review_ref": "57267123cf43ed832f50f65de89023adf84578db",
+      "reviewed_at": "2026-11-01", "function": "S2",
+      "finding": "Index S2=C uses process-wide AndroidUseLease with idle expiry and touch on screen tool actions. Predict an in-flight long screen call crosses expiry and admits a competing session; falsify by fixed-clock real wrapper checks.",
+      "stage": "SCREENING", "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/an/android-agent-runtime.md"]
+    },
+    {
+      "id": "zeroshot-stale-lesson-retry-publish",
+      "assessment_path": "assessments/ze/zeroshot.md",
+      "source": "the-open-engine/zeroshot",
+      "review_ref": "4c2ed7d5cf3dce968ef7634a2bb49f4382226637",
+      "reviewed_at": "2026-10-31", "function": "S2",
+      "finding": "Index S2=C uses versioned scoped lesson publication and CAS retry against concurrent postmortems. Predict a stale retry/retire after conflict could overwrite or resurrect newer lesson; null if all commits remain revision-fenced.",
+      "stage": "SCREENING", "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ze/zeroshot.md"]
+    },
+    {
+      "id": "voly-unlocked-fallback-lock-error",
+      "assessment_path": "assessments/vo/voly.md",
+      "source": "voly-codes/voly",
+      "review_ref": "d21dab640647ca5a0a096e12b01a9a3a4f7432af",
+      "reviewed_at": "2026-10-31", "function": "S2",
+      "finding": "Index S2=C explicitly notes cwd lock acquisition OSError paths that log and yield without exclusion. Predict a supported hybrid file-writing run executes unlocked under I/O/permission failure; test safe fail-closed counterfactual.",
+      "stage": "SCREENING", "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/vo/voly.md"]
+    },
+    {
+      "id": "suga-held-peer-message-replay",
+      "assessment_path": "assessments/su/suga.md",
+      "source": "inhere/suga",
+      "review_ref": "88916d5d23e974f7c02c9dd37f6d02f05b681a31",
+      "reviewed_at": "2026-10-31", "function": "S2",
+      "finding": "Index S2=C credits max-hop peer-chat loop suppression and delayed held messages. Predict replay/held delivery can reset hop provenance and wake a reciprocal auto-turn; falsify with native peer message storage fixtures.",
+      "stage": "SCREENING", "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/su/suga.md"]
+    },
+    {
+      "id": "orka-canceled-race-late-result",
+      "assessment_path": "assessments/or/orka.md",
+      "source": "orka-agents/orka",
+      "review_ref": "7cffe130efa74f505d66dce561ade6c18901ba6e",
+      "reviewed_at": "2026-10-31", "function": "S2",
+      "finding": "Index S2=C observes optional race child cancel/wait/message coordination. Predict late completion from a canceled losing sibling can be returned as another winner; null if terminal state or coordinator semantics prevent it.",
+      "stage": "SCREENING", "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/or/orka.md"]
+    }
+  ]
+}
