@@ -10,7 +10,7 @@ This repository is a **contribution portfolio and operating system**, not a fork
 | --- | --- |
 | Explore the contribution portfolio | [public source-dated PR metrics](https://opensiro.com/upstream-portfolio.html) · [GitHub dashboard](DASHBOARD.md) · [cross-lane harness status](HARNESS_STATUS.md) |
 | See OpenSiro-owned working forks | [registry.yaml](registry.yaml) · [project records](projects/) |
-| Track the 100 priority targets and previously screened sources | [continuous working-fork pipeline](docs/CONTINUOUS_WORKING_FORK_PIPELINE.md) · [generated inventory](data/contribution-workspaces/registry.json) |
+| Track the 100 priority targets and previously screened sources | [continuous working-fork pipeline](docs/CONTINUOUS_WORKING_FORK_PIPELINE.md) · [generated inventory](data/contribution-workspaces/registry.json) · [supervised fork bootstrap proposal](docs/FORK_BOOTSTRAP_AND_COLLABORATION.md) |
 | Examine interventions and evidence | [casebook](cases/README.md) · [technical pilots](pilots/README.md) |
 | Follow external pull requests | [PR maintenance](docs/PR_MAINTENANCE.md) · [resolved-PR metric](docs/RESOLVED_PR_ACCEPTANCE.md) · [verified external outcome evidence](docs/VERIFIED_EXTERNAL_OUTCOMES.md) |
 | Propose or review a contribution | [CONTRIBUTING.md](CONTRIBUTING.md) · [Upstream operating contract](UPSTREAMING.md) |
