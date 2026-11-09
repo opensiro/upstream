@@ -1,8 +1,8 @@
 diff --git a/scripts/ci/test-swarm.sh b/scripts/ci/test-swarm.sh
-index 4acfbb8..59feb85 100755
+index 4acfbb8..494e001 100755
 --- a/scripts/ci/test-swarm.sh
 +++ b/scripts/ci/test-swarm.sh
-@@ -104,6 +104,24 @@ echo "${collision_plan}" | jq -e '.collaboration.reservations_total == 2' >/dev/
+@@ -104,6 +104,28 @@ echo "${collision_plan}" | jq -e '.collaboration.reservations_total == 2' >/dev/
  echo "${collision_plan}" | jq -e '.collaboration.collisions_total >= 1' >/dev/null
  echo "${collision_plan}" | jq -e '.warnings | length >= 1' >/dev/null
  
@@ -22,7 +22,11 @@ index 4acfbb8..59feb85 100755
 +JSON
 +alias_plan="$("${ROOT}/bin/lacp-swarm" plan --manifest "${TMP}/alias-collision.json" --json)"
 +echo "${alias_plan}" | jq -e '.ok == true and .collaboration.reservations_total == 3' >/dev/null
-+echo "${alias_plan}" | jq -e '.collaboration.collisions_total == 1 and .collaboration.collisions[0].type == "exact"' >/dev/null
++echo "[swarm-test] checking nested reservation alias against the real planner" >&2
++if ! echo "${alias_plan}" | jq -e '.collaboration.collisions_total == 1 and .collaboration.collisions[0].type == "exact"' >/dev/null; then
++  echo "[swarm-test] FAIL: equivalent nested paths were not reported as one exact collision" >&2
++  exit 1
++fi
 +
  collision_launch="$("${ROOT}/bin/lacp-swarm" launch --manifest "${TMP}/collision.json" --json)"
  collision_artifact="$(echo "${collision_launch}" | jq -r '.artifact')"
