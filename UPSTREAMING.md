@@ -17,6 +17,7 @@ The domain manages evidence-backed upstream improvement proposals, pinned produc
 | OpenSiro-owned fork maintenance | Fork and owner-reviewed local decision | `registry.yaml`, `projects/<slug>/README.md` |
 | Native functional effect | Pinned source test and before/after receipt | `pilots/`, `data/functional-effects.json` |
 | Technical batch membership and disposition | Frozen local batch manifest and owning issue | `data/assessment-candidate-batches/`, generated Harness Status |
+| Additive source → working-fork intentions and handoff pointers | 100-source priority snapshot + frozen technical batch manifests; live fork parent verified independently | Generated `data/contribution-workspaces/registry.json`; [continuous pipeline](docs/CONTINUOUS_WORKING_FORK_PIPELINE.md) |
 | Authorized finite external-publication stages | Their exact publication mandate and ledger | `data/corrective-publication/`, `data/improvement-publication/` |
 | Shared work selection, S1 boundary, S5 grants | [Organization TODO](https://github.com/opensiro/vsm-oss-organization/blob/main/TODO.md), domain contract and owner decisions | Repository-local issues and explicitly scoped handoffs |
 
@@ -54,6 +55,7 @@ Every report must identify the cohort, observation time, source and whether it c
 | Resolved-PR inbox summary | `scripts/resolved_pr_acceptance.py` | 18-target manifest and GitHub exact-PR readback |
 | Broad portfolio observation | `scripts/portfolio_reconcile.py` | `--validate-only` offline, `--report` live; no repository writes |
 | Verified external outcome candidate evidence | `scripts/verified_external_outcomes.py` | [Evidence contract](docs/VERIFIED_EXTERNAL_OUTCOMES.md), `--validate-only` offline, `--report` live; no Organization KPI claim |
+| Additive working-fork inventory | `scripts/contribution_workspaces.py` | `sync` with every internal technical-record change; `check` in unfiltered PR CI; not a fork-write grant |
 
 Do not manually change generated rows. Refresh upstream PR receipts atomically after a verified state change and review the resulting diff. CI tests and reviewable PRs are the local integration path, not authority for third-party writes.
 

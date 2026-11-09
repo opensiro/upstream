@@ -1,0 +1,2814 @@
+{
+  "schema_version": 1,
+  "priority_snapshot": "data/fork-priorities/2026-11-08.json",
+  "batch_sources": "data/assessment-candidate-batches/*.json",
+  "counts": {
+    "priority_sources": 100,
+    "historical_extras": 70,
+    "unique_sources": 170,
+    "batch_manifests": 22,
+    "batch_cases": 125,
+    "historical_fork_mappings": 16,
+    "name_collision_sources": 10,
+    "technical_handoffs": 50
+  },
+  "execution": {
+    "fork_and_patch_writes": "SEPARATE_TRUSTED_HOST_STAGE_GRANT_REQUIRED",
+    "continuous_link": "REGENERATE_WITH_EVERY_BATCH_OR_PATCH_RECORD_CHANGE",
+    "external_pr": "HUMAN_EXPLICIT_APPROVAL_REQUIRED",
+    "auto_external_pr": false,
+    "live_forks_verified_by_this_script": false
+  },
+  "sources": [
+    {
+      "source": "0xNyk/lacp",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-20.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "lacp-nested-path-reservation-alias",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_DERIVED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-20-20261109/pilots/lacp-s2/CONTRIBUTION_HANDOFF.md",
+          "patch_path": "pilots/lacp-s2/native-fix.patch",
+          "patch_sha256": "17bc0d36273ee6bdc90a5ed8393afc58c9b7deeea8b35da2ccd9d8fb0faee842",
+          "test_patch_path": "pilots/lacp-s2/native-regression.patch"
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/lacp",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "7ar-chat/harness",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-17.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "NAME_COLLISION_REQUIRES_EXACT_DECISION",
+      "proposed_fork": null,
+      "license_review": false,
+      "next_step": "RESOLVE_FORK_PARENT_AND_NAME"
+    },
+    {
+      "source": "aa-blinov/cast",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-18.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/cast",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "affaan-m/ECC",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/ECC",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "ag2ai/ag2",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/ag2",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "agentarea/agentarea",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/agentarea",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "agentenv/agentflow",
+      "priority_group": "PREPARED_PACKET",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-23-09.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "agentflow-dag-dependency-state",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/agentflow/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/agentflow",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "agentuniverse-ai/agentUniverse",
+      "priority_group": "PREPARED_PACKET",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-23-09.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "agentuniverse-workflow-input-contract",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/agentuniverse/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/agentUniverse",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "AgnesAI-Labs/agnes-harness",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-21.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/agnes-harness",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "ahwurm/localharness",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/localharness",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "AmbientCrypto/ambient-cli",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-21.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/ambient-cli",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "andreseloysv/Tirith",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-08-14.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/Tirith",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "AndyMik90/Aperant",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-22.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/Aperant",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "AniruddhaDas1/OniRoute_SwarmAgents",
+      "priority_group": "PREPARED_PACKET",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-23-08.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "oniroute-validation-boundary",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/oniroute/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/OniRoute_SwarmAgents",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "anomalyco/opencode",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/opencode",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "Aphrodine-wq/G-Rump",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-03.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/G-Rump",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "arbazkhan971/bharatcode-cli",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/bharatcode-cli",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "atharva1407-sys/SIFRA-Agent-Orchestration-Multi-Agent-Runtime",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-07.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "sifra-runtime-approval-replay",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/sifra/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/SIFRA-Agent-Orchestration-Multi-Agent-Runtime",
+      "license_review": true,
+      "next_step": "BLOCKED_LICENSE_REVIEW"
+    },
+    {
+      "source": "ayandexyz/Honey-I-Shrunk-the-Harness",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-21.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "histh-readonly-delegate-tool-batch",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_DERIVED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-21-20261109/pilots/histh-s2/CONTRIBUTION_HANDOFF.md",
+          "patch_path": "pilots/histh-s2/native-fix.patch",
+          "patch_sha256": "74658928fc6b240990e23cfdf57cb0e75f8b65a78516b1ad4cc617b6bee46fe7",
+          "test_patch_path": "pilots/histh-s2/native-regression.patch"
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/Honey-I-Shrunk-the-Harness",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "beipo-ai/NorthCUA",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-17.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/NorthCUA",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "berkesecicii/free-multi-agent-ai-council",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-06-13.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/free-multi-agent-ai-council",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "BESSER-PEARL/BESSER-Agentic-Framework",
+      "priority_group": "EXISTING_FORK",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-23-09.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "besser-state-transition-validation",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/besser/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": "opensiro-contributions/BESSER-Agentic-Framework",
+      "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
+      "proposed_fork": "opensiro-contributions/BESSER-Agentic-Framework",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "browser-use/browser-harness",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/browser-harness",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "browser-use/browser-use",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/browser-use",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "bytedance/deer-flow",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/deer-flow",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "camel-ai/camel",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/camel",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "cargopete/gyrfalcon",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-01.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/gyrfalcon",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "chankov/agent-fleet",
+      "priority_group": "EXISTING_FORK",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-23-11.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "agent-fleet-native-lease-contract",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_DERIVED",
+          "handoff_url": "https://github.com/opensiro/upstream/pull/119",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": "opensiro-contributions/agent-fleet",
+      "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
+      "proposed_fork": "opensiro-contributions/agent-fleet",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "chekusu/wanman",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-18.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "wanman-task-admission-race",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_DERIVED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-18-20261109/pilots/wanman-s2/CONTRIBUTION_HANDOFF.md",
+          "patch_path": "pilots/wanman-s2/native-fix.patch",
+          "patch_sha256": "4b61fca8bf5d7cd9f0db12d0b47dc00295468ad6362cbfcc1294bca2a3bd73b4",
+          "test_patch_path": "pilots/wanman-s2/native-regression.patch"
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/wanman",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "chumingjun/dsh-harness-one",
+      "priority_group": "EXISTING_FORK",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-06.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "dsh-harness-one-workflow-state",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/workflow-one/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": "opensiro-contributions/dsh-harness-one",
+      "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
+      "proposed_fork": "opensiro-contributions/dsh-harness-one",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "cline/cline",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/cline",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "CodebuffAI/freebuff",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-03.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/freebuff",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "codemowers/agent",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-21.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "NAME_COLLISION_REQUIRES_EXACT_DECISION",
+      "proposed_fork": null,
+      "license_review": false,
+      "next_step": "RESOLVE_FORK_PARENT_AND_NAME"
+    },
+    {
+      "source": "codewhale-hq/Codewhale",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-22.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/Codewhale",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "converged-computing/fractale",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-01.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/fractale",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "Coral-Bricks-AI/reef",
+      "priority_group": "EXISTING_FORK",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-07.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "reef-polyp-experiment-queue-contract",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/reef/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": "opensiro-contributions/reef",
+      "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
+      "proposed_fork": "opensiro-contributions/reef",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "cordfuse/politik",
+      "priority_group": "EXISTING_FORK",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-04.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "politik-transaction-denial-return",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/politik/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": "opensiro-contributions/politik",
+      "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
+      "proposed_fork": "opensiro-contributions/politik",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "CorticalComputer/Spartan",
+      "priority_group": "EXISTING_FORK",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-23-08.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "spartan-persistence-recovery-contract",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/spartan/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": "opensiro-contributions/Spartan",
+      "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
+      "proposed_fork": "opensiro-contributions/Spartan",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "cristiangirlea/harness",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-21.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "NAME_COLLISION_REQUIRES_EXACT_DECISION",
+      "proposed_fork": null,
+      "license_review": false,
+      "next_step": "RESOLVE_FORK_PARENT_AND_NAME"
+    },
+    {
+      "source": "cubeplexai/cubeloop",
+      "priority_group": "PREPARED_PACKET",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-06.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "cubeloop-checkpointer-session-integrity",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/cubeloop/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/cubeloop",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "cUDGk/nipus-harness",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-06-12.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/nipus-harness",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "Darwin-Agent/HarnessX",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-23-10.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/HarnessX",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "deepseek-ai/deepseek-harness",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/deepseek-harness",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "DemonDamon/AgenticX",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/AgenticX",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "devincii-io/QuickCode",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-08-15.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/QuickCode",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "djynnius/rocinante",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/rocinante",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "DMRLZZ/DaveCode",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-21.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/DaveCode",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "earendil-works/pi",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/pi",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "eust-w/opengeniemaster",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/opengeniemaster",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "EverMind-AI/Raven",
+      "priority_group": "PREPARED_PACKET",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-01.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "raven-stale-edit-ledger",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/raven/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/Raven",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "fbrubacher/orch",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-05.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "orch-resume-checkpoint-idempotency",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/orch/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/orch",
+      "license_review": true,
+      "next_step": "BLOCKED_LICENSE_REVIEW"
+    },
+    {
+      "source": "folke/zaly",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-03.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/zaly",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "FonaTech/Clouds-Coder",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-08-15.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "clouds-coder-frozen-revision-retry-guard",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_DERIVED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/a9c08d010c856568bb6544f50a25e2d68b6c683c/pilots/clouds-coder-s2/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/Clouds-Coder",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "FuzzyKuji/OpenProgram",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-08-15.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/OpenProgram",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "Gen-Verse/DiscoveryRSI",
+      "priority_group": "EXISTING_FORK",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-05.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "discoveryrsi-campaign-history-integrity",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/discoveryrsi/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": "opensiro-contributions/DiscoveryRSI",
+      "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
+      "proposed_fork": "opensiro-contributions/DiscoveryRSI",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "Gen-Verse/Recuris",
+      "priority_group": "EXISTING_FORK",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-06.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "recuris-metaagent-gate-schema",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/recuris/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": "opensiro-contributions/Recuris",
+      "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
+      "proposed_fork": "opensiro-contributions/Recuris",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "getclarvis/clarvis",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-08-15.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/clarvis",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "github/gh-aw",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/gh-aw",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "google-gemini/gemini-cli",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/gemini-cli",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "google-research/harness2",
+      "priority_group": "PREPARED_PACKET",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-23-10.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "harness2-library-persistence-contract",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/harness2/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/harness2",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "greyhaven-ai/autocontext",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-22.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/autocontext",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "haoyu-agent/SceneEvolve_Code",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/SceneEvolve_Code",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "HarnessDesk/HarnessDesk",
+      "priority_group": "EXISTING_FORK",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": "opensiro-contributions/HarnessDesk",
+      "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
+      "proposed_fork": "opensiro-contributions/HarnessDesk",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "henrik-me/agent-harness",
+      "priority_group": "PREPARED_PACKET",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-23-10.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "henrik-agent-harness-workboard-claim-guards",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/henrik-agent-harness/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": null,
+      "fork_state": "NAME_COLLISION_REQUIRES_EXACT_DECISION",
+      "proposed_fork": null,
+      "license_review": false,
+      "next_step": "RESOLVE_FORK_PARENT_AND_NAME"
+    },
+    {
+      "source": "huggingface/tau",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-03.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/tau",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "huleidada/matterloop",
+      "priority_group": "EXISTING_FORK",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-05.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "matterloop-taskgraph-checkpoint-recovery",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/matterloop/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": "opensiro-contributions/matterloop",
+      "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
+      "proposed_fork": "opensiro-contributions/matterloop",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "Hyper-AI-Lab/cyber-ai-team",
+      "priority_group": "PREPARED_PACKET",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-23-08.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "cyber-ai-team-autonomy-action-policy",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/cyber-ai-team/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/cyber-ai-team",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "inhere/suga",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-20.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/suga",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "JakeSelby/model-citizen",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-21.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/model-citizen",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "jirathip-dev/herdsman",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-19.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/herdsman",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "jonathanhecl/vibe-coder",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-08-15.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/vibe-coder",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "jonwiggins/optio",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/optio",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "jpantsjoha/ai-native-developer-experience",
+      "priority_group": "PREPARED_PACKET",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-04.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "join-the-team-bootstrap-validation",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/join-the-team/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/ai-native-developer-experience",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "JuliusBrussee/caveman-code",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-03.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/caveman-code",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "k4yt3x/meka",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-08-14.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/meka",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "kryptobaseddev/cleo",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/cleo",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "kstawiski/evidence-gated-scientific-agent",
+      "priority_group": "PREPARED_PACKET",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-23-11.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "evidence-bench-native-evidence-admission",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_DERIVED",
+          "handoff_url": "https://github.com/opensiro/upstream/pull/120",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/evidence-gated-scientific-agent",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "KumihoIO/Revka",
+      "priority_group": "PREPARED_PACKET",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-23-10.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "revka-workflow-validation-contract",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/revka/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/Revka",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "kushagrathisside/bridle",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-19.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/bridle",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "langchain-ai/langchain",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/langchain",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "langflow-ai/langflow",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/langflow",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "lbdremy/phax",
+      "priority_group": "PREPARED_PACKET",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-06-13.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "phax-cross-run-overlap-reconciliation",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_DERIVED",
+          "handoff_url": "https://github.com/opensiro/upstream/pull/147",
+          "patch_path": "pilots/phax-s2/normalize-overlap-paths.patch",
+          "patch_sha256": "7281e253723a43b4c926befb0897a0658ef321e58a3b0178871b16afdf7c6607",
+          "test_patch_path": null
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/phax",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "LEO001020/pi-loop-studio-orchestra",
+      "priority_group": "EXISTING_FORK",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-07.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "pi-loop-worktree-publication-integrity",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/pi-loop-studio/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": "opensiro-contributions/pi-loop-studio-orchestra",
+      "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
+      "proposed_fork": "opensiro-contributions/pi-loop-studio-orchestra",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "LofiSu/deepseek-super-agent",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-06-13.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/deepseek-super-agent",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "lose4578/Auriga",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/Auriga",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "lukacf/meerkat",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/meerkat",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "maneja81/OpenOrbit",
+      "priority_group": "PREPARED_PACKET",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-07.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "openorbit-approval-boundary-validation",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/openorbit/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/OpenOrbit",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "manishiitg/agentworks",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-22.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/agentworks",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "maref-org/maref",
+      "priority_group": "PREPARED_PACKET",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-04.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "maref-run-state-boundary",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/maref/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/maref",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "markmhendrickson/ateles",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-04.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/ateles",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "martian56/rook",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-02.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/rook",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "me7ko-dev/genesis-agent",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-18.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/genesis-agent",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "microsoft/fara",
+      "priority_group": "PREPARED_PACKET",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-23-11.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "fara-native-checkpoint-integrity",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_DERIVED",
+          "handoff_url": "https://github.com/opensiro/upstream/pull/121",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/fara",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "microsoft/semantic-kernel",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/semantic-kernel",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "mihazs/agent-harness-lab",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/agent-harness-lab",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "mila-iqia/babyai",
+      "priority_group": "EXISTING_FORK",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-23-09.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "babyai-task-evaluation-input-contract",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/babyai/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": "opensiro-contributions/babyai",
+      "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
+      "proposed_fork": "opensiro-contributions/babyai",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "mnbresearch/crewdeck",
+      "priority_group": "PREPARED_PACKET",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-06-12.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "crewdeck-s2-manual-claim-admission",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_DERIVED",
+          "handoff_url": "https://github.com/opensiro/upstream/pull/141",
+          "patch_path": "pilots/crewdeck-s2/manual-claim-admission.patch",
+          "patch_sha256": "d1176ff1c0b258d96befbee1fca4c6981ffce78e6333e5e01dfabf2f69d2208f",
+          "test_patch_path": null
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/crewdeck",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "murilo-bassan/durable-agent-runtime",
+      "priority_group": "PREPARED_PACKET",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-08-14.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "runloop-reservation-recovery-and-settlement",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_DERIVED",
+          "handoff_url": "https://github.com/opensiro/upstream/pull/174",
+          "patch_path": "pilots/runloop-s2/idempotent-budget-finalization.patch",
+          "patch_sha256": "b6e06c18de6917ea6dac1503b92dd3c24283b497111596da8ed7988e75e3d333",
+          "test_patch_path": null
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/durable-agent-runtime",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "nearai/ironclaw",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-01.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/ironclaw",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "NeoPanic/harness3",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-20.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/harness3",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "NickGuAI/Herd",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-23-11.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/Herd",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "no-human-ai/no_human",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/no_human",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "NoHarry/android-agent-runtime",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-20.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/android-agent-runtime",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "NousResearch/hermes-agent",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/hermes-agent",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "nurmdrafi/pi-native",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-20.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/pi-native",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "oleksandr/super-pi-beam",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-21.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/super-pi-beam",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "Onipounds/agent-loop",
+      "priority_group": "EXISTING_FORK",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-05.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "agent-loop-numeric-verifier-grounding",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/agent-loop/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": "opensiro-contributions/agent-loop",
+      "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
+      "proposed_fork": "opensiro-contributions/agent-loop",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "openai/codex",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/codex",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "openclaw/openclaw",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/openclaw",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "OpenHands/OpenHands",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/OpenHands",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "openinterpreter/openinterpreter",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/openinterpreter",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "openJiuwen-ai/agent-runtime",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-22.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "NAME_COLLISION_REQUIRES_EXACT_DECISION",
+      "proposed_fork": null,
+      "license_review": false,
+      "next_step": "RESOLVE_FORK_PARENT_AND_NAME"
+    },
+    {
+      "source": "openonion/connectonion",
+      "priority_group": "PREPARED_PACKET",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-23-09.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "connectonion-approval-tool-admission",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/connectonion/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/connectonion",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "openshift-online/agent-control-plane",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-22.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/agent-control-plane",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "Orchestragent/orchestragent",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-17.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/orchestragent",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "orka-agents/orka",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-20.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/orka",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "Orkas-AI/Orkas",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-18.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/Orkas",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "paperclipai/paperclip",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/paperclip",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "peristyle-ai/harness",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "NAME_COLLISION_REQUIRES_EXACT_DECISION",
+      "proposed_fork": null,
+      "license_review": false,
+      "next_step": "RESOLVE_FORK_PARENT_AND_NAME"
+    },
+    {
+      "source": "Phoenixrr2113/agent-harness",
+      "priority_group": "EXISTING_FORK",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-23-10.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "phoenix-agent-harness-budget-admission",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/phoenix-agent-harness/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": "opensiro-contributions/agent-harness",
+      "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
+      "proposed_fork": "opensiro-contributions/agent-harness",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "Qin-sor/agent-context-lab",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-05.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "agent-context-lab-default-fail-boundary",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/agent-context-lab/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/agent-context-lab",
+      "license_review": true,
+      "next_step": "BLOCKED_LICENSE_REVIEW"
+    },
+    {
+      "source": "qual-lab/CRDD",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-04.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/CRDD",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "rainyZhou2/SreAgentHarness",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-08-14.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/SreAgentHarness",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "ramannanda9/agent-harness",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-18.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "NAME_COLLISION_REQUIRES_EXACT_DECISION",
+      "proposed_fork": null,
+      "license_review": false,
+      "next_step": "RESOLVE_FORK_PARENT_AND_NAME"
+    },
+    {
+      "source": "ranger360ai/posse",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-17.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/posse",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "RapierCraftStudios/ForgeDock",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-07.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "forgedock-issue-stage-reconciliation",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/forgedock/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/ForgeDock",
+      "license_review": true,
+      "next_step": "BLOCKED_LICENSE_REVIEW"
+    },
+    {
+      "source": "Resolver-TNG/StiraCore",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-20.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/StiraCore",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "RogyMD/onethread",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-19.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/onethread",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "Rohith-s-hub/Oblivion-agent",
+      "priority_group": "EXISTING_FORK",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-01.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "oblivion-agent-tool-loop",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/oblivion-batch-edit/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": "opensiro-contributions/Oblivion-agent",
+      "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
+      "proposed_fork": "opensiro-contributions/Oblivion-agent",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "rokartur/agent",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-21.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "NAME_COLLISION_REQUIRES_EXACT_DECISION",
+      "proposed_fork": null,
+      "license_review": false,
+      "next_step": "RESOLVE_FORK_PARENT_AND_NAME"
+    },
+    {
+      "source": "rootkiller6788/dsh-flow",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/dsh-flow",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "rsi-gear/gear",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-22.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/gear",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "RUC-NLPIR/CoworkOS",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/CoworkOS",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "ruslantrachuk/dark-factory",
+      "priority_group": "PREPARED_PACKET",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-06-12.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "dark-factory-s2-wave-disjointness",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_DERIVED",
+          "handoff_url": "https://github.com/opensiro/upstream/pull/141",
+          "patch_path": "pilots/dark-factory-s2/wave-file-scope-guard.patch",
+          "patch_sha256": "3a8c505216bd41cf1ccac83c5d0ed6567311865933fd00946977e30c12d5dd3d",
+          "test_patch_path": null
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/dark-factory",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "ruvnet/ruflo",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/ruflo",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "savant0x/savant-code",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/savant-code",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "sergeiwallace/ai-chassis",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-06-12.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/ai-chassis",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "SethGammon/Citadel",
+      "priority_group": "EXISTING_FORK",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-23-11.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "citadel-native-claim-exclusivity",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_DERIVED",
+          "handoff_url": "https://github.com/opensiro/upstream/pull/118",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": "opensiro-contributions/Citadel",
+      "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
+      "proposed_fork": "opensiro-contributions/Citadel",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "sh1ny/kehai",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-16.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/kehai",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "shamspias/reins",
+      "priority_group": "PREPARED_PACKET",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-06.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "reins-policy-decision-contract",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/reins/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/reins",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "shaneburrell/quikagent",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-02.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/quikagent",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "shrec/AIWorkHub",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/AIWorkHub",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "Shredi/pi-foreman",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-16.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/pi-foreman",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "simonguo/evidenceloom",
+      "priority_group": "PREPARED_PACKET",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-06.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "evidenceloom-numeric-evidence-validation",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/evidenceloom/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/evidenceloom",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "Sinkear/agentwork",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-08-14.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/agentwork",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "sisyphuslabs/dori-superagent",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-19.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/dori-superagent",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "smellak/gifford",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-16.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/gifford",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "splashxmoon/friday",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-19.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "friday-equivalent-file-claim-alias",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_DERIVED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-19-20261109/pilots/friday-s2/CONTRIBUTION_HANDOFF.md",
+          "patch_path": "pilots/friday-s2/native-fix.patch",
+          "patch_sha256": "474b9abec60f62701b673ab5b462828ddcee681737a9deacfd5c90905938ad7e",
+          "test_patch_path": "pilots/friday-s2/native-regression.patch"
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/friday",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "stablyai/orca",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/orca",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "strands-agents/harness-sdk",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/harness-sdk",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "SuperagenticAI/pyflue",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-23-08.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "pyflue-sandbox-tool-schema",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/pyflue/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/pyflue",
+      "license_review": true,
+      "next_step": "BLOCKED_LICENSE_REVIEW"
+    },
+    {
+      "source": "supernovae/SwarmOS",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-17.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/SwarmOS",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "tale-project/tale",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-22.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/tale",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "talktorana/agent-harness",
+      "priority_group": "PREPARED_PACKET",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-06-13.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "talktorana-memory-concurrent-save",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_DERIVED",
+          "handoff_url": "https://github.com/opensiro/upstream/pull/147",
+          "patch_path": "pilots/talktorana-memory-s2/concurrent-revise-retire.patch",
+          "patch_sha256": "0256bed316e87edae27bf4d19ffe97f74d4810f7d1ab168ae26a622feda42fa8",
+          "test_patch_path": null
+        }
+      ],
+      "fork": null,
+      "fork_state": "NAME_COLLISION_REQUIRES_EXACT_DECISION",
+      "proposed_fork": null,
+      "license_review": false,
+      "next_step": "RESOLVE_FORK_PARENT_AND_NAME"
+    },
+    {
+      "source": "TencentCloud/octop-harness",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-21.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/octop-harness",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "the-open-engine/zeroshot",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-20.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/zeroshot",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "tigicion/dao-code",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/dao-code",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "tripolskypetr/agent-runtime",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-20.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "NAME_COLLISION_REQUIRES_EXACT_DECISION",
+      "proposed_fork": null,
+      "license_review": false,
+      "next_step": "RESOLVE_FORK_PARENT_AND_NAME"
+    },
+    {
+      "source": "turri-oss/turri",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-16.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/turri",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "uniac-ai/AgentOrg",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-06-13.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/AgentOrg",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "vercel/eve",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-22.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/eve",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "vinhnx/VTCode",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-02.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/VTCode",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "VoltAgent/voltagent",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/voltagent",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "voly-codes/voly",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-20.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "voly-unlocked-fallback-lock-error",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_DERIVED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-20-20261109/pilots/voly-s2/CONTRIBUTION_HANDOFF.md",
+          "patch_path": "pilots/voly-s2/native-fix.patch",
+          "patch_sha256": "6e83d590b87c2c9b0b5fec72590a0f76cc78876cdde548afd8e8bfd12eb0121c",
+          "test_patch_path": "pilots/voly-s2/native-regression.patch"
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/voly",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "xincode-ai/xin-code",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-02.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/xin-code",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "xingyaoww/code-act",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-22.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "codeact-same-session-first-kernel-race",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_DERIVED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/7bd909e57098d28e206cc0854b94eae0fd434c31/pilots/codeact-s2/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/code-act",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "xpressabhi/agentic-sdlc-control-plane",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-06-12.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/agentic-sdlc-control-plane",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "yoheinakajima/activegraph",
+      "priority_group": "PREPARED_PACKET",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-23-08.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "activegraph-event-patch-invariants",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_INFORMED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/activegraph/CONTRIBUTION_HANDOFF.md",
+          "patch_path": null,
+          "patch_sha256": null,
+          "test_patch_path": null
+        }
+      ],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/activegraph",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "zenodea/zaino",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-10-22-02.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/zaino",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "zhanghaojie513/Dougong",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-09-16.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "fork": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/Dougong",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    }
+  ]
+}

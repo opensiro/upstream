@@ -14,7 +14,11 @@ counts as the prescribed `opensiro-contributions` fork test.
 The **existing Organization Control Plane** presents the action. The
 **Upstream** repository owns intake, the exact fork stage and returned
 evidence. This does not create another Control Plane, GitHub App, background
-runner, scheduled bot, standing permission or admitted fourth S1 domain.
+runner, scheduled bot or standing permission. Upstream is an admitted bounded
+S1 domain under Organization #274, **without** expanded external-write rights.
+See the [continuous source/fork inventory](CONTINUOUS_WORKING_FORK_PIPELINE.md)
+for the original 100 plus previously screened sources, with every actual
+external PR held for specific human approval.
 
 ```text
 Index assessment (canonical pinned SHA/path)
@@ -156,9 +160,9 @@ The connected host must then establish **all** of:
    test file. Creating a fork never permits external PR publication.
 
 This is **local Upstream/fork-owner operational authority**, not an implicit
-Organization S5 decision. [Organization #274](https://github.com/opensiro/vsm-oss-organization/issues/274)
-remains `PROPOSED / NOT ADMITTED`; no `S1=A/C/C(P)` follows from this
-readiness route.
+Organization S5 decision. The bounded fourth-S1-domain admission in
+[Organization #274](https://github.com/opensiro/vsm-oss-organization/issues/274)
+does not itself grant third-party writes or an `S1=A/C/C(P)` assessment.
 
 ## Implementation / review checkpoint
 
