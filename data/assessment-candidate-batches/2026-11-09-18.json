@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-09-18",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "46219bf103b0b122d86abc3ca70ae3d8bc820e2c",
+  "frozen_at": "2026-11-09",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "UPSTREAM UPGRADE BATCH 18. Five previously unscreened distinct included S1=A/S2=C Index sources selected after all 17 integrated prior cohorts and visible open PR source claims were reconciled. Each hypothesis was prospectively preregistered in exact remote checkpoint commit 97273405215b8652073ddba5cfd222233c321328 before current external code, issues or PRs were inspected. Screening order is descending Index reviewed_at (wanman, cast, react-agent-harness, Genesis Agent, Orkas), not the thematic subsection order in the hypothesis note. All five are questions, not proven defects, and no external publication grant follows.",
+  "candidates": [
+    {
+      "id": "wanman-task-admission-race",
+      "assessment_path": "assessments/wa/wanman.md",
+      "source": "chekusu/wanman",
+      "review_ref": "d3a8138de6c21981a4f1449a7b3f201e724c55c9",
+      "reviewed_at": "2026-10-29",
+      "function": "S2",
+      "finding": "Assessment S2=C observes first-party conflicting task/capsule scope admission and explicitly calls out possible concurrent admission races. Predict two overlapping TASK_CREATE RPC calls could both pass an unreserved scope check; falsify with serialized/atomic admission or a design that forbids the concurrent path.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/wa/wanman.md",
+        "https://github.com/opensiro/upstream/blob/97273405215b8652073ddba5cfd222233c321328/data/assessment-candidate-batches/2026-11-09-18-HYPOTHESES.md"
+      ]
+    },
+    {
+      "id": "cast-confirmation-queue-error-recovery",
+      "assessment_path": "assessments/ca/cast.md",
+      "source": "aa-blinov/cast",
+      "review_ref": "8eb5142ed05b2d835c4da64487b12aff4712c6c7",
+      "reviewed_at": "2026-10-23",
+      "function": "S2",
+      "finding": "Assessment S2=C observes a shared interactive confirmation queue across concurrent child agents. Predict an aborted or rejected predecessor could stall the sibling prompt queue; falsify if first-party serializer always recovers and progresses or abort cancels the whole parent by contract.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ca/cast.md",
+        "https://github.com/opensiro/upstream/blob/97273405215b8652073ddba5cfd222233c321328/data/assessment-candidate-batches/2026-11-09-18-HYPOTHESES.md"
+      ]
+    },
+    {
+      "id": "react-harness-concurrent-budget-admission",
+      "assessment_path": "assessments/re/react-agent-harness.md",
+      "source": "ramannanda9/agent-harness",
+      "review_ref": "6b399e57daeef6475f2dc37c11a1e8fc097ca7e4",
+      "reviewed_at": "2026-10-18",
+      "function": "S2",
+      "finding": "Assessment S2=C observes per-task mutable agent clones that share a common run-wide budget. Predict simultaneous clones might both pass a stale remaining-budget admission and overspend the shared cap; falsify if charge/reservation is already atomic or budget intentionally advisory.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/re/react-agent-harness.md",
+        "https://github.com/opensiro/upstream/blob/97273405215b8652073ddba5cfd222233c321328/data/assessment-candidate-batches/2026-11-09-18-HYPOTHESES.md"
+      ]
+    },
+    {
+      "id": "genesis-agent-multiprocess-skill-commit",
+      "assessment_path": "assessments/ge/genesis-agent.md",
+      "source": "me7ko-dev/genesis-agent",
+      "review_ref": "0e24818a9fd0788c6fe68b2e51ba3a3083f6d2fc",
+      "reviewed_at": "2026-10-03",
+      "function": "S2",
+      "finding": "Assessment S2=C observes thread-based skill-library write serialization and atomic JSON index replacement. Predict two independently supported processes sharing the library may both commit from stale snapshots and lose one skill; falsify if process sharing unsupported or cross-process synchronization already exists.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ge/genesis-agent.md",
+        "https://github.com/opensiro/upstream/blob/97273405215b8652073ddba5cfd222233c321328/data/assessment-candidate-batches/2026-11-09-18-HYPOTHESES.md"
+      ]
+    },
+    {
+      "id": "orkas-output-path-alias-lock",
+      "assessment_path": "assessments/or/orkas.md",
+      "source": "Orkas-AI/Orkas",
+      "review_ref": "bc21869913e30b72f83998d79c030b290d10f140",
+      "reviewed_at": "2026-09-30",
+      "function": "S2",
+      "finding": "Assessment S2=C observes path-keyed exclusive write/rename coordination among concurrent tool actors. Predict legal alias-equivalent output paths may take separate locks yet resolve to the same destination; falsify if canonical identity is used or aliases rejected by the supported first-party tool.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/or/orkas.md",
+        "https://github.com/opensiro/upstream/blob/97273405215b8652073ddba5cfd222233c321328/data/assessment-candidate-batches/2026-11-09-18-HYPOTHESES.md"
+      ]
+    }
+  ]
+}
