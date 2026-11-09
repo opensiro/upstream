@@ -20,6 +20,7 @@ The root [README.md](../README.md) is the public handoff. [AGENTS.md](../AGENTS.
 | Cross-lane status model | [HARNESS_STATUS_MODEL.md](HARNESS_STATUS_MODEL.md) |
 | Corrective publication authority | [CORRECTIVE_PR_PUBLICATION.md](CORRECTIVE_PR_PUBLICATION.md) |
 | Control Plane → local prepare | [CONTROL_PLANE_HANDOFF.md](CONTROL_PLANE_HANDOFF.md) |
+| Supervised org-fork bootstrap and cross-plugin internal contributions | [FORK_BOOTSTRAP_AND_COLLABORATION.md](FORK_BOOTSTRAP_AND_COLLABORATION.md) · [read-only proposal](../data/contribution-workspaces/fork-bootstrap-proposal.json) |
 | Source collision preflight and optional reservation | [ASSESSMENT_SOURCE_RESERVATIONS.md](ASSESSMENT_SOURCE_RESERVATIONS.md) |
 
 ## Detailed designs and gated execution

@@ -18,6 +18,7 @@ The domain manages evidence-backed upstream improvement proposals, pinned produc
 | Native functional effect | Pinned source test and before/after receipt | `pilots/`, `data/functional-effects.json` |
 | Technical batch membership and disposition | Frozen local batch manifest and owning issue | `data/assessment-candidate-batches/`, generated Harness Status |
 | Additive source → working-fork intentions and handoff pointers | 100-source priority snapshot + frozen technical batch manifests; live fork parent verified independently | Generated `data/contribution-workspaces/registry.json`; [continuous pipeline](docs/CONTINUOUS_WORKING_FORK_PIPELINE.md) |
+| One-time supervised public-fork bootstrap and cross-plugin internal PR routing | Exact Upstream source identities, effective batch-stage grants, separate human external-publication decision | [Non-executable generated proposal](data/contribution-workspaces/fork-bootstrap-proposal.json), [protocol](docs/FORK_BOOTSTRAP_AND_COLLABORATION.md) |
 | Authorized finite external-publication stages | Their exact publication mandate and ledger | `data/corrective-publication/`, `data/improvement-publication/` |
 | Shared work selection, S1 boundary, S5 grants | [Organization TODO](https://github.com/opensiro/vsm-oss-organization/blob/main/TODO.md), domain contract and owner decisions | Repository-local issues and explicitly scoped handoffs |
 

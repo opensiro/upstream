@@ -22,6 +22,10 @@ not treated as new unpublished work.
 
 The current generated [workspace registry](../data/contribution-workspaces/registry.json)
 is an **intent and provenance index**, not proof of 183 actual GitHub forks.
+For a one-time, human-supervised bootstrap and later collaboration from
+different GitHub plugins, see the [read-only bootstrap proposal and contributor
+protocol](FORK_BOOTSTRAP_AND_COLLABORATION.md) and its
+[`fork-bootstrap-proposal.json`](../data/contribution-workspaces/fork-bootstrap-proposal.json).
 Historical mapping is not live verification. The names of different source
 repositories can collide: e.g. four distinct `*/agent-harness` sources.
 For these the proposed fork name is deliberately empty until the correct
@@ -93,6 +97,8 @@ python3 scripts/contribution_workspaces.py status
 python3 scripts/contribution_workspaces.py list --source talktorana/agent-harness
 python3 scripts/contribution_workspaces.py sync
 python3 scripts/contribution_workspaces.py check
+python3 scripts/fork_bootstrap_manifest.py status
+python3 scripts/fork_bootstrap_manifest.py check
 ```
 
 - Run `sync` **in the same internal change** that adds/changes a batch
