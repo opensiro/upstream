@@ -1,0 +1,97 @@
+diff --git a/packages/runtime/src/supervisor.ts b/packages/runtime/src/supervisor.ts
+index 84cd701..7b46ede 100644
+--- a/packages/runtime/src/supervisor.ts
++++ b/packages/runtime/src/supervisor.ts
+@@ -1026,16 +1026,7 @@ ${activePaths}`;
+           return createRpcError(req.id, RPC_ERRORS.INVALID_PARAMS, `Capsule "${capsuleId}" not found`);
+         }
+         const normalizedScope = scope || { paths: [] };
+-        const conflicts = await this.taskPool.checkConflict(normalizedScope);
+-        if (conflicts.length > 0) {
+-          const conflictIds = conflicts.map(task => task.id.slice(0, 8)).join(', ');
+-          return createRpcError(
+-            req.id,
+-            RPC_ERRORS.INVALID_PARAMS,
+-            `Task scope conflicts with active task(s): ${conflictIds}`,
+-          );
+-        }
+-        const task = await this.taskPool.create({
++        const admission = this.taskPool.createIfUnconflicted({
+           title,
+           description: description || '',
+           scope: normalizedScope,
+@@ -1048,6 +1039,16 @@ ${activePaths}`;
+           scopeType,
+           executionProfile,
+         });
++        const conflicts = admission.conflicts;
++        if (conflicts.length > 0) {
++          const conflictIds = conflicts.map(task => task.id.slice(0, 8)).join(', ');
++          return createRpcError(
++            req.id,
++            RPC_ERRORS.INVALID_PARAMS,
++            `Task scope conflicts with active task(s): ${conflictIds}`,
++          );
++        }
++        const task = admission.task!;
+         if (assignee) {
+           await this.taskPool.update(task.id, { status: 'assigned', assignee, executionProfile });
+           // Auto-notify: send a message to the assigned agent so it knows about the task
+diff --git a/packages/runtime/src/task-pool.ts b/packages/runtime/src/task-pool.ts
+index 644b531..e9dddf7 100644
+--- a/packages/runtime/src/task-pool.ts
++++ b/packages/runtime/src/task-pool.ts
+@@ -302,7 +302,7 @@ export class TaskPool {
+     return prefixRow ? rowToTask(prefixRow) : null;
+   }
+ 
+-  async create(input: TaskCreateInput): Promise<Task> {
++  private insert(input: TaskCreateInput): Task {
+     const id = randomUUID();
+     const now = Date.now();
+     const scopeJson = JSON.stringify(input.scope);
+@@ -332,6 +332,26 @@ export class TaskPool {
+     return rowToTask(row);
+   }
+ 
++  async create(input: TaskCreateInput): Promise<Task> {
++    return this.insert(input);
++  }
++
++  /**
++   * Admit an RPC task under the same SQLite write transaction that checks its
++   * active scope. A separate read followed by await create() lets two
++   * simultaneous RPCs both see an empty active set before either inserts.
++   * IMMEDIATE also serializes competing supervisors sharing one database.
++   * The general create() helper remains unchanged for migrations/fixtures.
++   */
++  createIfUnconflicted(input: TaskCreateInput): { task?: Task; conflicts: Task[] } {
++    const admit = this.db.transaction(() => {
++      const conflicts = this.findConflicts(input.scope);
++      if (conflicts.length > 0) return { conflicts };
++      return { task: this.insert(input), conflicts: [] };
++    });
++    return admit.immediate();
++  }
++
+   async claim(taskId: string, agentId: string): Promise<Task> {
+     const fullId = this.resolveId(taskId) ?? taskId;
+     const now = Date.now();
+@@ -442,7 +462,7 @@ export class TaskPool {
+     return true;
+   }
+ 
+-  async checkConflict(scope: TaskScope, excludeTaskId?: string): Promise<Task[]> {
++  private findConflicts(scope: TaskScope, excludeTaskId?: string): Task[] {
+     const rows = this.activeTasksStmt.all(...ACTIVE_STATUSES) as TaskRow[];
+     const conflicts: Task[] = [];
+ 
+@@ -457,4 +477,8 @@ export class TaskPool {
+ 
+     return conflicts;
+   }
++
++  async checkConflict(scope: TaskScope, excludeTaskId?: string): Promise<Task[]> {
++    return this.findConflicts(scope, excludeTaskId);
++  }
+ }
