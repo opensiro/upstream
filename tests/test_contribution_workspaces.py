@@ -21,13 +21,32 @@ class WorkspaceTests(unittest.TestCase):
         report = workspaces.build()
         counts = report["counts"]
         self.assertEqual(counts["priority_sources"], 100)
-        self.assertEqual(counts["historical_extras"], 70)
-        self.assertEqual(counts["unique_sources"], 170)
+        self.assertEqual(counts["historical_extras"], 83)
+        self.assertEqual(counts["batch_only_extras"], 70)
+        self.assertEqual(counts["pilot_only_extras"], 5)
+        self.assertEqual(counts["portfolio_only_extras"], 8)
+        self.assertEqual(counts["unique_sources"], 183)
         self.assertEqual(counts["batch_cases"], 125)
         self.assertEqual(counts["technical_handoffs"], 50)
         self.assertEqual(counts["historical_fork_mappings"], 16)
         self.assertEqual(counts["name_collision_sources"], 10)
-        self.assertEqual(len({r["source"].casefold() for r in report["sources"]}), 170)
+        self.assertEqual(len({r["source"].casefold() for r in report["sources"]}), 183)
+
+    def test_other_native_pilots_and_historical_pr_projects_are_not_lost(self):
+        report = workspaces.build()
+        by_source = {r["source"].casefold(): r for r in report["sources"]}
+        self.assertEqual(by_source["speakeasy-api/kit"]["priority_group"], "PILOT_EXTRA")
+        self.assertEqual(by_source["avala-ai/agent-code"]["next_step"],
+                         "RECONCILE_NATIVE_PILOT_BEFORE_FORK_STAGE")
+        self.assertEqual(by_source["codexmark/kram"]["pilot_links"][0]["case_id"],
+                         "kram-s2-native-edit-atomicity")
+        self.assertEqual(by_source["topoteretes/cognee-community"]["priority_group"],
+                         "PORTFOLIO_EXTRA")
+        self.assertEqual(by_source["shep-ai/shep"]["historical_prs"],
+                         ["https://github.com/shep-ai/shep/pull/933",
+                          "https://github.com/shep-ai/shep/pull/934"])
+        self.assertEqual(by_source["shep-ai/shep"]["next_step"],
+                         "HISTORICAL_PR_TRACK_ONLY_NO_NEW_PUBLICATION")
 
     def test_no_fork_or_pr_write_claimed_and_no_wrong_parent_by_basename(self):
         report = workspaces.build()
@@ -65,6 +84,14 @@ class WorkspaceTests(unittest.TestCase):
             pool = root / workspaces.POOL
             pool.parent.mkdir(parents=True)
             shutil.copyfile(ROOT / workspaces.POOL, pool)
+            pilot_path = root / workspaces.PILOTS
+            pilot_path.parent.mkdir(parents=True, exist_ok=True)
+            # The test deliberately creates an empty supplementary pilot ledger.
+            pilot_path.write_text(json.dumps({"schema_version": 1, "cases": []}), encoding="utf-8")
+            historical_path = root / workspaces.PR_HISTORY
+            historical_path.parent.mkdir(parents=True, exist_ok=True)
+            historical_path.write_text(json.dumps({"schema_version": 2, "records": [],
+                                                  "registry_records": []}), encoding="utf-8")
             batches = root / workspaces.BATCH_DIR
             batches.mkdir(parents=True)
             source_batch = ROOT / workspaces.BATCH_DIR / "2026-11-09-22.json"

@@ -12,12 +12,16 @@ fork in the same contribution cycle; an external upstream PR requires an
 The [100-source priority snapshot](../data/fork-priorities/2026-11-08.json)
 is preserved unchanged. [`scripts/contribution_workspaces.py`](../scripts/contribution_workspaces.py)
 builds the current working inventory from that snapshot **plus every integrated
-frozen `data/assessment-candidate-batches/*.json` case**. A source that was
-worked on but excluded from the initial 100 remains included; negative screens
-and blocked hypotheses are tracked, without inventing a defect or patch.
+frozen `data/assessment-candidate-batches/*.json` case**, earlier standalone
+[native pilots](../data/contribution-workspaces/pilot-sources.json), and
+the historical [casebook/registry PR lifecycle sources](../data/upstream-lifecycle.json).
+A source that was worked on but excluded from the initial 100 remains included;
+negative screens and blocked hypotheses are tracked, without inventing a
+defect or patch. Historical external PR sources are tracked for continuity,
+not treated as new unpublished work.
 
 The current generated [workspace registry](../data/contribution-workspaces/registry.json)
-is an **intent and provenance index**, not proof of 170 actual GitHub forks.
+is an **intent and provenance index**, not proof of 183 actual GitHub forks.
 Historical mapping is not live verification. The names of different source
 repositories can collide: e.g. four distinct `*/agent-harness` sources.
 For these the proposed fork name is deliberately empty until the correct
@@ -74,7 +78,8 @@ python3 scripts/contribution_workspaces.py check
   statuses to imply that a separate external action occurred.
 - The unfiltered repository-integrity workflow runs `check` on all PRs and
   pushes to `main`; an out-of-date workspace registry fails CI. The registry
-  is therefore continuously coupled to committed Upstream technical records.
+  is therefore continuously coupled to committed Upstream technical records,
+  standalone pilot mappings, and retained historical PR identity changes.
 - If fork lifecycle receipts are added in the future, record the independently
   observed fork and commit in a separately reviewed operational ledger, and
   have the registry consume it. Do not turn this generated projection into
@@ -90,12 +95,14 @@ python3 scripts/contribution_workspaces.py check
 | --- | ---: |
 | Original priority pool | 100 |
 | Frozen assessment batches 01–22 | 125 records |
-| Overlap | 55 |
-| Historical sources added to working registry | 70 |
-| **Working inventory** | **170 distinct sources** |
+| Overlap between priority 100 and batches | 55 |
+| Batch sources added outside priority 100 | 70 |
+| Other native pilot sources added | 5 |
+| Historical casebook/registry sources added | 8 |
+| **Working inventory** | **183 distinct sources** |
 | Historical fork mappings in the priority pool | 16 (not live reverified) |
 
 The inventory includes 50 `AWAITING_EXTERNAL` technical handoffs, five
 historical cases needing license review and ten unresolved source identities
 with name collisions; these categories are **not additive**. No claim is made
-that the 154 other working forks exist or that their patches have been pushed.
+that the 167 other working forks exist or that their patches have been pushed.
