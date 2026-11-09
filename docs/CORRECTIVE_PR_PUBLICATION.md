@@ -1,5 +1,14 @@
 # Bounded publication mandate — assessment-informed Corrective PRs
 
+> **2026-11-09 owner policy update (prospective):** Every **new external PR**
+> requires a **specific human publication approval**, including a reopened
+> historical Corrective packet. The finite 2026-10-23 standing publication
+> mandate remains historical evidence of what was permitted and submitted
+> at that time; it is **not a continuing bypass** of this newer gate. The
+> completed 13 submitted PRs are not withdrawn or retroactively relabeled.
+> Local preparation and authorized working-fork synchronization stay separate
+> from publishing. See [continuous working-fork pipeline](CONTINUOUS_WORKING_FORK_PIPELINE.md).
+
 > **2026-10-25 finite-cohort reconciliation:** The [reviewable working ledger in PR #129](https://github.com/opensiro/upstream/pull/129) records **13 SUBMITTED / 21 BLOCKED / 0 QUEUED** from exactly 34 fixed cases. All queue entries are terminal under the present mandate; **21 BLOCKED cases are not published fixes or third-party rejection decisions**. Reopening requires new evidence/permission as appropriate, not an automatic next cohort. The [operational-readiness review](../reports/2026-10-25-upstream-operational-readiness.md) distinguishes a real finite publication experiment from an inactive general executor. Until #129 merges, `main` retains an older ledger; do not confuse their counts.
 
 **Owning experiment:** [Upstream #56](https://github.com/opensiro/upstream/issues/56), under the Upstream contribution execution route of [#6](https://github.com/opensiro/upstream/issues/6). **Operator decision:** confirmed in the current owner conversation on **2026-10-23** after an explicit question about transferring external-publication rights. **Decision holder:** the OpenSiro owner, `xLagerFeuer` (declared holder; this conversation is not a substitute for authenticated GitHub actor readback). **Mandate:** `CORRECTIVE-PUBLISH-2026-10-23-01`.

@@ -4,7 +4,24 @@
 
 **Read-only all-lane status:** [Harness Status](../HARNESS_STATUS.md) groups work as harness → intervention → external PR, preserving these batch manifests as historical technical records. `python3 scripts/harness_status.py --filter actionable` is an inventory view, **not** an authorized publication scheduler or fresh source/PR verification. See the [source hierarchy](HARNESS_STATUS_MODEL.md).
 
+**Continuous working-fork link:** after each admitted technical batch or
+updated handoff, regenerate the [source → fork intent registry](../data/contribution-workspaces/registry.json)
+with `python3 scripts/contribution_workspaces.py sync` in the same internal
+change. The additive registry covers the original priority 100 **and every
+worked batch source outside the 100**. CI checks exact freshness. When a
+trusted connected stage executor and exact authorization are available, an
+admitted patch goes to its verified `opensiro-contributions` working branch
+in the same pipeline. External PR publication is a distinct, **human-approved**
+stage with no default automatic path. The current provider still blocks live
+fork creation/patch sync; see [the full contract](CONTINUOUS_WORKING_FORK_PIPELINE.md).
+
 **Distinct owner-authorized publication route (2026-10-23):** `continue corrective PR publication` processes **only** the 34 already source-tested Corrective cases in the [finite ledger](../data/corrective-publication/2026-10-23-01.json) under the [bounded mandate](CORRECTIVE_PR_PUBLICATION.md). It is separate from generic `continue`, which advances **screening** through the frozen assessment-candidate batches and does not retroactively rewrite their historical `AWAITING_EXTERNAL` entries. Record real new external PR outcomes in the separate ledger; no PR was published merely by creating the ledger. The owner approval covers only public fork/branch/external Draft PR publication for the enumerated rows, not upstream merge, protected writes or new cases.
+
+**Current release gate (2026-11-09):** the owner's newer instruction requires
+specific human approval **before any new external PR**, including reopening a
+previously blocked Corrective row. The finite historical mandate is not
+re-usable for unattended new publication. Preparing technical changes in a
+verified working fork remains a separate gated stage.
 
 ## Control Plane command: `batch upstream`
 

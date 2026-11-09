@@ -2,6 +2,13 @@
 
 **Status: proposal / read-only selection.** Exactly 100 distinct source identities, not 100 known defects, approved forks or external contributions.
 
+**Continuous operational inventory:** this frozen cohort is **not** the entire
+working set. The [generated source/fork registry](../data/contribution-workspaces/registry.json)
+adds every previously screened batch source not included in these 100, under
+the [continuous working-fork pipeline](CONTINUOUS_WORKING_FORK_PIPELINE.md).
+External PRs require separate human approval; a registry entry is neither a
+created fork nor a grant to modify one.
+
 Pinned Index: [`46219bf103b0`](https://github.com/opensiro/vsm-harness-index/commit/46219bf103b0b122d86abc3ca70ae3d8bc820e2c). Selection readback Upstream: [`dc509c073e06`](https://github.com/opensiro/upstream/commit/dc509c073e060447b22ca4bfd9140b6e26d28498). GitHub repository license/activity and reach metadata checked on 2026-11-08; some mechanism-lane stars are unavailable in the current metadata sample.
 
 ## Cohorts

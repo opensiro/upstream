@@ -25,3 +25,5 @@ jobs:
           python-version: '3.12'
       - name: Offline repository unit tests
         run: python3 -m unittest discover -s tests -v
+      - name: Continuous working-fork inventory freshness
+        run: python3 scripts/contribution_workspaces.py check
