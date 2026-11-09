@@ -18,7 +18,7 @@ case "${case_id}" in
     source_sha="e31f134b689afd6a71d94b0420682d1f528d6fa1"
     pilot_dir="${packet_root}/lacp-s2"
     expected_fix="17bc0d36273ee6bdc90a5ed8393afc58c9b7deeea8b35da2ccd9d8fb0faee842"
-    expected_test="463b291ee13840d809f6723957994fe4474b4c788fd3529611027f088afa4f39"
+    expected_test="f71e4a766381c8cfedbb2559c644f3e11f6603006559f2ac682d3936130393a3"
     native_test=(bash scripts/ci/test-swarm.sh)
     ;;
   voly)
