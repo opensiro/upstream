@@ -13,14 +13,23 @@
     "batch_cases": 125,
     "historical_fork_mappings": 16,
     "name_collision_sources": 10,
-    "technical_handoffs": 50
+    "technical_handoffs": 50,
+    "dated_fork_readbacks": 16,
+    "same_named_ref_matches_at_readback": 9,
+    "technical_packet_states": {
+      "EXPLICIT_PATCH_HASH_MATCHED": 10,
+      "LOCAL_MULTI_PATCH_SELECTION_REQUIRED": 3,
+      "LOCAL_SINGLE_PATCH_UNREVIEWED": 33,
+      "NO_LOCAL_PACKET_OR_PR_ONLY_HANDOFF": 4
+    }
   },
   "execution": {
     "fork_and_patch_writes": "SEPARATE_TRUSTED_HOST_STAGE_GRANT_REQUIRED",
     "continuous_link": "REGENERATE_WITH_EVERY_BATCH_OR_PATCH_RECORD_CHANGE",
     "external_pr": "HUMAN_EXPLICIT_APPROVAL_REQUIRED",
     "auto_external_pr": false,
-    "live_forks_verified_by_this_script": false
+    "live_forks_verified_by_this_script": false,
+    "dated_fork_readback_is_live_authority": false
   },
   "sources": [
     {
@@ -38,12 +47,25 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-20-20261109/pilots/lacp-s2/CONTRIBUTION_HANDOFF.md",
           "patch_path": "pilots/lacp-s2/native-fix.patch",
           "patch_sha256": "17bc0d36273ee6bdc90a5ed8393afc58c9b7deeea8b35da2ccd9d8fb0faee842",
-          "test_patch_path": "pilots/lacp-s2/native-regression.patch"
+          "test_patch_path": "pilots/lacp-s2/native-regression.patch",
+          "technical_packet": {
+            "state": "EXPLICIT_PATCH_HASH_MATCHED",
+            "pilot": null,
+            "explicit_patch": {
+              "path": "pilots/lacp-s2/native-fix.patch",
+              "sha256": "17bc0d36273ee6bdc90a5ed8393afc58c9b7deeea8b35da2ccd9d8fb0faee842"
+            },
+            "explicit_test_patch": {
+              "path": "pilots/lacp-s2/native-regression.patch",
+              "sha256": "f71e4a766381c8cfedbb2559c644f3e11f6603006559f2ac682d3936130393a3"
+            }
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/lacp",
       "license_review": false,
@@ -60,6 +82,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "NAME_COLLISION_REQUIRES_EXACT_DECISION",
       "proposed_fork": null,
       "license_review": false,
@@ -76,6 +99,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/cast",
       "license_review": false,
@@ -90,6 +114,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/ECC",
       "license_review": false,
@@ -104,6 +129,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/ag2",
       "license_review": false,
@@ -118,6 +144,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/agentarea",
       "license_review": false,
@@ -138,12 +165,29 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/agentflow/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/agentflow",
+              "files": 2,
+              "content_sha256": "7f5c13a1823564ce62c83bad0f44e13ee80c61ea859dc523353e6ffa5a4ba5b7",
+              "patch_candidates": [
+                {
+                  "path": "pilots/agentflow/node-id-artifact-path-guard.patch",
+                  "sha256": "4f5a735192cfa294ddfed593b89a7e15eea40c5a8b3d9546f31303e254dafac2"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/agentflow",
       "license_review": false,
@@ -164,12 +208,29 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/agentuniverse/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/agentuniverse",
+              "files": 2,
+              "content_sha256": "64e9bae9cb4a4ffacec0fd251aec9d5128285fe4ff89c1f4829a0170471611c3",
+              "patch_candidates": [
+                {
+                  "path": "pilots/agentuniverse/workflow-reference-contract.patch",
+                  "sha256": "119277ad58e421686ed09e81a0344a840091f45bfdcdbbdb621f7fa8c6c22189"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/agentUniverse",
       "license_review": false,
@@ -186,6 +247,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/agnes-harness",
       "license_review": false,
@@ -200,6 +262,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/localharness",
       "license_review": false,
@@ -216,6 +279,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/ambient-cli",
       "license_review": false,
@@ -232,6 +296,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/Tirith",
       "license_review": false,
@@ -248,6 +313,7 @@
         "https://github.com/androoAGI/starnet/pull/56"
       ],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/starnet",
       "license_review": false,
@@ -264,6 +330,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/Aperant",
       "license_review": false,
@@ -284,12 +351,29 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/oniroute/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/oniroute",
+              "files": 2,
+              "content_sha256": "9606dccb4d548284bdccd3ba70536de99354a82f6445cab2d0969dbadc42d432",
+              "patch_candidates": [
+                {
+                  "path": "pilots/oniroute/nested-workspace-engine-guard.patch",
+                  "sha256": "4b0a6e51f45bc253c5988b52120c784dc755b58f5f98b507e878f76f024fd4c5"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/OniRoute_SwarmAgents",
       "license_review": false,
@@ -304,6 +388,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/opencode",
       "license_review": false,
@@ -320,6 +405,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/G-Rump",
       "license_review": false,
@@ -334,6 +420,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/bharatcode-cli",
       "license_review": false,
@@ -354,12 +441,29 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/sifra/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/sifra",
+              "files": 2,
+              "content_sha256": "66c6265e01b2c17b9f88f0caa0845f6e10ec46ca5bc2adefa49f20ac888ade43",
+              "patch_candidates": [
+                {
+                  "path": "pilots/sifra/timeout-revokes-tool-access.patch",
+                  "sha256": "7dc78e02362794c7b2a96280d5ce1420090367d792bb122e5d118fc6d7a99f37"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/SIFRA-Agent-Orchestration-Multi-Agent-Runtime",
       "license_review": true,
@@ -375,11 +479,14 @@
         {
           "case_id": "agent-code-reviewer",
           "evidence": "https://github.com/opensiro/upstream/pull/69",
-          "patch_path": null
+          "patch_path": null,
+          "local_evidence": null,
+          "local_patch_sha256": null
         }
       ],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/agent-code",
       "license_review": false,
@@ -400,12 +507,25 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-21-20261109/pilots/histh-s2/CONTRIBUTION_HANDOFF.md",
           "patch_path": "pilots/histh-s2/native-fix.patch",
           "patch_sha256": "74658928fc6b240990e23cfdf57cb0e75f8b65a78516b1ad4cc617b6bee46fe7",
-          "test_patch_path": "pilots/histh-s2/native-regression.patch"
+          "test_patch_path": "pilots/histh-s2/native-regression.patch",
+          "technical_packet": {
+            "state": "EXPLICIT_PATCH_HASH_MATCHED",
+            "pilot": null,
+            "explicit_patch": {
+              "path": "pilots/histh-s2/native-fix.patch",
+              "sha256": "74658928fc6b240990e23cfdf57cb0e75f8b65a78516b1ad4cc617b6bee46fe7"
+            },
+            "explicit_test_patch": {
+              "path": "pilots/histh-s2/native-regression.patch",
+              "sha256": "72132dfb27481bab69492f4ded16bf1091c6db2267126010f3965bcd368825b1"
+            }
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/Honey-I-Shrunk-the-Harness",
       "license_review": false,
@@ -422,6 +542,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/NorthCUA",
       "license_review": false,
@@ -438,6 +559,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/free-multi-agent-ai-council",
       "license_review": false,
@@ -458,12 +580,38 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/besser/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/besser",
+              "files": 2,
+              "content_sha256": "8ff7e69e7683c1af7ff9733ce1382a4d879f74fe2e618141204bed22c2ad7f67",
+              "patch_candidates": [
+                {
+                  "path": "pilots/besser/auto-transition-registration-order.patch",
+                  "sha256": "206efdecf219f4f1b1344516bf245756f6ef626dfd330287cb45ac066b2bf691"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": "opensiro-contributions/BESSER-Agentic-Framework",
+      "dated_fork_readback": {
+        "observed_on": "2026-11-09",
+        "receipt": "data/contribution-workspaces/fork-readbacks/2026-11-09.json",
+        "fork": "opensiro-contributions/BESSER-Agentic-Framework",
+        "branch": "main",
+        "fork_sha": "548fc529c20da7f4342f2f60f847418f149e9340",
+        "source_same_named_branch_sha": "b35f4757b6b303b769ceb9f6751ab03328716d3f",
+        "ref_relation": "DIFFERENT_SHAS",
+        "recheck_before_any_write": true
+      },
       "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
       "proposed_fork": "opensiro-contributions/BESSER-Agentic-Framework",
       "license_review": false,
@@ -478,6 +626,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/browser-harness",
       "license_review": false,
@@ -492,6 +641,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/browser-use",
       "license_review": false,
@@ -506,6 +656,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/deer-flow",
       "license_review": false,
@@ -520,6 +671,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/camel",
       "license_review": false,
@@ -536,6 +688,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/gyrfalcon",
       "license_review": false,
@@ -552,6 +705,7 @@
         "https://github.com/cbrock84/headcount/pull/47"
       ],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/headcount",
       "license_review": false,
@@ -572,12 +726,28 @@
           "handoff_url": "https://github.com/opensiro/upstream/pull/119",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "NO_LOCAL_PACKET_OR_PR_ONLY_HANDOFF",
+            "pilot": null,
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": "opensiro-contributions/agent-fleet",
+      "dated_fork_readback": {
+        "observed_on": "2026-11-09",
+        "receipt": "data/contribution-workspaces/fork-readbacks/2026-11-09.json",
+        "fork": "opensiro-contributions/agent-fleet",
+        "branch": "main",
+        "fork_sha": "1d846daf52e4b71948cf31448058454db5633241",
+        "source_same_named_branch_sha": "63595849baab8bc1589dbf0573284f54d538dcaf",
+        "ref_relation": "DIFFERENT_SHAS",
+        "recheck_before_any_write": true
+      },
       "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
       "proposed_fork": "opensiro-contributions/agent-fleet",
       "license_review": false,
@@ -598,12 +768,25 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-18-20261109/pilots/wanman-s2/CONTRIBUTION_HANDOFF.md",
           "patch_path": "pilots/wanman-s2/native-fix.patch",
           "patch_sha256": "4b61fca8bf5d7cd9f0db12d0b47dc00295468ad6362cbfcc1294bca2a3bd73b4",
-          "test_patch_path": "pilots/wanman-s2/native-regression.patch"
+          "test_patch_path": "pilots/wanman-s2/native-regression.patch",
+          "technical_packet": {
+            "state": "EXPLICIT_PATCH_HASH_MATCHED",
+            "pilot": null,
+            "explicit_patch": {
+              "path": "pilots/wanman-s2/native-fix.patch",
+              "sha256": "4b61fca8bf5d7cd9f0db12d0b47dc00295468ad6362cbfcc1294bca2a3bd73b4"
+            },
+            "explicit_test_patch": {
+              "path": "pilots/wanman-s2/native-regression.patch",
+              "sha256": "0fe4f64675c1bfd1c91720e80767ba7a9bf1b06727b8b3b625ab8a6a4da99f07"
+            }
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/wanman",
       "license_review": false,
@@ -624,12 +807,38 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/workflow-one/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/workflow-one",
+              "files": 2,
+              "content_sha256": "c1dfdb9bf6a23d790127e5601ce7213c67ea613e1eb3896f65e283d00ffd5c78",
+              "patch_candidates": [
+                {
+                  "path": "pilots/workflow-one/active-runid-registry-guard.patch",
+                  "sha256": "506d93f2dc2fb64988171f4975a1a974941a68346d12478950c254f1ace24b96"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": "opensiro-contributions/dsh-harness-one",
+      "dated_fork_readback": {
+        "observed_on": "2026-11-09",
+        "receipt": "data/contribution-workspaces/fork-readbacks/2026-11-09.json",
+        "fork": "opensiro-contributions/dsh-harness-one",
+        "branch": "main",
+        "fork_sha": "08aef04761e8c6586efaa4077b49d349d4f0f920",
+        "source_same_named_branch_sha": "7f291a98a7f9497ddb98f79b96e51b660033b76f",
+        "ref_relation": "DIFFERENT_SHAS",
+        "recheck_before_any_write": true
+      },
       "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
       "proposed_fork": "opensiro-contributions/dsh-harness-one",
       "license_review": false,
@@ -644,6 +853,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/cline",
       "license_review": false,
@@ -660,6 +870,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/freebuff",
       "license_review": false,
@@ -676,6 +887,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "NAME_COLLISION_REQUIRES_EXACT_DECISION",
       "proposed_fork": null,
       "license_review": false,
@@ -692,6 +904,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/Codewhale",
       "license_review": false,
@@ -707,11 +920,24 @@
         {
           "case_id": "kram-s2-native-edit-atomicity",
           "evidence": "pilots/kram-s2/REPLAY_RECEIPT_2026-10-22.md",
-          "patch_path": "pilots/kram-s2/s2-edit-file-atomicity-v2.patch"
+          "patch_path": "pilots/kram-s2/s2-edit-file-atomicity-v2.patch",
+          "local_evidence": {
+            "directory": "pilots/kram-s2",
+            "files": 5,
+            "content_sha256": "aa9ae2e58c381726ed3b8fc8a9912f99c6269324ac57e736ff26d22408ee3244",
+            "patch_candidates": [
+              {
+                "path": "pilots/kram-s2/s2-edit-file-atomicity-v2.patch",
+                "sha256": "c8877dda2405f6d18d5c0693c3620115c8b57907248b4f6c3d42007dec0d030b"
+              }
+            ]
+          },
+          "local_patch_sha256": "c8877dda2405f6d18d5c0693c3620115c8b57907248b4f6c3d42007dec0d030b"
         }
       ],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/kram",
       "license_review": false,
@@ -728,6 +954,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/fractale",
       "license_review": false,
@@ -748,12 +975,38 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/reef/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/reef",
+              "files": 2,
+              "content_sha256": "e42d3d6a7366904c0038cbd09fa09e8b1721769e71c4eaed0d60085d3c1a3ff4",
+              "patch_candidates": [
+                {
+                  "path": "pilots/reef/unpushed-archive-commit-retry.patch",
+                  "sha256": "323710c9d0100010daaf034a37c479ce139d0ff7fca6883e4a47d92fea40a38e"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": "opensiro-contributions/reef",
+      "dated_fork_readback": {
+        "observed_on": "2026-11-09",
+        "receipt": "data/contribution-workspaces/fork-readbacks/2026-11-09.json",
+        "fork": "opensiro-contributions/reef",
+        "branch": "main",
+        "fork_sha": "33aefaa12d78891bf5ba70a0d96b070d471ecc78",
+        "source_same_named_branch_sha": "33aefaa12d78891bf5ba70a0d96b070d471ecc78",
+        "ref_relation": "MATCH",
+        "recheck_before_any_write": true
+      },
       "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
       "proposed_fork": "opensiro-contributions/reef",
       "license_review": false,
@@ -774,12 +1027,38 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/politik/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/politik",
+              "files": 2,
+              "content_sha256": "afc71e2352888f1181befc95e110986d8ee245728ec990d49a24d1f6e32e9ed8",
+              "patch_candidates": [
+                {
+                  "path": "pilots/politik/containment-dotdot-prefix.patch",
+                  "sha256": "3a68922871fe7395f2118225d1477f0ec3f4297f3f3daf88b9c4f359037eeb4b"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": "opensiro-contributions/politik",
+      "dated_fork_readback": {
+        "observed_on": "2026-11-09",
+        "receipt": "data/contribution-workspaces/fork-readbacks/2026-11-09.json",
+        "fork": "opensiro-contributions/politik",
+        "branch": "main",
+        "fork_sha": "c1fa7312c75599d72b187bf20088f51f5dda2247",
+        "source_same_named_branch_sha": "5fa69aa3e9d290c7b8bc613c163d3ffd233f5bb1",
+        "ref_relation": "DIFFERENT_SHAS",
+        "recheck_before_any_write": true
+      },
       "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
       "proposed_fork": "opensiro-contributions/politik",
       "license_review": false,
@@ -800,12 +1079,38 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/spartan/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/spartan",
+              "files": 2,
+              "content_sha256": "e354c18e6a225d5f968cafbd9e4cc90adf101965ee4ae828563f69f4f323ba7a",
+              "patch_candidates": [
+                {
+                  "path": "pilots/spartan/soul-first-entry-backfill.patch",
+                  "sha256": "a73d260a5a6cbcd49077f7aa2e1586d567c3d26586fa7c877750bc5d4a3d4b66"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": "opensiro-contributions/Spartan",
+      "dated_fork_readback": {
+        "observed_on": "2026-11-09",
+        "receipt": "data/contribution-workspaces/fork-readbacks/2026-11-09.json",
+        "fork": "opensiro-contributions/Spartan",
+        "branch": "main",
+        "fork_sha": "8f7b36a2326c0157a82040f8e04b474f4899c3da",
+        "source_same_named_branch_sha": "8f7b36a2326c0157a82040f8e04b474f4899c3da",
+        "ref_relation": "MATCH",
+        "recheck_before_any_write": true
+      },
       "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
       "proposed_fork": "opensiro-contributions/Spartan",
       "license_review": false,
@@ -822,6 +1127,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "NAME_COLLISION_REQUIRES_EXACT_DECISION",
       "proposed_fork": null,
       "license_review": false,
@@ -842,12 +1148,29 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/cubeloop/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/cubeloop",
+              "files": 2,
+              "content_sha256": "b2b2232b6c2c3e73e23de517573846ec276eaf984ec2365059309eb13b5bb6ae",
+              "patch_candidates": [
+                {
+                  "path": "pilots/cubeloop/memory-checkpoint-copy-boundaries.patch",
+                  "sha256": "6ca11f1be9da3b897b8724710f440c6f48cb100a95129d45e8de2debb91341a6"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/cubeloop",
       "license_review": false,
@@ -864,6 +1187,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/nipus-harness",
       "license_review": false,
@@ -880,6 +1204,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/HarnessX",
       "license_review": false,
@@ -894,6 +1219,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/deepseek-harness",
       "license_review": false,
@@ -908,6 +1234,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/AgenticX",
       "license_review": false,
@@ -924,6 +1251,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/QuickCode",
       "license_review": false,
@@ -938,6 +1266,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/rocinante",
       "license_review": false,
@@ -954,6 +1283,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/DaveCode",
       "license_review": false,
@@ -968,6 +1298,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/pi",
       "license_review": false,
@@ -982,6 +1313,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/opengeniemaster",
       "license_review": false,
@@ -1002,12 +1334,33 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/raven/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_MULTI_PATCH_SELECTION_REQUIRED",
+            "pilot": {
+              "directory": "pilots/raven",
+              "files": 4,
+              "content_sha256": "aefe0e88af24e3bbd023eb46a064f3424716e099d098b1a0cad957c409e183db",
+              "patch_candidates": [
+                {
+                  "path": "pilots/raven/stopped-turn-step-boundary-20261025.patch",
+                  "sha256": "38262c76af572d0ee09de71e165e5a9eed681b9e4c0468f230b9d1da1064b0df"
+                },
+                {
+                  "path": "pilots/raven/stopped-turn-step-boundary.patch",
+                  "sha256": "3e5bc3194c82b66a62441c9eabc523dcdefd5f8e54f0b62ed07844b8ff3cd400"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/Raven",
       "license_review": false,
@@ -1028,12 +1381,29 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/orch/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/orch",
+              "files": 2,
+              "content_sha256": "b5c37bc44760dd6b2970a4cb0f027c07c724d0f2655a8608c693da54df6c82f1",
+              "patch_candidates": [
+                {
+                  "path": "pilots/orch/checkpoint-state-roundtrip.patch",
+                  "sha256": "b8f86eb2d761470846246308da94e733711969ca5203de4b1d6001b22de44207"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/orch",
       "license_review": true,
@@ -1050,6 +1420,7 @@
         "https://github.com/first-fluke/oh-my-agent/pull/819"
       ],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/oh-my-agent",
       "license_review": false,
@@ -1066,6 +1437,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/zaly",
       "license_review": false,
@@ -1086,12 +1458,33 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/a9c08d010c856568bb6544f50a25e2d68b6c683c/pilots/clouds-coder-s2/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_MULTI_PATCH_SELECTION_REQUIRED",
+            "pilot": {
+              "directory": "pilots/clouds-coder-s2",
+              "files": 5,
+              "content_sha256": "38ff4967914d02c88f19f56a3a4a9bdeea3e95e0fcc2d3f249da6db9e78b679f",
+              "patch_candidates": [
+                {
+                  "path": "pilots/clouds-coder-s2/frozen-process-fix.patch",
+                  "sha256": "5d9d91a29fa6f06060a67f75c36bd60fe530a21f91b37f034ad98c4e52002a83"
+                },
+                {
+                  "path": "pilots/clouds-coder-s2/frozen-process-regression-tests.patch",
+                  "sha256": "e1e2168cd5886abf4ea8a2631fe05d96a2d08a8a98a6a2ac8cc42c27743b9346"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/Clouds-Coder",
       "license_review": false,
@@ -1108,6 +1501,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/OpenProgram",
       "license_review": false,
@@ -1128,12 +1522,38 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/discoveryrsi/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/discoveryrsi",
+              "files": 2,
+              "content_sha256": "6f7fcbc1d45dadb196758be02963d2472cc8a1e527c30b8fcdfe27ea8692eafd",
+              "patch_candidates": [
+                {
+                  "path": "pilots/discoveryrsi/candidate-episode-snapshot.patch",
+                  "sha256": "af4c299cf3cf92fc79b2a2417de361fd119c0c362c1dbe6bfc2da8145607b68c"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": "opensiro-contributions/DiscoveryRSI",
+      "dated_fork_readback": {
+        "observed_on": "2026-11-09",
+        "receipt": "data/contribution-workspaces/fork-readbacks/2026-11-09.json",
+        "fork": "opensiro-contributions/DiscoveryRSI",
+        "branch": "main",
+        "fork_sha": "7389e0b58ae50486ab35aa3dcbfa2fa15fea1a91",
+        "source_same_named_branch_sha": "d9a3dfe138a87706ac4850e1fcc6b2d5b0ec3353",
+        "ref_relation": "DIFFERENT_SHAS",
+        "recheck_before_any_write": true
+      },
       "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
       "proposed_fork": "opensiro-contributions/DiscoveryRSI",
       "license_review": false,
@@ -1154,12 +1574,38 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/recuris/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/recuris",
+              "files": 2,
+              "content_sha256": "0612ec5347b784de329803593857439da6dcaa1ea51dded2463c15892a078be7",
+              "patch_candidates": [
+                {
+                  "path": "pilots/recuris/invalid-heldout-data-guard.patch",
+                  "sha256": "1f129fac0e579bc33ab2b678325b5e1d0e6230e4887f47ae48d0a3049f3e9edc"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": "opensiro-contributions/Recuris",
+      "dated_fork_readback": {
+        "observed_on": "2026-11-09",
+        "receipt": "data/contribution-workspaces/fork-readbacks/2026-11-09.json",
+        "fork": "opensiro-contributions/Recuris",
+        "branch": "main",
+        "fork_sha": "7d3745ab787b1206ccd981cb1511100476097266",
+        "source_same_named_branch_sha": "7d3745ab787b1206ccd981cb1511100476097266",
+        "ref_relation": "MATCH",
+        "recheck_before_any_write": true
+      },
       "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
       "proposed_fork": "opensiro-contributions/Recuris",
       "license_review": false,
@@ -1176,6 +1622,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/clarvis",
       "license_review": false,
@@ -1190,6 +1637,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/gh-aw",
       "license_review": false,
@@ -1204,6 +1652,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/gemini-cli",
       "license_review": false,
@@ -1224,12 +1673,29 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/harness2/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/harness2",
+              "files": 2,
+              "content_sha256": "67a751177fd6940900ed4040c3f96585db2fc0039a2351470bee586c511a3f67",
+              "patch_candidates": [
+                {
+                  "path": "pilots/harness2/library-path-component-guard.patch",
+                  "sha256": "ff286bbdebb07b1e6da88b91e89b2734fac5af10545ee627d6fef856f577dd09"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/harness2",
       "license_review": false,
@@ -1246,6 +1712,7 @@
         "https://github.com/GoogleCloudPlatform/scion/pull/2047"
       ],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/scion",
       "license_review": false,
@@ -1262,6 +1729,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/autocontext",
       "license_review": false,
@@ -1276,6 +1744,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/SceneEvolve_Code",
       "license_review": false,
@@ -1290,6 +1759,16 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": "opensiro-contributions/HarnessDesk",
+      "dated_fork_readback": {
+        "observed_on": "2026-11-09",
+        "receipt": "data/contribution-workspaces/fork-readbacks/2026-11-09.json",
+        "fork": "opensiro-contributions/HarnessDesk",
+        "branch": "main",
+        "fork_sha": "9d95e9e27d3c901f0b1611d1ea042939b5bccbdb",
+        "source_same_named_branch_sha": "81996c0d95bd404ad9ab7bf862e4df1b0887837a",
+        "ref_relation": "DIFFERENT_SHAS",
+        "recheck_before_any_write": true
+      },
       "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
       "proposed_fork": "opensiro-contributions/HarnessDesk",
       "license_review": false,
@@ -1310,12 +1789,29 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/henrik-agent-harness/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/henrik-agent-harness",
+              "files": 2,
+              "content_sha256": "76573f3e038042c2bc66d2d05ae725915e864bc14889b8f11becdfd63ef53eb9",
+              "patch_candidates": [
+                {
+                  "path": "pilots/henrik-agent-harness/claim-same-cs-race-guard.patch",
+                  "sha256": "e71cb0ae8473064541d953ee5cfce681cd683d701344331ae22f2dbeb1013186"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "NAME_COLLISION_REQUIRES_EXACT_DECISION",
       "proposed_fork": null,
       "license_review": false,
@@ -1332,6 +1828,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/tau",
       "license_review": false,
@@ -1352,12 +1849,38 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/matterloop/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/matterloop",
+              "files": 2,
+              "content_sha256": "69915423461217572f3abf6fb0749dbb6d7c62de9cf6539c8a4680e8076d055f",
+              "patch_candidates": [
+                {
+                  "path": "pilots/matterloop/restore-duplicate-state-guard.patch",
+                  "sha256": "4db0427bdc9c6a8ba2ea6abb9a8d0fc844711eeee607d0f2b9091e8259847b95"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": "opensiro-contributions/matterloop",
+      "dated_fork_readback": {
+        "observed_on": "2026-11-09",
+        "receipt": "data/contribution-workspaces/fork-readbacks/2026-11-09.json",
+        "fork": "opensiro-contributions/matterloop",
+        "branch": "main",
+        "fork_sha": "a98e384fb02814de3e6ba3902cfee2c041e2d40f",
+        "source_same_named_branch_sha": "a98e384fb02814de3e6ba3902cfee2c041e2d40f",
+        "ref_relation": "MATCH",
+        "recheck_before_any_write": true
+      },
       "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
       "proposed_fork": "opensiro-contributions/matterloop",
       "license_review": false,
@@ -1374,6 +1897,7 @@
         "https://github.com/humbertobellor/henterprise/pull/1"
       ],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/henterprise",
       "license_review": false,
@@ -1394,12 +1918,29 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/cyber-ai-team/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/cyber-ai-team",
+              "files": 2,
+              "content_sha256": "4c0a7478dc5d1d116899379aac62798f58eba0d35cd04156f2c8ca52b245c3dd",
+              "patch_candidates": [
+                {
+                  "path": "pilots/cyber-ai-team/nonfinite-policy-envelopes.patch",
+                  "sha256": "6beaf41f846357c27b36c1f825409f9a0b385d31544ec9ee0e590f59b035b773"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/cyber-ai-team",
       "license_review": false,
@@ -1416,6 +1957,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/suga",
       "license_review": false,
@@ -1432,6 +1974,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/model-citizen",
       "license_review": false,
@@ -1448,6 +1991,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/herdsman",
       "license_review": false,
@@ -1464,6 +2008,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/vibe-coder",
       "license_review": false,
@@ -1478,6 +2023,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/optio",
       "license_review": false,
@@ -1498,12 +2044,29 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/join-the-team/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/join-the-team",
+              "files": 2,
+              "content_sha256": "f62f72eb40378c45d234a0beb5ea00d2728578c3fd33a2dd08784d803c280c2f",
+              "patch_candidates": [
+                {
+                  "path": "pilots/join-the-team/bootstrap-symlink-boundary.patch",
+                  "sha256": "1d71b8cde8a61f1d0a6c06911ac9ce457db71be042b9822b2d93f4d2d144efb0"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/ai-native-developer-experience",
       "license_review": false,
@@ -1520,6 +2083,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/caveman-code",
       "license_review": false,
@@ -1536,6 +2100,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/meka",
       "license_review": false,
@@ -1550,6 +2115,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/cleo",
       "license_review": false,
@@ -1570,12 +2136,19 @@
           "handoff_url": "https://github.com/opensiro/upstream/pull/120",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "NO_LOCAL_PACKET_OR_PR_ONLY_HANDOFF",
+            "pilot": null,
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/evidence-gated-scientific-agent",
       "license_review": false,
@@ -1596,12 +2169,29 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/revka/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/revka",
+              "files": 2,
+              "content_sha256": "bbe65eae4640a1a109a3b0b4318363a4f1f39154895b9e746e8a9b08f8dea523",
+              "patch_candidates": [
+                {
+                  "path": "pilots/revka/workflow-deep-dag-validation.patch",
+                  "sha256": "61c63244a659849c4c25adee79eb1d6abc4ee859eff906069284579365fb82e5"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/Revka",
       "license_review": false,
@@ -1618,6 +2208,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/bridle",
       "license_review": false,
@@ -1632,6 +2223,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/langchain",
       "license_review": false,
@@ -1646,6 +2238,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/langflow",
       "license_review": false,
@@ -1666,12 +2259,22 @@
           "handoff_url": "https://github.com/opensiro/upstream/pull/147",
           "patch_path": "pilots/phax-s2/normalize-overlap-paths.patch",
           "patch_sha256": "7281e253723a43b4c926befb0897a0658ef321e58a3b0178871b16afdf7c6607",
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "EXPLICIT_PATCH_HASH_MATCHED",
+            "pilot": null,
+            "explicit_patch": {
+              "path": "pilots/phax-s2/normalize-overlap-paths.patch",
+              "sha256": "7281e253723a43b4c926befb0897a0658ef321e58a3b0178871b16afdf7c6607"
+            },
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/phax",
       "license_review": false,
@@ -1692,12 +2295,38 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/pi-loop-studio/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/pi-loop-studio",
+              "files": 2,
+              "content_sha256": "674829408aec01efd9d3e06449991c52b7cbf42b7de151ef93fe8b55c04c1da1",
+              "patch_candidates": [
+                {
+                  "path": "pilots/pi-loop-studio/native-plan-shape-guard.patch",
+                  "sha256": "e5fe84d5d3b549ec6de6364a89348ca86ff9fd93b7f7564501a828d2f2be261c"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": "opensiro-contributions/pi-loop-studio-orchestra",
+      "dated_fork_readback": {
+        "observed_on": "2026-11-09",
+        "receipt": "data/contribution-workspaces/fork-readbacks/2026-11-09.json",
+        "fork": "opensiro-contributions/pi-loop-studio-orchestra",
+        "branch": "main",
+        "fork_sha": "0a6b65c63a0eb11f2e928e773de1774b2c7d5bd7",
+        "source_same_named_branch_sha": "0a6b65c63a0eb11f2e928e773de1774b2c7d5bd7",
+        "ref_relation": "MATCH",
+        "recheck_before_any_write": true
+      },
       "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
       "proposed_fork": "opensiro-contributions/pi-loop-studio-orchestra",
       "license_review": false,
@@ -1714,6 +2343,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/deepseek-super-agent",
       "license_review": false,
@@ -1728,6 +2358,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/Auriga",
       "license_review": false,
@@ -1742,6 +2373,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/meerkat",
       "license_review": false,
@@ -1757,11 +2389,19 @@
         {
           "case_id": "agentbox-manager-advice",
           "evidence": "pilots/agentbox-s2/SCREENING_AND_NATIVE_FIT_2026-10-20.md",
-          "patch_path": null
+          "patch_path": null,
+          "local_evidence": {
+            "directory": "pilots/agentbox-s2",
+            "files": 13,
+            "content_sha256": "88f42e344d6bd0500dcf3c20faf4cbc5e0387bc579b9d26dacae4e1acb53647d",
+            "patch_candidates": []
+          },
+          "local_patch_sha256": null
         }
       ],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/agentbox",
       "license_review": false,
@@ -1782,12 +2422,29 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/openorbit/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/openorbit",
+              "files": 2,
+              "content_sha256": "0773a2cc487770f2ede6a3f21e6e06ba04a849698f315a0345209189487be115",
+              "patch_candidates": [
+                {
+                  "path": "pilots/openorbit/dot-segment-path-parameter-guard.patch",
+                  "sha256": "f90c3a02aa8e759f30289a402e5d03657031049f64936095b1acb1ac382b5ae9"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/OpenOrbit",
       "license_review": false,
@@ -1804,6 +2461,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/agentworks",
       "license_review": false,
@@ -1824,12 +2482,29 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/maref/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/maref",
+              "files": 3,
+              "content_sha256": "0851b3b9cf8cc44704cdb6f91b17bd899acab187d6aa78bbdd5ff738395e15d3",
+              "patch_candidates": [
+                {
+                  "path": "pilots/maref/rollback-new-files.patch",
+                  "sha256": "166570b6402c60a87c96b4adae4110b2a5756057db2f617b808cd29ecc1525f9"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/maref",
       "license_review": false,
@@ -1846,6 +2521,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/ateles",
       "license_review": false,
@@ -1862,6 +2538,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/rook",
       "license_review": false,
@@ -1878,6 +2555,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/genesis-agent",
       "license_review": false,
@@ -1898,12 +2576,19 @@
           "handoff_url": "https://github.com/opensiro/upstream/pull/121",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "NO_LOCAL_PACKET_OR_PR_ONLY_HANDOFF",
+            "pilot": null,
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/fara",
       "license_review": false,
@@ -1918,6 +2603,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/semantic-kernel",
       "license_review": false,
@@ -1932,6 +2618,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/agent-harness-lab",
       "license_review": false,
@@ -1952,12 +2639,38 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/babyai/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/babyai",
+              "files": 2,
+              "content_sha256": "12f6531d2f5f5aa1916032eea8b9738ce82ca2cb5e78c53fc83544e15318422f",
+              "patch_candidates": [
+                {
+                  "path": "pilots/babyai/native-training-argument-guard.patch",
+                  "sha256": "e8ff3276e248490c535c3a6183935a385bd53e4e01a157918a1bac64cfd1f32e"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": "opensiro-contributions/babyai",
+      "dated_fork_readback": {
+        "observed_on": "2026-11-09",
+        "receipt": "data/contribution-workspaces/fork-readbacks/2026-11-09.json",
+        "fork": "opensiro-contributions/babyai",
+        "branch": "master",
+        "fork_sha": "65fb0cb6f816532a65014bf034a758244e2d5ae7",
+        "source_same_named_branch_sha": "65fb0cb6f816532a65014bf034a758244e2d5ae7",
+        "ref_relation": "MATCH",
+        "recheck_before_any_write": true
+      },
       "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
       "proposed_fork": "opensiro-contributions/babyai",
       "license_review": false,
@@ -1978,12 +2691,22 @@
           "handoff_url": "https://github.com/opensiro/upstream/pull/141",
           "patch_path": "pilots/crewdeck-s2/manual-claim-admission.patch",
           "patch_sha256": "d1176ff1c0b258d96befbee1fca4c6981ffce78e6333e5e01dfabf2f69d2208f",
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "EXPLICIT_PATCH_HASH_MATCHED",
+            "pilot": null,
+            "explicit_patch": {
+              "path": "pilots/crewdeck-s2/manual-claim-admission.patch",
+              "sha256": "d1176ff1c0b258d96befbee1fca4c6981ffce78e6333e5e01dfabf2f69d2208f"
+            },
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/crewdeck",
       "license_review": false,
@@ -2004,12 +2727,22 @@
           "handoff_url": "https://github.com/opensiro/upstream/pull/174",
           "patch_path": "pilots/runloop-s2/idempotent-budget-finalization.patch",
           "patch_sha256": "b6e06c18de6917ea6dac1503b92dd3c24283b497111596da8ed7988e75e3d333",
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "EXPLICIT_PATCH_HASH_MATCHED",
+            "pilot": null,
+            "explicit_patch": {
+              "path": "pilots/runloop-s2/idempotent-budget-finalization.patch",
+              "sha256": "b6e06c18de6917ea6dac1503b92dd3c24283b497111596da8ed7988e75e3d333"
+            },
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/durable-agent-runtime",
       "license_review": false,
@@ -2026,6 +2759,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/ironclaw",
       "license_review": false,
@@ -2042,6 +2776,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/harness3",
       "license_review": false,
@@ -2058,6 +2793,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/Herd",
       "license_review": false,
@@ -2072,6 +2808,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/no_human",
       "license_review": false,
@@ -2088,6 +2825,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/android-agent-runtime",
       "license_review": false,
@@ -2102,6 +2840,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/hermes-agent",
       "license_review": false,
@@ -2118,6 +2857,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/pi-native",
       "license_review": false,
@@ -2134,6 +2874,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/super-pi-beam",
       "license_review": false,
@@ -2154,12 +2895,38 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/agent-loop/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/agent-loop",
+              "files": 2,
+              "content_sha256": "e9db2f80abbd7f3a7ae6f9d6a59ad15cd2d20ecb666a49a614e5144fa8ffd622",
+              "patch_candidates": [
+                {
+                  "path": "pilots/agent-loop/numeric-notation-grounding.patch",
+                  "sha256": "c95110e9a0c22f3c51b12143564b78514942aef1200898e015405931a6cea33c"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": "opensiro-contributions/agent-loop",
+      "dated_fork_readback": {
+        "observed_on": "2026-11-09",
+        "receipt": "data/contribution-workspaces/fork-readbacks/2026-11-09.json",
+        "fork": "opensiro-contributions/agent-loop",
+        "branch": "main",
+        "fork_sha": "49525dc12a9861f71c99050de3b4a4b8b897e9fa",
+        "source_same_named_branch_sha": "49525dc12a9861f71c99050de3b4a4b8b897e9fa",
+        "ref_relation": "MATCH",
+        "recheck_before_any_write": true
+      },
       "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
       "proposed_fork": "opensiro-contributions/agent-loop",
       "license_review": false,
@@ -2174,6 +2941,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/codex",
       "license_review": false,
@@ -2188,6 +2956,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/openclaw",
       "license_review": false,
@@ -2202,6 +2971,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/OpenHands",
       "license_review": false,
@@ -2216,6 +2986,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/openinterpreter",
       "license_review": false,
@@ -2232,6 +3003,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "NAME_COLLISION_REQUIRES_EXACT_DECISION",
       "proposed_fork": null,
       "license_review": false,
@@ -2252,12 +3024,29 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/connectonion/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/connectonion",
+              "files": 2,
+              "content_sha256": "ac77f108577eafc27cfe388109555f7eab39be0feaecde027e1a1aeb1ae1e8b1",
+              "patch_candidates": [
+                {
+                  "path": "pilots/connectonion/control-file-symlink-admission.patch",
+                  "sha256": "2b71c8cdb3ef05df3e82fae797c6fba6824da989e68180c76950fe961582e1c5"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/connectonion",
       "license_review": false,
@@ -2274,6 +3063,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/agent-control-plane",
       "license_review": false,
@@ -2290,6 +3080,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/orchestragent",
       "license_review": false,
@@ -2306,6 +3097,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/orka",
       "license_review": false,
@@ -2322,6 +3114,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/Orkas",
       "license_review": false,
@@ -2336,6 +3129,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/paperclip",
       "license_review": false,
@@ -2351,11 +3145,19 @@
         {
           "case_id": "zot-scoped-admission",
           "evidence": "pilots/zot-shared-workspace/SCREENING_2026-10-20.md",
-          "patch_path": null
+          "patch_path": null,
+          "local_evidence": {
+            "directory": "pilots/zot-shared-workspace",
+            "files": 15,
+            "content_sha256": "7ea582e44c31f13e3aa04a013802fe62aa78197ab6878ffc37036e9b1c4f9036",
+            "patch_candidates": []
+          },
+          "local_patch_sha256": null
         }
       ],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/zot",
       "license_review": false,
@@ -2370,6 +3172,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "NAME_COLLISION_REQUIRES_EXACT_DECISION",
       "proposed_fork": null,
       "license_review": false,
@@ -2390,12 +3193,38 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/phoenix-agent-harness/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/phoenix-agent-harness",
+              "files": 2,
+              "content_sha256": "239017f82029c5ee5172278b1d47b3fb9004af9be323ec345a94ed4b38a3c37a",
+              "patch_candidates": [
+                {
+                  "path": "pilots/phoenix-agent-harness/day-rate-event-retention.patch",
+                  "sha256": "3a2ed73ff19fce5146cea112918f34d5b4767c8ed0ba2f09b8a1aa56ee0553c8"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": "opensiro-contributions/agent-harness",
+      "dated_fork_readback": {
+        "observed_on": "2026-11-09",
+        "receipt": "data/contribution-workspaces/fork-readbacks/2026-11-09.json",
+        "fork": "opensiro-contributions/agent-harness",
+        "branch": "main",
+        "fork_sha": "0f67103affd30a3c778874b890dbd5801cdbd94f",
+        "source_same_named_branch_sha": "0f67103affd30a3c778874b890dbd5801cdbd94f",
+        "ref_relation": "MATCH",
+        "recheck_before_any_write": true
+      },
       "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
       "proposed_fork": "opensiro-contributions/agent-harness",
       "license_review": false,
@@ -2416,12 +3245,29 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/agent-context-lab/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/agent-context-lab",
+              "files": 2,
+              "content_sha256": "d7e057afd5c92d7e2330cc14f5652e2823793e78e19631dcd56e9c62fab3f455",
+              "patch_candidates": [
+                {
+                  "path": "pilots/agent-context-lab/default-fail-evidence-contract.patch",
+                  "sha256": "3444a7fbbd453a3023cf5fc0e10571ca0a671e723f1f035f1baee98ebd74917a"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/agent-context-lab",
       "license_review": true,
@@ -2438,6 +3284,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/CRDD",
       "license_review": false,
@@ -2454,6 +3301,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/SreAgentHarness",
       "license_review": false,
@@ -2470,6 +3318,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "NAME_COLLISION_REQUIRES_EXACT_DECISION",
       "proposed_fork": null,
       "license_review": false,
@@ -2486,6 +3335,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/posse",
       "license_review": false,
@@ -2506,12 +3356,29 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/forgedock/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/forgedock",
+              "files": 2,
+              "content_sha256": "7634f8f807c0e9d25b34f10c0b9938ef786e40dea5bc82cfe8b7380a7e8194d8",
+              "patch_candidates": [
+                {
+                  "path": "pilots/forgedock/equal-version-remote-divergence.patch",
+                  "sha256": "fa48410f79038108f116c8233a9c2ad5fe3dadf5ec535b3267d87af8e6b32264"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/ForgeDock",
       "license_review": true,
@@ -2528,6 +3395,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/StiraCore",
       "license_review": false,
@@ -2544,6 +3412,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/onethread",
       "license_review": false,
@@ -2564,12 +3433,38 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/oblivion-batch-edit/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/oblivion-batch-edit",
+              "files": 3,
+              "content_sha256": "b25e04ac6b0061d46e2c2243460d2cb7e4154467cfea93d1115d1756ddb19415",
+              "patch_candidates": [
+                {
+                  "path": "pilots/oblivion-batch-edit/batch-edit-preflight.patch",
+                  "sha256": "b2264374a0d89eb42b7d66f2fc5076839083a5eb987e4574c9c79c88f38cb601"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": "opensiro-contributions/Oblivion-agent",
+      "dated_fork_readback": {
+        "observed_on": "2026-11-09",
+        "receipt": "data/contribution-workspaces/fork-readbacks/2026-11-09.json",
+        "fork": "opensiro-contributions/Oblivion-agent",
+        "branch": "main",
+        "fork_sha": "7c57fd23ddd9abb5a2795788364f5dcdf3ec87cb",
+        "source_same_named_branch_sha": "7c57fd23ddd9abb5a2795788364f5dcdf3ec87cb",
+        "ref_relation": "MATCH",
+        "recheck_before_any_write": true
+      },
       "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
       "proposed_fork": "opensiro-contributions/Oblivion-agent",
       "license_review": false,
@@ -2586,6 +3481,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "NAME_COLLISION_REQUIRES_EXACT_DECISION",
       "proposed_fork": null,
       "license_review": false,
@@ -2600,6 +3496,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/dsh-flow",
       "license_review": false,
@@ -2616,6 +3513,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/gear",
       "license_review": false,
@@ -2630,6 +3528,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/CoworkOS",
       "license_review": false,
@@ -2650,12 +3549,22 @@
           "handoff_url": "https://github.com/opensiro/upstream/pull/141",
           "patch_path": "pilots/dark-factory-s2/wave-file-scope-guard.patch",
           "patch_sha256": "3a8c505216bd41cf1ccac83c5d0ed6567311865933fd00946977e30c12d5dd3d",
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "EXPLICIT_PATCH_HASH_MATCHED",
+            "pilot": null,
+            "explicit_patch": {
+              "path": "pilots/dark-factory-s2/wave-file-scope-guard.patch",
+              "sha256": "3a8c505216bd41cf1ccac83c5d0ed6567311865933fd00946977e30c12d5dd3d"
+            },
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/dark-factory",
       "license_review": false,
@@ -2670,6 +3579,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/ruflo",
       "license_review": false,
@@ -2684,6 +3594,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/savant-code",
       "license_review": false,
@@ -2700,6 +3611,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/ai-chassis",
       "license_review": false,
@@ -2720,12 +3632,28 @@
           "handoff_url": "https://github.com/opensiro/upstream/pull/118",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "NO_LOCAL_PACKET_OR_PR_ONLY_HANDOFF",
+            "pilot": null,
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": "opensiro-contributions/Citadel",
+      "dated_fork_readback": {
+        "observed_on": "2026-11-09",
+        "receipt": "data/contribution-workspaces/fork-readbacks/2026-11-09.json",
+        "fork": "opensiro-contributions/Citadel",
+        "branch": "main",
+        "fork_sha": "63e538c65a5e09384c464bff5892cf6e9f601949",
+        "source_same_named_branch_sha": "3c317a0bf13f147efaa695db7c24117349119d07",
+        "ref_relation": "DIFFERENT_SHAS",
+        "recheck_before_any_write": true
+      },
       "fork_state": "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK",
       "proposed_fork": "opensiro-contributions/Citadel",
       "license_review": false,
@@ -2742,6 +3670,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/kehai",
       "license_review": false,
@@ -2762,12 +3691,29 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/reins/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/reins",
+              "files": 2,
+              "content_sha256": "d38bff453482f40cd08455fb3b96086546597b802a37c095ca02060edcc480c0",
+              "patch_candidates": [
+                {
+                  "path": "pilots/reins/empty-principal-rls-contract.patch",
+                  "sha256": "5c886ce7577531f67ac38545ece54e8575fa1d6fe12d4ef231212402d3698eaf"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/reins",
       "license_review": false,
@@ -2784,6 +3730,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/quikagent",
       "license_review": false,
@@ -2801,6 +3748,7 @@
         "https://github.com/shep-ai/shep/pull/934"
       ],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/shep",
       "license_review": false,
@@ -2815,6 +3763,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/AIWorkHub",
       "license_review": false,
@@ -2831,6 +3780,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/pi-foreman",
       "license_review": false,
@@ -2851,12 +3801,29 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/evidenceloom/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/evidenceloom",
+              "files": 2,
+              "content_sha256": "f02f1f1167cc127572c06852aa81859c6c24f20ad89019ab50aa5ab90dbceb9c",
+              "patch_candidates": [
+                {
+                  "path": "pilots/evidenceloom/unicode-spaced-numeric-scale.patch",
+                  "sha256": "185b89c27de2bed91d3f22b9898bd3c37d73cd15a3e71155a1d0afe22546c983"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/evidenceloom",
       "license_review": false,
@@ -2873,6 +3840,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/agentwork",
       "license_review": false,
@@ -2889,6 +3857,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/dori-superagent",
       "license_review": false,
@@ -2905,6 +3874,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/gifford",
       "license_review": false,
@@ -2920,11 +3890,14 @@
         {
           "case_id": "kit-partial-subagent-config",
           "evidence": "https://github.com/opensiro/upstream/pull/70",
-          "patch_path": null
+          "patch_path": null,
+          "local_evidence": null,
+          "local_patch_sha256": null
         }
       ],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/kit",
       "license_review": false,
@@ -2945,12 +3918,25 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-19-20261109/pilots/friday-s2/CONTRIBUTION_HANDOFF.md",
           "patch_path": "pilots/friday-s2/native-fix.patch",
           "patch_sha256": "474b9abec60f62701b673ab5b462828ddcee681737a9deacfd5c90905938ad7e",
-          "test_patch_path": "pilots/friday-s2/native-regression.patch"
+          "test_patch_path": "pilots/friday-s2/native-regression.patch",
+          "technical_packet": {
+            "state": "EXPLICIT_PATCH_HASH_MATCHED",
+            "pilot": null,
+            "explicit_patch": {
+              "path": "pilots/friday-s2/native-fix.patch",
+              "sha256": "474b9abec60f62701b673ab5b462828ddcee681737a9deacfd5c90905938ad7e"
+            },
+            "explicit_test_patch": {
+              "path": "pilots/friday-s2/native-regression.patch",
+              "sha256": "96a05244669335703ba726d49f6fcb61ef1f693df83cd1fbd4bd50989d18430d"
+            }
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/friday",
       "license_review": false,
@@ -2965,6 +3951,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/orca",
       "license_review": false,
@@ -2979,6 +3966,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/harness-sdk",
       "license_review": false,
@@ -2999,12 +3987,29 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/pyflue/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/pyflue",
+              "files": 2,
+              "content_sha256": "906930e9e360e86f49af386d45fe1b1e072ea5c5fef33efbd0ae1a74ad10aa7f",
+              "patch_candidates": [
+                {
+                  "path": "pilots/pyflue/virtual-sandbox-root-delete-guard.patch",
+                  "sha256": "2fcf6c9189cbe711578720298e48a5f5e1f9e8d6a1b164ab57cb2507dc772e52"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/pyflue",
       "license_review": true,
@@ -3021,6 +4026,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/SwarmOS",
       "license_review": false,
@@ -3037,6 +4043,7 @@
         "https://github.com/Szotasz/marveen/pull/1516"
       ],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/marveen",
       "license_review": false,
@@ -3053,6 +4060,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/tale",
       "license_review": false,
@@ -3073,12 +4081,22 @@
           "handoff_url": "https://github.com/opensiro/upstream/pull/147",
           "patch_path": "pilots/talktorana-memory-s2/concurrent-revise-retire.patch",
           "patch_sha256": "0256bed316e87edae27bf4d19ffe97f74d4810f7d1ab168ae26a622feda42fa8",
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "EXPLICIT_PATCH_HASH_MATCHED",
+            "pilot": null,
+            "explicit_patch": {
+              "path": "pilots/talktorana-memory-s2/concurrent-revise-retire.patch",
+              "sha256": "0256bed316e87edae27bf4d19ffe97f74d4810f7d1ab168ae26a622feda42fa8"
+            },
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "NAME_COLLISION_REQUIRES_EXACT_DECISION",
       "proposed_fork": null,
       "license_review": false,
@@ -3095,6 +4113,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/octop-harness",
       "license_review": false,
@@ -3111,6 +4130,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/zeroshot",
       "license_review": false,
@@ -3125,6 +4145,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/dao-code",
       "license_review": false,
@@ -3141,6 +4162,7 @@
         "https://github.com/topoteretes/cognee-community/pull/434"
       ],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/cognee-community",
       "license_review": false,
@@ -3157,6 +4179,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "NAME_COLLISION_REQUIRES_EXACT_DECISION",
       "proposed_fork": null,
       "license_review": false,
@@ -3173,6 +4196,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/turri",
       "license_review": false,
@@ -3189,6 +4213,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/AgentOrg",
       "license_review": false,
@@ -3205,6 +4230,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/eve",
       "license_review": false,
@@ -3221,6 +4247,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/VTCode",
       "license_review": false,
@@ -3235,6 +4262,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/voltagent",
       "license_review": false,
@@ -3255,12 +4283,25 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-20-20261109/pilots/voly-s2/CONTRIBUTION_HANDOFF.md",
           "patch_path": "pilots/voly-s2/native-fix.patch",
           "patch_sha256": "6e83d590b87c2c9b0b5fec72590a0f76cc78876cdde548afd8e8bfd12eb0121c",
-          "test_patch_path": "pilots/voly-s2/native-regression.patch"
+          "test_patch_path": "pilots/voly-s2/native-regression.patch",
+          "technical_packet": {
+            "state": "EXPLICIT_PATCH_HASH_MATCHED",
+            "pilot": null,
+            "explicit_patch": {
+              "path": "pilots/voly-s2/native-fix.patch",
+              "sha256": "6e83d590b87c2c9b0b5fec72590a0f76cc78876cdde548afd8e8bfd12eb0121c"
+            },
+            "explicit_test_patch": {
+              "path": "pilots/voly-s2/native-regression.patch",
+              "sha256": "eddff42400bc7b5ccd5fe0538bc2273300ddae9483e62bab4fa28fadd82e710a"
+            }
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/voly",
       "license_review": false,
@@ -3277,6 +4318,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/xin-code",
       "license_review": false,
@@ -3297,12 +4339,33 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/7bd909e57098d28e206cc0854b94eae0fd434c31/pilots/codeact-s2/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_MULTI_PATCH_SELECTION_REQUIRED",
+            "pilot": {
+              "directory": "pilots/codeact-s2",
+              "files": 5,
+              "content_sha256": "5b9d9d096cf28723fc40f81d72a217e3b00e70c4443a5fe95fa002a12829a301",
+              "patch_candidates": [
+                {
+                  "path": "pilots/codeact-s2/native-fix.patch",
+                  "sha256": "11afa4ea02e7c1107a8e1e77ca7333951dfa627e251c3057b6fb854633c99430"
+                },
+                {
+                  "path": "pilots/codeact-s2/native-regression.patch",
+                  "sha256": "9265f2da99a4edba0d690bb152d894157f51ede0a94978b716c3be2adc78adf6"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/code-act",
       "license_review": false,
@@ -3319,6 +4382,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/agentic-sdlc-control-plane",
       "license_review": false,
@@ -3339,12 +4403,29 @@
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/activegraph/CONTRIBUTION_HANDOFF.md",
           "patch_path": null,
           "patch_sha256": null,
-          "test_patch_path": null
+          "test_patch_path": null,
+          "technical_packet": {
+            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "pilot": {
+              "directory": "pilots/activegraph",
+              "files": 2,
+              "content_sha256": "0ba97f17838df4c91c555dd2c0cffda66952f7d3d45ac3dab7dd4785afaff4d0",
+              "patch_candidates": [
+                {
+                  "path": "pilots/activegraph/nonobject-event-payload-rejection.patch",
+                  "sha256": "6a6a3557e08fbd459a855674e1e6f5e85c3ab4e665c72b46c516edace7367af8"
+                }
+              ]
+            },
+            "explicit_patch": null,
+            "explicit_test_patch": null
+          }
         }
       ],
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/activegraph",
       "license_review": false,
@@ -3361,6 +4442,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/zaino",
       "license_review": false,
@@ -3377,6 +4459,7 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
+      "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/Dougong",
       "license_review": false,

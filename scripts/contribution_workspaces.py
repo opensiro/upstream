@@ -10,6 +10,7 @@ Upstream #6/#28; external PR publication always requires a human decision.
 
 import argparse
 from collections import Counter, defaultdict
+import hashlib
 import json
 from pathlib import Path
 import re
@@ -22,7 +23,13 @@ BATCH_DIR = Path("data/assessment-candidate-batches")
 REGISTRY = Path("data/contribution-workspaces/registry.json")
 PILOTS = Path("data/contribution-workspaces/pilot-sources.json")
 PR_HISTORY = Path("data/upstream-lifecycle.json")
+FORK_READBACK_DIR = Path("data/contribution-workspaces/fork-readbacks")
 SOURCE = re.compile(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+\Z")
+COMMIT_SHA = re.compile(r"[0-9a-f]{40}\Z")
+LOCAL_HANDOFF = re.compile(
+    r"https://github\.com/opensiro/upstream/blob/(?:main|[0-9a-f]{40})/"
+    r"(pilots/[A-Za-z0-9_.-]+/CONTRIBUTION_HANDOFF\.md)\Z"
+)
 POOL_GROUPS = (
     ("existing_forks", "EXISTING_FORK"),
     ("prepared_packets_missing_forks", "PREPARED_PACKET"),
@@ -51,8 +58,149 @@ def key(source):
     return source.casefold()
 
 
+def _safe_pilot_file(root, path):
+    if type(path) is not str:
+        return None
+    relative = Path(path)
+    if (relative.is_absolute() or len(relative.parts) < 3
+            or relative.parts[0] != "pilots"
+            or any(part in ("..", ".") for part in relative.parts)):
+        return None
+    candidate = root / relative
+    if candidate.is_symlink() or any(p.is_symlink() for p in candidate.parents
+                                     if p != root and root in p.parents):
+        raise WorkspaceError(f"Symlink in pilot artifact path: {path}")
+    return candidate if candidate.is_file() else None
+
+
+def _sha(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _pilot_snapshot(root, local_path):
+    """Hash existing local pilot evidence, without promoting it to a tested patch."""
+    directory = (root / local_path).parent
+    if not directory.is_dir() or directory.is_symlink():
+        return None
+    digest = hashlib.sha256()
+    patches = []
+    paths = sorted(directory.rglob("*"), key=lambda p: p.relative_to(root).as_posix())
+    if any(p.is_symlink() for p in paths):
+        raise WorkspaceError(f"Symlink inside pilot packet: {directory}")
+    files = [p for p in paths if p.is_file()]
+    for path in files:
+        rel = path.relative_to(root).as_posix()
+        sha = _sha(path)
+        digest.update((rel + "\0" + sha + "\n").encode("utf-8"))
+        if path.suffix.lower() == ".patch":
+            patches.append({"path": rel, "sha256": sha})
+    return {"directory": directory.relative_to(root).as_posix(),
+            "files": len(files), "content_sha256": digest.hexdigest(),
+            "patch_candidates": patches}
+
+
+def _technical_packet(root, item):
+    """Read-only bridge from frozen batch handoff to mutable local artifact bytes.
+
+    A discovered .patch is not a selected, source-tested or executable patch.
+    """
+    result = {"state": "NO_LOCAL_PATCH_SELECTED", "pilot": None,
+              "explicit_patch": None, "explicit_test_patch": None}
+    url = item.get("handoff_url")
+    match = LOCAL_HANDOFF.fullmatch(url) if type(url) is str else None
+    if match:
+        pilot_path = match.group(1)
+        if _safe_pilot_file(root, pilot_path) is None:
+            result["state"] = "LINKED_PILOT_MISSING"
+        else:
+            result["pilot"] = _pilot_snapshot(root, pilot_path)
+    for field, dest in (("patch_path", "explicit_patch"),
+                        ("test_patch_path", "explicit_test_patch")):
+        value = item.get(field)
+        if value is None:
+            continue
+        path = _safe_pilot_file(root, value)
+        result[dest] = {"path": value,
+                        "sha256": _sha(path) if path is not None else None}
+        if path is None:
+            result["state"] = "EXPLICIT_PATCH_MISSING_OR_UNSAFE"
+
+    if result["state"] == "EXPLICIT_PATCH_MISSING_OR_UNSAFE":
+        return result
+    if result["explicit_patch"]:
+        expected = item.get("patch_sha256")
+        observed = result["explicit_patch"]["sha256"]
+        if expected is not None and observed != expected:
+            result["state"] = "EXPLICIT_PATCH_DIGEST_MISMATCH"
+        else:
+            result["state"] = ("EXPLICIT_PATCH_HASH_MATCHED"
+                               if expected is not None else "EXPLICIT_PATCH_UNPINNED")
+        return result
+    if result["pilot"] is None:
+        if result["state"] != "LINKED_PILOT_MISSING":
+            result["state"] = "NO_LOCAL_PACKET_OR_PR_ONLY_HANDOFF"
+        return result
+    candidates = result["pilot"]["patch_candidates"]
+    result["state"] = (
+        "LOCAL_SINGLE_PATCH_UNREVIEWED" if len(candidates) == 1
+        else "LOCAL_MULTI_PATCH_SELECTION_REQUIRED" if candidates
+        else "LOCAL_PACKET_WITHOUT_PATCH"
+    )
+    return result
+
+
+def _dated_fork_readbacks(root):
+    """Validate dated, reviewable GitHub readbacks; never attest live write rights."""
+    latest = {}
+    for path in sorted((root / FORK_READBACK_DIR).glob("*.json")):
+        report = read(path)
+        require(report.get("schema_version") == 1
+                and report.get("observed_on") == path.stem
+                and report.get("source") == "CONNECTED_GITHUB_REST_READ_ONLY"
+                and isinstance(report.get("entries"), list),
+                f"Malformed dated fork observation {path}")
+        unique = set()
+        for item in report["entries"]:
+            source = item["source"]
+            source_key = key(source)
+            fork = item["fork"]
+            require(key(fork).startswith("opensiro-contributions/")
+                    and source_key not in unique,
+                    f"Invalid or duplicate fork readback: {source}")
+            unique.add(source_key)
+            require(item.get("parent_verified") is True
+                    and item.get("public_fork_verified") is True
+                    and type(item.get("branch")) is str and item["branch"]
+                    and type(item.get("fork_sha")) is str
+                    and COMMIT_SHA.fullmatch(item["fork_sha"])
+                    and type(item.get("source_same_named_branch_sha")) is str
+                    and COMMIT_SHA.fullmatch(item["source_same_named_branch_sha"])
+                    and item.get("ref_relation") == (
+                        "MATCH" if item["fork_sha"]
+                        == item["source_same_named_branch_sha"] else "DIFFERENT_SHAS"),
+                    f"Invalid dated fork observation fields: {source}")
+            require(item.get("repo_evidence") == f"https://api.github.com/repos/{fork}"
+                    and item.get("fork_branch_evidence") ==
+                        f"https://api.github.com/repos/{fork}/branches/{item['branch']}"
+                    and item.get("source_branch_evidence") ==
+                        f"https://api.github.com/repos/{source}/branches/{item['branch']}",
+                    f"Missing or mismatched GitHub readback provenance: {source}")
+            latest[source_key] = {
+                "observed_on": report["observed_on"],
+                "receipt": path.relative_to(root).as_posix(),
+                "fork": fork,
+                "branch": item["branch"],
+                "fork_sha": item["fork_sha"],
+                "source_same_named_branch_sha": item["source_same_named_branch_sha"],
+                "ref_relation": item["ref_relation"],
+                "recheck_before_any_write": True,
+            }
+    return latest
+
+
 def build(root=ROOT):
     root = Path(root)
+    fork_readbacks = _dated_fork_readbacks(root)
     pool = read(root / POOL)
     require(pool.get("schema_version") == 1, "Unsupported priority pool")
     sources = {}
@@ -122,6 +270,7 @@ def build(root=ROOT):
                     "patch_path": item.get("patch_path"),
                     "patch_sha256": item.get("patch_sha256"),
                     "test_patch_path": item.get("test_patch_path"),
+                    "technical_packet": _technical_packet(root, item),
                 })
 
     # Earlier product-native pilots were outside the five-source assessment
@@ -149,6 +298,14 @@ def build(root=ROOT):
         sources[identity]["pilot_links"].append({
             "case_id": item["case_id"], "evidence": evidence,
             "patch_path": item.get("patch_path"),
+            "local_evidence": (
+                _pilot_snapshot(root, evidence)
+                if evidence.startswith("pilots/") else None
+            ),
+            "local_patch_sha256": (
+                _sha(path) if (path := _safe_pilot_file(root, item.get("patch_path")))
+                is not None else None
+            ),
         })
 
     # Historical casebook/registry PRs are source identity evidence, not
@@ -187,6 +344,11 @@ def build(root=ROOT):
         source = record["source"]
         name = source.split("/", 1)[1]
         actual = record["fork"]
+        observed = fork_readbacks.get(identity)
+        if observed is not None:
+            require(actual is not None and actual.casefold() == observed["fork"].casefold(),
+                    f"Dated fork readback does not match reviewed working-fork mapping: {source}")
+        record["dated_fork_readback"] = observed
         if actual is not None:
             require(type(actual) is str and SOURCE.fullmatch(actual)
                     and actual.split("/", 1)[0].casefold() == "opensiro-contributions",
@@ -240,6 +402,15 @@ def build(root=ROOT):
             "historical_fork_mappings": sum(r["fork"] is not None for r in ordered),
             "name_collision_sources": sum(r["fork_state"] == "NAME_COLLISION_REQUIRES_EXACT_DECISION" for r in ordered),
             "technical_handoffs": sum(len(r["handoffs"]) for r in ordered),
+            "dated_fork_readbacks": sum(r["dated_fork_readback"] is not None
+                                        for r in ordered),
+            "same_named_ref_matches_at_readback": sum(
+                r["dated_fork_readback"] is not None and
+                r["dated_fork_readback"]["ref_relation"] == "MATCH"
+                for r in ordered),
+            "technical_packet_states": dict(sorted(Counter(
+                h["technical_packet"]["state"] for r in ordered
+                for h in r["handoffs"]).items())),
         },
         "execution": {
             "fork_and_patch_writes": "SEPARATE_TRUSTED_HOST_STAGE_GRANT_REQUIRED",
@@ -247,6 +418,7 @@ def build(root=ROOT):
             "external_pr": "HUMAN_EXPLICIT_APPROVAL_REQUIRED",
             "auto_external_pr": False,
             "live_forks_verified_by_this_script": False,
+            "dated_fork_readback_is_live_authority": False,
         },
         "sources": ordered,
     }

@@ -28,6 +28,20 @@ For these the proposed fork name is deliberately empty until the correct
 parent and an unoccupied destination have been verified. Never attach a patch
 to a same-named fork without checking `parent.full_name` and push rights.
 
+### Provider readback checkpoint (2026-11-09)
+
+The [separate dated observation](../data/contribution-workspaces/fork-readbacks/2026-11-09.json)
+records authenticated **read-only** GitHub REST GET results for the 16 already
+mapped public organization forks. All 16 reported the expected
+`parent.full_name`, public fork status and an actual branch SHA; among the
+same-named source/fork branches, **9 matched** and **7 differed**. This
+observation does **not** establish which side is ahead, whether another
+working branch contains a contribution, whether source-native tests pass,
+or that a new fork/patch write is authorized. It is a dated receipt only:
+every write stage must independently refresh source/fork/permissions and
+exact branch SHA. The generated registry links this receipt without
+changing its historical-mapping fork state.
+
 ## Single-cycle state and authority
 
 1. **Intake:** reserve one source identity (`owner/repo`); resolve it against
@@ -76,14 +90,27 @@ python3 scripts/contribution_workspaces.py check
 - Run `sync` **in the same internal change** that adds/changes a batch
   manifest or material handoff reference. Do not alter historical frozen
   statuses to imply that a separate external action occurred.
+- The registry also fingerprints each locally linked pilot packet's **current**
+  file content. For batch handoffs with an explicit patch SHA256, it compares
+  the observed bytes against the frozen claim. For other local handoffs it
+  exposes one unreviewed patch candidate, several ambiguous patch candidates,
+  or no local packet. Changes to the pilot's source-native evidence invalidate
+  `check` until `sync` refreshes the same internal PR. A discovered patch is
+  **not an approved patch selection** or a tested remote working branch.
+- Standalone native pilots outside the assessment batches receive the same
+  content fingerprint. Original pilot paths remain frozen under
+  [the historical baseline](../pilots/HISTORICAL_BASELINE.json), while new
+  experiments can be added to the catalog.
 - The unfiltered repository-integrity workflow runs `check` on all PRs and
   pushes to `main`; an out-of-date workspace registry fails CI. The registry
   is therefore continuously coupled to committed Upstream technical records,
   standalone pilot mappings, and retained historical PR identity changes.
-- If fork lifecycle receipts are added in the future, record the independently
-  observed fork and commit in a separately reviewed operational ledger, and
-  have the registry consume it. Do not turn this generated projection into
-  a self-attesting provider receipt.
+- Retain future independently read-back fork/ref observations as dated,
+  separately reviewed records under `data/contribution-workspaces/fork-readbacks/`.
+  A successful privileged fork or patch operation also needs its **separate**
+  trusted execution-stage receipt; read-only parent/branch observations cannot
+  stand in for one. Do not turn the generated registry into a self-attesting
+  provider receipt.
 - A generated workspace entry does **not** authorize any write. Distinguish
   `registered`, `fork verified`, `technical branch synced`, `external PR
   approved`, `external PR submitted`, and `maintainer accepted` in downstream
