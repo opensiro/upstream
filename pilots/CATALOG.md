@@ -7,7 +7,7 @@ fitness, fork existence, PR publication, maintainer acceptance, or VSM grades.
 See [experiment contract](EXPERIMENT_CONTRACT.md) and
 [working-fork pipeline](../docs/CONTINUOUS_WORKING_FORK_PIPELINE.md).
 
-**Coverage:** 66 original pilot directories · 178 preserved files. Source paths are unchanged.
+**Coverage:** 66 indexed pilot directories · 178 files. The frozen baseline protects 66 historical directories and their files; 0 directories were added later.
 
 Each row links its preferred entry file. Read the actual receipt and governing
 batch/PR before attributing positive results or current status.
@@ -95,6 +95,7 @@ batch/PR before attributing positive results or current status.
 
 ## Shared root artifacts
 
+- [`HISTORICAL_BASELINE.json`](HISTORICAL_BASELINE.json)
 - [`batch20-independent-native-runner.sh`](batch20-independent-native-runner.sh)
 
 ## Regeneration

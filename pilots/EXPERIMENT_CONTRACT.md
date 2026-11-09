@@ -67,6 +67,11 @@ particular filename or directory presence counts as the evidence by itself.
   GitHub links, frozen batch manifests, hashes, third-party PRs and CI jobs
   may point to those paths. A moved file is not equivalent evidence unless
   all pinned consumers are independently reconciled.
+- The frozen [historical path baseline](HISTORICAL_BASELINE.json) preserves the
+  original 66 directory identities and 178 file paths. New experiments and
+  new evidence files may be added, but the CI catalog checker rejects the
+  disappearance of an original path even after running `sync`. Do not edit
+  the baseline to normalize away missing evidence.
 - The generated [`CATALOG.md`](CATALOG.md) and [`catalog.json`](catalog.json)
   are maintained by `python3 scripts/pilot_catalog.py sync`; never edit them
   manually. `check` is enforced in unfiltered repository CI.

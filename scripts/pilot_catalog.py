@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PILOTS = Path("pilots")
 JSON_OUT = PILOTS / "catalog.json"
 MARKDOWN_OUT = PILOTS / "CATALOG.md"
+BASELINE = PILOTS / "HISTORICAL_BASELINE.json"
 KINDS = (
     "EXPERIMENT_SERIES",
     "PATCH_HANDOFF",
@@ -83,20 +84,47 @@ def _entrypoint(files, roles):
     return files[0]
 
 
+def _historical_baseline(root):
+    path = Path(root) / BASELINE
+    try:
+        record = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise CatalogError(f"Cannot read historical pilot baseline: {exc}") from exc
+    if record.get("schema_version") != 1 or not isinstance(record.get("entries"), list):
+        raise CatalogError("Unsupported historical pilot baseline schema")
+    baseline = {}
+    for entry in record["entries"]:
+        if not isinstance(entry, dict):
+            raise CatalogError("Invalid historical pilot baseline entry")
+        identity, files = entry.get("id"), entry.get("files")
+        if (not isinstance(identity, str) or not identity or "/" in identity
+                or identity in {".", ".."} or identity in baseline
+                or not isinstance(files, list) or not files
+                or any(not isinstance(name, str) or not name
+                       or name.startswith("/") or ".." in Path(name).parts
+                       for name in files)
+                or len(set(files)) != len(files)):
+            raise CatalogError(f"Invalid historical pilot identity/files: {identity!r}")
+        baseline[identity] = set(files)
+    return baseline
+
+
 def build(root=ROOT):
     pilots_root = Path(root) / PILOTS
     if not pilots_root.is_dir():
         raise CatalogError("Missing pilots/ directory")
+    baseline = _historical_baseline(root)
     entries = []
     for directory in sorted(p for p in pilots_root.iterdir() if p.is_dir()):
         if directory.is_symlink():
             raise CatalogError(f"Unexpected symlink pilot directory: {directory.name}")
-        artifact_paths = sorted((p for p in directory.rglob("*") if p.is_file()),
+        descendants = list(directory.rglob("*"))
+        if any(p.is_symlink() for p in descendants):
+            raise CatalogError(f"Symlink artifact requires review: {directory.name}")
+        artifact_paths = sorted((p for p in descendants if p.is_file()),
                                 key=lambda p: p.relative_to(directory).as_posix())
         if not artifact_paths:
             raise CatalogError(f"Empty pilot directory: {directory.name}")
-        if any(p.is_symlink() for p in artifact_paths):
-            raise CatalogError(f"Symlink artifact requires review: {directory.name}")
         files = [p.relative_to(directory).as_posix() for p in artifact_paths]
         roles = Counter(_role(Path(name)) for name in files)
         entry = {
@@ -110,6 +138,15 @@ def build(root=ROOT):
             "files": files,
         }
         entries.append(entry)
+    current = {entry["id"]: set(entry["files"]) for entry in entries}
+    for identity, original_files in baseline.items():
+        if identity not in current:
+            raise CatalogError(f"Historical pilot directory was removed: {identity}")
+        missing = sorted(original_files - current[identity])
+        if missing:
+            raise CatalogError(
+                f"Historical pilot paths were removed: {identity}: {', '.join(missing)}"
+            )
     root_files = sorted(p.name for p in pilots_root.iterdir() if p.is_file()
                         and p.name not in {"README.md", "CATALOG.md", "catalog.json",
                                            "EXPERIMENT_CONTRACT.md"})
@@ -121,6 +158,8 @@ def build(root=ROOT):
         "counts": {
             "pilot_directories": len(entries),
             "artifact_files": sum(len(e["files"]) for e in entries),
+            "historical_directories": len(baseline),
+            "new_directories": len(entries) - len(baseline),
             "by_kind": {kind: sum(e["kind"] == kind for e in entries) for kind in KINDS},
         },
         "root_shared_files": root_files,
@@ -144,8 +183,10 @@ def markdown_text(report):
         "See [experiment contract](EXPERIMENT_CONTRACT.md) and",
         "[working-fork pipeline](../docs/CONTINUOUS_WORKING_FORK_PIPELINE.md).",
         "",
-        f"**Coverage:** {counts['pilot_directories']} original pilot directories · "
-        f"{counts['artifact_files']} preserved files. Source paths are unchanged.",
+        f"**Coverage:** {counts['pilot_directories']} indexed pilot directories · "
+        f"{counts['artifact_files']} files. The frozen baseline protects "
+        f"{counts['historical_directories']} historical directories and their files; "
+        f"{counts['new_directories']} directories were added later.",
         "",
         "Each row links its preferred entry file. Read the actual receipt and governing",
         "batch/PR before attributing positive results or current status.",

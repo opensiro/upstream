@@ -14,6 +14,8 @@ external PR publication queue.
   a protocol, result, limitation and delivery record; how new work is filed.
 - [**Machine-readable pilot inventory**](catalog.json) — stable source for
   agents and CI; file inventory only, not positive-result grades.
+- [**Frozen historical path baseline**](HISTORICAL_BASELINE.json) — immutable
+  identity/path guard for the original pilot files, not an experiment result.
 - [Assessment-to-improvement method](../docs/ASSESSMENT_TO_IMPROVEMENT.md)
   and [native functional effects](../docs/FUNCTIONAL_EFFECTS.md) — meaning and
   validation boundaries for individual claims.

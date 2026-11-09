@@ -6,6 +6,8 @@
   "counts": {
     "pilot_directories": 66,
     "artifact_files": 178,
+    "historical_directories": 66,
+    "new_directories": 0,
     "by_kind": {
       "EXPERIMENT_SERIES": 3,
       "PATCH_HANDOFF": 47,
@@ -15,6 +17,7 @@
     }
   },
   "root_shared_files": [
+    "HISTORICAL_BASELINE.json",
     "batch20-independent-native-runner.sh"
   ],
   "entries": [
