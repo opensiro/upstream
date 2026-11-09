@@ -5,7 +5,7 @@
 
 A harness may have several independent interventions and PRs. A historical `AWAITING_EXTERNAL` batch state **remains historical** even when a separate publication ledger later confirms an upstream merge. All external submission/acceptance claims below come from the linked owning source; `SUBMITTED_UNVERIFIED_LIVE` means **no current PR-state claim**.
 
-**Scope:** 98 harnesses · 99 interventions · 25 unique external PR URLs · 18 assessment batches · 18 monitored PR targets.
+**Scope:** 103 harnesses · 104 interventions · 25 unique external PR URLs · 19 assessment batches · 18 monitored PR targets.
 
 ## Harness overview
 
@@ -53,12 +53,14 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | [huleidada/matterloop](https://github.com/huleidada/matterloop) | 1 | 1 | 1 | 0 | 0 |
 | [humbertobellor/henterprise](https://github.com/humbertobellor/henterprise) | 1 | 0 | 1 | 1 | 0 |
 | [Hyper-AI-Lab/cyber-ai-team](https://github.com/Hyper-AI-Lab/cyber-ai-team) | 1 | 1 | 0 | 0 | 1 |
+| [jirathip-dev/herdsman](https://github.com/jirathip-dev/herdsman) | 1 | 0 | 0 | 0 | 1 |
 | [jonathanhecl/vibe-coder](https://github.com/jonathanhecl/vibe-coder) | 1 | 0 | 0 | 0 | 0 |
 | [jpantsjoha/ai-native-developer-experience](https://github.com/jpantsjoha/ai-native-developer-experience) | 1 | 1 | 0 | 0 | 1 |
 | [JuliusBrussee/caveman-code](https://github.com/JuliusBrussee/caveman-code) | 1 | 0 | 0 | 0 | 1 |
 | [k4yt3x/meka](https://github.com/k4yt3x/meka) | 1 | 0 | 0 | 0 | 0 |
 | [kstawiski/evidence-gated-scientific-agent](https://github.com/kstawiski/evidence-gated-scientific-agent) | 1 | 1 | 0 | 0 | 0 |
 | [KumihoIO/Revka](https://github.com/KumihoIO/Revka) | 1 | 1 | 0 | 0 | 1 |
+| [kushagrathisside/bridle](https://github.com/kushagrathisside/bridle) | 1 | 0 | 0 | 0 | 0 |
 | [lbdremy/phax](https://github.com/lbdremy/phax) | 1 | 1 | 0 | 0 | 0 |
 | [LEO001020/pi-loop-studio-orchestra](https://github.com/LEO001020/pi-loop-studio-orchestra) | 1 | 1 | 1 | 0 | 0 |
 | [LofiSu/deepseek-super-agent](https://github.com/LofiSu/deepseek-super-agent) | 1 | 0 | 0 | 0 | 0 |
@@ -84,6 +86,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | [ramannanda9/agent-harness](https://github.com/ramannanda9/agent-harness) | 1 | 0 | 0 | 0 | 1 |
 | [ranger360ai/posse](https://github.com/ranger360ai/posse) | 1 | 0 | 0 | 0 | 1 |
 | [RapierCraftStudios/ForgeDock](https://github.com/RapierCraftStudios/ForgeDock) | 1 | 1 | 0 | 0 | 1 |
+| [RogyMD/onethread](https://github.com/RogyMD/onethread) | 1 | 0 | 0 | 0 | 0 |
 | [Rohith-s-hub/Oblivion-agent](https://github.com/Rohith-s-hub/Oblivion-agent) | 1 | 1 | 1 | 0 | 0 |
 | [ruslantrachuk/dark-factory](https://github.com/ruslantrachuk/dark-factory) | 1 | 1 | 0 | 0 | 0 |
 | [sergeiwallace/ai-chassis](https://github.com/sergeiwallace/ai-chassis) | 1 | 0 | 0 | 0 | 1 |
@@ -95,7 +98,9 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | [Shredi/pi-foreman](https://github.com/Shredi/pi-foreman) | 1 | 0 | 0 | 0 | 0 |
 | [simonguo/evidenceloom](https://github.com/simonguo/evidenceloom) | 1 | 1 | 0 | 0 | 1 |
 | [Sinkear/agentwork](https://github.com/Sinkear/agentwork) | 1 | 0 | 0 | 0 | 1 |
+| [sisyphuslabs/dori-superagent](https://github.com/sisyphuslabs/dori-superagent) | 1 | 0 | 0 | 0 | 0 |
 | [smellak/gifford](https://github.com/smellak/gifford) | 1 | 0 | 0 | 0 | 0 |
+| [splashxmoon/friday](https://github.com/splashxmoon/friday) | 1 | 1 | 0 | 0 | 0 |
 | [SuperagenticAI/pyflue](https://github.com/SuperagenticAI/pyflue) | 1 | 1 | 0 | 0 | 1 |
 | [supernovae/SwarmOS](https://github.com/supernovae/SwarmOS) | 1 | 0 | 0 | 0 | 0 |
 | [Szotasz/marveen](https://github.com/Szotasz/marveen) | 1 | 0 | 1 | 1 | 0 |
@@ -156,12 +161,14 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | huleidada/matterloop | [assessment:matterloop-taskgraph-checkpoint-recovery](data/assessment-candidate-batches/2026-10-22-05.json) | S1 | AWAITING_EXTERNAL | SUBMITTED_UNVERIFIED_LIVE | [#11](https://github.com/huleidada/matterloop/pull/11) | assessment-upstream-2026-10-22-05 | Check current maintainer/CI outcome |
 | humbertobellor/henterprise | [portfolio:henterprise-1](cases/henterprise.md) | — | NOT_TRACKED | MERGED | [#1](https://github.com/humbertobellor/henterprise/pull/1), [#3](https://github.com/humbertobellor/henterprise/pull/3) | casebook | Accepted externally; no new delivery claim |
 | Hyper-AI-Lab/cyber-ai-team | [assessment:cyber-ai-team-autonomy-action-policy](data/assessment-candidate-batches/2026-10-23-08.json) | S1 | AWAITING_EXTERNAL | BLOCKED_PUBLICATION | — | assessment-upstream-2026-10-23-08 | Resolve documented publication gate |
+| jirathip-dev/herdsman | [assessment:herdsman-stale-overlap-preview](data/assessment-candidate-batches/2026-11-09-19.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-09-19 | Obtain missing native evidence |
 | jonathanhecl/vibe-coder | [assessment:vibe-coder-parallel-child-feedback-isolation](data/assessment-candidate-batches/2026-11-08-15.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-08-15 | No code change justified |
 | jpantsjoha/ai-native-developer-experience | [assessment:join-the-team-bootstrap-validation](data/assessment-candidate-batches/2026-10-22-04.json) | S1 | AWAITING_EXTERNAL | BLOCKED_PUBLICATION | — | assessment-upstream-2026-10-22-04 | Resolve documented publication gate |
 | JuliusBrussee/caveman-code | [assessment:caveman-child-worktree-cleanup](data/assessment-candidate-batches/2026-10-22-03.json) | S1 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-10-22-03 | Obtain missing native evidence |
 | k4yt3x/meka | [assessment:meka-cross-session-stale-edit-fencing](data/assessment-candidate-batches/2026-11-08-14.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-08-14 | No code change justified |
 | kstawiski/evidence-gated-scientific-agent | [assessment:evidence-bench-native-evidence-admission](data/assessment-candidate-batches/2026-10-23-11.json) | S1 | AWAITING_EXTERNAL | NOT_SUBMITTED | — | assessment-upstream-2026-10-23-11 | Refresh source; check external publication grant |
 | KumihoIO/Revka | [assessment:revka-workflow-validation-contract](data/assessment-candidate-batches/2026-10-23-10.json) | S1 | AWAITING_EXTERNAL | BLOCKED_PUBLICATION | — | assessment-upstream-2026-10-23-10 | Resolve documented publication gate |
+| kushagrathisside/bridle | [assessment:bridle-run-admission-crash-recovery](data/assessment-candidate-batches/2026-11-09-19.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-19 | No code change justified |
 | lbdremy/phax | [assessment:phax-cross-run-overlap-reconciliation](data/assessment-candidate-batches/2026-11-06-13.json) | S2 | AWAITING_EXTERNAL | NOT_SUBMITTED | — | assessment-upstream-2026-11-06-13 | Refresh source; check external publication grant |
 | LEO001020/pi-loop-studio-orchestra | [assessment:pi-loop-worktree-publication-integrity](data/assessment-candidate-batches/2026-10-22-07.json) | S1 | AWAITING_EXTERNAL | SUBMITTED_UNVERIFIED_LIVE | [#1](https://github.com/LEO001020/pi-loop-studio-orchestra/pull/1) | assessment-upstream-2026-10-22-07 | Check current maintainer/CI outcome |
 | LofiSu/deepseek-super-agent | [assessment:deepseek-mesh-capacity-release](data/assessment-candidate-batches/2026-11-06-13.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-06-13 | No code change justified |
@@ -187,6 +194,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | ramannanda9/agent-harness | [assessment:react-harness-concurrent-budget-admission](data/assessment-candidate-batches/2026-11-09-18.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-09-18 | Obtain missing native evidence |
 | ranger360ai/posse | [assessment:posse-launch-seat-crash-recovery](data/assessment-candidate-batches/2026-11-09-17.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-09-17 | Obtain missing native evidence |
 | RapierCraftStudios/ForgeDock | [assessment:forgedock-issue-stage-reconciliation](data/assessment-candidate-batches/2026-10-22-07.json) | S1 | AWAITING_EXTERNAL | BLOCKED_PUBLICATION | — | assessment-upstream-2026-10-22-07 | Resolve documented publication gate |
+| RogyMD/onethread | [assessment:onethread-dead-worker-lease-reclaim](data/assessment-candidate-batches/2026-11-09-19.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-19 | No code change justified |
 | Rohith-s-hub/Oblivion-agent | [assessment:oblivion-agent-tool-loop](data/assessment-candidate-batches/2026-10-22-01.json) | S1 | AWAITING_EXTERNAL | SUBMITTED_UNVERIFIED_LIVE | [#1](https://github.com/Rohith-s-hub/Oblivion-agent/pull/1) | assessment-upstream-2026-10-22-01 | Check current maintainer/CI outcome |
 | ruslantrachuk/dark-factory | [assessment:dark-factory-s2-wave-disjointness](data/assessment-candidate-batches/2026-11-06-12.json) | S2 | AWAITING_EXTERNAL | NOT_SUBMITTED | — | assessment-upstream-2026-11-06-12 | Refresh source; check external publication grant |
 | sergeiwallace/ai-chassis | [assessment:ai-chassis-s2-idempotent-claim](data/assessment-candidate-batches/2026-11-06-12.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-06-12 | Obtain missing native evidence |
@@ -199,7 +207,9 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | Shredi/pi-foreman | [assessment:pi-foreman-worktree-alias-ownership](data/assessment-candidate-batches/2026-11-09-16.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-16 | No code change justified |
 | simonguo/evidenceloom | [assessment:evidenceloom-numeric-evidence-validation](data/assessment-candidate-batches/2026-10-22-06.json) | S1 | AWAITING_EXTERNAL | BLOCKED_PUBLICATION | — | assessment-upstream-2026-10-22-06 | Resolve documented publication gate |
 | Sinkear/agentwork | [assessment:agentwork-conflict-rework-idempotence](data/assessment-candidate-batches/2026-11-08-14.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-08-14 | Obtain missing native evidence |
+| sisyphuslabs/dori-superagent | [assessment:dori-deferred-mailbox-send-failure](data/assessment-candidate-batches/2026-11-09-19.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-19 | No code change justified |
 | smellak/gifford | [assessment:gifford-loop-budget-generation-fence](data/assessment-candidate-batches/2026-11-09-16.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-16 | No code change justified |
+| splashxmoon/friday | [assessment:friday-equivalent-file-claim-alias](data/assessment-candidate-batches/2026-11-09-19.json) | S2 | AWAITING_EXTERNAL | NOT_SUBMITTED | — | assessment-upstream-2026-11-09-19 | Refresh source; check external publication grant |
 | SuperagenticAI/pyflue | [assessment:pyflue-sandbox-tool-schema](data/assessment-candidate-batches/2026-10-23-08.json) | S1 | AWAITING_EXTERNAL | BLOCKED_PUBLICATION | — | assessment-upstream-2026-10-23-08 | Resolve documented publication gate |
 | supernovae/SwarmOS | [assessment:swarmos-stale-worker-publish-fence](data/assessment-candidate-batches/2026-11-09-17.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-17 | No code change justified |
 | Szotasz/marveen | [portfolio:marveen-1516](cases/marveen.md) | — | NOT_TRACKED | MERGED | [#1516](https://github.com/Szotasz/marveen/pull/1516) | casebook | Accepted externally; no new delivery claim |
