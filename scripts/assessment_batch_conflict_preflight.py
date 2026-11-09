@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Read-only GitHub-visible source-conflict preflight for one frozen five-row batch.
+"""Read-only GitHub-visible source-conflict preflight for one frozen batch.
 
 This is NOT atomic admission. It detects already-visible merged/open manifest
 collisions, but only the separate CAS reservation step serializes new claims.
@@ -132,8 +132,8 @@ def _attest_canonical_index(index_sha, reader):
 def preflight(manifest, index_root, reader, *, own_pr=None):
     """Prove no visible collision in one stable read window, NOT atomic admission."""
     validate(manifest, index_root)
-    if len(manifest["candidates"]) != 5:
-        raise BatchError("Preflight requires exactly five assessed sources")
+    if not 5 <= len(manifest["candidates"]) <= 10:
+        raise BatchError("Preflight requires a complete five-to-ten-source cohort")
     proposed = {normalize(x["source"]) for x in manifest["candidates"]}
     index_main_sha = _attest_canonical_index(manifest["index_sha"], reader)
     main_sha = _branch_sha(reader, REPO)
