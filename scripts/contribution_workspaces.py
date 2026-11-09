@@ -152,6 +152,7 @@ def _technical_packet(root, item):
 def _dated_fork_readbacks(root):
     """Validate dated, reviewable GitHub readbacks; never attest live write rights."""
     latest = {}
+    fork_owners = {}
     for path in sorted((root / FORK_READBACK_DIR).glob("*.json")):
         report = read(path)
         require(report.get("schema_version") == 1
@@ -168,6 +169,12 @@ def _dated_fork_readbacks(root):
                     and source_key not in unique,
                     f"Invalid or duplicate fork readback: {source}")
             unique.add(source_key)
+            known_owner = fork_owners.setdefault(key(fork), source_key)
+            require(known_owner == source_key,
+                    f"One read-back fork is associated with multiple sources: {fork}")
+            if source_key in latest:
+                require(latest[source_key]["fork"].casefold() == fork.casefold(),
+                        f"Fork mapping changed between dated receipts: {source}")
             require(item.get("parent_verified") is True
                     and item.get("public_fork_verified") is True
                     and type(item.get("branch")) is str and item["branch"]
@@ -346,8 +353,8 @@ def build(root=ROOT):
         actual = record["fork"]
         observed = fork_readbacks.get(identity)
         if observed is not None:
-            require(actual is not None and actual.casefold() == observed["fork"].casefold(),
-                    f"Dated fork readback does not match reviewed working-fork mapping: {source}")
+            require(actual is None or actual.casefold() == observed["fork"].casefold(),
+                    f"Dated fork readback conflicts with reviewed working-fork mapping: {source}")
         record["dated_fork_readback"] = observed
         if actual is not None:
             require(type(actual) is str and SOURCE.fullmatch(actual)
@@ -358,6 +365,15 @@ def build(root=ROOT):
             mapped.add(actual.casefold())
             record["fork_state"] = "HISTORICAL_MAPPING_REQUIRES_LIVE_READBACK"
             record["proposed_fork"] = actual
+        elif observed is not None:
+            # The frozen 100-source snapshot is NOT an updatable list of all
+            # future forks. A dated provider readback may bind an extra source
+            # without rewriting that historical priority cohort.
+            require(observed["fork"].casefold() not in mapped,
+                    f"Read-back destination collides with another fork: {observed['fork']}")
+            mapped.add(observed["fork"].casefold())
+            record["fork_state"] = "DATED_MAPPING_REQUIRES_LIVE_READBACK"
+            record["proposed_fork"] = observed["fork"]
         elif name.casefold() in collisions:
             record["fork_state"] = "NAME_COLLISION_REQUIRES_EXACT_DECISION"
             record["proposed_fork"] = None
@@ -384,6 +400,8 @@ def build(root=ROOT):
         else:
             record["next_step"] = "SCREEN_BEFORE_FORK_WRITE"
 
+    require(set(fork_readbacks).issubset(sources),
+            "Dated fork readback references an unknown source")
     ordered = sorted(sources.values(), key=lambda r: r["source"].casefold())
     return {
         "schema_version": 1,

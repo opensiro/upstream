@@ -42,6 +42,14 @@ every write stage must independently refresh source/fork/permissions and
 exact branch SHA. The generated registry links this receipt without
 changing its historical-mapping fork state.
 
+Later independently observed public forks can be added in a new dated
+`fork-readbacks/YYYY-MM-DD.json` record, including forks for the sources
+outside the original 100 and correctly parented forks with non-default names
+that resolve collisions. This never rewrites the frozen priority pool: a new
+dated mapping remains `DATED_MAPPING_REQUIRES_LIVE_READBACK`, requires a
+fresh provider preflight before writes, and does not attest that a branch
+contains a tested contribution.
+
 ## Single-cycle state and authority
 
 1. **Intake:** reserve one source identity (`owner/repo`); resolve it against
