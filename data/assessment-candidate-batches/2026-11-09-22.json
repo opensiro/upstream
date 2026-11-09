@@ -1,0 +1,221 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-09-22",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "46219bf103b0b122d86abc3ca70ae3d8bc820e2c",
+  "frozen_at": "2026-11-09",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "UPSTREAM UPGRADE BATCH 22, explicit operator size ten. Chose ten highest reviewed_at, distinct, included Index S1=A/S2=C assessments not claimed by integrated batches 01-21 (115 sources) or present open Upstream PR source claims. Exact canonical Index main frozen; prospective hypotheses checkpointed before current external code/issue inspection at 441d7675, with a source-ref transcription-only correction at 91e316b. These are questions, not proven product defects, runner receipts or third-party publication grants.",
+  "candidates": [
+    {
+      "id": "openjiuwen-session-affinity-expiry-race",
+      "assessment_path": "assessments/op/openjiuwen-agent-runtime.md",
+      "source": "openJiuwen-ai/agent-runtime",
+      "review_ref": "34ed6e86b99fab9b3f07d9f063efc1692ab365d2",
+      "reviewed_at": "2026-10-31",
+      "function": "S2",
+      "finding": "Probe whether stale completion or expiration can reuse an active session pool slot despite the documented affinity and capacity checks.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/op/openjiuwen-agent-runtime.md",
+        "https://github.com/opensiro/upstream/blob/91e316bc3b86a44094ead03487296baa95602cd5/data/assessment-candidate-batches/2026-11-09-22-HYPOTHESES.md"
+      ]
+    },
+    {
+      "id": "agentworks-concurrent-crew-delivery-claim",
+      "assessment_path": "assessments/ag/agentworks.md",
+      "source": "manishiitg/agentworks",
+      "review_ref": "5d53bfbb1541567fe3cb40b6a1a54197f2676fdc",
+      "reviewed_at": "2026-10-31",
+      "function": "S2",
+      "finding": "Probe whether two simultaneous first deliveries with the same group, run and destination key launch duplicate crews before a durable reservation.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ag/agentworks.md",
+        "https://github.com/opensiro/upstream/blob/91e316bc3b86a44094ead03487296baa95602cd5/data/assessment-candidate-batches/2026-11-09-22-HYPOTHESES.md"
+      ]
+    },
+    {
+      "id": "autocontext-expired-lease-late-complete",
+      "assessment_path": "assessments/au/autocontext.md",
+      "source": "greyhaven-ai/autocontext",
+      "review_ref": "7ccca4681fa113e495c07b0b5b44d28d1181033c",
+      "reviewed_at": "2026-10-31",
+      "function": "S2",
+      "finding": "Probe whether a late completion racing lease expiration and retry can release capacity twice or overwrite the succeeding result.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/au/autocontext.md",
+        "https://github.com/opensiro/upstream/blob/91e316bc3b86a44094ead03487296baa95602cd5/data/assessment-candidate-batches/2026-11-09-22-HYPOTHESES.md"
+      ]
+    },
+    {
+      "id": "codewhale-write-alias-overlap",
+      "assessment_path": "assessments/co/codewhale.md",
+      "source": "codewhale-hq/Codewhale",
+      "review_ref": "327c15df976601ca3114ea40ac3dc88cea9f152a",
+      "reviewed_at": "2026-10-31",
+      "function": "S2",
+      "finding": "Probe whether a symlink alias and its real target can evade the parallel shared-write scope exclusion rule in a supported workspace.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/co/codewhale.md",
+        "https://github.com/opensiro/upstream/blob/91e316bc3b86a44094ead03487296baa95602cd5/data/assessment-candidate-batches/2026-11-09-22-HYPOTHESES.md"
+      ]
+    },
+    {
+      "id": "aperant-worktree-failure-shared-root",
+      "assessment_path": "assessments/ap/aperant.md",
+      "source": "AndyMik90/Aperant",
+      "review_ref": "20250db069a849ab001ac6ab9e3e9779886ab9e2",
+      "reviewed_at": "2026-10-31",
+      "function": "S2",
+      "finding": "Probe whether fallback from a failed default worktree allocation launches a simultaneous mutating task into the shared project root.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ap/aperant.md",
+        "https://github.com/opensiro/upstream/blob/91e316bc3b86a44094ead03487296baa95602cd5/data/assessment-candidate-batches/2026-11-09-22-HYPOTHESES.md"
+      ]
+    },
+    {
+      "id": "codeact-same-session-first-kernel-race",
+      "assessment_path": "assessments/co/codeact.md",
+      "source": "xingyaoww/code-act",
+      "review_ref": "d607f56c9cfe9e8632ebaf65dcaf2b4b7fe1c6f8",
+      "reviewed_at": "2026-10-30",
+      "function": "S2",
+      "finding": "Probe whether concurrent first requests using one convid each create a distinct long-lived kernel and leak/overwrite the session binding.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/co/codeact.md",
+        "https://github.com/opensiro/upstream/blob/91e316bc3b86a44094ead03487296baa95602cd5/data/assessment-candidate-batches/2026-11-09-22-HYPOTHESES.md"
+      ]
+    },
+    {
+      "id": "eve-continuation-settlement-retry-duplicate",
+      "assessment_path": "assessments/ev/eve.md",
+      "source": "vercel/eve",
+      "review_ref": "d004e6d47e9d25d0380c24b5a47b65a18f8b2784",
+      "reviewed_at": "2026-10-30",
+      "function": "S2",
+      "finding": "Probe whether losing-session continuation settlement repeated after partial delivery enqueues the same already accepted command twice.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ev/eve.md",
+        "https://github.com/opensiro/upstream/blob/91e316bc3b86a44094ead03487296baa95602cd5/data/assessment-candidate-batches/2026-11-09-22-HYPOTHESES.md"
+      ]
+    },
+    {
+      "id": "tale-task-double-start-admission",
+      "assessment_path": "assessments/ta/tale.md",
+      "source": "tale-project/tale",
+      "review_ref": "b2560c2d7d3294993e66129c891be4a059f3d6c4",
+      "reviewed_at": "2026-10-30",
+      "function": "S2",
+      "finding": "Probe whether simultaneous start requests to an idle task pass admission and create two live task workers before the occupancy marker persists.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ta/tale.md",
+        "https://github.com/opensiro/upstream/blob/91e316bc3b86a44094ead03487296baa95602cd5/data/assessment-candidate-batches/2026-11-09-22-HYPOTHESES.md"
+      ]
+    },
+    {
+      "id": "gear-candidate-revoked-lease-stale-write",
+      "assessment_path": "assessments/ge/gear.md",
+      "source": "rsi-gear/gear",
+      "review_ref": "74b8ff873a831930611dd0f0dfd680d91d5212a9",
+      "reviewed_at": "2026-10-30",
+      "function": "S2",
+      "finding": "Probe whether a candidate mutation begun before lease revocation commits after another identity claims the same refinement state.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ge/gear.md",
+        "https://github.com/opensiro/upstream/blob/91e316bc3b86a44094ead03487296baa95602cd5/data/assessment-candidate-batches/2026-11-09-22-HYPOTHESES.md"
+      ]
+    },
+    {
+      "id": "openshift-schedule-concurrent-skip-race",
+      "assessment_path": "assessments/op/openshift-agent-control-plane.md",
+      "source": "openshift-online/agent-control-plane",
+      "review_ref": "9d7246cb467b3e4d4060bff760b6256f6a368a50",
+      "reviewed_at": "2026-10-30",
+      "function": "S2",
+      "finding": "Probe whether two concurrent triggers of an overlap_policy=skip schedule both observe no active session and launch duplicate runs.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/op/openshift-agent-control-plane.md",
+        "https://github.com/opensiro/upstream/blob/91e316bc3b86a44094ead03487296baa95602cd5/data/assessment-candidate-batches/2026-11-09-22-HYPOTHESES.md"
+      ]
+    }
+  ]
+}
