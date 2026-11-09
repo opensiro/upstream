@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-09-19",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "46219bf103b0b122d86abc3ca70ae3d8bc820e2c",
+  "frozen_at": "2026-11-09",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "UPSTREAM UPGRADE BATCH 19: five distinct included S1=A/S2=C Index assessments, frozen from canonical main@46219bf103b0b122d86abc3ca70ae3d8bc820e2c after 18 integrated five-source batches. Prospective S2 hypotheses were published to immutable Upstream commit 0fbad73f3e11b36a55d46ff3f1ae5ec1f4678b51 before examining fresh external target implementation/issues. Five questions, not defects; no external publication grant.",
+  "candidates": [
+    {
+      "id": "bridle-run-admission-crash-recovery",
+      "assessment_path": "assessments/ku/kushagrathisside-bridle.md",
+      "source": "kushagrathisside/bridle",
+      "review_ref": "9b9b9f868c18958a921b6967fcd7d64acde877fc",
+      "reviewed_at": "2026-11-04",
+      "function": "S2",
+      "finding": "Index S2=C records atomic issue-claim and whole-project RunGuard coordination. Prospectively test whether an abrupt exit between run admission and worker establishment strands project ownership and blocks a safe retry; null if supported recovery already reconciles it.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ku/kushagrathisside-bridle.md"]
+    },
+    {
+      "id": "herdsman-stale-overlap-preview",
+      "assessment_path": "assessments/he/herdsman.md",
+      "source": "jirathip-dev/herdsman",
+      "review_ref": "efd970e817c2021439c5415739e695f4af119b1d",
+      "reviewed_at": "2026-11-04",
+      "function": "S2",
+      "finding": "Index S2=C identifies cached git merge-tree head-pair overlap previews and serial integration feedback. Prospectively test whether a changed lane or integration head can reuse a stale collision decision, or whether all feedback is exact-head keyed.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/he/herdsman.md"]
+    },
+    {
+      "id": "onethread-dead-worker-lease-reclaim",
+      "assessment_path": "assessments/on/onethread.md",
+      "source": "RogyMD/onethread",
+      "review_ref": "27779473556ec490a03f07aaccca9ca3c1834316",
+      "reviewed_at": "2026-11-03",
+      "function": "S2",
+      "finding": "Index S2=C credits SQLite-atomic command resource leases and PID/start liveness. Prospectively test whether a dead command holder is reclaimed on next supported waiting admission while preserving live-holder exclusivity.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/on/onethread.md"]
+    },
+    {
+      "id": "friday-equivalent-file-claim-alias",
+      "assessment_path": "assessments/fr/friday.md",
+      "source": "splashxmoon/friday",
+      "review_ref": "7db025c6513eae1c05a93f6e7ba58fd5ffad2a2a",
+      "reviewed_at": "2026-11-03",
+      "function": "S2",
+      "finding": "Index S2=C records agent-mesh claim_files/heldBy coordination for competing code-edit lanes. Prospectively test whether accepted equivalent spellings of one file are admitted as two custody claims rather than one conflict.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/fr/friday.md"]
+    },
+    {
+      "id": "dori-deferred-mailbox-send-failure",
+      "assessment_path": "assessments/do/dori-superagent.md",
+      "source": "sisyphuslabs/dori-superagent",
+      "review_ref": "06c4600b77f6e81ed9bd5b706d736bec07cf27b1",
+      "reviewed_at": "2026-11-03",
+      "function": "S2",
+      "finding": "Index S2=C credits persistent idle-delivered lane mailbox and duty feedback. Prospectively test whether a transient transport send failure during flushInbox drops queued S2 messages before confirmed delivery, or the native path safely retries.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PENDING", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": ["https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/do/dori-superagent.md"]
+    }
+  ]
+}
