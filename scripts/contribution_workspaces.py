@@ -14,11 +14,14 @@ import json
 from pathlib import Path
 import re
 import sys
+from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 POOL = Path("data/fork-priorities/2026-11-08.json")
 BATCH_DIR = Path("data/assessment-candidate-batches")
 REGISTRY = Path("data/contribution-workspaces/registry.json")
+PILOTS = Path("data/contribution-workspaces/pilot-sources.json")
+PR_HISTORY = Path("data/upstream-lifecycle.json")
 SOURCE = re.compile(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+\Z")
 POOL_GROUPS = (
     ("existing_forks", "EXISTING_FORK"),
@@ -64,6 +67,8 @@ def build(root=ROOT):
                 "batches": [],
                 "latest_stage": None,
                 "handoffs": [],
+                "pilot_links": [],
+                "historical_prs": [],
                 "fork": item.get("fork") if kind == "EXISTING_FORK" else None,
             }
 
@@ -97,6 +102,8 @@ def build(root=ROOT):
                     "batches": [],
                     "latest_stage": None,
                     "handoffs": [],
+                    "pilot_links": [],
+                    "historical_prs": [],
                     "fork": None,
                 }
             record = sources[identity]
@@ -116,6 +123,58 @@ def build(root=ROOT):
                     "patch_sha256": item.get("patch_sha256"),
                     "test_patch_path": item.get("test_patch_path"),
                 })
+
+    # Earlier product-native pilots were outside the five-source assessment
+    # batches, but are equally important worked-source inventory. The explicit
+    # mappings are backed by first-party receipts or internal reviewable PRs.
+    pilots = read(root / PILOTS)
+    require(pilots.get("schema_version") == 1, "Unsupported pilot source ledger")
+    pilot_sources = set()
+    for item in pilots["cases"]:
+        source = item["source"]
+        identity = key(source)
+        require(identity not in pilot_sources, f"Duplicate pilot source {source}")
+        pilot_sources.add(identity)
+        evidence = item["evidence"]
+        require(type(evidence) is str and
+                (evidence.startswith("https://github.com/opensiro/upstream/pull/")
+                 or ((root / evidence).is_file() and not Path(evidence).is_absolute())),
+                f"Unverifiable pilot receipt for {source}")
+        if identity not in sources:
+            sources[identity] = {
+                "source": source, "priority_group": "PILOT_EXTRA",
+                "batches": [], "latest_stage": None, "handoffs": [],
+                "pilot_links": [], "historical_prs": [], "fork": None,
+            }
+        sources[identity]["pilot_links"].append({
+            "case_id": item["case_id"], "evidence": evidence,
+            "patch_path": item.get("patch_path"),
+        })
+
+    # Historical casebook/registry PRs are source identity evidence, not
+    # future publication work or a verified opensiro-contributions fork.
+    history = read(root / PR_HISTORY)
+    require(history.get("schema_version") == 2, "Unsupported historical PR record")
+    historical = list(history["records"]) + list(history["registry_records"])
+    for item in historical:
+        pr = item.get("original_pr", item.get("pr"))
+        require(isinstance(pr, dict), f"Missing PR identity for {item.get('id')}")
+        url = pr["url"]
+        parsed = urlparse(url)
+        parts = parsed.path.strip("/").split("/")
+        require(parsed.scheme == "https" and parsed.netloc == "github.com"
+                and len(parts) == 4 and parts[2] == "pull"
+                and parts[3].isdigit() and not parsed.query and not parsed.fragment,
+                f"Invalid historical PR identity {url}")
+        source = "/".join(parts[:2])
+        identity = key(source)
+        if identity not in sources:
+            sources[identity] = {
+                "source": source, "priority_group": "PORTFOLIO_EXTRA",
+                "batches": [], "latest_stage": None, "handoffs": [],
+                "pilot_links": [], "historical_prs": [], "fork": None,
+            }
+        sources[identity]["historical_prs"].append(url)
 
     # Destination basenames are *not* sufficient proof of a fork's parent.
     # A collision may be resolved only after a verified exact fork readback.
@@ -156,6 +215,10 @@ def build(root=ROOT):
             record["next_step"] = "TRACK_ONLY_NO_CHANGE"
         elif stage == "BLOCKED_EVIDENCE":
             record["next_step"] = "TRACK_ONLY_REEVALUATE_EVIDENCE"
+        elif record["pilot_links"]:
+            record["next_step"] = "RECONCILE_NATIVE_PILOT_BEFORE_FORK_STAGE"
+        elif record["historical_prs"]:
+            record["next_step"] = "HISTORICAL_PR_TRACK_ONLY_NO_NEW_PUBLICATION"
         else:
             record["next_step"] = "SCREEN_BEFORE_FORK_WRITE"
 
@@ -166,7 +229,11 @@ def build(root=ROOT):
         "batch_sources": BATCH_DIR.as_posix() + "/*.json",
         "counts": {
             "priority_sources": 100,
-            "historical_extras": sum(r["priority_group"] == "HISTORICAL_EXTRA" for r in ordered),
+            "historical_extras": sum(r["priority_group"] in {
+                "HISTORICAL_EXTRA", "PILOT_EXTRA", "PORTFOLIO_EXTRA"} for r in ordered),
+            "batch_only_extras": sum(r["priority_group"] == "HISTORICAL_EXTRA" for r in ordered),
+            "pilot_only_extras": sum(r["priority_group"] == "PILOT_EXTRA" for r in ordered),
+            "portfolio_only_extras": sum(r["priority_group"] == "PORTFOLIO_EXTRA" for r in ordered),
             "unique_sources": len(ordered),
             "batch_manifests": len(batch_files),
             "batch_cases": sum(len(r["batches"]) for r in ordered),
