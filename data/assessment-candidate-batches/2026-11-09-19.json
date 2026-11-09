@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-09-19",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "46219bf103b0b122d86abc3ca70ae3d8bc820e2c",
+  "frozen_at": "2026-11-09",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "UPSTREAM UPGRADE BATCH 19: five distinct included S1=A/S2=C Index assessments, frozen from canonical main@46219bf103b0b122d86abc3ca70ae3d8bc820e2c after 18 integrated five-source batches. Prospective S2 hypotheses were published to immutable Upstream commit 0fbad73f3e11b36a55d46ff3f1ae5ec1f4678b51 before examining fresh external target implementation/issues. Five questions, not defects; no external publication grant.",
+  "candidates": [
+    {
+      "id": "bridle-run-admission-crash-recovery",
+      "assessment_path": "assessments/ku/kushagrathisside-bridle.md",
+      "source": "kushagrathisside/bridle",
+      "review_ref": "9b9b9f868c18958a921b6967fcd7d64acde877fc",
+      "reviewed_at": "2026-11-04",
+      "function": "S2",
+      "finding": "Index S2=C records atomic issue-claim and whole-project RunGuard coordination. Prospectively test whether an abrupt exit between run admission and worker establishment strands project ownership and blocks a safe retry; null if supported recovery already reconciles it.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "FAIL", "mechanism": "PASS", "counterfactual": "FAIL", "scope": "PASS"},
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ku/kushagrathisside-bridle.md",
+        "https://github.com/opensiro/upstream/blob/0fbad73f3e11b36a55d46ff3f1ae5ec1f4678b51/data/assessment-candidate-batches/2026-11-09-19-HYPOTHESES.md",
+        "https://github.com/kushagrathisside/bridle/blob/c87873f4e1e2424028834beafd0eda45be2d27de/crates/harness-cli/src/gitlayer.rs",
+        "https://github.com/kushagrathisside/bridle/blob/c87873f4e1e2424028834beafd0eda45be2d27de/docs/reference/run-recovery.md"
+      ],
+      "screening_result": "Current Apache-2.0 first-party RepoLock::acquire uses File::try_lock and releases automatically on process death; RunGuard::begin sweeps expired file leases and writes a new run checkpoint; recover() identifies unfinished journal starts and preserves interrupted state at next project open. The explicit docs say repo.lock itself is harmless after crash. The proposed persistent stale project lock is falsified for the supported lifecycle; no native test or patch warranted."
+    },
+    {
+      "id": "herdsman-stale-overlap-preview",
+      "assessment_path": "assessments/he/herdsman.md",
+      "source": "jirathip-dev/herdsman",
+      "review_ref": "efd970e817c2021439c5415739e695f4af119b1d",
+      "reviewed_at": "2026-11-04",
+      "function": "S2",
+      "finding": "Index S2=C identifies cached git merge-tree head-pair overlap previews and serial integration feedback. Prospectively test whether a changed lane or integration head can reuse a stale collision decision, or whether all feedback is exact-head keyed.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PASS", "counterfactual": "PENDING", "scope": "PASS"},
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/he/herdsman.md",
+        "https://github.com/opensiro/upstream/blob/0fbad73f3e11b36a55d46ff3f1ae5ec1f4678b51/data/assessment-candidate-batches/2026-11-09-19-HYPOTHESES.md",
+        "https://github.com/jirathip-dev/herdsman/blob/f107a89d7405496e56588ce1a0c65093d80c1c59/crates/core/src/overlap.rs",
+        "https://github.com/jirathip-dev/herdsman/issues/129"
+      ],
+      "blocker": "The pre-code hypothesis of reusing an old conflict *result* is mostly falsified: preview fetches origin and caches merge-tree results by both exact commit hashes. A narrower source concern remains: the emitted heads-up suppression key contains the local lane SHA and peer issue number, not the peer SHA, so a changed peer may not trigger a fresh warning for a still-unmodified local lane. Heads-up is explicitly advisory, the actual merge/update gate still operates, and there is no executed first-party deterministic two-head notification fixture or established product requirement for re-notifying a stale advisory warning. Need matched native need/counterfactual evidence before a patch; no native execution or external write."
+    },
+    {
+      "id": "onethread-dead-worker-lease-reclaim",
+      "assessment_path": "assessments/on/onethread.md",
+      "source": "RogyMD/onethread",
+      "review_ref": "27779473556ec490a03f07aaccca9ca3c1834316",
+      "reviewed_at": "2026-11-03",
+      "function": "S2",
+      "finding": "Index S2=C credits SQLite-atomic command resource leases and PID/start liveness. Prospectively test whether a dead command holder is reclaimed on next supported waiting admission while preserving live-holder exclusivity.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "FAIL", "mechanism": "PASS", "counterfactual": "FAIL", "scope": "PASS"},
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/on/onethread.md",
+        "https://github.com/opensiro/upstream/blob/0fbad73f3e11b36a55d46ff3f1ae5ec1f4678b51/data/assessment-candidate-batches/2026-11-09-19-HYPOTHESES.md",
+        "https://github.com/RogyMD/onethread/blob/27779473556ec490a03f07aaccca9ca3c1834316/onethread/leases.py"
+      ],
+      "screening_result": "Current MIT first-party Broker.try_grant() performs _reap() inside every BEGIN IMMEDIATE acquisition transaction; the reaper checks pid_alive(pid,pid_start) and marks dead held/waiting leases before queue/capacity grant. The proposed un-reaped dead-holder wait does not occur through this supported code path; bypassed PATH shims are explicitly outside the assessment. No native test, patch or model call."
+    },
+    {
+      "id": "friday-equivalent-file-claim-alias",
+      "assessment_path": "assessments/fr/friday.md",
+      "source": "splashxmoon/friday",
+      "review_ref": "7db025c6513eae1c05a93f6e7ba58fd5ffad2a2a",
+      "reviewed_at": "2026-11-03",
+      "function": "S2",
+      "finding": "Index S2=C records agent-mesh claim_files/heldBy coordination for competing code-edit lanes. Prospectively test whether accepted equivalent spellings of one file are admitted as two custody claims rather than one conflict.",
+      "stage": "AWAITING_EXTERNAL",
+      "origin": "ASSESSMENT_DERIVED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/fr/friday.md",
+        "https://github.com/opensiro/upstream/blob/0fbad73f3e11b36a55d46ff3f1ae5ec1f4678b51/data/assessment-candidate-batches/2026-11-09-19-HYPOTHESES.md",
+        "https://github.com/splashxmoon/friday/blob/079c5af5c650d2fc741a8d91054a1294216610d0/src/agent-mesh.ts",
+        "https://github.com/splashxmoon/friday/blob/079c5af5c650d2fc741a8d91054a1294216610d0/CONTRIBUTING.md"
+      ],
+      "patch_path": "pilots/friday-s2/native-fix.patch",
+      "patch_sha256": "474b9abec60f62701b673ab5b462828ddcee681737a9deacfd5c90905938ad7e",
+      "test_patch_path": "pilots/friday-s2/native-regression.patch",
+      "test_patch_sha256": "96a05244669335703ba726d49f6fcb61ef1f693df83cd1fbd4bd50989d18430d",
+      "observed_native_change": "Separate dev-alpha-2 SSH device Zhdanov runner, pinned node:22-bookworm-slim SHA256 image, Node 22.23.4/npm 10.9.9, exact Friday HEAD 079c5af. Corrected identical native test patch before/after: baseline 0/2 with wrong empty holder result; after scoped canonical-path patch 2/2 PASS plus native team-tasks/team-threads controls 12/12 PASS total and tsc --noEmit PASS. Source/test patch hashes, commands, logs and first failed test-fixture attempt recorded in pilots/friday-s2/INDEPENDENT_HOST_RECEIPT_2026-11-09.md. No full native suite or real user benefit measured.",
+      "product_benefit": "BOUNDED_NATIVE_CORRECTNESS_ONLY",
+      "experiment_cycle": "INCOMPLETE_NO_EXTERNAL_DELIVERY",
+      "handoff_url": "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-19-20261109/pilots/friday-s2/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "dori-deferred-mailbox-send-failure",
+      "assessment_path": "assessments/do/dori-superagent.md",
+      "source": "sisyphuslabs/dori-superagent",
+      "review_ref": "06c4600b77f6e81ed9bd5b706d736bec07cf27b1",
+      "reviewed_at": "2026-11-03",
+      "function": "S2",
+      "finding": "Index S2=C credits persistent idle-delivered lane mailbox and duty feedback. Prospectively test whether a transient transport send failure during flushInbox drops queued S2 messages before confirmed delivery, or the native path safely retries.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "FAIL", "mechanism": "PASS", "counterfactual": "FAIL", "scope": "PASS"},
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/do/dori-superagent.md",
+        "https://github.com/opensiro/upstream/blob/0fbad73f3e11b36a55d46ff3f1ae5ec1f4678b51/data/assessment-candidate-batches/2026-11-09-19-HYPOTHESES.md",
+        "https://github.com/sisyphuslabs/dori-superagent/blob/8beff59eb505f9aa9ce72e39faf9ae7af7be1bd3/src/inbox.ts",
+        "https://github.com/sisyphuslabs/dori-superagent/blob/8beff59eb505f9aa9ce72e39faf9ae7af7be1bd3/test/ambiguous-delivery.test.ts"
+      ],
+      "screening_result": "Current source has materially advanced since the reviewed ref: sendOrThrow enqueues before flush, flushLocked settles the inbox only after confirmed delivery, ambiguous/typed transport failures are persisted as held/typed and never blindly retried; lead notification and explicit ack/resend are covered by native first-party tests. The predicted drop-on-transport-error path is falsified; no new OpenSiro patch or native test warranted."
+    }
+  ]
+}
