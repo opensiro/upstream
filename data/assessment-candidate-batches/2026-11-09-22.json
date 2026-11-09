@@ -1,0 +1,258 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-09-22",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "46219bf103b0b122d86abc3ca70ae3d8bc820e2c",
+  "frozen_at": "2026-11-09",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "UPSTREAM UPGRADE BATCH 22, explicit operator size ten. Chose ten highest reviewed_at, distinct, included Index S1=A/S2=C assessments not claimed by integrated batches 01-21 (115 sources) or present open Upstream PR source claims. Exact canonical Index main frozen; prospective hypotheses checkpointed before current external code/issue inspection at 441d7675, with a source-ref transcription-only correction at 91e316b. These are questions, not proven product defects, runner receipts or third-party publication grants.",
+  "candidates": [
+    {
+      "id": "openjiuwen-session-affinity-expiry-race",
+      "assessment_path": "assessments/op/openjiuwen-agent-runtime.md",
+      "source": "openJiuwen-ai/agent-runtime",
+      "review_ref": "34ed6e86b99fab9b3f07d9f063efc1692ab365d2",
+      "reviewed_at": "2026-10-31",
+      "function": "S2",
+      "finding": "Probe whether stale completion or expiration can reuse an active session pool slot despite the documented affinity and capacity checks.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/op/openjiuwen-agent-runtime.md",
+        "https://github.com/opensiro/upstream/blob/91e316bc3b86a44094ead03487296baa95602cd5/data/assessment-candidate-batches/2026-11-09-22-HYPOTHESES.md",
+        "https://github.com/openJiuwen-ai/agent-runtime/blob/34ed6e86b99fab9b3f07d9f063efc1692ab365d2/management/openjiuwen_runtime/management/session/service_manager.py",
+        "https://github.com/openJiuwen-ai/agent-runtime/blob/34ed6e86b99fab9b3f07d9f063efc1692ab365d2/management/tests/unit_tests/management_session/test_session_concurrency_interleave.py"
+      ],
+      "screening_result": "At current main the service manager uses a shared async lock, active-request-count checks and pending-expiration flush, and rechecks inflight before idle/reclaim; no source-supported unsafe expiry/reassignment was confirmed. This is a static negative native-fit screen, not a test execution."
+    },
+    {
+      "id": "agentworks-concurrent-crew-delivery-claim",
+      "assessment_path": "assessments/ag/agentworks.md",
+      "source": "manishiitg/agentworks",
+      "review_ref": "5d53bfbb1541567fe3cb40b6a1a54197f2676fdc",
+      "reviewed_at": "2026-10-31",
+      "function": "S2",
+      "finding": "Probe whether two simultaneous first deliveries with the same group, run and destination key launch duplicate crews before a durable reservation.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "FAIL",
+        "counterfactual": "FAIL",
+        "scope": "FAIL"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ag/agentworks.md",
+        "https://github.com/opensiro/upstream/blob/91e316bc3b86a44094ead03487296baa95602cd5/data/assessment-candidate-batches/2026-11-09-22-HYPOTHESES.md",
+        "https://github.com/manishiitg/agentworks/tree/5a9ba6201d36765497d5b990b06fb2909af54a26/agent_go/cmd/server",
+        "https://github.com/manishiitg/agentworks/blob/5a9ba6201d36765497d5b990b06fb2909af54a26/agent_go/cmd/server/scheduled_crew_chat_delivery.go"
+      ],
+      "screening_result": "The exact assessed crew_step_runner.go path is absent on current main, and current code search has no RunCrewStep symbol. A separate scheduled crew chat route exists, but the preregistered old delivery-key mechanism does not presently target that route; no bug attributed, no patch."
+    },
+    {
+      "id": "autocontext-expired-lease-late-complete",
+      "assessment_path": "assessments/au/autocontext.md",
+      "source": "greyhaven-ai/autocontext",
+      "review_ref": "7ccca4681fa113e495c07b0b5b44d28d1181033c",
+      "reviewed_at": "2026-10-31",
+      "function": "S2",
+      "finding": "Probe whether a late completion racing lease expiration and retry can release capacity twice or overwrite the succeeding result.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/au/autocontext.md",
+        "https://github.com/opensiro/upstream/blob/91e316bc3b86a44094ead03487296baa95602cd5/data/assessment-candidate-batches/2026-11-09-22-HYPOTHESES.md",
+        "https://github.com/greyhaven-ai/autocontext/blob/f8711194be3d1ba8a408f2fb3698bdd94934c128/autocontext/src/autocontext/execution/campaign_scheduler.py"
+      ],
+      "screening_result": "Current complete/reconcile use the same scheduler lock. Late lease IDs go to stale history handling; _release_lease removes the active lease and reserved budget once. Predicted double release/late overwrite was not corroborated by first-party code; no tests claimed."
+    },
+    {
+      "id": "codewhale-write-alias-overlap",
+      "assessment_path": "assessments/co/codewhale.md",
+      "source": "codewhale-hq/Codewhale",
+      "review_ref": "327c15df976601ca3114ea40ac3dc88cea9f152a",
+      "reviewed_at": "2026-10-31",
+      "function": "S2",
+      "finding": "Probe whether a symlink alias and its real target can evade the parallel shared-write scope exclusion rule in a supported workspace.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/co/codewhale.md",
+        "https://github.com/opensiro/upstream/blob/91e316bc3b86a44094ead03487296baa95602cd5/data/assessment-candidate-batches/2026-11-09-22-HYPOTHESES.md",
+        "https://github.com/codewhale-hq/Codewhale/blob/9780740f1afca4a9f11638620e95bc94457ec379/crates/workflow/src/lib.rs",
+        "https://github.com/codewhale-hq/Codewhale/blob/9780740f1afca4a9f11638620e95bc94457ec379/docs/SUBAGENTS.md"
+      ],
+      "screening_result": "Current scope_overlaps handles lexical roots/prefixes, while worktree paths separately resolve symlinks. Whether a symlink-alias write claim is admitted as a valid shared-workspace scope is not settled by the visible contract; no native first-party counterexample/repro was run.",
+      "blocker": "Need supported first-party symlink-aliased shared write-scope fixture and policy expectation before changing claim semantics."
+    },
+    {
+      "id": "aperant-worktree-failure-shared-root",
+      "assessment_path": "assessments/ap/aperant.md",
+      "source": "AndyMik90/Aperant",
+      "review_ref": "20250db069a849ab001ac6ab9e3e9779886ab9e2",
+      "reviewed_at": "2026-10-31",
+      "function": "S2",
+      "finding": "Probe whether fallback from a failed default worktree allocation launches a simultaneous mutating task into the shared project root.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ap/aperant.md",
+        "https://github.com/opensiro/upstream/blob/91e316bc3b86a44094ead03487296baa95602cd5/data/assessment-candidate-batches/2026-11-09-22-HYPOTHESES.md",
+        "https://github.com/AndyMik90/Aperant/blob/20250db069a849ab001ac6ab9e3e9779886ab9e2/apps/desktop/src/main/agent/agent-manager.ts",
+        "https://github.com/AndyMik90/Aperant/blob/20250db069a849ab001ac6ab9e3e9779886ab9e2/CONTRIBUTING.md"
+      ],
+      "screening_result": "First-party default worktree setup catches error and intentionally falls back to root. Concurrent root reuse is plausible, but no pinned two-worker failure or accepted fail-closed policy for this deliberate nonfatal fallback is shown. Contributor rules also require CLA and test-level disclosure.",
+      "blocker": "Need native concurrent fallback reproduction and maintainer product decision on refusing nonfatal shared-root execution; no safe patch admission yet."
+    },
+    {
+      "id": "codeact-same-session-first-kernel-race",
+      "assessment_path": "assessments/co/codeact.md",
+      "source": "xingyaoww/code-act",
+      "review_ref": "d607f56c9cfe9e8632ebaf65dcaf2b4b7fe1c6f8",
+      "reviewed_at": "2026-10-30",
+      "function": "S2",
+      "finding": "Probe whether concurrent first requests using one convid each create a distinct long-lived kernel and leak/overwrite the session binding.",
+      "stage": "AWAITING_EXTERNAL",
+      "origin": "ASSESSMENT_DERIVED",
+      "fit": {
+        "need": "PASS",
+        "mechanism": "PASS",
+        "counterfactual": "PASS",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/co/codeact.md",
+        "https://github.com/opensiro/upstream/blob/91e316bc3b86a44094ead03487296baa95602cd5/data/assessment-candidate-batches/2026-11-09-22-HYPOTHESES.md",
+        "https://github.com/xingyaoww/code-act/blob/d607f56c9cfe9e8632ebaf65dcaf2b4b7fe1c6f8/scripts/chat/code_execution/api.py",
+        "https://github.com/xingyaoww/code-act/blob/d607f56c9cfe9e8632ebaf65dcaf2b4b7fe1c6f8/LICENSE",
+        "https://github.com/opensiro/upstream/blob/7bd909e57098d28e206cc0854b94eae0fd434c31/pilots/codeact-s2/INDEPENDENT_HOST_RECEIPT_2026-11-09.md",
+        "https://github.com/opensiro/upstream/blob/7bd909e57098d28e206cc0854b94eae0fd434c31/pilots/codeact-s2/CONTRIBUTION_HANDOFF.md"
+      ],
+      "screening_result": "Exact source handler permits two concurrent new requests for the same convid to create two gateways before publishing conv_id_to_kernel. Separately dispatched dev-alpha-2 SSH runner session 7c40d6d9-65a4-454e-b0ca-6d6e2b1668ac, Python 3.12.3 / Tornado 6.5.2, matched native HTTP test: baseline 1/2 PASS and a duplicate-gateway FAIL; patched 2/2 PASS, independent-conversation concurrency preserved; compileall/diff-check PASS. No live Docker, model or third-party publication. Origin checkpoint 441d7675 precedes target-code inspection.",
+      "handoff_url": "https://github.com/opensiro/upstream/blob/7bd909e57098d28e206cc0854b94eae0fd434c31/pilots/codeact-s2/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED",
+      "observed_native_change": "Separate dev-alpha-2 monitored SSH runner 7c40d6d9-65a4-454e-b0ca-6d6e2b1668ac on exact first-party CodeAct d607f56, native Tornado HTTP handler / stubbed Jupyter backend. Matched Python unittest 2 cases: before 1 PASS/1 FAIL (duplicate gateway); after fix 2/2 PASS, compileall and git diff --check PASS. Exact source, patch hashes, runtime and log retention in pilots/codeact-s2/INDEPENDENT_HOST_RECEIPT_2026-11-09.md."
+    },
+    {
+      "id": "eve-continuation-settlement-retry-duplicate",
+      "assessment_path": "assessments/ev/eve.md",
+      "source": "vercel/eve",
+      "review_ref": "d004e6d47e9d25d0380c24b5a47b65a18f8b2784",
+      "reviewed_at": "2026-10-30",
+      "function": "S2",
+      "finding": "Probe whether losing-session continuation settlement repeated after partial delivery enqueues the same already accepted command twice.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ev/eve.md",
+        "https://github.com/opensiro/upstream/blob/91e316bc3b86a44094ead03487296baa95602cd5/data/assessment-candidate-batches/2026-11-09-22-HYPOTHESES.md",
+        "https://github.com/vercel/eve/blob/5ae0f86fb8e3decfd62571a83504facfb7ed319a/packages/eve/src/execution/continuation-conflict-step.ts",
+        "https://github.com/vercel/eve/blob/5ae0f86fb8e3decfd62571a83504facfb7ed319a/packages/eve/src/execution/session-inbox/resume.ts"
+      ],
+      "screening_result": "Settlement delegates the losing send to resumeSessionInbox; retry and owner-hook semantics are supplied by Workflow SDK resumeCurrentOwner. No exact partial-delivery replay fixture or duplicate effect established; cannot claim a native defect from a possible workflow retry.",
+      "blocker": "Need pinned first-party Workflow SDK duplicate/partial-delivery retry fixture and acceptance semantics for a losing continuation command."
+    },
+    {
+      "id": "tale-task-double-start-admission",
+      "assessment_path": "assessments/ta/tale.md",
+      "source": "tale-project/tale",
+      "review_ref": "b2560c2d7d3294993e66129c891be4a059f3d6c4",
+      "reviewed_at": "2026-10-30",
+      "function": "S2",
+      "finding": "Probe whether simultaneous start requests to an idle task pass admission and create two live task workers before the occupancy marker persists.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ta/tale.md",
+        "https://github.com/opensiro/upstream/blob/91e316bc3b86a44094ead03487296baa95602cd5/data/assessment-candidate-batches/2026-11-09-22-HYPOTHESES.md",
+        "https://github.com/tale-project/tale/blob/4368a0fb6a12b247e5a72f39546f6fc220ac1412/.agents/repo.md"
+      ],
+      "screening_result": "Current first-party engineering contract documents one-live-run-per-task partial unique index and transaction-local active-run probe, with already_running refusal for retry. The pre-registered double-live-start mechanism is already guarded; distinct post-completion retries are intentionally a separate idempotency concern."
+    },
+    {
+      "id": "gear-candidate-revoked-lease-stale-write",
+      "assessment_path": "assessments/ge/gear.md",
+      "source": "rsi-gear/gear",
+      "review_ref": "74b8ff873a831930611dd0f0dfd680d91d5212a9",
+      "reviewed_at": "2026-10-30",
+      "function": "S2",
+      "finding": "Probe whether a candidate mutation begun before lease revocation commits after another identity claims the same refinement state.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "FAIL",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ge/gear.md",
+        "https://github.com/opensiro/upstream/blob/91e316bc3b86a44094ead03487296baa95602cd5/data/assessment-candidate-batches/2026-11-09-22-HYPOTHESES.md",
+        "https://github.com/rsi-gear/gear/blob/11bad082e1163d12caf2f955125d596f40b395f1/docs/guide/en/meta-agents.md",
+        "https://github.com/rsi-gear/gear/blob/11bad082e1163d12caf2f955125d596f40b395f1/docs/design/retired-meta-lease-protocol.md"
+      ],
+      "screening_result": "The assessed Meta candidate lease protocol is retired and current CLI/project operation protocol does not accept those candidate lease methods. The preregistered stale candidate-lease write is not an active product path; other device/training leases are not retroactive matches."
+    },
+    {
+      "id": "openshift-schedule-concurrent-skip-race",
+      "assessment_path": "assessments/op/openshift-agent-control-plane.md",
+      "source": "openshift-online/agent-control-plane",
+      "review_ref": "9d7246cb467b3e4d4060bff760b6256f6a368a50",
+      "reviewed_at": "2026-10-30",
+      "function": "S2",
+      "finding": "Probe whether two concurrent triggers of an overlap_policy=skip schedule both observe no active session and launch duplicate runs.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/op/openshift-agent-control-plane.md",
+        "https://github.com/opensiro/upstream/blob/91e316bc3b86a44094ead03487296baa95602cd5/data/assessment-candidate-batches/2026-11-09-22-HYPOTHESES.md",
+        "https://github.com/openshift-online/agent-control-plane/blob/9d7246cb467b3e4d4060bff760b6256f6a368a50/components/ambient-api-server/plugins/scheduledSessions/service.go",
+        "https://github.com/openshift-online/agent-control-plane/blob/9d7246cb467b3e4d4060bff760b6256f6a368a50/components/ambient-api-server/plugins/scheduledSessions/scheduler.go",
+        "https://github.com/openshift-online/agent-control-plane/blob/9d7246cb467b3e4d4060bff760b6256f6a368a50/components/ambient-api-server/plugins/scheduledSessions/scheduler_test.go"
+      ],
+      "screening_result": "The scheduler already serializes due ticks across replicas using a distributed singleton NewNonBlockingLock and sequential processSchedule. overlap_policy=skip guards its scheduled create route; manual Trigger is outside that path. No concurrent scheduled-tick violation established."
+    }
+  ]
+}

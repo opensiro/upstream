@@ -5,7 +5,7 @@
 
 A harness may have several independent interventions and PRs. A historical `AWAITING_EXTERNAL` batch state **remains historical** even when a separate publication ledger later confirms an upstream merge. All external submission/acceptance claims below come from the linked owning source; `SUBMITTED_UNVERIFIED_LIVE` means **no current PR-state claim**.
 
-**Scope:** 123 harnesses · 124 interventions · 25 unique external PR URLs · 21 assessment batches · 18 monitored PR targets.
+**Scope:** 133 harnesses · 134 interventions · 25 unique external PR URLs · 22 assessment batches · 18 monitored PR targets.
 
 ## Harness overview
 
@@ -20,6 +20,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | [AmbientCrypto/ambient-cli](https://github.com/AmbientCrypto/ambient-cli) | 1 | 0 | 0 | 0 | 0 |
 | [andreseloysv/Tirith](https://github.com/andreseloysv/Tirith) | 1 | 0 | 0 | 0 | 1 |
 | [androoAGI/starnet](https://github.com/androoAGI/starnet) | 1 | 0 | 0 | 0 | 0 |
+| [AndyMik90/Aperant](https://github.com/AndyMik90/Aperant) | 1 | 0 | 0 | 0 | 1 |
 | [AniruddhaDas1/OniRoute_SwarmAgents](https://github.com/AniruddhaDas1/OniRoute_SwarmAgents) | 1 | 1 | 0 | 0 | 1 |
 | [Aphrodine-wq/G-Rump](https://github.com/Aphrodine-wq/G-Rump) | 1 | 0 | 0 | 0 | 1 |
 | [atharva1407-sys/SIFRA-Agent-Orchestration-Multi-Agent-Runtime](https://github.com/atharva1407-sys/SIFRA-Agent-Orchestration-Multi-Agent-Runtime) | 1 | 1 | 0 | 0 | 1 |
@@ -34,6 +35,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | [chumingjun/dsh-harness-one](https://github.com/chumingjun/dsh-harness-one) | 1 | 1 | 1 | 0 | 0 |
 | [CodebuffAI/freebuff](https://github.com/CodebuffAI/freebuff) | 1 | 0 | 0 | 0 | 0 |
 | [codemowers/agent](https://github.com/codemowers/agent) | 1 | 0 | 0 | 0 | 1 |
+| [codewhale-hq/Codewhale](https://github.com/codewhale-hq/Codewhale) | 1 | 0 | 0 | 0 | 1 |
 | [converged-computing/fractale](https://github.com/converged-computing/fractale) | 1 | 0 | 0 | 0 | 1 |
 | [Coral-Bricks-AI/reef](https://github.com/Coral-Bricks-AI/reef) | 1 | 1 | 1 | 0 | 0 |
 | [cordfuse/politik](https://github.com/cordfuse/politik) | 1 | 1 | 1 | 0 | 0 |
@@ -55,6 +57,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | [getclarvis/clarvis](https://github.com/getclarvis/clarvis) | 1 | 0 | 0 | 0 | 0 |
 | [google-research/harness2](https://github.com/google-research/harness2) | 1 | 1 | 0 | 0 | 1 |
 | [GoogleCloudPlatform/scion](https://github.com/GoogleCloudPlatform/scion) | 1 | 0 | 0 | 0 | 0 |
+| [greyhaven-ai/autocontext](https://github.com/greyhaven-ai/autocontext) | 1 | 0 | 0 | 0 | 0 |
 | [henrik-me/agent-harness](https://github.com/henrik-me/agent-harness) | 1 | 1 | 0 | 0 | 1 |
 | [huggingface/tau](https://github.com/huggingface/tau) | 1 | 0 | 0 | 0 | 0 |
 | [huleidada/matterloop](https://github.com/huleidada/matterloop) | 1 | 1 | 1 | 0 | 0 |
@@ -74,6 +77,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | [LEO001020/pi-loop-studio-orchestra](https://github.com/LEO001020/pi-loop-studio-orchestra) | 1 | 1 | 1 | 0 | 0 |
 | [LofiSu/deepseek-super-agent](https://github.com/LofiSu/deepseek-super-agent) | 1 | 0 | 0 | 0 | 0 |
 | [maneja81/OpenOrbit](https://github.com/maneja81/OpenOrbit) | 1 | 1 | 0 | 0 | 1 |
+| [manishiitg/agentworks](https://github.com/manishiitg/agentworks) | 1 | 0 | 0 | 0 | 0 |
 | [maref-org/maref](https://github.com/maref-org/maref) | 1 | 1 | 0 | 0 | 1 |
 | [markmhendrickson/ateles](https://github.com/markmhendrickson/ateles) | 1 | 0 | 0 | 0 | 1 |
 | [martian56/rook](https://github.com/martian56/rook) | 1 | 0 | 0 | 0 | 0 |
@@ -89,7 +93,9 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | [nurmdrafi/pi-native](https://github.com/nurmdrafi/pi-native) | 1 | 0 | 0 | 0 | 0 |
 | [oleksandr/super-pi-beam](https://github.com/oleksandr/super-pi-beam) | 1 | 0 | 0 | 0 | 0 |
 | [Onipounds/agent-loop](https://github.com/Onipounds/agent-loop) | 1 | 1 | 1 | 0 | 0 |
+| [openJiuwen-ai/agent-runtime](https://github.com/openJiuwen-ai/agent-runtime) | 1 | 0 | 0 | 0 | 0 |
 | [openonion/connectonion](https://github.com/openonion/connectonion) | 1 | 1 | 0 | 0 | 1 |
+| [openshift-online/agent-control-plane](https://github.com/openshift-online/agent-control-plane) | 1 | 0 | 0 | 0 | 0 |
 | [Orchestragent/orchestragent](https://github.com/Orchestragent/orchestragent) | 1 | 0 | 0 | 0 | 0 |
 | [orka-agents/orka](https://github.com/orka-agents/orka) | 1 | 0 | 0 | 0 | 1 |
 | [Orkas-AI/Orkas](https://github.com/Orkas-AI/Orkas) | 1 | 0 | 0 | 0 | 1 |
@@ -104,6 +110,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | [RogyMD/onethread](https://github.com/RogyMD/onethread) | 1 | 0 | 0 | 0 | 0 |
 | [Rohith-s-hub/Oblivion-agent](https://github.com/Rohith-s-hub/Oblivion-agent) | 1 | 1 | 1 | 0 | 0 |
 | [rokartur/agent](https://github.com/rokartur/agent) | 1 | 0 | 0 | 0 | 1 |
+| [rsi-gear/gear](https://github.com/rsi-gear/gear) | 1 | 0 | 0 | 0 | 0 |
 | [ruslantrachuk/dark-factory](https://github.com/ruslantrachuk/dark-factory) | 1 | 1 | 0 | 0 | 0 |
 | [sergeiwallace/ai-chassis](https://github.com/sergeiwallace/ai-chassis) | 1 | 0 | 0 | 0 | 1 |
 | [SethGammon/Citadel](https://github.com/SethGammon/Citadel) | 1 | 1 | 1 | 1 | 0 |
@@ -120,6 +127,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | [SuperagenticAI/pyflue](https://github.com/SuperagenticAI/pyflue) | 1 | 1 | 0 | 0 | 1 |
 | [supernovae/SwarmOS](https://github.com/supernovae/SwarmOS) | 1 | 0 | 0 | 0 | 0 |
 | [Szotasz/marveen](https://github.com/Szotasz/marveen) | 1 | 0 | 1 | 1 | 0 |
+| [tale-project/tale](https://github.com/tale-project/tale) | 1 | 0 | 0 | 0 | 0 |
 | [talktorana/agent-harness](https://github.com/talktorana/agent-harness) | 1 | 1 | 0 | 0 | 0 |
 | [TencentCloud/octop-harness](https://github.com/TencentCloud/octop-harness) | 1 | 0 | 0 | 0 | 0 |
 | [the-open-engine/zeroshot](https://github.com/the-open-engine/zeroshot) | 1 | 0 | 0 | 0 | 0 |
@@ -127,9 +135,11 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | [tripolskypetr/agent-runtime](https://github.com/tripolskypetr/agent-runtime) | 1 | 0 | 0 | 0 | 0 |
 | [turri-oss/turri](https://github.com/turri-oss/turri) | 1 | 0 | 0 | 0 | 0 |
 | [uniac-ai/AgentOrg](https://github.com/uniac-ai/AgentOrg) | 1 | 0 | 0 | 0 | 1 |
+| [vercel/eve](https://github.com/vercel/eve) | 1 | 0 | 0 | 0 | 1 |
 | [vinhnx/VTCode](https://github.com/vinhnx/VTCode) | 1 | 0 | 0 | 0 | 1 |
 | [voly-codes/voly](https://github.com/voly-codes/voly) | 1 | 1 | 0 | 0 | 0 |
 | [xincode-ai/xin-code](https://github.com/xincode-ai/xin-code) | 1 | 0 | 0 | 0 | 1 |
+| [xingyaoww/code-act](https://github.com/xingyaoww/code-act) | 1 | 1 | 0 | 0 | 0 |
 | [xpressabhi/agentic-sdlc-control-plane](https://github.com/xpressabhi/agentic-sdlc-control-plane) | 1 | 0 | 0 | 0 | 1 |
 | [yoheinakajima/activegraph](https://github.com/yoheinakajima/activegraph) | 1 | 1 | 0 | 0 | 1 |
 | [zenodea/zaino](https://github.com/zenodea/zaino) | 1 | 0 | 0 | 0 | 0 |
@@ -148,6 +158,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | AmbientCrypto/ambient-cli | [assessment:ambient-approval-chain-rejection](data/assessment-candidate-batches/2026-11-09-21.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-21 | No code change justified |
 | andreseloysv/Tirith | [assessment:tirith-write-path-alias-claim-boundary](data/assessment-candidate-batches/2026-11-08-14.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-08-14 | Obtain missing native evidence |
 | androoAGI/starnet | [portfolio:starnet-55](cases/starnet.md) | — | NOT_TRACKED | CLOSED_UNMERGED | [#56](https://github.com/androoAGI/starnet/pull/56) | casebook | Recorded external no-merge outcome |
+| AndyMik90/Aperant | [assessment:aperant-worktree-failure-shared-root](data/assessment-candidate-batches/2026-11-09-22.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-09-22 | Obtain missing native evidence |
 | AniruddhaDas1/OniRoute_SwarmAgents | [assessment:oniroute-validation-boundary](data/assessment-candidate-batches/2026-10-23-08.json) | S1 | AWAITING_EXTERNAL | BLOCKED_PUBLICATION | — | assessment-upstream-2026-10-23-08 | Resolve documented publication gate |
 | Aphrodine-wq/G-Rump | [assessment:g-rump-daemon-branch-restore](data/assessment-candidate-batches/2026-10-22-03.json) | S1 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-10-22-03 | Obtain missing native evidence |
 | atharva1407-sys/SIFRA-Agent-Orchestration-Multi-Agent-Runtime | [assessment:sifra-runtime-approval-replay](data/assessment-candidate-batches/2026-10-22-07.json) | S1 | AWAITING_EXTERNAL | BLOCKED_PUBLICATION | — | assessment-upstream-2026-10-22-07 | Resolve documented publication gate |
@@ -162,6 +173,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | chumingjun/dsh-harness-one | [assessment:dsh-harness-one-workflow-state](data/assessment-candidate-batches/2026-10-22-06.json) | S1 | AWAITING_EXTERNAL | SUBMITTED_UNVERIFIED_LIVE | [#173](https://github.com/chumingjun/dsh-harness-one/pull/173) | assessment-upstream-2026-10-22-06 | Check current maintainer/CI outcome |
 | CodebuffAI/freebuff | [assessment:freebuff-cli-tool-result](data/assessment-candidate-batches/2026-10-22-03.json) | S1 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-10-22-03 | No code change justified |
 | codemowers/agent | [assessment:codemowers-canonical-resource-alias](data/assessment-candidate-batches/2026-11-09-21.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-09-21 | Obtain missing native evidence |
+| codewhale-hq/Codewhale | [assessment:codewhale-write-alias-overlap](data/assessment-candidate-batches/2026-11-09-22.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-09-22 | Obtain missing native evidence |
 | converged-computing/fractale | [assessment:fractale-native-workflow](data/assessment-candidate-batches/2026-10-22-01.json) | S1 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-10-22-01 | Obtain missing native evidence |
 | Coral-Bricks-AI/reef | [assessment:reef-polyp-experiment-queue-contract](data/assessment-candidate-batches/2026-10-22-07.json) | S1 | AWAITING_EXTERNAL | SUBMITTED_UNVERIFIED_LIVE | [#19](https://github.com/Coral-Bricks-AI/reef/pull/19) | assessment-upstream-2026-10-22-07 | Check current maintainer/CI outcome |
 | cordfuse/politik | [assessment:politik-transaction-denial-return](data/assessment-candidate-batches/2026-10-22-04.json) | S1 | AWAITING_EXTERNAL | SUBMITTED_UNVERIFIED_LIVE | [#33](https://github.com/cordfuse/politik/pull/33) | assessment-upstream-2026-10-22-04 | Check current maintainer/CI outcome |
@@ -183,6 +195,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | getclarvis/clarvis | [assessment:clarvis-directory-read-write-wave-overlap](data/assessment-candidate-batches/2026-11-08-15.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-08-15 | No code change justified |
 | google-research/harness2 | [assessment:harness2-library-persistence-contract](data/assessment-candidate-batches/2026-10-23-10.json) | S1 | AWAITING_EXTERNAL | BLOCKED_PUBLICATION | — | assessment-upstream-2026-10-23-10 | Resolve documented publication gate |
 | GoogleCloudPlatform/scion | [portfolio:scion-2047](cases/scion.md) | — | NOT_TRACKED | CLOSED_UNMERGED | [#2047](https://github.com/GoogleCloudPlatform/scion/pull/2047) | casebook | Recorded external no-merge outcome |
+| greyhaven-ai/autocontext | [assessment:autocontext-expired-lease-late-complete](data/assessment-candidate-batches/2026-11-09-22.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-22 | No code change justified |
 | henrik-me/agent-harness | [assessment:henrik-agent-harness-workboard-claim-guards](data/assessment-candidate-batches/2026-10-23-10.json) | S1 | AWAITING_EXTERNAL | BLOCKED_PUBLICATION | — | assessment-upstream-2026-10-23-10 | Resolve documented publication gate |
 | huggingface/tau | [assessment:tau-session-storage-continuation](data/assessment-candidate-batches/2026-10-22-03.json) | S1 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-10-22-03 | No code change justified |
 | huleidada/matterloop | [assessment:matterloop-taskgraph-checkpoint-recovery](data/assessment-candidate-batches/2026-10-22-05.json) | S1 | AWAITING_EXTERNAL | SUBMITTED_UNVERIFIED_LIVE | [#11](https://github.com/huleidada/matterloop/pull/11) | assessment-upstream-2026-10-22-05 | Check current maintainer/CI outcome |
@@ -202,6 +215,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | LEO001020/pi-loop-studio-orchestra | [assessment:pi-loop-worktree-publication-integrity](data/assessment-candidate-batches/2026-10-22-07.json) | S1 | AWAITING_EXTERNAL | SUBMITTED_UNVERIFIED_LIVE | [#1](https://github.com/LEO001020/pi-loop-studio-orchestra/pull/1) | assessment-upstream-2026-10-22-07 | Check current maintainer/CI outcome |
 | LofiSu/deepseek-super-agent | [assessment:deepseek-mesh-capacity-release](data/assessment-candidate-batches/2026-11-06-13.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-06-13 | No code change justified |
 | maneja81/OpenOrbit | [assessment:openorbit-approval-boundary-validation](data/assessment-candidate-batches/2026-10-22-07.json) | S1 | AWAITING_EXTERNAL | BLOCKED_PUBLICATION | — | assessment-upstream-2026-10-22-07 | Resolve documented publication gate |
+| manishiitg/agentworks | [assessment:agentworks-concurrent-crew-delivery-claim](data/assessment-candidate-batches/2026-11-09-22.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-22 | No code change justified |
 | maref-org/maref | [assessment:maref-run-state-boundary](data/assessment-candidate-batches/2026-10-22-04.json) | S1 | AWAITING_EXTERNAL | BLOCKED_PUBLICATION | — | assessment-upstream-2026-10-22-04 | Resolve documented publication gate |
 | markmhendrickson/ateles | [assessment:ateles-python-dispatch-gate](data/assessment-candidate-batches/2026-10-22-04.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-10-22-04 | Obtain missing native evidence |
 | martian56/rook | [assessment:rook-dispatch-approval](data/assessment-candidate-batches/2026-10-22-02.json) | S1 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-10-22-02 | No code change justified |
@@ -217,7 +231,9 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | nurmdrafi/pi-native | [assessment:pi-native-canceled-child-scope-release](data/assessment-candidate-batches/2026-11-09-20.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-20 | No code change justified |
 | oleksandr/super-pi-beam | [assessment:super-pi-beam-symlink-path-alias](data/assessment-candidate-batches/2026-11-09-21.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-21 | No code change justified |
 | Onipounds/agent-loop | [assessment:agent-loop-numeric-verifier-grounding](data/assessment-candidate-batches/2026-10-22-05.json) | S1 | AWAITING_EXTERNAL | SUBMITTED_UNVERIFIED_LIVE | [#1](https://github.com/Onipounds/agent-loop/pull/1) | assessment-upstream-2026-10-22-05 | Check current maintainer/CI outcome |
+| openJiuwen-ai/agent-runtime | [assessment:openjiuwen-session-affinity-expiry-race](data/assessment-candidate-batches/2026-11-09-22.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-22 | No code change justified |
 | openonion/connectonion | [assessment:connectonion-approval-tool-admission](data/assessment-candidate-batches/2026-10-23-09.json) | S1 | AWAITING_EXTERNAL | BLOCKED_PUBLICATION | — | assessment-upstream-2026-10-23-09 | Resolve documented publication gate |
+| openshift-online/agent-control-plane | [assessment:openshift-schedule-concurrent-skip-race](data/assessment-candidate-batches/2026-11-09-22.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-22 | No code change justified |
 | Orchestragent/orchestragent | [assessment:orchestragent-stale-integration-test-verdict](data/assessment-candidate-batches/2026-11-09-17.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-17 | No code change justified |
 | orka-agents/orka | [assessment:orka-canceled-race-late-result](data/assessment-candidate-batches/2026-11-09-20.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-09-20 | Obtain missing native evidence |
 | Orkas-AI/Orkas | [assessment:orkas-output-path-alias-lock](data/assessment-candidate-batches/2026-11-09-18.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-09-18 | Obtain missing native evidence |
@@ -232,6 +248,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | RogyMD/onethread | [assessment:onethread-dead-worker-lease-reclaim](data/assessment-candidate-batches/2026-11-09-19.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-19 | No code change justified |
 | Rohith-s-hub/Oblivion-agent | [assessment:oblivion-agent-tool-loop](data/assessment-candidate-batches/2026-10-22-01.json) | S1 | AWAITING_EXTERNAL | SUBMITTED_UNVERIFIED_LIVE | [#1](https://github.com/Rohith-s-hub/Oblivion-agent/pull/1) | assessment-upstream-2026-10-22-01 | Check current maintainer/CI outcome |
 | rokartur/agent | [assessment:rokartur-stale-anchor-partial-replacement](data/assessment-candidate-batches/2026-11-09-21.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-09-21 | Obtain missing native evidence |
+| rsi-gear/gear | [assessment:gear-candidate-revoked-lease-stale-write](data/assessment-candidate-batches/2026-11-09-22.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-22 | No code change justified |
 | ruslantrachuk/dark-factory | [assessment:dark-factory-s2-wave-disjointness](data/assessment-candidate-batches/2026-11-06-12.json) | S2 | AWAITING_EXTERNAL | NOT_SUBMITTED | — | assessment-upstream-2026-11-06-12 | Refresh source; check external publication grant |
 | sergeiwallace/ai-chassis | [assessment:ai-chassis-s2-idempotent-claim](data/assessment-candidate-batches/2026-11-06-12.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-06-12 | Obtain missing native evidence |
 | SethGammon/Citadel | [assessment:citadel-native-claim-exclusivity](data/assessment-candidate-batches/2026-10-23-11.json) | S1 | AWAITING_EXTERNAL | MERGED_UPSTREAM | [#366](https://github.com/SethGammon/Citadel/pull/366) | assessment-upstream-2026-10-23-11 | Accepted externally; no new delivery claim |
@@ -249,6 +266,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | SuperagenticAI/pyflue | [assessment:pyflue-sandbox-tool-schema](data/assessment-candidate-batches/2026-10-23-08.json) | S1 | AWAITING_EXTERNAL | BLOCKED_PUBLICATION | — | assessment-upstream-2026-10-23-08 | Resolve documented publication gate |
 | supernovae/SwarmOS | [assessment:swarmos-stale-worker-publish-fence](data/assessment-candidate-batches/2026-11-09-17.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-17 | No code change justified |
 | Szotasz/marveen | [portfolio:marveen-1516](cases/marveen.md) | — | NOT_TRACKED | MERGED | [#1516](https://github.com/Szotasz/marveen/pull/1516) | casebook | Accepted externally; no new delivery claim |
+| tale-project/tale | [assessment:tale-task-double-start-admission](data/assessment-candidate-batches/2026-11-09-22.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-22 | No code change justified |
 | talktorana/agent-harness | [assessment:talktorana-memory-concurrent-save](data/assessment-candidate-batches/2026-11-06-13.json) | S2 | AWAITING_EXTERNAL | NOT_SUBMITTED | — | assessment-upstream-2026-11-06-13 | Refresh source; check external publication grant |
 | TencentCloud/octop-harness | [assessment:octop-canceled-inbox-lock-release](data/assessment-candidate-batches/2026-11-09-21.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-21 | No code change justified |
 | the-open-engine/zeroshot | [assessment:zeroshot-stale-lesson-retry-publish](data/assessment-candidate-batches/2026-11-09-20.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-20 | No code change justified |
@@ -256,9 +274,11 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | tripolskypetr/agent-runtime | [assessment:agent-runtime-canceled-workspace-request](data/assessment-candidate-batches/2026-11-09-20.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-20 | No code change justified |
 | turri-oss/turri | [assessment:turri-module-lane-failure-release](data/assessment-candidate-batches/2026-11-09-16.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-16 | No code change justified |
 | uniac-ai/AgentOrg | [assessment:agentorg-shared-resource-claims](data/assessment-candidate-batches/2026-11-06-13.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-06-13 | Obtain missing native evidence |
+| vercel/eve | [assessment:eve-continuation-settlement-retry-duplicate](data/assessment-candidate-batches/2026-11-09-22.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-09-22 | Obtain missing native evidence |
 | vinhnx/VTCode | [assessment:vtcode-worktree-reconcile-name](data/assessment-candidate-batches/2026-10-22-02.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-10-22-02 | Obtain missing native evidence |
 | voly-codes/voly | [assessment:voly-unlocked-fallback-lock-error](data/assessment-candidate-batches/2026-11-09-20.json) | S2 | AWAITING_EXTERNAL | NOT_SUBMITTED | — | assessment-upstream-2026-11-09-20 | Refresh source; check external publication grant |
 | xincode-ai/xin-code | [assessment:xin-code-executor-permission](data/assessment-candidate-batches/2026-10-22-02.json) | S1 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-10-22-02 | Obtain missing native evidence |
+| xingyaoww/code-act | [assessment:codeact-same-session-first-kernel-race](data/assessment-candidate-batches/2026-11-09-22.json) | S2 | AWAITING_EXTERNAL | NOT_SUBMITTED | — | assessment-upstream-2026-11-09-22 | Refresh source; check external publication grant |
 | xpressabhi/agentic-sdlc-control-plane | [assessment:conductor-sdlc-s2-replan-closure](data/assessment-candidate-batches/2026-11-06-12.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-06-12 | Obtain missing native evidence |
 | yoheinakajima/activegraph | [assessment:activegraph-event-patch-invariants](data/assessment-candidate-batches/2026-10-23-08.json) | S1 | AWAITING_EXTERNAL | BLOCKED_PUBLICATION | — | assessment-upstream-2026-10-23-08 | Resolve documented publication gate |
 | zenodea/zaino | [assessment:zaino-shared-stale-write](data/assessment-candidate-batches/2026-10-22-02.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-10-22-02 | No code change justified |
