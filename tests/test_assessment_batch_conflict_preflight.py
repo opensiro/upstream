@@ -98,6 +98,22 @@ class PreflightTests(unittest.TestCase):
                 f"reviewed_at: {row['reviewed_at']}",
                 "status: included", "autonomy_s1: A"
             )) + "\n---\n", encoding="utf-8")
+        cls.extra = []
+        for i, row in enumerate(cls.original["candidates"]):
+            extra = copy.deepcopy(row)
+            extra["id"] = f"additional-source-{i}"
+            extra["assessment_path"] = f"assessments/ex/source-{i}.md"
+            extra["source"] = f"OtherOwner/AdditionalSource{i}"
+            file = cls.index / extra["assessment_path"]
+            file.parent.mkdir(parents=True, exist_ok=True)
+            file.write_text("---\n" + "\n".join((
+                f"harness_id: {file.stem}",
+                f"repository: https://github.com/{extra['source']}",
+                f"review_ref: {extra['review_ref']}",
+                f"reviewed_at: {extra['reviewed_at']}",
+                "status: included", "autonomy_s1: A"
+            )) + "\n---\n", encoding="utf-8")
+            cls.extra.append(extra)
         git(cls.index, "add", "assessments")
         git(cls.index, "commit", "-qm", "Index fixture")
         cls.original["index_sha"] = git(cls.index, "rev-parse", "HEAD")
@@ -123,6 +139,20 @@ class PreflightTests(unittest.TestCase):
         self.assertEqual(report["open_pr_count"], 1)
         self.assertTrue(report["index_sha_attested_reachable"])
         self.assertEqual(report["canonical_index_main_sha"], INDEX_MAIN_SHA)
+
+    def test_explicit_ten_source_cohort_still_checks_merged_and_open_claims(self):
+        manifest = copy.deepcopy(self.original)
+        manifest["candidates"].extend(copy.deepcopy(self.extra))
+        manifest["candidates"].sort(key=lambda row: row["reviewed_at"], reverse=True)
+        report = mod.preflight(manifest, self.index, FakeGithub(main=self.unrelated(), pr=self.unrelated()))
+        self.assertEqual(report["status"], "CLEAR_PREVIEW_ONLY")
+        self.assertEqual(len(report["sources"]), 10)
+
+        active = self.unrelated()
+        active["candidates"][1]["source"] = self.extra[-1]["source"]
+        collision = mod.preflight(manifest, self.index, FakeGithub(pr=active))
+        self.assertEqual(collision["status"], "BLOCKED_DUPLICATE_SOURCE")
+        self.assertEqual(len(collision["collisions"]), 1)
 
     def test_merged_source_casefold_collision_is_blocked(self):
         merged = self.unrelated()
