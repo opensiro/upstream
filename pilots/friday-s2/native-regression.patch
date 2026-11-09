@@ -1,9 +1,9 @@
 diff --git a/test/file-custody-alias.test.ts b/test/file-custody-alias.test.ts
 new file mode 100644
-index 0000000..820b095
+index 0000000..228cd76
 --- /dev/null
 +++ b/test/file-custody-alias.test.ts
-@@ -0,0 +1,25 @@
+@@ -0,0 +1,26 @@
 +import assert from "node:assert/strict";
 +import test from "node:test";
 +import { heldBy } from "../src/agent-mesh.js";
@@ -13,6 +13,7 @@ index 0000000..820b095
 +  ({
 +    lanes: [{ id: "alpha", name: "Alpha" }],
 +    engines: {},
++    options: {},
 +    holds: { alpha: { paths: [claimed], seq: 7 } },
 +  }) as unknown as SessionState;
 +
