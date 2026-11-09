@@ -1,0 +1,1007 @@
+{
+  "schema_version": 1,
+  "scope": "HISTORICAL_EXPERIMENT_AND_TECHNICAL_PACKET_INDEX",
+  "meaning": "FILE_INVENTORY_ONLY_NO_SUCCESS_OR_EXTERNAL_PUBLICATION_CLAIM",
+  "generated_from": "pilots/ direct subdirectories and their preserved files",
+  "counts": {
+    "pilot_directories": 66,
+    "artifact_files": 178,
+    "historical_directories": 66,
+    "new_directories": 0,
+    "by_kind": {
+      "EXPERIMENT_SERIES": 3,
+      "PATCH_HANDOFF": 47,
+      "PATCH_EVIDENCE": 0,
+      "SCREEN_ONLY": 16,
+      "OTHER_EVIDENCE": 0
+    }
+  },
+  "root_shared_files": [
+    "HISTORICAL_BASELINE.json",
+    "batch20-independent-native-runner.sh"
+  ],
+  "entries": [
+    {
+      "id": "activegraph",
+      "path": "pilots/activegraph",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/activegraph/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "nonobject-event-payload-rejection.patch"
+      ]
+    },
+    {
+      "id": "agent-context-lab",
+      "path": "pilots/agent-context-lab",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/agent-context-lab/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "default-fail-evidence-contract.patch"
+      ]
+    },
+    {
+      "id": "agent-loop",
+      "path": "pilots/agent-loop",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/agent-loop/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "numeric-notation-grounding.patch"
+      ]
+    },
+    {
+      "id": "agentbox-s2",
+      "path": "pilots/agentbox-s2",
+      "kind": "EXPERIMENT_SERIES",
+      "start_here": "pilots/agentbox-s2/SCREENING_AND_NATIVE_FIT_2026-10-20.md",
+      "artifact_counts": {
+        "handoff": 1,
+        "screen": 2,
+        "protocol": 1,
+        "receipt": 2,
+        "native_code": 4,
+        "other": 3
+      },
+      "files": [
+        "AGENTBOX_DESIGN_INQUIRY_DRAFT.md",
+        "NATIVE_DEPENDENCY_DISPATCH_PROTOCOL_2026-10-20.md",
+        "NATIVE_DEPENDENCY_DISPATCH_RECEIPT_2026-10-20.md",
+        "NATIVE_FIT_DECISION_AND_ALT_SCREEN_2026-10-20.md",
+        "NATIVE_TASK_PREFLIGHT_BASELINE_PLAN.md",
+        "NATIVE_TASK_PREFLIGHT_BASELINE_RECEIPT_2026-10-20.md",
+        "SCREENING_AND_NATIVE_FIT_2026-10-20.md",
+        "assessment_native_dependency_dispatch_baseline.test.ts",
+        "assessment_native_task_conflict_baseline.test.ts",
+        "manager-advisory/README.md",
+        "manager-advisory/UPSTREAM_ISSUE_HANDOFF.md",
+        "manager-advisory/module.test.ts",
+        "manager-advisory/module.ts"
+      ]
+    },
+    {
+      "id": "agentflow",
+      "path": "pilots/agentflow",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/agentflow/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "node-id-artifact-path-guard.patch"
+      ]
+    },
+    {
+      "id": "agentuniverse",
+      "path": "pilots/agentuniverse",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/agentuniverse/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "workflow-reference-contract.patch"
+      ]
+    },
+    {
+      "id": "ateles",
+      "path": "pilots/ateles",
+      "kind": "SCREEN_ONLY",
+      "start_here": "pilots/ateles/SCREENING.md",
+      "artifact_counts": {
+        "screen": 1
+      },
+      "files": [
+        "SCREENING.md"
+      ]
+    },
+    {
+      "id": "babyai",
+      "path": "pilots/babyai",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/babyai/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "native-training-argument-guard.patch"
+      ]
+    },
+    {
+      "id": "besser",
+      "path": "pilots/besser",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/besser/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "auto-transition-registration-order.patch"
+      ]
+    },
+    {
+      "id": "caveman-code",
+      "path": "pilots/caveman-code",
+      "kind": "SCREEN_ONLY",
+      "start_here": "pilots/caveman-code/SCREENING_2026-10-22.md",
+      "artifact_counts": {
+        "screen": 1
+      },
+      "files": [
+        "SCREENING_2026-10-22.md"
+      ]
+    },
+    {
+      "id": "clouds-coder-s2",
+      "path": "pilots/clouds-coder-s2",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/clouds-coder-s2/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 2,
+        "handoff": 1,
+        "receipt": 1,
+        "native_code": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "INDEPENDENT_HOST_RECEIPT_2026-11-08.md",
+        "frozen-process-fix.patch",
+        "frozen-process-regression-tests.patch",
+        "independent-runner.sh"
+      ]
+    },
+    {
+      "id": "codeact-s2",
+      "path": "pilots/codeact-s2",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/codeact-s2/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 2,
+        "handoff": 1,
+        "receipt": 1,
+        "native_code": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "INDEPENDENT_HOST_RECEIPT_2026-11-09.md",
+        "native-fix.patch",
+        "native-regression.patch",
+        "run-native.sh"
+      ]
+    },
+    {
+      "id": "connectonion",
+      "path": "pilots/connectonion",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/connectonion/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "control-file-symlink-admission.patch"
+      ]
+    },
+    {
+      "id": "crdd",
+      "path": "pilots/crdd",
+      "kind": "SCREEN_ONLY",
+      "start_here": "pilots/crdd/SCREENING.md",
+      "artifact_counts": {
+        "screen": 1
+      },
+      "files": [
+        "SCREENING.md"
+      ]
+    },
+    {
+      "id": "crewdeck-s2",
+      "path": "pilots/crewdeck-s2",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/crewdeck-s2/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "manual-claim-admission.patch"
+      ]
+    },
+    {
+      "id": "cubeloop",
+      "path": "pilots/cubeloop",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/cubeloop/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "memory-checkpoint-copy-boundaries.patch"
+      ]
+    },
+    {
+      "id": "cyber-ai-team",
+      "path": "pilots/cyber-ai-team",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/cyber-ai-team/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "nonfinite-policy-envelopes.patch"
+      ]
+    },
+    {
+      "id": "dark-factory-s2",
+      "path": "pilots/dark-factory-s2",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/dark-factory-s2/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "wave-file-scope-guard.patch"
+      ]
+    },
+    {
+      "id": "discoveryrsi",
+      "path": "pilots/discoveryrsi",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/discoveryrsi/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "candidate-episode-snapshot.patch"
+      ]
+    },
+    {
+      "id": "evidenceloom",
+      "path": "pilots/evidenceloom",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/evidenceloom/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "unicode-spaced-numeric-scale.patch"
+      ]
+    },
+    {
+      "id": "forgedock",
+      "path": "pilots/forgedock",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/forgedock/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "equal-version-remote-divergence.patch"
+      ]
+    },
+    {
+      "id": "fractale",
+      "path": "pilots/fractale",
+      "kind": "SCREEN_ONLY",
+      "start_here": "pilots/fractale/SCREENING_2026-10-22.md",
+      "artifact_counts": {
+        "screen": 1
+      },
+      "files": [
+        "SCREENING_2026-10-22.md"
+      ]
+    },
+    {
+      "id": "freebuff",
+      "path": "pilots/freebuff",
+      "kind": "SCREEN_ONLY",
+      "start_here": "pilots/freebuff/SCREENING_2026-10-22.md",
+      "artifact_counts": {
+        "screen": 1
+      },
+      "files": [
+        "SCREENING_2026-10-22.md"
+      ]
+    },
+    {
+      "id": "friday-s2",
+      "path": "pilots/friday-s2",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/friday-s2/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 2,
+        "handoff": 1,
+        "receipt": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "INDEPENDENT_HOST_RECEIPT_2026-11-09.md",
+        "native-fix.patch",
+        "native-regression.patch"
+      ]
+    },
+    {
+      "id": "g-rump",
+      "path": "pilots/g-rump",
+      "kind": "SCREEN_ONLY",
+      "start_here": "pilots/g-rump/SCREENING_2026-10-22.md",
+      "artifact_counts": {
+        "screen": 1
+      },
+      "files": [
+        "SCREENING_2026-10-22.md"
+      ]
+    },
+    {
+      "id": "gyrfalcon",
+      "path": "pilots/gyrfalcon",
+      "kind": "SCREEN_ONLY",
+      "start_here": "pilots/gyrfalcon/SCREENING_2026-10-22.md",
+      "artifact_counts": {
+        "screen": 1
+      },
+      "files": [
+        "SCREENING_2026-10-22.md"
+      ]
+    },
+    {
+      "id": "harness2",
+      "path": "pilots/harness2",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/harness2/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "library-path-component-guard.patch"
+      ]
+    },
+    {
+      "id": "harnessdesk-1772",
+      "path": "pilots/harnessdesk-1772",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/harnessdesk-1772/README.md",
+      "artifact_counts": {
+        "patch": 2,
+        "handoff": 2,
+        "receipt": 1,
+        "native_code": 1,
+        "fixture_or_recipe": 4,
+        "other": 4
+      },
+      "files": [
+        "ASSESSMENT_LINKAGE_2026-10-20.md",
+        "IMPLEMENTATION_REVIEW_V2_2026-10-20.md",
+        "IMPLEMENTATION_VALIDATION_2026-10-20.md",
+        "PREPARE_SHARED_CURRENT_20261020.md",
+        "PREPARE_V2_HANDOFF.md",
+        "README.md",
+        "prepare-v2-20261020-24aa8d7.json",
+        "prepare-v2-20261020-81d5e34-shared.json",
+        "prepare-v2-handoff.json",
+        "tool-gateway-ownership-fix-v2.patch",
+        "tool-gateway-ownership-fix.patch",
+        "tool-gateway-second-host.test.ts",
+        "upstream-20261019-harnessdesk-1772.json",
+        "upstream-20261020-harnessdesk-1772.json"
+      ]
+    },
+    {
+      "id": "harnessx",
+      "path": "pilots/harnessx",
+      "kind": "SCREEN_ONLY",
+      "start_here": "pilots/harnessx/SCREENING.md",
+      "artifact_counts": {
+        "screen": 1
+      },
+      "files": [
+        "SCREENING.md"
+      ]
+    },
+    {
+      "id": "henrik-agent-harness",
+      "path": "pilots/henrik-agent-harness",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/henrik-agent-harness/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "claim-same-cs-race-guard.patch"
+      ]
+    },
+    {
+      "id": "histh-s2",
+      "path": "pilots/histh-s2",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/histh-s2/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 2,
+        "handoff": 1,
+        "receipt": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "INDEPENDENT_HOST_RECEIPT_2026-11-09.md",
+        "native-fix.patch",
+        "native-regression.patch"
+      ]
+    },
+    {
+      "id": "ironclaw",
+      "path": "pilots/ironclaw",
+      "kind": "SCREEN_ONLY",
+      "start_here": "pilots/ironclaw/SCREENING_2026-10-22.md",
+      "artifact_counts": {
+        "screen": 1
+      },
+      "files": [
+        "SCREENING_2026-10-22.md"
+      ]
+    },
+    {
+      "id": "join-the-team",
+      "path": "pilots/join-the-team",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/join-the-team/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "bootstrap-symlink-boundary.patch"
+      ]
+    },
+    {
+      "id": "kram-s2",
+      "path": "pilots/kram-s2",
+      "kind": "EXPERIMENT_SERIES",
+      "start_here": "pilots/kram-s2/README.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 2,
+        "receipt": 1,
+        "other": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "README.md",
+        "REPLAY_RECEIPT_2026-10-22.md",
+        "contribution-handoff-2026-10-22.json",
+        "s2-edit-file-atomicity-v2.patch"
+      ]
+    },
+    {
+      "id": "lacp-s2",
+      "path": "pilots/lacp-s2",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/lacp-s2/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 2,
+        "handoff": 1,
+        "receipt": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "INDEPENDENT_HOST_RECEIPT_2026-11-09.md",
+        "native-fix.patch",
+        "native-regression.patch"
+      ]
+    },
+    {
+      "id": "maref",
+      "path": "pilots/maref",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/maref/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1,
+        "native_code": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "rollback-new-files.patch",
+        "verify_new_file_rollback.py"
+      ]
+    },
+    {
+      "id": "matterloop",
+      "path": "pilots/matterloop",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/matterloop/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "restore-duplicate-state-guard.patch"
+      ]
+    },
+    {
+      "id": "oblivion-batch-edit",
+      "path": "pilots/oblivion-batch-edit",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/oblivion-batch-edit/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1,
+        "native_code": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "batch-edit-preflight.patch",
+        "scripted_atomicity_replay.py"
+      ]
+    },
+    {
+      "id": "oniroute",
+      "path": "pilots/oniroute",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/oniroute/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "nested-workspace-engine-guard.patch"
+      ]
+    },
+    {
+      "id": "openorbit",
+      "path": "pilots/openorbit",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/openorbit/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "dot-segment-path-parameter-guard.patch"
+      ]
+    },
+    {
+      "id": "orch",
+      "path": "pilots/orch",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/orch/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "checkpoint-state-roundtrip.patch"
+      ]
+    },
+    {
+      "id": "phax-s2",
+      "path": "pilots/phax-s2",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/phax-s2/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "normalize-overlap-paths.patch"
+      ]
+    },
+    {
+      "id": "phoenix-agent-harness",
+      "path": "pilots/phoenix-agent-harness",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/phoenix-agent-harness/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "day-rate-event-retention.patch"
+      ]
+    },
+    {
+      "id": "pi-loop-studio",
+      "path": "pilots/pi-loop-studio",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/pi-loop-studio/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "native-plan-shape-guard.patch"
+      ]
+    },
+    {
+      "id": "politik",
+      "path": "pilots/politik",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/politik/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "containment-dotdot-prefix.patch"
+      ]
+    },
+    {
+      "id": "pyflue",
+      "path": "pilots/pyflue",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/pyflue/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "virtual-sandbox-root-delete-guard.patch"
+      ]
+    },
+    {
+      "id": "quikagent",
+      "path": "pilots/quikagent",
+      "kind": "SCREEN_ONLY",
+      "start_here": "pilots/quikagent/SCREENING_2026-10-22.md",
+      "artifact_counts": {
+        "screen": 1
+      },
+      "files": [
+        "SCREENING_2026-10-22.md"
+      ]
+    },
+    {
+      "id": "raven",
+      "path": "pilots/raven",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/raven/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 2,
+        "handoff": 1,
+        "screen": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "SCREENING_INTAKE_2026-10-22.md",
+        "stopped-turn-step-boundary-20261025.patch",
+        "stopped-turn-step-boundary.patch"
+      ]
+    },
+    {
+      "id": "recuris",
+      "path": "pilots/recuris",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/recuris/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "invalid-heldout-data-guard.patch"
+      ]
+    },
+    {
+      "id": "reef",
+      "path": "pilots/reef",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/reef/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "unpushed-archive-commit-retry.patch"
+      ]
+    },
+    {
+      "id": "reins",
+      "path": "pilots/reins",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/reins/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "empty-principal-rls-contract.patch"
+      ]
+    },
+    {
+      "id": "revka",
+      "path": "pilots/revka",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/revka/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "workflow-deep-dag-validation.patch"
+      ]
+    },
+    {
+      "id": "rook",
+      "path": "pilots/rook",
+      "kind": "SCREEN_ONLY",
+      "start_here": "pilots/rook/SCREENING_2026-10-22.md",
+      "artifact_counts": {
+        "screen": 1
+      },
+      "files": [
+        "SCREENING_2026-10-22.md"
+      ]
+    },
+    {
+      "id": "runloop-s2",
+      "path": "pilots/runloop-s2",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/runloop-s2/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1,
+        "receipt": 1,
+        "native_code": 1,
+        "fixture_or_recipe": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "INDEPENDENT_HOST_RECEIPT_2026-11-08.md",
+        "idempotent-budget-finalization.patch",
+        "independent-runner-recipe.yml",
+        "test_budget_finalization.py"
+      ]
+    },
+    {
+      "id": "sifra",
+      "path": "pilots/sifra",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/sifra/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "timeout-revokes-tool-access.patch"
+      ]
+    },
+    {
+      "id": "spartan",
+      "path": "pilots/spartan",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/spartan/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "soul-first-entry-backfill.patch"
+      ]
+    },
+    {
+      "id": "talktorana-memory-s2",
+      "path": "pilots/talktorana-memory-s2",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/talktorana-memory-s2/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "concurrent-revise-retire.patch"
+      ]
+    },
+    {
+      "id": "tau",
+      "path": "pilots/tau",
+      "kind": "SCREEN_ONLY",
+      "start_here": "pilots/tau/SCREENING_2026-10-22.md",
+      "artifact_counts": {
+        "screen": 1
+      },
+      "files": [
+        "SCREENING_2026-10-22.md"
+      ]
+    },
+    {
+      "id": "voly-s2",
+      "path": "pilots/voly-s2",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/voly-s2/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 2,
+        "handoff": 1,
+        "receipt": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "INDEPENDENT_HOST_RECEIPT_2026-11-09.md",
+        "native-fix.patch",
+        "native-regression.patch"
+      ]
+    },
+    {
+      "id": "vtcode",
+      "path": "pilots/vtcode",
+      "kind": "SCREEN_ONLY",
+      "start_here": "pilots/vtcode/SCREENING_2026-10-22.md",
+      "artifact_counts": {
+        "screen": 1
+      },
+      "files": [
+        "SCREENING_2026-10-22.md"
+      ]
+    },
+    {
+      "id": "wanman-s2",
+      "path": "pilots/wanman-s2",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/wanman-s2/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 2,
+        "handoff": 1,
+        "receipt": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "INDEPENDENT_HOST_RECEIPT_2026-11-09.md",
+        "native-fix.patch",
+        "native-regression.patch"
+      ]
+    },
+    {
+      "id": "workflow-one",
+      "path": "pilots/workflow-one",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/workflow-one/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "active-runid-registry-guard.patch"
+      ]
+    },
+    {
+      "id": "xin-code",
+      "path": "pilots/xin-code",
+      "kind": "SCREEN_ONLY",
+      "start_here": "pilots/xin-code/SCREENING_2026-10-22.md",
+      "artifact_counts": {
+        "screen": 1
+      },
+      "files": [
+        "SCREENING_2026-10-22.md"
+      ]
+    },
+    {
+      "id": "zaino",
+      "path": "pilots/zaino",
+      "kind": "SCREEN_ONLY",
+      "start_here": "pilots/zaino/SCREENING_2026-10-22.md",
+      "artifact_counts": {
+        "screen": 1
+      },
+      "files": [
+        "SCREENING_2026-10-22.md"
+      ]
+    },
+    {
+      "id": "zaly",
+      "path": "pilots/zaly",
+      "kind": "SCREEN_ONLY",
+      "start_here": "pilots/zaly/SCREENING_2026-10-22.md",
+      "artifact_counts": {
+        "screen": 1
+      },
+      "files": [
+        "SCREENING_2026-10-22.md"
+      ]
+    },
+    {
+      "id": "zot-shared-workspace",
+      "path": "pilots/zot-shared-workspace",
+      "kind": "EXPERIMENT_SERIES",
+      "start_here": "pilots/zot-shared-workspace/SCREENING_2026-10-20.md",
+      "artifact_counts": {
+        "screen": 1,
+        "protocol": 8,
+        "receipt": 4,
+        "native_code": 1,
+        "other": 1
+      },
+      "files": [
+        "BASELINE_RECEIPT_2026-10-20.md",
+        "MAINTAINER_DESIGN_DRAFT.md",
+        "NATIVE_TOOL_TURN_BOUNDARY_EXPERIMENT_2026-10-20.md",
+        "NATIVE_TOOL_TURN_BOUNDARY_RECEIPT_2026-10-20.md",
+        "SCOPED_AFTER_EXPERIMENT_2026-10-20.md",
+        "SCOPED_AFTER_RECEIPT_2026-10-20.md",
+        "SCREENING_2026-10-20.md",
+        "WORKTREES_COUNTERFACTUAL_PROTOCOL_2026-10-20.md",
+        "WORKTREES_COUNTERFACTUAL_RECEIPT_2026-10-20.md",
+        "assessment_shared_workspace_baseline_test.go",
+        "experimental_manual_worktrees_counterfactual_test.go",
+        "experimental_native_tools_bypass_test.go",
+        "experimental_scoped_spawn.go",
+        "experimental_scoped_spawn_test.go",
+        "experimental_turn_boundary_gap_test.go"
+      ]
+    }
+  ]
+}

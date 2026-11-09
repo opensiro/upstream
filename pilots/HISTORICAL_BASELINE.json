@@ -1,0 +1,514 @@
+{
+  "schema_version": 1,
+  "meaning": "FROZEN_2026_11_09_PILOT_PATHS_NOT_OUTCOME_CLAIMS",
+  "entries": [
+    {
+      "id": "activegraph",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "nonobject-event-payload-rejection.patch"
+      ]
+    },
+    {
+      "id": "agent-context-lab",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "default-fail-evidence-contract.patch"
+      ]
+    },
+    {
+      "id": "agent-loop",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "numeric-notation-grounding.patch"
+      ]
+    },
+    {
+      "id": "agentbox-s2",
+      "files": [
+        "AGENTBOX_DESIGN_INQUIRY_DRAFT.md",
+        "NATIVE_DEPENDENCY_DISPATCH_PROTOCOL_2026-10-20.md",
+        "NATIVE_DEPENDENCY_DISPATCH_RECEIPT_2026-10-20.md",
+        "NATIVE_FIT_DECISION_AND_ALT_SCREEN_2026-10-20.md",
+        "NATIVE_TASK_PREFLIGHT_BASELINE_PLAN.md",
+        "NATIVE_TASK_PREFLIGHT_BASELINE_RECEIPT_2026-10-20.md",
+        "SCREENING_AND_NATIVE_FIT_2026-10-20.md",
+        "assessment_native_dependency_dispatch_baseline.test.ts",
+        "assessment_native_task_conflict_baseline.test.ts",
+        "manager-advisory/README.md",
+        "manager-advisory/UPSTREAM_ISSUE_HANDOFF.md",
+        "manager-advisory/module.test.ts",
+        "manager-advisory/module.ts"
+      ]
+    },
+    {
+      "id": "agentflow",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "node-id-artifact-path-guard.patch"
+      ]
+    },
+    {
+      "id": "agentuniverse",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "workflow-reference-contract.patch"
+      ]
+    },
+    {
+      "id": "ateles",
+      "files": [
+        "SCREENING.md"
+      ]
+    },
+    {
+      "id": "babyai",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "native-training-argument-guard.patch"
+      ]
+    },
+    {
+      "id": "besser",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "auto-transition-registration-order.patch"
+      ]
+    },
+    {
+      "id": "caveman-code",
+      "files": [
+        "SCREENING_2026-10-22.md"
+      ]
+    },
+    {
+      "id": "clouds-coder-s2",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "INDEPENDENT_HOST_RECEIPT_2026-11-08.md",
+        "frozen-process-fix.patch",
+        "frozen-process-regression-tests.patch",
+        "independent-runner.sh"
+      ]
+    },
+    {
+      "id": "codeact-s2",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "INDEPENDENT_HOST_RECEIPT_2026-11-09.md",
+        "native-fix.patch",
+        "native-regression.patch",
+        "run-native.sh"
+      ]
+    },
+    {
+      "id": "connectonion",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "control-file-symlink-admission.patch"
+      ]
+    },
+    {
+      "id": "crdd",
+      "files": [
+        "SCREENING.md"
+      ]
+    },
+    {
+      "id": "crewdeck-s2",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "manual-claim-admission.patch"
+      ]
+    },
+    {
+      "id": "cubeloop",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "memory-checkpoint-copy-boundaries.patch"
+      ]
+    },
+    {
+      "id": "cyber-ai-team",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "nonfinite-policy-envelopes.patch"
+      ]
+    },
+    {
+      "id": "dark-factory-s2",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "wave-file-scope-guard.patch"
+      ]
+    },
+    {
+      "id": "discoveryrsi",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "candidate-episode-snapshot.patch"
+      ]
+    },
+    {
+      "id": "evidenceloom",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "unicode-spaced-numeric-scale.patch"
+      ]
+    },
+    {
+      "id": "forgedock",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "equal-version-remote-divergence.patch"
+      ]
+    },
+    {
+      "id": "fractale",
+      "files": [
+        "SCREENING_2026-10-22.md"
+      ]
+    },
+    {
+      "id": "freebuff",
+      "files": [
+        "SCREENING_2026-10-22.md"
+      ]
+    },
+    {
+      "id": "friday-s2",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "INDEPENDENT_HOST_RECEIPT_2026-11-09.md",
+        "native-fix.patch",
+        "native-regression.patch"
+      ]
+    },
+    {
+      "id": "g-rump",
+      "files": [
+        "SCREENING_2026-10-22.md"
+      ]
+    },
+    {
+      "id": "gyrfalcon",
+      "files": [
+        "SCREENING_2026-10-22.md"
+      ]
+    },
+    {
+      "id": "harness2",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "library-path-component-guard.patch"
+      ]
+    },
+    {
+      "id": "harnessdesk-1772",
+      "files": [
+        "ASSESSMENT_LINKAGE_2026-10-20.md",
+        "IMPLEMENTATION_REVIEW_V2_2026-10-20.md",
+        "IMPLEMENTATION_VALIDATION_2026-10-20.md",
+        "PREPARE_SHARED_CURRENT_20261020.md",
+        "PREPARE_V2_HANDOFF.md",
+        "README.md",
+        "prepare-v2-20261020-24aa8d7.json",
+        "prepare-v2-20261020-81d5e34-shared.json",
+        "prepare-v2-handoff.json",
+        "tool-gateway-ownership-fix-v2.patch",
+        "tool-gateway-ownership-fix.patch",
+        "tool-gateway-second-host.test.ts",
+        "upstream-20261019-harnessdesk-1772.json",
+        "upstream-20261020-harnessdesk-1772.json"
+      ]
+    },
+    {
+      "id": "harnessx",
+      "files": [
+        "SCREENING.md"
+      ]
+    },
+    {
+      "id": "henrik-agent-harness",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "claim-same-cs-race-guard.patch"
+      ]
+    },
+    {
+      "id": "histh-s2",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "INDEPENDENT_HOST_RECEIPT_2026-11-09.md",
+        "native-fix.patch",
+        "native-regression.patch"
+      ]
+    },
+    {
+      "id": "ironclaw",
+      "files": [
+        "SCREENING_2026-10-22.md"
+      ]
+    },
+    {
+      "id": "join-the-team",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "bootstrap-symlink-boundary.patch"
+      ]
+    },
+    {
+      "id": "kram-s2",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "README.md",
+        "REPLAY_RECEIPT_2026-10-22.md",
+        "contribution-handoff-2026-10-22.json",
+        "s2-edit-file-atomicity-v2.patch"
+      ]
+    },
+    {
+      "id": "lacp-s2",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "INDEPENDENT_HOST_RECEIPT_2026-11-09.md",
+        "native-fix.patch",
+        "native-regression.patch"
+      ]
+    },
+    {
+      "id": "maref",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "rollback-new-files.patch",
+        "verify_new_file_rollback.py"
+      ]
+    },
+    {
+      "id": "matterloop",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "restore-duplicate-state-guard.patch"
+      ]
+    },
+    {
+      "id": "oblivion-batch-edit",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "batch-edit-preflight.patch",
+        "scripted_atomicity_replay.py"
+      ]
+    },
+    {
+      "id": "oniroute",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "nested-workspace-engine-guard.patch"
+      ]
+    },
+    {
+      "id": "openorbit",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "dot-segment-path-parameter-guard.patch"
+      ]
+    },
+    {
+      "id": "orch",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "checkpoint-state-roundtrip.patch"
+      ]
+    },
+    {
+      "id": "phax-s2",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "normalize-overlap-paths.patch"
+      ]
+    },
+    {
+      "id": "phoenix-agent-harness",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "day-rate-event-retention.patch"
+      ]
+    },
+    {
+      "id": "pi-loop-studio",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "native-plan-shape-guard.patch"
+      ]
+    },
+    {
+      "id": "politik",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "containment-dotdot-prefix.patch"
+      ]
+    },
+    {
+      "id": "pyflue",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "virtual-sandbox-root-delete-guard.patch"
+      ]
+    },
+    {
+      "id": "quikagent",
+      "files": [
+        "SCREENING_2026-10-22.md"
+      ]
+    },
+    {
+      "id": "raven",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "SCREENING_INTAKE_2026-10-22.md",
+        "stopped-turn-step-boundary-20261025.patch",
+        "stopped-turn-step-boundary.patch"
+      ]
+    },
+    {
+      "id": "recuris",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "invalid-heldout-data-guard.patch"
+      ]
+    },
+    {
+      "id": "reef",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "unpushed-archive-commit-retry.patch"
+      ]
+    },
+    {
+      "id": "reins",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "empty-principal-rls-contract.patch"
+      ]
+    },
+    {
+      "id": "revka",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "workflow-deep-dag-validation.patch"
+      ]
+    },
+    {
+      "id": "rook",
+      "files": [
+        "SCREENING_2026-10-22.md"
+      ]
+    },
+    {
+      "id": "runloop-s2",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "INDEPENDENT_HOST_RECEIPT_2026-11-08.md",
+        "idempotent-budget-finalization.patch",
+        "independent-runner-recipe.yml",
+        "test_budget_finalization.py"
+      ]
+    },
+    {
+      "id": "sifra",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "timeout-revokes-tool-access.patch"
+      ]
+    },
+    {
+      "id": "spartan",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "soul-first-entry-backfill.patch"
+      ]
+    },
+    {
+      "id": "talktorana-memory-s2",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "concurrent-revise-retire.patch"
+      ]
+    },
+    {
+      "id": "tau",
+      "files": [
+        "SCREENING_2026-10-22.md"
+      ]
+    },
+    {
+      "id": "voly-s2",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "INDEPENDENT_HOST_RECEIPT_2026-11-09.md",
+        "native-fix.patch",
+        "native-regression.patch"
+      ]
+    },
+    {
+      "id": "vtcode",
+      "files": [
+        "SCREENING_2026-10-22.md"
+      ]
+    },
+    {
+      "id": "wanman-s2",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "INDEPENDENT_HOST_RECEIPT_2026-11-09.md",
+        "native-fix.patch",
+        "native-regression.patch"
+      ]
+    },
+    {
+      "id": "workflow-one",
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "active-runid-registry-guard.patch"
+      ]
+    },
+    {
+      "id": "xin-code",
+      "files": [
+        "SCREENING_2026-10-22.md"
+      ]
+    },
+    {
+      "id": "zaino",
+      "files": [
+        "SCREENING_2026-10-22.md"
+      ]
+    },
+    {
+      "id": "zaly",
+      "files": [
+        "SCREENING_2026-10-22.md"
+      ]
+    },
+    {
+      "id": "zot-shared-workspace",
+      "files": [
+        "BASELINE_RECEIPT_2026-10-20.md",
+        "MAINTAINER_DESIGN_DRAFT.md",
+        "NATIVE_TOOL_TURN_BOUNDARY_EXPERIMENT_2026-10-20.md",
+        "NATIVE_TOOL_TURN_BOUNDARY_RECEIPT_2026-10-20.md",
+        "SCOPED_AFTER_EXPERIMENT_2026-10-20.md",
+        "SCOPED_AFTER_RECEIPT_2026-10-20.md",
+        "SCREENING_2026-10-20.md",
+        "WORKTREES_COUNTERFACTUAL_PROTOCOL_2026-10-20.md",
+        "WORKTREES_COUNTERFACTUAL_RECEIPT_2026-10-20.md",
+        "assessment_shared_workspace_baseline_test.go",
+        "experimental_manual_worktrees_counterfactual_test.go",
+        "experimental_native_tools_bypass_test.go",
+        "experimental_scoped_spawn.go",
+        "experimental_scoped_spawn_test.go",
+        "experimental_turn_boundary_gap_test.go"
+      ]
+    }
+  ]
+}

@@ -27,3 +27,5 @@ jobs:
         run: python3 -m unittest discover -s tests -v
       - name: Continuous working-fork inventory freshness
         run: python3 scripts/contribution_workspaces.py check
+      - name: Historical experiment catalog freshness
+        run: python3 scripts/pilot_catalog.py check
