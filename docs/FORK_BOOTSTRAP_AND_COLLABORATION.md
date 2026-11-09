@@ -1,6 +1,6 @@
 # Shared working forks: supervised bootstrap and cross-plugin contribution
 
-**Status: REVIEWABLE DESIGN / READ-ONLY PROPOSAL; NO BULK FORK WRITES ACTIVE.**
+**Status: OWNER-SUPERVISED ONE-OFF ROUTE DOCUMENTED; NO BULK FORK WRITES YET.**
 **Owner:** [Upstream #28](https://github.com/opensiro/upstream/issues/28)
 under the [#6 protected executor boundary](https://github.com/opensiro/upstream/issues/6).
 **Destination:** public GitHub organization `opensiro-contributions`.
@@ -27,6 +27,52 @@ approval to fork it or evidence that its code needs fixing.
 
 ## Human-supervised initial bootstrap
 
+### Simpler owner-operated route (not autonomous delegation)
+
+The owner may direct a **specific, attended one-time fork-creation batch**
+through their already-connected `dev-alpha-2` SSH session and authenticated
+GitHub CLI. This follows the proven ad-hoc [HarnessDesk fork
+checkpoint](https://github.com/opensiro/upstream/issues/28), not the inactive
+automated Control Plane executor. It needs **no new permanent bot, standing
+fork-creation policy, custom MCP plugin, GitHub Actions workflow or generic
+autonomy permit issuer** when the owner directly selects each exact batch and
+controls the operation. It is human-owned execution, **not** evidence that
+Upstream has acquired autonomous fork-creation authority.
+
+The conversation phrase `continue`, `оформи` or an agent-selected digest is
+**not** sufficient to start a GitHub write. Before an attended run, show the
+exact source/destination list, ensure the owner explicitly authorizes that
+one list for creation, and recheck the live provider state under the actual
+GitHub actor. The owner can observe the command output, stop the process and
+choose the next batch; each executed action needs its own receipt. There is
+no automatic background execution and no privilege transfer to other agents.
+
+Use the read-only command printer to inspect one group:
+
+```bash
+python3 scripts/supervised_fork_plan.py status
+python3 scripts/supervised_fork_plan.py show --batch bootstrap-001
+```
+
+It only **displays** `gh repo fork` examples, binding the proposed fork name
+and destination. It has no `execute` command. After an exact owner decision,
+the connected host runs the selected GitHub action in the observed session;
+`--default-branch-only` is deliberately omitted so required nondefault
+branches are not discarded. A displayed command is not independently proven
+safe or approved, and remote checks must precede **every** write.
+
+### Protected automated route remains separate
+
+Unattended/batch-agent execution using
+[`batch_fork_executor.py`](../scripts/batch_fork_executor.py), an automated
+Control Plane trigger, or permanent delegated fork-writing rights still
+requires the independently authenticated, revocable one-use host grants in
+[#6](https://github.com/opensiro/upstream/issues/6) and
+[#28](https://github.com/opensiro/upstream/issues/28). The supervised human
+route is **not** a substitute attestor that makes those automated paths live.
+
+### Common preflight and readback
+
 1. **Prepare:** run `python3 scripts/contribution_workspaces.py check` and
    `python3 scripts/fork_bootstrap_manifest.py check`; inspect the resulting
    catalog, holds, name proposals and groups of at most ten eligible sources.
@@ -40,21 +86,21 @@ approval to fork it or evidence that its code needs fixing.
    Names constructed as `source-owner--repo` resolve only a **local basename
    ambiguity**; actual GitHub occupancy and parent must still be checked.
    A changed source, policy, destination or selection means stop/reselect.
-3. **Approve a specific batch:** the legitimate human operator approves the
-   exact source/destination/stage scope through an independently authenticated
-   control, not via a model-authored `approved_by`, a digest, an unsigned issue
-   comment or a generic `continue`. A trusted one-use, expiring, revocable
-   **create_public_fork** permit must bind the executor/actor and reviewed
-   batch identity. A batch grant cannot authorize `prepare_contribution` or
-   a third-party PR. The local proposal has **no such grant**.
-4. **Execute through the controlled host:** `dev-alpha-2` has a registered SSH
-   gateway to a VM with GitHub CLI; using it as the actual write transport is
-   viable only after the [#6/#28](https://github.com/opensiro/upstream/issues/6)
-   host-identity/rights and one-use permit checks are effectively connected.
-   The exact host actor and organization rights must be reattested at write
-   time. The executor creates or reuses one direct public fork per approved
-   item. It must stop on ambiguous partial outcomes, 403/404, conflicts,
-   changed refs and policy failures; **no blind retry or overwrite**.
+3. **Authorize a specific batch:** in the supervised route, the authenticated
+   owner directly selects the exact list and attended operations; an arbitrary
+   model-authored approval or previous one-off session does not authorize
+   future lists. In the separate automated route, a trusted one-use,
+   expiring, revocable **create_public_fork** permit must bind the actual
+   executor/actor and reviewed batch identity. Neither route authorizes
+   `prepare_contribution` or a third-party PR.
+4. **Execute through the observed host:** `dev-alpha-2` has a registered SSH
+   gateway to a VM with GitHub CLI. The exact authenticated actor and
+   organization rights must be reattested at write time. For an explicit
+   owner-directed supervised batch, run each exact command individually and
+   display its result to the owner. Stop on ambiguous partial outcomes,
+   403/404, conflicts, changed refs and policy failures; **no blind retry,
+   overwrite or unattended continuation**. The protected automated route
+   must additionally verify its host grant before writing.
 5. **Read back:** independently fetch each destination's public `fork` flag,
    `parent.full_name`, source identity, preserved required branches, actual
    repository URL and write actor permissions. Record partial and negative
@@ -63,9 +109,9 @@ approval to fork it or evidence that its code needs fixing.
    a subsequent patch or CI result.
 
 The source proposal can be processed as a succession of small human-observed
-batches. It is **not** a plan to run one unbounded shell command against all
-sources. There is no automatic requirement to create a fork for negative or
-historical-only cases.
+batches without constructing a separate permanent executor. It is **not** a
+plan to run one unbounded shell command against all sources. There is no
+automatic requirement to create a fork for negative or historical-only cases.
 
 ## Continuous contributions after bootstrap
 
@@ -96,6 +142,7 @@ python3 scripts/contribution_workspaces.py status
 python3 scripts/fork_bootstrap_manifest.py status
 python3 scripts/fork_bootstrap_manifest.py sync
 python3 scripts/fork_bootstrap_manifest.py check
+python3 scripts/supervised_fork_plan.py show --batch bootstrap-001
 ```
 
 Both `sync` commands are deterministic local generation only. The `check`
@@ -114,5 +161,8 @@ executed batch signatures do not silently carry over to a changed proposal.
 - No claim that local name proposals are available on GitHub or that all
   catalogued sources are currently eligible for forking.
 
-Activation is a separate reviewed authority + host connection task under
-[#6](https://github.com/opensiro/upstream/issues/6) / [#28](https://github.com/opensiro/upstream/issues/28).
+Unattended automation remains a separate reviewed authority + host connection
+task under [#6](https://github.com/opensiro/upstream/issues/6) /
+[#28](https://github.com/opensiro/upstream/issues/28). An actual supervised
+bootstrap still requires a **new exact owner instruction for the selected
+batch** and live safety checks; this change itself grants neither.
