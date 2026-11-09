@@ -15,18 +15,30 @@
       "reviewed_at": "2026-10-29",
       "function": "S2",
       "finding": "Assessment S2=C observes first-party conflicting task/capsule scope admission and explicitly calls out possible concurrent admission races. Predict two overlapping TASK_CREATE RPC calls could both pass an unreserved scope check; falsify with serialized/atomic admission or a design that forbids the concurrent path.",
-      "stage": "SCREENING",
-      "origin": "INSUFFICIENT",
+      "stage": "AWAITING_EXTERNAL",
+      "origin": "ASSESSMENT_DERIVED",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "PASS",
+        "mechanism": "PASS",
+        "counterfactual": "PASS",
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/wa/wanman.md",
-        "https://github.com/opensiro/upstream/blob/97273405215b8652073ddba5cfd222233c321328/data/assessment-candidate-batches/2026-11-09-18-HYPOTHESES.md"
-      ]
+        "https://github.com/opensiro/upstream/blob/97273405215b8652073ddba5cfd222233c321328/data/assessment-candidate-batches/2026-11-09-18-HYPOTHESES.md",
+        "https://github.com/chekusu/wanman/blob/d3a8138de6c21981a4f1449a7b3f201e724c55c9/packages/runtime/src/supervisor.ts",
+        "https://github.com/chekusu/wanman/blob/d3a8138de6c21981a4f1449a7b3f201e724c55c9/packages/runtime/src/task-pool.ts",
+        "https://github.com/chekusu/wanman/blob/d3a8138de6c21981a4f1449a7b3f201e724c55c9/packages/runtime/src/__tests__/supervisor.test.ts"
+      ],
+      "patch_path": "pilots/wanman-s2/native-fix.patch",
+      "patch_sha256": "4b61fca8bf5d7cd9f0db12d0b47dc00295468ad6362cbfcc1294bca2a3bd73b4",
+      "test_patch_path": "pilots/wanman-s2/native-regression.patch",
+      "test_patch_sha256": "0fe4f64675c1bfd1c91720e80767ba7a9bf1b06727b8b3b625ab8a6a4da99f07",
+      "observed_native_change": "Independent dev-alpha-2 SSH host Zhdanov, native Node 22.23.4 / pnpm 9.15.0 / Vitest 4.1.4 in pinned node:22-bookworm-slim: source d3a8138 plus identical new first-party regression tests yielded 1 FAIL / 1 PASS before patch (both overlapping tasks wrongly admitted), 2 PASS after. Existing+new supervisor and TaskPool controls yielded 68/68 PASS after; runtime TypeScript typecheck PASS. Exact separate-runner command/session IDs and logs summarized in pilots/wanman-s2/INDEPENDENT_HOST_RECEIPT_2026-11-09.md. Only bounded admission correctness, not deployed benefit.",
+      "product_benefit": "BOUNDED_NATIVE_CORRECTNESS_ONLY",
+      "experiment_cycle": "INCOMPLETE_NO_EXTERNAL_DELIVERY",
+      "handoff_url": "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-18-20261109/pilots/wanman-s2/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED"
     },
     {
       "id": "cast-confirmation-queue-error-recovery",
@@ -36,18 +48,20 @@
       "reviewed_at": "2026-10-23",
       "function": "S2",
       "finding": "Assessment S2=C observes a shared interactive confirmation queue across concurrent child agents. Predict an aborted or rejected predecessor could stall the sibling prompt queue; falsify if first-party serializer always recovers and progresses or abort cancels the whole parent by contract.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ca/cast.md",
-        "https://github.com/opensiro/upstream/blob/97273405215b8652073ddba5cfd222233c321328/data/assessment-candidate-batches/2026-11-09-18-HYPOTHESES.md"
-      ]
+        "https://github.com/opensiro/upstream/blob/97273405215b8652073ddba5cfd222233c321328/data/assessment-candidate-batches/2026-11-09-18-HYPOTHESES.md",
+        "https://github.com/aa-blinov/cast/blob/ec9e4347bf2b2486cfced7176c41445f4b97af88/src/core/tools/task.ts"
+      ],
+      "screening_result": "Current first-party confirmation serializer explicitly absorbs rejection of the predecessor when updating confirmChain (run.then(success, failure)), yet returns the original run to the awaiting caller. A rejected earlier prompt does not poison the subsequent queue; original predicted stall is falsified by source. MIT; no matching new contribution justified. No native test, model or external write."
     },
     {
       "id": "react-harness-concurrent-budget-admission",
@@ -57,18 +71,22 @@
       "reviewed_at": "2026-10-18",
       "function": "S2",
       "finding": "Assessment S2=C observes per-task mutable agent clones that share a common run-wide budget. Predict simultaneous clones might both pass a stale remaining-budget admission and overspend the shared cap; falsify if charge/reservation is already atomic or budget intentionally advisory.",
-      "stage": "SCREENING",
+      "stage": "BLOCKED_EVIDENCE",
       "origin": "INSUFFICIENT",
       "fit": {
         "need": "PENDING",
-        "mechanism": "PENDING",
+        "mechanism": "PASS",
         "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/re/react-agent-harness.md",
-        "https://github.com/opensiro/upstream/blob/97273405215b8652073ddba5cfd222233c321328/data/assessment-candidate-batches/2026-11-09-18-HYPOTHESES.md"
-      ]
+        "https://github.com/opensiro/upstream/blob/97273405215b8652073ddba5cfd222233c321328/data/assessment-candidate-batches/2026-11-09-18-HYPOTHESES.md",
+        "https://github.com/ramannanda9/agent-harness/blob/506c6e8e94879dcdba9e0abbcfd69aa135d4d3d3/agents/base.py",
+        "https://github.com/ramannanda9/agent-harness/blob/506c6e8e94879dcdba9e0abbcfd69aa135d4d3d3/orchestrator/planner.py",
+        "https://github.com/ramannanda9/agent-harness/blob/506c6e8e94879dcdba9e0abbcfd69aa135d4d3d3/harness/runtime.py"
+      ],
+      "blocker": "Concurrent ReAct task clones share BudgetGuard; check() reads cumulative cost before each model request while add_cost() accounts afterward. Source supports an advisory overshoot concern, but no first-party documented upper bound or safe pre-call reservation exists for unknown model cost. Need maintainer-backed budget semantics and an offline first-party native counterfactual before changing admission policy. MIT, no model/provider test or external write."
     },
     {
       "id": "genesis-agent-multiprocess-skill-commit",
@@ -78,18 +96,21 @@
       "reviewed_at": "2026-10-03",
       "function": "S2",
       "finding": "Assessment S2=C observes thread-based skill-library write serialization and atomic JSON index replacement. Predict two independently supported processes sharing the library may both commit from stale snapshots and lose one skill; falsify if process sharing unsupported or cross-process synchronization already exists.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ge/genesis-agent.md",
-        "https://github.com/opensiro/upstream/blob/97273405215b8652073ddba5cfd222233c321328/data/assessment-candidate-batches/2026-11-09-18-HYPOTHESES.md"
-      ]
+        "https://github.com/opensiro/upstream/blob/97273405215b8652073ddba5cfd222233c321328/data/assessment-candidate-batches/2026-11-09-18-HYPOTHESES.md",
+        "https://github.com/me7ko-dev/genesis-agent/blob/b4b2453b20132250fc402b2bd370fbd8b3a654e8/genesis_agent/skills_manager.py",
+        "https://github.com/me7ko-dev/genesis-agent/blob/b4b2453b20132250fc402b2bd370fbd8b3a654e8/genesis_agent/file_lock.py"
+      ],
+      "screening_result": "Current first-party save_skill() already serializes same-thread updates under _SAVE_LOCK and cross-process index writes under locked(_index_path()); the pre-code lost-update prediction omitted an existing supported lock. MIT, no new change or native test justified; no model/provider/external write."
     },
     {
       "id": "orkas-output-path-alias-lock",
@@ -99,18 +120,22 @@
       "reviewed_at": "2026-09-30",
       "function": "S2",
       "finding": "Assessment S2=C observes path-keyed exclusive write/rename coordination among concurrent tool actors. Predict legal alias-equivalent output paths may take separate locks yet resolve to the same destination; falsify if canonical identity is used or aliases rejected by the supported first-party tool.",
-      "stage": "SCREENING",
+      "stage": "BLOCKED_EVIDENCE",
       "origin": "INSUFFICIENT",
       "fit": {
         "need": "PENDING",
-        "mechanism": "PENDING",
+        "mechanism": "PASS",
         "counterfactual": "PENDING",
         "scope": "PENDING"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/or/orkas.md",
-        "https://github.com/opensiro/upstream/blob/97273405215b8652073ddba5cfd222233c321328/data/assessment-candidate-batches/2026-11-09-18-HYPOTHESES.md"
-      ]
+        "https://github.com/opensiro/upstream/blob/97273405215b8652073ddba5cfd222233c321328/data/assessment-candidate-batches/2026-11-09-18-HYPOTHESES.md",
+        "https://github.com/Orkas-AI/Orkas/blob/a3d9747284fca03f7ef92f336b8d901ba0ce199b/src/main/util/uniquify-path.ts",
+        "https://github.com/Orkas-AI/Orkas/blob/a3d9747284fca03f7ef92f336b8d901ba0ce199b/src/main/model/core-agent/local-tools.ts",
+        "https://github.com/Orkas-AI/Orkas/blob/a3d9747284fca03f7ef92f336b8d901ba0ce199b/src/main/util/path-sandbox.ts"
+      ],
+      "blocker": "Current exclusive fileEditLock uses lexical path.resolve, whereas supported workspace symlink aliases may have equal physical destinations. The apparent alias-lock gap still lacks a safe first-party native concurrent write test and an established policy for alias-resolved write/rename; symlink existence, denied escapes and unrelated path-sandbox constraints must be distinguished. Need a deterministic supported write_tool fixture, documented counterfactual and maintainer policy before altering locking. MIT; no model/provider or external write."
     }
   ]
 }
