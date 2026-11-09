@@ -1,6 +1,6 @@
 # OpenSiro Contributions — fork creation via the existing Control Plane
 
-**Owner:** `opensiro/upstream` · **Task:** [Upstream #28](https://github.com/opensiro/upstream/issues/28) (focused executor/first-fork blocker), parent [Upstream #6](https://github.com/opensiro/upstream/issues/6) · **Status:** `BLOCKED_EXECUTOR / BLOCKED_AUTHORIZATION` · **Not a live fork-creation tool or effective grant.**
+**Owner:** `opensiro/upstream` · **Task:** [Upstream #28](https://github.com/opensiro/upstream/issues/28) (focused executor/first-fork blocker), parent [Upstream #6](https://github.com/opensiro/upstream/issues/6) · **Status:** one-off owner-supervised operations are a separately bounded path; autonomous executor remains `BLOCKED_EXECUTOR / BLOCKED_AUTHORIZATION`. **No standing grant.**
 
 ## Principle
 
@@ -33,7 +33,27 @@ Index assessment (canonical pinned SHA/path)
   → human-owned external PR publication (only if later chosen)
 ```
 
-## Two supported execution designs, neither activated
+## One-off, owner-supervised fork creation (separate from automation)
+
+The current owner-selected route for **initial shared workspace bootstrapping**
+is simpler than a new autonomous executor: the owner can explicitly select
+one exact, short batch from the [generated source inventory](../data/contribution-workspaces/fork-bootstrap-proposal.json)
+and observe the existing authenticated `dev-alpha-2` SSH → GitHub CLI host
+creating individual public org forks. The [operator procedure](FORK_BOOTSTRAP_AND_COLLABORATION.md)
+has a read-only `supervised_fork_plan.py show --batch ...` command printer
+and requires current source/license/policy/branch/name/actor checks,
+one-call-at-a-time execution, independent parent readback, and an attributable
+receipt for every outcome.
+
+The historical [owner-requested HarnessDesk one-off](https://github.com/opensiro/upstream/issues/28)
+is precedent for a **human-owned exact command**, not proof of an active
+general batch-grant issuer. No model-inferred consent, blanket write rights,
+background fork runner or automatic external PR is introduced. Internal
+working-branch updates and external PRs remain separately authorized actions.
+This documentation and an unapproved bootstrap proposal do not authorize any
+immediate GitHub write.
+
+## Two protected autonomous execution designs, neither activated
 
 **The existing REST fork client is a real source-prepared fork transport.**
 [Merged PR #5](https://github.com/opensiro/upstream/pull/5) added
@@ -43,7 +63,7 @@ intentionally disabled the old write-capable manual workflow because its
 authorization boundary was incomplete. This is an **inactive execution route**,
 not evidence that writing a fork requires a custom MCP plugin.
 
-For safe activation the owner may independently review either a **protected,
+For safe **unattended** activation the owner may independently review either a **protected,
 batch-only GitHub Actions/REST executor** reusing this client or a **native
 ChatGPT-connected fork provider** running the source-only adapter. The
 native ChatGPT method is **not mandatory** if the separate trusted executor
