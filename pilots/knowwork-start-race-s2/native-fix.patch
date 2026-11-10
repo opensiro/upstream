@@ -1,0 +1,67 @@
+diff --git a/server/src/knowwork_server/sandbox/containers.py b/server/src/knowwork_server/sandbox/containers.py
+--- a/server/src/knowwork_server/sandbox/containers.py
++++ b/server/src/knowwork_server/sandbox/containers.py
+@@ -190,47 +190,61 @@
+         await self._engine.remove_container(str(info["Id"]))
+         return None
+ 
++    async def _start_or_confirm_running(self, container_id: str) -> None:
++        """A peer process may have started this exact container before our Docker start call.
++
++        Docker then returns an already-started error. Accept only a fresh running
++        state for the same ID; propagate real start failures unchanged.
++        """
++        try:
++            await self._engine.start_container(container_id)
++        except SandboxError:
++            current = await self._engine.inspect_container(container_id)
++            if current is None or _status(current) != "running":
++                raise
++
++
+     async def _connect(self, info: dict[str, Any]) -> str:
+         """停了的容器文件系统还在，拉起来接着用（Docker 里最接近「暂停后自动恢复」的做法）。"""
+         container_id = str(info["Id"])
+         status = _status(info)
+         if status == "running":
+             return container_id
+         if status == "paused":
+             await self._engine.unpause_container(container_id)
+         elif status in ("exited", "created"):
+-            await self._engine.start_container(container_id)
++            await self._start_or_confirm_running(container_id)
+         await self._wait_running(container_id)
+         return container_id
+ 
+     async def _wait_running(self, container_id: str) -> None:
+         """daemon 接受 start 不等于 PID 1 已经跑起来；这时 exec 会得到 409「容器未运行」。"""
+         loop = asyncio.get_running_loop()
+         deadline = loop.time() + START_READY_SECONDS
+         while True:
+             info = await self._engine.inspect_container(container_id)
+             status = _status(info) if info is not None else "missing"
+             if status == "running":
+                 return
+             if status in ("exited", "paused", "dead", "missing") or loop.time() >= deadline:
+                 log.warning("沙箱容器未能进入运行状态：%s", status)
+                 raise SandboxError("沙箱启动失败，请稍后重试")
+             await asyncio.sleep(START_READY_POLL)
+ 
+     async def _create(self, key: SandboxKey) -> str | None:
+         """新建并拉起；同名容器已经存在（另一个进程刚建了）时返回 None。"""
+         await self._engine.ensure_image(self._posture.image)
+         options = container_options(key, self._posture, idle_ttl_seconds=self._idle_ttl)
+         try:
+             container_id = await self._engine.create_container(key.name, options)
+         except DockerConflict:
+             return None
+         try:
+-            await self._engine.start_container(container_id)
++            await self._start_or_confirm_running(container_id)
+             await self._wait_running(container_id)
+         except BaseException:
+             # 起不来的容器没有用，留着只会等到很久以后的清扫才回收
+             with contextlib.suppress(Exception):
+                 await self._engine.remove_container(container_id)
+             raise
+         return container_id
