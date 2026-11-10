@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-10-24",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "8cd38ff31b5b75c6f603624bbbed5072822c5aec",
+  "frozen_at": "2026-11-10",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "UPSTREAM UPGRADE BATCH 24 standard five-source cohort. Five most recent available included S1=A / S2=C assessments from exact current Index main, source-disjoint against 23 integrated Upstream batch manifests and current open Upstream/Index PR source claims. Hypotheses, null cases and mechanisms were immutably preregistered at b4fcedc before fresh target implementation/issues/PR inspection; each row remains an unverified question, no CAS reservation, rights or product-benefit claim.",
+  "candidates": [
+    {
+      "id": "yoagent-file-alias-lock",
+      "assessment_path": "assessments/yo/yoagent.md",
+      "source": "yologdev/yoagent",
+      "review_ref": "f1495e7f5746445a269ec6a9d14fa8ac346b359d",
+      "reviewed_at": "2026-11-10",
+      "function": "S2",
+      "finding": "Check whether independently running supported file tools can use aliases for one filesystem object yet acquire different S2 mutex keys, admitting conflicting edits.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/8cd38ff31b5b75c6f603624bbbed5072822c5aec/assessments/yo/yoagent.md",
+        "https://github.com/opensiro/upstream/commit/b4fcedc797cb8094897c56764cf85ab33e980472"
+      ]
+    },
+    {
+      "id": "homerail-budget-concurrent-reservation",
+      "assessment_path": "assessments/ho/homerail.md",
+      "source": "xiaotianfotos/homerail",
+      "review_ref": "7b734a06c712b454aad17b36ae385f120cfeb7bb",
+      "reviewed_at": "2026-11-10",
+      "function": "S2",
+      "finding": "Check whether concurrent supported Manager DAG Work requests sharing a budget key can both pass check-and-reserve and oversubscribe one remaining budget slot.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/8cd38ff31b5b75c6f603624bbbed5072822c5aec/assessments/ho/homerail.md",
+        "https://github.com/opensiro/upstream/commit/b4fcedc797cb8094897c56764cf85ab33e980472"
+      ]
+    },
+    {
+      "id": "ironcurtain-approval-policy-cycle",
+      "assessment_path": "assessments/ir/ironcurtain.md",
+      "source": "provos/ironcurtain",
+      "review_ref": "d51a3467cbda6a2e94cf04e885e8ae1abdd0f6be",
+      "reviewed_at": "2026-10-29",
+      "function": "S2",
+      "finding": "Check whether an outgoing approval-paused tool call during the supported shared-container role cycle can be mislabeled to the successor or strand the transition.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/8cd38ff31b5b75c6f603624bbbed5072822c5aec/assessments/ir/ironcurtain.md",
+        "https://github.com/opensiro/upstream/commit/b4fcedc797cb8094897c56764cf85ab33e980472"
+      ]
+    },
+    {
+      "id": "optio-preferred-pod-isolation",
+      "assessment_path": "assessments/op/optio.md",
+      "source": "jonwiggins/optio",
+      "review_ref": "3163761c3a0974bbb290afea8d09ddc1a8e8ac7c",
+      "reviewed_at": "2026-10-29",
+      "function": "S2",
+      "finding": "Check whether a preferred pod selection path can reuse a pod across unlike owner, credential or work-purpose scopes despite the S2 isolation-key contract.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/8cd38ff31b5b75c6f603624bbbed5072822c5aec/assessments/op/optio.md",
+        "https://github.com/opensiro/upstream/commit/b4fcedc797cb8094897c56764cf85ab33e980472"
+      ]
+    },
+    {
+      "id": "kheish-reassigned-task-double-start",
+      "assessment_path": "assessments/kh/kheish.md",
+      "source": "graniet/kheish",
+      "review_ref": "df50433f8d577f832c6812b9e67be8ddb766059d",
+      "reviewed_at": "2026-10-29",
+      "function": "S2",
+      "finding": "Check whether two concurrent project-session task-start requests after reassignment can both reserve nonterminal runs against a single durable task.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/8cd38ff31b5b75c6f603624bbbed5072822c5aec/assessments/kh/kheish.md",
+        "https://github.com/opensiro/upstream/commit/b4fcedc797cb8094897c56764cf85ab33e980472"
+      ]
+    }
+  ]
+}
