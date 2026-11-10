@@ -6,6 +6,9 @@
 > mandate remains historical evidence of what was permitted and submitted
 > at that time; it is **not a continuing bypass** of this newer gate. The
 > completed 13 submitted PRs are not withdrawn or retroactively relabeled.
+> Existing cohort PR descriptions may receive only the historically accurate
+> [AI disclosure variant](AI_ASSISTED_PR_DISCLOSURE.md#historical-corrective-cohort-retrospective-descriptions-only)
+> with verified assessment provenance. This does not approve new publications.
 > Local preparation and authorized working-fork synchronization stay separate
 > from publishing. See [continuous working-fork pipeline](CONTINUOUS_WORKING_FORK_PIPELINE.md).
 

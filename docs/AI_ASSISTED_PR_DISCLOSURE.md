@@ -30,7 +30,32 @@ reorder or falsely check the target project's PR template. Preserve the real
 test results, skipped checks, license/CLA/DCO conditions and limitations.
 The disclosure is additive and is not a substitute for independent validation.
 
-The external PR body must explain three separate facts:
+### Historical Corrective cohort (retrospective descriptions only)
+
+The already-published, finite 2026-10-23 Corrective cohort was governed by
+[`CORRECTIVE-PUBLISH-2026-10-23-01`](CORRECTIVE_PR_PUBLICATION.md).
+Its owner mandate permitted publication at the **batch level**, without a
+separate human publication approval for each qualifying PR. The later
+per-PR human publication gate must **not** be described as having applied to
+those historical submissions.
+
+For an existing external PR demonstrably belonging to that exact cohort,
+append the [historical disclosure](../templates/EXTERNAL_PR_DISCLOSURE_LEGACY_CORRECTIVE.md)
+to its original body, using a verified matching canonical Index record,
+`reviewed_at`, `review_ref`, and immutable assessment snapshot. This is a
+description-only, retrospective transparency update, **not** a new publication
+mandate, a technical review, or a change to the original approval evidence.
+If provenance is missing, ambiguous, or the PR is outside that finite cohort,
+do not apply this template or invent an assessment.
+
+**Newly published PRs**, including any historical packet that would be
+reopened for publication, still require the v2 current-policy disclosure and
+the current per-PR publication approval. The `upstream_pr_handoff.py` preflight
+must continue to reject the historical template for a new PR; the exception
+applies solely to already-published descriptions.
+
+An external PR published under the **current v2 policy** must explain three
+separate facts:
 
 1. **Technical work and provenance:** an AI-agent workflow, informed by the
    linked, dated and revision-pinned VSM assessment,
