@@ -17,6 +17,7 @@ FORK = "opensiro-contributions/HarnessDesk"
 HEAD = "opensiro/fix-toolgateway-1772"
 B_SHA = "b" * 40
 H_SHA = "c" * 40
+DISCLOSURE = (ROOT / "templates/EXTERNAL_PR_DISCLOSURE.md").read_text(encoding="utf-8").strip()
 
 
 class Response:
@@ -72,7 +73,7 @@ class UpstreamPRHandoffTests(unittest.TestCase):
                          head_sha=H_SHA, base_branch="development",
                          base_sha=B_SHA,
                          title="fix: prevent duplicate ToolGateway socket takeover",
-                         body="Regression test and ownership fix for #1772.")
+                         body="Regression test and ownership fix for #1772.\n\n" + DISCLOSURE)
 
     def preview(self, **changes):
         return prepare_pr_handoff(**(self.data | changes),
@@ -90,6 +91,18 @@ class UpstreamPRHandoffTests(unittest.TestCase):
         self.assertEqual(len(r["intent_sha256"]), 64)
         self.assertNotIn("token", json.dumps(r).lower())
         self.assertTrue(all(c[3] == "GET" for c in self.fake.calls))
+
+    def test_missing_or_altered_ai_disclosure_fails_before_github_read(self):
+        with self.assertRaisesRegex(PRBlocked, "AI-assisted disclosure"):
+            self.preview(body="Regression test and ownership fix for #1772.")
+        self.assertEqual(self.fake.calls, [])
+        with self.assertRaisesRegex(PRBlocked, "AI-assisted disclosure"):
+            self.preview(body=self.data["body"].replace(
+                "a human approves publication", "no human approves publication"))
+        self.assertEqual(self.fake.calls, [])
+        with self.assertRaisesRegex(PRBlocked, "AI-assisted disclosure"):
+            self.preview(body=self.data["body"] + "\n" + DISCLOSURE)
+        self.assertEqual(self.fake.calls, [])
 
     def test_explicit_draft_requires_documented_reason(self):
         with self.assertRaisesRegex(PRBlocked, "concrete documented reason"):
@@ -229,7 +242,8 @@ class UpstreamPRHandoffTests(unittest.TestCase):
         first = self.preview()
         second = self.preview()
         self.assertEqual(first["intent_sha256"], second["intent_sha256"])
-        modified = self.preview(body=self.data["body"] + " Updated test.")
+        modified = self.preview(body=self.data["body"].replace(
+            "fix for #1772.", "fix for #1772. Updated test."))
         self.assertNotEqual(first["intent_sha256"], modified["intent_sha256"])
 
     def test_cli_prints_handoff_without_writing(self):

@@ -21,6 +21,9 @@ SHA = re.compile(r"^[0-9a-f]{40}$")
 LOGIN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9-]{0,38}$")
 CONTRIB_BRANCH = re.compile(r"^opensiro/[a-z0-9][a-z0-9._/-]{0,79}$")
 ALLOWED_OWNERS = {"opensiro", "opensiro-contributions"}
+DISCLOSURE_TEMPLATE = (Path(__file__).resolve().parents[1] /
+                       "templates/EXTERNAL_PR_DISCLOSURE.md")
+DISCLOSURE_MARKER = "<!-- opensiro-ai-assessment-disclosure:v1 -->"
 
 
 class PRBlocked(Exception):
@@ -84,6 +87,10 @@ def prepare_pr_handoff(*, upstream, fork, head_branch, head_sha, base_branch,
           and "\n" not in title, "PR title must be bounded single-line text")
     _need(type(body) is str and 1 <= len(body.encode("utf-8")) <= 16384,
           "PR body must be reviewed and within size limit")
+    _need(DISCLOSURE_TEMPLATE.is_file(), "Required AI disclosure template unavailable")
+    disclosure = DISCLOSURE_TEMPLATE.read_text(encoding="utf-8").strip()
+    _need(body.count(DISCLOSURE_MARKER) == 1 and body.rstrip().endswith(disclosure),
+          "PR body must append the exact AI-assisted disclosure after the source template")
     _need(type(draft) is bool, "Draft flag must be boolean")
     if draft:
         _need(type(draft_reason) is str and
