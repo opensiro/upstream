@@ -7,16 +7,33 @@ requirements remain primary.
 
 ## Required publication text
 
-Append the exact [versioned disclosure](../templates/EXTERNAL_PR_DISCLOSURE.md)
+Append the [versioned disclosure template](../templates/EXTERNAL_PR_DISCLOSURE.md)
 to the PR body **after** the original project's required sections and
-checkboxes. Do not replace, omit, reorder or falsely check that project's
-template. Preserve the real test results, skipped checks, license/CLA/DCO
-conditions and limitations. The disclosure is additive and is not a substitute
-for independent native validation.
+checkboxes. Fill each `{{ASSESSMENT_*}}` field from the **current canonical
+Index record** for the target, not from guesses, the PR creation date, or a
+batch freeze date:
+
+- `ASSESSMENT_PATH`: repository-relative `assessments/.../*.md` file in
+  `opensiro/vsm-harness-index`, used for a live `main` link and a pinned link.
+- `ASSESSMENT_INDEX_SHA`: immutable Index commit containing the record **used
+  to formulate this PR**; verify that the file and metadata exist at that ref.
+- `ASSESSMENT_DATE`: that assessment's `reviewed_at` date in `YYYY-MM-DD`.
+- `ASSESSMENT_REVIEW_REF`: the assessment's `review_ref` (40-character source
+  commit); the date is about this reviewed source, not the later PR.
+
+The current Index URL lets a maintainer's AI agent inspect an updated
+assessment; the pinned URL and source SHA let it reconstruct the actual basis
+of this contribution. If current and pinned records differ, identify this as
+potentially stale evidence and re-evaluate rather than silently presenting a
+new assessment as the source of the original change. Do not replace, omit,
+reorder or falsely check the target project's PR template. Preserve the real
+test results, skipped checks, license/CLA/DCO conditions and limitations.
+The disclosure is additive and is not a substitute for independent validation.
 
 The external PR body must explain three separate facts:
 
-1. **Technical work:** an AI-agent workflow, informed by VSM assessment,
+1. **Technical work and provenance:** an AI-agent workflow, informed by the
+   linked, dated and revision-pinned VSM assessment,
    prepared the analysis and change. An assessment suggests a candidate
    improvement; it is not proof that the patch works or changes a VSM grade.
 2. **Current human involvement:** the owner is temporarily approving each
@@ -28,8 +45,12 @@ The external PR body must explain three separate facts:
    maintainers retain review and merge authority; no upstream acceptance,
    adoption or benefit follows from opening a PR.
 
-The read-only `scripts/upstream_pr_handoff.py` preflight requires this exact
-disclosure in its bounded reviewed body before contacting GitHub. Publication
+The read-only `scripts/upstream_pr_handoff.py` preflight requires the complete
+v2 disclosure with syntactically valid, internally consistent current/pinned
+links, date and source SHA in its bounded reviewed body before contacting
+GitHub. This structural check does **not** independently fetch or confirm the
+assessment's content: preparers must verify the record and `reviewed_at` from
+the authoritative Index first. Publication
 must still satisfy the exact human approval gate and independent credential,
 license, branch, target-template and native-test requirements. A post-hoc
 disclosure edit to an already published PR changes only the description,

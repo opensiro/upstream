@@ -18,6 +18,13 @@ HEAD = "opensiro/fix-toolgateway-1772"
 B_SHA = "b" * 40
 H_SHA = "c" * 40
 DISCLOSURE = (ROOT / "templates/EXTERNAL_PR_DISCLOSURE.md").read_text(encoding="utf-8").strip()
+for marker, value in {
+    "ASSESSMENT_PATH": "assessments/ha/harnessdesk.md",
+    "ASSESSMENT_INDEX_SHA": "a" * 40,
+    "ASSESSMENT_DATE": "2026-11-02",
+    "ASSESSMENT_REVIEW_REF": "f" * 40,
+}.items():
+    DISCLOSURE = DISCLOSURE.replace("{{" + marker + "}}", value)
 
 
 class Response:
@@ -90,6 +97,9 @@ class UpstreamPRHandoffTests(unittest.TestCase):
                          "repos/HarnessDesk/HarnessDesk/pulls")
         self.assertEqual(len(r["intent_sha256"]), 64)
         self.assertNotIn("token", json.dumps(r).lower())
+        self.assertEqual(r["evidence"]["assessment"]["reviewed_at"], "2026-11-02")
+        self.assertEqual(r["evidence"]["assessment"]["path"],
+                         "assessments/ha/harnessdesk.md")
         self.assertTrue(all(c[3] == "GET" for c in self.fake.calls))
 
     def test_missing_or_altered_ai_disclosure_fails_before_github_read(self):
@@ -102,6 +112,23 @@ class UpstreamPRHandoffTests(unittest.TestCase):
         self.assertEqual(self.fake.calls, [])
         with self.assertRaisesRegex(PRBlocked, "AI-assisted disclosure"):
             self.preview(body=self.data["body"] + "\n" + DISCLOSURE)
+        self.assertEqual(self.fake.calls, [])
+
+    def test_assessment_link_date_and_source_are_required_before_github_read(self):
+        cases = (
+            self.data["body"].replace("blob/main/assessments/ha/harnessdesk.md",
+                                      "blob/main/assessments/xx/other.md"),
+            self.data["body"].replace("2026-11-02", "2026-99-40"),
+            self.data["body"].replace("`" + "f" * 40 + "`", "`unknown`"),
+            self.data["body"].replace("blob/" + "a" * 40,
+                                      "blob/main"),
+            self.data["body"].replace("disclosure:v2", "disclosure:v1"),
+            self.data["body"] + "\nExtra text after disclosure",
+        )
+        for body in cases:
+            with self.subTest(body=body[-100:]), self.assertRaisesRegex(
+                    PRBlocked, "AI-assisted disclosure"):
+                self.preview(body=body)
         self.assertEqual(self.fake.calls, [])
 
     def test_explicit_draft_requires_documented_reason(self):
