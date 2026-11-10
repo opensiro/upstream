@@ -15,13 +15,13 @@
       "reviewed_at": "2026-11-10",
       "function": "S2",
       "finding": "Check whether independently running supported file tools can use aliases for one filesystem object yet acquire different S2 mutex keys, admitting conflicting edits.",
-      "stage": "SCREENING",
-      "origin": "INSUFFICIENT",
+      "stage": "AWAITING_EXTERNAL",
+      "origin": "ASSESSMENT_DERIVED",
       "fit": {
-        "need": "PENDING",
+        "need": "PASS",
         "mechanism": "PASS",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "counterfactual": "PASS",
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/8cd38ff31b5b75c6f603624bbbed5072822c5aec/assessments/yo/yoagent.md",
@@ -29,9 +29,16 @@
         "https://github.com/yologdev/yoagent/blob/f1495e7f5746445a269ec6a9d14fa8ac346b359d/src/tools/file.rs",
         "https://github.com/yologdev/yoagent/blob/f1495e7f5746445a269ec6a9d14fa8ac346b359d/src/tools/sandbox.rs",
         "https://github.com/yologdev/yoagent/blob/f1495e7f5746445a269ec6a9d14fa8ac346b359d/CONTRIBUTING.md",
-        "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-24-20261110/pilots/yoagent-file-alias-s2/TEST_PLAN.md"
+        "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-24-20261110/pilots/yoagent-file-alias-s2/TEST_PLAN.md",
+        "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-24-20261110/pilots/yoagent-file-alias-s2/INDEPENDENT_HOST_RECEIPT_2026-11-10.md"
       ],
-      "screening_result": "Static first-party code confirms that PathSandbox canonicalizes symlinks but distinct hard-link names remain distinct PathBuf lock-map keys despite being one Unix inode. Native test and fix patches have been archived; no RED/GREEN effect yet attested, and the independent Rust runner must succeed before a positive classification."
+      "screening_result": "Prospective S2 prediction corroborated by pinned first-party Rust code and a distinct dev-alpha-2 Docker rust:1.91 native runner. Regression-only hard-link alias test failed on old PathBuf-keyed mutex (exit 101); exact bounded (device,inode)-key fix yielded 2/2 focused tests PASS, with original cancellation control, and full cargo test --lib 592/592 PASS. cargo fmt --check and git diff --check PASS, both archived final patches git apply --check on pristine reviewed SHA PASS. Rust 1.86/dependency lock issue required 1.91.1 and unlocked resolution; no model/provider, external PR or user benefit measurement.",
+      "handoff_url": "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-24-20261110/pilots/yoagent-file-alias-s2/CONTRIBUTION_HANDOFF.md",
+      "patch_path": "pilots/yoagent-file-alias-s2/native-fix.patch",
+      "patch_sha256": "a4646350abef97cb76cf4f8bc7506cfe31f961b37a5896e5e61ddb2d50d20c94",
+      "test_patch_path": "pilots/yoagent-file-alias-s2/native-regression.patch",
+      "external_action": "NOT_EXECUTED",
+      "observed_native_change": "Separate dev-alpha-2 SSH native runner: source f1495e7, test-only session 0945f13f-ad83-4b16-8282-a0876daeff85 failed (expected RED, exit 101); fixed session 80b2d155-049d-4779-aa29-bd6160971d73 2/2 passed; library session 602c89c8-5363-4b87-9dc6-d7dc9db24e14 592/592 passed; Rust 1.91.1, matched local resolved dependency set; see independent receipt."
     },
     {
       "id": "homerail-budget-concurrent-reservation",
