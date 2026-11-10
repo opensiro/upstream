@@ -1,7 +1,7 @@
 diff --git a/src/tools/file.rs b/src/tools/file.rs
 --- a/src/tools/file.rs
 +++ b/src/tools/file.rs
-@@ -1250,3 +1250,35 @@
+@@ -1250,3 +1250,40 @@
          assert_eq!(std::fs::read_to_string(&path).unwrap(), "before");
      }
 +    #[cfg(unix)]
@@ -22,12 +22,17 @@ diff --git a/src/tools/file.rs b/src/tools/file.rs
 +        assert_ne!(key_a, key_b, "hard links have distinct canonical paths");
 +        let cancel = CancellationToken::new();
 +        let first_guard = hold_file(&key_a, &cancel).await.unwrap();
-+        let alias_wait = tokio::time::timeout(Duration::from_millis(50), hold_file(&key_b, &cancel)).await;
-+        assert!(alias_wait.is_err(), "a hard-link alias must wait on the same file mutex");
-+        let unrelated_guard = tokio::time::timeout(Duration::from_secs(1), hold_file(&key_c, &cancel))
-+            .await
-+            .expect("unrelated file must not wait")
-+            .unwrap();
++        let alias_wait =
++            tokio::time::timeout(Duration::from_millis(50), hold_file(&key_b, &cancel)).await;
++        assert!(
++            alias_wait.is_err(),
++            "a hard-link alias must wait on the same file mutex"
++        );
++        let unrelated_guard =
++            tokio::time::timeout(Duration::from_secs(1), hold_file(&key_c, &cancel))
++                .await
++                .expect("unrelated file must not wait")
++                .unwrap();
 +        drop(unrelated_guard);
 +        drop(first_guard);
 +        let alias_guard = tokio::time::timeout(Duration::from_secs(1), hold_file(&key_b, &cancel))
