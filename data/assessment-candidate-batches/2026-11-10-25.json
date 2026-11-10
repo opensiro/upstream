@@ -73,19 +73,24 @@
       "reviewed_at": "2026-10-15",
       "function": "S2",
       "finding": "Check whether a terminated task-bound worker can strand the conditional TaskStore ownership claim so supported worker reassignment is blocked without safe reclaim.",
-      "stage": "SCREENING",
+      "stage": "BLOCKED_EVIDENCE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
+        "need": "PASS",
+        "mechanism": "PASS",
         "counterfactual": "PENDING",
         "scope": "PENDING"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/da98a140b1c6541f639c1dc4094bf2aeaacdb08d/assessments/co/codeagent-harvil1.md",
-        "https://github.com/opensiro/upstream/commit/5ddeba928a62829d1951f3380d728920ff63ec01"
+        "https://github.com/opensiro/upstream/commit/5ddeba928a62829d1951f3380d728920ff63ec01",
+        "https://github.com/Harvil1/codeAgent/blob/e48780be52949dfcf17338025f6beab48ca01428/agent/task_store.py",
+        "https://github.com/Harvil1/codeAgent/blob/e48780be52949dfcf17338025f6beab48ca01428/agent/team/coordinator.py",
+        "https://github.com/Harvil1/codeAgent/blob/e48780be52949dfcf17338025f6beab48ca01428/agent/team/auto_heartbeat.py",
+        "https://github.com/Harvil1/codeAgent/blob/e48780be52949dfcf17338025f6beab48ca01428/agent/team/task_binding.py"
       ],
-      "screening_result": "PRE_REGISTERED_ONLY: no current first-party target inspection or native validation completed. See hypothesis checkpoint for a falsifiable native test and null condition."
+      "screening_result": "At exact assessed/default first-party source e48780b, MIT: TeamCoordinator.spawn claims a task before Popen and rolls it back on OSError; worker heartbeat occurs only from a POST_TOOL_USE hook, throttled to one per 60 seconds. TaskStore.reclaim_stale deliberately skips every in_progress task with no last_heartbeat_at, to avoid reclaiming main-agent/manual tasks. Native isolated stdlib TaskStore probe on dev-alpha-2 (session f13d8416-9a03-4c78-b42e-63998a0d4444, exit 0) reproduces a pre-first-heartbeat claimed task remaining in_progress after reclaim_stale/find_ready and refusing a replacement owner. The probe models an abrupt death by absence of heartbeat; it does not terminate a real worker. Existing healthy-heartbeat reclaim exists. Need actual supported worker process lifecycle/ownership and safe terminal evidence before reclaiming no-heartbeat tasks.",
+      "blocker": "No first-party supported proof that a no-heartbeat claimed owner is dead (rather than main/manual agent or a silent but active worker), nor a safe atomic PID/lifecycle claimant check before reset. Determine native worker termination and reassignment semantics, then test stale owner vs live owner and race with heartbeat; do not simply reclaim every no-heartbeat claim."
     },
     {
       "id": "cloud-coding-same-tenant-start-race",
