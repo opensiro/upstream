@@ -19,14 +19,19 @@
       "origin": "INSUFFICIENT",
       "fit": {
         "need": "PENDING",
-        "mechanism": "PENDING",
+        "mechanism": "PASS",
         "counterfactual": "PENDING",
         "scope": "PENDING"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/8cd38ff31b5b75c6f603624bbbed5072822c5aec/assessments/yo/yoagent.md",
-        "https://github.com/opensiro/upstream/commit/b4fcedc797cb8094897c56764cf85ab33e980472"
-      ]
+        "https://github.com/opensiro/upstream/commit/b4fcedc797cb8094897c56764cf85ab33e980472",
+        "https://github.com/yologdev/yoagent/blob/f1495e7f5746445a269ec6a9d14fa8ac346b359d/src/tools/file.rs",
+        "https://github.com/yologdev/yoagent/blob/f1495e7f5746445a269ec6a9d14fa8ac346b359d/src/tools/sandbox.rs",
+        "https://github.com/yologdev/yoagent/blob/f1495e7f5746445a269ec6a9d14fa8ac346b359d/CONTRIBUTING.md",
+        "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-24-20261110/pilots/yoagent-file-alias-s2/TEST_PLAN.md"
+      ],
+      "screening_result": "Static first-party code confirms that PathSandbox canonicalizes symlinks but distinct hard-link names remain distinct PathBuf lock-map keys despite being one Unix inode. Native test and fix patches have been archived; no RED/GREEN effect yet attested, and the independent Rust runner must succeed before a positive classification."
     },
     {
       "id": "homerail-budget-concurrent-reservation",
@@ -36,18 +41,22 @@
       "reviewed_at": "2026-11-10",
       "function": "S2",
       "finding": "Check whether concurrent supported Manager DAG Work requests sharing a budget key can both pass check-and-reserve and oversubscribe one remaining budget slot.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/8cd38ff31b5b75c6f603624bbbed5072822c5aec/assessments/ho/homerail.md",
-        "https://github.com/opensiro/upstream/commit/b4fcedc797cb8094897c56764cf85ab33e980472"
-      ]
+        "https://github.com/opensiro/upstream/commit/b4fcedc797cb8094897c56764cf85ab33e980472",
+        "https://github.com/xiaotianfotos/homerail/blob/7b734a06c712b454aad17b36ae385f120cfeb7bb/homerail_manager/src/persistence/dag-runtime-primitives.ts",
+        "https://github.com/xiaotianfotos/homerail/blob/7b734a06c712b454aad17b36ae385f120cfeb7bb/homerail_manager/src/persistence/db.ts",
+        "https://github.com/xiaotianfotos/homerail/blob/7b734a06c712b454aad17b36ae385f120cfeb7bb/homerail_manager/src/orchestration/dag-patterns.ts"
+      ],
+      "screening_result": "The real reserveDagBudget function reads, checks, writes and records the requested usage within one better-sqlite3 transaction on a common namespaced SQLite record; the DB uses WAL and busy_timeout. No supported two-admission window bypassing the same transaction was found. Static control-path screen, not a concurrent native stress measurement; this prespecified oversubscription repair is not justified."
     },
     {
       "id": "ironcurtain-approval-policy-cycle",
@@ -57,18 +66,23 @@
       "reviewed_at": "2026-10-29",
       "function": "S2",
       "finding": "Check whether an outgoing approval-paused tool call during the supported shared-container role cycle can be mislabeled to the successor or strand the transition.",
-      "stage": "SCREENING",
+      "stage": "BLOCKED_EVIDENCE",
       "origin": "INSUFFICIENT",
       "fit": {
         "need": "PENDING",
-        "mechanism": "PENDING",
+        "mechanism": "PASS",
         "counterfactual": "PENDING",
         "scope": "PENDING"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/8cd38ff31b5b75c6f603624bbbed5072822c5aec/assessments/ir/ironcurtain.md",
-        "https://github.com/opensiro/upstream/commit/b4fcedc797cb8094897c56764cf85ab33e980472"
-      ]
+        "https://github.com/opensiro/upstream/commit/b4fcedc797cb8094897c56764cf85ab33e980472",
+        "https://github.com/provos/ironcurtain/blob/0b3e75aa1f3f6c8c1aea0d69ee97be79e0950df6/src/trusted-process/tool-call-coordinator.ts",
+        "https://github.com/provos/ironcurtain/blob/0b3e75aa1f3f6c8c1aea0d69ee97be79e0950df6/test/workflow-policy-cycling.integration.test.ts",
+        "https://github.com/provos/ironcurtain/blob/0b3e75aa1f3f6c8c1aea0d69ee97be79e0950df6/CONTRIBUTING.md"
+      ],
+      "screening_result": "Current coordinator increments activeToolCalls before each policy-gated call and retains it during human escalation, even while releasing callMutex. loadPolicy quiesces admission, waits for active calls to drain, and atomically swaps policy/persona under both locks. Thus premature persona attribution is counterindicated, but a supported nonsettling approval/abort scenario and its terminal timeout are not proven here. The current default head has advanced since the Index review.",
+      "blocker": "Need source-native bounded escalation callback/timeout fixture and supported workflow abort semantics before claiming a liveness failure or introducing a policy-cycle patch."
     },
     {
       "id": "optio-preferred-pod-isolation",
@@ -78,18 +92,22 @@
       "reviewed_at": "2026-10-29",
       "function": "S2",
       "finding": "Check whether a preferred pod selection path can reuse a pod across unlike owner, credential or work-purpose scopes despite the S2 isolation-key contract.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/8cd38ff31b5b75c6f603624bbbed5072822c5aec/assessments/op/optio.md",
-        "https://github.com/opensiro/upstream/commit/b4fcedc797cb8094897c56764cf85ab33e980472"
-      ]
+        "https://github.com/opensiro/upstream/commit/b4fcedc797cb8094897c56764cf85ab33e980472",
+        "https://github.com/jonwiggins/optio/blob/7d6183bf524ce771303b3ab46ca5db5006a16d2d/apps/api/src/services/pod-isolation.ts",
+        "https://github.com/jonwiggins/optio/blob/7d6183bf524ce771303b3ab46ca5db5006a16d2d/apps/api/src/services/agent-pod-pool.ts",
+        "https://github.com/jonwiggins/optio/blob/7d6183bf524ce771303b3ab46ca5db5006a16d2d/CONTRIBUTING.md"
+      ],
+      "screening_result": "Current podIsolationKey includes workspace, owner, purpose and credential profile; preferredPodId path explicitly checks pool, poolKey and full isolationKey. Regular, capacity and fallback pod selections filter by the same full identity key. No supported omission fitting the registered cross-principal reuse prediction found; static screen only, and current code differs from assessed review_ref."
     },
     {
       "id": "kheish-reassigned-task-double-start",
@@ -99,18 +117,21 @@
       "reviewed_at": "2026-10-29",
       "function": "S2",
       "finding": "Check whether two concurrent project-session task-start requests after reassignment can both reserve nonterminal runs against a single durable task.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/8cd38ff31b5b75c6f603624bbbed5072822c5aec/assessments/kh/kheish.md",
-        "https://github.com/opensiro/upstream/commit/b4fcedc797cb8094897c56764cf85ab33e980472"
-      ]
+        "https://github.com/opensiro/upstream/commit/b4fcedc797cb8094897c56764cf85ab33e980472",
+        "https://github.com/graniet/kheish/blob/df50433f8d577f832c6812b9e67be8ddb766059d/crates/kheish-daemon/src/services/project.rs",
+        "https://github.com/graniet/kheish/blob/df50433f8d577f832c6812b9e67be8ddb766059d/crates/kheish-daemon/src/state/project_workflow.rs"
+      ],
+      "screening_result": "Supported start_project_task preflights latest_run_id active/unknown reservations; reserve_task_start under the shared state mutex revalidates latest_run_id and expected assignee before writing a new run_id. A simultaneous competing request therefore encounters the changed reservation; reassignment protection is similarly compare-checked. No source-backed duplicate start found, static screen only."
     }
   ]
 }
