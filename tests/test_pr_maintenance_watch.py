@@ -145,10 +145,10 @@ class WatchTests(unittest.TestCase):
                                 "targets": [{"repository": "Example/project", "number": 3, "url": URL}]}))
         return p
 
-    def test_exact_manifest_has_eighteen_targets_and_no_duplicates(self):
+    def test_exact_manifest_has_twenty_five_targets_and_no_duplicates(self):
         data = watch.validate_targets()
-        self.assertEqual(len(data["targets"]), 18)
-        self.assertEqual(len({t["url"] for t in data["targets"]}), 18)
+        self.assertEqual(len(data["targets"]), 25)
+        self.assertEqual(len({t["url"] for t in data["targets"]}), 25)
         self.assertIn("https://github.com/cbrock84/headcount/pull/47",
                       [t["url"] for t in data["targets"]])
         self.assertIn("https://github.com/chumingjun/dsh-harness-one/pull/173",
@@ -163,6 +163,16 @@ class WatchTests(unittest.TestCase):
                       [t["url"] for t in data["targets"]])
         self.assertIn("https://github.com/Phoenixrr2113/agent-harness/pull/1",
                       [t["url"] for t in data["targets"]])
+        for url in (
+            "https://github.com/0xNyk/lacp/pull/128",
+            "https://github.com/chekusu/wanman/pull/38",
+            "https://github.com/gczhuang-cmd/NovaCode/pull/1",
+            "https://github.com/mnbresearch/crewdeck/pull/1",
+            "https://github.com/ruslantrachuk/dark-factory/pull/106",
+            "https://github.com/splashxmoon/friday/pull/23",
+            "https://github.com/talktorana/agent-harness/pull/1",
+        ):
+            self.assertIn(url, [t["url"] for t in data["targets"]])
         exceptions = [t for t in data["targets"] if t.get("monitoring")]
         self.assertEqual(exceptions, [{"repository": "cbrock84/headcount", "number": 47,
                                       "url": watch.KNOWN_404_SOURCE,
@@ -562,6 +572,56 @@ class WatchTests(unittest.TestCase):
                 self.assertEqual(watch.run(m, path), [])
                 self.assertEqual(len(m.writes), 7)
                 self.assertFalse(any(watch.ALERT_PREFIX in write[2]["body"] for write in m.writes))
+
+    def test_seven_2026_11_10_publications_migrate_without_replaying_history(self):
+        additions = [
+            ("chekusu/wanman", 38),
+            ("0xNyk/lacp", 128),
+            ("splashxmoon/friday", 23),
+            ("mnbresearch/crewdeck", 1),
+            ("talktorana/agent-harness", 1),
+            ("ruslantrachuk/dark-factory", 106),
+            ("gczhuang-cmd/NovaCode", 1),
+        ]
+        m = MockAPI()
+        m.external = source()
+
+        def fake_snapshot(_, target):
+            item = pr()
+            item.update(url=target["url"], repository=target["repository"],
+                        number=target["number"], draft=False)
+            return item
+
+        with tempfile.TemporaryDirectory() as tmp:
+            path = self.write_targets(tmp)
+            with patch.object(watch, "snapshot_one", side_effect=fake_snapshot):
+                self.assertEqual(watch.run(m, path), [])
+                original_checkpoint = watch.decode_checkpoint(m.issue_comments[0]["body"])
+                data = json.loads(path.read_text())
+                for repository, number in additions:
+                    data["targets"].append({
+                        "repository": repository, "number": number,
+                        "url": f"https://github.com/{repository}/pull/{number}"})
+                path.write_text(json.dumps(data))
+                probe = watch.run(m, path, probe_only=True)
+                self.assertEqual([e["kind"] for e in probe], ["NEW_TRACKED_PR"] * 7)
+                self.assertEqual(len(m.writes), 1)
+                self.assertEqual([e["kind"] for e in watch.run(m, path)],
+                                 ["NEW_TRACKED_PR"] * 7)
+                self.assertEqual(len(m.writes), 2)  # checkpoint only; no alerts
+                new_checkpoint = watch.decode_checkpoint(m.issue_comments[0]["body"])
+                self.assertEqual(new_checkpoint["prs"][URL], original_checkpoint["prs"][URL])
+                self.assertEqual(len(new_checkpoint["prs"]), 8)
+                self.assertFalse(any(watch.ALERT_PREFIX in x[2]["body"] for x in m.writes))
+                self.assertEqual(watch.run(m, path), [])
+                self.assertEqual(len(m.writes), 2)
+
+                data["targets"].append({"repository": "Unreviewed/source", "number": 5,
+                                        "url": "https://github.com/Unreviewed/source/pull/5"})
+                path.write_text(json.dumps(data))
+                with self.assertRaisesRegex(ValueError, "baseline migration required"):
+                    watch.run(m, path)
+                self.assertEqual(len(m.writes), 2)
 
     def test_actual_new_review_posts_one_alert_and_then_checkpoint(self):
         m = MockAPI()

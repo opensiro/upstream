@@ -90,6 +90,18 @@ creation, branch sync, and third-party PRs remain unexecuted. Do not
 silently substitute a PAT, direct CLI write, unprotected Actions workflow,
 or an arbitrary `approved_by` field for the missing host boundary.
 
+### Dated external PR publication readbacks
+
+When a specifically approved external PR has actually been published, record
+its authenticated GitHub PR identity, actor, fork and head SHA in a separately
+reviewed dated readback. The [2026-11-10 publication readback](../data/external-pr-publication-readbacks/2026-11-10.json)
+is the first such additive source. Register its verified PR URL in the
+[explicit maintenance watchlist](../data/pr-maintenance/targets.json) in the
+same change. The Verified external outcomes candidate observer includes these
+publication identities to reconcile its portfolio exactly, but treats them
+as **publication-only** evidence, never automatic verified adoption. This
+does not mutate the historical finite Corrective or Improvement ledgers.
+
 ## Command and CI contract
 
 ```bash
