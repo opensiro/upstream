@@ -4,13 +4,13 @@
   "meaning": "FILE_INVENTORY_ONLY_NO_SUCCESS_OR_EXTERNAL_PUBLICATION_CLAIM",
   "generated_from": "pilots/ direct subdirectories and their preserved files",
   "counts": {
-    "pilot_directories": 71,
-    "artifact_files": 200,
+    "pilot_directories": 73,
+    "artifact_files": 216,
     "historical_directories": 66,
-    "new_directories": 5,
+    "new_directories": 7,
     "by_kind": {
-      "EXPERIMENT_SERIES": 3,
-      "PATCH_HANDOFF": 51,
+      "EXPERIMENT_SERIES": 4,
+      "PATCH_HANDOFF": 52,
       "PATCH_EVIDENCE": 0,
       "SCREEN_ONLY": 16,
       "OTHER_EVIDENCE": 1
@@ -33,6 +33,32 @@
       "files": [
         "CONTRIBUTION_HANDOFF.md",
         "nonobject-event-payload-rejection.patch"
+      ]
+    },
+    {
+      "id": "agent-code-524",
+      "path": "pilots/agent-code-524",
+      "kind": "EXPERIMENT_SERIES",
+      "start_here": "pilots/agent-code-524/README.md",
+      "artifact_counts": {
+        "patch": 1,
+        "handoff": 1,
+        "protocol": 1,
+        "native_code": 7,
+        "other": 1
+      },
+      "files": [
+        "README.md",
+        "UPSTREAM_PR_HANDOFF.md",
+        "evaluation/PROTOCOL.md",
+        "evaluation/score.py",
+        "evaluation/test_score.py",
+        "mock_provider_smoke.py",
+        "offline_cli_smoke.py",
+        "offline_delta_smoke.py",
+        "reviewer-subagent-first-slice.patch",
+        "test_verify_clippy_baseline.py",
+        "verify_clippy_baseline.py"
       ]
     },
     {
@@ -512,6 +538,24 @@
       "files": [
         "CONTRIBUTION_HANDOFF.md",
         "bootstrap-symlink-boundary.patch"
+      ]
+    },
+    {
+      "id": "kit-222",
+      "path": "pilots/kit-222",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/kit-222/README.md",
+      "artifact_counts": {
+        "patch": 3,
+        "handoff": 1,
+        "other": 1
+      },
+      "files": [
+        "README.md",
+        "UPSTREAM_PR_HANDOFF.md",
+        "kit-222-regression-only.patch",
+        "kit-222-safe-default.patch",
+        "kit-222-upstream-combined.patch"
       ]
     },
     {
