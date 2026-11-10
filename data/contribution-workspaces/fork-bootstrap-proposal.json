@@ -3,19 +3,19 @@
   "state": "READ_ONLY_PROPOSAL_NOT_APPROVED",
   "destination_org": "opensiro-contributions",
   "source_registry": "data/contribution-workspaces/registry.json",
-  "source_registry_sha256": "8eab1ab1185448522bdfccc9778ebeca4d87a0f089d352983f58388c0a08469b",
+  "source_registry_sha256": "b4101c9d8ce6465f30060960ebd812f5921e08701966f73d70f51f33c121a8fb",
   "priority_snapshot": "data/fork-priorities/2026-11-08.json",
   "batch_size_max": 10,
   "counts": {
-    "sources": 183,
+    "sources": 193,
     "priority_sources": 100,
-    "additive_extras": 83,
-    "collision_name_proposals": 10,
-    "creation_batches": 8,
+    "additive_extras": 93,
+    "collision_name_proposals": 11,
+    "creation_batches": 9,
     "by_state": {
-      "HOLD_HISTORICAL_OR_NEGATIVE_CASE": 83,
+      "HOLD_HISTORICAL_OR_NEGATIVE_CASE": 91,
       "HOLD_LICENSE_REVIEW": 5,
-      "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT": 79,
+      "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT": 81,
       "RECHECK_MAPPED_FORK": 16
     }
   },
@@ -35,7 +35,7 @@
     {
       "id": "bootstrap-001",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "efe165c0a14afa635f20058635ecb8fce288cd776a7a7ddbda75ece16af40e7c",
+      "selection_sha256": "1bf4d3ca53f1fb8abae49439a01749cc431efc26c78efe5a4c6316bcd1a54f27",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -84,7 +84,7 @@
     {
       "id": "bootstrap-002",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "8c4814f04aac067e81cd325dee4610032c27f1bdc6d99b92334f847584feb26c",
+      "selection_sha256": "11bc357cd3aa1493f8f4abf8b6ec9949bb6d441dc8f08d35132b02133d1acc25",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -133,7 +133,7 @@
     {
       "id": "bootstrap-003",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "250f60eaaccae42e3a3c33488eb5daa6460cf73881222ef14749850afcd82336",
+      "selection_sha256": "58b841615a18035cdc9d4a1e04e2c1c08a4b21a5ab184ba1f4537faa9ba87cf4",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -182,7 +182,7 @@
     {
       "id": "bootstrap-004",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "d5481fd0913a8cf07312d2643d2259d526da204a1ffeb27b7d84c4cdf76dd892",
+      "selection_sha256": "aeddc7d85163c1cf70d6516047983b7ed5156e623621a8b7cbf160efc18070ce",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -231,7 +231,7 @@
     {
       "id": "bootstrap-005",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "3c6e903f4716ce977178fb4fbd364b2432c364351eaa0c74b481fbff9d268f15",
+      "selection_sha256": "92423c3fd2c331b7860a0fafc3e7dc047c45349ea4c17ff30aa429ba781f7b4e",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -280,7 +280,7 @@
     {
       "id": "bootstrap-006",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "ca6caa99ba27feecd96ed08ee24f97fdb0d20cc7bc14cef9a3185f2ae02f15aa",
+      "selection_sha256": "38a2e2a4ce15381c25db7d1a0aa02fe5e46f01fc11bcb916d679a6ac7c40dc54",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -329,7 +329,7 @@
     {
       "id": "bootstrap-007",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "c5edc32efa917ad665da809fd13c42e92a51980e0a0b51f3ef77b6a2dc5f22b3",
+      "selection_sha256": "a813f8f113c9733c60539738ffd179ff1ee1a0508f49b7cb7a21f0a112228d19",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -378,8 +378,8 @@
     {
       "id": "bootstrap-008",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "0ab7f073036bf07420400b58a944549044a0eb57814adc06c11de661ddf563c0",
-      "source_count": 9,
+      "selection_sha256": "a9ddca503c76ae55518cd27aec253a128e1473150154b2e00253522290ffc32c",
+      "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
         {
@@ -399,6 +399,14 @@
           "candidate_fork": "opensiro-contributions/Clouds-Coder"
         },
         {
+          "source": "gczhuang-cmd/NovaCode",
+          "candidate_fork": "opensiro-contributions/NovaCode"
+        },
+        {
+          "source": "leprachuan/Wee-Orchestrator",
+          "candidate_fork": "opensiro-contributions/Wee-Orchestrator"
+        },
+        {
           "source": "madarco/agentbox",
           "candidate_fork": "opensiro-contributions/agentbox"
         },
@@ -413,7 +421,16 @@
         {
           "source": "splashxmoon/friday",
           "candidate_fork": "opensiro-contributions/friday"
-        },
+        }
+      ]
+    },
+    {
+      "id": "bootstrap-009",
+      "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
+      "selection_sha256": "aa92c164a4a0015dd4e5e2b7dedbfa3aa2af14aac8eaf1c013f10d4b9b26dcd4",
+      "source_count": 1,
+      "has_collision_name_proposals": false,
+      "selection": [
         {
           "source": "xingyaoww/code-act",
           "candidate_fork": "opensiro-contributions/code-act"
@@ -1776,6 +1793,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "dyabel/AnyTool",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/AnyTool",
+      "candidate_name": "AnyTool",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "fbrubacher/orch",
       "priority_group": "HISTORICAL_EXTRA",
       "next_step": "BLOCKED_LICENSE_REVIEW",
@@ -1831,6 +1859,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "gczhuang-cmd/NovaCode",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/NovaCode",
+      "candidate_name": "NovaCode",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "GoogleCloudPlatform/scion",
       "priority_group": "PORTFOLIO_EXTRA",
       "next_step": "HISTORICAL_PR_TRACK_ONLY_NO_NEW_PUBLICATION",
@@ -1847,6 +1886,28 @@
       "next_step": "TRACK_ONLY_NO_CHANGE",
       "candidate_fork": "opensiro-contributions/autocontext",
       "candidate_name": "autocontext",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "haileyok/victrola",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/victrola",
+      "candidate_name": "victrola",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "hsghcop/ForestCode",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/ForestCode",
+      "candidate_name": "ForestCode",
       "collision_name_proposal": false,
       "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
@@ -1930,6 +1991,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "khanuzeb/axiom",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/axiom",
+      "candidate_name": "axiom",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "kushagrathisside/bridle",
       "priority_group": "HISTORICAL_EXTRA",
       "next_step": "TRACK_ONLY_NO_CHANGE",
@@ -1937,6 +2009,17 @@
       "candidate_name": "bridle",
       "collision_name_proposal": false,
       "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "leprachuan/Wee-Orchestrator",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/Wee-Orchestrator",
+      "candidate_name": "Wee-Orchestrator",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
@@ -2084,6 +2167,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "ori-platform/ori-runtime",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/ori-runtime",
+      "candidate_name": "ori-runtime",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "Orkas-AI/Orkas",
       "priority_group": "HISTORICAL_EXTRA",
       "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
@@ -2128,6 +2222,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "qujck/harness",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "RESOLVE_FORK_PARENT_AND_NAME",
+      "candidate_fork": "opensiro-contributions/qujck--harness",
+      "candidate_name": "qujck--harness",
+      "collision_name_proposal": true,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "rainyZhou2/SreAgentHarness",
       "priority_group": "HISTORICAL_EXTRA",
       "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
@@ -2167,6 +2272,17 @@
       "candidate_fork": "opensiro-contributions/rokartur--agent",
       "candidate_name": "rokartur--agent",
       "collision_name_proposal": true,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "senweaver/senweavercoding",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/senweavercoding",
+      "candidate_name": "senweavercoding",
+      "collision_name_proposal": false,
       "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
@@ -2430,6 +2546,17 @@
       "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
       "candidate_fork": "opensiro-contributions/Dougong",
       "candidate_name": "Dougong",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "Zleap-AI/Zleap-Agent",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/Zleap-Agent",
+      "candidate_name": "Zleap-Agent",
       "collision_name_proposal": false,
       "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
