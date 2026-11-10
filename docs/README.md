@@ -8,7 +8,7 @@ The root [README.md](../README.md) is the public handoff. [AGENTS.md](../AGENTS.
 | --- | --- |
 | Tests, automation, scheduled sensing, generated views | [OPERATIONS.md](OPERATIONS.md) |
 | Five-source upstream screening | [ASSESSMENT_CANDIDATE_BATCHES.md](ASSESSMENT_CANDIDATE_BATCHES.md) |
-| Five-repository external publication waves | [EXTERNAL_PUBLICATION_WAVES.md](EXTERNAL_PUBLICATION_WAVES.md) · [wave 01 report](../reports/2026-11-11-external-publication-wave-01.md) |
+| Five-repository external publication waves | [EXTERNAL_PUBLICATION_WAVES.md](EXTERNAL_PUBLICATION_WAVES.md) · [working-fork-first pipeline](CONTINUOUS_WORKING_FORK_PIPELINE.md) · [historical wave 01 report](../reports/2026-11-11-external-publication-wave-01.md) |
 | Upstream Auto (on-demand task balancing and opt-in CAS claims) | [UPSTREAM_AUTO.md](UPSTREAM_AUTO.md) · [owner issue #161](https://github.com/opensiro/upstream/issues/161) |
 | Assessment → testable external improvement | [ASSESSMENT_TO_IMPROVEMENT.md](ASSESSMENT_TO_IMPROVEMENT.md) |
 | Native effect evidence, not adoption | [FUNCTIONAL_EFFECTS.md](FUNCTIONAL_EFFECTS.md) |
