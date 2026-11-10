@@ -1,0 +1,89 @@
+name: Agent-code #524 offline native validation
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/agent-code-524-offline.yml'
+      - 'pilots/agent-code-524/reviewer-subagent-first-slice.patch'
+      - 'pilots/agent-code-524/offline_cli_smoke.py'
+      - 'pilots/agent-code-524/mock_provider_smoke.py'
+      - 'pilots/agent-code-524/evaluation/score.py'
+      - 'pilots/agent-code-524/evaluation/test_score.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: agent-code-524-offline-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  offline-native:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      CARGO_TERM_COLOR: always
+      CARGO_INCREMENTAL: "0"
+    steps:
+      - name: Checkout OpenSiro handoff (read-only)
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          path: opensiro
+          persist-credentials: false
+      - name: Checkout immutable public agent-code source (read-only)
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: avala-ai/agent-code
+          ref: 82e0edfa7372c256d893d0854f954d9099254f88
+          path: agent-code
+          persist-credentials: false
+      - name: Verify provenance and apply exact eight-file native patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          patch="$GITHUB_WORKSPACE/opensiro/pilots/agent-code-524/reviewer-subagent-first-slice.patch"
+          actual="$(sha256sum "$patch" | cut -d' ' -f1)"
+          test "$actual" = '58a70a40beafcceef1f76161f869f4fe2366272d8a82ea9fe9b48fcf530235e1'
+          test "$(git -C agent-code rev-parse HEAD)" = '82e0edfa7372c256d893d0854f954d9099254f88'
+          git -C agent-code apply --check "$patch"
+          git -C agent-code apply "$patch"
+          git -C agent-code diff --check
+      - name: Install upstream's Rust toolchain and standard components
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: "1.97"
+          components: rustfmt,clippy
+      - name: Install native test utility
+        shell: bash
+        run: |
+          set -euo pipefail
+          command -v rg || { sudo apt-get update -qq && sudo apt-get install -y ripgrep; }
+      - name: Rust formatting
+        working-directory: agent-code
+        run: cargo fmt --all -- --check
+      - name: Complete lib and CLI-binary native unit tests
+        working-directory: agent-code
+        run: |
+          set -euo pipefail
+          cargo test -p agent-code-lib --lib --locked --quiet
+          cargo test -p agent-code --bin agent --locked --quiet
+      - name: Scoped Clippy (known unaffected upstream unnecessary_cast lint excepted)
+        working-directory: agent-code
+        run: cargo clippy -p agent-code-lib -p agent-code --lib --bin agent --locked -- -D warnings -A clippy::unnecessary_cast
+      - name: Build genuine patched executable
+        working-directory: agent-code
+        run: cargo build -p agent-code --bin agent --locked
+      - name: Real executable process smoke (no model API)
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 opensiro/pilots/agent-code-524/offline_cli_smoke.py --binary "$GITHUB_WORKSPACE/agent-code/target/debug/agent"
+      - name: Local mock-provider HTTP/JSONL process smoke (synthetic, not LLM E2E)
+        shell: bash
+        env:
+          AGENT_CODE_TEST_BINARY: ${{ github.workspace }}/agent-code/target/debug/agent
+          AC524_EXPECT_AUX_CALLS: "0"
+        run: python3 opensiro/pilots/agent-code-524/mock_provider_smoke.py
+      - name: Offline evaluator unit checks (not a model benchmark)
+        run: python3 -m unittest discover -s opensiro/pilots/agent-code-524/evaluation -p 'test_*.py' -v
