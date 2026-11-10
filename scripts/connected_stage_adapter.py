@@ -42,19 +42,21 @@ def _validate_action(action):
           and "//" not in action["new_branch"]
           and not action["new_branch"].endswith(("/", ".", ".lock")),
           "Invalid new branch")
-    _need(action["base_branch"] in ("main", "master")
+    _need(action["base_branch"] in ("main", "master", "development")
           or bool(BRANCH.fullmatch(action["base_branch"])), "Invalid base branch")
     path = action["file_path"]
     parts = PurePosixPath(path).parts
     in_root_tests = len(parts) >= 2 and parts[0] == "tests"
+    # Some upstream monorepos (including HarnessDesk) use package-local
+    # singular test/ instead of tests/. Keep both forms inside packages/.
     in_package_tests = (len(parts) >= 4 and parts[0] == "packages"
-                        and "tests" in parts[2:-1])
+                        and any(part in ("test", "tests") for part in parts[2:-1]))
     _need(path == str(PurePosixPath(path))
           and (in_root_tests or in_package_tests)
           and all(part not in (".", "..") for part in parts)
           and not any(ch in path for ch in ("\\", ":", "\x00"))
           and len(path) <= 240,
-          "First adapter permits one new root or package-local tests/ file only")
+          "First adapter permits one new root tests/ or package-local test(s)/ file only")
     content = action["content"].encode("utf-8")
     _need(1 <= len(content) <= 49152, "Invalid file size")
     _need(action["working_repo"].split("/")[0].casefold() != "opensiro-contributions"

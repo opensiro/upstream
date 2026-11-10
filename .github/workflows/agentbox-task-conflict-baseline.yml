@@ -1,0 +1,64 @@
+name: AgentBox assessment-derived task-conflict source baseline
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/agentbox-task-conflict-baseline.yml'
+      - 'pilots/agentbox-s2/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  native-cli-task-preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout OpenSiro research fixtures without credentials
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          path: opensiro
+          persist-credentials: false
+      - name: Checkout immutable public AgentBox source without credentials
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: madarco/agentbox
+          ref: 605ee75d63319003c188bc532d4e5b2ba36a51d6
+          path: agentbox
+          persist-credentials: false
+      - name: Verify pinned upstream source and inject test only
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C agentbox rev-parse HEAD)" = 605ee75d63319003c188bc532d4e5b2ba36a51d6
+          grep -F '"packageManager": "pnpm@9.15.0"' agentbox/package.json
+          cp opensiro/pilots/agentbox-s2/assessment_native_task_conflict_baseline.test.ts agentbox/apps/cli/test/zz_opensiro_task_conflict_baseline.test.ts
+          test "$(git -C agentbox status --porcelain --untracked-files=all | wc -l)" -eq 1
+      - name: Setup Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Setup matching pnpm 9.15.0
+        uses: pnpm/action-setup@v4
+        with:
+          version: '9.15.0'
+          run_install: false
+      - name: Install source-locked dependencies
+        working-directory: agentbox
+        timeout-minutes: 10
+        run: pnpm install --frozen-lockfile
+      - name: Native dependency build (per upstream CI)
+        working-directory: agentbox
+        timeout-minutes: 14
+        run: pnpm build
+      - name: Run real CLI task preflight baseline with Vitest
+        working-directory: agentbox
+        timeout-minutes: 5
+        run: pnpm --filter @madarco/agentbox exec vitest run test/zz_opensiro_task_conflict_baseline.test.ts
+      - name: Keep upstream repo untouched after disposable test
+        working-directory: agentbox
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = 605ee75d63319003c188bc532d4e5b2ba36a51d6
+          test "$(git diff --name-only | wc -l)" -eq 0

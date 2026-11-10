@@ -1,0 +1,103 @@
+diff --git a/agentflow/specs.py b/agentflow/specs.py
+index 78be28a..4c32546 100644
+--- a/agentflow/specs.py
++++ b/agentflow/specs.py
+@@ -1684,6 +1684,15 @@ class NodeSpec(BaseModel):
+     fanout_member: dict[str, Any] | None = Field(default=None, exclude=True)
+     fanout_dependencies: dict[str, list[str]] = Field(default_factory=dict, exclude=True)
+ 
++    @field_validator("id")
++    @classmethod
++    def validate_node_id(cls, value: str) -> str:
++        # IDs form artifact-directory names in RunStore. Do not permit them
++        # to resolve to a parent directory or an absolute/nested path.
++        if not value.strip() or value in {".", ".."} or "/" in value or "\\" in value:
++            raise ValueError("node `id` must be a nonempty single path component")
++        return value
++
+     @field_validator("agent")
+     @classmethod
+     def validate_agent(cls, value: AgentKind | str) -> AgentKind | str:
+diff --git a/tests/test_node_id_artifact_safety.py b/tests/test_node_id_artifact_safety.py
+new file mode 100644
+index 0000000..692ccf6
+--- /dev/null
++++ b/tests/test_node_id_artifact_safety.py
+@@ -0,0 +1,77 @@
++"""Native schema tests: no model, agent, provider, or orchestrator is executed."""
++
++import ast
++import unittest
++from pathlib import Path
++from tempfile import TemporaryDirectory
++
++from pydantic import ValidationError
++
++from agentflow.specs import PipelineSpec
++
++def native_artifact_store(base_dir: Path):
++    """Load unchanged first-party path methods without optional Jinja2 imports."""
++    source = Path(__file__).resolve().parents[1] / "agentflow" / "store.py"
++    module = ast.parse(source.read_text(encoding="utf-8"))
++    store_class = next(item for item in module.body if isinstance(item, ast.ClassDef) and item.name == "RunStore")
++    methods = [
++        item for item in store_class.body
++        if isinstance(item, ast.FunctionDef)
++        and item.name in {"run_dir", "node_artifact_dir", "artifact_path"}
++    ]
++
++    def ensure_dir(path):
++        path.mkdir(parents=True, exist_ok=True)
++        return path
++
++    namespace = {"Path": Path, "ensure_dir": ensure_dir}
++    exec(compile(ast.fix_missing_locations(ast.Module(body=methods, type_ignores=[])), str(source), "exec"), namespace)
++    methods_by_name = {name: namespace[name] for name in ("run_dir", "node_artifact_dir", "artifact_path")}
++    store = type("NativeRunStorePaths", (), methods_by_name)()
++    store.base_dir = base_dir
++    return store
++
++
++def pipeline_with_id(node_id: str) -> PipelineSpec:
++    return PipelineSpec.model_validate(
++        {"name": "native-node-id-contract", "nodes": [
++            {"id": node_id, "agent": "python", "prompt": "literal script"}
++        ]}
++    )
++
++
++class NodeIdArtifactSafetyTests(unittest.TestCase):
++    def test_normal_ids_still_validate(self):
++        for node_id in ("extract_0", "review-two", "publish.v2"):
++            with self.subTest(node_id=node_id):
++                self.assertEqual(pipeline_with_id(node_id).nodes[0].id, node_id)
++
++    def test_parent_directory_id_rejected(self):
++        with self.assertRaises(ValidationError):
++            pipeline_with_id("..")
++
++    def test_parent_traversal_id_rejected(self):
++        with self.assertRaises(ValidationError):
++            pipeline_with_id("../../outside")
++
++    def test_nested_path_id_rejected(self):
++        with self.assertRaises(ValidationError):
++            pipeline_with_id("nested/node")
++
++    def test_windows_separator_id_rejected(self):
++        with self.assertRaises(ValidationError):
++            pipeline_with_id("..\\outside")
++
++    def test_absolute_path_id_rejected_before_artifact_write(self):
++        with TemporaryDirectory() as directory:
++            store = native_artifact_store(Path(directory) / "runs")
++            outside = Path(directory) / "outside"
++            with self.assertRaises(ValidationError):
++                node = pipeline_with_id(str(outside)).nodes[0]
++                # This is a real first-party path computation, not an agent run.
++                target = store.artifact_path("fixed-run", node.id, "output.txt")
++                self.assertTrue(target.is_relative_to(store.base_dir))
++
++
++if __name__ == "__main__":
++    unittest.main()

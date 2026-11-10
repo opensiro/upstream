@@ -1,0 +1,37 @@
+diff --git a/src/maref/recursive/recursive_evolution_loop.py b/src/maref/recursive/recursive_evolution_loop.py
+index fb06aa9..97ee185 100644
+--- a/src/maref/recursive/recursive_evolution_loop.py
++++ b/src/maref/recursive/recursive_evolution_loop.py
+@@ -291,7 +291,9 @@ class RELTransactionManager:
+ 
+     def rollback(self, tx: RELTransaction) -> bool:
+         all_succeeded = True
+-        backup_paths = {snap.path for snap in tx.snapshots}
++        backup_paths = {
++            snap.path for snap in tx.snapshots if os.path.exists(snap.backup_path)
++        }
+ 
+         for snap in tx.snapshots:
+             if os.path.exists(snap.backup_path):
+diff --git a/tests/recursive/test_rel_transaction.py b/tests/recursive/test_rel_transaction.py
+index a447476..e450cf9 100644
+--- a/tests/recursive/test_rel_transaction.py
++++ b/tests/recursive/test_rel_transaction.py
+@@ -87,6 +87,17 @@ class TestRELTransactionManager:
+             if os.path.exists(gen_path):
+                 os.unlink(gen_path)
+ 
++    def test_rollback_removes_planned_new_file(
++        self, manager: RELTransactionManager, tmp_path,
++    ) -> None:
++        path = tmp_path / "new_module.py"
++        tx = manager.begin([str(path)])
++        path.write_text("generated\n", encoding="utf-8")
++
++        assert manager.rollback(tx) is True
++        assert tx.state == TransactionState.ROLLED_BACK
++        assert not path.exists()
++
+     def test_get_by_id(self, manager: RELTransactionManager) -> None:
+         tx = manager.begin(["file_a.py"])
+         retrieved = manager.get(tx.tx_id)

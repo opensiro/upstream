@@ -11,11 +11,15 @@ The registry describes contributions **from** OpenSiro **to** external OSS proje
 - Before archiving a fork: check unresolved PRs/maintenance obligations, record its final state and archive reason, then archive the public fork intentionally. Do not automate archiving based on a merged PR alone.
 - Do not add a gatekeeping VSM assessment or operational S3–S5 mandates to this lightweight portfolio.
 
+## Local pull request validation
+
+All pull requests run the read-only offline `repository-integrity` unit-test job in [the all-PR workflow](.github/workflows/repository-integrity.yml), including changes to documentation alone. More focused integration/pilot workflows may be filtered to specific paths, so an unrelated PR need not run them. The owner-approved [staged required-CI rollout](https://github.com/opensiro/vsm-oss-organization/issues/305) is a separate GitHub repository-settings change; a successful workflow alone does **not** prove that its check has become mandatory.
+
 ## External intervention casebook
 
 The [casebook](cases/README.md) is a read-only portfolio view of interventions recorded under the [Organization upstream-intervention-fit experiment](https://github.com/opensiro/vsm-oss-organization/tree/main/experiments/upstream-intervention-fit). Include both successes and failures, link first-party PR/review/commit evidence, and distinguish a submitted PR from a merged PR and from an independently landed maintainer implementation.
 
-Do **not** create duplicate `registry.yaml` fork-lifecycle records for personal contributor forks just to track an experiment. Do **not** assign or update a product-native fit gate here independently: change the Organization-owned observation with evidence and then refresh this view. The experimental fit label is neither maintainer approval nor a VSM assessment result.
+Do **not** create duplicate `registry.yaml` fork-lifecycle records for personal contributor forks just to track the casebook. The Organization-owned Product-native fit experiment is now **deprecated and frozen**: do not assign new fit grades, append to its observations or refresh its aggregate percentage. Preserve the historical labels for audit while maintaining new evidence and PR states in Upstream-owned operational records.
 
 ## Keeping the public dashboard accurate
 

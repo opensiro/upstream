@@ -1,0 +1,114 @@
+diff --git a/operator-mcp/operator_mcp/workflow/validator.py b/operator-mcp/operator_mcp/workflow/validator.py
+index ca7239f..27b5fbd 100644
+--- a/operator-mcp/operator_mcp/workflow/validator.py
++++ b/operator-mcp/operator_mcp/workflow/validator.py
+@@ -196,29 +196,30 @@ def _check_cycles(adj: dict[str, set[str]], result: ValidationResult) -> list[st
+     WHITE, GRAY, BLACK = 0, 1, 2
+     color: dict[str, int] = {node: WHITE for node in adj}
+     order: list[str] = []
+-    cycle_nodes: list[str] = []
+-
+-    def dfs(node: str) -> bool:
+-        color[node] = GRAY
+-        for dep in adj[node]:
++    for start in adj:
++        if color[start] != WHITE:
++            continue
++        color[start] = GRAY
++        # Explicit stack keeps valid deep DAGs independent of Python's
++        # recursion limit while retaining dependencies-first DFS ordering.
++        stack = [(start, iter(adj[start]))]
++        while stack:
++            node, deps = stack[-1]
++            try:
++                dep = next(deps)
++            except StopIteration:
++                color[node] = BLACK
++                order.append(node)
++                stack.pop()
++                continue
+             if dep not in color:
+                 continue
+             if color[dep] == GRAY:
+-                cycle_nodes.append(f"{node} -> {dep}")
+-                return True
++                result.add_error(f"Dependency cycle detected: {node} -> {dep}")
++                return order
+             if color[dep] == WHITE:
+-                if dfs(dep):
+-                    return True
+-        color[node] = BLACK
+-        order.append(node)
+-        return False
+-
+-    for node in adj:
+-        if color[node] == WHITE:
+-            if dfs(node):
+-                result.add_error(
+-                    f"Dependency cycle detected: {', '.join(cycle_nodes)}"
+-                )
++                color[dep] = GRAY
++                stack.append((dep, iter(adj[dep])))
+ 
+     return order  # Topological order (dependencies first)
+ 
+diff --git a/operator-mcp/tests/test_workflow_validator_deep_dag_native.py b/operator-mcp/tests/test_workflow_validator_deep_dag_native.py
+new file mode 100644
+index 0000000..63cc382
+--- /dev/null
++++ b/operator-mcp/tests/test_workflow_validator_deep_dag_native.py
+@@ -0,0 +1,54 @@
++"""First-party workflow DAG validation only; never execute steps or agents."""
++
++import unittest
++
++from operator_mcp.workflow.schema import StepDef, StepType, WorkflowDef
++from operator_mcp.workflow.validator import validate_workflow
++
++
++def chain(count: int) -> WorkflowDef:
++    steps = [
++        StepDef(
++            id=f"step_{i}", type=StepType.NOTIFY,
++            depends_on=[f"step_{i - 1}"] if i else [],
++        )
++        for i in range(count)
++    ]
++    # Legal YAML ordering: downstream tasks appear before their dependencies.
++    # This forces cycle detection to traverse the whole dependency depth.
++    return WorkflowDef(name="native_graph_contract", steps=list(reversed(steps)))
++
++
++class NativeDagValidation(unittest.TestCase):
++    def test_small_chain_is_valid_and_topologically_sorted(self):
++        result = validate_workflow(chain(4))
++        self.assertTrue(result.valid, [e.message for e in result.errors])
++        self.assertEqual(result.execution_order, [f"step_{i}" for i in range(4)])
++
++    def test_long_valid_chain_does_not_overflow_python_recursion(self):
++        result = validate_workflow(chain(1200))
++        self.assertTrue(result.valid, [e.message for e in result.errors])
++        self.assertEqual(len(result.execution_order), 1200)
++        self.assertEqual(result.execution_order[0], "step_0")
++        self.assertEqual(result.execution_order[-1], "step_1199")
++
++    def test_cycle_is_still_rejected(self):
++        wf = chain(4)
++        wf.steps[0].depends_on = ["step_3"]
++        result = validate_workflow(wf)
++        self.assertFalse(result.valid)
++        self.assertTrue(any("Dependency cycle" in e.message for e in result.errors))
++
++    def test_two_independent_roots_stay_valid(self):
++        wf = WorkflowDef(name="two_roots", steps=[
++            StepDef(id="left", type=StepType.NOTIFY),
++            StepDef(id="right", type=StepType.NOTIFY),
++            StepDef(id="join", type=StepType.NOTIFY, depends_on=["left", "right"]),
++        ])
++        result = validate_workflow(wf)
++        self.assertTrue(result.valid)
++        self.assertEqual(result.execution_order[-1], "join")
++
++
++if __name__ == "__main__":
++    unittest.main()

@@ -1,0 +1,64 @@
+diff --git a/src/runtime/rate-limiter.ts b/src/runtime/rate-limiter.ts
+index 028b162..7144783 100644
+--- a/src/runtime/rate-limiter.ts
++++ b/src/runtime/rate-limiter.ts
+@@ -136,8 +136,9 @@ export function recordEvent(harnessDir: string, key: string, now?: number): void
+ 
+   store.events.push({ key, timestamp: currentTime });
+ 
+-  // Prune events older than 1 hour to keep the store manageable
+-  pruneExpired(store, currentTime, 3600000);
++  // Preserve events for the longest supported per-day guardrail window.
++  // Pruning after only one hour silently resets the day count on every write.
++  pruneExpired(store, currentTime, 86_400_000);
+ 
+   saveRateLimits(harnessDir, store);
+ }
+diff --git a/tests/rate-day-window-native.test.mjs b/tests/rate-day-window-native.test.mjs
+new file mode 100644
+index 0000000..1247c41
+--- /dev/null
++++ b/tests/rate-day-window-native.test.mjs
+@@ -0,0 +1,42 @@
++import { test } from 'node:test';
++import assert from 'node:assert/strict';
++import { mkdtempSync, rmSync } from 'node:fs';
++import { tmpdir } from 'node:os';
++import { join } from 'node:path';
++import { recordEvent, getUsage, checkRateLimit } from '../src/runtime/rate-limiter.ts';
++
++function withStore(check) {
++  const dir = mkdtempSync(join(tmpdir(), 'phoenix-rate-window-'));
++  try { check(dir); } finally { rmSync(dir, { recursive: true, force: true }); }
++}
++
++test('day limit retains two valid requests more than one hour apart', () => withStore(dir => {
++  const now = Date.now();
++  recordEvent(dir, 'llm-calls:day', now - 2 * 60 * 60 * 1000);
++  recordEvent(dir, 'llm-calls:day', now);
++  assert.equal(getUsage(dir, 'llm-calls:day', 86_400_000, now).count, 2);
++  assert.equal(checkRateLimit(dir, {
++    key: 'llm-calls:day', max_requests: 2, window_ms: 86_400_000,
++  }, now).allowed, false);
++}));
++
++test('minute counter recording cannot erase earlier valid day-limit usage', () => withStore(dir => {
++  const now = Date.now();
++  recordEvent(dir, 'llm-calls:day', now - 3 * 60 * 60 * 1000);
++  recordEvent(dir, 'llm-calls:minute', now);
++  assert.equal(getUsage(dir, 'llm-calls:day', 86_400_000, now).count, 1);
++}));
++
++test('hour counter remains bounded by its hour even if day entries persist', () => withStore(dir => {
++  const now = Date.now();
++  recordEvent(dir, 'llm-calls:hour', now - 2 * 60 * 60 * 1000);
++  recordEvent(dir, 'llm-calls:hour', now);
++  assert.equal(getUsage(dir, 'llm-calls:hour', 3_600_000, now).count, 1);
++}));
++
++test('events older than the maximum supported day window are still discarded', () => withStore(dir => {
++  const now = Date.now();
++  recordEvent(dir, 'llm-calls:day', now - 25 * 60 * 60 * 1000);
++  recordEvent(dir, 'llm-calls:day', now);
++  assert.equal(getUsage(dir, 'llm-calls:day', 86_400_000, now).count, 1);
++}));

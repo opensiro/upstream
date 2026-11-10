@@ -1,0 +1,79 @@
+diff --git a/harness2/core/library.py b/harness2/core/library.py
+index 39e5068..f5bf650 100644
+--- a/harness2/core/library.py
++++ b/harness2/core/library.py
+@@ -37,7 +37,10 @@ from .tree import SurfaceSpec
+ 
+ 
+ def slug(task_id: str) -> str:
+-    return task_id.replace("/", "__")
++    name = task_id.replace("/", "__").replace("\\", "__")
++    if name in ("", ".", ".."):
++        raise ValueError(f"task id is not a library directory name: {task_id!r}")
++    return name
+ 
+ 
+ def has_experience(experience: dict | None) -> bool:
+@@ -51,7 +54,10 @@ def domain_dir(domain: str) -> str:
+     """One directory name for a domain, never a path: only separators and the whitespace
+     around them collapse, so a domain without one maps to itself.
+     """
+-    return re.sub(r"\s*[/\\]\s*", "__", domain).strip() or "unknown"
++    name = re.sub(r"\s*[/\\]\s*", "__", domain).strip() or "unknown"
++    if name in (".", ".."):
++        raise ValueError(f"domain is not a library directory name: {domain!r}")
++    return name
+ 
+ 
+ @dataclass
+diff --git a/tests/test_library_path_components_native.py b/tests/test_library_path_components_native.py
+new file mode 100644
+index 0000000..6b10c58
+--- /dev/null
++++ b/tests/test_library_path_components_native.py
+@@ -0,0 +1,45 @@
++"""Native path-contract checks only; no proposer, substrate or agent execution."""
++
++import tempfile
++import unittest
++from pathlib import Path
++
++from harness2.core.library import Library, domain_dir, slug
++
++
++class LibraryPathComponents(unittest.TestCase):
++    def test_regular_task_id_slash_is_still_flattened(self):
++        self.assertEqual(slug("project/issue"), "project__issue")
++
++    def test_windows_separator_is_also_flattened(self):
++        self.assertEqual(slug("project\\issue"), "project__issue")
++
++    def test_regular_domain_separator_is_still_flattened(self):
++        self.assertEqual(domain_dir("ops / tools"), "ops__tools")
++
++    def test_dot_task_name_cannot_alias_harnesses_directory(self):
++        with self.assertRaises(ValueError):
++            slug(".")
++
++    def test_dotdot_task_name_cannot_alias_parent_directory(self):
++        with self.assertRaises(ValueError):
++            slug("..")
++
++    def test_empty_task_name_cannot_alias_harnesses_directory(self):
++        with self.assertRaises(ValueError):
++            slug("")
++
++    def test_domain_parent_component_is_rejected(self):
++        with self.assertRaises(ValueError):
++            domain_dir(" .. ")
++
++    def test_library_rejects_invalid_entry_before_any_mutation(self):
++        with tempfile.TemporaryDirectory(prefix="harness2-library-test-") as tmp:
++            library = Library(root=Path(tmp), domain="safe", surface=None)
++            with self.assertRaises(ValueError):
++                library.entry_dir("..")
++            self.assertFalse((Path(tmp) / "safe").exists())
++
++
++if __name__ == "__main__":
++    unittest.main()

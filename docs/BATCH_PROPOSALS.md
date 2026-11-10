@@ -45,6 +45,26 @@ A row may include several stages, but no stage is implemented for execution
 by this component. External upstream maintainers retain all rights to accept
 or merge an external PR. Forks are not archived by this component.
 
+## Assessment-driven test provenance (separate gate)
+
+The Organization command `test S1 function: upstream contributions` has a
+stricter **assessment-derived admission gate** than this generic preview.
+See [the assessment-driven S1 test contract](ASSESSMENT_DRIVEN_S1_TEST.md).
+Before calling this preview as a test witness, read a canonical **Index
+assessment @ immutable SHA** for the target harness, identify the exact finding
+that motivates the proposed change, then independently prove upstream-native
+need, mechanism, counterfactual value and current scope.
+
+An ordinary GitHub issue without an assessment link, a low function grade
+without engineering evidence, or a convenient existing fork is **not** a
+qualifying S1 test candidate. The current draft JSON schema does not contain
+assessment provenance and `batch_proposals.py` does **not** enforce this
+extra admission rule: document it separately in the test receipt rather
+than inventing `approved_by` or adding unvalidated fields. A generic proposal
+is still valid as a standalone OSS preview, but not as this test's evidence.
+If no eligible harness assessment exists, report
+`NO_ELIGIBLE_ASSESSMENT_CANDIDATE` instead of selecting a random issue.
+
 ## Draft manifest shape
 
 Use a **local** file named `upstream-YYYYMMDD-slug.json`, up to 16 KiB.

@@ -18,6 +18,24 @@
 > [Issue #6](https://github.com/opensiro/upstream/issues/6)
 > tracks the actual activation gates.
 
+## Recovery path for actual automated forks
+
+This legacy document preserves the chronology of PR #5's REST fork client
+and PR #8's safety rollback. It does **not** mean that every future fork
+requires a new ChatGPT/MCP action. The current
+[automatic executor recovery contract](AUTOMATIC_FORK_EXECUTOR_RECOVERY.md)
+allows a separately validated **protected, batch-scoped GitHub Actions/REST
+runner**, reusing source ideas from `create_fork.py`, or a native connected
+`create_public_fork` operation. The connected ChatGPT method is optional;
+the missing **trustworthy authorization-to-executor bridge** is a blocker
+for *both* approaches.
+
+Do not reinstall the historic manual `execute=true` job or provision
+`UPSTREAM_FORK_TOKEN` merely because REST fork creation exists. Future
+credential selection must be independently restricted and validated,
+including source/destination permissions. No transport activates itself
+through this source-only design.
+
 ## What is already implemented
 
 [Initial PR #5](https://github.com/opensiro/upstream/pull/5) introduced

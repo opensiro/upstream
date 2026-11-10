@@ -1,0 +1,127 @@
+diff --git a/runtime/workspace/validation.py b/runtime/workspace/validation.py
+index 3418d9c..b026c53 100644
+--- a/runtime/workspace/validation.py
++++ b/runtime/workspace/validation.py
+@@ -67,13 +67,19 @@ class WorkspaceValidator:
+                 )
+             )
+ 
+-        # 3. Check Engine != Workspace
+-        if abs_ws.exists() and abs_eng.exists() and abs_ws == abs_eng:
++        # 3. Neither root may equal or contain the other. A nested workspace
++        # would make engine files writable through the workspace boundary.
++        roots_overlap = (
++            abs_ws == abs_eng
++            or abs_ws in abs_eng.parents
++            or abs_eng in abs_ws.parents
++        )
++        if abs_ws.exists() and abs_eng.exists() and roots_overlap:
+             issues.append(
+                 ValidationIssue(
+                     severity="error",
+                     code="ENGINE_WORKSPACE_COLLISION",
+-                    message="Workspace Root must be separate from read-only Engine Root.",
++                    message="Workspace Root and read-only Engine Root must not overlap.",
+                     target_path=abs_ws,
+                 )
+             )
+@@ -91,7 +97,7 @@ class WorkspaceValidator:
+                 )
+ 
+         # 5. Check read-only engine boundary confirmation
+-        if abs_eng.exists() and abs_eng != abs_ws:
++        if abs_eng.exists() and not roots_overlap:
+             issues.append(
+                 ValidationIssue(
+                     severity="info",
+diff --git a/test_native_workspace_overlap_unittest.py b/test_native_workspace_overlap_unittest.py
+new file mode 100644
+index 0000000..9a36989
+--- /dev/null
++++ b/test_native_workspace_overlap_unittest.py
+@@ -0,0 +1,85 @@
++"""Deterministic tests for the real workspace/engine isolation validator.
++
++Load its class body from the first-party source AST without importing the
++unrelated runtime resolver (which initializes optional agent dependencies).
++"""
++
++import ast
++import importlib.util
++import os
++import sys
++import tempfile
++import unittest
++from datetime import datetime, timezone
++from pathlib import Path
++
++
++BASE = Path(__file__).parent / "runtime/workspace"
++spec = importlib.util.spec_from_file_location("oniroute_workspace_models", BASE / "models.py")
++models = importlib.util.module_from_spec(spec)
++sys.modules[spec.name] = models
++spec.loader.exec_module(models)
++
++path = BASE / "validation.py"
++source = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
++validator_class = next(node for node in source.body if isinstance(node, ast.ClassDef) and node.name == "WorkspaceValidator")
++scope = {
++    "datetime": datetime,
++    "timezone": timezone,
++    "os": os,
++    "Path": Path,
++    "ProjectMetadata": models.ProjectMetadata,
++    "ValidationIssue": models.ValidationIssue,
++    "ValidationState": models.ValidationState,
++}
++exec(compile(ast.fix_missing_locations(ast.Module(body=[validator_class], type_ignores=[])), str(path), "exec"), scope)
++WorkspaceValidator = scope["WorkspaceValidator"]
++
++
++class NativeWorkspaceOverlapTests(unittest.TestCase):
++    def validate(self, workspace: Path, engine: Path):
++        return WorkspaceValidator().validate(workspace, engine)
++
++    def test_disjoint_roots_are_valid(self):
++        with tempfile.TemporaryDirectory() as temp:
++            base = Path(temp)
++            ws, eng = base / "ws", base / "engine"
++            ws.mkdir()
++            eng.mkdir()
++            self.assertTrue(self.validate(ws, eng).valid)
++
++    def test_equal_roots_are_rejected(self):
++        with tempfile.TemporaryDirectory() as temp:
++            self.assertFalse(self.validate(Path(temp), Path(temp)).valid)
++
++    def test_workspace_nested_inside_engine_is_rejected(self):
++        with tempfile.TemporaryDirectory() as temp:
++            eng = Path(temp) / "engine"
++            ws = eng / "user-workspace"
++            ws.mkdir(parents=True)
++            state = self.validate(ws, eng)
++            self.assertFalse(state.valid)
++            self.assertIn("ENGINE_WORKSPACE_COLLISION", [x.code for x in state.issues])
++
++    def test_engine_nested_inside_workspace_is_rejected(self):
++        with tempfile.TemporaryDirectory() as temp:
++            ws = Path(temp) / "ws"
++            eng = ws / "engine"
++            eng.mkdir(parents=True)
++            state = self.validate(ws, eng)
++            self.assertFalse(state.valid)
++            self.assertIn("ENGINE_WORKSPACE_COLLISION", [x.code for x in state.issues])
++
++    def test_symlink_alias_to_overlapping_workspace_is_rejected(self):
++        with tempfile.TemporaryDirectory() as temp:
++            root = Path(temp)
++            eng = root / "engine"
++            ws = eng / "subdir"
++            ws.mkdir(parents=True)
++            alias = root / "workspace-alias"
++            alias.symlink_to(ws, target_is_directory=True)
++            self.assertFalse(self.validate(alias, eng).valid)
++
++
++if __name__ == "__main__":
++    unittest.main()

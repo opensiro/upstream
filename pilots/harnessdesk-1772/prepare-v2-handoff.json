@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "kind": "UPSTREAM_MULTIFILE_PREPARE_HANDOFF",
+  "status": "ACTION_PREPARED_NOT_AUTHORIZED",
+  "authorization": "NO_VERIFIABLE_STAGE_GRANT",
+  "execution_available": false,
+  "candidate_id": "harnessdesk-1772",
+  "stage": "prepare_contribution",
+  "upstream_source": "HarnessDesk/HarnessDesk",
+  "upstream_issue": "https://github.com/HarnessDesk/HarnessDesk/issues/1772",
+  "source_base_branch": "development",
+  "observed_source_base_sha": "97b13afc819ab7c1a0f8cd20630a428a34c2d47a",
+  "working_fork": "opensiro-contributions/HarnessDesk",
+  "observed_fork_development_sha": "4029e95189c61485f934f158c6725ef6eeb7ef35",
+  "fork_parent_verified": "HarnessDesk/HarnessDesk",
+  "connected_actor_observed": "xLagerFeuer",
+  "proposed_contribution_branch": "opensiro/fix-toolgateway-1772",
+  "contribution_branch_observation": "NOT_FOUND_BY_AUTHENTICATED_GET",
+  "patch_repository": "opensiro/upstream",
+  "patch_repository_commit": "0252791c574bbe407aefd9ae89b3a64441cf3a4b",
+  "patch_repository_path": "pilots/harnessdesk-1772/tool-gateway-ownership-fix-v2.patch",
+  "patch_sha256": "12b5c7e55a6f730fb9a2465ca30dd47321690c87c0d887e7b8c9d6990ec186e7",
+  "changed_paths": [
+    "packages/server/src/tool-gateway.ts",
+    "packages/server/test/tool-gateway-ownership.test.ts"
+  ],
+  "verified_tests": {
+    "toolchain": "Node 22.19.0 / pnpm 10.4.1",
+    "source_sha": "97b13afc819ab7c1a0f8cd20630a428a34c2d47a",
+    "build_node": "PASS",
+    "gateway_tests_pass": 17,
+    "gateway_tests_fail": 0,
+    "git_diff_check": "PASS"
+  },
+  "unverified": [
+    "macOS/APFS link(2) actual runtime",
+    "full pnpm check:push (historical run terminated)",
+    "external upstream CI",
+    "updated current source/fork refs at future execution time"
+  ],
+  "blockers": [
+    "Existing proposal_only manifest has unresolved actor/approval blockers and cannot by itself issue a valid stage grant.",
+    "Current connected_stage_adapter.py is explicitly limited to a single new test file; this is an existing two-file production patch, and cannot be silently routed through the old adapter.",
+    "No authenticated exact prepare_contribution grant binds this actor, source/fork SHAs, proposed branch and the patch bytes.",
+    "Fork's development branch is behind current external source; derive the new contribution branch from current upstream development after fresh checks.",
+    "External PR publication is retained by the human operator; no POST is part of this handoff."
+  ],
+  "allowed_without_grant": [
+    "refresh public issue/source/fork branch reads",
+    "validate patch checksum and apply-cleanly in isolated checkout",
+    "run local tests and source-only review"
+  ],
+  "prohibited_without_grant": [
+    "push patch to organization fork",
+    "create/force-update organization fork contribution branch",
+    "publish external upstream PR"
+  ],
+  "evidence": "pilots/harnessdesk-1772/IMPLEMENTATION_REVIEW_V2_2026-10-20.md"
+}

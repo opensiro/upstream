@@ -11,6 +11,23 @@ on:
         description: 'Optional destination fork name'
         required: false
         type: string
+      working_branch:
+        description: 'Required upstream working branch; no silent default branch substitution'
+        required: true
+        type: string
+      expected_sha:
+        description: 'Exact pinned 40-hex working branch SHA, optional for observation only'
+        required: false
+        type: string
+      expected_license:
+        description: 'Independently reviewed SPDX identifier, optional for observation only'
+        required: false
+        type: string
+      all_branches:
+        description: 'Read-only intended copy mode for nondefault working branch'
+        required: true
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -24,12 +41,23 @@ jobs:
         with:
           persist-credentials: false
           ref: main
-      - name: Preview only; this workflow cannot create forks
+      - name: Read-only source, branch and destination preflight (no fork creation)
         env:
           FORK_SOURCE: ${{ inputs.source }}
           FORK_NAME: ${{ inputs.fork_name }}
+          WORKING_BRANCH: ${{ inputs.working_branch }}
+          EXPECTED_SHA: ${{ inputs.expected_sha }}
+          EXPECTED_LICENSE: ${{ inputs.expected_license }}
+          ALL_BRANCHES: ${{ inputs.all_branches }}
         shell: bash
         run: |
-          args=(--source "$FORK_SOURCE")
-          if [[ -n "$FORK_NAME" ]]; then args+=(--fork-name "$FORK_NAME"); fi
-          python3 scripts/create_fork.py "${args[@]}"
+          args=(--source "$FORK_SOURCE" --working-branch "$WORKING_BRANCH")
+          if [[ -n "$FORK_NAME" ]]; then
+            args+=(--fork-name "$FORK_NAME")
+          else
+            args+=(--fork-name "${FORK_SOURCE##*/}")
+          fi
+          if [[ -n "$EXPECTED_SHA" ]]; then args+=(--expected-sha "$EXPECTED_SHA"); fi
+          if [[ -n "$EXPECTED_LICENSE" ]]; then args+=(--expected-license "$EXPECTED_LICENSE"); fi
+          if [[ "$ALL_BRANCHES" == "true" ]]; then args+=(--all-branches); fi
+          python3 scripts/fork_public_preflight.py "${args[@]}"

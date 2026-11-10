@@ -1,40 +1,41 @@
 # Cognee Community — OpenSiro contribution
 
-## Current upstream submission (verified 2026-10-20)
-
-- **Outcome:** `submitted` — [Cognee Community PR #434](https://github.com/topoteretes/cognee-community/pull/434) is **open**, not Draft and not merged, targeting upstream `main`. Upstream [proposal Issue #435](https://github.com/topoteretes/cognee-community/issues/435) is open.
-- **Submitted candidate:** [`8ec814d`](https://github.com/opensiro/cognee-community/commit/8ec814d146e4cca9dd1c3ee6fb71123f94aebec5), **3 DCO-signed commits**, **17 connector-only changed files**; base Cognee Community `main@472e9484`.
-- **Tests:** [OpenSiro fork-hosted clean Python 3.11 CI PASS](https://github.com/opensiro/cognee-community/actions/runs/39292809116) on source/test-identical review branch; [Ruff CI PASS](https://github.com/opensiro/cognee-community/actions/runs/39292816378). There are **no upstream PR check runs reported** yet; fork evidence is not upstream CI.
-- **Upstream response:** no recorded maintainer review or approval yet. `accepted_at` remains null; no merge, Mergetober assignment or prize eligibility implied. Fork lifecycle stays `active`.
-- **Issue text note:** Issue #435 says no upstream implementation PR had been opened; this line became stale when PR #434 was published. The two public records should be cross-linked.
-
-The B23 handoff and B21 research checkpoints below are **historical preparation evidence**, not the current submission status.
-
-## B23 current manual-submission checkpoint (2026-10-19)
-
-- Ready upstream-main-based candidate: [opensiro/cognee-community submission/opensiro-vsm-source-ready-20261019](https://github.com/opensiro/cognee-community/tree/submission/opensiro-vsm-source-ready-20261019), HEAD 8ec814d146e4cca9dd1c3ee6fb71123f94aebec5; three DCO-signed commits, 17 connector-only files.
-- Clean Python 3.11 installed-wheel / real import / audit / search CI: [SUCCESS](https://github.com/opensiro/cognee-community/actions/runs/39292809116).
-- Ready-for-manual-contact packet: [Issue and PR drafts](UPSTREAM_SUBMISSION_PACKET_20261019.md). Earlier B21 data below is retained as historical state, not the current code reference.
-- External Cognee issue/PR at this historical checkpoint: **not submitted**; superseded by public Issue #435 and PR #434 on 2026-10-19 UTC.
-
-
 - **Upstream:** [topoteretes/cognee-community](https://github.com/topoteretes/cognee-community)
 - **Working fork:** [opensiro/cognee-community](https://github.com/opensiro/cognee-community)
 - **Focused review candidate:** [feat/opensiro-vsm-source-review](https://github.com/opensiro/cognee-community/tree/feat/opensiro-vsm-source-review), [commit d176484](https://github.com/opensiro/cognee-community/commit/d176484e85da55c84450d67040cb4a2d096353c7) — **B20 Python 3.11 clean wheel install / pip check / 32 unit tests / real three-record ingestion / independent audit PASS** ([GitHub Actions run #1](https://github.com/opensiro/cognee-community/actions/runs/38942238109))
 - **Full research branch:** [feat/opensiro-vsm-source](https://github.com/opensiro/cognee-community/tree/feat/opensiro-vsm-source), [commit 74e4321](https://github.com/opensiro/cognee-community/commit/74e43217e08411951f0c68cfbf2e9c78ab6227d4) — B13 533/533 included corpus; B14–B16 real SIGKILL cases
 - **Contribution:** canonical VSM assessment source connector
-- **Upstream status:** **not submitted** (no issue assignment or upstream PR)
+- **Upstream status (2026-10-22):** [implementation PR #434 — open](https://github.com/topoteretes/cognee-community/pull/434); [issue #435 — open](https://github.com/topoteretes/cognee-community/issues/435). No merge or maintainer acceptance claimed.
 - **Fork lifecycle:** **active**
 
-## Maintainer handoff (B21)
+## B23 submission provenance (historical evidence)
 
-[**Prepared handoff / issue inquiry / one-PR draft**](MAINTAINER_HANDOFF.md). This is **OpenSiro-only**, with no submitted upstream PR, issue or comment. It distinguishes ordinary OSS acceptance from **Mergetober 2026**, which requires an issue assignment **before work begins**; OpenSiro implementation was already underway without an assignment, so **contest eligibility must not be claimed**. The contest also requires an original public real-use blog. All prior source/build evidence and the successful B20 Python 3.11 run are linked in that handoff. Future upstream contact requires explicit user authorization.
+The [2026-10-19 B23 submission packet](UPSTREAM_SUBMISSION_PACKET_20261019.md)
+preserves the original source/branch, DCO and target-template inspection, and
+clean Python 3.11 CI receipts for the later-published [Cognee #434](https://github.com/topoteretes/cognee-community/pull/434).
+The source candidate was `opensiro/cognee-community@8ec814d146e4cca9dd1c3ee6fb71123f94aebec5`:
+three signed-off commits and 17 connector-local changed files. The recorded
+fork CI passed 43 unit tests, a real three-assessment Cognee import and the
+source/provenance audit. These are **dated fork checks**, not current upstream
+CI, deployed benefit or maintainer approval.
+
+This is a **general connector integration**, not a corrective intervention
+derived from an assessment of Cognee as a harness. Do not attach the
+harness-specific [AI disclosure v2](../../docs/AI_ASSISTED_PR_DISCLOSURE.md)
+by fabricating an assessment identity. Its external maintenance and any
+further publication require their own current source/authority checks.
+
+The following B10–B21 evidence and handoff records predate the submitted PR; their historical "not submitted" statements describe those earlier stages, not the current lifecycle.
+
+## Maintainer handoff (B21, historical pre-submission)
+
+[**Prepared handoff / issue inquiry / one-PR draft**](MAINTAINER_HANDOFF.md) documents the **pre-submission stage**. The subsequent upstream PR #434 and issue #435 are linked above. The Mergetober 2026 issue-assignment-before-work requirement was not established for the earlier implementation, so **contest eligibility must not be claimed**. All prior source/build evidence and the successful B20 Python 3.11 run are linked in that historical handoff.
 
 ## Review scope decision (B17)
 
 A **separate branch based on the untouched upstream-synchronized main** contains **one source-first connector** with these shipping modules: pinned canonical source reader, native Cognee graph/lexical projection, required single-host stage-attempt claim (created before any Cognee write), and independent read-only source/provenance/grade audit. It contains a minimal CLI, local example, tests and packaging. The Cognee 1.6.4 integration was rerun against a clean three-assessment local dataset: **3/3 documents, 69 nodes, 48 edges, 18/18 literal grades, correct source refs and persisted stage marker; new-process independent audit PASS**. **32/32 unit tests**, Ruff lint/format and Apache-2.0 licensed wheel build PASS. B18 additionally verified that a missing dataset is rejected without creating a new one, and that an existing dataset still passes native independent audit. The review commits are DCO-signed off with the same GitHub name and noreply email as their commit authors. No upstream CI or maintainer review claimed.
 
-Full B10–B16 experiments, manual destructive SIGKILL scripts, and the B11 atomic active-generation/pointer implementation **remain exclusively on the original research branch**. The review candidate does not ship activation infrastructure, automatic sync, distributed fencing, test-only fault injection, or any hosted runtime. This distinction avoids confusing OpenSiro research evidence with a Cognee-ready production platform. Contribution status stays `preparing` and `upstream_pr: null`.
+Full B10–B16 experiments, manual destructive SIGKILL scripts, and the B11 atomic active-generation/pointer implementation **remain exclusively on the original research branch**. The review candidate does not ship activation infrastructure, automatic sync, distributed fencing, test-only fault injection, or any hosted runtime. This distinction avoids confusing OpenSiro research evidence with a Cognee-ready production platform. At this **B17 stage**, contribution status was `preparing`; see the current PR-linked status above.
 
 ## Compatibility, licensing and DCO review (B18)
 
@@ -42,7 +43,7 @@ Reviewed against [Cognee Community contributing instructions](https://github.com
 
 **Real B18 finding/fix:** Cognee's `resolve_authorized_user_dataset` creates missing datasets, so independent audit previously risked creating a dataset. The review connector now requires a **pre-existing dataset owned by Cognee's default user** for audit. Real separate-process test: nonexistent dataset rejected, total dataset count unchanged **1 → 1**; previously imported 3 assessments still independently audited **PASS**, 18/18 literal grades. Invalid selections also fail before SDK access. This limits audit to default-user-owned local datasets, not arbitrary shared access grants. B18 passed **29/29 unit tests**, Ruff check/format and wheel metadata/license inclusion checks.
 
-Remaining publication gates: no real upstream CI result; pinned Cognee SDK **1.6.4** is the only tested version; maintainer acceptance/issue assignment (if applicable to the event) remains unverified, and **no upstream PR** has been opened.
+Remaining B18 evidence limitations: no real upstream CI result; pinned Cognee SDK **1.6.4** is the only tested version; maintainer acceptance/issue assignment (if applicable to the event) remained unverified. At the time of B18 no upstream PR had been opened; the later PR #434 is linked above.
 
 ## Installed wheel and Cognee API contract (B19)
 

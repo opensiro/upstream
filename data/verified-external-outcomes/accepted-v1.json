@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "scope": "opensiro/upstream",
+  "accepted": [
+    {
+      "intervention_id": "improvement:agent-fleet-native-lease-contract",
+      "source_pr_urls": [
+        "https://github.com/chankov/agent-fleet/pull/43"
+      ],
+      "effective_pr_url": "https://github.com/chankov/agent-fleet/pull/43",
+      "merge_commit_sha": "212bbf6e2f26addb24c448070f8c8ac404da376e",
+      "merged_at": "2026-10-24T20:47:51Z",
+      "native_receipt": "https://github.com/opensiro/upstream/actions/runs/40093167700",
+      "decision_actor": "xLagerFeuer",
+      "decision_pr_url": "https://github.com/opensiro/upstream/pull/177",
+      "decision": "ACCEPTED_MERGED_CHANGE_ONLY",
+      "benefit_claim": "NOT_MEASURED"
+    },
+    {
+      "intervention_id": "improvement:citadel-native-claim-exclusivity",
+      "source_pr_urls": [
+        "https://github.com/SethGammon/Citadel/pull/366"
+      ],
+      "effective_pr_url": "https://github.com/SethGammon/Citadel/pull/366",
+      "merge_commit_sha": "45727eb8f54d616686e51f049e7b11035af35e96",
+      "merged_at": "2026-10-25T21:26:14Z",
+      "native_receipt": "https://github.com/opensiro/upstream/actions/runs/40039135313",
+      "decision_actor": "xLagerFeuer",
+      "decision_pr_url": "https://github.com/opensiro/upstream/pull/178",
+      "decision": "ACCEPTED_MERGED_CHANGE_ONLY",
+      "benefit_claim": "NOT_MEASURED"
+    }
+  ]
+}

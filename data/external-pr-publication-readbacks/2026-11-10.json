@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-11-10",
+  "source": "authenticated GitHub PR GET readback",
+  "authenticated_actor": "xLagerFeuer",
+  "metric_boundary": "publication evidence only; neither third-party acceptance nor verified adoption",
+  "cases": [
+    {
+      "id": "crewdeck",
+      "repository": "mnbresearch/crewdeck",
+      "public_fork": "opensiro-contributions/crewdeck",
+      "pr_url": "https://github.com/mnbresearch/crewdeck/pull/1",
+      "head_sha": "2346685284783b3317215dd3e8892a9accb07c46",
+      "pr_commits": 1
+    },
+    {
+      "id": "talktorana-agent-harness",
+      "repository": "talktorana/agent-harness",
+      "public_fork": "opensiro-contributions/talktorana--agent-harness",
+      "pr_url": "https://github.com/talktorana/agent-harness/pull/1",
+      "head_sha": "a5a22f3ae972dbb4429c07ea853886ba44a77376",
+      "pr_commits": 1
+    },
+    {
+      "id": "dark-factory",
+      "repository": "ruslantrachuk/dark-factory",
+      "public_fork": "opensiro-contributions/dark-factory",
+      "pr_url": "https://github.com/ruslantrachuk/dark-factory/pull/106",
+      "head_sha": "bbcd33077bb94befe9599f6f62642caac1cfc885",
+      "pr_commits": 1
+    },
+    {
+      "id": "novacode",
+      "repository": "gczhuang-cmd/NovaCode",
+      "public_fork": "opensiro-contributions/NovaCode",
+      "pr_url": "https://github.com/gczhuang-cmd/NovaCode/pull/1",
+      "head_sha": "e1bd8a0090db729bc7578d06c858c2d6845de4b5",
+      "pr_commits": 1
+    },
+    {
+      "id": "wanman-task-admission-race",
+      "repository": "chekusu/wanman",
+      "public_fork": "opensiro-contributions/wanman",
+      "pr_url": "https://github.com/chekusu/wanman/pull/38",
+      "head_sha": "b6f8aae137e0452d8823fae9b7e45cc7f7098226",
+      "pr_commits": 1
+    },
+    {
+      "id": "lacp-nested-path-reservation-alias",
+      "repository": "0xNyk/lacp",
+      "public_fork": "opensiro-contributions/lacp",
+      "pr_url": "https://github.com/0xNyk/lacp/pull/128",
+      "head_sha": "17259b8e8b66fcb4fd201e3611d189b63bf40a45",
+      "pr_commits": 1
+    },
+    {
+      "id": "friday-equivalent-file-claim-alias",
+      "repository": "splashxmoon/friday",
+      "public_fork": "opensiro-contributions/friday",
+      "pr_url": "https://github.com/splashxmoon/friday/pull/23",
+      "head_sha": "0b98947ee5077a08de485b22d13830bcaf9adf90",
+      "pr_commits": 1
+    }
+  ]
+}

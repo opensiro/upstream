@@ -12,6 +12,43 @@ remains a separate S5 boundary decision.
 
 The [OSM autonomy-transfer design](OSM_DELEGATION_DESIGN.md) proposes **future standing local decision rights** and human-owned external PR publication. It is not an authorization source: this handoff's current exact-stage consent, host/connector, source preflight and no-write fail-closed contract remain operative until a distinct authorized grant and implementation replace them.
 
+## Assessment-driven S1 test versus generic preparation
+
+For `test S1 function: upstream contributions`, the Control Plane must first
+follow the [assessment-driven test contract](ASSESSMENT_DRIVEN_S1_TEST.md):
+**pinned Index harness assessment → concrete finding → independently verified
+upstream-native need/fit → scoped proposal**. No prior Cognee fork or unrelated
+GitHub issue may bypass that intake. Preserve Index provenance separately from
+`proposal.evidence_url`. A rejected finding or no suitable assessment-derived
+candidate closes the discovery test without selecting another target.
+
+The generic `contribute to other harnesses` and explicitly targeted
+`prepare upstream contribution <source/issue>` routes remain available
+independently; neither counts as an assessment-driven S1 test by itself. This
+handoff still requires exact operator decision and trusted connected rights
+before every real write. It does **not** enforce the Index-evidence test gate
+in Python or grant any rights by merely providing a document link.
+
+## Fork creation (separate source-prepared stage)
+
+[Merged fork-stage adapter](../scripts/connected_fork_adapter.py) supports
+an exact, separate `create_public_fork` stage in `opensiro-contributions`.
+It requires an explicit source working branch and pinned SHA, plus a
+provider-supported branch copy strategy. It preflights the source branch
+again after host authorization and verifies the target branch at the pinned
+SHA in the newly created fork, together with parent, visibility and push
+rights. For the [HarnessDesk #1772 pilot](../pilots/harnessdesk-1772/README.md),
+the needed branch is `development`, not default `main` (and the copy mode
+must be `default_branch_only=False`).
+
+This implementation is **source-only**. The connected GitHub provider has
+no native create-fork method and no trusted current-session fork-authorize
+port; mock CI does not activate any write. See the
+[fork contract](CONNECTED_FORK_ADAPTER.md) and
+[Upstream #28](https://github.com/opensiro/upstream/issues/28).
+It does not change the separately authorized `prepare_contribution`
+flow or human-owned external PR publication.
+
 ## End-to-end operator flow (bounded)
 
 1. **Discover** via `contribute to other harnesses`. Refresh the external
@@ -25,7 +62,7 @@ The [OSM autonomy-transfer design](OSM_DELEGATION_DESIGN.md) proposes **future s
    [`control_plane_handoff.py`](../scripts/control_plane_handoff.py).
    The packet says `ACTION_PREPARED_NOT_AUTHORIZED`, binds the proposed
    revision/selection digests and the exact working repository, source branch
-   SHA, new branch, root `tests/` or package-local `packages/.../tests/` path and test-content SHA-256.
+   SHA, new branch, root `tests/` or package-local `packages/.../test(s)/` path and test-content SHA-256.
 4. **Operator decision:** the conversation presents the precise packet and
    asks for a separate explicit **approve or decline** decision on that exact
    action. A generic `continue`, `подтверждаю`, draft JSON field, hash,
