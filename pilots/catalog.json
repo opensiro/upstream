@@ -5,7 +5,7 @@
   "generated_from": "pilots/ direct subdirectories and their preserved files",
   "counts": {
     "pilot_directories": 68,
-    "artifact_files": 187,
+    "artifact_files": 188,
     "historical_directories": 66,
     "new_directories": 2,
     "by_kind": {
@@ -424,7 +424,7 @@
         "receipt": 1,
         "native_code": 1,
         "fixture_or_recipe": 4,
-        "other": 5
+        "other": 6
       },
       "files": [
         "ASSESSMENT_LINKAGE_2026-10-20.md",
@@ -434,6 +434,7 @@
         "PREPARE_V2_HANDOFF.md",
         "README.md",
         "UNPUBLISHED_PR_PACKAGE_20261020.md",
+        "UNPUBLISHED_UPSTREAM_PR_DRAFT_V2.md",
         "prepare-v2-20261020-24aa8d7.json",
         "prepare-v2-20261020-81d5e34-shared.json",
         "prepare-v2-handoff.json",
