@@ -117,7 +117,7 @@ PR and an already-authorized finite-cohort case):
    manufacture a passing receipt.
 5. **Disclose agent-led work without displacing the original template.**
    Append the [OpenSiro AI-assisted PR disclosure](AI_ASSISTED_PR_DISCLOSURE.md)
-   verbatim after the target's required sections. The current v1 text states
+   verbatim after the target's required sections. The current v2 text states
    that publication is temporarily human-approved while the owner monitors
    pipeline errors; it makes no claim of human technical review. Do not
    describe the present publication as fully autonomous. A future fully
@@ -161,6 +161,12 @@ not exist, its SHA differs, the fork is mismatched/unwritable, a PR already
 exists, or the comparison has no file changes, it **fails closed** with
 `PR_BLOCKED_NO_WRITE` and a nonzero exit. Its JSON digest is **not**
 an authorization token or a signed permit.
+
+The `--body-file` is a **local, transient preflight input** assembled from
+the verified contributor-fork diff and current target template. It need not,
+and ordinarily should not, be committed as `reports/*-pr-body.md` or
+packaged in a documentation-only `opensiro/upstream` PR. Only a real
+external publication readback becomes a reviewed PR lifecycle record here.
 
 **Why REST rather than `gh pr create --head ORG:branch`?**
 The [GitHub CLI manual](https://cli.github.com/manual/gh_pr_create)

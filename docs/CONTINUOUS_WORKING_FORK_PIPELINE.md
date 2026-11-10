@@ -65,7 +65,9 @@ contains a tested contribution.
 3. **Technical change:** keep the native patch, its tests and independent
    execution receipt in Upstream. At `AWAITING_EXTERNAL`, emit a workspace
    preparation intent pointing to the same source and patch. Reconcile
-   existing third-party PRs and fork state first.
+   existing third-party PRs and fork state first. Upstream's patch is an
+   attributable evidence packet, **not the live candidate PR diff**; avoid
+   repetitive internal PRs containing only a copy of a future PR body.
 4. **Fork preparation, conditionally executable:** a **trusted, actor-bound
    execution host** verifies exact source, license, branch, SHA, parent,
    visibility, destination permissions, and its one-use create/prepare-stage
@@ -74,9 +76,14 @@ contains a tested contribution.
    allowed native CI. Read back the commit and record its attributable SHA.
    The next technical change must update that working branch under a fresh
    bound stage decision and drift checks; no detached private side queue.
+   The candidate diff lives on this **source-matched contributor fork**, not
+   in an `opensiro/upstream` documentation or PR-body staging branch.
 5. **Human release decision:** show the exact changed files, test receipt,
    fork branch, license/contributor conditions, target base and draft external
-   PR body to a human. Only after a **specific human approval** may the
+   PR body to a human. Assemble that final body **from the checked fork diff**,
+   the target's latest PR template and the disclosure v2; a stored Upstream
+   prose proposal is never the publication payload or an authorization.
+   Only after a **specific human approval** may the
    trusted publisher create that external PR. No implied approval from a
    batch command, internal PR, prior approvals, or the finite 34-case mandate.
    The external maintainer alone decides acceptance or merge.

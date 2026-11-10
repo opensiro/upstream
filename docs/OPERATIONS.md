@@ -6,9 +6,10 @@ Use [UPSTREAMING.md](../UPSTREAMING.md) for data ownership and permission bounda
 
 1. Bootstrap from [Organization START_HERE](https://github.com/opensiro/vsm-oss-organization/blob/main/START_HERE.md), follow the owner map and the exact task/PR.
 2. Inspect the source SHA, license and native test contract; reserve/collision-check a source only under the actual [batch policy](ASSESSMENT_SOURCE_RESERVATIONS.md).
-3. Prepare a minimal patch and native before/after tests in a reviewable OpenSiro PR.
-4. Validate local ledgers and generated views. CI passing does not imply external acceptance or an S5 grant.
-5. Separate the reviewable internal merge, external PR submission, PR repair, and eventual fork archival as distinct decision points.
+3. Retain source-pinned patch/test receipts in Upstream; use a reviewable internal PR only for material evidence or registry changes. Do **not** open an internal PR just to hold a future external PR description.
+4. Where a [trusted stage grant](CONTINUOUS_WORKING_FORK_PIPELINE.md) is effective, prepare and validate the actual code/tests in the matching `opensiro-contributions/<target>` fork's `opensiro/...` branch. Otherwise preserve the precise permission blocker; do not replace a missing fork/branch write with a documentation-only "publication" wave.
+5. Prepare the final external title/body from the tested fork diff and target-native PR form, obtain its separate human publication decision, publish only when permitted, and record the GitHub readback in the local registry/watchlist.
+6. Validate local ledgers and generated views. CI passing does not imply external acceptance or an S5 grant. Keep internal merge, fork preparation, external PR submission, repair, and eventual fork archival distinct.
 
 ## External native CI placement
 
