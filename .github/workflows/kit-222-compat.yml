@@ -1,0 +1,118 @@
+name: Kit #222 original feature and lint compatibility
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/kit-222-compat.yml'
+      - 'pilots/kit-222/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kit-222-compat-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  default-and-full-feature-linux:
+    name: Kit native default tests and all-features lint
+    runs-on: ubuntu-24.04
+    timeout-minutes: 65
+    env:
+      CARGO_TERM_COLOR: always
+      CARGO_INCREMENTAL: "0"
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          path: opensiro
+          persist-credentials: false
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: speakeasy-api/kit
+          ref: 8f9f08a2b2088381f1cb106dcb9129378f8f0b4e
+          path: kit
+          persist-credentials: false
+      - name: Verify immutable native source and exact proposed combined diff
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C kit rev-parse HEAD)" = '8f9f08a2b2088381f1cb106dcb9129378f8f0b4e'
+          p="$GITHUB_WORKSPACE/opensiro/pilots/kit-222/kit-222-upstream-combined.patch"
+          test "$(sha256sum "$p" | cut -d' ' -f1)" = 'cc997c7ee350db49c4a4f03789da25a3a4a8760281fefcc178e3a71c6b972389'
+          git -C kit apply --check "$p"
+          git -C kit apply "$p"
+          git -C kit diff --check
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: '1.99'
+          components: rustfmt,clippy
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: kit
+      - name: Install original upstream Linux native build headers
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends build-essential cmake pkg-config libasound2-dev libpulse-dev
+      - name: Original upstream strict Clippy all features
+        working-directory: kit
+        run: cargo clippy --locked --all-targets --all-features -- -D warnings
+      - name: Original upstream native default-feature tests
+        working-directory: kit
+        run: cargo test --locked
+      - name: Native formatting check
+        working-directory: kit
+        run: cargo fmt --all -- --check
+
+  macos-config-regression:
+    name: Kit macOS native config regression and offline CLI
+    runs-on: macos-15
+    timeout-minutes: 65
+    env:
+      CARGO_TERM_COLOR: always
+      CARGO_INCREMENTAL: "0"
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          path: opensiro
+          persist-credentials: false
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: speakeasy-api/kit
+          ref: 8f9f08a2b2088381f1cb106dcb9129378f8f0b4e
+          path: kit
+          persist-credentials: false
+      - name: Verify original source and frozen patch on macOS
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C kit rev-parse HEAD)" = '8f9f08a2b2088381f1cb106dcb9129378f8f0b4e'
+          p="$GITHUB_WORKSPACE/opensiro/pilots/kit-222/kit-222-upstream-combined.patch"
+          test "$(shasum -a 256 "$p" | cut -d' ' -f1)" = 'cc997c7ee350db49c4a4f03789da25a3a4a8760281fefcc178e3a71c6b972389'
+          git -C kit apply --check "$p"
+          git -C kit apply "$p"
+          git -C kit diff --check
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: '1.99'
+          components: rustfmt
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: kit
+      - name: New real Rust config tests on macOS
+        working-directory: kit
+        run: cargo test --no-default-features --bin kit --locked partial_subagent_harness -- --nocapture
+      - name: Compiled Kit sessions with issue TOML on macOS (no provider)
+        working-directory: kit
+        shell: bash
+        run: |
+          set -euo pipefail
+          cargo build --no-default-features --bin kit --locked
+          home="$RUNNER_TEMP/kit222-macos-home"
+          mkdir -p "$home/.kit"
+          printf '%s\n' '[acp.claude]' "command = 'true'" '' '[subagent.harnesses."acp.claude".models]' "fable = 'example-model'" > "$home/.kit/config.toml"
+          cp "$home/.kit/config.toml" "$RUNNER_TEMP/kit222-macos-original.toml"
+          HOME="$home" ./target/debug/kit sessions --root "$home" > "$RUNNER_TEMP/kit222-macos.stdout" 2> "$RUNNER_TEMP/kit222-macos.stderr"
+          grep -F 'missing `subagent.harness`' "$RUNNER_TEMP/kit222-macos.stderr"
+          cmp "$home/.kit/config.toml" "$RUNNER_TEMP/kit222-macos-original.toml"
+          echo 'MACOS_NATIVE_KIT_SESSIONS=RECOVERED_WITH_WARNING'
