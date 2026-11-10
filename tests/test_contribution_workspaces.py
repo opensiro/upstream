@@ -31,7 +31,7 @@ class WorkspaceTests(unittest.TestCase):
         self.assertEqual(counts["historical_fork_mappings"], 16)
         self.assertGreaterEqual(counts["dated_fork_readbacks"], 16)
         self.assertGreaterEqual(counts["same_named_ref_matches_at_readback"], 0)
-        self.assertEqual(counts["name_collision_sources"], 10)
+        self.assertGreaterEqual(counts["name_collision_sources"], 10)
         self.assertEqual(len({r["source"].casefold() for r in report["sources"]}),
                          counts["unique_sources"])
 

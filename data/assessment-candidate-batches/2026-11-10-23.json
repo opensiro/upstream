@@ -1,0 +1,196 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-10-23",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "46219bf103b0b122d86abc3ca70ae3d8bc820e2c",
+  "frozen_at": "2026-11-10",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "UPSTREAM UPGRADE BATCH 23, explicit operator size ten. Next ten included Index S1=A/S2=C assessment source identities by reviewed_at descending, source-disjoint from all 125 sources in integrated batches 01-22 and from current open Upstream/Index PR titles and source claims checked at intake. Exact canonical Index main pinned; prospective hypotheses checkpointed before inspecting fresh target code, issues or PRs. Screening questions are not defect, benefit, runner or external-publication claims.",
+  "candidates": [
+    {
+      "id": "zleap-conversation-cross-service-serialization",
+      "assessment_path": "assessments/zl/zleap-agent.md",
+      "source": "Zleap-AI/Zleap-Agent",
+      "review_ref": "8aa5f07a20c535687ee39c6dccade7869ae27fad",
+      "reviewed_at": "2026-10-30",
+      "function": "S2",
+      "finding": "Check whether two supported Web requests for the same durable conversation instantiate separate ConversationService mutexes and admit overlapping load/run/persist sections, despite the worker-scoped keyed mutex.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PASS", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/zl/zleap-agent.md",
+        "https://github.com/opensiro/upstream/commit/02b24e372aa5f6158e6c37623626e17bc104b181",
+        "https://github.com/Zleap-AI/Zleap-Agent/blob/8aa5f07a20c535687ee39c6dccade7869ae27fad/packages/web/app/api/chat/route.ts",
+        "https://github.com/Zleap-AI/Zleap-Agent/blob/8aa5f07a20c535687ee39c6dccade7869ae27fad/packages/agent/src/conversation/service.ts"
+      ],
+      "screening_result": "Web route constructs a new ConversationService for each request backed by a shared store; KeyedMutex is allocated per service instance. Overlapping same-conversation requests plausibly bypass local critical-section coordination, but supported multi-instance deployment semantics and a first-party concurrent request reproducer were not established. Static screen only.",
+      "blocker": "Require a bounded supported two-request same-conversation native fixture and an accepted single-worker versus cross-worker locking scope before a safe source-native change."
+    },
+    {
+      "id": "wee-delegation-cancel-cleanup",
+      "assessment_path": "assessments/we/wee-orchestrator.md",
+      "source": "leprachuan/Wee-Orchestrator",
+      "review_ref": "4f34d5737910098c79f2ee42d0f3f383cfca830f",
+      "reviewed_at": "2026-10-30",
+      "function": "S2",
+      "finding": "Check whether cancellation or failure during delegated domain-agent execution can skip ephemeral session-map cleanup or overwrite the caller's retained agent/session, despite the normal unique-key isolation path.",
+      "stage": "AWAITING_EXTERNAL",
+      "origin": "ASSESSMENT_DERIVED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/we/wee-orchestrator.md",
+        "https://github.com/opensiro/upstream/commit/02b24e372aa5f6158e6c37623626e17bc104b181",
+        "https://github.com/leprachuan/Wee-Orchestrator/blob/4f34d5737910098c79f2ee42d0f3f383cfca830f/agent_manager.py",
+        "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-23-20261110/pilots/wee-delegation-s2/INDEPENDENT_HOST_RECEIPT_2026-11-10.md"
+      ],
+      "screening_result": "A failure in _dispatch_single_runtime escapes before the post-dispatch removal of the ephemeral delegation session. Distinct dev-alpha-2 native runner f540ff69-d09f-4249-9b0a-37505e1e0d03 checked exact source 4f34d57: baseline 11 passed, 1 failed (leaked delegate key); same fixture after try/finally fix 12 passed, 0 failed; git diff --check PASS. No model/provider call and no external PR.",
+      "handoff_url": "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-23-20261110/pilots/wee-delegation-s2/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED",
+      "observed_native_change": "Separate dev-alpha-2 SSH runner session f540ff69-d09f-4249-9b0a-37505e1e0d03: exact first-party 4f34d57, matched pytest tests/test_delegation_session_isolation.py, before 11/12 PASS, after 12/12 PASS. Receipt records host and two patch hashes."
+    },
+    {
+      "id": "novacode-worktree-cwd-escape",
+      "assessment_path": "assessments/no/novacode.md",
+      "source": "gczhuang-cmd/NovaCode",
+      "review_ref": "34a2d555a530120fd6241f7065d49390e52f3573",
+      "reviewed_at": "2026-10-30",
+      "function": "S2",
+      "finding": "Check whether a supported nested team or background worker tool fails to inherit the per-agent worktree cwd and writes to the shared parent checkout while another worker edits the same file.",
+      "stage": "AWAITING_EXTERNAL",
+      "origin": "ASSESSMENT_DERIVED",
+      "fit": {"need": "PASS", "mechanism": "PASS", "counterfactual": "PASS", "scope": "PASS"},
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/no/novacode.md",
+        "https://github.com/opensiro/upstream/commit/02b24e372aa5f6158e6c37623626e17bc104b181",
+        "https://github.com/gczhuang-cmd/NovaCode/blob/34a2d555a530120fd6241f7065d49390e52f3573/src/novacode/team/backend/inprocess.py",
+        "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-23-20261110/pilots/novacode-s2/INDEPENDENT_HOST_RECEIPT_2026-11-10.md"
+      ],
+      "screening_result": "InProcessBackend.spawn launches a worker task without setting its worktree_path as the task-context cwd, unlike the process teammate path. Distinct dev-alpha-2 native runner fa81ce8f-dfdc-4046-8194-3df5e5437271 checked exact source 34a2d55: baseline 8 passed, 1 failed (parent cwd inherited); after scoped with_cwd around launch 9 passed, 0 failed. No model/provider call or external PR.",
+      "handoff_url": "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-23-20261110/pilots/novacode-s2/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED",
+      "observed_native_change": "Separate dev-alpha-2 SSH runner session fa81ce8f-dfdc-4046-8194-3df5e5437271: exact first-party 34a2d55, matched pytest tests/test_team_backend.py, before 8/9 PASS, after 9/9 PASS; one harmless pytest config warning. Receipt records host and patch hashes."
+    },
+    {
+      "id": "axiom-staged-code-double-hop",
+      "assessment_path": "assessments/kh/khanuzeb-axiom.md",
+      "source": "khanuzeb/axiom",
+      "review_ref": "ba3a9bddce05990593035eab635eee9f45c46ff5",
+      "reviewed_at": "2026-10-30",
+      "function": "S2",
+      "finding": "Check whether the one-shot staged dependent-code dispatch can be scheduled twice when parallel solver completions merge status/intermediate-results in different orders, violating its documented single follow-up hop.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "FAIL", "mechanism": "PASS", "counterfactual": "FAIL", "scope": "PASS"},
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/kh/khanuzeb-axiom.md",
+        "https://github.com/khanuzeb/axiom/blob/ba3a9bddce05990593035eab635eee9f45c46ff5/app/agents/coordinator.py"
+      ],
+      "screening_result": "The staged dependent-code dispatch uses a state marker to prevent a repeat hop in the reviewed coordinator graph. No native two-completion route demonstrating a second scheduling was substantiated; close this exact double-hop prediction without changing source. Static review only."
+    },
+    {
+      "id": "forestcode-interrupted-mutation-gate",
+      "assessment_path": "assessments/fo/forestcode.md",
+      "source": "hsghcop/ForestCode",
+      "review_ref": "406c792be7d365878113a70d2f1feff7aef94e1e",
+      "reviewed_at": "2026-10-30",
+      "function": "S2",
+      "finding": "Check whether cancellation or a failed approval/tool call while holding the shared propose-approve-apply mutation gate strands a sibling editor, rather than releasing the gate and returning a recoverable failure.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "FAIL", "mechanism": "PASS", "counterfactual": "FAIL", "scope": "PASS"},
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/fo/forestcode.md",
+        "https://github.com/hsghcop/ForestCode/blob/406c792be7d365878113a70d2f1feff7aef94e1e/src/forestcode/tools/mutation_gate.py"
+      ],
+      "screening_result": "Mutation protection enters Python's threading.RLock via a with context. Ordinary exceptions release the gate through context-manager exit; the predicted permanent stranded gate was not demonstrated. Static close, no native fault-injection claim."
+    },
+    {
+      "id": "anytool-sufficiency-race",
+      "assessment_path": "assessments/an/anytool.md",
+      "source": "dyabel/AnyTool",
+      "review_ref": "6202212ce45329282cf812ae48427f8765cf164c",
+      "reviewed_at": "2026-10-30",
+      "function": "S2",
+      "finding": "Check whether concurrent Tool_Agent insertions into the capacity-bounded API pool can evaluate sufficiency or global stop on a stale snapshot, returning contradictory stop/continue feedback after the insertion lock is released.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "FAIL", "mechanism": "PASS", "counterfactual": "FAIL", "scope": "PASS"},
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/an/anytool.md",
+        "https://github.com/dyabel/AnyTool/blob/6202212ce45329282cf812ae48427f8765cf164c/scripts/main.py"
+      ],
+      "screening_result": "First-party threaded Tool_Agent path holds counter_lock around pool insertion, sufficiency assessment and global stop bookkeeping. The suggested stale-snapshot interleave within this protected region is unavailable; no live LLM sufficiency request was executed."
+    },
+    {
+      "id": "victrola-overlapping-same-job-fire",
+      "assessment_path": "assessments/vi/victrola.md",
+      "source": "haileyok/victrola",
+      "review_ref": "2bc6262cc7d12a61b6d8de68f3a16ceaec3ba5d7",
+      "reviewed_at": "2026-10-29",
+      "function": "S2",
+      "finding": "Check whether a second scheduler tick can refire a still-inflight due job before its per-job last_run/retry state is persisted, while the anti-starvation concurrent dispatcher correctly runs unrelated due jobs.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "FAIL", "mechanism": "PASS", "counterfactual": "FAIL", "scope": "PASS"},
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/vi/victrola.md",
+        "https://github.com/haileyok/victrola/blob/2bc6262cc7d12a61b6d8de68f3a16ceaec3ba5d7/src/scheduler/scheduler.py"
+      ],
+      "screening_result": "Scheduler.run awaits the full tick; each tick awaits its due _fire tasks before the next scheduler tick. A second overlapping automatic tick firing the same in-flight job was not supported by that loop. Manually invoked run_now is a different path, outside the frozen question."
+    },
+    {
+      "id": "senweaver-dirty-parent-merge-safety",
+      "assessment_path": "assessments/se/senweavercoding.md",
+      "source": "senweaver/senweavercoding",
+      "review_ref": "8ba81d595ba154f300428dd554d2065b9a268432",
+      "reviewed_at": "2026-10-29",
+      "function": "S2",
+      "finding": "Check whether two worker worktree completions racing a dirty-parent transition can each pass an unguarded cleanliness check and attempt conflicting base-workspace merge despite the serialized merge lock.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "FAIL", "mechanism": "PASS", "counterfactual": "FAIL", "scope": "PASS"},
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/se/senweavercoding.md",
+        "https://github.com/senweaver/senweavercoding/blob/8ba81d595ba154f300428dd554d2065b9a268432/src/tools/spawn_workers.rs"
+      ],
+      "screening_result": "The code acquires base_merge_lock before parent_workspace_is_dirty and retains it throughout the sequential merge. The proposed two-worker check/merge race was not corroborated. Dirty-parent state is recorded and worker branches preserved."
+    },
+    {
+      "id": "qujck-claim-ledger-partial-failure",
+      "assessment_path": "assessments/qu/qujck-agent-harness.md",
+      "source": "qujck/harness",
+      "review_ref": "9a2fc16d1cc26070114ae6e908107cf211e0c99e",
+      "reviewed_at": "2026-10-29",
+      "function": "S2",
+      "finding": "Check whether an interrupted ticket claim after atomic remote branch creation but before ledger/live-marker update strands ownership or allows a second claimant to start, defeating the single-accepted-ticket feedback path.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "PENDING", "mechanism": "PASS", "counterfactual": "PENDING", "scope": "PENDING"},
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/qu/qujck-agent-harness.md",
+        "https://github.com/qujck/harness/blob/6390c271/scripts/feature-ticket.sh"
+      ],
+      "screening_result": "Current default branch differs from assessed 9a2fc16. First-party remote branch creation is the atomic ticket claim; ledger bookkeeping can be interrupted and rollback can fail, plausibly leaving an orphaned branch. The split-brain second-claim scenario is not established because the remote branch still blocks another claim. No safe autonomous orphan reclamation policy established.",
+      "blocker": "Need a pinned interrupted-claim native fixture and maintainer-approved orphaned-claim recovery semantics; do not delete a remotely held claim on conjecture."
+    },
+    {
+      "id": "ori-preemption-cooldown-feedback",
+      "assessment_path": "assessments/or/ori-runtime.md",
+      "source": "ori-platform/ori-runtime",
+      "review_ref": "64d95bad6c5d173e249f31ed4b0d6c8e9df83c99",
+      "reviewed_at": "2026-10-29",
+      "function": "S2",
+      "finding": "Check whether a preempted or denied low-tier actuator dispatch incorrectly consumes cooldown and suppresses a subsequent allowed high-tier action for the same commissioned resource in the next supported event cycle.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {"need": "FAIL", "mechanism": "PASS", "counterfactual": "FAIL", "scope": "PASS"},
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/or/ori-runtime.md",
+        "https://github.com/ori-platform/ori-runtime/blob/e08749d/ori/reasoning/dispatch_plan.py",
+        "https://github.com/ori-platform/ori-runtime/blob/e08749d/ori/reasoning/dispatch_coordinator.py"
+      ],
+      "screening_result": "At the current source head, dispatch_plan defines cooldown consumption separately from refused/preempted outcomes; dispatch_coordinator does not charge the forbidden outcome as a successful cooldown in the preregistered path. No demonstrated suppression of the next permitted high-tier dispatch."
+    }
+  ]
+}

@@ -4,13 +4,13 @@
   "meaning": "FILE_INVENTORY_ONLY_NO_SUCCESS_OR_EXTERNAL_PUBLICATION_CLAIM",
   "generated_from": "pilots/ direct subdirectories and their preserved files",
   "counts": {
-    "pilot_directories": 66,
-    "artifact_files": 178,
+    "pilot_directories": 68,
+    "artifact_files": 186,
     "historical_directories": 66,
-    "new_directories": 0,
+    "new_directories": 2,
     "by_kind": {
       "EXPERIMENT_SERIES": 3,
-      "PATCH_HANDOFF": 47,
+      "PATCH_HANDOFF": 49,
       "PATCH_EVIDENCE": 0,
       "SCREEN_ONLY": 16,
       "OTHER_EVIDENCE": 0
@@ -579,6 +579,23 @@
       ]
     },
     {
+      "id": "novacode-s2",
+      "path": "pilots/novacode-s2",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/novacode-s2/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 2,
+        "handoff": 1,
+        "receipt": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "INDEPENDENT_HOST_RECEIPT_2026-11-10.md",
+        "native-fix.patch",
+        "native-regression.patch"
+      ]
+    },
+    {
       "id": "oblivion-batch-edit",
       "path": "pilots/oblivion-batch-edit",
       "kind": "PATCH_HANDOFF",
@@ -919,6 +936,23 @@
       "files": [
         "CONTRIBUTION_HANDOFF.md",
         "INDEPENDENT_HOST_RECEIPT_2026-11-09.md",
+        "native-fix.patch",
+        "native-regression.patch"
+      ]
+    },
+    {
+      "id": "wee-delegation-s2",
+      "path": "pilots/wee-delegation-s2",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/wee-delegation-s2/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 2,
+        "handoff": 1,
+        "receipt": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "INDEPENDENT_HOST_RECEIPT_2026-11-10.md",
         "native-fix.patch",
         "native-regression.patch"
       ]
