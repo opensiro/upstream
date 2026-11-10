@@ -7,6 +7,8 @@ This file routes agents. It does not confer authority, define VSM semantics, or 
 3. For open-ended existing work follow the shared [Organization TODO.md](https://github.com/opensiro/vsm-oss-organization/blob/main/TODO.md); for new or cross-repository work follow [CONTRIBUTOR_START.md](https://github.com/opensiro/vsm-oss-organization/blob/main/CONTRIBUTOR_START.md).
 4. Read the **exact owning issue and PR**, their current heads and any frozen source refs before acting. An open PR title or older chat is not authoritative for current state.
 5. Use a reviewable PR for meaningful local changes. Treat external forks, PRs and comments, protected-branch integration, branch deletion, publication-grant activation and license selection as separate actions with their own authority.
+6. Before preparing an **external** PR title/body, follow the target repository's current [source-native PR template and contributor requirements](docs/ORGANIZATION_FORK_UPSTREAM_PR.md#source-native-pr-form-and-contributor-requirements). An OpenSiro generic description does not replace the target's form.
+7. For an approved, validated external PR, default to **Open · Ready for review** (`draft: false`). Draft requires an explicitly documented unresolved readiness condition; an internal OpenSiro PR may follow its own separate gate. Neither state authorizes external merge.
 
 ## Evidence and non-conflation
 

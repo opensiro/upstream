@@ -1,0 +1,34 @@
+diff --git a/tests/test_delegation_session_isolation.py b/tests/test_delegation_session_isolation.py
+index d5e1828..8bc628d 100644
+--- a/tests/test_delegation_session_isolation.py
++++ b/tests/test_delegation_session_isolation.py
+@@ -188,6 +188,29 @@ class TestDelegationSessionIsolation(unittest.TestCase):
+             f"Ephemeral delegation sessions must be cleaned up, found: {delegation_keys}",
+         )
+ 
++    @patch.object(
++        __import__("agent_manager").SessionManager,
++        "_dispatch_single_runtime",
++        side_effect=RuntimeError("delegate backend failed"),
++    )
++    def test_failed_delegation_cleans_up_ephemeral_identity(self, mock_dispatch):
++        """A failed dispatch must leave neither a delegate key nor caller corruption."""
++        caller_sid = "telegram_8405010413_8193231291"
++        self._seed_session(caller_sid, agent="orchestrator")
++        delegation_data = {
++            "session_id": str(uuid4()),
++            "agent": "devops",
++            "runtime": "copilot",
++            "is_delegation": True,
++        }
++
++        with self.assertRaisesRegex(RuntimeError, "delegate backend failed"):
++            self.mgr._execute_with_context("check disk", delegation_data, caller_sid)
++
++        session_map = self._read_session_map()
++        self.assertEqual(set(session_map), {caller_sid})
++        self.assertEqual(session_map[caller_sid]["agent"], "orchestrator")
++
+     @patch.object(
+         __import__("agent_manager").SessionManager,
+         "_dispatch_single_runtime",

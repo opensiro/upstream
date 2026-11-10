@@ -1,8 +1,6 @@
 # Assessment-driven S1 Upstream Contributions test
 
-**Status:** source-first, read-only test contract for the **candidate** Upstream S1
-function. This is **not** an activated automation, an effective P1 mandate, a
-fourth admitted Organization S1 domain or a permission to modify GitHub.
+**Status:** source-first, read-only contract for the **assessment-derived test within the admitted Upstream S1 domain**. This does **not** activate an independent executor, assign an `S1=A` grade, widen publication rights or authorize GitHub writes.
 
 ## Purpose and command ownership
 
@@ -17,9 +15,7 @@ discovery flow. The broad Upstream portfolio, ordinary GitHub-issue-driven
 contributions and existing casebook remain valid separate work; they must
 **not** be counted as passing this narrower assessment-driven S1 test.
 [Organization #274](https://github.com/opensiro/vsm-oss-organization/issues/274)
-owns the still-unmade S5 choice about the formal fourth-domain scope,
-currently `PROPOSED / NOT ADMITTED`. This document only defines the
-observable test, not that policy decision.
+has admitted Upstream as the bounded fourth operational S1 domain; that decision does not prove this specific assessment-derived experiment or activate additional external rights.
 
 ## Functional improvement evidence
 
@@ -27,7 +23,7 @@ Use the [assessment-to-improvement protocol](ASSESSMENT_TO_IMPROVEMENT.md)
 for the stronger evidence claim. An assessment-related contribution is not
 necessarily an assessment-derived diagnosis.
 
-**Required test method:** follow its [native scripted tests only](ASSESSMENT_TO_IMPROVEMENT.md#mandatory-validation-boundary--native-scripted-tests-only) rule. All assessment-derived improvement evidence comes from deterministic source/CLI scripts executing the genuine first-party mechanism, with pinned matched before/after tests and regressions. **No live LLM-agent runs, model API tests or Browser agent-quality sessions are required or authorized as part of this experiment.** Do not make them a technical completion gate or a condition for permissioned upstream submission.
+**Required test method:** follow its [pre-registered hypothesis and separate execution](ASSESSMENT_TO_IMPROVEMENT.md#pre-registered-hypothesis-and-separate-native-execution--2026-11-08-refinement) and [native scripted tests only](ASSESSMENT_TO_IMPROVEMENT.md#mandatory-validation-boundary--native-scripted-tests-only) rules. For new strict-derived claims, the assessment-motivated hypothesis must be checkpointed before fresh target-code/issue inspection; a separate deterministic CI/runner must execute pinned, matched first-party before/after checks and preserve attributable logs. The chatbot may design and review these checks but not directly run them as their validator. **No live LLM-agent runs, model API tests or Browser agent-quality sessions are required or authorized as part of this experiment.** Do not make them a technical completion gate or a condition for permissioned upstream submission.
 
 - `ASSESSMENT_DERIVED`: an observed functional finding, discovered from
   canonical Index first, motivates a falsifiable upstream-native improvement.
@@ -67,7 +63,7 @@ the strict single-candidate origin/fit/admission gates below.
    **Do not start from a favourite fork, the Upstream registry, a previous
    chat or a convenient open external issue.** Historical Index assessment
    pins remain evidence for what was assessed, not evidence of today's code.
-2. **Derive an explicit hypothesis, not a grade repair.** Describe the
+2. **Derive and checkpoint an explicit hypothesis, not a grade repair.** Before fresh target-code/issue inspection, record a dated, attributable prediction, null/falsifier and assessment evidence. Describe the
    behavior/coordination mechanism the harness might benefit from and which
    assessment finding motivated it. `S3=—`, `S4=P` or any other grade
    is **not** itself a bug, product requirement, missing feature or reason to
@@ -108,8 +104,8 @@ the strict single-candidate origin/fit/admission gates below.
    authorization. Fork creation and external PR publication are not silently
    enabled by this test or P1 source-only checks. Do not provision a PAT,
    bypass stage gates or manufacture a host grant.
-7. **Validate via native scripts and return feedback.** Capture implemented diff and deterministic native tests
-   actually run (or the precise stop condition), readback, partial/failed
+7. **Validate via a separate deterministic runner and return feedback.** Capture implemented diff and independently executed native tests
+   (or `BLOCKED_INDEPENDENT_EXECUTION`), run URL, source/test pins, commands, logs, readback, partial/failed
    operations, owner interventions, external PR/review outcome where it
    exists, and how the outcome informs a later candidate. A green mock CI,
    proposal preview, issue link or PR in OpenSiro is **not** a validated
@@ -206,8 +202,8 @@ A human-readable or machine-readable report must contain at least:
 | Field | Required observation |
 | --- | --- |
 | `index_assessment` | Index assessment path/URL **and** immutable Index SHA; assessed harness upstream/revision; finding, function/ownership and source evidence |
-| `origin_strength` | `ASSESSMENT_DERIVED / ASSESSMENT_INFORMED / GENERAL_UPSTREAM / INSUFFICIENT`, with selection-order and causal evidence rather than just a related assessment URL |
-| `before_after_effect` | Reproducible pre-change behavior, relevant benefit/safety metric, matched after-change test and `BENEFIT_SUPPORTED / NO_BENEFIT_OBSERVED / INCONCLUSIVE`, or explicit untested blocker |
+| `origin_strength` | `ASSESSMENT_DERIVED / ASSESSMENT_INFORMED / GENERAL_UPSTREAM / INSUFFICIENT`, with a dated prospective hypothesis checkpoint, selection-order and causal evidence rather than just a related assessment URL |
+| `before_after_effect` | Reproducible pre-change behavior, relevant benefit/safety metric, matched after-change test and `BENEFIT_SUPPORTED / NO_BENEFIT_OBSERVED / INCONCLUSIVE`, with independent runner run/artifact + code/test refs, or explicit untested blocker |
 | `fresh_upstream` | Upstream owner/repository, current default-branch SHA, current relevant code/issue/PR URLs and policy/licence check |
 | `hypothesis` | Assessment-motivated problem, concrete upstream-native mechanism, expected benefit and falsifier/test |
 | `native_fit` | Separate need/mechanism/counterfactual/scope `PASS/PENDING/FAIL` with actual source links |
@@ -235,9 +231,9 @@ These labels are test observations, **not** a canonical `S1=A/C/C(P)` grade.
   digest or `authorize=True` mock as a real operator decision.
 - **Preserve:** generic external OSS discovery, the portfolio/casebook,
   separate local Upstream mandate authority, manual external PR publication,
-  existing stage-specific permission gates and the unresolved S5 admission.
+  existing stage-specific permission gates and the bounded S5 admission.
 
 **Sources of truth:** Index owns assessments; Profile/Skills own semantics and
 assessment method; Upstream owns contribution proposal/implementation/outcomes;
 Organization owns Control Plane routing and any future S5 boundary decision.
-No standing runtime, new S1 domain, or second Control Plane is required.
+No standing runtime, additional S1 domain, or second Control Plane is required.

@@ -17,17 +17,23 @@ The domain manages evidence-backed upstream improvement proposals, pinned produc
 | OpenSiro-owned fork maintenance | Fork and owner-reviewed local decision | `registry.yaml`, `projects/<slug>/README.md` |
 | Native functional effect | Pinned source test and before/after receipt | `pilots/`, `data/functional-effects.json` |
 | Technical batch membership and disposition | Frozen local batch manifest and owning issue | `data/assessment-candidate-batches/`, generated Harness Status |
+| Additive source → working-fork intentions and handoff pointers | 100-source priority snapshot + frozen technical batch manifests; live fork parent verified independently | Generated `data/contribution-workspaces/registry.json`; [continuous pipeline](docs/CONTINUOUS_WORKING_FORK_PIPELINE.md) |
+| One-time supervised public-fork bootstrap and cross-plugin internal PR routing | Exact Upstream source identities, effective batch-stage grants, separate human external-publication decision | [Non-executable generated proposal](data/contribution-workspaces/fork-bootstrap-proposal.json), [protocol](docs/FORK_BOOTSTRAP_AND_COLLABORATION.md) |
 | Authorized finite external-publication stages | Their exact publication mandate and ledger | `data/corrective-publication/`, `data/improvement-publication/` |
 | Shared work selection, S1 boundary, S5 grants | [Organization TODO](https://github.com/opensiro/vsm-oss-organization/blob/main/TODO.md), domain contract and owner decisions | Repository-local issues and explicitly scoped handoffs |
 
 Do not reconcile discrepancies by changing the wrong owner. A current PR readback may require updating an Upstream receipt, but it never silently updates the Organization fit snapshot.
+
+## Native test execution boundary
+
+The native test **packet and receipts** are Upstream-owned; the external harness's **CI execution** belongs in a stage-authorized `opensiro-contributions/<target>` working fork or a separately controlled deterministic runner. Use [the native CI placement contract](docs/NATIVE_CI_EXECUTION.md) before introducing any target-specific GitHub Actions file. The existence of an OpenSiro-owned fork or a validated patch never grants new fork, branch, PR or maintainer rights; [#6](https://github.com/opensiro/upstream/issues/6) remains the general executor gate.
 
 ## Contribution lifecycle
 
 1. **Admit and pin a source:** verify project identity, revision, license and stage-specific rights. New standard `batch upstream` screening freezes five distinct Index-origin sources under [the batch contract](docs/ASSESSMENT_CANDIDATE_BATCHES.md); it is not the Index assessment publication queue.
 2. **Diagnose and prepare:** reproduce a product-native problem with deterministic source-native tests. Keep screening, assessment-derived and assessment-informed origin labels separate ([protocol](docs/ASSESSMENT_TO_IMPROVEMENT.md)).
 3. **Review locally:** record a patch, source SHA, negative/positive test result, limitations, and a reviewable local PR where appropriate. A prepared patch or an accepted local PR does not publish externally.
-4. **Publish only under an effective stage-specific mandate:** require current branch, license, principal, scope, provider and exact target rights. Existing finite Corrective and Improvement authorizations do not authorize unrelated submissions.
+4. **Publish only under an effective stage-specific mandate:** require current branch, license, principal, scope, provider and exact target rights. Before requesting approval, apply the **target's own current PR template and contributor rules** (headings, requested evidence, applicable checkboxes, DCO/CLA and tests) to the exact title/body; record the template/policy readback or verified absence. Append the [mandatory AI-assisted contribution disclosure](docs/AI_ASSISTED_PR_DISCLOSURE.md) after those original sections; it accurately distinguishes agent-led technical work, the current temporary human publication approval, future autonomy and possible AI errors. An approved and validated external PR defaults to **Open · Ready for review** (`draft: false`); reserve Draft for an explicitly documented unresolved readiness condition, never as a blanket precaution. See the [mandatory source-native PR format gate](docs/ORGANIZATION_FORK_UPSTREAM_PR.md#source-native-pr-form-and-contributor-requirements). Existing finite Corrective and Improvement authorizations do not authorize unrelated submissions.
 5. **Maintain after publication:** monitor review, CI, new maintainer feedback and life-cycle changes using the [PR maintenance](docs/PR_MAINTENANCE.md) inbox. Do not treat an opened Draft PR as accepted.
 6. **Resolve or archive:** record merged, closed-without-merge, open or unverifiable PR state. Attribution, product effect and intervention success require independent evidence. Fork archival is an explicit owner decision, not an effect of PR merge.
 
@@ -50,6 +56,8 @@ Every report must identify the cohort, observation time, source and whether it c
 | Resolved-PR inbox summary | `scripts/resolved_pr_acceptance.py` | 18-target manifest and GitHub exact-PR readback |
 | Broad portfolio observation | `scripts/portfolio_reconcile.py` | `--validate-only` offline, `--report` live; no repository writes |
 | Verified external outcome candidate evidence | `scripts/verified_external_outcomes.py` | [Evidence contract](docs/VERIFIED_EXTERNAL_OUTCOMES.md), `--validate-only` offline, `--report` live; no Organization KPI claim |
+| Additive working-fork inventory | `scripts/contribution_workspaces.py` | `sync` with every internal technical-record change; `check` in unfiltered PR CI; not a fork-write grant |
+| Historical experiment and pilot directory catalog | `scripts/pilot_catalog.py` | `sync` with any pilot file change; `check` in unfiltered PR CI; never a success/outcome inference |
 
 Do not manually change generated rows. Refresh upstream PR receipts atomically after a verified state change and review the resulting diff. CI tests and reviewable PRs are the local integration path, not authority for third-party writes.
 

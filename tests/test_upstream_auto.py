@@ -7,8 +7,10 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from threading import Barrier
 from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -86,6 +88,36 @@ def make_fixture(base):
 
 
 class UpstreamAutoTests(unittest.TestCase):
+    def test_existing_fractional_utc_claims_replay_without_widening_manifest(self):
+        item = task("portfolio:fractional", lane="portfolio", repo="opensiro/upstream",
+                    pr_number=119)
+        claim = {"action": "CLAIM", "claim_id": "f" * 32,
+                 "task_id": item["task_id"], "actor": "agent-one",
+                 "resources": item["resources"], "owner_issue": 150,
+                 "operation": "READ_ONLY_REVIEW", "evidence_url": item["evidence_url"],
+                 "timestamp": "2026-11-07T16:58:52.432Z"}
+        release = {**claim, "action": "RELEASE",
+                   "timestamp": "2026-11-07T16:59:11.103Z",
+                   "reason": "Reviewed and recorded owner evidence"}
+        historic = {"schema_version": 1, "events": [claim, release]}
+        self.assertEqual(mod.replay(historic), {})
+        self.assertEqual(mod.plan_batch(manifest(item), historic, now=NOW)["selected_count"], 1)
+        active = {"schema_version": 1, "events": [claim]}
+        self.assertEqual(mod.replay(active)[claim["claim_id"]], claim)
+        reversed_within_second = {**release, "timestamp": "2026-11-07T16:58:52.103Z"}
+        with self.assertRaisesRegex(mod.AutoError, "Release requires active original"):
+            mod.replay({"schema_version": 1, "events": [claim, reversed_within_second]})
+
+        for invalid in ("2026-11-07T16:58:52.1234567Z",
+                        "2026-11-07T16:58:52.432+00:00",
+                        "2026-11-07T16:58:52.432Zjunk",
+                        "2026-11-07T16:58:99.432Z"):
+            with self.subTest(invalid=invalid), self.assertRaises(mod.AutoError):
+                mod.replay({"schema_version": 1, "events": [{**claim, "timestamp": invalid}]})
+        with self.assertRaisesRegex(mod.AutoError, "Invalid UTC timestamp"):
+            mod.validate_manifest({**manifest(item),
+                                   "observed_at": "2026-11-07T17:00:00.123Z"}, now=NOW)
+
     def test_priority_urgent_feedback_and_age_fairness(self):
         high = task("maintenance:urgent", priority="P0", queued_hours=1)
         ordinary = task("outcomes:normal", lane="outcomes", repo="other/repo",
@@ -230,6 +262,60 @@ class UpstreamAutoTests(unittest.TestCase):
             fresh = mod.claim_batch(two, "origin", manifest(first, second), "second-agent",
                                     write=True, reader=FakeReader(), now=NOW)
             self.assertEqual([item["task_id"] for item in fresh["claims"]], [second["task_id"]])
+            self.assertEqual(len(mod.replay(mod.fetch_ledger(one, "origin")[1])), 2)
+
+    def test_simultaneous_git_pushes_one_wins_then_loser_replans(self):
+        """Two Git clients hit the same bare-remote ref at the same time.
+
+        This exercises real Git push contention, not a mocked sequential
+        stale-head error or a claim of two independently executing agents.
+        """
+        first = task("maintenance:concurrent", repo="example/repo")
+        second = task("outcomes:concurrent", lane="outcomes", repo="other/repo")
+        worklist = manifest(first, second)
+        barrier = Barrier(2)
+        original_git = mod._git
+        push_failures = []
+
+        def contend_git(root, *args, **kwargs):
+            if args and args[0] == "push":
+                barrier.wait(timeout=10)
+            result = original_git(root, *args, **kwargs)
+            if args and args[0] == "push" and result.returncode:
+                push_failures.append(result.stderr)
+            return result
+
+        with tempfile.TemporaryDirectory() as temp:
+            one, two = make_fixture(Path(temp))
+            with patch.object(mod, "_git", side_effect=contend_git):
+                with ThreadPoolExecutor(max_workers=2) as pool:
+                    futures = [
+                        pool.submit(mod.claim, one, "origin", worklist,
+                                    "agent-one", task_id=first["task_id"],
+                                    write=True, reader=FakeReader(), now=NOW),
+                        pool.submit(mod.claim, two, "origin", worklist,
+                                    "agent-two", task_id=second["task_id"],
+                                    write=True, reader=FakeReader(), now=NOW),
+                    ]
+                    outcomes = []
+                    for future in futures:
+                        try:
+                            outcomes.append(future.result(timeout=15))
+                        except mod.AutoError as exc:
+                            outcomes.append(str(exc))
+            successes = [x for x in outcomes if isinstance(x, dict)]
+            losses = [x for x in outcomes if isinstance(x, str)]
+            self.assertEqual(len(successes), 1, outcomes)
+            self.assertEqual(len(losses), 1, outcomes)
+            self.assertIn("BLOCKED_CONCURRENT_RESERVATION", losses[0], push_failures)
+            active = mod.replay(mod.fetch_ledger(one, "origin")[1])
+            self.assertEqual(len(active), 1)
+
+            loser_task = second if successes[0]["task_id"] == first["task_id"] else first
+            retry = mod.claim(two, "origin", worklist, "replanned-worker",
+                              task_id=loser_task["task_id"], write=True,
+                              reader=FakeReader(), now=NOW)
+            self.assertEqual(retry["status"], "WRITTEN_CAS")
             self.assertEqual(len(mod.replay(mod.fetch_ledger(one, "origin")[1])), 2)
 
     def test_duplicate_id_stale_evidence_and_forbidden_operation_fail_closed(self):

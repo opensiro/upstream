@@ -150,7 +150,8 @@ def claim(root, remote, manifest_path, index_root, evidence, *, write=False,
     push = _git(root, "push", remote, f"{commit}:{LEDGER_REF}", allow_failure=True)
     if push.returncode:
         error = push.stderr.casefold()
-        if "non-fast-forward" in error or "fetch first" in error or "stale info" in error:
+        if any(label in error for label in ("non-fast-forward", "fetch first", "stale info",
+                                            "incorrect old value provided")):
             raise BatchError("BLOCKED_CONCURRENT_RESERVATION: non-fast-forward CAS rejected; re-fetch and reconcile")
         raise BatchError("RESERVATION_PUSH_BLOCKED: " + push.stderr.strip())
     receipt.update(status="CLAIMED_CAS", claim_commit=commit,

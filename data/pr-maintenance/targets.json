@@ -6,6 +6,11 @@
   "source_selection": "Verified external PRs authored by xLagerFeuer, including frozen Corrective submissions and closed lifecycle cases; headcount #47 was separately confirmed after search omission",
   "targets": [
     {
+      "repository": "0xNyk/lacp",
+      "number": 128,
+      "url": "https://github.com/0xNyk/lacp/pull/128"
+    },
+    {
       "repository": "BESSER-PEARL/BESSER-Agentic-Framework",
       "number": 205,
       "url": "https://github.com/BESSER-PEARL/BESSER-Agentic-Framework/pull/205"
@@ -77,9 +82,19 @@
       "url": "https://github.com/chankov/agent-fleet/pull/43"
     },
     {
+      "repository": "chekusu/wanman",
+      "number": 38,
+      "url": "https://github.com/chekusu/wanman/pull/38"
+    },
+    {
       "repository": "cordfuse/politik",
       "number": 33,
       "url": "https://github.com/cordfuse/politik/pull/33"
+    },
+    {
+      "repository": "gczhuang-cmd/NovaCode",
+      "number": 1,
+      "url": "https://github.com/gczhuang-cmd/NovaCode/pull/1"
     },
     {
       "repository": "huleidada/matterloop",
@@ -90,6 +105,26 @@
       "repository": "mila-iqia/babyai",
       "number": 128,
       "url": "https://github.com/mila-iqia/babyai/pull/128"
+    },
+    {
+      "repository": "mnbresearch/crewdeck",
+      "number": 1,
+      "url": "https://github.com/mnbresearch/crewdeck/pull/1"
+    },
+    {
+      "repository": "ruslantrachuk/dark-factory",
+      "number": 106,
+      "url": "https://github.com/ruslantrachuk/dark-factory/pull/106"
+    },
+    {
+      "repository": "splashxmoon/friday",
+      "number": 23,
+      "url": "https://github.com/splashxmoon/friday/pull/23"
+    },
+    {
+      "repository": "talktorana/agent-harness",
+      "number": 1,
+      "url": "https://github.com/talktorana/agent-harness/pull/1"
     },
     {
       "repository": "topoteretes/cognee-community",

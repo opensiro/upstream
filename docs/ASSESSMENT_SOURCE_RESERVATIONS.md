@@ -36,6 +36,12 @@ It is deliberately *not* a new scheduler, VSM assessor or permission issuer.
    read the same parent, at most one can publish its different child; the
    other fails with `BLOCKED_CONCURRENT_RESERVATION`. Refetch and revalidate
    after rejection. Never force-push or override the losing writer.
+   Actual concurrent Git clients may receive `incorrect old value provided`
+   when both push children of the same ref head. This explicit Git CAS error
+   is classified as `BLOCKED_CONCURRENT_RESERVATION`, not as a generic Git
+   permission failure. A local bare-remote fixture verifies one winning push
+   and one attributable collision; it is **not** a live GitHub two-agent test
+   or activation of the dormant reservation branch.
 
 Example **preview only** (requires a previously established reservation branch):
 

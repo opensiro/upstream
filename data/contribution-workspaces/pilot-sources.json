@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "description": "Source-backed native pilots outside the frozen assessment-candidate batches; no fork or PR authorization",
+  "cases": [
+    {
+      "source": "codexmark/kram",
+      "case_id": "kram-s2-native-edit-atomicity",
+      "evidence": "pilots/kram-s2/REPLAY_RECEIPT_2026-10-22.md",
+      "patch_path": "pilots/kram-s2/s2-edit-file-atomicity-v2.patch"
+    },
+    {
+      "source": "patriceckhart/zot",
+      "case_id": "zot-scoped-admission",
+      "evidence": "pilots/zot-shared-workspace/SCREENING_2026-10-20.md",
+      "patch_path": null
+    },
+    {
+      "source": "madarco/agentbox",
+      "case_id": "agentbox-manager-advice",
+      "evidence": "pilots/agentbox-s2/SCREENING_AND_NATIVE_FIT_2026-10-20.md",
+      "patch_path": null
+    },
+    {
+      "source": "speakeasy-api/kit",
+      "case_id": "kit-partial-subagent-config",
+      "evidence": "https://github.com/opensiro/upstream/pull/70",
+      "patch_path": null
+    },
+    {
+      "source": "avala-ai/agent-code",
+      "case_id": "agent-code-reviewer",
+      "evidence": "https://github.com/opensiro/upstream/pull/69",
+      "patch_path": null
+    }
+  ]
+}

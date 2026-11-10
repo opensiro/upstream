@@ -1,0 +1,55 @@
+diff --git a/agent_manager.py b/agent_manager.py
+index a506934..2d3168b 100644
+--- a/agent_manager.py
++++ b/agent_manager.py
+@@ -7256,27 +7256,29 @@ Example skill structure:
+                     self.update_session_field(effective_sid, field, val)
+             self.update_session_field(effective_sid, "agent", agent)
+ 
+-        output = self._dispatch_single_runtime(
+-            runtime,
+-            prompt,
+-            model,
+-            agent,
+-            session_id if runtime == "claude" else None,
+-            False,
+-            effective_sid,
+-            self.command_timeout,
+-            "text",
+-        )
+-
+-        # Clean up ephemeral delegation session to avoid session_map bloat
+-        if effective_sid != n8n_session_id:
+-            try:
+-                with self._session_map_lock:
+-                    session_map = self.load_session_map()
+-                    session_map.pop(effective_sid, None)
+-                    self.save_session_map(session_map)
+-            except Exception:
+-                pass
++        try:
++            output = self._dispatch_single_runtime(
++                runtime,
++                prompt,
++                model,
++                agent,
++                session_id if runtime == "claude" else None,
++                False,
++                effective_sid,
++                self.command_timeout,
++                "text",
++            )
++        finally:
++            # A failed/cancelled dispatch must not retain a delegated identity.
++            # Never remove the caller's non-ephemeral session.
++            if effective_sid != n8n_session_id:
++                try:
++                    with self._session_map_lock:
++                        session_map = self.load_session_map()
++                        session_map.pop(effective_sid, None)
++                        self.save_session_map(session_map)
++                except Exception:
++                    pass
+ 
+         return output
+ 

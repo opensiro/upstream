@@ -4,6 +4,13 @@
 **Owner:** [Upstream #28](https://github.com/opensiro/upstream/issues/28), under [#6](https://github.com/opensiro/upstream/issues/6).  
 **Operator surface:** existing [OpenSiro OSS Control Plane](https://github.com/opensiro/vsm-oss-organization/blob/main/docs/AGENT_CONTROL_PLANE.md).
 
+This document governs **automated/delegated** fork execution. A distinct,
+explicitly owner-operated and attended one-off GitHub CLI route for the
+initial public workspace bootstrap is documented in
+[FORK_BOOTSTRAP_AND_COLLABORATION.md](FORK_BOOTSTRAP_AND_COLLABORATION.md).
+That route does not activate this executor, issue standing permissions or
+authorize automatically creating third-party PRs.
+
 ## Decision: do not require a custom ChatGPT MCP plugin
 
 The GitHub **fork API operation and a source-prepared REST client already exist** in this repository. The currently connected ChatGPT GitHub action set lacks a *native create-fork tool*, but that limitation is **not equivalent** to "OpenSiro cannot automate forks".

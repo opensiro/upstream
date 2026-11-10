@@ -1,0 +1,2566 @@
+{
+  "schema_version": 1,
+  "state": "READ_ONLY_PROPOSAL_NOT_APPROVED",
+  "destination_org": "opensiro-contributions",
+  "source_registry": "data/contribution-workspaces/registry.json",
+  "source_registry_sha256": "25a658bdd95bdc3cfbc6bf2c75ff45a000a741866e02c1bd2666cafa226e7159",
+  "priority_snapshot": "data/fork-priorities/2026-11-08.json",
+  "batch_size_max": 10,
+  "counts": {
+    "sources": 193,
+    "priority_sources": 100,
+    "additive_extras": 93,
+    "collision_name_proposals": 11,
+    "creation_batches": 9,
+    "by_state": {
+      "HOLD_HISTORICAL_OR_NEGATIVE_CASE": 91,
+      "HOLD_LICENSE_REVIEW": 5,
+      "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT": 81,
+      "RECHECK_MAPPED_FORK": 16
+    }
+  },
+  "authority": {
+    "bootstrap_stage": "create_public_fork_only",
+    "proposal_digest_is_an_approval": false,
+    "authenticated_actor_and_org_rights": "REVERIFY_IN_TRUSTED_HOST",
+    "one_use_revocable_batch_grant": "NOT_ISSUED",
+    "source_license_and_fork_policy": "REVERIFY_BEFORE_EACH_WRITE",
+    "destination_absence_or_correct_parent": "REVERIFY_BEFORE_EACH_WRITE",
+    "failure": "STOP_AND_RECORD_NO_BLIND_RETRY",
+    "working_branch_write_stage": "SEPARATE_PREPARE_CONTRIBUTION_GRANT",
+    "external_pr": "HUMAN_APPROVAL_PER_EXACT_PR",
+    "auto_external_pr": false
+  },
+  "batches": [
+    {
+      "id": "bootstrap-001",
+      "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
+      "selection_sha256": "b97b627fea2654a62d09416c881f750b6744563f7de5a0aede25ae0ecba9c99e",
+      "source_count": 10,
+      "has_collision_name_proposals": true,
+      "selection": [
+        {
+          "source": "kstawiski/evidence-gated-scientific-agent",
+          "candidate_fork": "opensiro-contributions/evidence-gated-scientific-agent"
+        },
+        {
+          "source": "lbdremy/phax",
+          "candidate_fork": "opensiro-contributions/phax"
+        },
+        {
+          "source": "microsoft/fara",
+          "candidate_fork": "opensiro-contributions/fara"
+        },
+        {
+          "source": "mnbresearch/crewdeck",
+          "candidate_fork": "opensiro-contributions/crewdeck"
+        },
+        {
+          "source": "murilo-bassan/durable-agent-runtime",
+          "candidate_fork": "opensiro-contributions/durable-agent-runtime"
+        },
+        {
+          "source": "ruslantrachuk/dark-factory",
+          "candidate_fork": "opensiro-contributions/dark-factory"
+        },
+        {
+          "source": "talktorana/agent-harness",
+          "candidate_fork": "opensiro-contributions/talktorana--agent-harness"
+        },
+        {
+          "source": "agentenv/agentflow",
+          "candidate_fork": "opensiro-contributions/agentflow"
+        },
+        {
+          "source": "agentuniverse-ai/agentUniverse",
+          "candidate_fork": "opensiro-contributions/agentUniverse"
+        },
+        {
+          "source": "AniruddhaDas1/OniRoute_SwarmAgents",
+          "candidate_fork": "opensiro-contributions/OniRoute_SwarmAgents"
+        }
+      ]
+    },
+    {
+      "id": "bootstrap-002",
+      "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
+      "selection_sha256": "ff13f35d9c7218ae3001f25c93420f4d47f2ed4974b86566d53ab54eeded55d0",
+      "source_count": 10,
+      "has_collision_name_proposals": true,
+      "selection": [
+        {
+          "source": "cubeplexai/cubeloop",
+          "candidate_fork": "opensiro-contributions/cubeloop"
+        },
+        {
+          "source": "EverMind-AI/Raven",
+          "candidate_fork": "opensiro-contributions/Raven"
+        },
+        {
+          "source": "google-research/harness2",
+          "candidate_fork": "opensiro-contributions/harness2"
+        },
+        {
+          "source": "henrik-me/agent-harness",
+          "candidate_fork": "opensiro-contributions/henrik-me--agent-harness"
+        },
+        {
+          "source": "Hyper-AI-Lab/cyber-ai-team",
+          "candidate_fork": "opensiro-contributions/cyber-ai-team"
+        },
+        {
+          "source": "jpantsjoha/ai-native-developer-experience",
+          "candidate_fork": "opensiro-contributions/ai-native-developer-experience"
+        },
+        {
+          "source": "KumihoIO/Revka",
+          "candidate_fork": "opensiro-contributions/Revka"
+        },
+        {
+          "source": "maneja81/OpenOrbit",
+          "candidate_fork": "opensiro-contributions/OpenOrbit"
+        },
+        {
+          "source": "maref-org/maref",
+          "candidate_fork": "opensiro-contributions/maref"
+        },
+        {
+          "source": "openonion/connectonion",
+          "candidate_fork": "opensiro-contributions/connectonion"
+        }
+      ]
+    },
+    {
+      "id": "bootstrap-003",
+      "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
+      "selection_sha256": "5c110d77ce360dd27b9ef8e09d91835f2fa51a56778a4910c13121f06bc7802f",
+      "source_count": 10,
+      "has_collision_name_proposals": false,
+      "selection": [
+        {
+          "source": "shamspias/reins",
+          "candidate_fork": "opensiro-contributions/reins"
+        },
+        {
+          "source": "simonguo/evidenceloom",
+          "candidate_fork": "opensiro-contributions/evidenceloom"
+        },
+        {
+          "source": "yoheinakajima/activegraph",
+          "candidate_fork": "opensiro-contributions/activegraph"
+        },
+        {
+          "source": "openclaw/openclaw",
+          "candidate_fork": "opensiro-contributions/openclaw"
+        },
+        {
+          "source": "affaan-m/ECC",
+          "candidate_fork": "opensiro-contributions/ECC"
+        },
+        {
+          "source": "deepseek-ai/deepseek-harness",
+          "candidate_fork": "opensiro-contributions/deepseek-harness"
+        },
+        {
+          "source": "NousResearch/hermes-agent",
+          "candidate_fork": "opensiro-contributions/hermes-agent"
+        },
+        {
+          "source": "anomalyco/opencode",
+          "candidate_fork": "opensiro-contributions/opencode"
+        },
+        {
+          "source": "langflow-ai/langflow",
+          "candidate_fork": "opensiro-contributions/langflow"
+        },
+        {
+          "source": "langchain-ai/langchain",
+          "candidate_fork": "opensiro-contributions/langchain"
+        }
+      ]
+    },
+    {
+      "id": "bootstrap-004",
+      "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
+      "selection_sha256": "355a4a1d9a6b5b89246db415f9d10403023256550a1cdafa7f535bd226babec0",
+      "source_count": 10,
+      "has_collision_name_proposals": false,
+      "selection": [
+        {
+          "source": "openai/codex",
+          "candidate_fork": "opensiro-contributions/codex"
+        },
+        {
+          "source": "earendil-works/pi",
+          "candidate_fork": "opensiro-contributions/pi"
+        },
+        {
+          "source": "browser-use/browser-use",
+          "candidate_fork": "opensiro-contributions/browser-use"
+        },
+        {
+          "source": "stablyai/orca",
+          "candidate_fork": "opensiro-contributions/orca"
+        },
+        {
+          "source": "paperclipai/paperclip",
+          "candidate_fork": "opensiro-contributions/paperclip"
+        },
+        {
+          "source": "google-gemini/gemini-cli",
+          "candidate_fork": "opensiro-contributions/gemini-cli"
+        },
+        {
+          "source": "OpenHands/OpenHands",
+          "candidate_fork": "opensiro-contributions/OpenHands"
+        },
+        {
+          "source": "bytedance/deer-flow",
+          "candidate_fork": "opensiro-contributions/deer-flow"
+        },
+        {
+          "source": "ruvnet/ruflo",
+          "candidate_fork": "opensiro-contributions/ruflo"
+        },
+        {
+          "source": "cline/cline",
+          "candidate_fork": "opensiro-contributions/cline"
+        }
+      ]
+    },
+    {
+      "id": "bootstrap-005",
+      "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
+      "selection_sha256": "e74310c0bd454c4122c938e50fc3acc8a3d4854d2de651801ad8e3b46bc5a160",
+      "source_count": 10,
+      "has_collision_name_proposals": false,
+      "selection": [
+        {
+          "source": "openinterpreter/openinterpreter",
+          "candidate_fork": "opensiro-contributions/openinterpreter"
+        },
+        {
+          "source": "microsoft/semantic-kernel",
+          "candidate_fork": "opensiro-contributions/semantic-kernel"
+        },
+        {
+          "source": "browser-use/browser-harness",
+          "candidate_fork": "opensiro-contributions/browser-harness"
+        },
+        {
+          "source": "camel-ai/camel",
+          "candidate_fork": "opensiro-contributions/camel"
+        },
+        {
+          "source": "VoltAgent/voltagent",
+          "candidate_fork": "opensiro-contributions/voltagent"
+        },
+        {
+          "source": "strands-agents/harness-sdk",
+          "candidate_fork": "opensiro-contributions/harness-sdk"
+        },
+        {
+          "source": "github/gh-aw",
+          "candidate_fork": "opensiro-contributions/gh-aw"
+        },
+        {
+          "source": "ag2ai/ag2",
+          "candidate_fork": "opensiro-contributions/ag2"
+        },
+        {
+          "source": "RUC-NLPIR/CoworkOS",
+          "candidate_fork": "opensiro-contributions/CoworkOS"
+        },
+        {
+          "source": "eust-w/opengeniemaster",
+          "candidate_fork": "opensiro-contributions/opengeniemaster"
+        }
+      ]
+    },
+    {
+      "id": "bootstrap-006",
+      "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
+      "selection_sha256": "38df7d6422511cf62d56905743ee5ecd2e9f3ff3406b71a2d65d6e71dfc1de64",
+      "source_count": 10,
+      "has_collision_name_proposals": false,
+      "selection": [
+        {
+          "source": "shrec/AIWorkHub",
+          "candidate_fork": "opensiro-contributions/AIWorkHub"
+        },
+        {
+          "source": "voly-codes/voly",
+          "candidate_fork": "opensiro-contributions/voly"
+        },
+        {
+          "source": "ayandexyz/Honey-I-Shrunk-the-Harness",
+          "candidate_fork": "opensiro-contributions/Honey-I-Shrunk-the-Harness"
+        },
+        {
+          "source": "jonwiggins/optio",
+          "candidate_fork": "opensiro-contributions/optio"
+        },
+        {
+          "source": "rootkiller6788/dsh-flow",
+          "candidate_fork": "opensiro-contributions/dsh-flow"
+        },
+        {
+          "source": "kryptobaseddev/cleo",
+          "candidate_fork": "opensiro-contributions/cleo"
+        },
+        {
+          "source": "lukacf/meerkat",
+          "candidate_fork": "opensiro-contributions/meerkat"
+        },
+        {
+          "source": "tigicion/dao-code",
+          "candidate_fork": "opensiro-contributions/dao-code"
+        },
+        {
+          "source": "agentarea/agentarea",
+          "candidate_fork": "opensiro-contributions/agentarea"
+        },
+        {
+          "source": "arbazkhan971/bharatcode-cli",
+          "candidate_fork": "opensiro-contributions/bharatcode-cli"
+        }
+      ]
+    },
+    {
+      "id": "bootstrap-007",
+      "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
+      "selection_sha256": "ec6f30aa068bfa1dff373bfa68ac0f3b79e338d4c5dfbeb3f9171b77d630145a",
+      "source_count": 10,
+      "has_collision_name_proposals": true,
+      "selection": [
+        {
+          "source": "mihazs/agent-harness-lab",
+          "candidate_fork": "opensiro-contributions/agent-harness-lab"
+        },
+        {
+          "source": "haoyu-agent/SceneEvolve_Code",
+          "candidate_fork": "opensiro-contributions/SceneEvolve_Code"
+        },
+        {
+          "source": "lose4578/Auriga",
+          "candidate_fork": "opensiro-contributions/Auriga"
+        },
+        {
+          "source": "savant0x/savant-code",
+          "candidate_fork": "opensiro-contributions/savant-code"
+        },
+        {
+          "source": "djynnius/rocinante",
+          "candidate_fork": "opensiro-contributions/rocinante"
+        },
+        {
+          "source": "ahwurm/localharness",
+          "candidate_fork": "opensiro-contributions/localharness"
+        },
+        {
+          "source": "DemonDamon/AgenticX",
+          "candidate_fork": "opensiro-contributions/AgenticX"
+        },
+        {
+          "source": "no-human-ai/no_human",
+          "candidate_fork": "opensiro-contributions/no_human"
+        },
+        {
+          "source": "peristyle-ai/harness",
+          "candidate_fork": "opensiro-contributions/peristyle-ai--harness"
+        },
+        {
+          "source": "0xNyk/lacp",
+          "candidate_fork": "opensiro-contributions/lacp"
+        }
+      ]
+    },
+    {
+      "id": "bootstrap-008",
+      "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
+      "selection_sha256": "7e3c28941300bd0427f8e82e73cd8fcfb4dff8b5f7403998b923861f5b525b7e",
+      "source_count": 10,
+      "has_collision_name_proposals": false,
+      "selection": [
+        {
+          "source": "avala-ai/agent-code",
+          "candidate_fork": "opensiro-contributions/agent-code"
+        },
+        {
+          "source": "chekusu/wanman",
+          "candidate_fork": "opensiro-contributions/wanman"
+        },
+        {
+          "source": "codexmark/kram",
+          "candidate_fork": "opensiro-contributions/kram"
+        },
+        {
+          "source": "FonaTech/Clouds-Coder",
+          "candidate_fork": "opensiro-contributions/Clouds-Coder"
+        },
+        {
+          "source": "gczhuang-cmd/NovaCode",
+          "candidate_fork": "opensiro-contributions/NovaCode"
+        },
+        {
+          "source": "leprachuan/Wee-Orchestrator",
+          "candidate_fork": "opensiro-contributions/Wee-Orchestrator"
+        },
+        {
+          "source": "madarco/agentbox",
+          "candidate_fork": "opensiro-contributions/agentbox"
+        },
+        {
+          "source": "patriceckhart/zot",
+          "candidate_fork": "opensiro-contributions/zot"
+        },
+        {
+          "source": "speakeasy-api/kit",
+          "candidate_fork": "opensiro-contributions/kit"
+        },
+        {
+          "source": "splashxmoon/friday",
+          "candidate_fork": "opensiro-contributions/friday"
+        }
+      ]
+    },
+    {
+      "id": "bootstrap-009",
+      "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
+      "selection_sha256": "35babf91c15d8c82b9f4d4ecd76816ddc8d6c4ef4d1b111b5e6a192189dbcbaa",
+      "source_count": 1,
+      "has_collision_name_proposals": false,
+      "selection": [
+        {
+          "source": "xingyaoww/code-act",
+          "candidate_fork": "opensiro-contributions/code-act"
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "source": "HarnessDesk/HarnessDesk",
+      "priority_group": "EXISTING_FORK",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/HarnessDesk",
+      "candidate_name": "HarnessDesk",
+      "collision_name_proposal": false,
+      "state": "RECHECK_MAPPED_FORK",
+      "current_fork_mapping": "opensiro-contributions/HarnessDesk",
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "Rohith-s-hub/Oblivion-agent",
+      "priority_group": "EXISTING_FORK",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/Oblivion-agent",
+      "candidate_name": "Oblivion-agent",
+      "collision_name_proposal": false,
+      "state": "RECHECK_MAPPED_FORK",
+      "current_fork_mapping": "opensiro-contributions/Oblivion-agent",
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "cordfuse/politik",
+      "priority_group": "EXISTING_FORK",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/politik",
+      "candidate_name": "politik",
+      "collision_name_proposal": false,
+      "state": "RECHECK_MAPPED_FORK",
+      "current_fork_mapping": "opensiro-contributions/politik",
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "Onipounds/agent-loop",
+      "priority_group": "EXISTING_FORK",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/agent-loop",
+      "candidate_name": "agent-loop",
+      "collision_name_proposal": false,
+      "state": "RECHECK_MAPPED_FORK",
+      "current_fork_mapping": "opensiro-contributions/agent-loop",
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "Gen-Verse/DiscoveryRSI",
+      "priority_group": "EXISTING_FORK",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/DiscoveryRSI",
+      "candidate_name": "DiscoveryRSI",
+      "collision_name_proposal": false,
+      "state": "RECHECK_MAPPED_FORK",
+      "current_fork_mapping": "opensiro-contributions/DiscoveryRSI",
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "huleidada/matterloop",
+      "priority_group": "EXISTING_FORK",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/matterloop",
+      "candidate_name": "matterloop",
+      "collision_name_proposal": false,
+      "state": "RECHECK_MAPPED_FORK",
+      "current_fork_mapping": "opensiro-contributions/matterloop",
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "Gen-Verse/Recuris",
+      "priority_group": "EXISTING_FORK",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/Recuris",
+      "candidate_name": "Recuris",
+      "collision_name_proposal": false,
+      "state": "RECHECK_MAPPED_FORK",
+      "current_fork_mapping": "opensiro-contributions/Recuris",
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "LEO001020/pi-loop-studio-orchestra",
+      "priority_group": "EXISTING_FORK",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/pi-loop-studio-orchestra",
+      "candidate_name": "pi-loop-studio-orchestra",
+      "collision_name_proposal": false,
+      "state": "RECHECK_MAPPED_FORK",
+      "current_fork_mapping": "opensiro-contributions/pi-loop-studio-orchestra",
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "SethGammon/Citadel",
+      "priority_group": "EXISTING_FORK",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/Citadel",
+      "candidate_name": "Citadel",
+      "collision_name_proposal": false,
+      "state": "RECHECK_MAPPED_FORK",
+      "current_fork_mapping": "opensiro-contributions/Citadel",
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "chankov/agent-fleet",
+      "priority_group": "EXISTING_FORK",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/agent-fleet",
+      "candidate_name": "agent-fleet",
+      "collision_name_proposal": false,
+      "state": "RECHECK_MAPPED_FORK",
+      "current_fork_mapping": "opensiro-contributions/agent-fleet",
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "chumingjun/dsh-harness-one",
+      "priority_group": "EXISTING_FORK",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/dsh-harness-one",
+      "candidate_name": "dsh-harness-one",
+      "collision_name_proposal": false,
+      "state": "RECHECK_MAPPED_FORK",
+      "current_fork_mapping": "opensiro-contributions/dsh-harness-one",
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "Coral-Bricks-AI/reef",
+      "priority_group": "EXISTING_FORK",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/reef",
+      "candidate_name": "reef",
+      "collision_name_proposal": false,
+      "state": "RECHECK_MAPPED_FORK",
+      "current_fork_mapping": "opensiro-contributions/reef",
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "CorticalComputer/Spartan",
+      "priority_group": "EXISTING_FORK",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/Spartan",
+      "candidate_name": "Spartan",
+      "collision_name_proposal": false,
+      "state": "RECHECK_MAPPED_FORK",
+      "current_fork_mapping": "opensiro-contributions/Spartan",
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "BESSER-PEARL/BESSER-Agentic-Framework",
+      "priority_group": "EXISTING_FORK",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/BESSER-Agentic-Framework",
+      "candidate_name": "BESSER-Agentic-Framework",
+      "collision_name_proposal": false,
+      "state": "RECHECK_MAPPED_FORK",
+      "current_fork_mapping": "opensiro-contributions/BESSER-Agentic-Framework",
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "mila-iqia/babyai",
+      "priority_group": "EXISTING_FORK",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/babyai",
+      "candidate_name": "babyai",
+      "collision_name_proposal": false,
+      "state": "RECHECK_MAPPED_FORK",
+      "current_fork_mapping": "opensiro-contributions/babyai",
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "Phoenixrr2113/agent-harness",
+      "priority_group": "EXISTING_FORK",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/agent-harness",
+      "candidate_name": "agent-harness",
+      "collision_name_proposal": false,
+      "state": "RECHECK_MAPPED_FORK",
+      "current_fork_mapping": "opensiro-contributions/agent-harness",
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "kstawiski/evidence-gated-scientific-agent",
+      "priority_group": "PREPARED_PACKET",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/evidence-gated-scientific-agent",
+      "candidate_name": "evidence-gated-scientific-agent",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "lbdremy/phax",
+      "priority_group": "PREPARED_PACKET",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/phax",
+      "candidate_name": "phax",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "microsoft/fara",
+      "priority_group": "PREPARED_PACKET",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/fara",
+      "candidate_name": "fara",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "mnbresearch/crewdeck",
+      "priority_group": "PREPARED_PACKET",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/crewdeck",
+      "candidate_name": "crewdeck",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "murilo-bassan/durable-agent-runtime",
+      "priority_group": "PREPARED_PACKET",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/durable-agent-runtime",
+      "candidate_name": "durable-agent-runtime",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "ruslantrachuk/dark-factory",
+      "priority_group": "PREPARED_PACKET",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/dark-factory",
+      "candidate_name": "dark-factory",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "talktorana/agent-harness",
+      "priority_group": "PREPARED_PACKET",
+      "next_step": "RESOLVE_FORK_PARENT_AND_NAME",
+      "candidate_fork": "opensiro-contributions/talktorana--agent-harness",
+      "candidate_name": "talktorana--agent-harness",
+      "collision_name_proposal": true,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "agentenv/agentflow",
+      "priority_group": "PREPARED_PACKET",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/agentflow",
+      "candidate_name": "agentflow",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "agentuniverse-ai/agentUniverse",
+      "priority_group": "PREPARED_PACKET",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/agentUniverse",
+      "candidate_name": "agentUniverse",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "AniruddhaDas1/OniRoute_SwarmAgents",
+      "priority_group": "PREPARED_PACKET",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/OniRoute_SwarmAgents",
+      "candidate_name": "OniRoute_SwarmAgents",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "cubeplexai/cubeloop",
+      "priority_group": "PREPARED_PACKET",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/cubeloop",
+      "candidate_name": "cubeloop",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "EverMind-AI/Raven",
+      "priority_group": "PREPARED_PACKET",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/Raven",
+      "candidate_name": "Raven",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "google-research/harness2",
+      "priority_group": "PREPARED_PACKET",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/harness2",
+      "candidate_name": "harness2",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "henrik-me/agent-harness",
+      "priority_group": "PREPARED_PACKET",
+      "next_step": "RESOLVE_FORK_PARENT_AND_NAME",
+      "candidate_fork": "opensiro-contributions/henrik-me--agent-harness",
+      "candidate_name": "henrik-me--agent-harness",
+      "collision_name_proposal": true,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "Hyper-AI-Lab/cyber-ai-team",
+      "priority_group": "PREPARED_PACKET",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/cyber-ai-team",
+      "candidate_name": "cyber-ai-team",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "jpantsjoha/ai-native-developer-experience",
+      "priority_group": "PREPARED_PACKET",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/ai-native-developer-experience",
+      "candidate_name": "ai-native-developer-experience",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "KumihoIO/Revka",
+      "priority_group": "PREPARED_PACKET",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/Revka",
+      "candidate_name": "Revka",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "maneja81/OpenOrbit",
+      "priority_group": "PREPARED_PACKET",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/OpenOrbit",
+      "candidate_name": "OpenOrbit",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "maref-org/maref",
+      "priority_group": "PREPARED_PACKET",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/maref",
+      "candidate_name": "maref",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "openonion/connectonion",
+      "priority_group": "PREPARED_PACKET",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/connectonion",
+      "candidate_name": "connectonion",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "shamspias/reins",
+      "priority_group": "PREPARED_PACKET",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/reins",
+      "candidate_name": "reins",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "simonguo/evidenceloom",
+      "priority_group": "PREPARED_PACKET",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/evidenceloom",
+      "candidate_name": "evidenceloom",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "yoheinakajima/activegraph",
+      "priority_group": "PREPARED_PACKET",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/activegraph",
+      "candidate_name": "activegraph",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "openclaw/openclaw",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/openclaw",
+      "candidate_name": "openclaw",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "affaan-m/ECC",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/ECC",
+      "candidate_name": "ECC",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "deepseek-ai/deepseek-harness",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/deepseek-harness",
+      "candidate_name": "deepseek-harness",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "NousResearch/hermes-agent",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/hermes-agent",
+      "candidate_name": "hermes-agent",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "anomalyco/opencode",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/opencode",
+      "candidate_name": "opencode",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "langflow-ai/langflow",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/langflow",
+      "candidate_name": "langflow",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "langchain-ai/langchain",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/langchain",
+      "candidate_name": "langchain",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "openai/codex",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/codex",
+      "candidate_name": "codex",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "earendil-works/pi",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/pi",
+      "candidate_name": "pi",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "browser-use/browser-use",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/browser-use",
+      "candidate_name": "browser-use",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "stablyai/orca",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/orca",
+      "candidate_name": "orca",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "paperclipai/paperclip",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/paperclip",
+      "candidate_name": "paperclip",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "google-gemini/gemini-cli",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/gemini-cli",
+      "candidate_name": "gemini-cli",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "OpenHands/OpenHands",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/OpenHands",
+      "candidate_name": "OpenHands",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "bytedance/deer-flow",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/deer-flow",
+      "candidate_name": "deer-flow",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "ruvnet/ruflo",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/ruflo",
+      "candidate_name": "ruflo",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "cline/cline",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/cline",
+      "candidate_name": "cline",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "openinterpreter/openinterpreter",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/openinterpreter",
+      "candidate_name": "openinterpreter",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "microsoft/semantic-kernel",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/semantic-kernel",
+      "candidate_name": "semantic-kernel",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "browser-use/browser-harness",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/browser-harness",
+      "candidate_name": "browser-harness",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "camel-ai/camel",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/camel",
+      "candidate_name": "camel",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "VoltAgent/voltagent",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/voltagent",
+      "candidate_name": "voltagent",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "strands-agents/harness-sdk",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/harness-sdk",
+      "candidate_name": "harness-sdk",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "github/gh-aw",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/gh-aw",
+      "candidate_name": "gh-aw",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "ag2ai/ag2",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/ag2",
+      "candidate_name": "ag2",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "getclarvis/clarvis",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/clarvis",
+      "candidate_name": "clarvis",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "jonathanhecl/vibe-coder",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/vibe-coder",
+      "candidate_name": "vibe-coder",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "RUC-NLPIR/CoworkOS",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/CoworkOS",
+      "candidate_name": "CoworkOS",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "eust-w/opengeniemaster",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/opengeniemaster",
+      "candidate_name": "opengeniemaster",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "NeoPanic/harness3",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/harness3",
+      "candidate_name": "harness3",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "nurmdrafi/pi-native",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/pi-native",
+      "candidate_name": "pi-native",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "Resolver-TNG/StiraCore",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/StiraCore",
+      "candidate_name": "StiraCore",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "orka-agents/orka",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/orka",
+      "candidate_name": "orka",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "shrec/AIWorkHub",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/AIWorkHub",
+      "candidate_name": "AIWorkHub",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "the-open-engine/zeroshot",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/zeroshot",
+      "candidate_name": "zeroshot",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "voly-codes/voly",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/voly",
+      "candidate_name": "voly",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "rsi-gear/gear",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/gear",
+      "candidate_name": "gear",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "ayandexyz/Honey-I-Shrunk-the-Harness",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/Honey-I-Shrunk-the-Harness",
+      "candidate_name": "Honey-I-Shrunk-the-Harness",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "jonwiggins/optio",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/optio",
+      "candidate_name": "optio",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "codemowers/agent",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "RESOLVE_FORK_PARENT_AND_NAME",
+      "candidate_fork": "opensiro-contributions/codemowers--agent",
+      "candidate_name": "codemowers--agent",
+      "collision_name_proposal": true,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "rootkiller6788/dsh-flow",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/dsh-flow",
+      "candidate_name": "dsh-flow",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "TencentCloud/octop-harness",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/octop-harness",
+      "candidate_name": "octop-harness",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "kryptobaseddev/cleo",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/cleo",
+      "candidate_name": "cleo",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "lukacf/meerkat",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/meerkat",
+      "candidate_name": "meerkat",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "DMRLZZ/DaveCode",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/DaveCode",
+      "candidate_name": "DaveCode",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "ranger360ai/posse",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/posse",
+      "candidate_name": "posse",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "RogyMD/onethread",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/onethread",
+      "candidate_name": "onethread",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "supernovae/SwarmOS",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/SwarmOS",
+      "candidate_name": "SwarmOS",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "codewhale-hq/Codewhale",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/Codewhale",
+      "candidate_name": "Codewhale",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "tigicion/dao-code",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/dao-code",
+      "candidate_name": "dao-code",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "agentarea/agentarea",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/agentarea",
+      "candidate_name": "agentarea",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "arbazkhan971/bharatcode-cli",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/bharatcode-cli",
+      "candidate_name": "bharatcode-cli",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "mihazs/agent-harness-lab",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/agent-harness-lab",
+      "candidate_name": "agent-harness-lab",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "haoyu-agent/SceneEvolve_Code",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/SceneEvolve_Code",
+      "candidate_name": "SceneEvolve_Code",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "lose4578/Auriga",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/Auriga",
+      "candidate_name": "Auriga",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "savant0x/savant-code",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/savant-code",
+      "candidate_name": "savant-code",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "djynnius/rocinante",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/rocinante",
+      "candidate_name": "rocinante",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "ahwurm/localharness",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/localharness",
+      "candidate_name": "localharness",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "DemonDamon/AgenticX",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/AgenticX",
+      "candidate_name": "AgenticX",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "no-human-ai/no_human",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/no_human",
+      "candidate_name": "no_human",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "peristyle-ai/harness",
+      "priority_group": "INDEX_HYPOTHESIS",
+      "next_step": "RESOLVE_FORK_PARENT_AND_NAME",
+      "candidate_fork": "opensiro-contributions/peristyle-ai--harness",
+      "candidate_name": "peristyle-ai--harness",
+      "collision_name_proposal": true,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "0xNyk/lacp",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/lacp",
+      "candidate_name": "lacp",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "7ar-chat/harness",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "RESOLVE_FORK_PARENT_AND_NAME",
+      "candidate_fork": "opensiro-contributions/7ar-chat--harness",
+      "candidate_name": "7ar-chat--harness",
+      "collision_name_proposal": true,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "aa-blinov/cast",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/cast",
+      "candidate_name": "cast",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "AgnesAI-Labs/agnes-harness",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/agnes-harness",
+      "candidate_name": "agnes-harness",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "AmbientCrypto/ambient-cli",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/ambient-cli",
+      "candidate_name": "ambient-cli",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "andreseloysv/Tirith",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/Tirith",
+      "candidate_name": "Tirith",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "androoAGI/starnet",
+      "priority_group": "PORTFOLIO_EXTRA",
+      "next_step": "HISTORICAL_PR_TRACK_ONLY_NO_NEW_PUBLICATION",
+      "candidate_fork": "opensiro-contributions/starnet",
+      "candidate_name": "starnet",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "AndyMik90/Aperant",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/Aperant",
+      "candidate_name": "Aperant",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "Aphrodine-wq/G-Rump",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/G-Rump",
+      "candidate_name": "G-Rump",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "atharva1407-sys/SIFRA-Agent-Orchestration-Multi-Agent-Runtime",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "BLOCKED_LICENSE_REVIEW",
+      "candidate_fork": "opensiro-contributions/SIFRA-Agent-Orchestration-Multi-Agent-Runtime",
+      "candidate_name": "SIFRA-Agent-Orchestration-Multi-Agent-Runtime",
+      "collision_name_proposal": false,
+      "state": "HOLD_LICENSE_REVIEW",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "avala-ai/agent-code",
+      "priority_group": "PILOT_EXTRA",
+      "next_step": "RECONCILE_NATIVE_PILOT_BEFORE_FORK_STAGE",
+      "candidate_fork": "opensiro-contributions/agent-code",
+      "candidate_name": "agent-code",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "beipo-ai/NorthCUA",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/NorthCUA",
+      "candidate_name": "NorthCUA",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "berkesecicii/free-multi-agent-ai-council",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/free-multi-agent-ai-council",
+      "candidate_name": "free-multi-agent-ai-council",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "cargopete/gyrfalcon",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/gyrfalcon",
+      "candidate_name": "gyrfalcon",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "cbrock84/headcount",
+      "priority_group": "PORTFOLIO_EXTRA",
+      "next_step": "HISTORICAL_PR_TRACK_ONLY_NO_NEW_PUBLICATION",
+      "candidate_fork": "opensiro-contributions/headcount",
+      "candidate_name": "headcount",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "chekusu/wanman",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/wanman",
+      "candidate_name": "wanman",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "CodebuffAI/freebuff",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/freebuff",
+      "candidate_name": "freebuff",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "codexmark/kram",
+      "priority_group": "PILOT_EXTRA",
+      "next_step": "RECONCILE_NATIVE_PILOT_BEFORE_FORK_STAGE",
+      "candidate_fork": "opensiro-contributions/kram",
+      "candidate_name": "kram",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "converged-computing/fractale",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/fractale",
+      "candidate_name": "fractale",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "cristiangirlea/harness",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "RESOLVE_FORK_PARENT_AND_NAME",
+      "candidate_fork": "opensiro-contributions/cristiangirlea--harness",
+      "candidate_name": "cristiangirlea--harness",
+      "collision_name_proposal": true,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "cUDGk/nipus-harness",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/nipus-harness",
+      "candidate_name": "nipus-harness",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "Darwin-Agent/HarnessX",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/HarnessX",
+      "candidate_name": "HarnessX",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "devincii-io/QuickCode",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/QuickCode",
+      "candidate_name": "QuickCode",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "dyabel/AnyTool",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/AnyTool",
+      "candidate_name": "AnyTool",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "fbrubacher/orch",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "BLOCKED_LICENSE_REVIEW",
+      "candidate_fork": "opensiro-contributions/orch",
+      "candidate_name": "orch",
+      "collision_name_proposal": false,
+      "state": "HOLD_LICENSE_REVIEW",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "first-fluke/oh-my-agent",
+      "priority_group": "PORTFOLIO_EXTRA",
+      "next_step": "HISTORICAL_PR_TRACK_ONLY_NO_NEW_PUBLICATION",
+      "candidate_fork": "opensiro-contributions/oh-my-agent",
+      "candidate_name": "oh-my-agent",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "folke/zaly",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/zaly",
+      "candidate_name": "zaly",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "FonaTech/Clouds-Coder",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/Clouds-Coder",
+      "candidate_name": "Clouds-Coder",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "FuzzyKuji/OpenProgram",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/OpenProgram",
+      "candidate_name": "OpenProgram",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "gczhuang-cmd/NovaCode",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/NovaCode",
+      "candidate_name": "NovaCode",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "GoogleCloudPlatform/scion",
+      "priority_group": "PORTFOLIO_EXTRA",
+      "next_step": "HISTORICAL_PR_TRACK_ONLY_NO_NEW_PUBLICATION",
+      "candidate_fork": "opensiro-contributions/scion",
+      "candidate_name": "scion",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "greyhaven-ai/autocontext",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/autocontext",
+      "candidate_name": "autocontext",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "haileyok/victrola",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/victrola",
+      "candidate_name": "victrola",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "hsghcop/ForestCode",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/ForestCode",
+      "candidate_name": "ForestCode",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "huggingface/tau",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/tau",
+      "candidate_name": "tau",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "humbertobellor/henterprise",
+      "priority_group": "PORTFOLIO_EXTRA",
+      "next_step": "HISTORICAL_PR_TRACK_ONLY_NO_NEW_PUBLICATION",
+      "candidate_fork": "opensiro-contributions/henterprise",
+      "candidate_name": "henterprise",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "inhere/suga",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/suga",
+      "candidate_name": "suga",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "JakeSelby/model-citizen",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/model-citizen",
+      "candidate_name": "model-citizen",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "jirathip-dev/herdsman",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/herdsman",
+      "candidate_name": "herdsman",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "JuliusBrussee/caveman-code",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/caveman-code",
+      "candidate_name": "caveman-code",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "k4yt3x/meka",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/meka",
+      "candidate_name": "meka",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "khanuzeb/axiom",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/axiom",
+      "candidate_name": "axiom",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "kushagrathisside/bridle",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/bridle",
+      "candidate_name": "bridle",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "leprachuan/Wee-Orchestrator",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/Wee-Orchestrator",
+      "candidate_name": "Wee-Orchestrator",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "LofiSu/deepseek-super-agent",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/deepseek-super-agent",
+      "candidate_name": "deepseek-super-agent",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "madarco/agentbox",
+      "priority_group": "PILOT_EXTRA",
+      "next_step": "RECONCILE_NATIVE_PILOT_BEFORE_FORK_STAGE",
+      "candidate_fork": "opensiro-contributions/agentbox",
+      "candidate_name": "agentbox",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "manishiitg/agentworks",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/agentworks",
+      "candidate_name": "agentworks",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "markmhendrickson/ateles",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/ateles",
+      "candidate_name": "ateles",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "martian56/rook",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/rook",
+      "candidate_name": "rook",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "me7ko-dev/genesis-agent",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/genesis-agent",
+      "candidate_name": "genesis-agent",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "nearai/ironclaw",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/ironclaw",
+      "candidate_name": "ironclaw",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "NickGuAI/Herd",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/Herd",
+      "candidate_name": "Herd",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "NoHarry/android-agent-runtime",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/android-agent-runtime",
+      "candidate_name": "android-agent-runtime",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "oleksandr/super-pi-beam",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/super-pi-beam",
+      "candidate_name": "super-pi-beam",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "openJiuwen-ai/agent-runtime",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "RESOLVE_FORK_PARENT_AND_NAME",
+      "candidate_fork": "opensiro-contributions/openJiuwen-ai--agent-runtime",
+      "candidate_name": "openJiuwen-ai--agent-runtime",
+      "collision_name_proposal": true,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "openshift-online/agent-control-plane",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/agent-control-plane",
+      "candidate_name": "agent-control-plane",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "Orchestragent/orchestragent",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/orchestragent",
+      "candidate_name": "orchestragent",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "ori-platform/ori-runtime",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/ori-runtime",
+      "candidate_name": "ori-runtime",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "Orkas-AI/Orkas",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/Orkas",
+      "candidate_name": "Orkas",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "patriceckhart/zot",
+      "priority_group": "PILOT_EXTRA",
+      "next_step": "RECONCILE_NATIVE_PILOT_BEFORE_FORK_STAGE",
+      "candidate_fork": "opensiro-contributions/zot",
+      "candidate_name": "zot",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "Qin-sor/agent-context-lab",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "BLOCKED_LICENSE_REVIEW",
+      "candidate_fork": "opensiro-contributions/agent-context-lab",
+      "candidate_name": "agent-context-lab",
+      "collision_name_proposal": false,
+      "state": "HOLD_LICENSE_REVIEW",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "qual-lab/CRDD",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/CRDD",
+      "candidate_name": "CRDD",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "qujck/harness",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "RESOLVE_FORK_PARENT_AND_NAME",
+      "candidate_fork": "opensiro-contributions/qujck--harness",
+      "candidate_name": "qujck--harness",
+      "collision_name_proposal": true,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "rainyZhou2/SreAgentHarness",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/SreAgentHarness",
+      "candidate_name": "SreAgentHarness",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "ramannanda9/agent-harness",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "RESOLVE_FORK_PARENT_AND_NAME",
+      "candidate_fork": "opensiro-contributions/ramannanda9--agent-harness",
+      "candidate_name": "ramannanda9--agent-harness",
+      "collision_name_proposal": true,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "RapierCraftStudios/ForgeDock",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "BLOCKED_LICENSE_REVIEW",
+      "candidate_fork": "opensiro-contributions/ForgeDock",
+      "candidate_name": "ForgeDock",
+      "collision_name_proposal": false,
+      "state": "HOLD_LICENSE_REVIEW",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "rokartur/agent",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "RESOLVE_FORK_PARENT_AND_NAME",
+      "candidate_fork": "opensiro-contributions/rokartur--agent",
+      "candidate_name": "rokartur--agent",
+      "collision_name_proposal": true,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "senweaver/senweavercoding",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/senweavercoding",
+      "candidate_name": "senweavercoding",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "sergeiwallace/ai-chassis",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/ai-chassis",
+      "candidate_name": "ai-chassis",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "sh1ny/kehai",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/kehai",
+      "candidate_name": "kehai",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "shaneburrell/quikagent",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/quikagent",
+      "candidate_name": "quikagent",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "shep-ai/shep",
+      "priority_group": "PORTFOLIO_EXTRA",
+      "next_step": "HISTORICAL_PR_TRACK_ONLY_NO_NEW_PUBLICATION",
+      "candidate_fork": "opensiro-contributions/shep",
+      "candidate_name": "shep",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "Shredi/pi-foreman",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/pi-foreman",
+      "candidate_name": "pi-foreman",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "Sinkear/agentwork",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/agentwork",
+      "candidate_name": "agentwork",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "sisyphuslabs/dori-superagent",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/dori-superagent",
+      "candidate_name": "dori-superagent",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "smellak/gifford",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/gifford",
+      "candidate_name": "gifford",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "speakeasy-api/kit",
+      "priority_group": "PILOT_EXTRA",
+      "next_step": "RECONCILE_NATIVE_PILOT_BEFORE_FORK_STAGE",
+      "candidate_fork": "opensiro-contributions/kit",
+      "candidate_name": "kit",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "splashxmoon/friday",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/friday",
+      "candidate_name": "friday",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "SuperagenticAI/pyflue",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "BLOCKED_LICENSE_REVIEW",
+      "candidate_fork": "opensiro-contributions/pyflue",
+      "candidate_name": "pyflue",
+      "collision_name_proposal": false,
+      "state": "HOLD_LICENSE_REVIEW",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "Szotasz/marveen",
+      "priority_group": "PORTFOLIO_EXTRA",
+      "next_step": "HISTORICAL_PR_TRACK_ONLY_NO_NEW_PUBLICATION",
+      "candidate_fork": "opensiro-contributions/marveen",
+      "candidate_name": "marveen",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "tale-project/tale",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/tale",
+      "candidate_name": "tale",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "topoteretes/cognee-community",
+      "priority_group": "PORTFOLIO_EXTRA",
+      "next_step": "HISTORICAL_PR_TRACK_ONLY_NO_NEW_PUBLICATION",
+      "candidate_fork": "opensiro-contributions/cognee-community",
+      "candidate_name": "cognee-community",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "tripolskypetr/agent-runtime",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "RESOLVE_FORK_PARENT_AND_NAME",
+      "candidate_fork": "opensiro-contributions/tripolskypetr--agent-runtime",
+      "candidate_name": "tripolskypetr--agent-runtime",
+      "collision_name_proposal": true,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "turri-oss/turri",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/turri",
+      "candidate_name": "turri",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "uniac-ai/AgentOrg",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/AgentOrg",
+      "candidate_name": "AgentOrg",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "vercel/eve",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/eve",
+      "candidate_name": "eve",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "vinhnx/VTCode",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/VTCode",
+      "candidate_name": "VTCode",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "xincode-ai/xin-code",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/xin-code",
+      "candidate_name": "xin-code",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "xingyaoww/code-act",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/code-act",
+      "candidate_name": "code-act",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "xpressabhi/agentic-sdlc-control-plane",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/agentic-sdlc-control-plane",
+      "candidate_name": "agentic-sdlc-control-plane",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "zenodea/zaino",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/zaino",
+      "candidate_name": "zaino",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "zhanghaojie513/Dougong",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/Dougong",
+      "candidate_name": "Dougong",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "Zleap-AI/Zleap-Agent",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/Zleap-Agent",
+      "candidate_name": "Zleap-Agent",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    }
+  ]
+}
