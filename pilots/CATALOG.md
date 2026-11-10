@@ -7,7 +7,7 @@ fitness, fork existence, PR publication, maintainer acceptance, or VSM grades.
 See [experiment contract](EXPERIMENT_CONTRACT.md) and
 [working-fork pipeline](../docs/CONTINUOUS_WORKING_FORK_PIPELINE.md).
 
-**Coverage:** 66 indexed pilot directories · 178 files. The frozen baseline protects 66 historical directories and their files; 0 directories were added later.
+**Coverage:** 68 indexed pilot directories · 186 files. The frozen baseline protects 66 historical directories and their files; 2 directories were added later.
 
 Each row links its preferred entry file. Read the actual receipt and governing
 batch/PR before attributing positive results or current status.
@@ -20,7 +20,7 @@ batch/PR before attributing positive results or current status.
 | `kram-s2` | [Open](kram-s2/README.md) | patch: 1, handoff: 2, receipt: 1, other: 1 |
 | `zot-shared-workspace` | [Open](zot-shared-workspace/SCREENING_2026-10-20.md) | screen: 1, protocol: 8, receipt: 4, native_code: 1, other: 1 |
 
-## Patch packets and handoffs (47)
+## Patch packets and handoffs (49)
 
 | Pilot | Entry point | Artifacts |
 | --- | --- | --- |
@@ -50,6 +50,7 @@ batch/PR before attributing positive results or current status.
 | `lacp-s2` | [Open](lacp-s2/CONTRIBUTION_HANDOFF.md) | patch: 2, handoff: 1, receipt: 1 |
 | `maref` | [Open](maref/CONTRIBUTION_HANDOFF.md) | patch: 1, handoff: 1, native_code: 1 |
 | `matterloop` | [Open](matterloop/CONTRIBUTION_HANDOFF.md) | patch: 1, handoff: 1 |
+| `novacode-s2` | [Open](novacode-s2/CONTRIBUTION_HANDOFF.md) | patch: 2, handoff: 1, receipt: 1 |
 | `oblivion-batch-edit` | [Open](oblivion-batch-edit/CONTRIBUTION_HANDOFF.md) | patch: 1, handoff: 1, native_code: 1 |
 | `oniroute` | [Open](oniroute/CONTRIBUTION_HANDOFF.md) | patch: 1, handoff: 1 |
 | `openorbit` | [Open](openorbit/CONTRIBUTION_HANDOFF.md) | patch: 1, handoff: 1 |
@@ -70,6 +71,7 @@ batch/PR before attributing positive results or current status.
 | `talktorana-memory-s2` | [Open](talktorana-memory-s2/CONTRIBUTION_HANDOFF.md) | patch: 1, handoff: 1 |
 | `voly-s2` | [Open](voly-s2/CONTRIBUTION_HANDOFF.md) | patch: 2, handoff: 1, receipt: 1 |
 | `wanman-s2` | [Open](wanman-s2/CONTRIBUTION_HANDOFF.md) | patch: 2, handoff: 1, receipt: 1 |
+| `wee-delegation-s2` | [Open](wee-delegation-s2/CONTRIBUTION_HANDOFF.md) | patch: 2, handoff: 1, receipt: 1 |
 | `workflow-one` | [Open](workflow-one/CONTRIBUTION_HANDOFF.md) | patch: 1, handoff: 1 |
 
 ## Screened or blocked hypotheses without a patch (16)
