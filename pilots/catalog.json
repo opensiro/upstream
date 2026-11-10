@@ -4,16 +4,16 @@
   "meaning": "FILE_INVENTORY_ONLY_NO_SUCCESS_OR_EXTERNAL_PUBLICATION_CLAIM",
   "generated_from": "pilots/ direct subdirectories and their preserved files",
   "counts": {
-    "pilot_directories": 69,
-    "artifact_files": 193,
+    "pilot_directories": 71,
+    "artifact_files": 200,
     "historical_directories": 66,
-    "new_directories": 3,
+    "new_directories": 5,
     "by_kind": {
       "EXPERIMENT_SERIES": 3,
-      "PATCH_HANDOFF": 50,
+      "PATCH_HANDOFF": 51,
       "PATCH_EVIDENCE": 0,
       "SCREEN_ONLY": 16,
-      "OTHER_EVIDENCE": 0
+      "OTHER_EVIDENCE": 1
     }
   },
   "root_shared_files": [
@@ -515,6 +515,25 @@
       ]
     },
     {
+      "id": "knowwork-start-race-s2",
+      "path": "pilots/knowwork-start-race-s2",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/knowwork-start-race-s2/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 2,
+        "handoff": 1,
+        "receipt": 1,
+        "other": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "INDEPENDENT_HOST_RECEIPT_2026-11-10.md",
+        "TEST_PLAN.md",
+        "native-fix.patch",
+        "native-regression.patch"
+      ]
+    },
+    {
       "id": "kram-s2",
       "path": "pilots/kram-s2",
       "kind": "EXPERIMENT_SERIES",
@@ -709,6 +728,19 @@
       "files": [
         "CONTRIBUTION_HANDOFF.md",
         "containment-dotdot-prefix.patch"
+      ]
+    },
+    {
+      "id": "polyphemus-tool-collision-s2",
+      "path": "pilots/polyphemus-tool-collision-s2",
+      "kind": "OTHER_EVIDENCE",
+      "start_here": "pilots/polyphemus-tool-collision-s2/NATIVE_DIAGNOSTIC_2026-11-10.md",
+      "artifact_counts": {
+        "other": 2
+      },
+      "files": [
+        "NATIVE_DIAGNOSTIC_2026-11-10.md",
+        "TEST_PLAN.md"
       ]
     },
     {
