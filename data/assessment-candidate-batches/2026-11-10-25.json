@@ -47,19 +47,23 @@
       "reviewed_at": "2026-10-23",
       "function": "S2",
       "finding": "Check whether a completed child continues consuming exported Registry child capacity or name while a safe supported replacement could be admitted.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/da98a140b1c6541f639c1dc4094bf2aeaacdb08d/assessments/aa/aadixc0de-rune.md",
-        "https://github.com/opensiro/upstream/commit/5ddeba928a62829d1951f3380d728920ff63ec01"
+        "https://github.com/opensiro/upstream/commit/5ddeba928a62829d1951f3380d728920ff63ec01",
+        "https://github.com/AadiXC0DE/Rune/blob/56828d777707ba2d714655417a6b3e16cddc452b/crates/rune-agent/src/subagent.rs",
+        "https://github.com/AadiXC0DE/Rune/blob/56828d777707ba2d714655417a6b3e16cddc452b/crates/rune/src/subagent.rs",
+        "https://github.com/AadiXC0DE/Rune/blob/56828d777707ba2d714655417a6b3e16cddc452b/crates/rune-agent/src/subagent_tool.rs",
+        "https://github.com/AadiXC0DE/Rune/blob/56828d777707ba2d714655417a6b3e16cddc452b/LICENSE"
       ],
-      "screening_result": "PRE_REGISTERED_ONLY: no current first-party target inspection or native validation completed. See hypothesis checkpoint for a falsifiable native test and null condition."
+      "screening_result": "Current first-party Rune main 56828d7 Apache-2.0 static screen: Registry::create counts registered per-parent children, and Registry::remove explicitly removes from children and by_parent, freeing capacity; first-party test the_child_bound_is_per_parent_and_reports_limit_exceeded asserts replacement after remove. Completion closes child feedback but intentionally preserves it for parent transcript until explicit remove. The supported CLI uses a distinct Bridge/Runner flow: synchronous delegated read-only child and an atomic count of delegations against SubagentChildren; these are lifetime-session budget semantics rather than a demonstrated stuck terminal slot. No supported automatic reclaim obligation or native adverse case identified; speculative auto-removal could break transcript ownership, so no patch. Read-only static screen; no native tests run."
     },
     {
       "id": "codeagent-orphaned-task-claim",
