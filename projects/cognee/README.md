@@ -8,6 +8,23 @@
 - **Upstream status (2026-10-22):** [implementation PR #434 — open](https://github.com/topoteretes/cognee-community/pull/434); [issue #435 — open](https://github.com/topoteretes/cognee-community/issues/435). No merge or maintainer acceptance claimed.
 - **Fork lifecycle:** **active**
 
+## B23 submission provenance (historical evidence)
+
+The [2026-10-19 B23 submission packet](UPSTREAM_SUBMISSION_PACKET_20261019.md)
+preserves the original source/branch, DCO and target-template inspection, and
+clean Python 3.11 CI receipts for the later-published [Cognee #434](https://github.com/topoteretes/cognee-community/pull/434).
+The source candidate was `opensiro/cognee-community@8ec814d146e4cca9dd1c3ee6fb71123f94aebec5`:
+three signed-off commits and 17 connector-local changed files. The recorded
+fork CI passed 43 unit tests, a real three-assessment Cognee import and the
+source/provenance audit. These are **dated fork checks**, not current upstream
+CI, deployed benefit or maintainer approval.
+
+This is a **general connector integration**, not a corrective intervention
+derived from an assessment of Cognee as a harness. Do not attach the
+harness-specific [AI disclosure v2](../../docs/AI_ASSISTED_PR_DISCLOSURE.md)
+by fabricating an assessment identity. Its external maintenance and any
+further publication require their own current source/authority checks.
+
 The following B10–B21 evidence and handoff records predate the submitted PR; their historical "not submitted" statements describe those earlier stages, not the current lifecycle.
 
 ## Maintainer handoff (B21, historical pre-submission)
