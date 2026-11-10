@@ -70,7 +70,8 @@ def _get(endpoint, *, purpose="GitHub read", runner=subprocess.run):
 
 
 def prepare_pr_handoff(*, upstream, fork, head_branch, head_sha, base_branch,
-                       base_sha, title, body, runner=subprocess.run):
+                       base_sha, title, body, draft=False, draft_reason=None,
+                       runner=subprocess.run):
     upstream = _valid_repo(upstream)
     fork = _valid_repo(fork)
     head_branch = _valid_branch(head_branch, contribution=True)
@@ -83,6 +84,14 @@ def prepare_pr_handoff(*, upstream, fork, head_branch, head_sha, base_branch,
           and "\n" not in title, "PR title must be bounded single-line text")
     _need(type(body) is str and 1 <= len(body.encode("utf-8")) <= 16384,
           "PR body must be reviewed and within size limit")
+    _need(type(draft) is bool, "Draft flag must be boolean")
+    if draft:
+        _need(type(draft_reason) is str and
+              10 <= len(draft_reason.strip()) <= 500,
+              "Draft PR requires a concrete documented reason")
+    else:
+        _need(draft_reason is None,
+              "Draft reason is only valid with an explicit Draft PR")
 
     actor = _get("user", purpose="actor identity", runner=runner)
     _need(type(actor) is dict and type(actor.get("login")) is str
@@ -139,7 +148,7 @@ def prepare_pr_handoff(*, upstream, fork, head_branch, head_sha, base_branch,
 
     post = {"title": title.strip(), "body": body,
             "head": fork.split("/")[0] + ":" + head_branch,
-            "base": base_branch, "draft": True,
+            "base": base_branch, "draft": draft,
             "maintainer_can_modify": True}
     if upstream.split("/")[0].casefold() == fork.split("/")[0].casefold():
         post["head_repo"] = fork.split("/")[1]
@@ -154,6 +163,8 @@ def prepare_pr_handoff(*, upstream, fork, head_branch, head_sha, base_branch,
         "title_sha256": hashlib.sha256(title.strip().encode()).hexdigest(),
         "body_sha256": hashlib.sha256(body.encode()).hexdigest(),
     }
+    if draft:
+        evidence["draft_reason"] = draft_reason.strip()
     canonical = json.dumps({"evidence": evidence, "payload": post},
                            sort_keys=True, separators=(",", ":"), ensure_ascii=False)
     return {
@@ -183,6 +194,10 @@ def main(argv=None, *, runner=subprocess.run):
     parser.add_argument("--base-sha", required=True)
     parser.add_argument("--title", required=True)
     parser.add_argument("--body-file", required=True)
+    parser.add_argument("--draft", action="store_true",
+                        help="Explicit Draft PR; requires --draft-reason")
+    parser.add_argument("--draft-reason",
+                        help="Concrete reason this PR is not ready for review")
     args = parser.parse_args(argv)
     try:
         body_path = Path(args.body_file)
@@ -193,6 +208,7 @@ def main(argv=None, *, runner=subprocess.run):
             head_branch=args.head_branch, head_sha=args.head_sha,
             base_branch=args.base_branch, base_sha=args.base_sha,
             title=args.title, body=body_path.read_text(encoding="utf-8"),
+            draft=args.draft, draft_reason=args.draft_reason,
             runner=runner)
     except (PRBlocked, StageBlocked, OSError, UnicodeError) as exc:
         result = {"status": "PR_BLOCKED_NO_WRITE",
