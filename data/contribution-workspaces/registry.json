@@ -17,10 +17,10 @@
     "dated_fork_readbacks": 16,
     "same_named_ref_matches_at_readback": 9,
     "technical_packet_states": {
-      "EXPLICIT_PATCH_HASH_MATCHED": 10,
+      "EXPLICIT_PATCH_HASH_MATCHED": 12,
       "LOCAL_MULTI_PATCH_SELECTION_REQUIRED": 3,
       "LOCAL_SINGLE_PATCH_UNREVIEWED": 33,
-      "NO_LOCAL_PACKET_OR_PR_ONLY_HANDOFF": 6
+      "NO_LOCAL_PACKET_OR_PR_ONLY_HANDOFF": 4
     }
   },
   "execution": {
@@ -1536,15 +1536,35 @@
           "candidate_id": "novacode-worktree-cwd-escape",
           "stage": "AWAITING_EXTERNAL",
           "origin": "ASSESSMENT_DERIVED",
-          "handoff_url": "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-23-20261110/pilots/novacode-s2/CONTRIBUTION_HANDOFF.md",
-          "patch_path": null,
-          "patch_sha256": null,
-          "test_patch_path": null,
+          "handoff_url": "https://github.com/opensiro/upstream/blob/2877862c5ba5fc2774524327445a62c5da4ef435/pilots/novacode-s2/CONTRIBUTION_HANDOFF.md",
+          "patch_path": "pilots/novacode-s2/native-fix.patch",
+          "patch_sha256": "e77dd63490a71d269aac0f43e86cb1e3f69116c41f3636910a4625adb264274c",
+          "test_patch_path": "pilots/novacode-s2/native-regression.patch",
           "technical_packet": {
-            "state": "NO_LOCAL_PACKET_OR_PR_ONLY_HANDOFF",
-            "pilot": null,
-            "explicit_patch": null,
-            "explicit_test_patch": null
+            "state": "EXPLICIT_PATCH_HASH_MATCHED",
+            "pilot": {
+              "directory": "pilots/novacode-s2",
+              "files": 4,
+              "content_sha256": "2e15ab1283ff4c7839e783f4feb7c480dece715313db5c3afcf7db0958524b14",
+              "patch_candidates": [
+                {
+                  "path": "pilots/novacode-s2/native-fix.patch",
+                  "sha256": "e77dd63490a71d269aac0f43e86cb1e3f69116c41f3636910a4625adb264274c"
+                },
+                {
+                  "path": "pilots/novacode-s2/native-regression.patch",
+                  "sha256": "23685106d4e851c733932106e6454b01425625e436600d3aef73ebec5d8db2c6"
+                }
+              ]
+            },
+            "explicit_patch": {
+              "path": "pilots/novacode-s2/native-fix.patch",
+              "sha256": "e77dd63490a71d269aac0f43e86cb1e3f69116c41f3636910a4625adb264274c"
+            },
+            "explicit_test_patch": {
+              "path": "pilots/novacode-s2/native-regression.patch",
+              "sha256": "23685106d4e851c733932106e6454b01425625e436600d3aef73ebec5d8db2c6"
+            }
           }
         }
       ],
@@ -2445,15 +2465,35 @@
           "candidate_id": "wee-delegation-cancel-cleanup",
           "stage": "AWAITING_EXTERNAL",
           "origin": "ASSESSMENT_DERIVED",
-          "handoff_url": "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-23-20261110/pilots/wee-delegation-s2/CONTRIBUTION_HANDOFF.md",
-          "patch_path": null,
-          "patch_sha256": null,
-          "test_patch_path": null,
+          "handoff_url": "https://github.com/opensiro/upstream/blob/2877862c5ba5fc2774524327445a62c5da4ef435/pilots/wee-delegation-s2/CONTRIBUTION_HANDOFF.md",
+          "patch_path": "pilots/wee-delegation-s2/native-fix.patch",
+          "patch_sha256": "786384caf62ef03822e91629c7ff40f79c26a83880bafaf5f4ebc398ce59627b",
+          "test_patch_path": "pilots/wee-delegation-s2/native-regression.patch",
           "technical_packet": {
-            "state": "NO_LOCAL_PACKET_OR_PR_ONLY_HANDOFF",
-            "pilot": null,
-            "explicit_patch": null,
-            "explicit_test_patch": null
+            "state": "EXPLICIT_PATCH_HASH_MATCHED",
+            "pilot": {
+              "directory": "pilots/wee-delegation-s2",
+              "files": 4,
+              "content_sha256": "2b659488485d5de3cbc7a276470602a2cc91a5c5c4b6d538debec3f077dd7905",
+              "patch_candidates": [
+                {
+                  "path": "pilots/wee-delegation-s2/native-fix.patch",
+                  "sha256": "786384caf62ef03822e91629c7ff40f79c26a83880bafaf5f4ebc398ce59627b"
+                },
+                {
+                  "path": "pilots/wee-delegation-s2/native-regression.patch",
+                  "sha256": "301485c5e6225e520c88007fbb34a945945167563682eff65c39e2bc1c6ca6b6"
+                }
+              ]
+            },
+            "explicit_patch": {
+              "path": "pilots/wee-delegation-s2/native-fix.patch",
+              "sha256": "786384caf62ef03822e91629c7ff40f79c26a83880bafaf5f4ebc398ce59627b"
+            },
+            "explicit_test_patch": {
+              "path": "pilots/wee-delegation-s2/native-regression.patch",
+              "sha256": "301485c5e6225e520c88007fbb34a945945167563682eff65c39e2bc1c6ca6b6"
+            }
           }
         }
       ],

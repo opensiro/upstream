@@ -42,10 +42,13 @@
         "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/we/wee-orchestrator.md",
         "https://github.com/opensiro/upstream/commit/02b24e372aa5f6158e6c37623626e17bc104b181",
         "https://github.com/leprachuan/Wee-Orchestrator/blob/4f34d5737910098c79f2ee42d0f3f383cfca830f/agent_manager.py",
-        "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-23-20261110/pilots/wee-delegation-s2/INDEPENDENT_HOST_RECEIPT_2026-11-10.md"
+        "https://github.com/opensiro/upstream/blob/2877862c5ba5fc2774524327445a62c5da4ef435/pilots/wee-delegation-s2/INDEPENDENT_HOST_RECEIPT_2026-11-10.md"
       ],
       "screening_result": "A failure in _dispatch_single_runtime escapes before the post-dispatch removal of the ephemeral delegation session. Distinct dev-alpha-2 native runner f540ff69-d09f-4249-9b0a-37505e1e0d03 checked exact source 4f34d57: baseline 11 passed, 1 failed (leaked delegate key); same fixture after try/finally fix 12 passed, 0 failed; git diff --check PASS. No model/provider call and no external PR.",
-      "handoff_url": "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-23-20261110/pilots/wee-delegation-s2/CONTRIBUTION_HANDOFF.md",
+      "handoff_url": "https://github.com/opensiro/upstream/blob/2877862c5ba5fc2774524327445a62c5da4ef435/pilots/wee-delegation-s2/CONTRIBUTION_HANDOFF.md",
+      "patch_path": "pilots/wee-delegation-s2/native-fix.patch",
+      "patch_sha256": "786384caf62ef03822e91629c7ff40f79c26a83880bafaf5f4ebc398ce59627b",
+      "test_patch_path": "pilots/wee-delegation-s2/native-regression.patch",
       "external_action": "NOT_EXECUTED",
       "observed_native_change": "Separate dev-alpha-2 SSH runner session f540ff69-d09f-4249-9b0a-37505e1e0d03: exact first-party 4f34d57, matched pytest tests/test_delegation_session_isolation.py, before 11/12 PASS, after 12/12 PASS. Receipt records host and two patch hashes."
     },
@@ -64,10 +67,13 @@
         "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/no/novacode.md",
         "https://github.com/opensiro/upstream/commit/02b24e372aa5f6158e6c37623626e17bc104b181",
         "https://github.com/gczhuang-cmd/NovaCode/blob/34a2d555a530120fd6241f7065d49390e52f3573/src/novacode/team/backend/inprocess.py",
-        "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-23-20261110/pilots/novacode-s2/INDEPENDENT_HOST_RECEIPT_2026-11-10.md"
+        "https://github.com/opensiro/upstream/blob/2877862c5ba5fc2774524327445a62c5da4ef435/pilots/novacode-s2/INDEPENDENT_HOST_RECEIPT_2026-11-10.md"
       ],
       "screening_result": "InProcessBackend.spawn launches a worker task without setting its worktree_path as the task-context cwd, unlike the process teammate path. Distinct dev-alpha-2 native runner fa81ce8f-dfdc-4046-8194-3df5e5437271 checked exact source 34a2d55: baseline 8 passed, 1 failed (parent cwd inherited); after scoped with_cwd around launch 9 passed, 0 failed. No model/provider call or external PR.",
-      "handoff_url": "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-23-20261110/pilots/novacode-s2/CONTRIBUTION_HANDOFF.md",
+      "handoff_url": "https://github.com/opensiro/upstream/blob/2877862c5ba5fc2774524327445a62c5da4ef435/pilots/novacode-s2/CONTRIBUTION_HANDOFF.md",
+      "patch_path": "pilots/novacode-s2/native-fix.patch",
+      "patch_sha256": "e77dd63490a71d269aac0f43e86cb1e3f69116c41f3636910a4625adb264274c",
+      "test_patch_path": "pilots/novacode-s2/native-regression.patch",
       "external_action": "NOT_EXECUTED",
       "observed_native_change": "Separate dev-alpha-2 SSH runner session fa81ce8f-dfdc-4046-8194-3df5e5437271: exact first-party 34a2d55, matched pytest tests/test_team_backend.py, before 8/9 PASS, after 9/9 PASS; one harmless pytest config warning. Receipt records host and patch hashes."
     },
