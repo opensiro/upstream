@@ -41,3 +41,4 @@ index 799b7cf..30ee29c 100644
 +
  def test_new_backend_unknown():
      import pytest
+ 
