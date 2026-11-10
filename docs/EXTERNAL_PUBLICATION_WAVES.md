@@ -22,3 +22,4 @@ The technical [`upstream batch` / `upstream upgrade batch`](ASSESSMENT_CANDIDATE
 
 - [2026-11-11 wave 01](../reports/2026-11-11-external-publication-wave-01.md) — five source-first handoffs, no external write.
 - [2026-11-11 wave 02](../reports/2026-11-11-external-publication-wave-02.md) — five further handoffs, two publication proposals, no external write.
+- [2026-11-11 wave 03](../reports/2026-11-11-external-publication-wave-03.md) — five remaining handoffs reconciled, one publication proposal, no external write.

@@ -10,5 +10,6 @@ This directory holds immutable-in-meaning, **source-dated observations**. A repo
 - [2026-11-07 closure attribution](2026-11-07-external-pr-closure-attribution.md) — reviewed as [PR #152](https://github.com/opensiro/upstream/pull/152)
 - [2026-11-11 external publication wave 01](2026-11-11-external-publication-wave-01.md) — five selected source-first handoffs, explicit blockers and per-PR publication gate
 - [2026-11-11 external publication wave 02](2026-11-11-external-publication-wave-02.md) — five additional handoffs, two proposed final PR descriptions, source drift and DCO gates
+- [2026-11-11 external publication wave 03](2026-11-11-external-publication-wave-03.md) — five further handoffs, one proposed PR description, security/contributor/duplicate gates
 
 For a current read-only PR-lifecycle observation use `python3 scripts/portfolio_reconcile.py --report` with a suitable token, or [the daily workflow](../.github/workflows/portfolio-reconciliation.yml). Neither assigns product fit or closure motive.
