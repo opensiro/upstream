@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-10-25",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "da98a140b1c6541f639c1dc4094bf2aeaacdb08d",
+  "frozen_at": "2026-11-10",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "UPSTREAM UPGRADE BATCH 25 standard five-source cohort, first five available included S1=A/S2=C Index identities in current TLDR ordering after 24 integrated prior manifests (140 unique prior source identities) and live open Upstream/Index PR claim checks. Exact Index main da98a140. All five S2 questions, predicted native weakness, expected counterfactual and explicit null/falsifier were preregistered in immutable checkpoint 5ddeba9 before any fresh target code/issues inspection. Cohort is five questions, not five preadmitted fixes; no external publication rights inferred.",
+  "candidates": [
+    {
+      "id": "knowwork-sandbox-multiprocess-ownership",
+      "assessment_path": "assessments/kn/knowwork.md",
+      "source": "knowflow-ai/KnowWork",
+      "review_ref": "83c763e4fe2d63cd59e0344268afa94321d35585",
+      "reviewed_at": "2026-10-24",
+      "function": "S2",
+      "finding": "Check whether two independent business-server processes concurrently acquiring the same workspace/session sandbox can produce duplicate or misattributed Docker ownership despite process-local key locks.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/da98a140b1c6541f639c1dc4094bf2aeaacdb08d/assessments/kn/knowwork.md",
+        "https://github.com/opensiro/upstream/commit/5ddeba928a62829d1951f3380d728920ff63ec01"
+      ],
+      "screening_result": "PRE_REGISTERED_ONLY: no current first-party target inspection or native validation completed. See hypothesis checkpoint for a falsifiable native test and null condition."
+    },
+    {
+      "id": "codeagent-orphaned-task-claim",
+      "assessment_path": "assessments/co/codeagent-harvil1.md",
+      "source": "Harvil1/codeAgent",
+      "review_ref": "e48780be52949dfcf17338025f6beab48ca01428",
+      "reviewed_at": "2026-10-15",
+      "function": "S2",
+      "finding": "Check whether a terminated task-bound worker can strand the conditional TaskStore ownership claim so supported worker reassignment is blocked without safe reclaim.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/da98a140b1c6541f639c1dc4094bf2aeaacdb08d/assessments/co/codeagent-harvil1.md",
+        "https://github.com/opensiro/upstream/commit/5ddeba928a62829d1951f3380d728920ff63ec01"
+      ],
+      "screening_result": "PRE_REGISTERED_ONLY: no current first-party target inspection or native validation completed. See hypothesis checkpoint for a falsifiable native test and null condition."
+    },
+    {
+      "id": "cloud-coding-same-tenant-start-race",
+      "assessment_path": "assessments/cl/cloud-coding-agent-node.md",
+      "source": "fred1433/cloud-coding-agent-node",
+      "review_ref": "a6758498055b54d765f6ca3423c58c67e0ead18e",
+      "reviewed_at": "2026-10-02",
+      "function": "S2",
+      "finding": "Check whether simultaneous same-tenant same-run NodeService.start calls launch duplicate S1 runs before a single idempotent registry entry is established.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/da98a140b1c6541f639c1dc4094bf2aeaacdb08d/assessments/cl/cloud-coding-agent-node.md",
+        "https://github.com/opensiro/upstream/commit/5ddeba928a62829d1951f3380d728920ff63ec01"
+      ],
+      "screening_result": "PRE_REGISTERED_ONLY: no current first-party target inspection or native validation completed. See hypothesis checkpoint for a falsifiable native test and null condition."
+    },
+    {
+      "id": "polyphemus-stitch-duplicate-tool-ids",
+      "assessment_path": "assessments/po/polyphemus.md",
+      "source": "polyphemus-ai/release-rehearsal",
+      "review_ref": "02020f3bc2829c350fd726273a7721254068925f",
+      "reviewed_at": "2026-09-28",
+      "function": "S2",
+      "finding": "Check whether concurrent shared-thread turns with colliding provider-local tool-call IDs can misattribute a peer result during stitchHistory repair.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/da98a140b1c6541f639c1dc4094bf2aeaacdb08d/assessments/po/polyphemus.md",
+        "https://github.com/opensiro/upstream/commit/5ddeba928a62829d1951f3380d728920ff63ec01"
+      ],
+      "screening_result": "PRE_REGISTERED_ONLY: no current first-party target inspection or native validation completed. See hypothesis checkpoint for a falsifiable native test and null condition."
+    },
+    {
+      "id": "rune-terminal-child-slot-reclaim",
+      "assessment_path": "assessments/aa/aadixc0de-rune.md",
+      "source": "AadiXC0DE/Rune",
+      "review_ref": "538f8bdb96c926880628c102fdc2cd8c2d473fb1",
+      "reviewed_at": "2026-10-23",
+      "function": "S2",
+      "finding": "Check whether a completed child continues consuming exported Registry child capacity or name while a safe supported replacement could be admitted.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/da98a140b1c6541f639c1dc4094bf2aeaacdb08d/assessments/aa/aadixc0de-rune.md",
+        "https://github.com/opensiro/upstream/commit/5ddeba928a62829d1951f3380d728920ff63ec01"
+      ],
+      "screening_result": "PRE_REGISTERED_ONLY: no current first-party target inspection or native validation completed. See hypothesis checkpoint for a falsifiable native test and null condition."
+    }
+  ]
+}
