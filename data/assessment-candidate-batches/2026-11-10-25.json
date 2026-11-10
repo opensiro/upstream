@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-10-25",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "da98a140b1c6541f639c1dc4094bf2aeaacdb08d",
+  "frozen_at": "2026-11-10",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "UPSTREAM UPGRADE BATCH 25 standard five-source cohort, five available included S1=A/S2=C Index identities from the newest TLDR candidate window, executed in schema-required reviewed_at descending order after 24 integrated prior manifests (140 unique prior source identities) and live open Upstream/Index PR claim checks. Exact Index main da98a140. All five S2 questions, predicted native weakness, expected counterfactual and explicit null/falsifier were preregistered in immutable checkpoint 5ddeba9 before any fresh target code/issues inspection. Cohort is five questions, not five preadmitted fixes; no external publication rights inferred.",
+  "candidates": [
+    {
+      "id": "knowwork-sandbox-multiprocess-ownership",
+      "assessment_path": "assessments/kn/knowwork.md",
+      "source": "knowflow-ai/KnowWork",
+      "review_ref": "83c763e4fe2d63cd59e0344268afa94321d35585",
+      "reviewed_at": "2026-10-24",
+      "function": "S2",
+      "finding": "Check whether two independent business-server processes concurrently acquiring the same workspace/session sandbox can produce duplicate or misattributed Docker ownership despite process-local key locks.",
+      "stage": "AWAITING_EXTERNAL",
+      "origin": "ASSESSMENT_DERIVED",
+      "fit": {
+        "need": "PASS",
+        "mechanism": "PASS",
+        "counterfactual": "PASS",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/da98a140b1c6541f639c1dc4094bf2aeaacdb08d/assessments/kn/knowwork.md",
+        "https://github.com/opensiro/upstream/commit/5ddeba928a62829d1951f3380d728920ff63ec01",
+        "https://github.com/knowflow-ai/KnowWork/blob/033b49240ec49c7b8d3b43f1783b9b4d89425b5e/server/src/knowwork_server/sandbox/containers.py",
+        "https://github.com/knowflow-ai/KnowWork/blob/033b49240ec49c7b8d3b43f1783b9b4d89425b5e/server/tests/sandbox/test_lifecycle.py",
+        "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-25-20261110/pilots/knowwork-start-race-s2/TEST_PLAN.md",
+        "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-25-20261110/pilots/knowwork-start-race-s2/INDEPENDENT_HOST_RECEIPT_2026-11-10.md"
+      ],
+      "screening_result": "Pinned current first-party KnowWork 033b492 Apache-2.0 already handles create-409 collision, but does not handle interprocess same-ID Docker start after a peer starts the container. The existing created-container and newly-created paths propagate Docker 304 as SandboxError; the latter can delete a running peer-used container. After preregistration, first-party native FakeDocker cases on independent dev-alpha-2 reproduce both failures RED, then 2/2 GREEN with bounded same-ID inspect-on-start-failure patch; full 34/34 lifecycle tests PASS with Python 3.12. This is deterministic interleaving evidence, not a real Docker multi-process test or observed production impact. External publication not executed.",
+      "handoff_url": "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-25-20261110/pilots/knowwork-start-race-s2/CONTRIBUTION_HANDOFF.md",
+      "patch_path": "pilots/knowwork-start-race-s2/native-fix.patch",
+      "patch_sha256": "fcc24402da2b1dc7219fbed9098b3a893d54728620a6bc069f5a56f3bf6b60ca",
+      "test_patch_path": "pilots/knowwork-start-race-s2/native-regression.patch",
+      "external_action": "NOT_EXECUTED",
+      "observed_native_change": "dev-alpha-2 pinned source 033b492: pristine control 08049ef5-2d7d-4632-bde2-c75f66518e7f six relevant PASS; regression-only RED dceb81f0-2561-4b29-a45e-abe6f757c279 two FAIL; fixed GREEN 7414d54d-b533-459f-8329-e72380074d41 two PASS; 7be843cc-5c20-45d9-b614-5815587ccef2 34/34 PASS; archived patches apply cleanly to clean source."
+    },
+    {
+      "id": "rune-terminal-child-slot-reclaim",
+      "assessment_path": "assessments/aa/aadixc0de-rune.md",
+      "source": "AadiXC0DE/Rune",
+      "review_ref": "538f8bdb96c926880628c102fdc2cd8c2d473fb1",
+      "reviewed_at": "2026-10-23",
+      "function": "S2",
+      "finding": "Check whether a completed child continues consuming exported Registry child capacity or name while a safe supported replacement could be admitted.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/da98a140b1c6541f639c1dc4094bf2aeaacdb08d/assessments/aa/aadixc0de-rune.md",
+        "https://github.com/opensiro/upstream/commit/5ddeba928a62829d1951f3380d728920ff63ec01",
+        "https://github.com/AadiXC0DE/Rune/blob/56828d777707ba2d714655417a6b3e16cddc452b/crates/rune-agent/src/subagent.rs",
+        "https://github.com/AadiXC0DE/Rune/blob/56828d777707ba2d714655417a6b3e16cddc452b/crates/rune/src/subagent.rs",
+        "https://github.com/AadiXC0DE/Rune/blob/56828d777707ba2d714655417a6b3e16cddc452b/crates/rune-agent/src/subagent_tool.rs",
+        "https://github.com/AadiXC0DE/Rune/blob/56828d777707ba2d714655417a6b3e16cddc452b/LICENSE"
+      ],
+      "screening_result": "Current first-party Rune main 56828d7 Apache-2.0 static screen: Registry::create counts registered per-parent children, and Registry::remove explicitly removes from children and by_parent, freeing capacity; first-party test the_child_bound_is_per_parent_and_reports_limit_exceeded asserts replacement after remove. Completion closes child feedback but intentionally preserves it for parent transcript until explicit remove. The supported CLI uses a distinct Bridge/Runner flow: synchronous delegated read-only child and an atomic count of delegations against SubagentChildren; these are lifetime-session budget semantics rather than a demonstrated stuck terminal slot. No supported automatic reclaim obligation or native adverse case identified; speculative auto-removal could break transcript ownership, so no patch. Read-only static screen; no native tests run."
+    },
+    {
+      "id": "codeagent-orphaned-task-claim",
+      "assessment_path": "assessments/co/codeagent-harvil1.md",
+      "source": "Harvil1/codeAgent",
+      "review_ref": "e48780be52949dfcf17338025f6beab48ca01428",
+      "reviewed_at": "2026-10-15",
+      "function": "S2",
+      "finding": "Check whether a terminated task-bound worker can strand the conditional TaskStore ownership claim so supported worker reassignment is blocked without safe reclaim.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PASS",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/da98a140b1c6541f639c1dc4094bf2aeaacdb08d/assessments/co/codeagent-harvil1.md",
+        "https://github.com/opensiro/upstream/commit/5ddeba928a62829d1951f3380d728920ff63ec01",
+        "https://github.com/Harvil1/codeAgent/blob/e48780be52949dfcf17338025f6beab48ca01428/agent/task_store.py",
+        "https://github.com/Harvil1/codeAgent/blob/e48780be52949dfcf17338025f6beab48ca01428/agent/team/coordinator.py",
+        "https://github.com/Harvil1/codeAgent/blob/e48780be52949dfcf17338025f6beab48ca01428/agent/team/auto_heartbeat.py",
+        "https://github.com/Harvil1/codeAgent/blob/e48780be52949dfcf17338025f6beab48ca01428/agent/team/task_binding.py"
+      ],
+      "screening_result": "At exact assessed/default first-party source e48780b, MIT: TeamCoordinator.spawn claims a task before Popen and rolls it back on OSError; worker heartbeat occurs only from a POST_TOOL_USE hook, throttled to one per 60 seconds. TaskStore.reclaim_stale deliberately skips every in_progress task with no last_heartbeat_at, to avoid reclaiming main-agent/manual tasks. Native isolated stdlib TaskStore probe on dev-alpha-2 (session f13d8416-9a03-4c78-b42e-63998a0d4444, exit 0) reproduces a pre-first-heartbeat claimed task remaining in_progress after reclaim_stale/find_ready and refusing a replacement owner. The probe models an abrupt death by absence of heartbeat; it does not terminate a real worker. Existing healthy-heartbeat reclaim exists. Need actual supported worker process lifecycle/ownership and safe terminal evidence before reclaiming no-heartbeat tasks.",
+      "blocker": "No first-party supported proof that a no-heartbeat claimed owner is dead (rather than main/manual agent or a silent but active worker), nor a safe atomic PID/lifecycle claimant check before reset. Determine native worker termination and reassignment semantics, then test stale owner vs live owner and race with heartbeat; do not simply reclaim every no-heartbeat claim."
+    },
+    {
+      "id": "cloud-coding-same-tenant-start-race",
+      "assessment_path": "assessments/cl/cloud-coding-agent-node.md",
+      "source": "fred1433/cloud-coding-agent-node",
+      "review_ref": "a6758498055b54d765f6ca3423c58c67e0ead18e",
+      "reviewed_at": "2026-10-02",
+      "function": "S2",
+      "finding": "Check whether simultaneous same-tenant same-run NodeService.start calls launch duplicate S1 runs before a single idempotent registry entry is established.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/da98a140b1c6541f639c1dc4094bf2aeaacdb08d/assessments/cl/cloud-coding-agent-node.md",
+        "https://github.com/opensiro/upstream/commit/5ddeba928a62829d1951f3380d728920ff63ec01",
+        "https://github.com/fred1433/cloud-coding-agent-node/blob/a6758498055b54d765f6ca3423c58c67e0ead18e/codenode/service.py",
+        "https://github.com/fred1433/cloud-coding-agent-node/blob/a6758498055b54d765f6ca3423c58c67e0ead18e/tests/test_contract.py",
+        "https://github.com/fred1433/cloud-coding-agent-node/blob/a6758498055b54d765f6ca3423c58c67e0ead18e/LICENSE"
+      ],
+      "screening_result": "At exact assessed/default first-party source a675849 MIT: NodeService.start acquires self.lock before reading (ctx.tenant, run_id), creates one recorder/cancel/done entry and stores it under that lock, and releases lock only before spawning its worker thread; a competing same-tenant same-run call necessarily sees the entry and returns started=False. Tenant context is part of both map key and sandbox name. Existing first-party contract test covers separate tenants with same ID. No gap fitting the prespecified same-instance simultaneous-start duplication hypothesis; read-only static control-path screen, not a native parallel stress test. Cross-process workers are outside this process-local service contract and were not claimed in this hypothesis."
+    },
+    {
+      "id": "polyphemus-stitch-duplicate-tool-ids",
+      "assessment_path": "assessments/po/polyphemus.md",
+      "source": "polyphemus-ai/release-rehearsal",
+      "review_ref": "02020f3bc2829c350fd726273a7721254068925f",
+      "reviewed_at": "2026-09-28",
+      "function": "S2",
+      "finding": "Check whether concurrent shared-thread turns with colliding provider-local tool-call IDs can misattribute a peer result during stitchHistory repair.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PASS",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/da98a140b1c6541f639c1dc4094bf2aeaacdb08d/assessments/po/polyphemus.md",
+        "https://github.com/opensiro/upstream/commit/5ddeba928a62829d1951f3380d728920ff63ec01",
+        "https://github.com/polyphemus-ai/release-rehearsal/blob/3beb3d674c4c5de8da62a41674733539ca41733a/packages/core/src/history.ts",
+        "https://github.com/polyphemus-ai/release-rehearsal/blob/3beb3d674c4c5de8da62a41674733539ca41733a/packages/core/src/types.ts",
+        "https://github.com/polyphemus-ai/release-rehearsal/blob/3beb3d674c4c5de8da62a41674733539ca41733a/docs/design/parallel-agents.md",
+        "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-25-20261110/pilots/polyphemus-tool-collision-s2/TEST_PLAN.md",
+        "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-25-20261110/pilots/polyphemus-tool-collision-s2/NATIVE_DIAGNOSTIC_2026-11-10.md"
+      ],
+      "screening_result": "Pinned first-party current main 3beb3d6 Apache-2.0 has stitchHistory resultFor Map keyed only by raw callId with last-write-wins. Independent dev-alpha-2 cached Node 22 Docker run (session 87e1aa54-5794-4ef9-9140-8d1133c0a15a, no network/LLM) executes exact source-native history.ts: two assistant calls both id c1 and two distinct replies are stitched into beta-result, beta-result, alpha-result, expected native diagnostic RED/exit 1. A real shared-thread duplicate ID collision has not been observed in production; raw Message schema lacks a distinct owner key. A bounded repair that can unambiguously associate call with result in arbitrary interleavings has not been established, so hold without patch or external benefit claim.",
+      "blocker": "Need safe, first-party supported per-call/turn provenance or explicit fail-closed duplicate-ID policy and provider adapter compatibility; completion order cannot reliably identify owners. Confirm real duplicate-ID input path, add collision/ordinary-history native tests and establish nonlossy policy before authoring a patch."
+    }
+  ]
+}

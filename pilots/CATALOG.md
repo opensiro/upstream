@@ -7,7 +7,7 @@ fitness, fork existence, PR publication, maintainer acceptance, or VSM grades.
 See [experiment contract](EXPERIMENT_CONTRACT.md) and
 [working-fork pipeline](../docs/CONTINUOUS_WORKING_FORK_PIPELINE.md).
 
-**Coverage:** 69 indexed pilot directories · 193 files. The frozen baseline protects 66 historical directories and their files; 3 directories were added later.
+**Coverage:** 71 indexed pilot directories · 200 files. The frozen baseline protects 66 historical directories and their files; 5 directories were added later.
 
 Each row links its preferred entry file. Read the actual receipt and governing
 batch/PR before attributing positive results or current status.
@@ -20,7 +20,7 @@ batch/PR before attributing positive results or current status.
 | `kram-s2` | [Open](kram-s2/README.md) | patch: 1, handoff: 2, receipt: 1, other: 1 |
 | `zot-shared-workspace` | [Open](zot-shared-workspace/SCREENING_2026-10-20.md) | screen: 1, protocol: 8, receipt: 4, native_code: 1, other: 1 |
 
-## Patch packets and handoffs (50)
+## Patch packets and handoffs (51)
 
 | Pilot | Entry point | Artifacts |
 | --- | --- | --- |
@@ -47,6 +47,7 @@ batch/PR before attributing positive results or current status.
 | `henrik-agent-harness` | [Open](henrik-agent-harness/CONTRIBUTION_HANDOFF.md) | patch: 1, handoff: 1 |
 | `histh-s2` | [Open](histh-s2/CONTRIBUTION_HANDOFF.md) | patch: 2, handoff: 1, receipt: 1 |
 | `join-the-team` | [Open](join-the-team/CONTRIBUTION_HANDOFF.md) | patch: 1, handoff: 1 |
+| `knowwork-start-race-s2` | [Open](knowwork-start-race-s2/CONTRIBUTION_HANDOFF.md) | patch: 2, handoff: 1, receipt: 1, other: 1 |
 | `lacp-s2` | [Open](lacp-s2/CONTRIBUTION_HANDOFF.md) | patch: 2, handoff: 1, receipt: 1 |
 | `maref` | [Open](maref/CONTRIBUTION_HANDOFF.md) | patch: 1, handoff: 1, native_code: 1 |
 | `matterloop` | [Open](matterloop/CONTRIBUTION_HANDOFF.md) | patch: 1, handoff: 1 |
@@ -95,6 +96,12 @@ batch/PR before attributing positive results or current status.
 | `xin-code` | [Open](xin-code/SCREENING_2026-10-22.md) | screen: 1 |
 | `zaino` | [Open](zaino/SCREENING_2026-10-22.md) | screen: 1 |
 | `zaly` | [Open](zaly/SCREENING_2026-10-22.md) | screen: 1 |
+
+## Other preserved evidence (1)
+
+| Pilot | Entry point | Artifacts |
+| --- | --- | --- |
+| `polyphemus-tool-collision-s2` | [Open](polyphemus-tool-collision-s2/NATIVE_DIAGNOSTIC_2026-11-10.md) | other: 2 |
 
 ## Shared root artifacts
 

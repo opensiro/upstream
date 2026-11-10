@@ -4,20 +4,20 @@
   "batch_sources": "data/assessment-candidate-batches/*.json",
   "counts": {
     "priority_sources": 100,
-    "historical_extras": 97,
-    "batch_only_extras": 84,
+    "historical_extras": 102,
+    "batch_only_extras": 89,
     "pilot_only_extras": 5,
     "portfolio_only_extras": 8,
-    "unique_sources": 197,
-    "batch_manifests": 24,
-    "batch_cases": 140,
+    "unique_sources": 202,
+    "batch_manifests": 25,
+    "batch_cases": 145,
     "historical_fork_mappings": 16,
     "name_collision_sources": 11,
-    "technical_handoffs": 53,
+    "technical_handoffs": 54,
     "dated_fork_readbacks": 16,
     "same_named_ref_matches_at_readback": 9,
     "technical_packet_states": {
-      "EXPLICIT_PATCH_HASH_MATCHED": 13,
+      "EXPLICIT_PATCH_HASH_MATCHED": 14,
       "LOCAL_MULTI_PATCH_SELECTION_REQUIRED": 3,
       "LOCAL_SINGLE_PATCH_UNREVIEWED": 33,
       "NO_LOCAL_PACKET_OR_PR_ONLY_HANDOFF": 4
@@ -102,6 +102,23 @@
       "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/cast",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "AadiXC0DE/Rune",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-10-25.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/Rune",
       "license_review": false,
       "next_step": "TRACK_ONLY_NO_CHANGE"
     },
@@ -1508,6 +1525,23 @@
       "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
     },
     {
+      "source": "fred1433/cloud-coding-agent-node",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-10-25.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/cloud-coding-agent-node",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
       "source": "FuzzyKuji/OpenProgram",
       "priority_group": "HISTORICAL_EXTRA",
       "batches": [
@@ -1879,6 +1913,23 @@
       "next_step": "SCREEN_BEFORE_FORK_WRITE"
     },
     {
+      "source": "Harvil1/codeAgent",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-10-25.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/codeAgent",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
       "source": "henrik-me/agent-harness",
       "priority_group": "PREPARED_PACKET",
       "batches": [
@@ -2245,6 +2296,45 @@
       "proposed_fork": "opensiro-contributions/axiom",
       "license_review": false,
       "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "knowflow-ai/KnowWork",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-10-25.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "knowwork-sandbox-multiprocess-ownership",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_DERIVED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-25-20261110/pilots/knowwork-start-race-s2/CONTRIBUTION_HANDOFF.md",
+          "patch_path": "pilots/knowwork-start-race-s2/native-fix.patch",
+          "patch_sha256": "fcc24402da2b1dc7219fbed9098b3a893d54728620a6bc069f5a56f3bf6b60ca",
+          "test_patch_path": "pilots/knowwork-start-race-s2/native-regression.patch",
+          "technical_packet": {
+            "state": "EXPLICIT_PATCH_HASH_MATCHED",
+            "pilot": null,
+            "explicit_patch": {
+              "path": "pilots/knowwork-start-race-s2/native-fix.patch",
+              "sha256": "fcc24402da2b1dc7219fbed9098b3a893d54728620a6bc069f5a56f3bf6b60ca"
+            },
+            "explicit_test_patch": {
+              "path": "pilots/knowwork-start-race-s2/native-regression.patch",
+              "sha256": "30702f011b0487580fc9fd58e2253f5afacaabaf1d82344eef97765a13139192"
+            }
+          }
+        }
+      ],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/KnowWork",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
     },
     {
       "source": "kryptobaseddev/cleo",
@@ -3439,6 +3529,23 @@
       "proposed_fork": "opensiro-contributions/agent-harness",
       "license_review": false,
       "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "polyphemus-ai/release-rehearsal",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-10-25.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/release-rehearsal",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
     },
     {
       "source": "provos/ironcurtain",
