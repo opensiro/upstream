@@ -145,10 +145,10 @@ class WatchTests(unittest.TestCase):
                                 "targets": [{"repository": "Example/project", "number": 3, "url": URL}]}))
         return p
 
-    def test_exact_manifest_has_eighteen_targets_and_no_duplicates(self):
+    def test_exact_manifest_has_twenty_five_targets_and_no_duplicates(self):
         data = watch.validate_targets()
-        self.assertEqual(len(data["targets"]), 18)
-        self.assertEqual(len({t["url"] for t in data["targets"]}), 18)
+        self.assertEqual(len(data["targets"]), 25)
+        self.assertEqual(len({t["url"] for t in data["targets"]}), 25)
         self.assertIn("https://github.com/cbrock84/headcount/pull/47",
                       [t["url"] for t in data["targets"]])
         self.assertIn("https://github.com/chumingjun/dsh-harness-one/pull/173",
@@ -163,6 +163,16 @@ class WatchTests(unittest.TestCase):
                       [t["url"] for t in data["targets"]])
         self.assertIn("https://github.com/Phoenixrr2113/agent-harness/pull/1",
                       [t["url"] for t in data["targets"]])
+        for url in (
+            "https://github.com/0xNyk/lacp/pull/128",
+            "https://github.com/chekusu/wanman/pull/38",
+            "https://github.com/gczhuang-cmd/NovaCode/pull/1",
+            "https://github.com/mnbresearch/crewdeck/pull/1",
+            "https://github.com/ruslantrachuk/dark-factory/pull/106",
+            "https://github.com/splashxmoon/friday/pull/23",
+            "https://github.com/talktorana/agent-harness/pull/1",
+        ):
+            self.assertIn(url, [t["url"] for t in data["targets"]])
         exceptions = [t for t in data["targets"] if t.get("monitoring")]
         self.assertEqual(exceptions, [{"repository": "cbrock84/headcount", "number": 47,
                                       "url": watch.KNOWN_404_SOURCE,

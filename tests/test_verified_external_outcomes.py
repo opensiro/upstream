@@ -87,13 +87,30 @@ class VerifiedExternalOutcomeTests(unittest.TestCase):
     def test_owner_ledgers_cover_exact_portfolio_with_one_replacement_chain(self):
         items, blocked = outcomes.cohort()
         self.assertEqual((len(items), sum(len(x["pr_urls"]) for x in items), blocked),
-                         (24, 25, 21))
+                         (31, 32, 21))
         self.assertEqual(len([x for x in items if x["kind"] == "improvement"]), 2)
         self.assertEqual(len([x for x in items if x["kind"] == "corrective"]), 13)
         self.assertEqual(len([x for x in items if x["kind"] == "casebook"]), 8)
         self.assertEqual(len([x for x in items if x["kind"] == "registry"]), 1)
+        self.assertEqual(len([x for x in items if x["kind"] == "publication"]), 7)
         self.assertEqual(len([x for x in items if len(x["pr_urls"]) > 1]), 1)
         self.assertRegex(outcomes.digest_sources(), r"^[0-9a-f]{64}$")
+
+    def test_publication_readback_is_not_a_verified_adoption_even_after_merge(self):
+        item = next(x for x in outcomes.cohort()[0]
+                    if x["id"] == "publication:dark-factory")
+        url = item["pr_urls"][0]
+        repo, number = outcomes.portfolio_reconcile.identity(url)
+        pr = {"html_url": url, "number": number, "state": "closed",
+              "merged_at": "2026-11-10T16:44:55Z", "merge_commit_sha": "a" * 40,
+              "user": {"login": "xLagerFeuer"},
+              "head": {"sha": item["source"]["head_sha"]},
+              "base": {"repo": {"full_name": repo}}}
+        record = outcomes.evaluate(FakeAPI({pr_path(url): pr}), item)
+        self.assertEqual(record["status"], "PENDING_REVIEW")
+        self.assertEqual(record["reason_codes"],
+                         ["PUBLICATION_ONLY_REQUIRES_SEMANTIC_REVIEW"])
+        self.assertEqual(record["source_ledger"], item["source_path"])
 
     def test_verified_requires_exact_external_merge_and_native_ci_run(self):
         item = improved_case()

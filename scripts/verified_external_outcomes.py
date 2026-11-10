@@ -26,7 +26,10 @@ import upstream_status
 ROOT = Path(__file__).resolve().parents[1]
 CORRECTIVE = ROOT / "data/corrective-publication/2026-10-23-01.json"
 IMPROVEMENT = ROOT / "data/improvement-publication/2026-10-24-01.json"
-SOURCE_FILES = (CORRECTIVE, IMPROVEMENT, upstream_status.SNAPSHOT, upstream_status.REGISTRY)
+PUBLICATION_READBACKS = tuple(sorted((ROOT / "data/external-pr-publication-readbacks").glob(
+    "????-??-??.json")))
+SOURCE_FILES = (CORRECTIVE, IMPROVEMENT, *PUBLICATION_READBACKS,
+                upstream_status.SNAPSHOT, upstream_status.REGISTRY)
 STATES = ("VERIFIED", "PENDING_REVIEW", "INSUFFICIENT_EVIDENCE", "UNVERIFIABLE")
 SHA = re.compile(r"[0-9a-f]{40}\Z")
 RUN_URL = re.compile(r"https://github\.com/opensiro/upstream/actions/runs/([1-9][0-9]*)\Z")
@@ -88,6 +91,38 @@ def cohort():
     for case in upstream_status.registry_prs():
         items.append({"id": f"registry:{case['id']}", "kind": "registry",
                       "pr_urls": [case["url"]], "source": case})
+
+    # Later, individually approved publications are an additive, dated
+    # observation. Keep them distinct from the finite Corrective/Improvement
+    # ledgers: publication alone never verifies downstream adoption.
+    for readback_path in PUBLICATION_READBACKS:
+        publication = json.loads(readback_path.read_text(encoding="utf-8"))
+        cases = publication.get("cases")
+        if (publication.get("schema_version") != 1
+                or publication.get("observed_at") != readback_path.stem
+                or publication.get("authenticated_actor") != "xLagerFeuer"
+                or not isinstance(cases, list) or not cases):
+            raise ValueError("Unknown external publication readback schema")
+        for case in cases:
+            case_id = case.get("id")
+            url = case.get("pr_url", "")
+            repository = case.get("repository")
+            if (not isinstance(case_id, str)
+                    or not re.fullmatch(r"[a-z0-9][a-z0-9-]*", case_id)
+                    or not isinstance(url, str)
+                    or not isinstance(repository, str)
+                    or not isinstance(case.get("public_fork"), str)
+                    or not case["public_fork"].startswith("opensiro-contributions/")
+                    or not SHA.fullmatch(case.get("head_sha", ""))
+                    or not isinstance(case.get("pr_commits"), int)
+                    or case["pr_commits"] < 1):
+                raise ValueError("Malformed external publication readback case")
+            repo, _ = portfolio_reconcile.identity(url)
+            if repository.lower() != repo.lower():
+                raise ValueError("External publication repository/PR mismatch")
+            items.append({"id": f"publication:{case_id}", "kind": "publication",
+                          "pr_urls": [url], "source": case,
+                          "source_path": str(readback_path.relative_to(ROOT))})
 
     ids = [item["id"] for item in items]
     urls = [url for item in items for url in item["pr_urls"]]
@@ -203,7 +238,8 @@ def evaluate(api, item):
               "source_ledger": {"corrective": str(CORRECTIVE.relative_to(ROOT)),
                                 "improvement": str(IMPROVEMENT.relative_to(ROOT)),
                                 "casebook": str(upstream_status.SNAPSHOT.relative_to(ROOT)),
-                                "registry": str(upstream_status.REGISTRY.relative_to(ROOT))}[item["kind"]],
+                                "registry": str(upstream_status.REGISTRY.relative_to(ROOT)),
+                                "publication": item.get("source_path")}[item["kind"]],
               "merged_at": effective.get("merged_at") if effective else None,
               "merge_commit_sha": effective.get("merge_commit_sha") if effective else None}
     if "unverifiable" in states:
@@ -224,6 +260,8 @@ def evaluate(api, item):
                 reasons.append("MUTABLE_OR_MISSING_NATIVE_RECEIPT")
             # A submitted-only ledger cannot self-attest semantic completion.
             reasons.append("PUBLICATION_LEDGER_NOT_YET_REVIEWED_AS_COMPLETED")
+        elif item["kind"] == "publication":
+            reasons = ["PUBLICATION_ONLY_REQUIRES_SEMANTIC_REVIEW"]
         else:
             reasons = ["HISTORICAL_OR_REGISTRY_ATTRIBUTION_REQUIRES_REVIEW"]
         status = "PENDING_REVIEW"
