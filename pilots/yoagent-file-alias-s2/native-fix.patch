@@ -1,7 +1,7 @@
 diff --git a/src/tools/file.rs b/src/tools/file.rs
 --- a/src/tools/file.rs
 +++ b/src/tools/file.rs
-@@ -310,5 +310,31 @@
+@@ -310,5 +310,34 @@
  /// A run cancelled while the call waited for the file is `Cancelled`: the
  /// call must not act.
  ///
@@ -10,7 +10,10 @@ diff --git a/src/tools/file.rs b/src/tools/file.rs
 +enum FileLockKey {
 +    ResolvedPath(PathBuf),
 +    #[cfg(unix)]
-+    Inode { device: u64, inode: u64 },
++    Inode {
++        device: u64,
++        inode: u64,
++    },
 +}
 +
 +/// On Unix, hard links have distinct resolved paths but address one file.
@@ -33,14 +36,14 @@ diff --git a/src/tools/file.rs b/src/tools/file.rs
 +}
 +
  pub(crate) async fn hold_file(
-@@ -318,4 +344,5 @@
+@@ -318,4 +347,5 @@
      use std::sync::{OnceLock, Weak};
 -    type Locks = HashMap<PathBuf, Weak<tokio::sync::Mutex<()>>>;
 +    type Locks = HashMap<FileLockKey, Weak<tokio::sync::Mutex<()>>>;
      static LOCKS: OnceLock<Mutex<Locks>> = OnceLock::new();
 +    let lock_key = file_lock_key(key);
      let lock = {
-@@ -327,8 +354,8 @@
+@@ -327,8 +357,8 @@
          locks.retain(|_, held| held.strong_count() > 0);
 -        match locks.get(key).and_then(Weak::upgrade) {
 +        match locks.get(&lock_key).and_then(Weak::upgrade) {
