@@ -5,9 +5,11 @@ fork credential/creation evidence: [#28](https://github.com/opensiro/upstream/is
 **Status:** external fork creation **ONE_OFF_FORK_VERIFIED** in
 `opensiro-contributions`; PR **READ-ONLY HANDOFF IMPLEMENTED**; external
 PR publication **NOT EXECUTED** as of this historical handoff. Since
-2026-10-23, exactly 34 frozen Corrective cases have a separate
-[owner-approved Draft PR publication mandate](CORRECTIVE_PR_PUBLICATION.md);
-outside that cohort publication remains human-owned. No additional Control
+2026-10-23, exactly 34 frozen Corrective cases had a separate
+[owner-approved finite publication mandate](CORRECTIVE_PR_PUBLICATION.md),
+subsequently amended to prefer Ready for review. Since the 2026-11-09 policy
+update, **each new external PR needs specific human publication approval**,
+including any reopened historical packet. No additional Control
 Plane or background agent is installed.
 
 ## Actual credential and rights evidence (2026-10-20)
@@ -161,11 +163,16 @@ says organization owners are not currently supported by its
 accepts `head=organization:branch` for a cross-repository PR, with
 `head_repo` required if both repositories share the same organization
 owner. The handoff builds the exact path/payload for these scenarios and
-defaults to `draft=true`.
+defaults to **Ready for review (`draft=false`)** for a reviewed, approved,
+source-native-valid contribution. Use `--draft --draft-reason 'specific pending
+review condition'` only when the human approves a concrete outstanding
+readiness condition; this is not a way to bypass a mandatory source-policy,
+license, CLA/DCO or publication gate. The `draft_request_body` JSON key is
+retained for backward compatibility, even when its `draft` value is `false`.
 
 ## C. External publication: ordinary human decision or finite Corrective grant
 
-For **all nonmandated cases**, after the operator explicitly approves **this
+For **every new external PR** under the 2026-11-09 policy, after the operator explicitly approves **this
 exact title, body, fork, branch, target base and observed SHAs**, they can
 re-run preflight and publish **manually** from the credential-owning VM/host:
 
@@ -183,8 +190,12 @@ the 34 cases enumerated in the [finite Corrective queue](../data/corrective-publ
 the 2026-10-23 owner decision is the publication authorization: the
 authorized contribution actor may perform equivalent live operations to
 create the public `opensiro-contributions` fork, push a bounded working
-branch and open an external **Draft PR** without a new per-case vote, after
-fresh preflight and provider identity/readback checks. It is **not** a
+branch and open an external PR without a new per-case vote **under that
+historical mandate**. That authorization is not a standing exception to the
+new per-PR approval rule. For submitted or separately approved new PRs,
+prefer Ready for review (`draft: false`); Draft needs a concrete pending
+readiness reason. This remains subject to fresh preflight and provider
+identity/readback checks. It is **not** a
 credential, API capability, bypass of a permission denial, DCO/CLA signature,
 right to merge or authorization to contact maintainers outside PR creation.
 Future general automation still requires its separate activation; a one-off
