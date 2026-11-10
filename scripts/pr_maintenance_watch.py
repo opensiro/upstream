@@ -46,6 +46,14 @@ APPROVED_CHECKPOINT_ADDITIONS = {
     "https://github.com/BESSER-PEARL/BESSER-Agentic-Framework/pull/205",
     "https://github.com/mila-iqia/babyai/pull/128",
     "https://github.com/Phoenixrr2113/agent-harness/pull/1",
+    # Reviewed 2026-11-10 publication readback cohort (Upstream PR #202).
+    "https://github.com/chekusu/wanman/pull/38",
+    "https://github.com/0xNyk/lacp/pull/128",
+    "https://github.com/splashxmoon/friday/pull/23",
+    "https://github.com/mnbresearch/crewdeck/pull/1",
+    "https://github.com/talktorana/agent-harness/pull/1",
+    "https://github.com/ruslantrachuk/dark-factory/pull/106",
+    "https://github.com/gczhuang-cmd/NovaCode/pull/1",
 }
 CHECK_CONCLUSIONS = {
     "failure": ("CI_FAILED", "action_required"),

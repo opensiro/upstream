@@ -573,6 +573,56 @@ class WatchTests(unittest.TestCase):
                 self.assertEqual(len(m.writes), 7)
                 self.assertFalse(any(watch.ALERT_PREFIX in write[2]["body"] for write in m.writes))
 
+    def test_seven_2026_11_10_publications_migrate_without_replaying_history(self):
+        additions = [
+            ("chekusu/wanman", 38),
+            ("0xNyk/lacp", 128),
+            ("splashxmoon/friday", 23),
+            ("mnbresearch/crewdeck", 1),
+            ("talktorana/agent-harness", 1),
+            ("ruslantrachuk/dark-factory", 106),
+            ("gczhuang-cmd/NovaCode", 1),
+        ]
+        m = MockAPI()
+        m.external = source()
+
+        def fake_snapshot(_, target):
+            item = pr()
+            item.update(url=target["url"], repository=target["repository"],
+                        number=target["number"], draft=False)
+            return item
+
+        with tempfile.TemporaryDirectory() as tmp:
+            path = self.write_targets(tmp)
+            with patch.object(watch, "snapshot_one", side_effect=fake_snapshot):
+                self.assertEqual(watch.run(m, path), [])
+                original_checkpoint = watch.decode_checkpoint(m.issue_comments[0]["body"])
+                data = json.loads(path.read_text())
+                for repository, number in additions:
+                    data["targets"].append({
+                        "repository": repository, "number": number,
+                        "url": f"https://github.com/{repository}/pull/{number}"})
+                path.write_text(json.dumps(data))
+                probe = watch.run(m, path, probe_only=True)
+                self.assertEqual([e["kind"] for e in probe], ["NEW_TRACKED_PR"] * 7)
+                self.assertEqual(len(m.writes), 1)
+                self.assertEqual([e["kind"] for e in watch.run(m, path)],
+                                 ["NEW_TRACKED_PR"] * 7)
+                self.assertEqual(len(m.writes), 2)  # checkpoint only; no alerts
+                new_checkpoint = watch.decode_checkpoint(m.issue_comments[0]["body"])
+                self.assertEqual(new_checkpoint["prs"][URL], original_checkpoint["prs"][URL])
+                self.assertEqual(len(new_checkpoint["prs"]), 8)
+                self.assertFalse(any(watch.ALERT_PREFIX in x[2]["body"] for x in m.writes))
+                self.assertEqual(watch.run(m, path), [])
+                self.assertEqual(len(m.writes), 2)
+
+                data["targets"].append({"repository": "Unreviewed/source", "number": 5,
+                                        "url": "https://github.com/Unreviewed/source/pull/5"})
+                path.write_text(json.dumps(data))
+                with self.assertRaisesRegex(ValueError, "baseline migration required"):
+                    watch.run(m, path)
+                self.assertEqual(len(m.writes), 2)
+
     def test_actual_new_review_posts_one_alert_and_then_checkpoint(self):
         m = MockAPI()
         m.external = source()
