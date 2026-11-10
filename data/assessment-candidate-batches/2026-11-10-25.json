@@ -100,19 +100,22 @@
       "reviewed_at": "2026-10-02",
       "function": "S2",
       "finding": "Check whether simultaneous same-tenant same-run NodeService.start calls launch duplicate S1 runs before a single idempotent registry entry is established.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/da98a140b1c6541f639c1dc4094bf2aeaacdb08d/assessments/cl/cloud-coding-agent-node.md",
-        "https://github.com/opensiro/upstream/commit/5ddeba928a62829d1951f3380d728920ff63ec01"
+        "https://github.com/opensiro/upstream/commit/5ddeba928a62829d1951f3380d728920ff63ec01",
+        "https://github.com/fred1433/cloud-coding-agent-node/blob/a6758498055b54d765f6ca3423c58c67e0ead18e/codenode/service.py",
+        "https://github.com/fred1433/cloud-coding-agent-node/blob/a6758498055b54d765f6ca3423c58c67e0ead18e/tests/test_contract.py",
+        "https://github.com/fred1433/cloud-coding-agent-node/blob/a6758498055b54d765f6ca3423c58c67e0ead18e/LICENSE"
       ],
-      "screening_result": "PRE_REGISTERED_ONLY: no current first-party target inspection or native validation completed. See hypothesis checkpoint for a falsifiable native test and null condition."
+      "screening_result": "At exact assessed/default first-party source a675849 MIT: NodeService.start acquires self.lock before reading (ctx.tenant, run_id), creates one recorder/cancel/done entry and stores it under that lock, and releases lock only before spawning its worker thread; a competing same-tenant same-run call necessarily sees the entry and returns started=False. Tenant context is part of both map key and sandbox name. Existing first-party contract test covers separate tenants with same ID. No gap fitting the prespecified same-instance simultaneous-start duplication hypothesis; read-only static control-path screen, not a native parallel stress test. Cross-process workers are outside this process-local service contract and were not claimed in this hypothesis."
     },
     {
       "id": "polyphemus-stitch-duplicate-tool-ids",
