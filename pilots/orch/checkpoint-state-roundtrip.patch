@@ -1,0 +1,84 @@
+diff --git a/orchestrator/state.py b/orchestrator/state.py
+index 17eff1c..d6f310c 100644
+--- a/orchestrator/state.py
++++ b/orchestrator/state.py
+@@ -81,6 +81,7 @@ class WorkflowState:
+             "workflow": self.workflow,
+             "router_output": self.router_output.model_dump() if self.router_output else None,
+             "planner_output": self.planner_output.model_dump() if self.planner_output else None,
++            "repository_context": self.repository_context,
+             "modified_files": self.modified_files,
+             "git_diff": self.git_diff,
+             "validation_output": self.validation_output,
+@@ -101,6 +102,7 @@ class WorkflowState:
+             workflow=data.get("workflow", "code_generation"),
+             router_output=RouterOutput.model_validate(router) if router else None,
+             planner_output=PlannerOutput.model_validate(plan) if plan else None,
++            repository_context=data.get("repository_context", ""),
+             modified_files=list(data.get("modified_files", [])),
+             git_diff=data.get("git_diff", ""),
+             validation_output=data.get("validation_output", ""),
+@@ -110,6 +112,7 @@ class WorkflowState:
+             pull_request=data.get("pull_request", ""),
+             run_id=data.get("run_id", _new_run_id()),
+             created_at=data.get("created_at", time.time()),
++            updated_at=data.get("updated_at", time.time()),
+         )
+ 
+ 
+diff --git a/tests/test_checkpoint_roundtrip_unittest.py b/tests/test_checkpoint_roundtrip_unittest.py
+new file mode 100644
+index 0000000..05b2b40
+--- /dev/null
++++ b/tests/test_checkpoint_roundtrip_unittest.py
+@@ -0,0 +1,50 @@
++"""Pinned-source checkpoint invariants, exercised with scripts only."""
++
++from pathlib import Path
++from tempfile import TemporaryDirectory
++import sys
++import types
++import unittest
++
++# Load real state/persistence source under an isolated namespace: the normal
++# package __init__ imports optional OpenRouter integrations (requests).
++# Do not replace the actual "orchestrator" package in sys.modules.
++package = types.ModuleType("_orch_checkpoint_probe")
++package.__path__ = [str(Path(__file__).resolve().parents[1] / "orchestrator")]
++sys.modules["_orch_checkpoint_probe"] = package
++
++from _orch_checkpoint_probe.persistence import load_state, save_state
++from _orch_checkpoint_probe.state import WorkflowState
++
++
++class CheckpointRoundtripTests(unittest.TestCase):
++    def test_repository_context_survives_disk_resume(self):
++        with TemporaryDirectory() as temp:
++            path = Path(temp) / "checkpoint.json"
++            state = WorkflowState(task="fixed task", repository=temp)
++            state.repository_context = "repository facts used in this run"
++            save_state(path, state)
++            self.assertEqual(load_state(path).repository_context, state.repository_context)
++
++    def test_serialized_state_contains_repository_context(self):
++        state = WorkflowState(task="fixed", repository="/fixed")
++        state.repository_context = "pinned context"
++        self.assertEqual(state.to_dict()["repository_context"], "pinned context")
++
++    def test_stored_update_timestamp_survives_load(self):
++        state = WorkflowState(task="fixed", repository="/fixed")
++        payload = state.to_dict()
++        recovered = WorkflowState.from_dict(payload)
++        self.assertEqual(recovered.updated_at, payload["updated_at"])
++
++    def test_basic_state_roundtrip_without_provider(self):
++        with TemporaryDirectory() as temp:
++            path = Path(temp) / "checkpoint.json"
++            state = WorkflowState(task="fixed task", repository=temp)
++            save_state(path, state)
++            restored = load_state(path)
++            self.assertEqual((restored.run_id, restored.task), (state.run_id, state.task))
++
++
++if __name__ == "__main__":
++    unittest.main()

@@ -17,6 +17,14 @@ FORK = "opensiro-contributions/HarnessDesk"
 HEAD = "opensiro/fix-toolgateway-1772"
 B_SHA = "b" * 40
 H_SHA = "c" * 40
+DISCLOSURE = (ROOT / "templates/EXTERNAL_PR_DISCLOSURE.md").read_text(encoding="utf-8").strip()
+for marker, value in {
+    "ASSESSMENT_PATH": "assessments/ha/harnessdesk.md",
+    "ASSESSMENT_INDEX_SHA": "a" * 40,
+    "ASSESSMENT_DATE": "2026-11-02",
+    "ASSESSMENT_REVIEW_REF": "f" * 40,
+}.items():
+    DISCLOSURE = DISCLOSURE.replace("{{" + marker + "}}", value)
 
 
 class Response:
@@ -72,24 +80,71 @@ class UpstreamPRHandoffTests(unittest.TestCase):
                          head_sha=H_SHA, base_branch="development",
                          base_sha=B_SHA,
                          title="fix: prevent duplicate ToolGateway socket takeover",
-                         body="Regression test and ownership fix for #1772.")
+                         body="Regression test and ownership fix for #1772.\n\n" + DISCLOSURE)
 
     def preview(self, **changes):
         return prepare_pr_handoff(**(self.data | changes),
                                   runner=self.fake)
 
-    def test_success_is_only_draft_rest_handoff(self):
+    def test_success_is_only_ready_for_review_rest_handoff(self):
         r = self.preview()
         self.assertEqual(r["status"], "PR_READY_FOR_MANUAL_REVIEW_NOT_PUBLISHED")
         self.assertEqual(r["draft_request_body"]["head"],
                          "opensiro-contributions:" + HEAD)
         self.assertEqual(r["draft_request_body"]["base"], "development")
-        self.assertTrue(r["draft_request_body"]["draft"])
+        self.assertFalse(r["draft_request_body"]["draft"])
         self.assertEqual(r["api_path_if_separately_approved"],
                          "repos/HarnessDesk/HarnessDesk/pulls")
         self.assertEqual(len(r["intent_sha256"]), 64)
         self.assertNotIn("token", json.dumps(r).lower())
+        self.assertEqual(r["evidence"]["assessment"]["reviewed_at"], "2026-11-02")
+        self.assertEqual(r["evidence"]["assessment"]["path"],
+                         "assessments/ha/harnessdesk.md")
         self.assertTrue(all(c[3] == "GET" for c in self.fake.calls))
+
+    def test_missing_or_altered_ai_disclosure_fails_before_github_read(self):
+        with self.assertRaisesRegex(PRBlocked, "AI-assisted disclosure"):
+            self.preview(body="Regression test and ownership fix for #1772.")
+        self.assertEqual(self.fake.calls, [])
+        with self.assertRaisesRegex(PRBlocked, "AI-assisted disclosure"):
+            self.preview(body=self.data["body"].replace(
+                "a human approves publication", "no human approves publication"))
+        self.assertEqual(self.fake.calls, [])
+        with self.assertRaisesRegex(PRBlocked, "AI-assisted disclosure"):
+            self.preview(body=self.data["body"] + "\n" + DISCLOSURE)
+        self.assertEqual(self.fake.calls, [])
+
+    def test_assessment_link_date_and_source_are_required_before_github_read(self):
+        cases = (
+            self.data["body"].replace("blob/main/assessments/ha/harnessdesk.md",
+                                      "blob/main/assessments/xx/other.md"),
+            self.data["body"].replace("2026-11-02", "2026-99-40"),
+            self.data["body"].replace("`" + "f" * 40 + "`", "`unknown`"),
+            self.data["body"].replace("blob/" + "a" * 40,
+                                      "blob/main"),
+            self.data["body"].replace("disclosure:v2", "disclosure:v1"),
+            self.data["body"] + "\nExtra text after disclosure",
+        )
+        for body in cases:
+            with self.subTest(body=body[-100:]), self.assertRaisesRegex(
+                    PRBlocked, "AI-assisted disclosure"):
+                self.preview(body=body)
+        self.assertEqual(self.fake.calls, [])
+
+    def test_explicit_draft_requires_documented_reason(self):
+        with self.assertRaisesRegex(PRBlocked, "concrete documented reason"):
+            self.preview(draft=True)
+        self.assertEqual(self.fake.calls, [])
+        out = self.preview(draft=True, draft_reason="Pending review of an optional test")
+        self.assertTrue(out["draft_request_body"]["draft"])
+        self.assertEqual(out["evidence"]["draft_reason"],
+                         "Pending review of an optional test")
+        self.assertTrue(all(c[3] == "GET" for c in self.fake.calls))
+
+    def test_ready_for_review_rejects_spurious_draft_reason(self):
+        with self.assertRaisesRegex(PRBlocked, "only valid"):
+            self.preview(draft_reason="Unresolved test")
+        self.assertEqual(self.fake.calls, [])
 
     def test_user_identity_is_pinned_and_sane(self):
         self.fake.identity = "invalid:actor"
@@ -214,7 +269,8 @@ class UpstreamPRHandoffTests(unittest.TestCase):
         first = self.preview()
         second = self.preview()
         self.assertEqual(first["intent_sha256"], second["intent_sha256"])
-        modified = self.preview(body=self.data["body"] + " Updated test.")
+        modified = self.preview(body=self.data["body"].replace(
+            "fix for #1772.", "fix for #1772. Updated test."))
         self.assertNotEqual(first["intent_sha256"], modified["intent_sha256"])
 
     def test_cli_prints_handoff_without_writing(self):
@@ -230,6 +286,22 @@ class UpstreamPRHandoffTests(unittest.TestCase):
             self.assertEqual(rc, 0)
             self.assertEqual(json.loads(capture.getvalue())["authorization"],
                              "EXTERNAL_PR_HUMAN_OWNED_NO_WRITE")
+            self.assertFalse(json.loads(capture.getvalue())["draft_request_body"]["draft"])
+
+    def test_cli_explicit_draft_requires_reason(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            body_file = Path(tmp) / "body.md"
+            body_file.write_text(self.data["body"], encoding="utf-8")
+            argv = ["--upstream", SOURCE, "--fork", FORK,
+                    "--head-branch", HEAD, "--head-sha", H_SHA,
+                    "--base-branch", "development", "--base-sha", B_SHA,
+                    "--title", self.data["title"], "--body-file", str(body_file),
+                    "--draft"]
+            with patch("sys.stdout", new_callable=StringIO) as capture:
+                rc = main(argv, runner=self.fake)
+            self.assertEqual(rc, 2)
+            self.assertIn("concrete documented reason", capture.getvalue())
+            self.assertEqual(self.fake.calls, [])
 
     def test_cli_has_no_publish_or_post_flag(self):
         with tempfile.TemporaryDirectory() as tmp:

@@ -1,0 +1,87 @@
+diff --git a/connectonion/useful_plugins/tool_approval/approval.py b/connectonion/useful_plugins/tool_approval/approval.py
+index 48ee8921..ee5c29dc 100644
+--- a/connectonion/useful_plugins/tool_approval/approval.py
++++ b/connectonion/useful_plugins/tool_approval/approval.py
+@@ -811,7 +811,9 @@ def _is_control_file(path: str) -> bool:
+     """
+     import os
+ 
+-    normalised = os.path.normpath(str(path)).replace(os.sep, "/")
++    # A symlink can point to .co/host.yaml even when neither the link name
++    # nor its parent contains .co. Resolve before examining control segments.
++    normalised = os.path.normpath(str(Path(path).expanduser().resolve(strict=False))).replace(os.sep, "/")
+     parts = normalised.split("/")
+     if CO_DIR_NAME not in parts:
+         return False
+diff --git a/tests/unit/test_native_control_symlink_unittest.py b/tests/unit/test_native_control_symlink_unittest.py
+new file mode 100644
+index 00000000..5251ae65
+--- /dev/null
++++ b/tests/unit/test_native_control_symlink_unittest.py
+@@ -0,0 +1,66 @@
++"""Native admission checks only. No agent, model, tool execution or provider calls."""
++
++import ast
++import unittest
++from pathlib import Path
++from tempfile import TemporaryDirectory
++
++
++def first_party_permission_check():
++    """Load the original functions without importing optional provider packages."""
++    source = Path(__file__).resolve().parents[2] / "connectonion/useful_plugins/tool_approval/approval.py"
++    tree = ast.parse(source.read_text(encoding="utf-8"))
++    names = {"_is_control_file", "_refuse_control_file", "matches_permission_pattern", "is_tool_permitted"}
++    native_functions = [node for node in tree.body if isinstance(node, ast.FunctionDef) and node.name in names]
++    namespace = {"Path": Path, "CO_DIR_NAME": ".co", "CONTROL_FILES": ("host.yaml", "schedule.yaml", "admins.txt"), "CONTROL_DIRS": ("keys",)}
++    exec(compile(ast.fix_missing_locations(ast.Module(body=native_functions, type_ignores=[])), str(source), "exec"), namespace)
++    return namespace["is_tool_permitted"]
++
++
++class ControlFileSymlinkAdmissionTests(unittest.TestCase):
++    @classmethod
++    def setUpClass(cls):
++        cls.admit = staticmethod(first_party_permission_check())
++
++    def setUp(self):
++        self.folder = TemporaryDirectory()
++        self.addCleanup(self.folder.cleanup)
++        self.root = Path(self.folder.name)
++        self.control = self.root / ".co"
++        self.control.mkdir()
++        (self.control / "keys").mkdir()
++        (self.control / "host.yaml").write_text("permissions: []\n", encoding="utf-8")
++        (self.control / "keys" / "service.txt").write_text("private\n", encoding="utf-8")
++        self.permissions = {"write": {"allowed": True, "reason": "explicit native test"}}
++
++    def is_allowed(self, candidate):
++        return self.admit("write", {"file_path": str(candidate)}, self.permissions)[0]
++
++    def test_regular_file_allowed(self):
++        target = self.root / "notes.txt"
++        self.assertTrue(self.is_allowed(target))
++
++    def test_literal_control_path_denied(self):
++        self.assertFalse(self.is_allowed(self.control / "host.yaml"))
++
++    def test_parent_reference_to_control_path_denied(self):
++        self.assertFalse(self.is_allowed(self.root / "work" / ".." / ".co" / "host.yaml"))
++
++    def test_symlink_to_control_file_denied(self):
++        alias = self.root / "safe-looking.yaml"
++        alias.symlink_to(self.control / "host.yaml")
++        self.assertFalse(self.is_allowed(alias))
++
++    def test_symlinked_control_directory_denied(self):
++        alias = self.root / "alias"
++        alias.symlink_to(self.control, target_is_directory=True)
++        self.assertFalse(self.is_allowed(alias / "host.yaml"))
++
++    def test_symlink_to_private_control_key_denied(self):
++        alias = self.root / "ordinary.txt"
++        alias.symlink_to(self.control / "keys" / "service.txt")
++        self.assertFalse(self.is_allowed(alias))
++
++
++if __name__ == "__main__":
++    unittest.main()

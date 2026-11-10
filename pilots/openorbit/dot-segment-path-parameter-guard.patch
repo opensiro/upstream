@@ -1,0 +1,40 @@
+diff --git a/electron/main/ai/httpToolRequest.test.ts b/electron/main/ai/httpToolRequest.test.ts
+index 902fe1e..8dfd5f4 100644
+--- a/electron/main/ai/httpToolRequest.test.ts
++++ b/electron/main/ai/httpToolRequest.test.ts
+@@ -83,6 +83,16 @@ describe("buildHttpRequest", () => {
+     expect(request.url).toBe(`${BASE}/posts/..%2F..%2Fadmin%3Fx%3D1`);
+   });
+ 
++  it.each([".", ".."])("rejects a URL-normalized dot-segment path argument: %s", (id) => {
++    expect(() => buildHttpRequest({
++      baseUrl: BASE,
++      path: "/posts/{{id}}/comments",
++      method: "GET",
++      params: [param({ name: "id", location: "path" })],
++      args: { id },
++    })).toThrow(/dot segment/);
++  });
++
+   it("throws when a path placeholder is never filled in", () => {
+     expect(() =>
+       buildHttpRequest({
+diff --git a/electron/main/ai/httpToolRequest.ts b/electron/main/ai/httpToolRequest.ts
+index 85430d0..0c3b3d0 100644
+--- a/electron/main/ai/httpToolRequest.ts
++++ b/electron/main/ai/httpToolRequest.ts
+@@ -109,7 +109,13 @@ export function buildHttpRequest(options: {
+   // --- path ---
+   let resolvedPath = path;
+   for (const param of byLocation("path")) {
+-    const value = encodeURIComponent(stringifyValue(provided.get(param.name)!));
++    const raw = stringifyValue(provided.get(param.name)!);
++    // WHATWG URL parsing removes bare . and .. segments even after ordinary
++    // URI component encoding; do not let a parameter select a different route.
++    if (raw === "." || raw === "..") {
++      throw new Error(`Path parameter "${param.name}" cannot be a dot segment.`);
++    }
++    const value = encodeURIComponent(raw);
+     resolvedPath = resolvedPath.replace(
+       new RegExp(`\\{\\{\\s*${param.name}\\s*\\}\\}`, "g"),
+       value

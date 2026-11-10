@@ -1,0 +1,100 @@
+diff --git a/pyflue/sandboxes/virtual.py b/pyflue/sandboxes/virtual.py
+index 910cc1a..51bae76 100644
+--- a/pyflue/sandboxes/virtual.py
++++ b/pyflue/sandboxes/virtual.py
+@@ -98,6 +98,8 @@ class VirtualSandbox:
+         """Remove a file or directory inside the sandbox."""
+         require_write(self.policy)
+         target = self.resolve(path, must_exist=False)
++        if target == self.root:
++            raise PermissionError("Cannot remove the virtual sandbox root.")
+         if not target.exists():
+             if force:
+                 return f"Removed {self.relative(target)}"
+diff --git a/test_native_virtual_root_delete_unittest.py b/test_native_virtual_root_delete_unittest.py
+new file mode 100644
+index 0000000..9880263
+--- /dev/null
++++ b/test_native_virtual_root_delete_unittest.py
+@@ -0,0 +1,81 @@
++"""Real virtual-sandbox filesystem guard tests; never import/run model agents."""
++
++import importlib.util
++import sys
++import tempfile
++import types
++import unittest
++from pathlib import Path
++
++
++# Load the exact first-party files without executing optional pyflue package
++# startup (which imports provider/client libraries not needed for this test).
++ROOT = Path(__file__).parent
++for name, location in (
++    ("pyflue", ROOT / "pyflue"),
++    ("pyflue.sandboxes", ROOT / "pyflue/sandboxes"),
++):
++    package = types.ModuleType(name)
++    package.__path__ = [str(location)]
++    sys.modules[name] = package
++
++for name, filename in (
++    ("pyflue.sandboxes.base", "base.py"),
++    ("pyflue.sandboxes.virtual", "virtual.py"),
++):
++    spec = importlib.util.spec_from_file_location(name, ROOT / "pyflue/sandboxes" / filename)
++    module = importlib.util.module_from_spec(spec)
++    sys.modules[name] = module
++    spec.loader.exec_module(module)
++
++from pyflue.sandboxes.base import SandboxPolicy
++from pyflue.sandboxes.virtual import VirtualSandbox
++
++
++class NativeVirtualSandboxDeletionTests(unittest.TestCase):
++    def make_sandbox(self, base):
++        root = Path(base) / "sandbox"
++        instance = VirtualSandbox(root=root, policy=SandboxPolicy(allow_write=True))
++        (root / "sentinel.txt").write_text("intact", encoding="utf-8")
++        return instance
++
++    def test_normal_nested_directory_can_be_removed(self):
++        with tempfile.TemporaryDirectory() as temp:
++            sandbox = self.make_sandbox(temp)
++            nested = sandbox.root / "nested"
++            nested.mkdir()
++            sandbox.rm("nested", recursive=True)
++            self.assertFalse(nested.exists())
++            self.assertTrue(sandbox.root.exists())
++
++    def test_root_dot_deletion_is_denied(self):
++        with tempfile.TemporaryDirectory() as temp:
++            sandbox = self.make_sandbox(temp)
++            with self.assertRaises(PermissionError):
++                sandbox.rm(".", recursive=True)
++            self.assertTrue((sandbox.root / "sentinel.txt").exists())
++
++    def test_root_workspace_alias_deletion_is_denied(self):
++        with tempfile.TemporaryDirectory() as temp:
++            sandbox = self.make_sandbox(temp)
++            with self.assertRaises(PermissionError):
++                sandbox.rm("/workspace", recursive=True)
++            self.assertTrue((sandbox.root / "sentinel.txt").exists())
++
++    def test_root_slash_alias_deletion_is_denied(self):
++        with tempfile.TemporaryDirectory() as temp:
++            sandbox = self.make_sandbox(temp)
++            with self.assertRaises(PermissionError):
++                sandbox.rm("/", recursive=True)
++            self.assertTrue((sandbox.root / "sentinel.txt").exists())
++
++    def test_read_only_policy_remains_enforced(self):
++        with tempfile.TemporaryDirectory() as temp:
++            sandbox = VirtualSandbox(root=Path(temp) / "sandbox", policy=SandboxPolicy(allow_write=False))
++            with self.assertRaises(PermissionError):
++                sandbox.rm(".", recursive=True)
++            self.assertTrue(sandbox.root.exists())
++
++
++if __name__ == "__main__":
++    unittest.main()

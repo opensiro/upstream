@@ -1,0 +1,81 @@
+diff --git a/skills/operating-model-bootstrap/scripts/bootstrap_operating_model.py b/skills/operating-model-bootstrap/scripts/bootstrap_operating_model.py
+index a4af666..9451ed2 100644
+--- a/skills/operating-model-bootstrap/scripts/bootstrap_operating_model.py
++++ b/skills/operating-model-bootstrap/scripts/bootstrap_operating_model.py
+@@ -157,15 +157,21 @@ def render_artifacts(
+ 
+ 
+ def preflight(
+-    artifacts: list[Artifact],
++    artifacts: list[Artifact], target: Path,
+ ) -> tuple[list[Artifact], list[Path], list[Path]]:
+-    """Classify new outputs, contract conflicts, and project records to preserve."""
++    """Classify outputs, rejecting symlinks and paths redirected outside target."""
+ 
+     pending: list[Artifact] = []
+     conflicts: list[Path] = []
+     preserved: list[Path] = []
+     for artifact in artifacts:
+-        if not artifact.destination.exists():
++        try:
++            within_target = artifact.destination.resolve().is_relative_to(target)
++        except (OSError, RuntimeError):
++            within_target = False
++        if artifact.destination.is_symlink() or not within_target:
++            conflicts.append(artifact.destination)
++        elif not artifact.destination.exists():
+             pending.append(artifact)
+         elif artifact.destination.read_bytes() != artifact.content:
+             if artifact.preserve_existing:
+@@ -187,9 +193,12 @@ def main() -> int:
+     surfaces = selected_surfaces(args.surface)
+ 
+     artifacts = render_artifacts(target, args.project_name or target.name, surfaces)
+-    pending, conflicts, preserved = preflight(artifacts)
++    pending, conflicts, preserved = preflight(artifacts, target)
+     if conflicts:
+-        print("ERROR refusing to overwrite existing, different files:", file=sys.stderr)
++        print(
++            "ERROR refusing to overwrite existing, redirected, or out-of-target files:",
++            file=sys.stderr,
++        )
+         for path in conflicts:
+             print(f"  - {path}", file=sys.stderr)
+         print(
+diff --git a/tests/test_operating_model.py b/tests/test_operating_model.py
+index 24b4d9d..24f11b2 100644
+--- a/tests/test_operating_model.py
++++ b/tests/test_operating_model.py
+@@ -75,6 +75,32 @@ class OperatingModelBootstrapTests(unittest.TestCase):
+         self.assertFalse((self.target / "docs" / "operating-model").exists())
+         self.assertFalse((self.target / "AGENTS.md").exists())
+ 
++    def test_dangling_adapter_symlink_must_not_write_outside_target(self) -> None:
++        with tempfile.TemporaryDirectory() as external:
++            escaped = Path(external) / "AGENTS.md"
++            try:
++                (self.target / "AGENTS.md").symlink_to(escaped)
++            except (OSError, NotImplementedError) as error:
++                self.skipTest(f"symlinks unavailable: {error}")
++
++            result = self.install()
++            self.assertEqual(result.returncode, 2, result.stdout)
++            self.assertFalse(escaped.exists())
++            self.assertFalse((self.target / "docs").exists())
++
++    def test_parent_directory_symlink_must_not_write_outside_target(self) -> None:
++        with tempfile.TemporaryDirectory() as external:
++            escaped = Path(external)
++            try:
++                (self.target / "docs").symlink_to(escaped, target_is_directory=True)
++            except (OSError, NotImplementedError) as error:
++                self.skipTest(f"symlinks unavailable: {error}")
++
++            result = self.install()
++            self.assertEqual(result.returncode, 2, result.stdout)
++            self.assertEqual(list(escaped.iterdir()), [])
++            self.assertFalse((self.target / "AGENTS.md").exists())
++
+     def test_existing_planning_file_is_preserved_while_missing_seed_is_created(self) -> None:
+         docs = self.target / "docs"
+         docs.mkdir()

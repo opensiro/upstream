@@ -1,0 +1,2643 @@
+{
+  "schema_version": 1,
+  "selected_on": "2026-11-08",
+  "goal": "100 source-disjoint candidates for reviewable Upstream work; no automatic fork or publication grant",
+  "index_sha": "46219bf103b0b122d86abc3ca70ae3d8bc820e2c",
+  "upstream_sha_at_selection": "dc509c073e060447b22ca4bfd9140b6e26d28498",
+  "metadata_checked_at": "2026-11-08",
+  "not_a_product_defect_ranking": true,
+  "selection_rule": "Preserve 16 verified working forks and 23 historical technical packets without forks (current MIT/Apache-2.0 metadata). Add 61 previously unbatched included Index sources in two complementary lanes: 25 high-reach popular candidates, including the ten originally discussed with the owner, sorted by live GitHub stars; 36 stronger source-specific native mechanism candidates allocated across S2, S3, S3*, S4 and S5 based on recent Index evidence, specificity and code references. Both lanes require current MIT/Apache-2.0 metadata and source activity since 2026-09-01. Stars approximate audience and potential impact, not quality, code defect, or proof of improvement. All hypotheses need pre-registration and independent native verification before external action.",
+  "counts": {
+    "existing_forks": 16,
+    "prepared_packets_missing_forks": 23,
+    "new_index_hypothesis_screens": 61,
+    "high_reach_new_screens": 25,
+    "function_mechanism_new_screens": 36,
+    "total": 100,
+    "deferred_prepared_packet_license_review": 5
+  },
+  "existing_forks": [
+    {
+      "source": "HarnessDesk/HarnessDesk",
+      "fork": "opensiro-contributions/HarnessDesk",
+      "category": "EXISTING_FORK",
+      "packet_origin": null,
+      "packet_manifest": null,
+      "verified_current_outcome": null,
+      "next_gate": "RECONCILE_CURRENT_EXTERNAL_PR_AND_LICENSE"
+    },
+    {
+      "source": "Rohith-s-hub/Oblivion-agent",
+      "fork": "opensiro-contributions/Oblivion-agent",
+      "category": "EXISTING_FORK",
+      "packet_origin": "ASSESSMENT_INFORMED",
+      "packet_manifest": "data/assessment-candidate-batches/2026-10-22-01.json",
+      "verified_current_outcome": null,
+      "next_gate": "RECONCILE_CURRENT_EXTERNAL_PR_AND_LICENSE"
+    },
+    {
+      "source": "cordfuse/politik",
+      "fork": "opensiro-contributions/politik",
+      "category": "EXISTING_FORK",
+      "packet_origin": "ASSESSMENT_INFORMED",
+      "packet_manifest": "data/assessment-candidate-batches/2026-10-22-04.json",
+      "verified_current_outcome": null,
+      "next_gate": "RECONCILE_CURRENT_EXTERNAL_PR_AND_LICENSE"
+    },
+    {
+      "source": "Onipounds/agent-loop",
+      "fork": "opensiro-contributions/agent-loop",
+      "category": "EXISTING_FORK",
+      "packet_origin": "ASSESSMENT_INFORMED",
+      "packet_manifest": "data/assessment-candidate-batches/2026-10-22-05.json",
+      "verified_current_outcome": null,
+      "next_gate": "RECONCILE_CURRENT_EXTERNAL_PR_AND_LICENSE"
+    },
+    {
+      "source": "Gen-Verse/DiscoveryRSI",
+      "fork": "opensiro-contributions/DiscoveryRSI",
+      "category": "EXISTING_FORK",
+      "packet_origin": "ASSESSMENT_INFORMED",
+      "packet_manifest": "data/assessment-candidate-batches/2026-10-22-05.json",
+      "verified_current_outcome": null,
+      "next_gate": "RECONCILE_CURRENT_EXTERNAL_PR_AND_LICENSE"
+    },
+    {
+      "source": "huleidada/matterloop",
+      "fork": "opensiro-contributions/matterloop",
+      "category": "EXISTING_FORK",
+      "packet_origin": "ASSESSMENT_INFORMED",
+      "packet_manifest": "data/assessment-candidate-batches/2026-10-22-05.json",
+      "verified_current_outcome": null,
+      "next_gate": "RECONCILE_CURRENT_EXTERNAL_PR_AND_LICENSE"
+    },
+    {
+      "source": "Gen-Verse/Recuris",
+      "fork": "opensiro-contributions/Recuris",
+      "category": "EXISTING_FORK",
+      "packet_origin": "ASSESSMENT_INFORMED",
+      "packet_manifest": "data/assessment-candidate-batches/2026-10-22-06.json",
+      "verified_current_outcome": null,
+      "next_gate": "RECONCILE_CURRENT_EXTERNAL_PR_AND_LICENSE"
+    },
+    {
+      "source": "LEO001020/pi-loop-studio-orchestra",
+      "fork": "opensiro-contributions/pi-loop-studio-orchestra",
+      "category": "EXISTING_FORK",
+      "packet_origin": "ASSESSMENT_INFORMED",
+      "packet_manifest": "data/assessment-candidate-batches/2026-10-22-07.json",
+      "verified_current_outcome": null,
+      "next_gate": "RECONCILE_CURRENT_EXTERNAL_PR_AND_LICENSE"
+    },
+    {
+      "source": "SethGammon/Citadel",
+      "fork": "opensiro-contributions/Citadel",
+      "category": "EXISTING_FORK",
+      "packet_origin": "ASSESSMENT_DERIVED",
+      "packet_manifest": "data/assessment-candidate-batches/2026-10-23-11.json",
+      "verified_current_outcome": "MERGED_UPSTREAM",
+      "next_gate": "MAINTENANCE_ONLY_NO_NEW_PUBLICATION"
+    },
+    {
+      "source": "chankov/agent-fleet",
+      "fork": "opensiro-contributions/agent-fleet",
+      "category": "EXISTING_FORK",
+      "packet_origin": "ASSESSMENT_DERIVED",
+      "packet_manifest": "data/assessment-candidate-batches/2026-10-23-11.json",
+      "verified_current_outcome": "MERGED_UPSTREAM",
+      "next_gate": "MAINTENANCE_ONLY_NO_NEW_PUBLICATION"
+    },
+    {
+      "source": "chumingjun/dsh-harness-one",
+      "fork": "opensiro-contributions/dsh-harness-one",
+      "category": "EXISTING_FORK",
+      "packet_origin": "ASSESSMENT_INFORMED",
+      "packet_manifest": "data/assessment-candidate-batches/2026-10-22-06.json",
+      "verified_current_outcome": null,
+      "next_gate": "RECONCILE_CURRENT_EXTERNAL_PR_AND_LICENSE"
+    },
+    {
+      "source": "Coral-Bricks-AI/reef",
+      "fork": "opensiro-contributions/reef",
+      "category": "EXISTING_FORK",
+      "packet_origin": "ASSESSMENT_INFORMED",
+      "packet_manifest": "data/assessment-candidate-batches/2026-10-22-07.json",
+      "verified_current_outcome": null,
+      "next_gate": "RECONCILE_CURRENT_EXTERNAL_PR_AND_LICENSE"
+    },
+    {
+      "source": "CorticalComputer/Spartan",
+      "fork": "opensiro-contributions/Spartan",
+      "category": "EXISTING_FORK",
+      "packet_origin": "ASSESSMENT_INFORMED",
+      "packet_manifest": "data/assessment-candidate-batches/2026-10-23-08.json",
+      "verified_current_outcome": null,
+      "next_gate": "RECONCILE_CURRENT_EXTERNAL_PR_AND_LICENSE"
+    },
+    {
+      "source": "BESSER-PEARL/BESSER-Agentic-Framework",
+      "fork": "opensiro-contributions/BESSER-Agentic-Framework",
+      "category": "EXISTING_FORK",
+      "packet_origin": "ASSESSMENT_INFORMED",
+      "packet_manifest": "data/assessment-candidate-batches/2026-10-23-09.json",
+      "verified_current_outcome": null,
+      "next_gate": "RECONCILE_CURRENT_EXTERNAL_PR_AND_LICENSE"
+    },
+    {
+      "source": "mila-iqia/babyai",
+      "fork": "opensiro-contributions/babyai",
+      "category": "EXISTING_FORK",
+      "packet_origin": "ASSESSMENT_INFORMED",
+      "packet_manifest": "data/assessment-candidate-batches/2026-10-23-09.json",
+      "verified_current_outcome": null,
+      "next_gate": "RECONCILE_CURRENT_EXTERNAL_PR_AND_LICENSE"
+    },
+    {
+      "source": "Phoenixrr2113/agent-harness",
+      "fork": "opensiro-contributions/agent-harness",
+      "category": "EXISTING_FORK",
+      "packet_origin": "ASSESSMENT_INFORMED",
+      "packet_manifest": "data/assessment-candidate-batches/2026-10-23-10.json",
+      "verified_current_outcome": null,
+      "next_gate": "RECONCILE_CURRENT_EXTERNAL_PR_AND_LICENSE"
+    }
+  ],
+  "prepared_packets_missing_forks": [
+    {
+      "source": "kstawiski/evidence-gated-scientific-agent",
+      "origin": "ASSESSMENT_DERIVED",
+      "historical_stage": "AWAITING_EXTERNAL",
+      "batch_manifest": "data/assessment-candidate-batches/2026-10-23-11.json",
+      "assessment": "assessments/ev/evidence-bench.md",
+      "review_ref": "85b396a824dfad6ec0880cbe07d86d3e24920ae8",
+      "function": "S1",
+      "finding": "Inspect first-party Python scientific evidence policy, linting and provenance schema boundaries for deterministic unsupported-payload admission using fixed in-memory data and native tests only; do not run scientific tasks, ADK agents, model critics or API providers.",
+      "license_spdx": "Apache-2.0",
+      "last_pushed_at": "2026-07-20",
+      "batch_url": "https://github.com/opensiro/upstream/blob/dc509c073e060447b22ca4bfd9140b6e26d28498/data/assessment-candidate-batches/2026-10-23-11.json",
+      "category": "PREPARED_PACKET_MISSING_FORK",
+      "next_gate": "RECONCILE_LICENSE_SOURCE_SHA_EXISTING_EXTERNAL_PR_AND_FORK_AUTHORITY"
+    },
+    {
+      "source": "lbdremy/phax",
+      "origin": "ASSESSMENT_DERIVED",
+      "historical_stage": "AWAITING_EXTERNAL",
+      "batch_manifest": "data/assessment-candidate-batches/2026-11-06-13.json",
+      "assessment": "assessments/ph/phax.md",
+      "review_ref": "3a9457a63ad8e2b6e6cd6ba63ce38366450c1499",
+      "function": "S2",
+      "finding": "The assessed S2=C constructor detects cross-run file overlap and routes affected plan commitments into an approval-gated adjustment. Test whether current first-party overlap analysis misclassifies create/delete or path alias changes and whether the unchanged plan is preserved when adjustment is withheld, using native deterministic fixtures only.",
+      "license_spdx": "Apache-2.0",
+      "last_pushed_at": "2026-11-08",
+      "batch_url": "https://github.com/opensiro/upstream/blob/dc509c073e060447b22ca4bfd9140b6e26d28498/data/assessment-candidate-batches/2026-11-06-13.json",
+      "category": "PREPARED_PACKET_MISSING_FORK",
+      "next_gate": "RECONCILE_LICENSE_SOURCE_SHA_EXISTING_EXTERNAL_PR_AND_FORK_AUTHORITY"
+    },
+    {
+      "source": "microsoft/fara",
+      "origin": "ASSESSMENT_DERIVED",
+      "historical_stage": "AWAITING_EXTERNAL",
+      "batch_manifest": "data/assessment-candidate-batches/2026-10-23-11.json",
+      "assessment": "assessments/fa/fara.md",
+      "review_ref": "a675d6d61c41c47ae87bacefeab22caad18e3e84",
+      "function": "S1",
+      "finding": "Inspect first-party Python browser trajectory checkpoint and critical-resume input validation using fixed data structures only. No Playwright browser launch, live desktop interaction, Fara model agent, benchmark rollout, or hosted inference is permitted.",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-09-22",
+      "batch_url": "https://github.com/opensiro/upstream/blob/dc509c073e060447b22ca4bfd9140b6e26d28498/data/assessment-candidate-batches/2026-10-23-11.json",
+      "category": "PREPARED_PACKET_MISSING_FORK",
+      "next_gate": "RECONCILE_LICENSE_SOURCE_SHA_EXISTING_EXTERNAL_PR_AND_FORK_AUTHORITY"
+    },
+    {
+      "source": "mnbresearch/crewdeck",
+      "origin": "ASSESSMENT_DERIVED",
+      "historical_stage": "AWAITING_EXTERNAL",
+      "batch_manifest": "data/assessment-candidate-batches/2026-11-06-12.json",
+      "assessment": "assessments/cr/crewdeck.md",
+      "review_ref": "7925ffb4c5e922f0081cce9ca59f62190b6e7864",
+      "function": "S2",
+      "finding": "The assessed S2=C witness is an exclusive task/worker claim and completed-prerequisite gate. Check whether every native claim entry point, including direct manual API dispatch, enforces exactly one active task per agent and only admits ready tasks; use first-party engine functions with fixed in-memory state, no running agents.",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-05",
+      "batch_url": "https://github.com/opensiro/upstream/blob/dc509c073e060447b22ca4bfd9140b6e26d28498/data/assessment-candidate-batches/2026-11-06-12.json",
+      "category": "PREPARED_PACKET_MISSING_FORK",
+      "next_gate": "RECONCILE_LICENSE_SOURCE_SHA_EXISTING_EXTERNAL_PR_AND_FORK_AUTHORITY"
+    },
+    {
+      "source": "murilo-bassan/durable-agent-runtime",
+      "origin": "ASSESSMENT_DERIVED",
+      "historical_stage": "AWAITING_EXTERNAL",
+      "batch_manifest": "data/assessment-candidate-batches/2026-11-08-14.json",
+      "assessment": "assessments/ru/runloop.md",
+      "review_ref": "1d68208d017d27d1b21805753b51a3872c888a52",
+      "function": "S2",
+      "finding": "Index S2=C describes shared-owner atomic token reservations and settlement across concurrent goal runs. Prospectively test failure/retry at reservation-to-settlement boundaries: a released or retried claim must not strand budget or double-credit an owner while another run proceeds.",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-10-29",
+      "batch_url": "https://github.com/opensiro/upstream/pull/174/files",
+      "category": "PREPARED_PACKET_MISSING_FORK",
+      "next_gate": "RECONCILE_LICENSE_SOURCE_SHA_EXISTING_EXTERNAL_PR_AND_FORK_AUTHORITY"
+    },
+    {
+      "source": "ruslantrachuk/dark-factory",
+      "origin": "ASSESSMENT_DERIVED",
+      "historical_stage": "AWAITING_EXTERNAL",
+      "batch_manifest": "data/assessment-candidate-batches/2026-11-06-12.json",
+      "assessment": "assessments/da/dark-factory.md",
+      "review_ref": "a56142f7e79efdfa9aa8acee7596974b4efea174",
+      "function": "S2",
+      "finding": "Assessment credits first-party file-intersection checks that serialize overlapping builder waves and a single integrator. Inspect current source file-scope collision classification and admission for a falsifiable safe native change; do not invoke actual builder agents, model calls or dry-run agent episodes.",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-05",
+      "batch_url": "https://github.com/opensiro/upstream/blob/dc509c073e060447b22ca4bfd9140b6e26d28498/data/assessment-candidate-batches/2026-11-06-12.json",
+      "category": "PREPARED_PACKET_MISSING_FORK",
+      "next_gate": "RECONCILE_LICENSE_SOURCE_SHA_EXISTING_EXTERNAL_PR_AND_FORK_AUTHORITY"
+    },
+    {
+      "source": "talktorana/agent-harness",
+      "origin": "ASSESSMENT_DERIVED",
+      "historical_stage": "AWAITING_EXTERNAL",
+      "batch_manifest": "data/assessment-candidate-batches/2026-11-06-13.json",
+      "assessment": "assessments/ag/agent-harness-talktorana.md",
+      "review_ref": "4d5e11d16e4e9755c4282634778f112c44e21d12",
+      "function": "S2",
+      "finding": "The assessed S2=C witness serializes and verifies shared session-memory updates. Screen current first-party memory.py plus test_memory_concurrency.py for a falsifiable lost-update or stale-write failure between separate sessions, with isolated files and no agent or provider invocation.",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-07",
+      "batch_url": "https://github.com/opensiro/upstream/blob/dc509c073e060447b22ca4bfd9140b6e26d28498/data/assessment-candidate-batches/2026-11-06-13.json",
+      "category": "PREPARED_PACKET_MISSING_FORK",
+      "next_gate": "RECONCILE_LICENSE_SOURCE_SHA_EXISTING_EXTERNAL_PR_AND_FORK_AUTHORITY"
+    },
+    {
+      "source": "agentenv/agentflow",
+      "origin": "ASSESSMENT_INFORMED",
+      "historical_stage": "AWAITING_EXTERNAL",
+      "batch_manifest": "data/assessment-candidate-batches/2026-10-23-09.json",
+      "assessment": "assessments/ag/agentflow.md",
+      "review_ref": "eb51a2e7a5c7d65da5718c4a41843098b60c80e0",
+      "function": "S1",
+      "finding": "AgentFlow ships first-party declarative task-graph specs, ready-node selection, persisted status and result-schema logic. Screen deterministic Python validation and dependency/retry bookkeeping using fixed local data, excluding model CLI invocations or mocked model task runs.",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-01",
+      "batch_url": "https://github.com/opensiro/upstream/blob/dc509c073e060447b22ca4bfd9140b6e26d28498/data/assessment-candidate-batches/2026-10-23-09.json",
+      "category": "PREPARED_PACKET_MISSING_FORK",
+      "next_gate": "RECONCILE_LICENSE_SOURCE_SHA_EXISTING_EXTERNAL_PR_AND_FORK_AUTHORITY"
+    },
+    {
+      "source": "agentuniverse-ai/agentUniverse",
+      "origin": "ASSESSMENT_INFORMED",
+      "historical_stage": "AWAITING_EXTERNAL",
+      "batch_manifest": "data/assessment-candidate-batches/2026-10-23-09.json",
+      "assessment": "assessments/ag/agentuniverse.md",
+      "review_ref": "254ecd280f54c2d2de654bbe5373e9f947d2dedf",
+      "function": "S1",
+      "finding": "agentUniverse owns Python agent templates, workflow metadata and configured state/step transitions. Screen exact first-party non-model schema and admission functions through offline script cases, not its ReAct inference loop, multi-agent framework execution or model evaluations.",
+      "license_spdx": "Apache-2.0",
+      "last_pushed_at": "2026-10-25",
+      "batch_url": "https://github.com/opensiro/upstream/blob/dc509c073e060447b22ca4bfd9140b6e26d28498/data/assessment-candidate-batches/2026-10-23-09.json",
+      "category": "PREPARED_PACKET_MISSING_FORK",
+      "next_gate": "RECONCILE_LICENSE_SOURCE_SHA_EXISTING_EXTERNAL_PR_AND_FORK_AUTHORITY"
+    },
+    {
+      "source": "AniruddhaDas1/OniRoute_SwarmAgents",
+      "origin": "ASSESSMENT_INFORMED",
+      "historical_stage": "AWAITING_EXTERNAL",
+      "batch_manifest": "data/assessment-candidate-batches/2026-10-23-08.json",
+      "assessment": "assessments/on/oniroute-swarmagents.md",
+      "review_ref": "c47d553ad2e1aa547cce000c095a9feda5434ee2",
+      "function": "S1",
+      "finding": "OniRoute ships first-party Python workspace governance, quality and validation modules around engineering artifacts. Screen deterministic validator and path-boundary handling on pinned real source using fixed local fixtures, not its model-backed engineering runner or simulated swarm-wave subsystem.",
+      "license_spdx": "Apache-2.0",
+      "last_pushed_at": "2026-09-01",
+      "batch_url": "https://github.com/opensiro/upstream/blob/dc509c073e060447b22ca4bfd9140b6e26d28498/data/assessment-candidate-batches/2026-10-23-08.json",
+      "category": "PREPARED_PACKET_MISSING_FORK",
+      "next_gate": "RECONCILE_LICENSE_SOURCE_SHA_EXISTING_EXTERNAL_PR_AND_FORK_AUTHORITY"
+    },
+    {
+      "source": "cubeplexai/cubeloop",
+      "origin": "ASSESSMENT_INFORMED",
+      "historical_stage": "AWAITING_EXTERNAL",
+      "batch_manifest": "data/assessment-candidate-batches/2026-10-22-06.json",
+      "assessment": "assessments/cu/cubeloop.md",
+      "review_ref": "eb798f9a20c1f516d6a59a991a63a9d4c630f4bf",
+      "function": "S1",
+      "finding": "CubeLoop's first-party Python checkpoint/session, HITL and deferred-work components preserve execution state; use fixed-input native tests to screen saved-state consistency and approval gates without running any model-backed session.",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-06",
+      "batch_url": "https://github.com/opensiro/upstream/blob/dc509c073e060447b22ca4bfd9140b6e26d28498/data/assessment-candidate-batches/2026-10-22-06.json",
+      "category": "PREPARED_PACKET_MISSING_FORK",
+      "next_gate": "RECONCILE_LICENSE_SOURCE_SHA_EXISTING_EXTERNAL_PR_AND_FORK_AUTHORITY"
+    },
+    {
+      "source": "EverMind-AI/Raven",
+      "origin": "ASSESSMENT_INFORMED",
+      "historical_stage": "AWAITING_EXTERNAL",
+      "batch_manifest": "data/assessment-candidate-batches/2026-10-22-01.json",
+      "assessment": "assessments/ra/raven.md",
+      "review_ref": "e6c0344cb7ce00db25d554e4bb671ec1909a8f9f",
+      "function": "S2",
+      "finding": "Raven-Code has a first-party read-before-edit/stale-content ledger; screen whether any current native failure remains despite the existing guard.",
+      "license_spdx": "Apache-2.0",
+      "last_pushed_at": "2026-11-08",
+      "batch_url": "https://github.com/opensiro/upstream/blob/dc509c073e060447b22ca4bfd9140b6e26d28498/data/assessment-candidate-batches/2026-10-22-01.json",
+      "category": "PREPARED_PACKET_MISSING_FORK",
+      "next_gate": "RECONCILE_LICENSE_SOURCE_SHA_EXISTING_EXTERNAL_PR_AND_FORK_AUTHORITY"
+    },
+    {
+      "source": "google-research/harness2",
+      "origin": "ASSESSMENT_INFORMED",
+      "historical_stage": "AWAITING_EXTERNAL",
+      "batch_manifest": "data/assessment-candidate-batches/2026-10-23-10.json",
+      "assessment": "assessments/ha/harness2.md",
+      "review_ref": "1cfe254e8d25b15f37048c3730134686abe60335",
+      "function": "S1",
+      "finding": "Screen local Python per-domain experience-library persistence, validation and context-tree transformations with filesystem and fixed-data script inputs, not its proposer, executor, demo agent, benchmark, task rollouts or model selection.",
+      "license_spdx": "Apache-2.0",
+      "last_pushed_at": "2026-11-02",
+      "batch_url": "https://github.com/opensiro/upstream/blob/dc509c073e060447b22ca4bfd9140b6e26d28498/data/assessment-candidate-batches/2026-10-23-10.json",
+      "category": "PREPARED_PACKET_MISSING_FORK",
+      "next_gate": "RECONCILE_LICENSE_SOURCE_SHA_EXISTING_EXTERNAL_PR_AND_FORK_AUTHORITY"
+    },
+    {
+      "source": "henrik-me/agent-harness",
+      "origin": "ASSESSMENT_INFORMED",
+      "historical_stage": "AWAITING_EXTERNAL",
+      "batch_manifest": "data/assessment-candidate-batches/2026-10-23-10.json",
+      "assessment": "assessments/he/henrik-agent-harness.md",
+      "review_ref": "9168fa451b69c5d53b961ab5c805b3067597ade4",
+      "function": "S1",
+      "finding": "Screen first-party Node WORKBOARD claim admission and deterministic dispatch metadata for conflicts, stale claims or unsafe path parsing using synthetic fixed input files only. Do not invoke Copilot review, any subagent, GitHub writes or a model host.",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-10-19",
+      "batch_url": "https://github.com/opensiro/upstream/blob/dc509c073e060447b22ca4bfd9140b6e26d28498/data/assessment-candidate-batches/2026-10-23-10.json",
+      "category": "PREPARED_PACKET_MISSING_FORK",
+      "next_gate": "RECONCILE_LICENSE_SOURCE_SHA_EXISTING_EXTERNAL_PR_AND_FORK_AUTHORITY"
+    },
+    {
+      "source": "Hyper-AI-Lab/cyber-ai-team",
+      "origin": "ASSESSMENT_INFORMED",
+      "historical_stage": "AWAITING_EXTERNAL",
+      "batch_manifest": "data/assessment-candidate-batches/2026-10-23-08.json",
+      "assessment": "assessments/cy/cyber-ai-team.md",
+      "review_ref": "525401e40f34863cc7f4d3b053d437ce7709912f",
+      "function": "S1",
+      "finding": "Cyber AI Team has first-party owner authorization and action-policy decisions around business-domain work. Screen pure Python policy validators and transition guards with fixed inputs only; exclude ERPNext, PostgreSQL, Temporal company cycles, LLM agents, simulated model plans or any external business actions.",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-10-23",
+      "batch_url": "https://github.com/opensiro/upstream/blob/dc509c073e060447b22ca4bfd9140b6e26d28498/data/assessment-candidate-batches/2026-10-23-08.json",
+      "category": "PREPARED_PACKET_MISSING_FORK",
+      "next_gate": "RECONCILE_LICENSE_SOURCE_SHA_EXISTING_EXTERNAL_PR_AND_FORK_AUTHORITY"
+    },
+    {
+      "source": "jpantsjoha/ai-native-developer-experience",
+      "origin": "ASSESSMENT_INFORMED",
+      "historical_stage": "AWAITING_EXTERNAL",
+      "batch_manifest": "data/assessment-candidate-batches/2026-10-22-04.json",
+      "assessment": "assessments/ai/ai-native-developer-experience-join-the-team.md",
+      "review_ref": "e93069b92735ba096abf662f2b9d95a0ebfd36f9",
+      "function": "S1",
+      "finding": "The installed plugin includes first-party Python bootstrap and adoption validators; screen input validation and idempotency with native Python scripts only, without calling a host LLM skill.",
+      "license_spdx": "Apache-2.0",
+      "last_pushed_at": "2026-11-06",
+      "batch_url": "https://github.com/opensiro/upstream/blob/dc509c073e060447b22ca4bfd9140b6e26d28498/data/assessment-candidate-batches/2026-10-22-04.json",
+      "category": "PREPARED_PACKET_MISSING_FORK",
+      "next_gate": "RECONCILE_LICENSE_SOURCE_SHA_EXISTING_EXTERNAL_PR_AND_FORK_AUTHORITY"
+    },
+    {
+      "source": "KumihoIO/Revka",
+      "origin": "ASSESSMENT_INFORMED",
+      "historical_stage": "AWAITING_EXTERNAL",
+      "batch_manifest": "data/assessment-candidate-batches/2026-10-23-10.json",
+      "assessment": "assessments/re/revka.md",
+      "review_ref": "a1acd826502e12a6c2f3d147e488a7d2982c480b",
+      "function": "S1",
+      "finding": "Inspect the Python operator-mcp workflow graph validator with finite in-memory workflow specifications for incorrect DAG or step-argument admission. Limit validation to source-native no-provider Python and no shell execution, running workflows, supervisor agents or MCP side effects.",
+      "license_spdx": "Apache-2.0",
+      "last_pushed_at": "2026-09-01",
+      "batch_url": "https://github.com/opensiro/upstream/blob/dc509c073e060447b22ca4bfd9140b6e26d28498/data/assessment-candidate-batches/2026-10-23-10.json",
+      "category": "PREPARED_PACKET_MISSING_FORK",
+      "next_gate": "RECONCILE_LICENSE_SOURCE_SHA_EXISTING_EXTERNAL_PR_AND_FORK_AUTHORITY"
+    },
+    {
+      "source": "maneja81/OpenOrbit",
+      "origin": "ASSESSMENT_INFORMED",
+      "historical_stage": "AWAITING_EXTERNAL",
+      "batch_manifest": "data/assessment-candidate-batches/2026-10-22-07.json",
+      "assessment": "assessments/op/openorbit.md",
+      "review_ref": "2c30242310c3f2e8453b1116d657e65634e6973e",
+      "function": "S1",
+      "finding": "OpenOrbit ships Electron/TypeScript first-party mutation approvals and agent-reply guards around its personal-assistant loop. Check deterministic permission and malformed-event boundaries via native script tests, without launching Electron, providers or agents.",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-04",
+      "batch_url": "https://github.com/opensiro/upstream/blob/dc509c073e060447b22ca4bfd9140b6e26d28498/data/assessment-candidate-batches/2026-10-22-07.json",
+      "category": "PREPARED_PACKET_MISSING_FORK",
+      "next_gate": "RECONCILE_LICENSE_SOURCE_SHA_EXISTING_EXTERNAL_PR_AND_FORK_AUTHORITY"
+    },
+    {
+      "source": "maref-org/maref",
+      "origin": "ASSESSMENT_INFORMED",
+      "historical_stage": "AWAITING_EXTERNAL",
+      "batch_manifest": "data/assessment-candidate-batches/2026-10-22-04.json",
+      "assessment": "assessments/ma/maref.md",
+      "review_ref": "35b1d8108887bf162711c2212b7a67d6e21d9342",
+      "function": "S1",
+      "finding": "MAREF Python code-evolution and local guardrail routines produce code and test outcomes; inspect fixed-input state/error propagation with native Python tests, not model-generated candidates.",
+      "license_spdx": "Apache-2.0",
+      "last_pushed_at": "2026-11-08",
+      "batch_url": "https://github.com/opensiro/upstream/blob/dc509c073e060447b22ca4bfd9140b6e26d28498/data/assessment-candidate-batches/2026-10-22-04.json",
+      "category": "PREPARED_PACKET_MISSING_FORK",
+      "next_gate": "RECONCILE_LICENSE_SOURCE_SHA_EXISTING_EXTERNAL_PR_AND_FORK_AUTHORITY"
+    },
+    {
+      "source": "openonion/connectonion",
+      "origin": "ASSESSMENT_INFORMED",
+      "historical_stage": "AWAITING_EXTERNAL",
+      "batch_manifest": "data/assessment-candidate-batches/2026-10-23-09.json",
+      "assessment": "assessments/co/connectonion.md",
+      "review_ref": "7011faa911e2563e485f865db5be60f6e595f1bd",
+      "function": "S1",
+      "finding": "ConnectOnion has a first-party Python tool executor and optional approval plugin. Screen native approval, request validation and tool admission helpers with deterministic inputs only; no packaged co ai instance, LLM replies, subagent task or shell/browser side effect.",
+      "license_spdx": "Apache-2.0",
+      "last_pushed_at": "2026-11-08",
+      "batch_url": "https://github.com/opensiro/upstream/blob/dc509c073e060447b22ca4bfd9140b6e26d28498/data/assessment-candidate-batches/2026-10-23-09.json",
+      "category": "PREPARED_PACKET_MISSING_FORK",
+      "next_gate": "RECONCILE_LICENSE_SOURCE_SHA_EXISTING_EXTERNAL_PR_AND_FORK_AUTHORITY"
+    },
+    {
+      "source": "shamspias/reins",
+      "origin": "ASSESSMENT_INFORMED",
+      "historical_stage": "AWAITING_EXTERNAL",
+      "batch_manifest": "data/assessment-candidate-batches/2026-10-22-06.json",
+      "assessment": "assessments/re/reins.md",
+      "review_ref": "69d5ae7e3f2336366e7567b7a476e7c71608f226",
+      "function": "S1",
+      "finding": "Reins provides first-party Python capability registry and invocation policy guards ahead of the model-facing operation loop; inspect native script tests on deny/allow, audit metadata and argument boundaries without invoking a provider.",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-07-18",
+      "batch_url": "https://github.com/opensiro/upstream/blob/dc509c073e060447b22ca4bfd9140b6e26d28498/data/assessment-candidate-batches/2026-10-22-06.json",
+      "category": "PREPARED_PACKET_MISSING_FORK",
+      "next_gate": "RECONCILE_LICENSE_SOURCE_SHA_EXISTING_EXTERNAL_PR_AND_FORK_AUTHORITY"
+    },
+    {
+      "source": "simonguo/evidenceloom",
+      "origin": "ASSESSMENT_INFORMED",
+      "historical_stage": "AWAITING_EXTERNAL",
+      "batch_manifest": "data/assessment-candidate-batches/2026-10-22-06.json",
+      "assessment": "assessments/ev/evidenceloom.md",
+      "review_ref": "de30bd4262fe0198dcc349e318fb0c1f1f9fc410",
+      "function": "S1",
+      "finding": "Evidence Loom ships Python numeric/research-readiness and frozen-evidence validators used with its bundled analyst workflow; screen deterministic malformed-input/provenance checks from real source without market API, model, or Tauri invocation.",
+      "license_spdx": "Apache-2.0",
+      "last_pushed_at": "2026-11-04",
+      "batch_url": "https://github.com/opensiro/upstream/blob/dc509c073e060447b22ca4bfd9140b6e26d28498/data/assessment-candidate-batches/2026-10-22-06.json",
+      "category": "PREPARED_PACKET_MISSING_FORK",
+      "next_gate": "RECONCILE_LICENSE_SOURCE_SHA_EXISTING_EXTERNAL_PR_AND_FORK_AUTHORITY"
+    },
+    {
+      "source": "yoheinakajima/activegraph",
+      "origin": "ASSESSMENT_INFORMED",
+      "historical_stage": "AWAITING_EXTERNAL",
+      "batch_manifest": "data/assessment-candidate-batches/2026-10-23-08.json",
+      "assessment": "assessments/ac/active-graph.md",
+      "review_ref": "50d8405923b79e4e823a73a3045bb969436a872c",
+      "function": "S1",
+      "finding": "Active Graph has a first-party Python event log, typed graph patches and optimistic conflict checks. Screen script-only event-patch validation and replay invariants using genuine modules and fixed input events; do not invoke recorded, mocked or live LLM-backed goal behaviors.",
+      "license_spdx": "Apache-2.0",
+      "last_pushed_at": "2026-11-03",
+      "batch_url": "https://github.com/opensiro/upstream/blob/dc509c073e060447b22ca4bfd9140b6e26d28498/data/assessment-candidate-batches/2026-10-23-08.json",
+      "category": "PREPARED_PACKET_MISSING_FORK",
+      "next_gate": "RECONCILE_LICENSE_SOURCE_SHA_EXISTING_EXTERNAL_PR_AND_FORK_AUTHORITY"
+    }
+  ],
+  "new_index_hypothesis_screens": [
+    {
+      "source": "openclaw/openclaw",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "POPULARITY_AND_REACH",
+      "function": "S2",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        },
+        {
+          "function": "S3",
+          "ownership": "C(P)"
+        }
+      ],
+      "assessment": "assessments/op/openclaw.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/op/openclaw.md",
+      "review_ref": "387da5edaa9d6c6cfcfc15e167fe2e46d8647d86",
+      "reviewed_at": "2026-09-16",
+      "observed_mechanism": "`C`: authorized sibling/parent/child messaging and session ownership/lifecycle tools provide a concrete constructor path for operational agents to exchange coordination information and regulate responsibility, but no standard agent-owned anti-oscillation policy is closed out of the box. Confidence: high.",
+      "reported_limitation": "No affirmative product defect is inferred from this ownership state; inspect the pinned assessment's declared boundary and native mechanism first.",
+      "native_code_evidence_count": 0,
+      "github_stars": 394194,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "affaan-m/ECC",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "POPULARITY_AND_REACH",
+      "function": "S2",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        },
+        {
+          "function": "S3",
+          "ownership": "C(P)"
+        },
+        {
+          "function": "S3*",
+          "ownership": "A"
+        },
+        {
+          "function": "S4",
+          "ownership": "A(P)"
+        }
+      ],
+      "assessment": "assessments/ec/ecc.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ec/ecc.md",
+      "review_ref": "2b6e839771e53096d8451a213d40dc64ec8acac0",
+      "reviewed_at": "2026-09-21",
+      "observed_mechanism": "attenuate concrete collision risk among parallel agent S1 units working on overlapping/coupled repository state.",
+      "reported_limitation": "`TCAS-HOOK.md` explicitly marks the return hook design-only; older design prose must not be read as proof that steering is already wired.",
+      "native_code_evidence_count": 1,
+      "github_stars": 299556,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-06",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "deepseek-ai/deepseek-harness",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "POPULARITY_AND_REACH",
+      "function": "S2",
+      "function_ownership": "A",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "A"
+        },
+        {
+          "function": "S3",
+          "ownership": "A(P)"
+        }
+      ],
+      "assessment": "assessments/de/deepseek-harness.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/de/deepseek-harness.md",
+      "review_ref": "ddefc45fbc7f8e46dd73185e68295696d1297887",
+      "reviewed_at": "2026-09-18",
+      "observed_mechanism": "",
+      "reported_limitation": "No affirmative product defect is inferred from this ownership state; inspect the pinned assessment's declared boundary and native mechanism first.",
+      "native_code_evidence_count": 0,
+      "github_stars": 276358,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-04",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "NousResearch/hermes-agent",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "POPULARITY_AND_REACH",
+      "function": "S2",
+      "function_ownership": "A",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "A"
+        },
+        {
+          "function": "S3",
+          "ownership": "C(P)"
+        },
+        {
+          "function": "S3*",
+          "ownership": "C"
+        }
+      ],
+      "assessment": "assessments/he/hermes-agent.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/he/hermes-agent.md",
+      "review_ref": "16bddc88dd325c5eef27c2cc71bbb14c16b870aa",
+      "reviewed_at": "2026-09-17",
+      "observed_mechanism": "`A`: current first-party modes establish distinct S1 units, concrete disturbances and closed coordination responses. Bot Mode agents autonomously choose to pass or hand work to named peers while the room runtime bounds repeated turns. In Kanban, the default LLM decomposer chooses assignees and dependency edges that change which workers may run, while shared claims/dependencies/recovery suppress duplicate execution, invalid ordering and retry thrashing. The model/profile owns meaningful coordination discretion; deterministic room/dispatcher machinery transports and enforces those decisions. Confidence: high.",
+      "reported_limitation": "No affirmative product defect is inferred from this ownership state; inspect the pinned assessment's declared boundary and native mechanism first.",
+      "native_code_evidence_count": 0,
+      "github_stars": 261685,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "anomalyco/opencode",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "POPULARITY_AND_REACH",
+      "function": "S1",
+      "function_ownership": "A",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        }
+      ],
+      "assessment": "assessments/op/opencode.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/op/opencode.md",
+      "review_ref": "95daf90670b7c039c436c85537da5fbfe2205b41",
+      "reviewed_at": "2026-09-15",
+      "observed_mechanism": "`A`: coding agents autonomously choose tools/actions and iterate against repository/tool feedback. Confidence: high.",
+      "reported_limitation": "No affirmative product defect is inferred from this ownership state; inspect the pinned assessment's declared boundary and native mechanism first.",
+      "native_code_evidence_count": 0,
+      "github_stars": 225471,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "langflow-ai/langflow",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "POPULARITY_AND_REACH",
+      "function": "S1",
+      "function_ownership": "A",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        }
+      ],
+      "assessment": "assessments/la/langflow.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/la/langflow.md",
+      "review_ref": "595cd72a2b2021f2375fa31109af02d20bb17648",
+      "reviewed_at": "2026-09-15",
+      "observed_mechanism": "`A`: the first-party Agent component owns model/tool decisions and iterates toward a task outcome. Confidence: high.",
+      "reported_limitation": "No affirmative product defect is inferred from this ownership state; inspect the pinned assessment's declared boundary and native mechanism first.",
+      "native_code_evidence_count": 0,
+      "github_stars": 156440,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "langchain-ai/langchain",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "POPULARITY_AND_REACH",
+      "function": "S1",
+      "function_ownership": "A",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        }
+      ],
+      "assessment": "assessments/la/langchain.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/la/langchain.md",
+      "review_ref": "348c9dc572599947d2d7d33d6a5b8b936e92a1d4",
+      "reviewed_at": "2026-09-15",
+      "observed_mechanism": "`A`: the model-owned loop selects actions/tools from current inputs and accumulated observations, executes them, receives environmental/tool results, can recover from parsing errors, and iterates until a bounded finish condition. Basis: explicit runtime implementation. Confidence: high.",
+      "reported_limitation": "No affirmative product defect is inferred from this ownership state; inspect the pinned assessment's declared boundary and native mechanism first.",
+      "native_code_evidence_count": 0,
+      "github_stars": 149200,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "openai/codex",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "POPULARITY_AND_REACH",
+      "function": "S3",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S3",
+          "ownership": "C"
+        },
+        {
+          "function": "S3*",
+          "ownership": "C"
+        }
+      ],
+      "assessment": "assessments/co/codex.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/co/codex.md",
+      "review_ref": "b974893c90048d147207ae9004489c02f3116426",
+      "reviewed_at": "2026-09-17",
+      "observed_mechanism": "`C`: MultiAgent V2 supplies a first-party constructor path for current regulation of the whole active worker tree. The root can enumerate all live agents, assign follow-up commitments, observe completion/status, interrupt work, and close agents/descendants to release bounded concurrency. Those are whole-tree current-control rights beyond merely receiving one child result. The feature is stable but `default_enabled: false`, so Codex supplies the organizational path without making it the ordinary autonomous default.",
+      "reported_limitation": "No affirmative product defect is inferred from this ownership state; inspect the pinned assessment's declared boundary and native mechanism first.",
+      "native_code_evidence_count": 0,
+      "github_stars": 133772,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "Apache-2.0",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "earendil-works/pi",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "POPULARITY_AND_REACH",
+      "function": "S1",
+      "function_ownership": "A",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        }
+      ],
+      "assessment": "assessments/pi/pi.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/pi/pi.md",
+      "review_ref": "71dca871bc80b6bc97be37f0ca3189399d651fff",
+      "reviewed_at": "2026-09-15",
+      "observed_mechanism": "`A`: autonomous model/tool iteration is the core first-party abstraction. Confidence: high.",
+      "reported_limitation": "No affirmative product defect is inferred from this ownership state; inspect the pinned assessment's declared boundary and native mechanism first.",
+      "native_code_evidence_count": 0,
+      "github_stars": 120799,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "browser-use/browser-use",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "POPULARITY_AND_REACH",
+      "function": "S1",
+      "function_ownership": "A",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        }
+      ],
+      "assessment": "assessments/br/browser-use.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/br/browser-use.md",
+      "review_ref": "50f205533fe10ba35b553d2a3689c77b87bd5d0a",
+      "reviewed_at": "2026-09-15",
+      "observed_mechanism": "`A`: the standard agent autonomously chooses browser/tool actions and continues from environment feedback. Confidence: high.",
+      "reported_limitation": "No affirmative product defect is inferred from this ownership state; inspect the pinned assessment's declared boundary and native mechanism first.",
+      "native_code_evidence_count": 0,
+      "github_stars": 120326,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "stablyai/orca",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "POPULARITY_AND_REACH",
+      "function": "S2",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        }
+      ],
+      "assessment": "assessments/or/orca-stablyai.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/or/orca-stablyai.md",
+      "review_ref": "c33a446190bdfa21286a373e097c50a2b3e0a4d4",
+      "reviewed_at": "2026-09-17",
+      "observed_mechanism": "`C`. Orca gives concurrent workers isolated Git worktrees specifically so parallel agent changes do not collide in one checkout. That is a concrete structural attenuation of inter-S1 file/workspace interference. The reviewed path does not establish an autonomous agent deciding the coordination relation, so the mechanism remains constructor/runtime-owned. Confidence: high.",
+      "reported_limitation": "No affirmative product defect is inferred from this ownership state; inspect the pinned assessment's declared boundary and native mechanism first.",
+      "native_code_evidence_count": 0,
+      "github_stars": 119123,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "paperclipai/paperclip",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "POPULARITY_AND_REACH",
+      "function": "S2",
+      "function_ownership": "A",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "A"
+        },
+        {
+          "function": "S3",
+          "ownership": "A(P)"
+        },
+        {
+          "function": "S3*",
+          "ownership": "A"
+        },
+        {
+          "function": "S5",
+          "ownership": "P"
+        }
+      ],
+      "assessment": "assessments/pa/paperclip.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/pa/paperclip.md",
+      "review_ref": "352153b5edf02ff4262210c7bd5bfa94bcf37c7c",
+      "reviewed_at": "2026-09-18",
+      "observed_mechanism": "attenuate duplicate/conflicting work and dependency interference among multiple autonomous report agents.",
+      "reported_limitation": "simple delegation alone would not establish S2; the positive mapping depends on the concrete double-work/dependency disturbance plus the management feedback path.",
+      "native_code_evidence_count": 0,
+      "github_stars": 112262,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "google-gemini/gemini-cli",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "POPULARITY_AND_REACH",
+      "function": "S1",
+      "function_ownership": "A",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        }
+      ],
+      "assessment": "assessments/ge/gemini-cli.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ge/gemini-cli.md",
+      "review_ref": "6a466a7e2fe2b1255752c1e74f69b31f0216084d",
+      "reviewed_at": "2026-09-17",
+      "observed_mechanism": "`A`: the coding agent autonomously selects tools/actions and iterates from tool/environment feedback inside configured bounds. Confidence: high.",
+      "reported_limitation": "No affirmative product defect is inferred from this ownership state; inspect the pinned assessment's declared boundary and native mechanism first.",
+      "native_code_evidence_count": 0,
+      "github_stars": 108780,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "Apache-2.0",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "OpenHands/OpenHands",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "POPULARITY_AND_REACH",
+      "function": "S1",
+      "function_ownership": "A",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        }
+      ],
+      "assessment": "assessments/op/openhands.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/op/openhands.md",
+      "review_ref": "28464621d879e3e9b3ceeae9d70a71d96da6212d",
+      "reviewed_at": "2026-09-15",
+      "observed_mechanism": "`A`: the standard product runs an autonomous OpenHands coding agent that executes workspace/tool actions through the first-party Agent Server. Confidence: high.",
+      "reported_limitation": "No affirmative product defect is inferred from this ownership state; inspect the pinned assessment's declared boundary and native mechanism first.",
+      "native_code_evidence_count": 0,
+      "github_stars": 92960,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "bytedance/deer-flow",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "POPULARITY_AND_REACH",
+      "function": "S1",
+      "function_ownership": "A",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        }
+      ],
+      "assessment": "assessments/de/deerflow.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/de/deerflow.md",
+      "review_ref": "6f81daefff2035d76d41e45d021626f022885372",
+      "reviewed_at": "2026-09-15",
+      "observed_mechanism": "`A`: lead and delegated agents autonomously perform useful tool-using operational work. Confidence: high.",
+      "reported_limitation": "No affirmative product defect is inferred from this ownership state; inspect the pinned assessment's declared boundary and native mechanism first.",
+      "native_code_evidence_count": 0,
+      "github_stars": 85135,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "ruvnet/ruflo",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "POPULARITY_AND_REACH",
+      "function": "S2",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        },
+        {
+          "function": "S3",
+          "ownership": "C"
+        }
+      ],
+      "assessment": "assessments/ru/ruflo.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ru/ruflo.md",
+      "review_ref": "2602b642d92234c710ffbe96bfb33007d481ceab",
+      "reviewed_at": "2026-09-17",
+      "observed_mechanism": "`C`. Ruflo supplies a concrete inter-worker coordination membrane beyond generic messaging: dependency ordering, isolated writer worktrees, designated ownership of shared integration files, topology/consensus primitives, and failure/recovery routing constrain concurrent-worker interference. The decisive organizational coordination policy remains a constructor/configuration surface rather than a demonstrated autonomous S2 actor, so the path is composable rather than `A`. Confidence: medium-high.",
+      "reported_limitation": "No affirmative product defect is inferred from this ownership state; inspect the pinned assessment's declared boundary and native mechanism first.",
+      "native_code_evidence_count": 0,
+      "github_stars": 81243,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-07",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "cline/cline",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "POPULARITY_AND_REACH",
+      "function": "S2",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        },
+        {
+          "function": "S3",
+          "ownership": "C"
+        },
+        {
+          "function": "S3*",
+          "ownership": "C"
+        }
+      ],
+      "assessment": "assessments/cl/cline.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/cl/cline.md",
+      "review_ref": "cfe9cadab99617d5013bf89f07b079d105057791",
+      "reviewed_at": "2026-09-15",
+      "observed_mechanism": "`C`: persistent team mailboxes, broadcast, shared dependency-aware tasks and steer messages let autonomous teammates mutually adjust ongoing work beyond simple parent-child result return. Closure requires entering/configuring team mode.",
+      "reported_limitation": "No affirmative product defect is inferred from this ownership state; inspect the pinned assessment's declared boundary and native mechanism first.",
+      "native_code_evidence_count": 0,
+      "github_stars": 71463,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "Apache-2.0",
+      "last_pushed_at": "2026-11-07",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "openinterpreter/openinterpreter",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "POPULARITY_AND_REACH",
+      "function": "S2",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        },
+        {
+          "function": "S3*",
+          "ownership": "C"
+        }
+      ],
+      "assessment": "assessments/op/open-interpreter.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/op/open-interpreter.md",
+      "review_ref": "f110a7a85f43efc343f936f5bc504e01eb262550",
+      "reviewed_at": "2026-09-15",
+      "observed_mechanism": "`C`: stable first-party MultiAgentV2 exposes ongoing messaging, follow-up work, waits/interrupts and team-state listing over a shared workspace, enough to compose mutual-adjustment/collision-regulation. Because the richer path is default-disabled and coordination policy is not closed by the runtime, it is not `A`. Confidence: medium-high.",
+      "reported_limitation": "No affirmative product defect is inferred from this ownership state; inspect the pinned assessment's declared boundary and native mechanism first.",
+      "native_code_evidence_count": 0,
+      "github_stars": 68839,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "Apache-2.0",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "microsoft/semantic-kernel",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "POPULARITY_AND_REACH",
+      "function": "S2",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        }
+      ],
+      "assessment": "assessments/se/semantic-kernel.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/se/semantic-kernel.md",
+      "review_ref": "ca40aa7226531d28a721d0ca0e451d0aaf86dafc",
+      "reviewed_at": "2026-09-15",
+      "observed_mechanism": "`C`: `GroupChatManager` exposes a function-specific coordination decision path over multiple autonomous participants: next-speaker selection, termination and shared-history feedback. However, the actual autonomous manager policy/authority is application-composed, and the default round-robin manager is deterministic. This satisfies the composable S2 threshold but not out-of-box agent-owned `A`. Confidence: high.",
+      "reported_limitation": "No affirmative product defect is inferred from this ownership state; inspect the pinned assessment's declared boundary and native mechanism first.",
+      "native_code_evidence_count": 0,
+      "github_stars": 28747,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-07",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "browser-use/browser-harness",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "POPULARITY_AND_REACH",
+      "function": "S2",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        }
+      ],
+      "assessment": "assessments/br/browser-harness.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/br/browser-harness.md",
+      "review_ref": "afbcc381b963040c19627d788e40c7e7663171ee",
+      "reviewed_at": "2026-09-18",
+      "observed_mechanism": "the chosen serialization/isolation arrangement changes later S1 browser behaviour by preventing concurrent mutation of the shared lane or separating the lanes entirely.",
+      "reported_limitation": "No affirmative product defect is inferred from this ownership state; inspect the pinned assessment's declared boundary and native mechanism first.",
+      "native_code_evidence_count": 0,
+      "github_stars": 18954,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "camel-ai/camel",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "POPULARITY_AND_REACH",
+      "function": "S2",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        },
+        {
+          "function": "S3",
+          "ownership": "A"
+        }
+      ],
+      "assessment": "assessments/ca/camel-workforce.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ca/camel-workforce.md",
+      "review_ref": "8c791b7b9cf7deab56cb5a92818c34499af9097f",
+      "reviewed_at": "2026-09-17",
+      "observed_mechanism": "`C`. Workforce maintains explicit cross-task dependency state and gates release/order of work across multiple workers. This prevents dependent S1 work from proceeding against unsatisfied predecessor commitments, establishing a concrete coordination path beyond routing. The mechanism is supplied deterministically by Workforce while the application supplies the task graph, so ownership is constructor-side rather than agent-owned. Confidence: high.",
+      "reported_limitation": "No affirmative product defect is inferred from this ownership state; inspect the pinned assessment's declared boundary and native mechanism first.",
+      "native_code_evidence_count": 0,
+      "github_stars": 18022,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "Apache-2.0",
+      "last_pushed_at": "2026-11-02",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "VoltAgent/voltagent",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "POPULARITY_AND_REACH",
+      "function": "S2",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        }
+      ],
+      "assessment": "assessments/vo/voltagent.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/vo/voltagent.md",
+      "review_ref": "44b4c8e4998ce56095b2f0e4eaf1a988f5e6d0de",
+      "reviewed_at": "2026-09-19",
+      "observed_mechanism": "mediate information and work interaction among multiple autonomous specialist sub-agents that otherwise lack direct mutual awareness or shared conversation context.",
+      "reported_limitation": "ordinary one-way delegation would not be enough. The positive mapping rests on the explicit sole-intermediary relation and supervisor-owned selective/parallel information exchange among multiple independent S1 units.",
+      "native_code_evidence_count": 1,
+      "github_stars": 10930,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-06",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "strands-agents/harness-sdk",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "POPULARITY_AND_REACH",
+      "function": "S2",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        }
+      ],
+      "assessment": "assessments/st/strands-agents.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/st/strands-agents.md",
+      "review_ref": "08ed4cfd3eb42ae9f668595e675d5f196eee7e44",
+      "reviewed_at": "2026-09-15",
+      "observed_mechanism": "`C`: first-party Swarm primitives provide peer transfers plus a configurable mechanism specifically aimed at repetitive-handoff/oscillation control. This is more than delegation or static graph routing, but the developer must configure/close the regulation policy, so the function is composable rather than out-of-box agent-owned. Confidence: high.",
+      "reported_limitation": "No affirmative product defect is inferred from this ownership state; inspect the pinned assessment's declared boundary and native mechanism first.",
+      "native_code_evidence_count": 0,
+      "github_stars": 9077,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "Apache-2.0",
+      "last_pushed_at": "2026-11-07",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "github/gh-aw",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "POPULARITY_AND_REACH",
+      "function": "S2",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        },
+        {
+          "function": "S3",
+          "ownership": "C"
+        },
+        {
+          "function": "S3*",
+          "ownership": "A"
+        },
+        {
+          "function": "S5",
+          "ownership": "P"
+        }
+      ],
+      "assessment": "assessments/gh/gh-aw.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/gh/gh-aw.md",
+      "review_ref": "ff2eccd10a30d6a7bfaf0da449194e907a206555",
+      "reviewed_at": "2026-09-27",
+      "observed_mechanism": "attenuate concrete interference among concurrently active S1 workflow cells by serializing contexts that would collide while allowing independent work to proceed without sharing a cancellation/resource slot.",
+      "reported_limitation": "dispatch/call-workflow topology is corroborating evidence for distinct operational cells, not S2 by itself. The positive S2 mapping rests on explicit interference and attenuation.",
+      "native_code_evidence_count": 2,
+      "github_stars": 5592,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "ag2ai/ag2",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "POPULARITY_AND_REACH",
+      "function": "S2",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        }
+      ],
+      "assessment": "assessments/ag/ag2.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ag/ag2.md",
+      "review_ref": "3211bb19832049e7abe1a5742b6d177274bff723",
+      "reviewed_at": "2026-09-18",
+      "observed_mechanism": "authoritative Hub state, channel WAL, adapter state folding, validation, expectation sweeper and violation handlers.",
+      "reported_limitation": "`conversation` free-form messaging and generic `workflow` sequencing are not independently promoted to S2; the positive claim rests on the concrete discussion turn-regulation path.",
+      "native_code_evidence_count": 0,
+      "github_stars": 5053,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "Apache-2.0",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "getclarvis/clarvis",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S2",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        },
+        {
+          "function": "S3",
+          "ownership": "A"
+        },
+        {
+          "function": "S3*",
+          "ownership": "A"
+        }
+      ],
+      "assessment": "assessments/cl/clarvis.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/cl/clarvis.md",
+      "review_ref": "17a550a7fff59752a1917c3c88dbe9a2aef09bdf",
+      "reviewed_at": "2026-11-07",
+      "observed_mechanism": "prevent destructive interference and inconsistent reads among distinct leader coding runs sharing a real workspace, by delaying conflicting scheduled work to later waves.",
+      "reported_limitation": "leader-generated file lists can be incomplete or dishonest, and ad-hoc parallel `run_leader` calls are not guaranteed to pass through this file-overlap wave scheduler.",
+      "native_code_evidence_count": 8,
+      "github_stars": null,
+      "stars_checked_at": null,
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-10-04",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "jonathanhecl/vibe-coder",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S2",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        }
+      ],
+      "assessment": "assessments/vi/vibe-coder.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/vi/vibe-coder.md",
+      "review_ref": "49f6598b756b3ec9440c80f16bdd556624a152f1",
+      "reviewed_at": "2026-11-06",
+      "observed_mechanism": "attenuate a bounded concurrent-child disturbance by ensuring one delegated concrete tool action, including permission/checkpoint/test handling, executes at a time against the shared parent runtime.",
+      "reported_limitation": "no per-child Git worktree, transaction-level mutual exclusion, changed-file reconciliation or guaranteed prevention of sequential lost updates. The coordination claim is restricted to synchronized delegated tool executions and shared helper state.",
+      "native_code_evidence_count": 7,
+      "github_stars": null,
+      "stars_checked_at": null,
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "RUC-NLPIR/CoworkOS",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S2",
+      "function_ownership": "A",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "A"
+        },
+        {
+          "function": "S3",
+          "ownership": "A"
+        },
+        {
+          "function": "S4",
+          "ownership": "A"
+        }
+      ],
+      "assessment": "assessments/co/coworkos.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/co/coworkos.md",
+      "review_ref": "baf03c30db56160690f9d03bfa7dee925bad6cfd",
+      "reviewed_at": "2026-11-04",
+      "observed_mechanism": "Regulate cross-worker edit collisions and mismatched artifact dependencies while preserving independent task execution.",
+      "reported_limitation": "The effective coordination actor is Main; no self-organizing peer conflict negotiation is assumed from `send_peer_message`.",
+      "native_code_evidence_count": 5,
+      "github_stars": 145,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-03",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "eust-w/opengeniemaster",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S2",
+      "function_ownership": "A",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "A"
+        },
+        {
+          "function": "S3",
+          "ownership": "C"
+        },
+        {
+          "function": "S3*",
+          "ownership": "C"
+        },
+        {
+          "function": "S4",
+          "ownership": "C"
+        }
+      ],
+      "assessment": "assessments/op/opengeniemaster.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/op/opengeniemaster.md",
+      "review_ref": "8f6dab22a54a318bf8afa221269a6f9c00fa860c",
+      "reviewed_at": "2026-11-01",
+      "observed_mechanism": "dampen conflicts between distinct embodied S1 work cells over capacity, shared work-item affinity and interrupted handoffs.",
+      "reported_limitation": "if physical robots are only passive actuators under one central actor, the organizational S2 interpretation narrows; standard simulated policy work cells still retain local execution environments and separate assignments.",
+      "native_code_evidence_count": 5,
+      "github_stars": 88,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-06",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "NeoPanic/harness3",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S2",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        },
+        {
+          "function": "S3",
+          "ownership": "A(P)"
+        },
+        {
+          "function": "S3*",
+          "ownership": "A"
+        }
+      ],
+      "assessment": "assessments/ne/neopanic-harness.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ne/neopanic-harness.md",
+      "review_ref": "cb6c8e57eb0adac3f2ec1f4da1a98e52e2967063",
+      "reviewed_at": "2026-11-01",
+      "observed_mechanism": "resolve contention for the same operational work item and stabilize parent-child availability as peers execute and split work.",
+      "reported_limitation": "this is narrow coordination of task ownership/dependencies, not general negotiation of conflicting goals, cost allocation, global fairness or distributed consensus.",
+      "native_code_evidence_count": 5,
+      "github_stars": 8,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-02",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "nurmdrafi/pi-native",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S2",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        },
+        {
+          "function": "S3",
+          "ownership": "A"
+        },
+        {
+          "function": "S3*",
+          "ownership": "A"
+        }
+      ],
+      "assessment": "assessments/pi/pi-native.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/pi/pi-native.md",
+      "review_ref": "b4e99cf3d2f60a1fd5e810bdfcbcbf47b3692e8f",
+      "reviewed_at": "2026-11-01",
+      "observed_mechanism": "attenuation of write collisions and shared-provider saturation across distinct child work cells.",
+      "reported_limitation": "undeclared write scopes are not locked; worktree-isolated absolute paths do not conflict; queue enforcement is not an autonomy claim.",
+      "native_code_evidence_count": 7,
+      "github_stars": null,
+      "stars_checked_at": null,
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "Resolver-TNG/StiraCore",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S2",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        },
+        {
+          "function": "S3",
+          "ownership": "P"
+        }
+      ],
+      "assessment": "assessments/st/stiracore.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/st/stiracore.md",
+      "review_ref": "2dee27f3c99c4f63b1ef2a7e377482d40c527996",
+      "reviewed_at": "2026-11-01",
+      "observed_mechanism": "prevent overlapping foreground service turns and independent background grant work from interfering with shared installation state/work.",
+      "reported_limitation": "Bounded source assessment of the supported distribution; no live model or performance claim.",
+      "native_code_evidence_count": 9,
+      "github_stars": null,
+      "stars_checked_at": null,
+      "license_spdx": "Apache-2.0",
+      "last_pushed_at": "2026-11-07",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "orka-agents/orka",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S2",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        },
+        {
+          "function": "S3",
+          "ownership": "A"
+        },
+        {
+          "function": "S3*",
+          "ownership": "A"
+        }
+      ],
+      "assessment": "assessments/or/orka.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/or/orka.md",
+      "review_ref": "7cffe130efa74f505d66dce561ade6c18901ba6e",
+      "reviewed_at": "2026-10-31",
+      "observed_mechanism": "attenuate interference among sibling specialist Tasks for a configured coordinator mission, including redundant race candidates and result-dependent message handoffs.",
+      "reported_limitation": "race and dependency patterns are optional compositions, not a proved default arbitration loop for all peers.",
+      "native_code_evidence_count": 6,
+      "github_stars": 46,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "shrec/AIWorkHub",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S2",
+      "function_ownership": "A",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "A"
+        },
+        {
+          "function": "S3",
+          "ownership": "A"
+        },
+        {
+          "function": "S3*",
+          "ownership": "A"
+        }
+      ],
+      "assessment": "assessments/ai/aiworkhub.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ai/aiworkhub.md",
+      "review_ref": "77bd873460b36df3312090948079d7158ad65081",
+      "reviewed_at": "2026-10-31",
+      "observed_mechanism": "Regulate simultaneous write authority and dependency interaction among separate task workers.",
+      "reported_limitation": "The source-native overlap/release exercise corroborates support behavior. No multi-model concurrency run or observation of a manager revising an actual conflict is claimed; the ownership finding is structural in the delivered manager mode.",
+      "native_code_evidence_count": 11,
+      "github_stars": 12,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-07",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "the-open-engine/zeroshot",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S2",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        },
+        {
+          "function": "S3",
+          "ownership": "A"
+        },
+        {
+          "function": "S3*",
+          "ownership": "A"
+        },
+        {
+          "function": "S4",
+          "ownership": "A"
+        }
+      ],
+      "assessment": "assessments/ze/zeroshot.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ze/zeroshot.md",
+      "review_ref": "4c2ed7d5cf3dce968ef7634a2bb49f4382226637",
+      "reviewed_at": "2026-10-31",
+      "observed_mechanism": "attenuate interference between independently active run/postmortem cells that share a scoped lesson store and might overwrite contradictory or stale guidance.",
+      "reported_limitation": "conflict witness is shared retained lessons across runs, not all inter-agent workflow interference. Worker/reviewer fanout and graph scheduling alone are not used as S2 proof.",
+      "native_code_evidence_count": 5,
+      "github_stars": 2122,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "voly-codes/voly",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S2",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        },
+        {
+          "function": "S3*",
+          "ownership": "A"
+        },
+        {
+          "function": "S4",
+          "ownership": "C"
+        }
+      ],
+      "assessment": "assessments/vo/voly.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/vo/voly.md",
+      "review_ref": "d21dab640647ca5a0a096e12b01a9a3a4f7432af",
+      "reviewed_at": "2026-10-31",
+      "observed_mechanism": "Attenuate destructive interference between concurrent file-writing runs sharing one cwd.",
+      "reported_limitation": "Lock-file mkdir/open OSError paths log and yield without locking. This is a conditional supported exclusion path, not a universal fail-closed isolation guarantee; a focused source-native two-thread exercise passed.",
+      "native_code_evidence_count": 8,
+      "github_stars": null,
+      "stars_checked_at": null,
+      "license_spdx": "Apache-2.0",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "rsi-gear/gear",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S2",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        },
+        {
+          "function": "S3",
+          "ownership": "P"
+        }
+      ],
+      "assessment": "assessments/ge/gear.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ge/gear.md",
+      "review_ref": "74b8ff873a831930611dd0f0dfd680d91d5212a9",
+      "reviewed_at": "2026-10-30",
+      "observed_mechanism": "prevent candidate/session cross-write and competing advancement of one shared refinement state.",
+      "reported_limitation": "C records function-specific first-party coordination support; not a claim of autonomous conflict negotiation or measured parallel scalability.",
+      "native_code_evidence_count": 9,
+      "github_stars": null,
+      "stars_checked_at": null,
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "ayandexyz/Honey-I-Shrunk-the-Harness",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S2",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        },
+        {
+          "function": "S3",
+          "ownership": "C"
+        },
+        {
+          "function": "S3*",
+          "ownership": "A"
+        }
+      ],
+      "assessment": "assessments/hi/histh.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/hi/histh.md",
+      "review_ref": "f2aff641e55c2e6bb8c55a8fb82b67bdf2addd1a",
+      "reviewed_at": "2026-10-29",
+      "observed_mechanism": "Prevent shared-tree mutation races among synchronous delegated work units.",
+      "reported_limitation": "Background writable delegates are outside this mutual-exclusion guarantee; no cross-process/global shared-file reservation or complete semantic merge protocol is claimed.",
+      "native_code_evidence_count": 9,
+      "github_stars": 2,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-03",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "jonwiggins/optio",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S2",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        }
+      ],
+      "assessment": "assessments/op/optio.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/op/optio.md",
+      "review_ref": "3163761c3a0974bbb290afea8d09ddc1a8e8ac7c",
+      "reviewed_at": "2026-10-29",
+      "observed_mechanism": "deterministic isolation of incompatible operating cells while permitting trusted compatible work to share a local resource pool.",
+      "reported_limitation": "Compatible agents inside one pool are mutually trusted; this does not prove robust hostile-tenant containment, agent-to-agent plan negotiation or overall workforce coordination.",
+      "native_code_evidence_count": 7,
+      "github_stars": null,
+      "stars_checked_at": null,
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "codemowers/agent",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S2",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        },
+        {
+          "function": "S3",
+          "ownership": "P"
+        }
+      ],
+      "assessment": "assessments/co/codemowers-agent.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/co/codemowers-agent.md",
+      "review_ref": "d056e1414b3e2e6f0f2c387bdab2c540bd26730d",
+      "reviewed_at": "2026-10-28",
+      "observed_mechanism": "attenuate duplicate Task commitments for one external resource",
+      "reported_limitation": "source-based ownership mapping; no live model/provider run or effectiveness claim.",
+      "native_code_evidence_count": 9,
+      "github_stars": null,
+      "stars_checked_at": null,
+      "license_spdx": "Apache-2.0",
+      "last_pushed_at": "2026-10-29",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "rootkiller6788/dsh-flow",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S2",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        },
+        {
+          "function": "S3",
+          "ownership": "A"
+        },
+        {
+          "function": "S3*",
+          "ownership": "A"
+        }
+      ],
+      "assessment": "assessments/ds/dsh-flow.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ds/dsh-flow.md",
+      "review_ref": "d11ad4f04400fda9c58cf2b9b5a11fa971818eed",
+      "reviewed_at": "2026-10-28",
+      "observed_mechanism": "attenuate destructive interference among multiple member S1 cells attempting incompatible writes or dependent work during a shared team goal.",
+      "reported_limitation": "scopes rely on accurate captain/model-declared paths; unmodeled side effects and external writers remain outside these protections. A blocked task requires legitimate correction; the gate alone does not invent the right new plan.",
+      "native_code_evidence_count": 7,
+      "github_stars": 35,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-10-06",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "TencentCloud/octop-harness",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S2",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        },
+        {
+          "function": "S5",
+          "ownership": "P"
+        }
+      ],
+      "assessment": "assessments/oc/octop-harness.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/oc/octop-harness.md",
+      "review_ref": "68b5423bb80ecef7fca57ba5a37d9a2bdcbf12d2",
+      "reviewed_at": "2026-10-28",
+      "observed_mechanism": "attenuate concurrent peer invocation and shared-source followup interference in optional async team operation.",
+      "reported_limitation": "async delivery requires a host TeamProcessor; synchronous generic ask_agent alone is not the S2 witness.",
+      "native_code_evidence_count": 9,
+      "github_stars": 146,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-06",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "kryptobaseddev/cleo",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S2",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        },
+        {
+          "function": "S3",
+          "ownership": "P"
+        },
+        {
+          "function": "S4",
+          "ownership": "C(P)"
+        }
+      ],
+      "assessment": "assessments/cl/cleo.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/cl/cleo.md",
+      "review_ref": "84af0f9becd7b0f1279587cf3c85c793b76a5686",
+      "reviewed_at": "2026-10-27",
+      "observed_mechanism": "prevent concurrently working S1 agents from oversubscribing machine resources or claiming incompatible ownership of the same task.",
+      "reported_limitation": "task claim family may legitimately reuse a lease; no S2 agent that plans optimal resource allocation is claimed. The machine-wide ledger spans local operations but is not evidence of cross-project organizational S3.",
+      "native_code_evidence_count": 5,
+      "github_stars": null,
+      "stars_checked_at": null,
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-07",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "lukacf/meerkat",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S2",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        },
+        {
+          "function": "S3",
+          "ownership": "A(P)"
+        }
+      ],
+      "assessment": "assessments/me/meerkat.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/me/meerkat.md",
+      "review_ref": "ae0517cc7721377c2cf0a58972bdd29cb7f4fbdc",
+      "reviewed_at": "2026-10-27",
+      "observed_mechanism": "Regulate competing agents' durable shared-work claims",
+      "reported_limitation": "This is specific claim-contention regulation, not generic DAG/messaging. Host-issued namespace grant and coordinating actor/policy must be composed. Advisory resource claims do not globally enforce exclusivity.",
+      "native_code_evidence_count": 7,
+      "github_stars": null,
+      "stars_checked_at": null,
+      "license_spdx": "Apache-2.0",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "DMRLZZ/DaveCode",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S2",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        },
+        {
+          "function": "S3",
+          "ownership": "A(P)"
+        },
+        {
+          "function": "S3*",
+          "ownership": "A"
+        }
+      ],
+      "assessment": "assessments/da/davecode.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/da/davecode.md",
+      "review_ref": "271910253a005845174c2410dc15675877a9883e",
+      "reviewed_at": "2026-10-24",
+      "observed_mechanism": "attenuate competing operations' shared-worktree mutation conflict between the first-party standalone autonomous runner and first-party goal operation that invokes code tasks on the same project.",
+      "reported_limitation": "lock is in-process and does not prove cross-process or distributed exclusion. Alternative top-level execution modes may be seen as exclusive rather than co-active S1s; this is the principal semantic boundary to review before canonical admission.",
+      "native_code_evidence_count": 9,
+      "github_stars": null,
+      "stars_checked_at": null,
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "ranger360ai/posse",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S3",
+      "function_ownership": "C(P)",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        },
+        {
+          "function": "S3",
+          "ownership": "C(P)"
+        },
+        {
+          "function": "S3*",
+          "ownership": "C"
+        },
+        {
+          "function": "S4",
+          "ownership": "P"
+        },
+        {
+          "function": "S5",
+          "ownership": "P"
+        }
+      ],
+      "assessment": "assessments/po/posse.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/po/posse.md",
+      "review_ref": "bdd3954bb86adc2d0fac14175abe9443ba439794",
+      "reviewed_at": "2026-11-04",
+      "observed_mechanism": "Regulate current commitments, spend and exceptions across the instance fleet.",
+      "reported_limitation": "The public seed carries no coordinator name/actor; privately measured crew behavior is not used as evidence. The pulse itself delivers facts and grants no decision authority.",
+      "native_code_evidence_count": 16,
+      "github_stars": 0,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "Apache-2.0",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "RogyMD/onethread",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S3",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        },
+        {
+          "function": "S3",
+          "ownership": "C"
+        }
+      ],
+      "assessment": "assessments/on/onethread.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/on/onethread.md",
+      "review_ref": "27779473556ec490a03f07aaccca9ca3c1834316",
+      "reviewed_at": "2026-11-03",
+      "observed_mechanism": "control present multi-repository queue commitments, task status, owner attention, safe lifecycle transitions and limited worker execution slots.",
+      "reported_limitation": "this positive S3=C should not be read as autonomous portfolio management by a model; local owner actions and external provider limits remain determinative.",
+      "native_code_evidence_count": 7,
+      "github_stars": 10,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-03",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "supernovae/SwarmOS",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S3",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        },
+        {
+          "function": "S3",
+          "ownership": "C"
+        },
+        {
+          "function": "S3*",
+          "ownership": "A"
+        }
+      ],
+      "assessment": "assessments/sw/swarmos.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/sw/swarmos.md",
+      "review_ref": "c85010787b001981beb84e60502c1eaca3c6f812",
+      "reviewed_at": "2026-11-03",
+      "observed_mechanism": "regulate present task commitments, release/stop conditions and required verification for the approved WorkUnit across planner, developer, tester and publication stages.",
+      "reported_limitation": "most approval and policy choices are parent or developer-owned; S3=C does not promote static enforcement to autonomous S3=A.",
+      "native_code_evidence_count": 5,
+      "github_stars": 8,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "codewhale-hq/Codewhale",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S3",
+      "function_ownership": "A",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        },
+        {
+          "function": "S3",
+          "ownership": "A"
+        },
+        {
+          "function": "S3*",
+          "ownership": "C"
+        }
+      ],
+      "assessment": "assessments/co/codewhale.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/co/codewhale.md",
+      "review_ref": "327c15df976601ca3114ea40ac3dc88cea9f152a",
+      "reviewed_at": "2026-10-31",
+      "observed_mechanism": "supervise the current user coding mission and subordinate worker commitments/results until completion, correction, or explicit blocked return.",
+      "reported_limitation": "S3 is at one manager-owned mission recursion, not all repositories or installed Codewhale sessions. A scheduled task alone is not S3 ownership.",
+      "native_code_evidence_count": 5,
+      "github_stars": 41157,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "tigicion/dao-code",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S3",
+      "function_ownership": "A",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "A"
+        },
+        {
+          "function": "S3",
+          "ownership": "A"
+        },
+        {
+          "function": "S3*",
+          "ownership": "A"
+        },
+        {
+          "function": "S4",
+          "ownership": "A"
+        }
+      ],
+      "assessment": "assessments/da/dao-code.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/da/dao-code.md",
+      "review_ref": "2b50e82c3de751c071e1610b39b3c95956853498",
+      "reviewed_at": "2026-10-31",
+      "observed_mechanism": "regulate the parent mission's whole current population of running, completed and failed background/foreground child jobs.",
+      "reported_limitation": "current whole is the parent session's task fleet. Tool descriptions can encourage but do not guarantee a particular model will use supervision at every point.",
+      "native_code_evidence_count": 6,
+      "github_stars": 787,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-10-28",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "agentarea/agentarea",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S3",
+      "function_ownership": "C(P)",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S3",
+          "ownership": "C(P)"
+        },
+        {
+          "function": "S5",
+          "ownership": "P"
+        }
+      ],
+      "assessment": "assessments/ag/agentarea.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ag/agentarea.md",
+      "review_ref": "6e610c4ffffdf6b6ba8e45cba27b3ba577e8476c",
+      "reviewed_at": "2026-10-30",
+      "observed_mechanism": "workspace-wide current regulation of permitted agent execution, shared tool rights, task budgets and resource commitments.",
+      "reported_limitation": "a single-task budget tracker alone is not whole-workspace S3; the cross-task policy registry/rule resolution is the relevant whole-system control scope.",
+      "native_code_evidence_count": 10,
+      "github_stars": 67,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "Apache-2.0",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "arbazkhan971/bharatcode-cli",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S3*",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        },
+        {
+          "function": "S3",
+          "ownership": "A"
+        },
+        {
+          "function": "S3*",
+          "ownership": "C"
+        }
+      ],
+      "assessment": "assessments/bh/bharatcode.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/bh/bharatcode.md",
+      "review_ref": "430e3047c705aa84762a8a46be4ff838cb159451",
+      "reviewed_at": "2026-10-11",
+      "observed_mechanism": "provide a separately executed, raw-diff-based review/evidence-collection primitive able to challenge a producing coding run, without a built-in autonomous return to a current-control owner.",
+      "reported_limitation": "maintainer GitHub PR reviewer workflow is excluded. Opt-in adversarial security gate can challenge a real proposed tool action but its tactical allow/block is not graded as returned S3* audit. No automatic invocation after every coding run or independent human approval is asserted.",
+      "native_code_evidence_count": 13,
+      "github_stars": 1,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "Apache-2.0",
+      "last_pushed_at": "2026-10-10",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "mihazs/agent-harness-lab",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S3*",
+      "function_ownership": "A",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S3",
+          "ownership": "C(P)"
+        },
+        {
+          "function": "S3*",
+          "ownership": "A"
+        }
+      ],
+      "assessment": "assessments/ag/agent-harness-lab.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ag/agent-harness-lab.md",
+      "review_ref": "1b165594818bab9f92605fb4bd5ec0c6f943c2fc",
+      "reviewed_at": "2026-11-05",
+      "observed_mechanism": "a separately prompted evaluator-author agent constructs tests/graders from baseline/source evidence while deliberately blind to the candidate, and the controller executes those frozen evaluators to challenge the proposer's claimed improvement.",
+      "reported_limitation": "“fresh session” alone is not a proof of full root independence or test correctness; graders need explicit self-tests and absence of leakage.",
+      "native_code_evidence_count": 5,
+      "github_stars": 4,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-07",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "haoyu-agent/SceneEvolve_Code",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S3*",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S3",
+          "ownership": "C"
+        },
+        {
+          "function": "S3*",
+          "ownership": "C"
+        }
+      ],
+      "assessment": "assessments/sc/sceneevolve-code.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/sc/sceneevolve-code.md",
+      "review_ref": "e6727f248eae77af31902b9c7e6a3fc46449f79f",
+      "reviewed_at": "2026-11-04",
+      "observed_mechanism": "separately inspect the working S1's **actual submitted Blender artifact**, rather than trusting its claimed successful scene reconstruction, and feed the finding into candidate policy selection and rework.",
+      "reported_limitation": "the benchmark scores quality, not security or all semantics; SSIM/LPIPS/DINOv2 accuracy depends on metric/runtime dependencies. The scoring formula is human-authored and can miss defects.",
+      "native_code_evidence_count": 6,
+      "github_stars": 28,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-10-28",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "lose4578/Auriga",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S3*",
+      "function_ownership": "A",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S3*",
+          "ownership": "A"
+        }
+      ],
+      "assessment": "assessments/au/auriga.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/au/auriga.md",
+      "review_ref": "3e1be75e186e49f8c268fd5fc6c08427f99254ce",
+      "reviewed_at": "2026-11-02",
+      "observed_mechanism": "provide an independent, evidence-limited second opinion on a manipulation operation's claimed visible outcome and send discrepancies or uncertainty back to the acting agent.",
+      "reported_limitation": "actor chooses evidence/request and need not obey a fixed compulsory verification phase sequence; this is a first-party supported optional independent second-opinion loop, not privileged simulator-ground-truth audit or guaranteed physical correction. No real provider/robot verification was executed here.",
+      "native_code_evidence_count": 6,
+      "github_stars": 32,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-10-31",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "savant0x/savant-code",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S3*",
+      "function_ownership": "A",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        },
+        {
+          "function": "S3",
+          "ownership": "A"
+        },
+        {
+          "function": "S3*",
+          "ownership": "A"
+        },
+        {
+          "function": "S4",
+          "ownership": "P"
+        }
+      ],
+      "assessment": "assessments/sa/savant-code.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/sa/savant-code.md",
+      "review_ref": "dbe8b40559e7a455db21b904e512f96b454bdab3",
+      "reviewed_at": "2026-10-26",
+      "observed_mechanism": "Challenge code-change and ordinary implementer/Verifier quality claims with independently observed evidence and return actionable findings into current work.",
+      "reported_limitation": "This is a supported strict-mode autonomous audit, not proof every HYBRID file edit always invokes the pair; agent review accuracy was not empirically measured.",
+      "native_code_evidence_count": 7,
+      "github_stars": 12,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "Apache-2.0",
+      "last_pushed_at": "2026-10-31",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "djynnius/rocinante",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S4",
+      "function_ownership": "C",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        },
+        {
+          "function": "S3*",
+          "ownership": "C"
+        },
+        {
+          "function": "S4",
+          "ownership": "C"
+        }
+      ],
+      "assessment": "assessments/ro/rocinante.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ro/rocinante.md",
+      "review_ref": "86aa7369bc775c583d46f8c3bb286c76d0401220",
+      "reviewed_at": "2026-10-11",
+      "observed_mechanism": "encode external user corrections into durable cross-session future operating-behavior rules and activate those rules as future session context.",
+      "reported_limitation": "conservative memory/rules learning can overlap S1 context retention. No S4 claim is made for mere compaction/BRAINBOX summary without the specific cross-session user-correction rule adaptation.",
+      "native_code_evidence_count": 10,
+      "github_stars": 1,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "ahwurm/localharness",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S4",
+      "function_ownership": "A(P)",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S3",
+          "ownership": "A(P)"
+        },
+        {
+          "function": "S3*",
+          "ownership": "A"
+        },
+        {
+          "function": "S4",
+          "ownership": "A(P)"
+        }
+      ],
+      "assessment": "assessments/lo/localharness.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/lo/localharness.md",
+      "review_ref": "d0859f71d1bb4b99cae78e72ddf459d105c47f93",
+      "reviewed_at": "2026-11-04",
+      "observed_mechanism": "Develop and test prospective runtime-configuration adaptations against future-relevant benchmark work behavior, then return validated choices to operational capability.",
+      "reported_limitation": "The documentation's introductory phrase that the operator chooses what to adopt describes the manual path, but the pinned source loop explicitly auto-adopts a clean `ADOPT` verdict. Benchmark scenarios are imperfect environmental proxies, not evidence of monitoring market, user population or real-world drift. No experiment was run here.",
+      "native_code_evidence_count": 5,
+      "github_stars": 66,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-04",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "DemonDamon/AgenticX",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S4",
+      "function_ownership": "A(P)",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S3",
+          "ownership": "A"
+        },
+        {
+          "function": "S4",
+          "ownership": "A(P)"
+        }
+      ],
+      "assessment": "assessments/ag/agenticx.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/ag/agenticx.md",
+      "review_ref": "582c9d00bfb23efe6f7e588c3a5edfce570729bf",
+      "reviewed_at": "2026-10-27",
+      "observed_mechanism": "convert observations of changing external tool/provider/task conditions and user corrections into future reusable skill capability for subsequent sessions.",
+      "reported_limitation": "this is opt-in retrospective environmental learning with prospective reusable capability, **not** evidence of strategic foresight, reliable self-improvement, future performance gains, or unattended default deployment. The separate optional GEPA branch writes candidate proposals only; it is not credited as direct adaptation.",
+      "native_code_evidence_count": 11,
+      "github_stars": 1022,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "Apache-2.0",
+      "last_pushed_at": "2026-11-08",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "no-human-ai/no_human",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S4",
+      "function_ownership": "C(P)",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S2",
+          "ownership": "C"
+        },
+        {
+          "function": "S3",
+          "ownership": "P"
+        },
+        {
+          "function": "S4",
+          "ownership": "C(P)"
+        },
+        {
+          "function": "S5",
+          "ownership": "P"
+        }
+      ],
+      "assessment": "assessments/no/no-human.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/no/no-human.md",
+      "review_ref": "5f99b7af3142bf9fc562bd35d127b852a99bc113",
+      "reviewed_at": "2026-10-22",
+      "observed_mechanism": "infer reusable future-work improvements from outcomes/failures across earlier tasks and return selected learning/policy adaptations into later coding-agent behavior.",
+      "reported_limitation": "auto-managed activation is real but mechanically governed. The separate `ReanalysisJob` and optional curator are not used to assert an autonomous adaptation-decision owner. Harvest reachability is `nh serve`; the API server's separate worker lifespan may omit `HarvestJob`.",
+      "native_code_evidence_count": 9,
+      "github_stars": 320,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-10-09",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    },
+    {
+      "source": "peristyle-ai/harness",
+      "category": "INDEX_ASSESSMENT_HYPOTHESIS_SCREEN",
+      "selection_lane": "FUNCTIONAL_MECHANISM",
+      "function": "S5",
+      "function_ownership": "P",
+      "positive_function_evidence": [
+        {
+          "function": "S1",
+          "ownership": "A"
+        },
+        {
+          "function": "S5",
+          "ownership": "P"
+        }
+      ],
+      "assessment": "assessments/pe/peristyle-harness.md",
+      "assessment_url": "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/pe/peristyle-harness.md",
+      "review_ref": "cfa54f2c808058d2372521c53019f6f3e4b5a52c",
+      "reviewed_at": "2026-11-01",
+      "observed_mechanism": "reserve ultimate agent identity and protected policy changes to the human operator while allowing the running agent to surface a proposal.",
+      "reported_limitation": "this P claim is restricted to the protected identity-policy path in configured reverie mode, not all arbitrary user prompts, ordinary confirmation requests, static safety rules or OSS governance. The manual operator approval/edit step is the parent decision; mere editing ability without the shipped escalation/return chain would not suffice.",
+      "native_code_evidence_count": 9,
+      "github_stars": 0,
+      "stars_checked_at": "2026-11-08",
+      "license_spdx": "MIT",
+      "last_pushed_at": "2026-11-05",
+      "next_gate": "REGISTER_FALSIFIABLE_INDEX_ORIGIN_HYPOTHESIS_BEFORE_FRESH_SOURCE_REVIEW"
+    }
+  ],
+  "deferred_prepared_packet_license_review": [
+    {
+      "source": "Qin-sor/agent-context-lab",
+      "origin": "ASSESSMENT_INFORMED",
+      "historical_stage": "AWAITING_EXTERNAL",
+      "batch_manifest": "data/assessment-candidate-batches/2026-10-22-05.json",
+      "assessment": "assessments/ag/agent-context-lab.md",
+      "review_ref": "372ecc514d48d8e1e5f92d672a9c2b16f4826b5d",
+      "function": "S1",
+      "finding": "First-party default-FAIL evidence verifier and workspace tool functions are reachable inside one coding-task harness; screen deterministic missing/partial evidence and canonicalized workspace paths using the shipped Python verifier tests, with no live model calls.",
+      "license_spdx": "NONE",
+      "last_pushed_at": "2026-10-28",
+      "batch_url": "https://github.com/opensiro/upstream/blob/dc509c073e060447b22ca4bfd9140b6e26d28498/data/assessment-candidate-batches/2026-10-22-05.json",
+      "exclusion_reason": "license_requires_review"
+    },
+    {
+      "source": "fbrubacher/orch",
+      "origin": "ASSESSMENT_INFORMED",
+      "historical_stage": "AWAITING_EXTERNAL",
+      "batch_manifest": "data/assessment-candidate-batches/2026-10-22-05.json",
+      "assessment": "assessments/or/orch.md",
+      "review_ref": "16960b40ed6293e27e4536bbd99d62989264a87e",
+      "function": "S1",
+      "finding": "The Python coding-task phase machine has local checkpoint persistence and optional resume; inspect fixed-input checkpoint read/write and restart deduplication with local Python scripts only, never running router/planner/executor LLM roles.",
+      "license_spdx": "NONE",
+      "last_pushed_at": "2026-08-24",
+      "batch_url": "https://github.com/opensiro/upstream/blob/dc509c073e060447b22ca4bfd9140b6e26d28498/data/assessment-candidate-batches/2026-10-22-05.json",
+      "exclusion_reason": "license_requires_review"
+    },
+    {
+      "source": "RapierCraftStudios/ForgeDock",
+      "origin": "ASSESSMENT_INFORMED",
+      "historical_stage": "AWAITING_EXTERNAL",
+      "batch_manifest": "data/assessment-candidate-batches/2026-10-22-07.json",
+      "assessment": "assessments/fo/forgedock.md",
+      "review_ref": "f5bfeeedf6baadd94aea1e6769f69abd45080016",
+      "function": "S1",
+      "finding": "ForgeDock's own Node issue-stage engine, phase registry and durable runlog reconcile GitHub issue-to-PR state. Screen deterministic parser and stage/recovery integrity using native local scripts only, without invoking its model runner, GitHub writes, or sandbox workers.",
+      "license_spdx": "AGPL-3.0",
+      "last_pushed_at": "2026-11-08",
+      "batch_url": "https://github.com/opensiro/upstream/blob/dc509c073e060447b22ca4bfd9140b6e26d28498/data/assessment-candidate-batches/2026-10-22-07.json",
+      "exclusion_reason": "license_requires_review"
+    },
+    {
+      "source": "atharva1407-sys/SIFRA-Agent-Orchestration-Multi-Agent-Runtime",
+      "origin": "ASSESSMENT_INFORMED",
+      "historical_stage": "AWAITING_EXTERNAL",
+      "batch_manifest": "data/assessment-candidate-batches/2026-10-22-07.json",
+      "assessment": "assessments/si/sifra.md",
+      "review_ref": "6856b054ba67e4dc4ef499a46732eeed80b5ac68",
+      "function": "S1",
+      "finding": "SIFRA defines TypeScript event, message-bus and human-refund approval transitions for a shipped local support workstream. Screen malformed and duplicated approval/status events with fixed Node/TypeScript scripts; exclude DBOS, real billing, model/provider and live support sessions.",
+      "license_spdx": "NONE",
+      "last_pushed_at": "2026-08-22",
+      "batch_url": "https://github.com/opensiro/upstream/blob/dc509c073e060447b22ca4bfd9140b6e26d28498/data/assessment-candidate-batches/2026-10-22-07.json",
+      "exclusion_reason": "license_requires_review"
+    },
+    {
+      "source": "SuperagenticAI/pyflue",
+      "origin": "ASSESSMENT_INFORMED",
+      "historical_stage": "AWAITING_EXTERNAL",
+      "batch_manifest": "data/assessment-candidate-batches/2026-10-23-08.json",
+      "assessment": "assessments/py/pyflue.md",
+      "review_ref": "657c2d1a1b024a0bc137ff3bb252339fa0d5f692",
+      "function": "S1",
+      "finding": "PyFlue exposes first-party Python session/toolkit and sandbox policies over optional external backends. Screen deterministic tool and output-schema admission plus sandbox boundary checks against real native functions, never run backend agents, PydanticAI inference, simulated provider sessions or hosted services.",
+      "license_spdx": "NOASSERTION",
+      "last_pushed_at": "2026-05-31",
+      "batch_url": "https://github.com/opensiro/upstream/blob/dc509c073e060447b22ca4bfd9140b6e26d28498/data/assessment-candidate-batches/2026-10-23-08.json",
+      "exclusion_reason": "license_requires_review"
+    }
+  ]
+}

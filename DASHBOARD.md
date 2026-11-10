@@ -1,58 +1,48 @@
 # Upstream contributions — Dashboard
 
-> **Experimental snapshot: 2026-10-12** · Portfolio case review: **2026-10-17** · **Not live telemetry.**
-> Based on the [Organization-owned experimental snapshot](https://github.com/opensiro/vsm-oss-organization/blob/main/experiments/upstream-intervention-fit/snapshot.json), not independent metrics invented in this portfolio.
+> **External PR sources checked:** 2026-11-05T17:36:18+00:00 · **Archived intervention cohort:** 2026-10-12.
+> Lifecycle is a dated public GitHub observation. The former Product-native fit KPI is **deprecated** and is not recalculated or displayed as an active result.
 
-### Outcomes at a glance
+The separate [Resolved Upstream PR Acceptance metric](docs/RESOLVED_PR_ACCEPTANCE.md) follows the 18-PR maintenance cohort with a source-dated [#125 inbox report](https://github.com/opensiro/upstream/issues/125); it excludes pending/unverifiable PRs.
 
-| Interventions | Upstream projects | Merged interventions | Still open | Closed without merge |
-| :---: | :---: | :---: | :---: | :---: |
-| **8** | **7** | **2** | **4** | **2** |
+### Upstream intervention outcomes (observed)
 
-### Product-native fit
+| Interventions | Projects | Merged | Open | Closed unmerged | Unverifiable |
+| :---: | :---: | :---: | :---: | :---: | :---: |
+| **8** | **7** | **4** | **0** | **3** | **1** |
 
-| Fit rate on completed reviews | Pass | Pending | Fail |
-| :---: | :---: | :---: | :---: |
-| **60% (3/5)** | **3** | **3** | **2** |
-
-**What the 60% represents:** 3 interventions satisfy all four gates (upstream need, upstream-native mechanism, counterfactual value, scope compatibility) among 5 *completed* fit reviews. 3 pending interventions are excluded from the rate denominator. **Not a PR acceptance rate, productivity score, or VSM grade.**
-
-### Intervention outcomes
-
-```text
-Merged           ██   2
-Open             ████ 4
-Closed unmerged  ██   2
-```
-
-### Fit-review distribution
-
-```text
-Pass      ███  3
-Pending   ███  3
-Fail      ██   2
-```
+An unavailable PR is **not** an open PR or a rejection. Its last known outcome remains historical evidence, not a current assertion.
 
 ### Evidence-linked interventions
 
-| Intervention / case evidence | Upstream PR | Outcome | Product-native fit |
-| --- | --- | --- | --- |
-| [Headcount — Installable security reviewer](cases/headcount.md) | [PR #47](https://github.com/cbrock84/headcount/pull/47) | Open | **Pending** |
-| [Henterprise — Hermes delegation & independent review](cases/henterprise.md) | [Original #1 → landed #3](https://github.com/humbertobellor/henterprise/pull/3) | Merged | **Pending** |
-| [Marveen — Owner-gated skill adoption](cases/marveen.md) | [PR #1516](https://github.com/Szotasz/marveen/pull/1516) | Merged | **Pass** |
-| [oh-my-agent — Durable organization policy](cases/oh-my-agent.md) | [PR #819](https://github.com/first-fluke/oh-my-agent/pull/819) | Closed unmerged | **Fail** |
-| [Scion — Independent-review platform skill](cases/scion.md) | [PR #2047](https://github.com/GoogleCloudPlatform/scion/pull/2047) | Closed unmerged | **Fail** |
-| [Shep — Agent-owned workcell coordination](cases/shep.md) | [PR #933](https://github.com/shep-ai/shep/pull/933) | Open | **Pending** |
-| [Shep — ESM worker startup hotfix](cases/shep.md) | [PR #934](https://github.com/shep-ai/shep/pull/934) | Open | **Pass** |
-| [StarNet — Lead station-status tool](cases/starnet.md) | [PR #56](https://github.com/androoAGI/starnet/pull/56) | Open (idea adopted) | **Pass** |
+| Intervention / case | Original upstream PR | Current outcome |
+| --- | --- | --- |
+| [Headcount — Installable security reviewer](cases/headcount.md) | [Original PR](https://github.com/cbrock84/headcount/pull/47) | Unverifiable |
+| [Henterprise — Hermes delegation & independent review](cases/henterprise.md) | [Original PR](https://github.com/humbertobellor/henterprise/pull/1) → [replacement](https://github.com/humbertobellor/henterprise/pull/3) | Merged |
+| [Marveen — Owner-gated skill adoption](cases/marveen.md) | [Original PR](https://github.com/Szotasz/marveen/pull/1516) | Merged |
+| [oh-my-agent — Durable organization policy](cases/oh-my-agent.md) | [Original PR](https://github.com/first-fluke/oh-my-agent/pull/819) | Closed unmerged |
+| [Scion — Independent-review platform skill](cases/scion.md) | [Original PR](https://github.com/GoogleCloudPlatform/scion/pull/2047) | Closed unmerged |
+| [Shep — Agent-owned workcell coordination](cases/shep.md#933-agent-coordination) | [Original PR](https://github.com/shep-ai/shep/pull/933) | Merged |
+| [Shep — ESM worker startup hotfix](cases/shep.md#934-esm-worker-startup) | [Original PR](https://github.com/shep-ai/shep/pull/934) | Merged |
+| [StarNet — Lead station-status tool](cases/starnet.md) | [Original PR](https://github.com/androoAGI/starnet/pull/56) | Closed unmerged |
 
-**Interpretation matters.** Henterprise's original #1 closed without merge, but replacement #3 merged with the source contributor's commits preserved: **one merged intervention**. StarNet's maintainer implemented the idea independently and explicitly credited its origin; contributor PR #56 **did not merge**. Both Shep PRs remain open with new-head CI awaiting maintainer workflow authorization. The [Cognee connector](projects/cognee/README.md) is **preparing**, not submitted upstream, and is outside this eight-case experimental cohort.
+### Separately tracked OpenSiro-owned fork contributions
 
-### Explore and verify
+These are **outside** the archived eight-intervention casebook cohort.
 
-- [Interactive HTML dashboard source](docs/index.html) — self-contained browser page, ready for GitHub Pages **if Pages is configured separately**. GitHub's repository file viewer does not execute HTML.
-- [Product-native fit casebook](https://github.com/opensiro/upstream/blob/main/cases/README.md) — primary public PRs, reviews and contextual evidence.
-- [Canonical experimental snapshot](https://github.com/opensiro/vsm-oss-organization/blob/main/experiments/upstream-intervention-fit/snapshot.json) · [Metric contract](https://github.com/opensiro/vsm-oss-organization/tree/main/experiments/upstream-intervention-fit) · [Pinned non-authoritative dashboard input](data/upstream-fit-snapshot.json).
-- To refresh: verify upstream evidence, update the **Organization-owned ledger** first, then explicitly update this snapshot and regenerate the dashboard. No automatically inferred merge or fit-status changes.
+| Registry project | Upstream PR | Verified PR state |
+| --- | --- | --- |
+| [cognee-community](registry.yaml) | [PR](https://github.com/topoteretes/cognee-community/pull/434) | Open |
 
-_Experimental, dated values. External maintainers retain decision authority; no upstream endorsement is implied._
+Registry PR verification: 2026-11-05T17:36:18+00:00. Updates to `registry.yaml` remain separately reviewed.
+
+**Attribution:** Henterprise original #1 and merged replacement #3 count as **one intervention**. StarNet maintainer's independent implementation is **not** counted as a contributor PR merge. GitHub PR lifecycle alone does not prove a functional VSM S2 improvement.
+
+### Provenance and refresh
+
+- Deprecated historical Product-native fit experiment: [Organization archive](https://github.com/opensiro/vsm-oss-organization/tree/main/experiments/upstream-intervention-fit), pinned here as [`data/upstream-fit-snapshot.json`](data/upstream-fit-snapshot.json) (`as_of` 2026-10-12); **not an active KPI**.
+- PR observations: [`data/upstream-lifecycle.json`](data/upstream-lifecycle.json), checked 2026-11-05T17:36:18+00:00; unavailable sources are explicitly marked. They do **not** imply that GitHub statuses are live at viewing time.
+- [Public casebook](cases/README.md) provides contextual evidence. [`registry.yaml`](registry.yaml) submission PR states are verified separately and excluded from the experimental cohort.
+- Refresh: `python3 scripts/upstream_status.py --refresh` then `--render`; test with `--check-generated` and `--check-live`. External PR checks are read-only; publication is a reviewed PR.
+
+_External maintainers retain decision authority; no upstream endorsement is implied._

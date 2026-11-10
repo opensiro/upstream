@@ -6,6 +6,15 @@ pull request, a signed DCO assertion, or a stage authorization. The current
 [local preparation mandate](../../policies/harnessdesk-1772-local-prepare.json)
 is `PROPOSED_NOT_ACTIVE`.
 
+**2026-11-10 internal integration note:** [Upstream PR #54](https://github.com/opensiro/upstream/pull/54)
+merged the pinned-source **macOS gateway regression** and **Linux full
+`pnpm check:push`** verification workflows. Both exact-head jobs
+[succeeded](https://github.com/opensiro/upstream/actions/runs/39466137745).
+The separate Linux-only workflow proposed in [PR #55](https://github.com/opensiro/upstream/pull/55)
+duplicates the merged Linux gate and is deliberately not retained. This
+document remains an unpublished historical **PR drafting aid**, not a
+current-source submission packet.
+
 ## Intended external repository and branch
 
 - Upstream: [HarnessDesk/HarnessDesk](https://github.com/HarnessDesk/HarnessDesk)
@@ -60,15 +69,16 @@ ToolGateway. See #1772.
 - Previously validated on pinned public HarnessDesk sources with real
   Node build and **17/17 targeted gateway tests PASS** on Linux and
   macOS (source-specific receipts in OpenSiro's V2 review). These are
-  **not** an assertion that the entire upstream suite passed at the
-  newest `81d5e34...` source.
+  distinct from the full upstream suite.
 - Exact V2 preimage and both postimage SHA-256 hashes reverified against
   `81d5e34...`. The sparse checkout already contained the V2 patch;
   `git apply -R --check` and `git diff --check` passed.
-- The upstream-mandated `pnpm check:push` at this exact source is
-  tracked by [OpenSiro PR #55](https://github.com/opensiro/upstream/pull/55).
-  **Update this section with the actual check conclusion before external publication.**
-- Native macOS, complete CI and maintainer acceptance remain separate.
+- At the historical `81d5e34...` source, both the macOS targeted regression
+  job and Linux full `pnpm check:push` job completed successfully in
+  [the source-pinned CI run](https://github.com/opensiro/upstream/actions/runs/39466137745).
+  This is **not** validation on today's moving upstream `development` head.
+- No third-party PR, deployment, maintainer acceptance or later-source
+  compatibility is claimed.
 
 ### Scope
 
@@ -95,8 +105,12 @@ service, VSM score change or cross-repository policy is proposed.
    [external PR handoff](../../scripts/upstream_pr_handoff.py), binding
    the actual **new branch SHA** and current upstream base SHA. Its
    payload is not a publication instruction.
-6. Publication to `HarnessDesk/HarnessDesk` is a separate
-   **human operator decision**. Do not invoke `POST /pulls`,
+6. Rebuild the proposed title/body from the target's **current** PR template,
+   then append [AI disclosure v2](../../docs/AI_ASSISTED_PR_DISCLOSURE.md)
+   with a live and pinned dated canonical HarnessDesk assessment. This
+   historical draft alone is not a publish-ready body.
+7. Publication to `HarnessDesk/HarnessDesk` requires the current
+   **per-PR human approval**. Do not invoke `POST /pulls`,
    notify maintainers, or claim upstream acceptance before it happens.
 
 **Owner/provenance:** [Upstream #6](https://github.com/opensiro/upstream/issues/6)

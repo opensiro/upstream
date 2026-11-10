@@ -1,0 +1,10 @@
+{
+  "headcount-47": {"project": "Headcount", "title": "Installable security reviewer", "case": "headcount.md", "note": "Upstream need and scope still require a separate fit review"},
+  "henterprise-1": {"project": "Henterprise", "title": "Hermes delegation & independent review", "case": "henterprise.md", "note": "Maintainer replacement PR; one intervention with distinct contributor and merger roles"},
+  "marveen-1516": {"project": "Marveen", "title": "Owner-gated skill adoption", "case": "marveen.md", "note": "Owner-controlled skill adaptation"},
+  "oh-my-agent-819": {"project": "oh-my-agent", "title": "Durable organization policy", "case": "oh-my-agent.md", "note": "Product-native need not established"},
+  "scion-2047": {"project": "Scion", "title": "Independent-review platform skill", "case": "scion.md", "note": "Maintainer preferred solution-level scope"},
+  "shep-933": {"project": "Shep", "title": "Agent-owned workcell coordination", "case": "shep.md#933-agent-coordination", "note": "Upstream review history is distinct from the current PR state"},
+  "shep-934": {"project": "Shep", "title": "ESM worker startup hotfix", "case": "shep.md#934-esm-worker-startup", "note": "Product-native fit was assessed independently of merge outcome"},
+  "starnet-55": {"project": "StarNet", "title": "Lead station-status tool", "case": "starnet.md", "note": "Maintainer implemented an equivalent idea independently with credit; that is not a contributor merge"}
+}

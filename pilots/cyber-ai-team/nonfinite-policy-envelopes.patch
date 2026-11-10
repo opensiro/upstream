@@ -1,0 +1,124 @@
+diff --git a/backend/src/cyber_team/operations/action_policy.py b/backend/src/cyber_team/operations/action_policy.py
+index ac2e2c4..6c5de1b 100644
+--- a/backend/src/cyber_team/operations/action_policy.py
++++ b/backend/src/cyber_team/operations/action_policy.py
+@@ -4,6 +4,7 @@ from __future__ import annotations
+ 
+ import hashlib
+ import json
++import math
+ import uuid
+ from datetime import timedelta
+ from typing import Any
+@@ -1433,6 +1434,21 @@ class ActionPolicyService:
+         missing = sorted(required - set(value))
+         if missing:
+             raise ValueError(f"Action envelope missing: {', '.join(missing)}")
++
++        confidence = float(value.get("confidence", 0.0))
++        if not math.isfinite(confidence) or not 0.0 <= confidence <= 1.0:
++            raise ValueError("Action envelope confidence must be finite and within [0, 1]")
++
++        def nonnegative_amount(field: str) -> float:
++            amount = float(value.get(field, 0.0))
++            if not math.isfinite(amount) or amount < 0.0:
++                raise ValueError(f"Action envelope {field} must be finite and nonnegative")
++            return amount
++
++        recipients = int(value.get("recipients", 0))
++        if recipients < 0:
++            raise ValueError("Action envelope recipients must be nonnegative")
++
+         return {
+             "action_class": str(value["action_class"])[:120],
+             "actor": str(value["actor"])[:200],
+@@ -1441,11 +1457,11 @@ class ActionPolicyService:
+             "target_id": str(value["target_id"])[:240],
+             "expected_effect": str(value["expected_effect"])[:2000],
+             "evidence_ids": list(value.get("evidence_ids") or [])[:100],
+-            "confidence": float(value.get("confidence", 0.0)),
++            "confidence": confidence,
+             "reversible": bool(value.get("reversible", False)),
+-            "financial_exposure_usd": float(value.get("financial_exposure_usd", 0.0)),
+-            "financial_daily_usd": float(value.get("financial_daily_usd", 0.0)),
+-            "recipients": int(value.get("recipients", 0)),
++            "financial_exposure_usd": nonnegative_amount("financial_exposure_usd"),
++            "financial_daily_usd": nonnegative_amount("financial_daily_usd"),
++            "recipients": recipients,
+             "data_sensitivity": str(value.get("data_sensitivity", "internal"))[:40],
+             "external_side_effect": bool(value.get("external_side_effect", False)),
+             "fresh_backup": bool(value.get("fresh_backup", False)),
+diff --git a/backend/tests/test_native_action_policy_envelope_unittest.py b/backend/tests/test_native_action_policy_envelope_unittest.py
+new file mode 100644
+index 0000000..4daef40
+--- /dev/null
++++ b/backend/tests/test_native_action_policy_envelope_unittest.py
+@@ -0,0 +1,68 @@
++"""Offline tests of the genuine action-envelope normalizer's numeric guard.
++
++Extract this one function from the source AST to avoid importing unrelated
++database, OPA and provider dependencies. Its body is not copied or mocked.
++"""
++
++import ast
++import math
++import unittest
++from pathlib import Path
++from typing import Any
++
++
++SOURCE = Path(__file__).resolve().parents[1] / "src/cyber_team/operations/action_policy.py"
++
++
++def load_first_party_normalizer():
++    tree = ast.parse(SOURCE.read_text(encoding="utf-8"), filename=str(SOURCE))
++    cls = next(node for node in tree.body if isinstance(node, ast.ClassDef) and node.name == "ActionPolicyService")
++    method = next(node for node in cls.body if isinstance(node, ast.FunctionDef) and node.name == "normalize_envelope")
++    method.decorator_list = []
++    scope = {"Any": Any, "math": math}
++    exec(compile(ast.fix_missing_locations(ast.Module(body=[method], type_ignores=[])), str(SOURCE), "exec"), scope)
++    return scope["normalize_envelope"]
++
++
++normalize = load_first_party_normalizer()
++
++
++def envelope(**changes):
++    return {
++        "action_class": "research",
++        "actor": "worker",
++        "actor_type": "service",
++        "target_type": "tool",
++        "target_id": "report",
++        "expected_effect": "Create a local report",
++        **changes,
++    }
++
++
++class NativeEnvelopeNumbers(unittest.TestCase):
++    def test_normal_finite_envelope_unchanged(self):
++        result = normalize(envelope(confidence=0.9, financial_exposure_usd=25, recipients=1))
++        self.assertEqual(result["confidence"], 0.9)
++        self.assertEqual(result["financial_exposure_usd"], 25.0)
++        self.assertEqual(result["recipients"], 1)
++
++    def test_nonfinite_confidence_is_rejected(self):
++        for value in (math.nan, math.inf):
++            with self.subTest(value=value), self.assertRaises(ValueError):
++                normalize(envelope(confidence=value))
++
++    def test_negative_financial_exposure_is_rejected(self):
++        with self.assertRaises(ValueError):
++            normalize(envelope(financial_exposure_usd=-1))
++
++    def test_nonfinite_daily_financial_exposure_is_rejected(self):
++        with self.assertRaises(ValueError):
++            normalize(envelope(financial_daily_usd=math.nan))
++
++    def test_negative_recipient_count_is_rejected(self):
++        with self.assertRaises(ValueError):
++            normalize(envelope(recipients=-2))
++
++
++if __name__ == "__main__":
++    unittest.main()

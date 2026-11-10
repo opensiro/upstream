@@ -1,0 +1,68 @@
+# Bounded publication mandate — assessment-informed Corrective PRs
+
+> **2026-11-09 owner policy update (prospective):** Every **new external PR**
+> requires a **specific human publication approval**, including a reopened
+> historical Corrective packet. The finite 2026-10-23 standing publication
+> mandate remains historical evidence of what was permitted and submitted
+> at that time; it is **not a continuing bypass** of this newer gate. The
+> completed 13 submitted PRs are not withdrawn or retroactively relabeled.
+> Existing cohort PR descriptions may receive only the historically accurate
+> [AI disclosure variant](AI_ASSISTED_PR_DISCLOSURE.md#historical-corrective-cohort-retrospective-descriptions-only)
+> with verified assessment provenance. This does not approve new publications.
+> Local preparation and authorized working-fork synchronization stay separate
+> from publishing. See [continuous working-fork pipeline](CONTINUOUS_WORKING_FORK_PIPELINE.md).
+
+> **2026-10-25 finite-cohort reconciliation:** The [ledger integrated in PR #129](https://github.com/opensiro/upstream/pull/129) recorded **13 SUBMITTED / 21 BLOCKED / 0 QUEUED** from exactly 34 fixed cases. All queue entries were terminal under that mandate; **21 BLOCKED cases are not published fixes or third-party rejection decisions**. Reopening requires new evidence/permission as appropriate, not an automatic next cohort. The [operational-readiness review](../reports/2026-10-25-upstream-operational-readiness.md) distinguishes a real finite publication experiment from an inactive general executor. This is a dated checkpoint; read the current ledger on `main` for live state.
+
+**Pre-publication intake:** the [read-only license/overlap preflight](CANDIDATE_INTAKE_PREFLIGHT.md) collects source license text and policy hints before any derivative patch, fork or PR. A successful machine exit means **manual license applicability and complete contributor-policy review are still pending**; it does not clear a publication gate. The frozen 34-case ledger and historical mandate are unchanged.
+
+**Owning experiment:** [Upstream #56](https://github.com/opensiro/upstream/issues/56), under the Upstream contribution execution route of [#6](https://github.com/opensiro/upstream/issues/6). **Operator decision:** confirmed in the current owner conversation on **2026-10-23** after an explicit question about transferring external-publication rights. **Decision holder:** the OpenSiro owner, `xLagerFeuer` (declared holder; this conversation is not a substitute for authenticated GitHub actor readback). **Mandate:** `CORRECTIVE-PUBLISH-2026-10-23-01`.
+
+Historically, this superseded the prior **human-per-PR publication choice only within the enumerated Corrective packet set**. Under that finite mandate, an assistant with legitimate contributor credentials could create public organization forks, branches, fixes/tests and external PRs without separate routine per-PR approval. On **2026-10-24**, the owner corrected the publication-state preference to **Ready for review (`draft: false`)** for fully checked, non-blocked cases, with Draft reserved for a real prerequisite. **The 2026-11-09 prospective human-per-PR publication gate above now controls any new submission.** Neither policy authorizes external merge.
+
+## Finite source and allowed actions
+
+- **Exactly 34** cases from completed assessment batches **01–10**, in their existing fixed batch/candidate order, with stage `AWAITING_EXTERNAL`, four native fit gates `PASS` and a source-tested handoff. The exact selection snapshot is the owning repository `main` commit `3dde07363359607476af7b8d6a55026b6b4d6e11` (internal [PR #108](https://github.com/opensiro/upstream/pull/108)). The frozen [publication ledger](../data/corrective-publication/2026-10-23-01.json) enumerates every permitted candidate. Batch 11's unreviewed questions and any later discovered cases **are not included**.
+- **Permitted destinations:** direct **public** forks in `opensiro-contributions`, with an authentic matching parent in the listed third-party upstream repository. Never silently substitute `opensiro`, the owner's personal account or an unrelated fork.
+- **Permitted mutations:** create one absent public fork; create a nondefault `opensiro/` working branch; apply the exact bounded product change and native tests, with necessary maintenance rebase; push that branch; open one Ready-for-review PR (or a justified Draft with a stated blocker) toward the genuine upstream base and update that same PR in response to ordinary CI/maintainer feedback within the reviewed scope. A duplicate already existing PR is a reason to **reuse or stop**, not publish another.
+- **Not delegated:** merging externally; merging a protected branch; asserting a CLA/DCO/sign-off that only the contributor can certify; bypassing an upstream issue-assignment rule, contributor policy, license, security boundary or required review; force-pushing unrelated public history; deleting repositories/branches; opening private forks; credentials/secrets management outside the already configured host; upgrading a VSM grade; admitting Upstream as a fourth bounded Organization S1 domain. Organization [#274](https://github.com/opensiro/vsm-oss-organization/issues/274) remains separately undecided.
+- **Term and revocation:** effective for these **34 exact packets only**, until each is submitted, explicitly blocked/closed, or the legitimate owner revokes/narrows the mandate. No automatic extension to the next cohort. Operator `stop`, a superseding owner instruction or expired/revoked provider permission stops any **new** write immediately.
+
+## Before every external write
+
+1. Reconfirm the **license-first candidate-intake verdict** from [the candidate-batch route](ASSESSMENT_CANDIDATE_BATCHES.md) against current first-party LICENSE/NOTICE text and source commit **before touching derivative code or creating a fork**. For the already-frozen 34, this is a fresh publication preflight, not retroactive alteration of earlier historical fit records. Then read the current default/target branch, `CONTRIBUTING`, issue-assignment/CLA/DCO rules and existing issues/open PRs. Reproduce the bounded original native RED using genuine product code, then apply/adapt the patch and run matched GREEN plus available non-agent first-party tests. If current source already fixes the bug, mark `CLOSED_NO_CHANGE` and do **not** create a redundant PR. Report newly uncovered inconclusive cases as blocked, not as delivered fixes.
+2. Verify the **actual authenticated actor**, its organization membership, the ability to create and push a public fork, the exact parent/fork source and branch SHAs. Check connected GitHub tool capabilities at runtime; if no create-fork operation exists, use **only** a preconfigured credential-owning VM/host with authorized `gh` access. Do not ask for or copy the PAT into chat, scrape credentials or bypass a disabled capability.
+3. Check the intended `opensiro/` head is not a default/protected branch, the upstream base is correct, the comparison contains only the proposed files, there are no secrets, and no conflicting identical PR exists. Preserve the target's own PR template and append the [AI-assisted contribution disclosure](AI_ASSISTED_PR_DISCLOSURE.md). Send as **Ready for review** if native gates and source policy allow review now. Reserve **Draft** for a documented unfinished requirement; do not imply Ready is merge approval or all CI is green.
+4. Use the existing [authenticated GET preflight](../scripts/upstream_pr_handoff.py) where available. If it returns `PR_BLOCKED_NO_WRITE`, **stop that case** and preserve a precise blocker. In the presence of an explicit compatible host API, the already-authorized publication may then use the GitHub REST `POST /repos/OWNER/REPO/pulls` with an exact verified organization-fork head. Read back the created PR. No synthetic success receipt is accepted.
+5. Only after a **real** public PR readback, record its URL/number, base/head SHAs, tests, actual actor, CI and follow-up state in the separate [publication ledger](../data/corrective-publication/2026-10-23-01.json). **In the same reviewable change**, register that exact PR URL in the hourly [maintenance watchlist](../data/pr-maintenance/targets.json); preserve its historic checkpoint and avoid duplicates. This is an explicit audited watchlist, not a search-fed list. Do not rewrite frozen Index assessments or claim upstream merge. Then move to the next queued candidate without waiting for external review.
+
+## Automatable publication preflight vs reserved rights
+
+**Automate routine checks whenever the authorized GitHub/runtime port supports them:** read actual LICENSE and contributor docs, search relevant issue/PRs, detect duplicate fixes, inspect branch naming and target base, run script-only RED/GREEN and static CI-compatible checks, inspect required check timing (before **Draft** vs before **merge**), test repository/fork permissions, and read back publication. Reuse an existing issue when sufficient. Opening a **new** external issue/comment, changing to a non-`opensiro/*` head, or altering a mandated workflow requires the appropriate additional authority; being technically automatable is not permission.
+
+Classify unmet gates instead of reflexively treating all as final `BLOCKED`:
+
+| Observation | Action |
+| --- | --- |
+| Actual license grant missing, incompatible or inconclusive | **Do not create a public derivative**; preserve evidence and block/close as appropriate. |
+| Existing required issue, permitted `opensiro/*` branch or check is mechanically satisfiable | Complete that preflight automatically and proceed when the current mandate covers the action. |
+| Full integration/model/real-agent testing required only **before merge**, but a bounded Draft is allowed | Submit Draft with truthful *not-run/pending* note; do not run prohibited model/agent tests or claim release readiness. |
+| Upstream explicitly requires a branch outside the frozen `opensiro/*` envelope or interactive consent **before any PR** | Preserve `POLICY_CONFLICT`/exact missing right. Propose a separate legitimate scope decision; do not evade the third-party rule. |
+| DCO/CLA certifies contributor rights or another human-only declaration | Verify whether a genuine authenticated contributor has made that attestation; **never forge or silently auto-sign** the owner's legal declaration. |
+| GitHub 403/protected integration or first-party nonnegotiable stop | Record provider/source readback and stop that write, continuing other queue rows only when the operator has not paused the queue. |
+
+This is a **procedural triage rule**, not a change to `corrective_publication_queue.py` state enum, a reopening of already-dispositioned cases, or permission to publish an outside-scope candidate. The Organization's cross-repository change routing is tracked by [Organization #285](https://github.com/opensiro/vsm-oss-organization/issues/285). Any automated executor must still enforce the exact mandate and run its own negative-case tests before activation.
+
+## Operation and feedback
+
+The bounded work cycle is **source-first → current upstream-native need and scope → first-party native RED/GREEN → authentic actor/permission/fork/branch checks → Ready-for-review PR (justified Draft only if blocked) → readback → durable result → next case**. This is engineering source validation, **not** the deprecated Product-native fit metric. Its technical proof is script-only: **never run LLM agents, mocked model-task episodes, model providers, Browser quality trials or benchmarks** as a condition of acceptance. This does not prevent ChatGPT from coordinating repository inspection and GitHub operations as the delegated contributor.
+
+The operator's one-time consent transfers the *decision to publish qualifying Corrective fixes* within this finite envelope, **not** GitHub permissions, third-party acceptance, or independent VSM autonomy evidence. Evidence of exercised transfer requires a provider-attributed live GitHub operation and an observed result. Cases without such evidence remain `QUEUED`, and no external PR is claimed for them. An already published PR is `SUBMITTED` even if it was subsequently marked Ready for review; the read-only watcher separately tracks its current state and maintainer feedback.
+
+## Two linked lanes, with separate responsibilities
+
+- **Publication queue:** `python3 scripts/corrective_publication_queue.py next` selects the first genuinely `QUEUED` case from the frozen 34. Do not hardcode the historical first case or republish a case already marked `SUBMITTED`.
+- **External PR maintenance:** [Upstream PR Maintenance](PR_MAINTENANCE.md) checks published external PRs hourly for maintainer feedback, CI/lifecycle changes, and merge conflicts. It is currently a bounded Upstream-local operating pilot, not an admitted Organization S1. Its read-only GitHub Actions workflow never repairs or merges third-party PRs automatically.
+- **Coverage invariant:** `python3 scripts/corrective_publication_queue.py validate` fails if any submitted/merged Corrective PR is missing from the hourly watchlist. The maintenance workflow runs this check on PRs and on every scheduled scan, alongside native deterministic tests. A new external PR must be added to the ledger and the watchlist together.
+
+The [2026-10-24 publication reconciliation](../reports/2026-10-24-corrective-pr-reconciliation.md) records the observed baseline and original PR evidence. Ordinary `continue batch assessment` follows the distinct intake lane; it must not be conflated with these publication and maintenance responsibilities.

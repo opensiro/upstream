@@ -2,7 +2,7 @@
 
 - **Upstream:** [humbertobellor/henterprise](https://github.com/humbertobellor/henterprise)
 - **Contributor fork:** [xLagerFeuer/henterprise](https://github.com/xLagerFeuer/henterprise)
-- **Original PR:** [#1](https://github.com/humbertobellor/henterprise/pull/1) — closed without merge.
+- **Original PR:** [#1](https://github.com/humbertobellor/henterprise/pull/1) — closed without merge **by contributor `xLagerFeuer`** on 2026-10-11, explicitly as superseded after #3 landed ([closure comment](https://github.com/humbertobellor/henterprise/pull/1#issuecomment-6113791152), [GitHub events](https://api.github.com/repos/humbertobellor/henterprise/issues/1/events)).
 - **Landed replacement:** [#3](https://github.com/humbertobellor/henterprise/pull/3) — merged 2026-10-08.
 - **Intervention outcome:** merged as **one** contribution. **Product-native fit:** **pending** (ledger 2026-10-12).
 

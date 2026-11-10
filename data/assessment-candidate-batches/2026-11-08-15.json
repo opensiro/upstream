@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-08-15",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "46219bf103b0b122d86abc3ca70ae3d8bc820e2c",
+  "frozen_at": "2026-11-08",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "UPSTREAM UPGRADE BATCH 15: five most recently reviewed distinct included S1=A/S2=C assessments on canonical Index main@46219bf103b0b122d86abc3ca70ae3d8bc820e2c after excluding all 70 prior screened sources, visible open Upstream PR claims and concurrent batch branches. Initial assessment-only hypotheses preregistered in 2026-11-08-15-HYPOTHESES.md before fresh target code/issue/PR inspection. No CAS reservation activated. Each row is a falsifiable question, not an established defect. Native fit and independent deterministic execution, licensing and external stage gates remain separate.",
+  "candidates": [
+    {
+      "id": "openprogram-capacity-recovery-fairness",
+      "assessment_path": "assessments/op/openprogram.md",
+      "source": "FuzzyKuji/OpenProgram",
+      "review_ref": "447264865e871e30e7f638b42cccfe25d826f8d0",
+      "reviewed_at": "2026-11-08",
+      "function": "S2",
+      "finding": "Index S2=C identifies constructor-owned Job governor of global/session slots and atomic job claims. Prospectively test whether cancellation/failure after a slot claim strands capacity or starves an unrelated eligible queued Job; null if terminal reconciliation already releases it.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/op/openprogram.md",
+        "https://github.com/FuzzyKuji/OpenProgram/blob/447264865e871e30e7f638b42cccfe25d826f8d0/openprogram/runtime/jobs/resource_governance/dispatch.py",
+        "https://github.com/FuzzyKuji/OpenProgram/blob/447264865e871e30e7f638b42cccfe25d826f8d0/tests/component/runtime/test_resource_governance/test_dispatch.py"
+      ]
+    },
+    {
+      "id": "clarvis-directory-read-write-wave-overlap",
+      "assessment_path": "assessments/cl/clarvis.md",
+      "source": "getclarvis/clarvis",
+      "review_ref": "17a550a7fff59752a1917c3c88dbe9a2aef09bdf",
+      "reviewed_at": "2026-11-07",
+      "function": "S2",
+      "finding": "Index S2=C identifies file/directory read/write conflict-aware wave scheduling among model-led workers. Prospectively test whether supported nested-directory writer/reader declarations or equivalent path forms evade the wave barrier; null if normalization/overlap checks already cover them.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/cl/clarvis.md",
+        "https://github.com/getclarvis/clarvis/blob/17a550a7fff59752a1917c3c88dbe9a2aef09bdf/packages/workflows/src/schedule.ts",
+        "https://github.com/getclarvis/clarvis/blob/17a550a7fff59752a1917c3c88dbe9a2aef09bdf/packages/workflows/tests/unit/schedule.test.ts"
+      ]
+    },
+    {
+      "id": "clouds-coder-frozen-revision-retry-guard",
+      "assessment_path": "assessments/cl/clouds-coder.md",
+      "source": "FonaTech/Clouds-Coder",
+      "review_ref": "83a0d25aa59ef1bc8e295ec45104a9c7f0819c83",
+      "reviewed_at": "2026-11-07",
+      "function": "S2",
+      "finding": "Index S2=C identifies deterministic OT revision guards, freeze and human-owned disputed merge settlement. Prospectively test whether an operating bridge's stale-revision retry can write after a conflicting document is frozen; null if all genuine routes already reject it.",
+      "stage": "AWAITING_EXTERNAL",
+      "origin": "ASSESSMENT_DERIVED",
+      "fit": {
+        "need": "PASS",
+        "mechanism": "PASS",
+        "counterfactual": "PASS",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/cl/clouds-coder.md",
+        "https://github.com/FonaTech/Clouds-Coder/blob/83a0d25aa59ef1bc8e295ec45104a9c7f0819c83/Clouds_Coder.py",
+        "https://github.com/FonaTech/Clouds-Coder/blob/83a0d25aa59ef1bc8e295ec45104a9c7f0819c83/tests/test_collaboration.py",
+        "https://github.com/opensiro/upstream/blob/67f19d625553700d35d325d3fd2c0c602ca223bc/pilots/clouds-coder-s2/INDEPENDENT_HOST_RECEIPT_2026-11-08.md"
+      ],
+      "handoff_url": "https://github.com/opensiro/upstream/blob/a9c08d010c856568bb6544f50a25e2d68b6c683c/pilots/clouds-coder-s2/CONTRIBUTION_HANDOFF.md",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "vibe-coder-parallel-child-feedback-isolation",
+      "assessment_path": "assessments/vi/vibe-coder.md",
+      "source": "jonathanhecl/vibe-coder",
+      "review_ref": "49f6598b756b3ec9440c80f16bdd556624a152f1",
+      "reviewed_at": "2026-11-06",
+      "function": "S2",
+      "finding": "Index S2=C identifies one delegated-tool-action mutex over parallel child loops, deliberately not full multi-step isolation. Prospectively test whether a supported same-file child edit/test sequence yields stale feedback due to interleaving, and whether an opt-in bounded solution has actual product need; null if per-action safety is the intended scope.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "FAIL"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/vi/vibe-coder.md",
+        "https://github.com/jonathanhecl/vibe-coder/blob/49f6598b756b3ec9440c80f16bdd556624a152f1/internal/agent/tool_policy.go",
+        "https://github.com/jonathanhecl/vibe-coder/blob/49f6598b756b3ec9440c80f16bdd556624a152f1/internal/agent/delegation_test.go"
+      ]
+    },
+    {
+      "id": "quickcode-failed-worktree-child-settlement",
+      "assessment_path": "assessments/qu/quickcode.md",
+      "source": "devincii-io/QuickCode",
+      "review_ref": "ac776f76b0243e248ff389c4b2dbdfc70475cce2",
+      "reviewed_at": "2026-11-06",
+      "function": "S2",
+      "finding": "Index S2=C identifies opt-in isolated worktrees for parallel child writers and deterministic distinct-branch settlement. Prospectively test whether supported failure/cancellation in one child leaves parent dirty or corrupts a disjoint child's reported branch result; null if recovery/cleanup preserves intentional state.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/qu/quickcode.md",
+        "https://github.com/devincii-io/QuickCode/blob/ac776f76b0243e248ff389c4b2dbdfc70475cce2/quickcode/subagents/worktree.py",
+        "https://github.com/devincii-io/QuickCode/blob/ac776f76b0243e248ff389c4b2dbdfc70475cce2/tests/test_subagent_worktree.py"
+      ]
+    }
+  ]
+}

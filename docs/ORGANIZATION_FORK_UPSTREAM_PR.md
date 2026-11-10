@@ -4,8 +4,13 @@
 fork credential/creation evidence: [#28](https://github.com/opensiro/upstream/issues/28).
 **Status:** external fork creation **ONE_OFF_FORK_VERIFIED** in
 `opensiro-contributions`; PR **READ-ONLY HANDOFF IMPLEMENTED**; external
-PR publication **HUMAN-OWNED / NOT EXECUTED**. No additional Control Plane
-or background agent is installed.
+PR publication **NOT EXECUTED** as of this historical handoff. Since
+2026-10-23, exactly 34 frozen Corrective cases had a separate
+[owner-approved finite publication mandate](CORRECTIVE_PR_PUBLICATION.md),
+subsequently amended to prefer Ready for review. Since the 2026-11-09 policy
+update, **each new external PR needs specific human publication approval**,
+including any reopened historical packet. No additional Control
+Plane or background agent is installed.
 
 ## Actual credential and rights evidence (2026-10-20)
 
@@ -73,6 +78,65 @@ already legitimately available to `gh` on the VM/host. It requires:
   organization fork head, no existing open matching pull request;
 - bounded, explicitly reviewed PR title and body, and an actor identity.
 
+### Source-native PR form and contributor requirements
+
+The **target upstream repository owns the shape of its PR**. Before drafting,
+requesting owner approval, or submitting *any* external PR (including a Draft
+PR and an already-authorized finite-cohort case):
+
+1. **Read current primary sources at the actual target base/ref.** Inspect
+   `.github/PULL_REQUEST_TEMPLATE.md`, `.github/pull_request_template.md`,
+   `PULL_REQUEST_TEMPLATE.md`, `pull_request_template.md`,
+   `docs/PULL_REQUEST_TEMPLATE.md` and relevant
+   `.github/PULL_REQUEST_TEMPLATE/` variants, including filename, path
+   and content SHA. Check `CONTRIBUTING.md`, contribution/PR guidelines,
+   `CODEOWNERS` when applicable, and documented CLA/DCO, tests, security and
+   issue-linking requirements. A missing root template alone does **not** prove
+   the repository has no template; inspect its tree or equivalent inventory.
+2. **Select the original appropriate template.** If several templates apply,
+   use the one matching the proposed bug/fix/feature; if selection is
+   ambiguous, stop for clarification rather than inventing a universal form.
+   If no applicable template exists after inspection, use a concise
+   product-native summary, change, evidence and limitations without claiming
+   that the repository provided a template.
+3. **Preserve the target's requested structure and intent.** Keep applicable
+   headings, order, required sections, fields and checkboxes, and answer what
+   each field actually asks. Remove instructional HTML comments or optional
+   sections only as the original template permits. Do **not** substitute an
+   OpenSiro-owned `Summary / Verification` form for a target's `Done /
+   Decisions / Open questions / Upgrade` form, for example. Do not mark
+   unexecuted tests or unmet checks as completed. Make technical claims
+   source-native; OpenSiro provenance can be linked without displacing the
+   maintainer's requested content.
+4. **Resolve source policy conflicts before publication.** Check the
+   contributor's required commands, DCO sign-off, CLA status, documentation,
+   licensing, test coverage and external-change scope. If a mandatory target
+   requirement cannot be met (including one that conflicts with OpenSiro's
+   no-live-model-trial boundary), disclose the conflict and hold the PR for
+   an attributable owner decision; never silently skip the requirement or
+   manufacture a passing receipt.
+5. **Disclose agent-led work without displacing the original template.**
+   Append the [OpenSiro AI-assisted PR disclosure](AI_ASSISTED_PR_DISCLOSURE.md)
+   verbatim after the target's required sections. The current v1 text states
+   that publication is temporarily human-approved while the owner monitors
+   pipeline errors; it makes no claim of human technical review. Do not
+   describe the present publication as fully autonomous. A future fully
+   autonomous mode requires its own effective authorization and disclosure.
+6. **Bind the reviewed request to the readback.** Record the exact target
+   base SHA, applicable template path and SHA (or verified `NONE`), source
+   policy path/ref, draft title/body and known outstanding checks in the
+   handoff. Run the normal branch/diff/duplicate-PR preflight again before
+   submission. The human's exact-title/body approval applies **after** the
+   source-native form has been completed; editing the body afterward requires
+   renewed review of the changed request. A template/policy mismatch is
+   `PR_BLOCKED_NO_WRITE`, not permission to post a generic draft.
+
+This is a mandatory review/pre-publication rule, **not** a claim that the
+existing `upstream_pr_handoff.py` automatically parses or enforces external
+repository templates. Its authenticated GET-only checks still enforce the
+separate identity/branch/diff boundary; the maintainer must check the
+source-native content and evidence before acting on its output.
+
 For example, **only after a real contribution branch has been prepared
 and independently validated** (replace both SHAs and branch):
 
@@ -106,29 +170,43 @@ says organization owners are not currently supported by its
 accepts `head=organization:branch` for a cross-repository PR, with
 `head_repo` required if both repositories share the same organization
 owner. The handoff builds the exact path/payload for these scenarios and
-defaults to `draft=true`.
+defaults to **Ready for review (`draft=false`)** for a reviewed, approved,
+source-native-valid contribution. Use `--draft --draft-reason 'specific pending
+review condition'` only when the human approves a concrete outstanding
+readiness condition; this is not a way to bypass a mandatory source-policy,
+license, CLA/DCO or publication gate. The `draft_request_body` JSON key is
+retained for backward compatibility, even when its `draft` value is `false`.
 
-## C. Separate human-owned external publication
+## C. External publication: ordinary human decision or finite Corrective grant
 
-After the operator explicitly approves **this exact title, body, fork,
-branch, target base and observed SHAs**, they can re-run preflight and
-publish **manually** from the credential-owning VM/host:
+For **every new external PR** under the 2026-11-09 policy, after the operator explicitly approves **this
+exact title, body, fork, branch, target base and observed SHAs**, they can
+re-run preflight and publish **manually** from the credential-owning VM/host:
 
 ```bash
 jq -er '.status == "PR_READY_FOR_MANUAL_REVIEW_NOT_PUBLISHED"' pr-handoff.json
 jq -e '.draft_request_body' pr-handoff.json > reviewed-pr-request.json
 
-# WRITE: human-owned, NEVER called by preflight or an unattended workflow
+# WRITE: manually authorized for ordinary cases; never called by preflight
 gh api --method POST repos/HarnessDesk/HarnessDesk/pulls \
   --input reviewed-pr-request.json
 ```
 
-No script in this PR executes the write command. A future automated
-publication stage needs an independently authenticated, revocable,
-one-use Control Plane stage grant and a protected executor, separate from
-existing `create_public_fork` and `prepare_contribution` permission.
-Submitting external PRs is **currently a human decision**, and a one-off
-fork approval must never be silently reused.
+No script in this historical handoff executes the write command. For **only**
+the 34 cases enumerated in the [finite Corrective queue](../data/corrective-publication/2026-10-23-01.json),
+the 2026-10-23 owner decision is the publication authorization: the
+authorized contribution actor may perform equivalent live operations to
+create the public `opensiro-contributions` fork, push a bounded working
+branch and open an external PR without a new per-case vote **under that
+historical mandate**. That authorization is not a standing exception to the
+new per-PR approval rule. For submitted or separately approved new PRs,
+prefer Ready for review (`draft: false`); Draft needs a concrete pending
+readiness reason. This remains subject to fresh preflight and provider
+identity/readback checks. It is **not** a
+credential, API capability, bypass of a permission denial, DCO/CLA signature,
+right to merge or authorization to contact maintainers outside PR creation.
+Future general automation still requires its separate activation; a one-off
+fork approval must never be silently reused for unrelated cases.
 
 ## Test state and remaining blockers
 

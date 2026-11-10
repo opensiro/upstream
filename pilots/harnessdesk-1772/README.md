@@ -1,4 +1,21 @@
-# HarnessDesk #1772 — assessment-driven S1 candidate (blocked; unpublished)
+# HarnessDesk #1772 — assessment-informed reliability contribution (blocked; unpublished)
+
+> **Assessment linkage clarification (2026-10-20):** This work is
+> [`ASSESSMENT_INFORMED`](ASSESSMENT_LINKAGE_2026-10-20.md): the pinned
+> canonical HarnessDesk assessment established the importance of the
+> host/common tool projection, but did **not** diagnose the specific
+> second-host socket-ownership defect. The defect came from upstream
+> [issue #1772](https://github.com/HarnessDesk/HarnessDesk/issues/1772)
+> and implementation inspection. The V2 patch remains valid engineering
+> work; do not count this as an independently demonstrated
+> `ASSESSMENT_DERIVED` functional improvement.
+> [Upstream #56](https://github.com/opensiro/upstream/issues/56) owns
+> new Index-first assessment-derived candidate selection. A later
+> [pinned full `pnpm check:push` run](https://github.com/opensiro/upstream/actions/runs/39467673123)
+> completed **SUCCESS** at `development@81d5e34`; the historical
+> earlier-unverified statements below are source-cut snapshots. The
+> contributor branch and external PR remain unpublished, and the local
+> preparation mandate remains inactive.
 
 > **Later current-source revalidation — 2026-10-20:** The
 > [new immutable prepare packet](prepare-v2-20261020-24aa8d7.json)

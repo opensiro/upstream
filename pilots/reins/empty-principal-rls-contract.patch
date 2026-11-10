@@ -1,0 +1,50 @@
+diff --git a/packages/python/src/reins/rls.py b/packages/python/src/reins/rls.py
+index 27f53ed..4fa3fa2 100644
+--- a/packages/python/src/reins/rls.py
++++ b/packages/python/src/reins/rls.py
+@@ -19,9 +19,9 @@ def scope_violation(capability: Capability, context: Context | None) -> str | No
+     A ``scope``-annotated capability requires an authenticated principal — an
+     anonymous call to it is refused before the function is invoked.
+     """
+-    if capability.scope is None:
++    if not capability.scope:
+         return None
+-    if context is None or context.principal is None:
++    if context is None or not context.principal:
+         return (
+             f"{capability.name!r} is scoped to {capability.scope!r} "
+             "but the run has no principal"
+diff --git a/packages/python/tests/test_rls_contract_unittest.py b/packages/python/tests/test_rls_contract_unittest.py
+new file mode 100644
+index 0000000..c679d47
+--- /dev/null
++++ b/packages/python/tests/test_rls_contract_unittest.py
+@@ -0,0 +1,28 @@
++"""Offline cross-language RLS contract tests for the shipped Python source."""
++
++import unittest
++
++from reins.rls import scope_violation
++from reins.types import Capability, Context
++
++
++class PrincipalBoundaryTests(unittest.TestCase):
++    @staticmethod
++    def spec(scope):
++        return Capability(name="get_orders", description="Read orders", scope=scope)
++
++    def test_scoped_empty_principal_is_denied(self):
++        self.assertIsNotNone(scope_violation(self.spec("orders"), Context(principal="")))
++
++    def test_empty_scope_is_unscoped(self):
++        self.assertIsNone(scope_violation(self.spec(""), Context()))
++
++    def test_missing_principal_with_real_scope_is_denied(self):
++        self.assertIsNotNone(scope_violation(self.spec("orders"), Context()))
++
++    def test_authenticated_principal_is_allowed(self):
++        self.assertIsNone(scope_violation(self.spec("orders"), Context(principal="user:7")))
++
++
++if __name__ == "__main__":
++    unittest.main()

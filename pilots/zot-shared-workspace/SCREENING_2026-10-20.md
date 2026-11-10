@@ -1,0 +1,49 @@
+# Upstream #56 — independent Index-first functional intervention screening
+
+**Status:** SCREENED / NO CANDIDATE YET ADMITTED / SOURCE-ONLY.
+**Origin:** canonical [OpenSiro Index main@5393b698bfdfa4ca14d97a79238234eca20694e5](https://github.com/opensiro/vsm-harness-index/commit/5393b698bfdfa4ca14d97a79238234eca20694e5), observed 2026-10-20.
+**Controlling protocol:** [assessment-to-improvement](../../docs/ASSESSMENT_TO_IMPROVEMENT.md) and [Upstream #56](https://github.com/opensiro/upstream/issues/56). No new S1 admission or write right.
+
+## Discovery and source order
+
+This screening **started with** canonical Index `data/signatures.psv` and `data/catalog.psv` at the immutable Index SHA, then inspected the included individual assessments, then independently visited target repositories, their current sources, contribution policies, issues and PRs. No target was selected from an existing OpenSiro fork or earlier HarnessDesk work. Index has a larger corpus; this is a **bounded initial sample**, not a claim of exhaustive top-N ranking.
+
+The signal used was an **assessment-described specific unresolved operating loop**—for example destructive concurrent S1 write interference, or judge independence—not a low S2/S3 score. Absence of autonomous metasystem ownership on its own was not treated as an upstream bug.
+
+| Index candidate | Specific finding in pinned assessment | Independent native evidence checked | Screen result |
+| --- | --- | --- | --- |
+| [Zot](https://github.com/opensiro/vsm-harness-index/blob/5393b698bfdfa4ca14d97a79238234eca20694e5/assessments/zo/zot.md) | S2: optional parallel native swarm workers **share a writable workspace**, with no inter-worker write-claim arbitration; S3 human-operated. Assessed source `2a19df15ba8278dd6a92240ab6c2ae267c3cf6c3` | Current [Zot `main@c62d1c5`](https://github.com/patriceckhart/zot/commit/c62d1c549d52cd33390968ffa50667cb79609152) `packages/agent/swarm/swarm.go` explicitly assigns `Agent.Dir = RepoRoot` for every worker. [README](https://github.com/patriceckhart/zot/blob/c62d1c549d52cd33390968ffa50667cb79609152/README.md) openly documents shared edits and manual worktree setup; [CONTRIBUTING](https://github.com/patriceckhart/zot/blob/c62d1c549d52cd33390968ffa50667cb79609152/CONTRIBUTING.md) requests design feedback for public APIs / multi-package changes. Open issue/PR listings and terms `swarm`, `worktree` found no current first-party request for automatic write arbitration. | **Investigation priority, NOT ADMITTED.** Mechanism supported; product demand, fit to deliberate shared-workspace design and safe bounded intervention **PENDING**. |
+| [CrewAI](https://github.com/opensiro/vsm-harness-index/blob/5393b698bfdfa4ca14d97a79238234eca20694e5/assessments/cr/crewai.md) | No independent S3* review path credited; task guardrail does not itself imply complementary organizational audit. Assessed source `894898f84c4ac0a89f24bf7bee6c381eb0e67f51`. | [Issue #7764](https://github.com/crewAIInc/crewAI/issues/7764) explicitly requests an optional separate LLM for string guardrails to reduce common judge/producer failure dependence. **An already-open direct overlapping implementation exists:** [CrewAI PR #8043](https://github.com/crewAIInc/crewAI/pull/8043), `feat: allow separate LLMs for string guardrails`. | **Do not duplicate.** Specific user demand exists, but the chosen improvement is already under upstream review; it would be misleading to propose it as a new independent contribution. Separate judge LLM alone also does not prove S3* closure. |
+| [stcode](https://github.com/opensiro/vsm-harness-index/blob/5393b698bfdfa4ca14d97a79238234eca20694e5/assessments/st/stcode.md) | Native opt-in multi-role mode has mailboxes and Git integration but no conflict-specific returned S2 coordination loop. Assessed source `c8ea59204776d6ed1a4bbe395872f32027833905`. | Current [`docs/architecture/team.md`](https://github.com/Ming-doan/stcode/blob/main/docs/architecture/team.md) explicitly designs manual role dispatch and no locks/CRDT/merge controller, with role-scoped checkouts. No current open first-party issue requested autonomous arbitration. | **PENDING / likely deliberate design.** A new manager/lock system would be an unrequested behavior and could violate the product's stated simplicity. |
+| [AgentBox](https://github.com/opensiro/vsm-harness-index/blob/5393b698bfdfa4ca14d97a79238234eca20694e5/assessments/ag/agentbox.md) | Box-to-box collision avoidance manually controlled; manager capability described as planned, not implemented, in assessed source `463a6a0a20176147f0b0dbfa8a261aba5e43cbd6`. | No current-source native issue/feature test completed in this screening. | **PENDING**; assessment evidence identifies a mechanism to investigate but not independently proven current product need. |
+| [Agent Squad](https://github.com/opensiro/vsm-harness-index/blob/5393b698bfdfa4ca14d97a79238234eca20694e5/assessments/ag/agent-squad.md) | Role overlap diagnostics exist but no **observed qualifying inter-S1 disturbance** or closed S2 feedback path. Assessed source `31eccfeb0d546262d1d0ec2e2e5239186f8d2954`. | Current tree includes `python/src/agent_squad/agent_overlap_analyzer.py` and supervisor/orchestrator, but role-label similarity alone does not establish harmful contention. | **FAIL for speculative S2 repair** until a concrete disturbance is independently demonstrated. |
+
+## Zot — bounded pre-intervention baseline, not a bug report
+
+The strongest presently **testable** hypothesis in this sample is Zot shared-workspace overwrite risk. It is a genuine aspect of the shipped optional swarm, but **explicitly intentional/documented**. We must not call it a defect without upstream-native demand, impact, compatibility and maintainer feedback.
+
+- Frozen source: `patriceckhart/zot@c62d1c549d52cd33390968ffa50667cb79609152`; native source `packages/agent/swarm/swarm.go` and actual `Spawn`/injected `Runner` interface.
+- Pre-change experiment: [real-package Go test fixture](assessment_shared_workspace_baseline_test.go), injected *only* into a disposable pinned upstream checkout in [credential-free CI](../../.github/workflows/zot-shared-workspace-baseline.yml).
+- Workload: two independent fake runners within a real `Swarm`, same `RepoRoot`, both read one shared file before either writes. Worker A writes its own update, then B writes its own update derived from the original contents. Both runner tasks may report `Done` while one source update is lost.
+- Baseline metric: number of intended updates vs unique updates preserved (`2` vs `1` in the constructed conflict) and native conflict/feedback status. These values are the **test's constructed prediction, not a reported empirical finding until CI succeeds**. This shows possibility under an adversarial schedule, not typical user frequency or relative product quality.
+- Safety isolation: temp directories; synthetic content; no external model API/token; no write to Zot GitHub repository, fork, branch or user file. Two workers are test doubles using Zot's first-party lifecycle, not an end-to-end AI-agent experiment.
+- Proposed future after-case *only if native fit is admitted*: preserve both nonconflicting updates, or reject one conflict with an explicit attributable result **before falsely reporting both successful**. Check non-overlapping workers remain concurrent, cancellation/restart semantics, cross-platform support, scope, and no hidden conflict override. Do not silently serialize all workers or add an S3 actor; the current common-workspace model may be intentional.
+- Primary remaining stop: no confirmed maintainer request or accepted design envelope for first-party conflict handling. [Zot contribution guidance](https://github.com/patriceckhart/zot/blob/c62d1c549d52cd33390968ffa50667cb79609152/CONTRIBUTING.md) favors a **human-owned design discussion** before a public API or multi-package behavior change. No external issue/PR/contact was made.
+
+## Four native-fit gates and closure
+
+| Gate | Zot provisional status | Reason |
+| --- | --- | --- |
+| Need | `PENDING` | Documented shared-write limitation, but no verified user incident/maintainer request for first-party intervention |
+| Mechanism | `PASS_BOUNDARY_ONLY` | First-party code objectively shares cwd across concurrently running S1s; it does not detect conflicts |
+| Counterfactual user value | `PENDING` | Avoiding lost edits plausibly valuable; must establish real workflow benefit relative to the intentionally chosen shared-root mode |
+| Scope / compatibility | `PENDING` | Any first-party isolation or arbitration may violate lightweight, shared-cwd design and alter public API; requires feedback |
+
+**Disposition:** `INSUFFICIENT / BLOCKED_EVIDENCE` for a **fully admitted assessment-derived product intervention**. The **Index-origin mechanism hypothesis** and prospective baseline are worth testing; they are **not** a passed improvement/accepted upstream opportunity yet. No new VSM grade, VSM function owner or product impact is claimed.
+
+### Next decision/evidence routes
+
+1. Inspect CI results of the exact Zot baseline (record PASS/FAIL and actual log), including real Go toolchain compatibility; amend status without rewriting the pinned evidence.
+2. Seek human-authorized **design feedback** from Zot maintainers explaining the counterfactual workflow, proposed opt-in safe response and alternatives; do not post to third-party project automatically.
+3. If supported, write a minimal **source-only** intervention to be measured on the same Go package and matched schedule; do not force a new manager, additional service or broad S2 grade promotion.
+4. If fit is rejected or baseline misses the claimed behavior, record the **negative discovery result** and select the next included Index assessment independently. No fork permission/PR publication is inferred from screening.

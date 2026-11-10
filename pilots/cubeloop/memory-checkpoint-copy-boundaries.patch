@@ -1,0 +1,83 @@
+diff --git a/cubeloop/checkpointer/memory.py b/cubeloop/checkpointer/memory.py
+index 6d5b236..f3bef1c 100644
+--- a/cubeloop/checkpointer/memory.py
++++ b/cubeloop/checkpointer/memory.py
+@@ -45,7 +45,8 @@ class MemoryCheckpointer:
+         self._lock = asyncio.Lock()
+ 
+     async def load(self, thread_id: str) -> CheckpointData | None:
+-        return self._store.get(thread_id)
++        async with self._lock:
++            return copy.deepcopy(self._store.get(thread_id))
+ 
+     async def append(self, thread_id: str, messages: list[Message]) -> None:
+         async with self._lock:
+@@ -59,13 +60,15 @@ class MemoryCheckpointer:
+                     )
+             if thread_id not in self._store:
+                 self._store[thread_id] = CheckpointData()
+-            self._store[thread_id].messages.extend(messages)
++            self._store[thread_id].messages.extend(
++                _legible_message_copy(m) for m in messages
++            )
+ 
+     async def save_extra(self, thread_id: str, extra: JsonObject) -> None:
+         async with self._lock:
+             if thread_id not in self._store:
+                 self._store[thread_id] = CheckpointData()
+-            self._store[thread_id].extra.update(extra)
++            self._store[thread_id].extra.update(copy.deepcopy(extra))
+ 
+     async def save_pending_request(
+         self,
+diff --git a/tests/checkpointer/test_memory_copy_boundary_unittest.py b/tests/checkpointer/test_memory_copy_boundary_unittest.py
+new file mode 100644
+index 0000000..7688c19
+--- /dev/null
++++ b/tests/checkpointer/test_memory_copy_boundary_unittest.py
+@@ -0,0 +1,45 @@
++"""Deterministic storage-isolation checks on the first-party memory checkpointer."""
++
++import unittest
++
++from cubeloop.checkpointer.memory import MemoryCheckpointer
++from cubeloop.providers.base import TextContent, UserMessage
++
++
++class MemoryCheckpointCopyTests(unittest.IsolatedAsyncioTestCase):
++    async def test_loaded_extra_cannot_modify_persisted_checkpoint(self):
++        cp = MemoryCheckpointer()
++        await cp.save_extra("thread", {"nested": {"value": "saved"}})
++        loaded = await cp.load("thread")
++        self.assertIsNotNone(loaded)
++        loaded.extra["nested"]["value"] = "changed"
++        again = await cp.load("thread")
++        self.assertEqual(again.extra["nested"]["value"], "saved")
++
++    async def test_saved_extra_does_not_track_caller_mutation(self):
++        cp = MemoryCheckpointer()
++        extra = {"nested": {"value": "saved"}}
++        await cp.save_extra("thread", extra)
++        extra["nested"]["value"] = "changed"
++        loaded = await cp.load("thread")
++        self.assertEqual(loaded.extra["nested"]["value"], "saved")
++
++    async def test_appended_message_does_not_track_caller_mutation(self):
++        cp = MemoryCheckpointer()
++        message = UserMessage(content=[TextContent(text="saved")])
++        await cp.append("thread", [message])
++        message.content[0].text = "changed"
++        loaded = await cp.load("thread")
++        self.assertEqual(loaded.messages[0].content[0].text, "saved")
++
++    async def test_normal_append_and_extra_are_preserved(self):
++        cp = MemoryCheckpointer()
++        await cp.append("thread", [UserMessage(content=[TextContent(text="ok")])])
++        await cp.save_extra("thread", {"count": 1})
++        loaded = await cp.load("thread")
++        self.assertEqual(loaded.messages[0].content[0].text, "ok")
++        self.assertEqual(loaded.extra, {"count": 1})
++
++
++if __name__ == "__main__":
++    unittest.main()

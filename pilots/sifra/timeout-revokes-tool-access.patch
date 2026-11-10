@@ -1,0 +1,74 @@
+diff --git a/scripts/native-sandbox-timeout.test.mjs b/scripts/native-sandbox-timeout.test.mjs
+new file mode 100644
+index 0000000..94a400a
+--- /dev/null
++++ b/scripts/native-sandbox-timeout.test.mjs
+@@ -0,0 +1,31 @@
++import assert from 'node:assert/strict';
++import test from 'node:test';
++import { runInSandbox } from '../sifra/sandbox.ts';
++
++test('native inline script can invoke a permitted tool before deadline', async () => {
++  const calls = [];
++  const result = await runInSandbox('tools.record("ok"); return 1;', {
++    record: value => calls.push(value),
++  }, { timeoutMs: 100 });
++  assert.equal(result.ok, true);
++  assert.deepEqual(calls, ['ok']);
++});
++
++test('async task that exceeds the deadline reports a timeout', async () => {
++  const result = await runInSandbox('await tools.wait(); return 1;', {
++    wait: () => new Promise(resolve => setTimeout(resolve, 35)),
++  }, { timeoutMs: 5 });
++  assert.equal(result.ok, false);
++  assert.match(result.error, /timed out/);
++});
++
++test('timed-out code cannot call another host tool after being rejected', async () => {
++  const effects = [];
++  const result = await runInSandbox('await tools.wait(); tools.record("late");', {
++    wait: () => new Promise(resolve => setTimeout(resolve, 35)),
++    record: value => effects.push(value),
++  }, { timeoutMs: 5 });
++  assert.equal(result.ok, false);
++  await new Promise(resolve => setTimeout(resolve, 65));
++  assert.deepEqual(effects, []);
++});
+diff --git a/sifra/sandbox.ts b/sifra/sandbox.ts
+index 9d45b22..304645c 100644
+--- a/sifra/sandbox.ts
++++ b/sifra/sandbox.ts
+@@ -27,10 +27,22 @@ export async function runInSandbox(
+ ): Promise<SandboxResult> {
+   const timeoutMs = opts.timeoutMs ?? 2000;
+   const logs: string[] = [];
++  let toolAccessActive = true;
++
++  // Promise.race cannot cancel async VM work. Revoke access to host tools as
++  // soon as this invocation settles, so late continuations cannot invoke them.
++  const guardedApi: SandboxApi = Object.fromEntries(
++    Object.entries(api).map(([name, fn]) => [name, (...args: any[]) => {
++      if (!toolAccessActive) {
++        throw new Error("Sandbox tool access expired");
++      }
++      return fn(...args);
++    }]),
++  );
+ 
+   // The ENTIRE global the code can see. Frozen so the code can't add to it.
+   const context = vm.createContext({
+-    tools: api,
++    tools: Object.freeze(guardedApi),
+     console: { log: (...args: unknown[]) => logs.push(args.map(String).join(" ")) },
+   });
+ 
+@@ -47,6 +59,8 @@ export async function runInSandbox(
+     return { ok: true, result: result === undefined ? null : result, logs };
+   } catch (err) {
+     return { ok: false, error: err instanceof Error ? err.message : String(err), logs };
++  } finally {
++    toolAccessActive = false;
+   }
+ }
+ 
