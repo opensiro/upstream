@@ -4,20 +4,20 @@
   "batch_sources": "data/assessment-candidate-batches/*.json",
   "counts": {
     "priority_sources": 100,
-    "historical_extras": 93,
-    "batch_only_extras": 80,
+    "historical_extras": 97,
+    "batch_only_extras": 84,
     "pilot_only_extras": 5,
     "portfolio_only_extras": 8,
-    "unique_sources": 193,
-    "batch_manifests": 23,
-    "batch_cases": 135,
+    "unique_sources": 197,
+    "batch_manifests": 24,
+    "batch_cases": 140,
     "historical_fork_mappings": 16,
     "name_collision_sources": 11,
-    "technical_handoffs": 52,
+    "technical_handoffs": 53,
     "dated_fork_readbacks": 16,
     "same_named_ref_matches_at_readback": 9,
     "technical_packet_states": {
-      "EXPLICIT_PATCH_HASH_MATCHED": 12,
+      "EXPLICIT_PATCH_HASH_MATCHED": 13,
       "LOCAL_MULTI_PATCH_SELECTION_REQUIRED": 3,
       "LOCAL_SINGLE_PATCH_UNREVIEWED": 33,
       "NO_LOCAL_PACKET_OR_PR_ONLY_HANDOFF": 4
@@ -1789,6 +1789,23 @@
       "next_step": "HISTORICAL_PR_TRACK_ONLY_NO_NEW_PUBLICATION"
     },
     {
+      "source": "graniet/kheish",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-10-24.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/kheish",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
       "source": "greyhaven-ai/autocontext",
       "priority_group": "HISTORICAL_EXTRA",
       "batches": [
@@ -2121,8 +2138,10 @@
     {
       "source": "jonwiggins/optio",
       "priority_group": "INDEX_HYPOTHESIS",
-      "batches": [],
-      "latest_stage": null,
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-10-24.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
       "handoffs": [],
       "pilot_links": [],
       "historical_prs": [],
@@ -2131,7 +2150,7 @@
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/optio",
       "license_review": false,
-      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+      "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
       "source": "jpantsjoha/ai-native-developer-experience",
@@ -3422,6 +3441,23 @@
       "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
     },
     {
+      "source": "provos/ironcurtain",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-10-24.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/ironcurtain",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
       "source": "Qin-sor/agent-context-lab",
       "priority_group": "HISTORICAL_EXTRA",
       "batches": [
@@ -4533,6 +4569,23 @@
       "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
     },
     {
+      "source": "xiaotianfotos/homerail",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-10-24.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/homerail",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
       "source": "xincode-ai/xin-code",
       "priority_group": "HISTORICAL_EXTRA",
       "batches": [
@@ -4653,6 +4706,45 @@
       "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/activegraph",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "yologdev/yoagent",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-10-24.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "yoagent-file-alias-lock",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_DERIVED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-24-20261110/pilots/yoagent-file-alias-s2/CONTRIBUTION_HANDOFF.md",
+          "patch_path": "pilots/yoagent-file-alias-s2/native-fix.patch",
+          "patch_sha256": "a4646350abef97cb76cf4f8bc7506cfe31f961b37a5896e5e61ddb2d50d20c94",
+          "test_patch_path": "pilots/yoagent-file-alias-s2/native-regression.patch",
+          "technical_packet": {
+            "state": "EXPLICIT_PATCH_HASH_MATCHED",
+            "pilot": null,
+            "explicit_patch": {
+              "path": "pilots/yoagent-file-alias-s2/native-fix.patch",
+              "sha256": "a4646350abef97cb76cf4f8bc7506cfe31f961b37a5896e5e61ddb2d50d20c94"
+            },
+            "explicit_test_patch": {
+              "path": "pilots/yoagent-file-alias-s2/native-regression.patch",
+              "sha256": "ab7994de0c0dbc0ab583746f38340f916dbf817f2eb58911731054bc9412287b"
+            }
+          }
+        }
+      ],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/yoagent",
       "license_review": false,
       "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
     },

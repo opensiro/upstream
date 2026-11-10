@@ -1,0 +1,44 @@
+diff --git a/src/tools/file.rs b/src/tools/file.rs
+--- a/src/tools/file.rs
++++ b/src/tools/file.rs
+@@ -1250,3 +1250,40 @@
+         assert_eq!(std::fs::read_to_string(&path).unwrap(), "before");
+     }
++    #[cfg(unix)]
++    #[tokio::test]
++    async fn hard_link_aliases_share_the_same_file_mutex() {
++        use std::time::Duration;
++        let dir = tempfile::TempDir::new().unwrap();
++        let first_path = dir.path().join("a.txt");
++        let alias_path = dir.path().join("b.txt");
++        let unrelated_path = dir.path().join("c.txt");
++        std::fs::write(&first_path, "original").unwrap();
++        std::fs::hard_link(&first_path, &alias_path).unwrap();
++        std::fs::write(&unrelated_path, "unrelated").unwrap();
++        let sandbox = crate::tools::PathSandbox::default();
++        let key_a = sandbox.check(first_path.to_str().unwrap()).unwrap();
++        let key_b = sandbox.check(alias_path.to_str().unwrap()).unwrap();
++        let key_c = sandbox.check(unrelated_path.to_str().unwrap()).unwrap();
++        assert_ne!(key_a, key_b, "hard links have distinct canonical paths");
++        let cancel = CancellationToken::new();
++        let first_guard = hold_file(&key_a, &cancel).await.unwrap();
++        let alias_wait =
++            tokio::time::timeout(Duration::from_millis(50), hold_file(&key_b, &cancel)).await;
++        assert!(
++            alias_wait.is_err(),
++            "a hard-link alias must wait on the same file mutex"
++        );
++        let unrelated_guard =
++            tokio::time::timeout(Duration::from_secs(1), hold_file(&key_c, &cancel))
++                .await
++                .expect("unrelated file must not wait")
++                .unwrap();
++        drop(unrelated_guard);
++        drop(first_guard);
++        let alias_guard = tokio::time::timeout(Duration::from_secs(1), hold_file(&key_b, &cancel))
++            .await
++            .expect("alias must acquire after release")
++            .unwrap();
++        drop(alias_guard);
++    }
+ }

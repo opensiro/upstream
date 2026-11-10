@@ -3,17 +3,17 @@
   "state": "READ_ONLY_PROPOSAL_NOT_APPROVED",
   "destination_org": "opensiro-contributions",
   "source_registry": "data/contribution-workspaces/registry.json",
-  "source_registry_sha256": "25a658bdd95bdc3cfbc6bf2c75ff45a000a741866e02c1bd2666cafa226e7159",
+  "source_registry_sha256": "3ab62b502e0387d1d6981e85e5916a743ab11e19e58b32677e806171a16813a1",
   "priority_snapshot": "data/fork-priorities/2026-11-08.json",
   "batch_size_max": 10,
   "counts": {
-    "sources": 193,
+    "sources": 197,
     "priority_sources": 100,
-    "additive_extras": 93,
+    "additive_extras": 97,
     "collision_name_proposals": 11,
     "creation_batches": 9,
     "by_state": {
-      "HOLD_HISTORICAL_OR_NEGATIVE_CASE": 91,
+      "HOLD_HISTORICAL_OR_NEGATIVE_CASE": 95,
       "HOLD_LICENSE_REVIEW": 5,
       "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT": 81,
       "RECHECK_MAPPED_FORK": 16
@@ -35,7 +35,7 @@
     {
       "id": "bootstrap-001",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "b97b627fea2654a62d09416c881f750b6744563f7de5a0aede25ae0ecba9c99e",
+      "selection_sha256": "3984ef3e29b98d403bc2663de104de4de5df67f1f31f19cf42555f1eaea0ee0d",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -84,7 +84,7 @@
     {
       "id": "bootstrap-002",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "ff13f35d9c7218ae3001f25c93420f4d47f2ed4974b86566d53ab54eeded55d0",
+      "selection_sha256": "cbd40791f74eaf97589949f208fcead30146557b0a6978dab9e51611ab2c5c82",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -133,7 +133,7 @@
     {
       "id": "bootstrap-003",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "5c110d77ce360dd27b9ef8e09d91835f2fa51a56778a4910c13121f06bc7802f",
+      "selection_sha256": "8533efac992de3bc37697ed2b3b8c1cac0540c8565b9455ee1c9b20b9c7a0ae6",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -182,7 +182,7 @@
     {
       "id": "bootstrap-004",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "355a4a1d9a6b5b89246db415f9d10403023256550a1cdafa7f535bd226babec0",
+      "selection_sha256": "e0f065cf6d706d238fb9f25775026748859398842280306bfe67802f8b330f20",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -231,7 +231,7 @@
     {
       "id": "bootstrap-005",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "e74310c0bd454c4122c938e50fc3acc8a3d4854d2de651801ad8e3b46bc5a160",
+      "selection_sha256": "945cc1a44736172dfe28fe8d6979431de35f4dd519aaafc912101435cb4a6ca8",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -280,7 +280,7 @@
     {
       "id": "bootstrap-006",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "38df7d6422511cf62d56905743ee5ecd2e9f3ff3406b71a2d65d6e71dfc1de64",
+      "selection_sha256": "715a2ea98c3e6a4a4614dda9517d1f774ab23371bea76d8777ca93086bd2fe7c",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -295,10 +295,6 @@
         {
           "source": "ayandexyz/Honey-I-Shrunk-the-Harness",
           "candidate_fork": "opensiro-contributions/Honey-I-Shrunk-the-Harness"
-        },
-        {
-          "source": "jonwiggins/optio",
-          "candidate_fork": "opensiro-contributions/optio"
         },
         {
           "source": "rootkiller6788/dsh-flow",
@@ -323,20 +319,20 @@
         {
           "source": "arbazkhan971/bharatcode-cli",
           "candidate_fork": "opensiro-contributions/bharatcode-cli"
+        },
+        {
+          "source": "mihazs/agent-harness-lab",
+          "candidate_fork": "opensiro-contributions/agent-harness-lab"
         }
       ]
     },
     {
       "id": "bootstrap-007",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "ec6f30aa068bfa1dff373bfa68ac0f3b79e338d4c5dfbeb3f9171b77d630145a",
+      "selection_sha256": "01daff08ff9debc4cc9b74e539ea9ff2ae802aa8bbd990cee0411770334e0472",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
-        {
-          "source": "mihazs/agent-harness-lab",
-          "candidate_fork": "opensiro-contributions/agent-harness-lab"
-        },
         {
           "source": "haoyu-agent/SceneEvolve_Code",
           "candidate_fork": "opensiro-contributions/SceneEvolve_Code"
@@ -372,20 +368,20 @@
         {
           "source": "0xNyk/lacp",
           "candidate_fork": "opensiro-contributions/lacp"
+        },
+        {
+          "source": "avala-ai/agent-code",
+          "candidate_fork": "opensiro-contributions/agent-code"
         }
       ]
     },
     {
       "id": "bootstrap-008",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "7e3c28941300bd0427f8e82e73cd8fcfb4dff8b5f7403998b923861f5b525b7e",
+      "selection_sha256": "af82b40f5ed3b0f3093a3bb46b01e2b42fca472e8c8ac9aa3b0bacc185872e84",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
-        {
-          "source": "avala-ai/agent-code",
-          "candidate_fork": "opensiro-contributions/agent-code"
-        },
         {
           "source": "chekusu/wanman",
           "candidate_fork": "opensiro-contributions/wanman"
@@ -421,19 +417,23 @@
         {
           "source": "splashxmoon/friday",
           "candidate_fork": "opensiro-contributions/friday"
+        },
+        {
+          "source": "xingyaoww/code-act",
+          "candidate_fork": "opensiro-contributions/code-act"
         }
       ]
     },
     {
       "id": "bootstrap-009",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "35babf91c15d8c82b9f4d4ecd76816ddc8d6c4ef4d1b111b5e6a192189dbcbaa",
+      "selection_sha256": "4fcbded6b23f761f77042d2f9d31a96e68e46a108830195804702fd578e66fa9",
       "source_count": 1,
       "has_collision_name_proposals": false,
       "selection": [
         {
-          "source": "xingyaoww/code-act",
-          "candidate_fork": "opensiro-contributions/code-act"
+          "source": "yologdev/yoagent",
+          "candidate_fork": "opensiro-contributions/yoagent"
         }
       ]
     }
@@ -1289,11 +1289,11 @@
     {
       "source": "jonwiggins/optio",
       "priority_group": "INDEX_HYPOTHESIS",
-      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
       "candidate_fork": "opensiro-contributions/optio",
       "candidate_name": "optio",
       "collision_name_proposal": false,
-      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
@@ -1881,6 +1881,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "graniet/kheish",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/kheish",
+      "candidate_name": "kheish",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "greyhaven-ai/autocontext",
       "priority_group": "HISTORICAL_EXTRA",
       "next_step": "TRACK_ONLY_NO_CHANGE",
@@ -2200,6 +2211,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "provos/ironcurtain",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/ironcurtain",
+      "candidate_name": "ironcurtain",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "Qin-sor/agent-context-lab",
       "priority_group": "HISTORICAL_EXTRA",
       "next_step": "BLOCKED_LICENSE_REVIEW",
@@ -2497,6 +2519,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "xiaotianfotos/homerail",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/homerail",
+      "candidate_name": "homerail",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "xincode-ai/xin-code",
       "priority_group": "HISTORICAL_EXTRA",
       "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
@@ -2526,6 +2559,17 @@
       "candidate_name": "agentic-sdlc-control-plane",
       "collision_name_proposal": false,
       "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "yologdev/yoagent",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
+      "candidate_fork": "opensiro-contributions/yoagent",
+      "candidate_name": "yoagent",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
