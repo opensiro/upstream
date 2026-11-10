@@ -125,19 +125,25 @@
       "reviewed_at": "2026-09-28",
       "function": "S2",
       "finding": "Check whether concurrent shared-thread turns with colliding provider-local tool-call IDs can misattribute a peer result during stitchHistory repair.",
-      "stage": "SCREENING",
+      "stage": "BLOCKED_EVIDENCE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
+        "need": "PASS",
+        "mechanism": "PASS",
         "counterfactual": "PENDING",
         "scope": "PENDING"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/da98a140b1c6541f639c1dc4094bf2aeaacdb08d/assessments/po/polyphemus.md",
-        "https://github.com/opensiro/upstream/commit/5ddeba928a62829d1951f3380d728920ff63ec01"
+        "https://github.com/opensiro/upstream/commit/5ddeba928a62829d1951f3380d728920ff63ec01",
+        "https://github.com/polyphemus-ai/release-rehearsal/blob/3beb3d674c4c5de8da62a41674733539ca41733a/packages/core/src/history.ts",
+        "https://github.com/polyphemus-ai/release-rehearsal/blob/3beb3d674c4c5de8da62a41674733539ca41733a/packages/core/src/types.ts",
+        "https://github.com/polyphemus-ai/release-rehearsal/blob/3beb3d674c4c5de8da62a41674733539ca41733a/docs/design/parallel-agents.md",
+        "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-25-20261110/pilots/polyphemus-tool-collision-s2/TEST_PLAN.md",
+        "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-25-20261110/pilots/polyphemus-tool-collision-s2/NATIVE_DIAGNOSTIC_2026-11-10.md"
       ],
-      "screening_result": "PRE_REGISTERED_ONLY: no current first-party target inspection or native validation completed. See hypothesis checkpoint for a falsifiable native test and null condition."
+      "screening_result": "Pinned first-party current main 3beb3d6 Apache-2.0 has stitchHistory resultFor Map keyed only by raw callId with last-write-wins. Independent dev-alpha-2 cached Node 22 Docker run (session 87e1aa54-5794-4ef9-9140-8d1133c0a15a, no network/LLM) executes exact source-native history.ts: two assistant calls both id c1 and two distinct replies are stitched into beta-result, beta-result, alpha-result, expected native diagnostic RED/exit 1. A real shared-thread duplicate ID collision has not been observed in production; raw Message schema lacks a distinct owner key. A bounded repair that can unambiguously associate call with result in arbitrary interleavings has not been established, so hold without patch or external benefit claim.",
+      "blocker": "Need safe, first-party supported per-call/turn provenance or explicit fail-closed duplicate-ID policy and provider adapter compatibility; completion order cannot reliably identify owners. Confirm real duplicate-ID input path, add collision/ordinary-history native tests and establish nonlossy policy before authoring a patch."
     }
   ]
 }
