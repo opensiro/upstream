@@ -5,7 +5,7 @@
   "index_sha": "da98a140b1c6541f639c1dc4094bf2aeaacdb08d",
   "frozen_at": "2026-11-10",
   "state": "FROZEN_SCREENING",
-  "selection_note": "UPSTREAM UPGRADE BATCH 25 standard five-source cohort, first five available included S1=A/S2=C Index identities in current TLDR ordering after 24 integrated prior manifests (140 unique prior source identities) and live open Upstream/Index PR claim checks. Exact Index main da98a140. All five S2 questions, predicted native weakness, expected counterfactual and explicit null/falsifier were preregistered in immutable checkpoint 5ddeba9 before any fresh target code/issues inspection. Cohort is five questions, not five preadmitted fixes; no external publication rights inferred.",
+  "selection_note": "UPSTREAM UPGRADE BATCH 25 standard five-source cohort, five available included S1=A/S2=C Index identities from the newest TLDR candidate window, executed in schema-required reviewed_at descending order after 24 integrated prior manifests (140 unique prior source identities) and live open Upstream/Index PR claim checks. Exact Index main da98a140. All five S2 questions, predicted native weakness, expected counterfactual and explicit null/falsifier were preregistered in immutable checkpoint 5ddeba9 before any fresh target code/issues inspection. Cohort is five questions, not five preadmitted fixes; no external publication rights inferred.",
   "candidates": [
     {
       "id": "knowwork-sandbox-multiprocess-ownership",
@@ -25,6 +25,28 @@
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/da98a140b1c6541f639c1dc4094bf2aeaacdb08d/assessments/kn/knowwork.md",
+        "https://github.com/opensiro/upstream/commit/5ddeba928a62829d1951f3380d728920ff63ec01"
+      ],
+      "screening_result": "PRE_REGISTERED_ONLY: no current first-party target inspection or native validation completed. See hypothesis checkpoint for a falsifiable native test and null condition."
+    },
+    {
+      "id": "rune-terminal-child-slot-reclaim",
+      "assessment_path": "assessments/aa/aadixc0de-rune.md",
+      "source": "AadiXC0DE/Rune",
+      "review_ref": "538f8bdb96c926880628c102fdc2cd8c2d473fb1",
+      "reviewed_at": "2026-10-23",
+      "function": "S2",
+      "finding": "Check whether a completed child continues consuming exported Registry child capacity or name while a safe supported replacement could be admitted.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/da98a140b1c6541f639c1dc4094bf2aeaacdb08d/assessments/aa/aadixc0de-rune.md",
         "https://github.com/opensiro/upstream/commit/5ddeba928a62829d1951f3380d728920ff63ec01"
       ],
       "screening_result": "PRE_REGISTERED_ONLY: no current first-party target inspection or native validation completed. See hypothesis checkpoint for a falsifiable native test and null condition."
@@ -91,28 +113,6 @@
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/da98a140b1c6541f639c1dc4094bf2aeaacdb08d/assessments/po/polyphemus.md",
-        "https://github.com/opensiro/upstream/commit/5ddeba928a62829d1951f3380d728920ff63ec01"
-      ],
-      "screening_result": "PRE_REGISTERED_ONLY: no current first-party target inspection or native validation completed. See hypothesis checkpoint for a falsifiable native test and null condition."
-    },
-    {
-      "id": "rune-terminal-child-slot-reclaim",
-      "assessment_path": "assessments/aa/aadixc0de-rune.md",
-      "source": "AadiXC0DE/Rune",
-      "review_ref": "538f8bdb96c926880628c102fdc2cd8c2d473fb1",
-      "reviewed_at": "2026-10-23",
-      "function": "S2",
-      "finding": "Check whether a completed child continues consuming exported Registry child capacity or name while a safe supported replacement could be admitted.",
-      "stage": "SCREENING",
-      "origin": "INSUFFICIENT",
-      "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
-      },
-      "evidence": [
-        "https://github.com/opensiro/vsm-harness-index/blob/da98a140b1c6541f639c1dc4094bf2aeaacdb08d/assessments/aa/aadixc0de-rune.md",
         "https://github.com/opensiro/upstream/commit/5ddeba928a62829d1951f3380d728920ff63ec01"
       ],
       "screening_result": "PRE_REGISTERED_ONLY: no current first-party target inspection or native validation completed. See hypothesis checkpoint for a falsifiable native test and null condition."
