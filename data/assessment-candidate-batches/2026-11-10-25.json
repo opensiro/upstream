@@ -15,19 +15,29 @@
       "reviewed_at": "2026-10-24",
       "function": "S2",
       "finding": "Check whether two independent business-server processes concurrently acquiring the same workspace/session sandbox can produce duplicate or misattributed Docker ownership despite process-local key locks.",
-      "stage": "SCREENING",
-      "origin": "INSUFFICIENT",
+      "stage": "AWAITING_EXTERNAL",
+      "origin": "ASSESSMENT_DERIVED",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "PASS",
+        "mechanism": "PASS",
+        "counterfactual": "PASS",
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/da98a140b1c6541f639c1dc4094bf2aeaacdb08d/assessments/kn/knowwork.md",
-        "https://github.com/opensiro/upstream/commit/5ddeba928a62829d1951f3380d728920ff63ec01"
+        "https://github.com/opensiro/upstream/commit/5ddeba928a62829d1951f3380d728920ff63ec01",
+        "https://github.com/knowflow-ai/KnowWork/blob/033b49240ec49c7b8d3b43f1783b9b4d89425b5e/server/src/knowwork_server/sandbox/containers.py",
+        "https://github.com/knowflow-ai/KnowWork/blob/033b49240ec49c7b8d3b43f1783b9b4d89425b5e/server/tests/sandbox/test_lifecycle.py",
+        "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-25-20261110/pilots/knowwork-start-race-s2/TEST_PLAN.md",
+        "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-25-20261110/pilots/knowwork-start-race-s2/INDEPENDENT_HOST_RECEIPT_2026-11-10.md"
       ],
-      "screening_result": "PRE_REGISTERED_ONLY: no current first-party target inspection or native validation completed. See hypothesis checkpoint for a falsifiable native test and null condition."
+      "screening_result": "Pinned current first-party KnowWork 033b492 Apache-2.0 already handles create-409 collision, but does not handle interprocess same-ID Docker start after a peer starts the container. The existing created-container and newly-created paths propagate Docker 304 as SandboxError; the latter can delete a running peer-used container. After preregistration, first-party native FakeDocker cases on independent dev-alpha-2 reproduce both failures RED, then 2/2 GREEN with bounded same-ID inspect-on-start-failure patch; full 34/34 lifecycle tests PASS with Python 3.12. This is deterministic interleaving evidence, not a real Docker multi-process test or observed production impact. External publication not executed.",
+      "handoff_url": "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-25-20261110/pilots/knowwork-start-race-s2/CONTRIBUTION_HANDOFF.md",
+      "patch_path": "pilots/knowwork-start-race-s2/native-fix.patch",
+      "patch_sha256": "fcc24402da2b1dc7219fbed9098b3a893d54728620a6bc069f5a56f3bf6b60ca",
+      "test_patch_path": "pilots/knowwork-start-race-s2/native-regression.patch",
+      "external_action": "NOT_EXECUTED",
+      "observed_native_change": "dev-alpha-2 pinned source 033b492: pristine control 08049ef5-2d7d-4632-bde2-c75f66518e7f six relevant PASS; regression-only RED dceb81f0-2561-4b29-a45e-abe6f757c279 two FAIL; fixed GREEN 7414d54d-b533-459f-8329-e72380074d41 two PASS; 7be843cc-5c20-45d9-b614-5815587ccef2 34/34 PASS; archived patches apply cleanly to clean source."
     },
     {
       "id": "rune-terminal-child-slot-reclaim",
