@@ -115,7 +115,14 @@ PR and an already-authorized finite-cohort case):
    no-live-model-trial boundary), disclose the conflict and hold the PR for
    an attributable owner decision; never silently skip the requirement or
    manufacture a passing receipt.
-5. **Bind the reviewed request to the readback.** Record the exact target
+5. **Disclose agent-led work without displacing the original template.**
+   Append the [OpenSiro AI-assisted PR disclosure](AI_ASSISTED_PR_DISCLOSURE.md)
+   verbatim after the target's required sections. The current v1 text states
+   that publication is temporarily human-approved while the owner monitors
+   pipeline errors; it makes no claim of human technical review. Do not
+   describe the present publication as fully autonomous. A future fully
+   autonomous mode requires its own effective authorization and disclosure.
+6. **Bind the reviewed request to the readback.** Record the exact target
    base SHA, applicable template path and SHA (or verified `NONE`), source
    policy path/ref, draft title/body and known outstanding checks in the
    handoff. Run the normal branch/diff/duplicate-PR preflight again before

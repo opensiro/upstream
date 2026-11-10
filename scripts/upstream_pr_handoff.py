@@ -6,6 +6,7 @@ Prints the reviewed GitHub REST payload for a SEPARATE human-owned action.
 A green handoff is not permission to publish.
 """
 import argparse
+from datetime import date
 import hashlib
 import json
 from pathlib import Path
@@ -21,6 +22,35 @@ SHA = re.compile(r"^[0-9a-f]{40}$")
 LOGIN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9-]{0,38}$")
 CONTRIB_BRANCH = re.compile(r"^opensiro/[a-z0-9][a-z0-9._/-]{0,79}$")
 ALLOWED_OWNERS = {"opensiro", "opensiro-contributions"}
+DISCLOSURE_TEMPLATE = (Path(__file__).resolve().parents[1] /
+                       "templates/EXTERNAL_PR_DISCLOSURE.md")
+DISCLOSURE_MARKER = "<!-- opensiro-ai-assessment-disclosure:v2 -->"
+
+
+def _verify_disclosure(body):
+    _need(DISCLOSURE_TEMPLATE.is_file(), "Required AI disclosure template unavailable")
+    template = DISCLOSURE_TEMPLATE.read_text(encoding="utf-8").strip()
+    pattern = re.escape(template)
+    fields = {
+        "ASSESSMENT_PATH": r"assessments/[a-z0-9-]+/[a-z0-9._-]+\.md",
+        "ASSESSMENT_INDEX_SHA": r"[0-9a-f]{40}",
+        "ASSESSMENT_DATE": r"\d{4}-\d{2}-\d{2}",
+        "ASSESSMENT_REVIEW_REF": r"[0-9a-f]{40}",
+    }
+    for name, value_pattern in fields.items():
+        token = re.escape("{{" + name + "}}")
+        # The Index path appears in both current and immutable snapshot links.
+        pattern = pattern.replace(token, "(?P<" + name + ">" + value_pattern + ")", 1)
+        pattern = pattern.replace(token, "(?P=" + name + ")")
+    match = re.search(pattern + r"\s*\Z", body)
+    _need(body.count(DISCLOSURE_MARKER) == 1 and match is not None
+          and bool(body[:match.start()].strip()),
+          "PR body must append the exact AI-assisted disclosure with assessment provenance")
+    try:
+        date.fromisoformat(match.group("ASSESSMENT_DATE"))
+    except ValueError:
+        raise PRBlocked("AI-assisted disclosure assessment date is invalid") from None
+    return {name: match.group(name) for name in fields}
 
 
 class PRBlocked(Exception):
@@ -84,6 +114,7 @@ def prepare_pr_handoff(*, upstream, fork, head_branch, head_sha, base_branch,
           and "\n" not in title, "PR title must be bounded single-line text")
     _need(type(body) is str and 1 <= len(body.encode("utf-8")) <= 16384,
           "PR body must be reviewed and within size limit")
+    assessment = _verify_disclosure(body)
     _need(type(draft) is bool, "Draft flag must be boolean")
     if draft:
         _need(type(draft_reason) is str and
@@ -162,6 +193,12 @@ def prepare_pr_handoff(*, upstream, fork, head_branch, head_sha, base_branch,
         "proposal_stage": "submit_external_pr",
         "title_sha256": hashlib.sha256(title.strip().encode()).hexdigest(),
         "body_sha256": hashlib.sha256(body.encode()).hexdigest(),
+        "assessment": {
+            "path": assessment["ASSESSMENT_PATH"],
+            "index_sha": assessment["ASSESSMENT_INDEX_SHA"],
+            "reviewed_at": assessment["ASSESSMENT_DATE"],
+            "review_ref": assessment["ASSESSMENT_REVIEW_REF"],
+        },
     }
     if draft:
         evidence["draft_reason"] = draft_reason.strip()
