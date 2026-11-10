@@ -120,7 +120,7 @@ automatic requirement to create a fork for negative or historical-only cases.
 | OpenSiro agent or plugin with an effective fork-write grant | Update a dedicated working branch with exact source and fork SHA checks; retain native CI and readback | A new exact `prepare_contribution` stage decision; never infer it from the bootstrap grant |
 | External contributor without organization write rights | Use their own branch/fork in the compatible GitHub fork network, then propose an **internal PR targeting `opensiro-contributions/<name>`** | Normal GitHub author identity and repository PR/CI/review settings; **no shared OpenSiro SSH credentials** |
 | OpenSiro maintainer with actual merge rights | Review and integrate the internal PR into the organization's selected working branch | Existing branch protection and required CI; internal approval is not external publication approval |
-| Human owner of publication | Review the exact files, upstream-native tests, source base, licensing/CLA/DCO and proposed title/body; explicitly release **that** external PR | Separate human decision for each external PR; external maintainers own acceptance/merge |
+| Human owner of publication | Review the exact files, upstream-native tests, source base, licensing/CLA/DCO, **target's original PR template/contributor requirements** and the completed title/body; explicitly release **that** external PR | Separate human decision for each external PR; external maintainers own acceptance/merge |
 
 An internal PR into an OpenSiro-owned fork and a PR **from** that fork **to**
 the third-party parent are different operations. Neither a prior contributor
