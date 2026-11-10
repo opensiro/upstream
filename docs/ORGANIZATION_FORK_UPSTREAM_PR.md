@@ -76,6 +76,58 @@ already legitimately available to `gh` on the VM/host. It requires:
   organization fork head, no existing open matching pull request;
 - bounded, explicitly reviewed PR title and body, and an actor identity.
 
+### Source-native PR form and contributor requirements
+
+The **target upstream repository owns the shape of its PR**. Before drafting,
+requesting owner approval, or submitting *any* external PR (including a Draft
+PR and an already-authorized finite-cohort case):
+
+1. **Read current primary sources at the actual target base/ref.** Inspect
+   `.github/PULL_REQUEST_TEMPLATE.md`, `.github/pull_request_template.md`,
+   `PULL_REQUEST_TEMPLATE.md`, `pull_request_template.md`,
+   `docs/PULL_REQUEST_TEMPLATE.md` and relevant
+   `.github/PULL_REQUEST_TEMPLATE/` variants, including filename, path
+   and content SHA. Check `CONTRIBUTING.md`, contribution/PR guidelines,
+   `CODEOWNERS` when applicable, and documented CLA/DCO, tests, security and
+   issue-linking requirements. A missing root template alone does **not** prove
+   the repository has no template; inspect its tree or equivalent inventory.
+2. **Select the original appropriate template.** If several templates apply,
+   use the one matching the proposed bug/fix/feature; if selection is
+   ambiguous, stop for clarification rather than inventing a universal form.
+   If no applicable template exists after inspection, use a concise
+   product-native summary, change, evidence and limitations without claiming
+   that the repository provided a template.
+3. **Preserve the target's requested structure and intent.** Keep applicable
+   headings, order, required sections, fields and checkboxes, and answer what
+   each field actually asks. Remove instructional HTML comments or optional
+   sections only as the original template permits. Do **not** substitute an
+   OpenSiro-owned `Summary / Verification` form for a target's `Done /
+   Decisions / Open questions / Upgrade` form, for example. Do not mark
+   unexecuted tests or unmet checks as completed. Make technical claims
+   source-native; OpenSiro provenance can be linked without displacing the
+   maintainer's requested content.
+4. **Resolve source policy conflicts before publication.** Check the
+   contributor's required commands, DCO sign-off, CLA status, documentation,
+   licensing, test coverage and external-change scope. If a mandatory target
+   requirement cannot be met (including one that conflicts with OpenSiro's
+   no-live-model-trial boundary), disclose the conflict and hold the PR for
+   an attributable owner decision; never silently skip the requirement or
+   manufacture a passing receipt.
+5. **Bind the reviewed request to the readback.** Record the exact target
+   base SHA, applicable template path and SHA (or verified `NONE`), source
+   policy path/ref, draft title/body and known outstanding checks in the
+   handoff. Run the normal branch/diff/duplicate-PR preflight again before
+   submission. The human's exact-title/body approval applies **after** the
+   source-native form has been completed; editing the body afterward requires
+   renewed review of the changed request. A template/policy mismatch is
+   `PR_BLOCKED_NO_WRITE`, not permission to post a generic draft.
+
+This is a mandatory review/pre-publication rule, **not** a claim that the
+existing `upstream_pr_handoff.py` automatically parses or enforces external
+repository templates. Its authenticated GET-only checks still enforce the
+separate identity/branch/diff boundary; the maintainer must check the
+source-native content and evidence before acting on its output.
+
 For example, **only after a real contribution branch has been prepared
 and independently validated** (replace both SHAs and branch):
 
