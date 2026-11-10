@@ -18,6 +18,7 @@
 | After | Apply only bounded source-fix patch in the same source/testing environment; `cargo test --lib tools::file::tests -- --nocapture` | `80b2d155-049d-4779-aa29-bd6160971d73` | **GREEN** (exit 0): **2 passed / 0 failed**, including hard-link regression and existing cancellation test. |
 | Expanded native | `cargo test --lib` | `602c89c8-5363-4b87-9dc6-d7dc9db24e14` | **GREEN** (exit 0): **592 passed / 0 failed / 0 ignored** (10.16 s). |
 | Formatting | `rustup component add rustfmt && cargo fmt && cargo fmt -- --check` | `4fdddd04-e695-4ccf-9a50-afd3fbb88b9e` | **PASS** (exit 0). |
+| Strict library lint | `rustup component add clippy && cargo clippy --lib -- -D warnings` | `88013141-0955-4962-926c-4396fda02d2b` | **PASS** (exit 0), toolchain Rust 1.91.1, no warnings. |
 
 Docker invocation for native tests (with the same container mount/cached registry in both phases):
 
