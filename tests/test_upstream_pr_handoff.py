@@ -78,18 +78,33 @@ class UpstreamPRHandoffTests(unittest.TestCase):
         return prepare_pr_handoff(**(self.data | changes),
                                   runner=self.fake)
 
-    def test_success_is_only_draft_rest_handoff(self):
+    def test_success_is_only_ready_for_review_rest_handoff(self):
         r = self.preview()
         self.assertEqual(r["status"], "PR_READY_FOR_MANUAL_REVIEW_NOT_PUBLISHED")
         self.assertEqual(r["draft_request_body"]["head"],
                          "opensiro-contributions:" + HEAD)
         self.assertEqual(r["draft_request_body"]["base"], "development")
-        self.assertTrue(r["draft_request_body"]["draft"])
+        self.assertFalse(r["draft_request_body"]["draft"])
         self.assertEqual(r["api_path_if_separately_approved"],
                          "repos/HarnessDesk/HarnessDesk/pulls")
         self.assertEqual(len(r["intent_sha256"]), 64)
         self.assertNotIn("token", json.dumps(r).lower())
         self.assertTrue(all(c[3] == "GET" for c in self.fake.calls))
+
+    def test_explicit_draft_requires_documented_reason(self):
+        with self.assertRaisesRegex(PRBlocked, "concrete documented reason"):
+            self.preview(draft=True)
+        self.assertEqual(self.fake.calls, [])
+        out = self.preview(draft=True, draft_reason="Pending review of an optional test")
+        self.assertTrue(out["draft_request_body"]["draft"])
+        self.assertEqual(out["evidence"]["draft_reason"],
+                         "Pending review of an optional test")
+        self.assertTrue(all(c[3] == "GET" for c in self.fake.calls))
+
+    def test_ready_for_review_rejects_spurious_draft_reason(self):
+        with self.assertRaisesRegex(PRBlocked, "only valid"):
+            self.preview(draft_reason="Unresolved test")
+        self.assertEqual(self.fake.calls, [])
 
     def test_user_identity_is_pinned_and_sane(self):
         self.fake.identity = "invalid:actor"
@@ -230,6 +245,22 @@ class UpstreamPRHandoffTests(unittest.TestCase):
             self.assertEqual(rc, 0)
             self.assertEqual(json.loads(capture.getvalue())["authorization"],
                              "EXTERNAL_PR_HUMAN_OWNED_NO_WRITE")
+            self.assertFalse(json.loads(capture.getvalue())["draft_request_body"]["draft"])
+
+    def test_cli_explicit_draft_requires_reason(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            body_file = Path(tmp) / "body.md"
+            body_file.write_text(self.data["body"], encoding="utf-8")
+            argv = ["--upstream", SOURCE, "--fork", FORK,
+                    "--head-branch", HEAD, "--head-sha", H_SHA,
+                    "--base-branch", "development", "--base-sha", B_SHA,
+                    "--title", self.data["title"], "--body-file", str(body_file),
+                    "--draft"]
+            with patch("sys.stdout", new_callable=StringIO) as capture:
+                rc = main(argv, runner=self.fake)
+            self.assertEqual(rc, 2)
+            self.assertIn("concrete documented reason", capture.getvalue())
+            self.assertEqual(self.fake.calls, [])
 
     def test_cli_has_no_publish_or_post_flag(self):
         with tempfile.TemporaryDirectory() as tmp:
