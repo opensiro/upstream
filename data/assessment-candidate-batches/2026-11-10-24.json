@@ -34,9 +34,9 @@
       ],
       "screening_result": "Prospective S2 prediction corroborated by pinned first-party Rust code and a distinct dev-alpha-2 Docker rust:1.91 native runner. Regression-only hard-link alias test failed on old PathBuf-keyed mutex (exit 101); exact bounded (device,inode)-key fix yielded 2/2 focused tests PASS, with original cancellation control, and full cargo test --lib 592/592 PASS. cargo fmt --check and git diff --check PASS, both archived final patches git apply --check on pristine reviewed SHA PASS. Rust 1.86/dependency lock issue required 1.91.1 and unlocked resolution; no model/provider, external PR or user benefit measurement.",
       "handoff_url": "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-24-20261110/pilots/yoagent-file-alias-s2/CONTRIBUTION_HANDOFF.md",
-      "patch_path": "pilots/yoagent-file-alias-s2/native-fix.patch",
-      "patch_sha256": "a4646350abef97cb76cf4f8bc7506cfe31f961b37a5896e5e61ddb2d50d20c94",
-      "test_patch_path": "pilots/yoagent-file-alias-s2/native-regression.patch",
+      "patch_path": "pilots/yoagent-file-alias-s2/native-fix-v2.patch",
+      "patch_sha256": "6ea4f61da5e84d2302dafbe67923c5cdee4c0dd5467e37bcac35e0f8dbb80295",
+      "test_patch_path": null,
       "external_action": "NOT_EXECUTED",
       "observed_native_change": "Separate dev-alpha-2 SSH native runner: source f1495e7, test-only session 0945f13f-ad83-4b16-8282-a0876daeff85 failed (expected RED, exit 101); fixed session 80b2d155-049d-4779-aa29-bd6160971d73 2/2 passed; library session 602c89c8-5363-4b87-9dc6-d7dc9db24e14 592/592 passed; Rust 1.91.1, matched local resolved dependency set; see independent receipt."
     },

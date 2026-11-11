@@ -4844,20 +4844,17 @@
           "stage": "AWAITING_EXTERNAL",
           "origin": "ASSESSMENT_DERIVED",
           "handoff_url": "https://github.com/opensiro/upstream/blob/research/upstream-upgrade-batch-24-20261110/pilots/yoagent-file-alias-s2/CONTRIBUTION_HANDOFF.md",
-          "patch_path": "pilots/yoagent-file-alias-s2/native-fix.patch",
-          "patch_sha256": "a4646350abef97cb76cf4f8bc7506cfe31f961b37a5896e5e61ddb2d50d20c94",
-          "test_patch_path": "pilots/yoagent-file-alias-s2/native-regression.patch",
+          "patch_path": "pilots/yoagent-file-alias-s2/native-fix-v2.patch",
+          "patch_sha256": "6ea4f61da5e84d2302dafbe67923c5cdee4c0dd5467e37bcac35e0f8dbb80295",
+          "test_patch_path": null,
           "technical_packet": {
             "state": "EXPLICIT_PATCH_HASH_MATCHED",
             "pilot": null,
             "explicit_patch": {
-              "path": "pilots/yoagent-file-alias-s2/native-fix.patch",
-              "sha256": "a4646350abef97cb76cf4f8bc7506cfe31f961b37a5896e5e61ddb2d50d20c94"
+              "path": "pilots/yoagent-file-alias-s2/native-fix-v2.patch",
+              "sha256": "6ea4f61da5e84d2302dafbe67923c5cdee4c0dd5467e37bcac35e0f8dbb80295"
             },
-            "explicit_test_patch": {
-              "path": "pilots/yoagent-file-alias-s2/native-regression.patch",
-              "sha256": "ab7994de0c0dbc0ab583746f38340f916dbf817f2eb58911731054bc9412287b"
-            }
+            "explicit_test_patch": null
           }
         }
       ],
