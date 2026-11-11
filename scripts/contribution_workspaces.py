@@ -23,9 +23,11 @@ BATCH_DIR = Path("data/assessment-candidate-batches")
 REGISTRY = Path("data/contribution-workspaces/registry.json")
 PILOTS = Path("data/contribution-workspaces/pilot-sources.json")
 PR_HISTORY = Path("data/upstream-lifecycle.json")
+SELECTED_PACKETS = Path("data/contribution-workspaces/selected-packets.json")
 FORK_READBACK_DIR = Path("data/contribution-workspaces/fork-readbacks")
 SOURCE = re.compile(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+\Z")
 COMMIT_SHA = re.compile(r"[0-9a-f]{40}\Z")
+PATCH_SHA256 = re.compile(r"[0-9a-f]{64}\Z")
 LOCAL_HANDOFF = re.compile(
     r"https://github\.com/opensiro/upstream/blob/(?:main|[0-9a-f]{40})/"
     r"(pilots/[A-Za-z0-9_.-]+/CONTRIBUTION_HANDOFF\.md)\Z"
@@ -149,6 +151,44 @@ def _technical_packet(root, item):
     return result
 
 
+def _selected_patch_packets(root):
+    """Reviewed additions for historically frozen screening packets.
+
+    A selected digest must match actual committed patch bytes.
+    """
+    path = root / SELECTED_PACKETS
+    if not path.exists():
+        return {}
+    data = read(path)
+    require(type(data) is dict and set(data) == {"schema_version", "selections"}
+            and data["schema_version"] == 1 and type(data["selections"]) is list,
+            "Invalid additive packet selection manifest")
+    selected = {}
+    fields = {"source", "candidate_id", "source_sha", "patch_path",
+              "patch_sha256", "receipt"}
+    for item in data["selections"]:
+        require(type(item) is dict and set(item) == fields
+                and type(item["source"]) is str
+                and SOURCE.fullmatch(item["source"])
+                and type(item["candidate_id"]) is str and item["candidate_id"]
+                and type(item["source_sha"]) is str
+                and COMMIT_SHA.fullmatch(item["source_sha"])
+                and type(item["patch_sha256"]) is str
+                and PATCH_SHA256.fullmatch(item["patch_sha256"])
+                and type(item["patch_path"]) is str
+                and type(item["receipt"]) is str,
+                "Invalid exact selected packet identity, source or digest")
+        receipt = Path(item["receipt"])
+        require(not receipt.is_absolute() and len(receipt.parts) >= 2
+                and receipt.parts[0] == "reports" and ".." not in receipt.parts
+                and receipt.suffix == ".md" and (root / receipt).is_file(),
+                "Selected packet has no native validation receipt")
+        pair = (key(item["source"]), item["candidate_id"])
+        require(pair not in selected, "Duplicate selected packet")
+        selected[pair] = item
+    return selected
+
+
 def _dated_fork_readbacks(root):
     """Validate dated, reviewable GitHub readbacks; never attest live write rights."""
     latest = {}
@@ -208,6 +248,7 @@ def _dated_fork_readbacks(root):
 def build(root=ROOT):
     root = Path(root)
     fork_readbacks = _dated_fork_readbacks(root)
+    selected_packets = _selected_patch_packets(root)
     pool = read(root / POOL)
     require(pool.get("schema_version") == 1, "Unsupported priority pool")
     sources = {}
@@ -267,18 +308,32 @@ def build(root=ROOT):
             record["batches"].append(path.relative_to(root).as_posix())
             record["latest_stage"] = item["stage"]
             if item["stage"] in {"AWAITING_EXTERNAL", "CLOSED_CHANGE"}:
-                # Local artifact references only: an external fork commit is
-                # never inferred from a handoff or a passing native test.
+                selected = selected_packets.pop((identity, item["id"]), None)
+                packet_item = item
+                if selected is not None:
+                    require(item.get("patch_path") is None
+                            and item.get("patch_sha256") is None
+                            and selected["source_sha"] == item.get("review_ref"),
+                            "Selected packet conflicts with frozen source evidence")
+                    packet_item = {**item,
+                                   "patch_path": selected["patch_path"],
+                                   "patch_sha256": selected["patch_sha256"]}
+                    require(_technical_packet(root, packet_item)["state"]
+                            == "EXPLICIT_PATCH_HASH_MATCHED",
+                            "Selected patch bytes differ from reviewed digest")
+                # No fork commit is inferred from a handoff or native test.
                 record["handoffs"].append({
                     "candidate_id": item["id"],
                     "stage": item["stage"],
                     "origin": item["origin"],
                     "handoff_url": item.get("handoff_url"),
-                    "patch_path": item.get("patch_path"),
-                    "patch_sha256": item.get("patch_sha256"),
-                    "test_patch_path": item.get("test_patch_path"),
-                    "technical_packet": _technical_packet(root, item),
+                    "patch_path": packet_item.get("patch_path"),
+                    "patch_sha256": packet_item.get("patch_sha256"),
+                    "test_patch_path": packet_item.get("test_patch_path"),
+                    "technical_packet": _technical_packet(root, packet_item),
                 })
+
+    require(not selected_packets, "Selected packet has no matching frozen handoff")
 
     # Earlier product-native pilots were outside the five-source assessment
     # batches, but are equally important worked-source inventory. The explicit

@@ -54,6 +54,18 @@ dated mapping remains `DATED_MAPPING_REQUIRES_LIVE_READBACK`, requires a
 fresh provider preflight before writes, and does not attest that a branch
 contains a tested contribution.
 
+## Additive selection of historical native packets
+
+For a historically frozen screening handoff with an exact native fix held only
+in a prior source-only draft, revalidate the original and record the selected
+source identity, assessed SHA, patch path/hash, and dated RED/GREEN receipt in
+data/contribution-workspaces/selected-packets.json. Never rewrite a frozen
+screening manifest. Regenerate the source/workspace registry and check integrity.
+
+This promotes only the technical-packet state to EXPLICIT_PATCH_HASH_MATCHED.
+It does not grant GitHub write permission, prove full source-native tests,
+waive a first-party legal gate, or demonstrate maintainer adoption.
+
 ## Single-cycle state and authority
 
 1. **Intake:** reserve one source identity (`owner/repo`); resolve it against
