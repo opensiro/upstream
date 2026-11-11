@@ -12,7 +12,7 @@
 | Review source-backed evidence | [Casebook](cases/README.md) · [Native test pilots](pilots/README.md) |
 | Contribute or maintain this project | [CONTRIBUTING.md](CONTRIBUTING.md) · [UPSTREAMING.md](UPSTREAMING.md) |
 
-The [dashboard](DASHBOARD.md) and [portfolio](https://opensiro.com/upstream-portfolio.html) are projections, not authority for a third-party PR's live state. Consult the exact GitHub PR for current disposition. Our [verified-outcomes process](docs/VERIFIED_EXTERNAL_OUTCOMES.md) distinguishes machine evidence candidates from accepted outcomes; **no Organization-wide external-outcomes KPI has been claimed yet**.
+The [dashboard](DASHBOARD.md) and [portfolio](https://opensiro.com/upstream-portfolio.html) are projections, not authority for a third-party PR's live state. Consult the exact GitHub PR for current disposition. Our [verified-outcomes process](docs/VERIFIED_EXTERNAL_OUTCOMES.md) distinguishes machine evidence candidates from accepted outcomes; the [Organization collector contract](https://github.com/opensiro/vsm-oss-organization/pull/322) now accepts *only* live-verified merged-change evidence. It does **not** claim deployed benefit or productivity; missing observations remain unclaimed.
 
 ## I'm AI
 
@@ -44,6 +44,6 @@ python3 scripts/portfolio_reconcile.py --validate-only
 python3 scripts/verified_external_outcomes.py --validate-only
 ```
 
-The unfiltered [repository-integrity workflow](.github/workflows/repository-integrity.yml) runs unit tests and generated-inventory checks on every PR. Third-party source-native CI belongs in working forks; [migration #214](https://github.com/opensiro/upstream/issues/214) has completed **placement**, not universal native parity.
+The unfiltered [repository-integrity workflow](.github/workflows/repository-integrity.yml) runs unit tests and generated-inventory checks on every PR. It is the **required** GitHub Actions check on protected `main` under [Organization #305](https://github.com/opensiro/vsm-oss-organization/issues/305#issuecomment-6808962191); an unrelated failing PR is blocked, not bypassed. Third-party source-native CI belongs in working forks; [migration #214](https://github.com/opensiro/upstream/issues/214) has completed **placement**, not universal native parity.
 
 **Legal boundary:** no repository-wide root LICENSE has been adopted. [Standards #130](https://github.com/opensiro/upstream/issues/130) and [license draft PR #1](https://github.com/opensiro/upstream/pull/1) require the actual rightsholders' decision; do not relicense third-party code or original prose by inference.

@@ -40,7 +40,7 @@ python3 scripts/portfolio_reconcile.py --validate-only
 python3 scripts/verified_external_outcomes.py --validate-only
 ```
 
-The unfiltered [repository-integrity workflow](../.github/workflows/repository-integrity.yml) runs offline tests on every internal PR and on pushes to `main`. It does **not** itself prove that GitHub branch protection requires that check; that administrator-controlled setting is tracked separately by [Organization #305](https://github.com/opensiro/vsm-oss-organization/issues/305).
+The unfiltered [repository-integrity workflow](../.github/workflows/repository-integrity.yml) runs offline tests on every internal PR and on pushes to `main`. It **is required** on protected `main` after the staged [Organization #305](https://github.com/opensiro/vsm-oss-organization/issues/305#issuecomment-6808962191) rollout: GitHub admin readback binds the context to GitHub Actions app `15368`, `strict=false`, and a deliberately failing non-Draft [PR #245](https://github.com/opensiro/upstream/pull/245) was blocked. No extra reviewer or weakening of existing conversation-resolution protection was introduced.
 
 ## External observation (read-only)
 
@@ -61,7 +61,7 @@ The per-run JSON artifact includes an observation timestamp, all exact PR URLs w
 their separate cohort memberships and a `cohort_sha256` identity fingerprint.
 See [portfolio history](PORTFOLIO_HISTORY.md) for retention, comparability and
 the important distinction between observed PR merging and verified adoption.
-The two-stage accepted-source exporter requires independently rechecked first-party GitHub merge, source-delta and native CI evidence. Its `accepted_count` is a bounded merged-change result; the Organization metric collector is a separate consumer, not a second intervention adjudicator. [Organization PR #322](https://github.com/opensiro/vsm-oss-organization/pull/322) implements that consumer, subject to its own CI and merge rules.
+The two-stage accepted-source exporter independently rechecks first-party GitHub merge, source-delta and native CI evidence. Its `accepted_count` is a bounded merged-change result, not proof of deployed benefit. [Organization PR #322](https://github.com/opensiro/vsm-oss-organization/pull/322) is **merged** as `da377c16375793e6912db56996094e58d8dccfb2`; the Organization collector consumes only fresh source-verified exports while preserving unclaimed states and unknown historical baselines.
 
 The [public Upstream PR status page](https://opensiro.com/upstream-portfolio.html)
 is a separately deployed, source-dated consumer managed by

@@ -1,7 +1,6 @@
 # Verified external outcomes — evidence gate and observation
 
-**Owner:** `opensiro/upstream` (Upstream Contributions S1). This is a
-source-backed **candidate/evidence collector**, not an Organization-issued KPI.
+**Owner:** `opensiro/upstream` (Upstream Contributions S1). This is the source-backed **candidate observer and independently revalidated accepted merged-change exporter**; Organization owns the public metrics contract. An accepted source merge is not a claim of deployed benefit.
 The metric contract is owned by
 [`vsm-oss-organization/metrics.yaml`](https://github.com/opensiro/vsm-oss-organization/blob/main/metrics.yaml)
 and [`docs/METRICS.md`](https://github.com/opensiro/vsm-oss-organization/blob/main/docs/METRICS.md).
@@ -51,12 +50,13 @@ PR and are explicitly excluded from the candidate cohort, not labeled failures.
 - frozen `data/upstream-fit-snapshot.json` **for identity only**;
 - `registry.yaml`.
 
-It cross-checks that these source ledgers cover the same **25 PR URLs** as the
-existing `portfolio_reconcile.py` union, while keeping **24 distinct
-interventions** (one Henterprise replacement pair). These counts are present
-source-contract checks, not everlasting Organization metrics. New sources
-require a reviewed cohort/schema migration. The source exclusion count is
-separate from the outcome denominator.
+It cross-checks source-ledger PR URLs and intervention deduplication
+against the current `portfolio_reconcile.py` union, including any
+original/replacement chains. **Do not freeze a cohort count in this document**:
+the owning scripts validate the current corpus, and their live output reports
+the actual number of interventions, PR URLs and excluded non-publications.
+New sources require a reviewed cohort/schema migration. The source exclusion
+count is separate from the outcome denominator.
 
 The live output contains a UTC timestamp, source and cohort SHA256 digests,
 one traceable record per intervention, PR URL(s), externally observed state,
@@ -153,23 +153,29 @@ The existing workflow adds the separately labeled accepted-source JSON into
 the **same 90-day artifact**; it does not create another workflow/job or a
 GitHub write. Even a nonempty, valid export is
 `UPSTREAM_ACCEPTED_SOURCE_ONLY` with `organization_metric_claimed=false`.
-An Organization-owned collector and reviewable PR remain mandatory before
-the primary metric or website may claim the result.
+The separate [Organization PR #322](https://github.com/opensiro/vsm-oss-organization/pull/322)
+is now **merged** (`da377c16375793e6912db56996094e58d8dccfb2`).
+The Organization metrics workflow consumes a fresh, first-party revalidated
+export from this owning implementation, checks owner source/cohort digests,
+enforces distinct identities and immutable native receipts, and fails closed
+when evidence is stale or contradictory. The measured quantity is narrowly
+**source-verified merged changes**, not deployed improvement. Missing live
+evidence remains unclaimed, not zero. Historical growth windows remain
+unavailable without independently reproducible baseline exports.
 
-## Next gate: publish the actual primary metric
+## Remaining evidence and publication work
 
-1. Verify a successful **live workflow run and artifact**; do not substitute
-   offline mocks or passing CI for a real observation.
-2. Decide ambiguous human disposition, native receipt and replacement-chain
-   evidence in an Upstream-owned PR. Preserve accepted historical provenance.
-3. Revalidate the automatically generated **accepted-source export** against
-   exact first-party evidence. Retain decisions #177 and #178 as provenance,
-   not as repeatable per-contribution approval gates. Never substitute a raw
-   merged-PR count or infer deployed benefit.
-4. Only then extend the Organization generic metrics collector from
-   `unclaimed_semantic_evidence` to a value gated on the validated Upstream
-   accepted ledger. The public site may display the result **after** that
-   contract lands, never by relabeling the PR acceptance percentage.
+1. Keep the **live Upstream observation and accepted-source export** healthy.
+   PR-check or mock success is not evidence of an actual third-party merge.
+2. Resolve ambiguous Corrective/casebook records with attributable owner
+   decisions and pinned native receipts; Henterprise replacement counts only
+   once, and independently implemented fixes do not become OpenSiro merges.
+3. Keep [Organization metrics contract](https://github.com/opensiro/vsm-oss-organization/blob/main/docs/METRICS.md)
+   and the separately [generated public-site projection](https://github.com/opensiro/opensiro.com/blob/main/scripts/sync-vsm-oss-metrics.cjs)
+   aligned by source-controlled, reviewed changes. Do **not** substitute the
+   resolved-PR acceptance rate or historic Product-native fit percentage.
+4. Recheck website job/output at the owning site revision before claiming
+   public deployment; a merged collector does not itself deploy a page.
 
 Risk-based independent review remains appropriate for ambiguous attribution;
 routine exact-identity CI readback does not itself require a fabricated S3*
