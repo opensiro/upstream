@@ -142,3 +142,25 @@ Upstream run and runner permissions. The old workflow is preserved byte-for-
 byte as a pilot artifact and retired from `.github/workflows` by reviewable
 PR. After that merge, **14** historical source-native workflows remain on
 Upstream `main`; this does not close any other source's parity gate.
+
+## Second source-native migration: Kit offline only
+
+On 2026-11-11, the historical Kit #222 offline RED/GREEN workflow was
+reproduced successfully in its correctly parented
+[`opensiro-contributions/kit` fork](https://github.com/opensiro-contributions/kit),
+using a dedicated branch and frozen source
+`speakeasy-api/kit@8f9f08a2b2088381f1cb106dcb9129378f8f0b4e`.
+The [native offline run](https://github.com/opensiro-contributions/kit/actions/runs/43064797099)
+verified the expected RED, patched GREEN, 1329 passing library tests,
+strict Clippy, formatting and real offline CLI recovery. The
+[durable receipt](../pilots/kit-222/NATIVE_CI_MIGRATION_2026-11-11.md)
+preserves exact source/patch/runner evidence. Its former Upstream YAML was
+archived byte-for-byte and retired by a separate reviewable PR. After that
+PR merges, **13** historical source-native workflows remain on `main`.
+
+The separate [Linux/macOS compatibility run](https://github.com/opensiro-contributions/kit/actions/runs/43064796979)
+passed its Linux native job, but GitHub failed to allocate a hosted macOS
+runner on its first attempt. The original `kit-222-compat.yml` **remains on
+Upstream `main`** until equivalent fork-native macOS coverage completes.
+Neither engineering result proves Kit maintainer adoption, shipping or
+current-source compatibility.

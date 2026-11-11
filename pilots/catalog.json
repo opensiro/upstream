@@ -5,7 +5,7 @@
   "generated_from": "pilots/ direct subdirectories and their preserved files",
   "counts": {
     "pilot_directories": 73,
-    "artifact_files": 218,
+    "artifact_files": 220,
     "historical_directories": 66,
     "new_directories": 7,
     "by_kind": {
@@ -548,11 +548,14 @@
       "artifact_counts": {
         "patch": 3,
         "handoff": 1,
-        "other": 1
+        "fixture_or_recipe": 1,
+        "other": 2
       },
       "files": [
+        "NATIVE_CI_MIGRATION_2026-11-11.md",
         "README.md",
         "UPSTREAM_PR_HANDOFF.md",
+        "historical-upstream-offline.yml",
         "kit-222-regression-only.patch",
         "kit-222-safe-default.patch",
         "kit-222-upstream-combined.patch"
