@@ -145,10 +145,12 @@ class WatchTests(unittest.TestCase):
                                 "targets": [{"repository": "Example/project", "number": 3, "url": URL}]}))
         return p
 
-    def test_exact_manifest_has_twenty_five_targets_and_no_duplicates(self):
+    def test_exact_manifest_has_twenty_six_targets_and_no_duplicates(self):
         data = watch.validate_targets()
-        self.assertEqual(len(data["targets"]), 25)
-        self.assertEqual(len({t["url"] for t in data["targets"]}), 25)
+        self.assertEqual(len(data["targets"]), 26)
+        self.assertEqual(len({t["url"] for t in data["targets"]}), 26)
+        self.assertIn("https://github.com/knowflow-ai/KnowWork/pull/4",
+                      {t["url"] for t in data["targets"]})
         self.assertIn("https://github.com/cbrock84/headcount/pull/47",
                       [t["url"] for t in data["targets"]])
         self.assertIn("https://github.com/chumingjun/dsh-harness-one/pull/173",
