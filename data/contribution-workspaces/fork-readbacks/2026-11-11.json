@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "observed_on": "2026-11-11",
+  "source": "GITHUB_CONNECTOR_POST_WRITE_READBACK",
+  "meaning": "ONE_OFF_OPERATOR_REQUESTED_FORK_AND_BRANCH_OBSERVATION_NOT_AUTOMATED_PREPARE_GRANT_OR_EXTERNAL_PR",
+  "entries": [
+    {
+      "source": "knowflow-ai/KnowWork",
+      "fork": "opensiro-contributions/KnowWork",
+      "parent_verified": true,
+      "public_fork_verified": true,
+      "fork_push_permission_verified": true,
+      "branch": "main",
+      "fork_sha": "033b49240ec49c7b8d3b43f1783b9b4d89425b5e",
+      "source_same_named_branch_sha": "033b49240ec49c7b8d3b43f1783b9b4d89425b5e",
+      "ref_relation": "MATCH",
+      "repo_evidence": "https://api.github.com/repos/opensiro-contributions/KnowWork",
+      "fork_branch_evidence": "https://api.github.com/repos/opensiro-contributions/KnowWork/git/ref/heads/main",
+      "source_branch_evidence": "https://api.github.com/repos/knowflow-ai/KnowWork/git/ref/heads/main",
+      "working_branch": "opensiro/fix-sandbox-start-race",
+      "working_commit_sha": "8aa8cb823a2f3598cff0f85835d10fb6f040ea8c",
+      "working_commit_parent_sha": "033b49240ec49c7b8d3b43f1783b9b4d89425b5e",
+      "working_branch_evidence": "https://api.github.com/repos/opensiro-contributions/KnowWork/git/ref/heads/opensiro/fix-sandbox-start-race",
+      "working_diff_evidence": "https://github.com/opensiro-contributions/KnowWork/compare/033b49240ec49c7b8d3b43f1783b9b4d89425b5e...8aa8cb823a2f3598cff0f85835d10fb6f040ea8c",
+      "changed_files": [
+        "server/src/knowwork_server/sandbox/containers.py",
+        "server/tests/sandbox/test_lifecycle.py"
+      ],
+      "prior_native_receipt": "https://github.com/opensiro/upstream/blob/main/pilots/knowwork-start-race-s2/INDEPENDENT_HOST_RECEIPT_2026-11-10.md",
+      "historical_native_tests": "34/34 PASS ON PINNED SOURCE",
+      "post_publication_branch_ci": "NO_WORKFLOW_RUN_OR_COMMIT_STATUS_OBSERVED",
+      "fork_creation_authority": "EXACT_ONE_OFF_OPERATOR_INSTRUCTION_VIA_DEV_ALPHA_2",
+      "branch_write_authority": "EXACT_ONE_OFF_OPERATOR_INSTRUCTION_VIA_GITHUB_CONNECTOR",
+      "automated_prepare_contribution_grant": "NOT_CLAIMED",
+      "external_pr_state": "NOT_PUBLISHED"
+    }
+  ]
+}
