@@ -15,7 +15,7 @@ receipts, see the [2026-11-11 audit](../reports/2026-11-11-actions-audit.md).
 | Preview a fork lifecycle | [`fork-lifecycle.yml`](../.github/workflows/fork-lifecycle.yml) | Manual preview; **no fork write** |
 | Watch external PR reviews and CI | [`pr-maintenance.yml`](../.github/workflows/pr-maintenance.yml) | Hourly/opt-in, bounded local issue-inbox updates |
 | Collect external PR status evidence | [`portfolio-reconciliation.yml`](../.github/workflows/portfolio-reconciliation.yml) | Read-only portfolio reconciliation and retained run artifact |
-| Screen externally verified outcome candidates | [`verified-external-outcomes.yml`](../.github/workflows/verified-external-outcomes.yml) | Candidate evidence only; no adoption-KPI claim |
+| Verify external PR outcomes | [`verified-external-outcomes.yml`](../.github/workflows/verified-external-outcomes.yml) | Read-only candidate observation **and separately revalidated accepted merged-change source export**; no deployed-benefit claim or automatic Organization KPI |
 | Detect stale local PR lifecycle data | [`upstream-status-freshness.yml`](../.github/workflows/upstream-status-freshness.yml) | Read-only drift check; no automatic change |
 | Prepare a lifecycle drift correction | [`upstream-status-proposal.yml`](../.github/workflows/upstream-status-proposal.yml) | Read-only scheduled patch artifact; **internal Draft PR only by explicit manual input** |
 
@@ -29,20 +29,20 @@ suite already run on every PR and `main` push by `repository-integrity.yml`.
 It was retired after verifying no required status-check dependency; the
 historical GitHub runs remain accessible. No fork-lifecycle test was removed.
 
-## Third-party native workflows (retirement queue)
+## Third-party native workflow placement (migration completed)
 
 `main` retains **no third-party source-native CI workflows**. The former
-historical copies now live under pinned pilot archives. Native parity is
+historical copies now live under pinned pilot archives; [migration #214](https://github.com/opensiro/upstream/issues/214) is **closed for placement**, not a universal native-test PASS. Native parity is
 tracked separately from CI placement; Kit macOS remains unverified:
 
-| Source | Legacy workflows | Working-fork migration |
-| --- | ---: | --- |
-| Agent Code | 0 | [Three Agent Code 524 native gates migrated to the matching fork](../pilots/agent-code-524/NATIVE_CI_MIGRATION_2026-11-11.md); original recipes archived |
-| AgentBox | 0 | [Two baselines and manager advisory reproduced on the matching fork](../pilots/agentbox-s2/MANAGER_ADVISORY_CI_MIGRATION_2026-11-11.md); original recipes archived. [Draft #71](https://github.com/opensiro/upstream/pull/71) has its own separate plan-prototype workflow |
-| HarnessDesk | 0 | [Both native checks reproduced on the matching fork](../pilots/harnessdesk-1772/NATIVE_CI_MIGRATION_2026-11-11.md): current-source Linux + macOS and older-source macOS PASS (attempt 2 each). Original YAML archived |
-| Kit | 0 | [Pinned fork-native offline RED/GREEN and Linux compatibility PASS](../pilots/kit-222/NATIVE_CI_MIGRATION_2026-11-11.md); both original YAMLs archived, **macOS parity unverified** (runner unavailable) |
-| Kram | 0 | [Pinned fork-native RED/GREEN PASS](../pilots/kram-s2/NATIVE_CI_MIGRATION_2026-11-11.md); original recipe archived |
-| Zot | 0 | [Four pinned native cases migrated to the matching fork](../pilots/zot-shared-workspace/NATIVE_CI_MIGRATION_2026-11-11.md); original recipes archived |
+| Source | Working-fork migration and historical parity |
+| --- | --- |
+| Agent Code | [Three Agent Code 524 native gates migrated to the matching fork](../pilots/agent-code-524/NATIVE_CI_MIGRATION_2026-11-11.md); original recipes archived |
+| AgentBox | [Two baselines and manager advisory reproduced on the matching fork](../pilots/agentbox-s2/MANAGER_ADVISORY_CI_MIGRATION_2026-11-11.md); original recipes archived. [Draft #71](https://github.com/opensiro/upstream/pull/71) has its own separate plan-prototype workflow |
+| HarnessDesk | [Both native checks reproduced on the matching fork](../pilots/harnessdesk-1772/NATIVE_CI_MIGRATION_2026-11-11.md): current-source Linux + macOS and older-source macOS PASS (attempt 2 each). Original YAML archived |
+| Kit | [Pinned fork-native offline RED/GREEN and Linux compatibility PASS](../pilots/kit-222/NATIVE_CI_MIGRATION_2026-11-11.md); both original YAMLs archived, **macOS parity unverified** (runner unavailable) |
+| Kram | [Pinned fork-native RED/GREEN PASS](../pilots/kram-s2/NATIVE_CI_MIGRATION_2026-11-11.md); original recipe archived |
+| Zot | [Four pinned native cases migrated to the matching fork](../pilots/zot-shared-workspace/NATIVE_CI_MIGRATION_2026-11-11.md); original recipes archived |
 
 **Do not run these by default, add new per-harness Actions here, or delete
 them solely because they are old.** New source-native checks live in the
@@ -61,7 +61,7 @@ A migration **with verified native parity** needs:
    may close CI placement with a separately recorded unverified native gate;
    it must never be reported as a passing replacement test.
 
-Track retirement in [Upstream #214](https://github.com/opensiro/upstream/issues/214).
+[Upstream #214](https://github.com/opensiro/upstream/issues/214) records the completed workflow-placement migration, including the explicitly unverified Kit macOS parity gate.
 The related [repository standards #130](https://github.com/opensiro/upstream/issues/130)
 covers the broader repo cleanup. The existence of a generic `ci.yml` in a
 working fork is **not** proof of equivalent pinned native coverage.
