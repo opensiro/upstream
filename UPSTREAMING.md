@@ -19,7 +19,7 @@ The domain manages evidence-backed upstream improvement proposals, pinned produc
 | Native functional effect | Pinned source test and before/after receipt | `pilots/`, `data/functional-effects.json` |
 | Technical batch membership and disposition | Frozen local batch manifest and owning issue | `data/assessment-candidate-batches/`, generated Harness Status |
 | Additive source → working-fork intentions and handoff pointers | 100-source priority snapshot + frozen technical batch manifests; live fork parent verified independently | Generated `data/contribution-workspaces/registry.json`; [continuous pipeline](docs/CONTINUOUS_WORKING_FORK_PIPELINE.md) |
-| One-time supervised public-fork bootstrap and cross-plugin internal PR routing | Exact Upstream source identities, effective batch-stage grants, separate human external-publication decision | [Non-executable generated proposal](data/contribution-workspaces/fork-bootstrap-proposal.json), [protocol](docs/FORK_BOOTSTRAP_AND_COLLABORATION.md) |
+| One-time supervised public-fork bootstrap and cross-plugin internal PR routing | Exact Upstream source identities, effective batch-stage grants, separate standing external-publication mandate | [Non-executable generated proposal](data/contribution-workspaces/fork-bootstrap-proposal.json), [protocol](docs/FORK_BOOTSTRAP_AND_COLLABORATION.md) |
 | Authorized finite external-publication stages | Their exact publication mandate and ledger | `data/corrective-publication/`, `data/improvement-publication/` |
 | Shared work selection, S1 boundary, S5 grants | [Organization TODO](https://github.com/opensiro/vsm-oss-organization/blob/main/TODO.md), domain contract and owner decisions | Repository-local issues and explicitly scoped handoffs |
 
@@ -57,7 +57,7 @@ Every report must identify the cohort, observation time, source and whether it c
 | Functional effects view | `scripts/functional_effects.py` | Its deterministic validation |
 | Resolved-PR inbox summary | `scripts/resolved_pr_acceptance.py` | Explicit manifest and GitHub exact-PR readback |
 | Broad portfolio observation | `scripts/portfolio_reconcile.py` | `--validate-only` offline, `--report` live; no repository writes |
-| Verified external outcome candidate evidence | `scripts/verified_external_outcomes.py` | [Evidence contract](docs/VERIFIED_EXTERNAL_OUTCOMES.md), `--validate-only` offline, `--report` live; no Organization KPI claim |
+| Verified external outcome evidence | `scripts/verified_external_outcomes.py` → `scripts/accepted_external_outcomes.py` | [Evidence contract](docs/VERIFIED_EXTERNAL_OUTCOMES.md), offline `--validate-only`, live candidate observation + independently rechecked merged-change acceptance export; Organization metric activation is a separate consumer gate and **not** proof of deployed benefit |
 | Additive working-fork inventory | `scripts/contribution_workspaces.py` | `sync` with every internal technical-record change; `check` in unfiltered PR CI; not a fork-write grant |
 | Historical experiment and pilot directory catalog | `scripts/pilot_catalog.py` | `sync` with any pilot file change; `check` in unfiltered PR CI; never a success/outcome inference |
 
