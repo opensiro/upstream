@@ -14,8 +14,8 @@
     "historical_fork_mappings": 16,
     "name_collision_sources": 11,
     "technical_handoffs": 54,
-    "dated_fork_readbacks": 16,
-    "same_named_ref_matches_at_readback": 9,
+    "dated_fork_readbacks": 17,
+    "same_named_ref_matches_at_readback": 10,
     "technical_packet_states": {
       "EXPLICIT_PATCH_HASH_MATCHED": 14,
       "LOCAL_MULTI_PATCH_SELECTION_REQUIRED": 3,
@@ -2330,8 +2330,17 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
-      "dated_fork_readback": null,
-      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "dated_fork_readback": {
+        "observed_on": "2026-11-11",
+        "receipt": "data/contribution-workspaces/fork-readbacks/2026-11-11.json",
+        "fork": "opensiro-contributions/KnowWork",
+        "branch": "main",
+        "fork_sha": "033b49240ec49c7b8d3b43f1783b9b4d89425b5e",
+        "source_same_named_branch_sha": "033b49240ec49c7b8d3b43f1783b9b4d89425b5e",
+        "ref_relation": "MATCH",
+        "recheck_before_any_write": true
+      },
+      "fork_state": "DATED_MAPPING_REQUIRES_LIVE_READBACK",
       "proposed_fork": "opensiro-contributions/KnowWork",
       "license_review": false,
       "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
