@@ -18,7 +18,7 @@ Three existing tasks in a synthetic workspace:
 
 Preflight `T-1` for `box-A`, `T-2` for `box-B`, `T-3` for `box-C`. These are descriptive intents, **not verified write sets**. The test expects the current code to accept all valid task IDs and record all three requested assignments. This shows that the **current specific CLI preflight** is not an inter-task write-conflict admission gate; it does not demonstrate that actual boxes were created, a collision occurred, or that AgentBox guarantees conflict prevention elsewhere.
 
-The [read-only workflow](../../.github/workflows/agentbox-task-conflict-baseline.yml) checks out the immutable public AgentBox commit into an ephemeral GitHub Actions runner, copies one test file into `apps/cli/test/`, executes Node 22, pnpm 9.15.0 `pnpm install --frozen-lockfile` and the upstream `pnpm build`, then runs actual `@madarco/agentbox` Vitest. Only one untracked fixture is injected; no public GitHub files or upstream branch modified.
+The [historical read-only workflow recipe](historical-upstream-task-conflict-baseline.yml) checks out the immutable public AgentBox commit into an ephemeral GitHub Actions runner, copies one test file into `apps/cli/test/`, executes Node 22, pnpm 9.15.0 `pnpm install --frozen-lockfile` and the upstream `pnpm build`, then runs actual `@madarco/agentbox` Vitest. Only one untracked fixture is injected; no public GitHub files or upstream branch modified. The [source-matched fork-native replay](NATIVE_CI_MIGRATION_2026-11-11.md) later passed, so this duplicate was retired from Upstream Actions.
 
 ## What a valid subsequent improvement would test
 

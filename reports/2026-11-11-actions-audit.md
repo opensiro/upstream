@@ -164,3 +164,20 @@ runner on its first attempt. The original `kit-222-compat.yml` **remains on
 Upstream `main`** until equivalent fork-native macOS coverage completes.
 Neither engineering result proves Kit maintainer adoption, shipping or
 current-source compatibility.
+
+## Third source-native migration: AgentBox task and dependency baselines
+
+Two frozen AgentBox source-native workflows were replayed successfully on
+the matching [public contributor fork](https://github.com/opensiro-contributions/agentbox)
+at the exact original
+`madarco/agentbox@605ee75d63319003c188bc532d4e5b2ba36a51d6`.
+The [task-conflict run](https://github.com/opensiro-contributions/agentbox/actions/runs/43069016683)
+and [dependency-dispatch run](https://github.com/opensiro-contributions/agentbox/actions/runs/43069017370)
+each passed their original first-party pnpm build and injected baseline
+Vitest (1 test each). The [migration receipt](../pilots/agentbox-s2/NATIVE_CI_MIGRATION_2026-11-11.md)
+pins fixture hashes, OS/runtime and exact runner commits. Both legacy YAML
+files are archived byte-for-byte by a reviewable retirement PR; after that
+merge **11** source-native workflows remain on `upstream/main`. The third
+AgentBox manager-advisory YAML remains on main because [PR #71](https://github.com/opensiro/upstream/pull/71)
+is still open. Baseline PASS is not a RED/GREEN product intervention or
+maintainer adoption evidence.

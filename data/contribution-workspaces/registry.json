@@ -2684,8 +2684,8 @@
           "patch_path": null,
           "local_evidence": {
             "directory": "pilots/agentbox-s2",
-            "files": 13,
-            "content_sha256": "88f42e344d6bd0500dcf3c20faf4cbc5e0387bc579b9d26dacae4e1acb53647d",
+            "files": 16,
+            "content_sha256": "414e1c4310637baec7daadb3103df035bbbe2860cb6983a2ff7cb70965a2c966",
             "patch_candidates": []
           },
           "local_patch_sha256": null
