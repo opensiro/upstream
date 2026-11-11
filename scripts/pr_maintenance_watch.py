@@ -56,6 +56,8 @@ APPROVED_CHECKPOINT_ADDITIONS = {
     "https://github.com/gczhuang-cmd/NovaCode/pull/1",
     # Operator-approved publication 2026-11-11, with authenticated readback.
     "https://github.com/knowflow-ai/KnowWork/pull/4",
+    # Standing-mandate publication with exact current-head GitHub readback (2026-11-11).
+    "https://github.com/murilo-bassan/durable-agent-runtime/pull/1",
 }
 CHECK_CONCLUSIONS = {
     "failure": ("CI_FAILED", "action_required"),

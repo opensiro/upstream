@@ -16,6 +16,19 @@
       "publication_state": "OPEN_READY",
       "approved_exact_title_body": true,
       "approval_boundary": "operator-approved one PR; no general autonomous external publication grant"
+    },
+    {
+      "id": "runloop-budget-finalization-idempotency",
+      "repository": "murilo-bassan/durable-agent-runtime",
+      "public_fork": "opensiro-contributions/durable-agent-runtime",
+      "fork_local_pr_url": "https://github.com/opensiro-contributions/durable-agent-runtime/pull/1",
+      "pr_url": "https://github.com/murilo-bassan/durable-agent-runtime/pull/1",
+      "base_sha": "1d68208d017d27d1b21805753b51a3872c888a52",
+      "head_sha": "4a2cf1552aebf3fce76da56e51d46e70ff87af39",
+      "pr_commits": 2,
+      "publication_state": "OPEN_READY",
+      "approved_exact_title_body": true,
+      "approval_boundary": "Owner standing external PR publication mandate effective 2026-11-11; authenticated xLagerFeuer host action, no individual PR approval"
     }
   ]
 }
