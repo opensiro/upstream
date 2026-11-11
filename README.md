@@ -26,6 +26,7 @@ Routine fork creation and patch preparation **do not require a fresh user approv
 
 | I want to… | Start here |
 | --- | --- |
+| I don't understand any of this | [Show me the visual map](https://opensiro.com/vsm.html) — a direct, illustrated introduction to the VSM approach |
 | Browse external contributions and outcomes | [Public portfolio](https://opensiro.com/upstream-portfolio.html) · [GitHub dashboard](DASHBOARD.md) · [harness status](HARNESS_STATUS.md) |
 | See working forks and priority targets | [registry.yaml](registry.yaml) · [generated working-fork inventory](data/contribution-workspaces/registry.json) |
 | Examine technical evidence | [Casebook](cases/README.md) · [pilots](pilots/README.md) |
