@@ -31,6 +31,18 @@
       "case_id": "agent-code-reviewer",
       "evidence": "https://github.com/opensiro/upstream/pull/69",
       "patch_path": null
+    },
+    {
+      "source": "ScaleML/AgentSPEX",
+      "case_id": "agentspex-offline-checkpoint-preflight",
+      "evidence": "https://github.com/opensiro/upstream/pull/116",
+      "patch_path": null
+    },
+    {
+      "source": "howl-anderson/agentsilex",
+      "case_id": "agentsilex-offline-recorded-audit",
+      "evidence": "https://github.com/opensiro/upstream/pull/115",
+      "patch_path": null
     }
   ]
 }
