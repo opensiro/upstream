@@ -28,7 +28,7 @@ class ForkBootstrapProposalTests(unittest.TestCase):
         self.assertEqual(report["counts"]["additive_extras"],
                          report["counts"]["sources"] - report["counts"]["priority_sources"])
         self.assertGreaterEqual(report["counts"]["additive_extras"], 83)
-        self.assertEqual(report["counts"]["by_state"]["RECHECK_MAPPED_FORK"], 16)
+        self.assertEqual(report["counts"]["by_state"]["RECHECK_MAPPED_FORK"], 17)
         self.assertEqual(report["counts"]["by_state"]["HOLD_LICENSE_REVIEW"], 5)
         self.assertGreaterEqual(report["counts"]["collision_name_proposals"], 10)
         by_source = {r["source"].casefold(): r for r in report["sources"]}
