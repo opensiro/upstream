@@ -14,6 +14,7 @@ import tempfile
 
 from connected_stage_adapter import StageBlocked
 from rest_fork_port import _repo
+from connected_multifile_stage import classified_paths
 
 HTTP_STATUS = re.compile(r"^HTTP/\S+\s+(\d{3})\b", re.M)
 POST_PATH = re.compile(
@@ -116,15 +117,9 @@ class CleanPublicGitPatchMaterializer:
              and type(base_sha) is str and SHA.fullmatch(base_sha)
              and type(patch_text) is str
              and 0 < len(patch_text.encode()) <= 131072
-             and type(changed_paths) is list
-             and len(changed_paths) == 2
-             and len(set(changed_paths)) == 2
-             and all(type(path) is str and len(path) <= 200 and
-                     path.startswith("packages/") and
-                     ".." not in path and "//" not in path and
-                     all(part not in ("", ".", "..") for part in path.split("/"))
-                     for path in changed_paths),
+             and type(changed_paths) is list,
              "Materialization scope invalid")
+        source_path, test_path = classified_paths(changed_paths)
         with tempfile.TemporaryDirectory(prefix="opensiro-materialize-") as tmp:
             # Public untrusted checkouts must not inherit the VM's GitHub
             # token, SSH agent, Git credential helpers or global Git filters.
@@ -165,7 +160,7 @@ class CleanPublicGitPatchMaterializer:
                     need(ls.startswith("100644 "),
                          "Preimage was not an ordinary 100644 blob")
                 else:
-                    need("/test/" in p, "Only new test file may be absent")
+                    need(p == test_path, "Only new test file may be absent")
                 original_modes[p] = "100644"
             patch_path = Path(tmp) / "candidate.patch"
             patch_path.write_text(patch_text, encoding="utf-8")

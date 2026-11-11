@@ -227,7 +227,7 @@ class GitHubRESTMultifilePatchPort:
              "Git tree POST did not provide a verified SHA")
         new_commit = self._request(
             "POST", "repos/" + name + "/git/commits",
-            {"message": "fix: protect tool gateway socket ownership",
+            {"message": "fix: add source-native regression guard",
              "tree": tree_sha, "parents": [base_sha]},
             expected=(201,))
         new_sha = new_commit.get("sha")

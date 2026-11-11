@@ -1,17 +1,16 @@
 # Exact two-file prepare stage — host-only source contract
 
-**Status:** source implementation + offline tests; **NOT ACTIVATED**.
+**Status:** source implementation + offline tests; live-stage authority still required.
 Owner: [Upstream #6](https://github.com/opensiro/upstream/issues/6),
 [#28](https://github.com/opensiro/upstream/issues/28).
-This is a **new, narrower two-file port**. It does not expand the older
+This is a **bounded two-file port**. It does not expand the older
 [`connected_stage_adapter.py`](../scripts/connected_stage_adapter.py),
 which still only creates one new test file.
 
 ## What this implementation does
 
 [`scripts/connected_multifile_stage.py`](../scripts/connected_multifile_stage.py)
-defines `prepare_exact_two_file_patch(...)` for **one production source file
-that already exists** and **one new package-local test file**. It accepts a
+defines `prepare_exact_two_file_patch(...)` for **one existing production source file** and **one new or existing test file**. It accepts a
 bounded exact text patch, source and working fork identities, pinned
 `source_sha == base_sha`, proposed new `opensiro/*` contribution branch,
 preimage SHA-256 of the existing production file, postimage SHA-256 of
@@ -38,7 +37,7 @@ All of the following are required before the host may authorize:
   grant and before the only branch-ref write. Existing fork development
   stays untouched. Missing objects, divergent ancestry, moving refs,
   wrong file preimages, or a pre-existing contribution branch block.
-- The patch includes exactly these two paths, adds the test, has no
+- The patch includes exactly these two paths, adds or updates the test, has no
   binary/rename/copy/delete, and matches its pinned digest.
 - The trusted host first returns a **nonprimitive opaque authenticated
   `verify_exact_prepare(intent)` grant**, binds the actual actor,
@@ -62,6 +61,24 @@ returning `PREPARED_VERIFIED`.
 An error from the write port yields `UNKNOWN_AFTER_WRITE`,
 `auto_retry=false`; a failed/missing/mismatched remote readback yields
 `PENDING_VERIFICATION`, also not a success or an automatic retry.
+
+## Existing Python test preimage gate
+
+The bounded Python layouts are src/package/**/*.py or scientific_agent/**/*.py
+paired with tests/**/test_*.py. The existing TypeScript packages/name/src
+and packages/name/test layouts remain supported.
+
+When the test file already exists, preimage_sha256 must contain both source
+and test paths. Both the original source and matching fork are checked against
+those exact preimage hashes, before and after one-use authorization. New-file
+patch headers are forbidden in this mode. When the test is new, its exact
+path must be absent in both repositories, and new file mode 100644 is mandatory.
+
+The two-path constraint, source and fork SHA, patch and postimage hashes,
+safe file modes, non-overwriting branch creation and remote readback remain
+mandatory. The Git Data commit message is now source-neutral rather than
+using the historical HarnessDesk-specific description. This **does not**
+activate a live trusted writer, grant a signature or waive native testing.
 
 ## What it does NOT do
 
