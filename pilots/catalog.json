@@ -5,7 +5,7 @@
   "generated_from": "pilots/ direct subdirectories and their preserved files",
   "counts": {
     "pilot_directories": 73,
-    "artifact_files": 232,
+    "artifact_files": 234,
     "historical_directories": 66,
     "new_directories": 7,
     "by_kind": {
@@ -1082,15 +1082,17 @@
       "kind": "PATCH_HANDOFF",
       "start_here": "pilots/yoagent-file-alias-s2/CONTRIBUTION_HANDOFF.md",
       "artifact_counts": {
-        "patch": 2,
+        "patch": 3,
         "handoff": 1,
-        "receipt": 1,
+        "receipt": 2,
         "other": 1
       },
       "files": [
         "CONTRIBUTION_HANDOFF.md",
         "INDEPENDENT_HOST_RECEIPT_2026-11-10.md",
+        "INDEPENDENT_HOST_RECEIPT_V2_2026-11-11.md",
         "TEST_PLAN.md",
+        "native-fix-v2.patch",
         "native-fix.patch",
         "native-regression.patch"
       ]
