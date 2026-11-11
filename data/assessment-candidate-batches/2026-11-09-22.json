@@ -155,7 +155,10 @@
       "screening_result": "Exact source handler permits two concurrent new requests for the same convid to create two gateways before publishing conv_id_to_kernel. Separately dispatched dev-alpha-2 SSH runner session 7c40d6d9-65a4-454e-b0ca-6d6e2b1668ac, Python 3.12.3 / Tornado 6.5.2, matched native HTTP test: baseline 1/2 PASS and a duplicate-gateway FAIL; patched 2/2 PASS, independent-conversation concurrency preserved; compileall/diff-check PASS. No live Docker, model or third-party publication. Origin checkpoint 441d7675 precedes target-code inspection.",
       "handoff_url": "https://github.com/opensiro/upstream/blob/7bd909e57098d28e206cc0854b94eae0fd434c31/pilots/codeact-s2/CONTRIBUTION_HANDOFF.md",
       "external_action": "NOT_EXECUTED",
-      "observed_native_change": "Separate dev-alpha-2 monitored SSH runner 7c40d6d9-65a4-454e-b0ca-6d6e2b1668ac on exact first-party CodeAct d607f56, native Tornado HTTP handler / stubbed Jupyter backend. Matched Python unittest 2 cases: before 1 PASS/1 FAIL (duplicate gateway); after fix 2/2 PASS, compileall and git diff --check PASS. Exact source, patch hashes, runtime and log retention in pilots/codeact-s2/INDEPENDENT_HOST_RECEIPT_2026-11-09.md."
+      "observed_native_change": "Separate dev-alpha-2 monitored SSH runner 7c40d6d9-65a4-454e-b0ca-6d6e2b1668ac on exact first-party CodeAct d607f56, native Tornado HTTP handler / stubbed Jupyter backend. Matched Python unittest 2 cases: before 1 PASS/1 FAIL (duplicate gateway); after fix 2/2 PASS, compileall and git diff --check PASS. Exact source, patch hashes, runtime and log retention in pilots/codeact-s2/INDEPENDENT_HOST_RECEIPT_2026-11-09.md.",
+      "patch_path": "pilots/codeact-s2/native-fix.patch",
+      "patch_sha256": "11afa4ea02e7c1107a8e1e77ca7333951dfa627e251c3057b6fb854633c99430",
+      "test_patch_path": "pilots/codeact-s2/native-regression.patch"
     },
     {
       "id": "eve-continuation-settlement-retry-duplicate",

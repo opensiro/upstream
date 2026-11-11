@@ -23,6 +23,15 @@
 - [Production patch](native-fix.patch): use one in-flight `asyncio` task keyed by conversation before awaiting kernel initialization; co-waiters share it, distinct conversation IDs proceed independently; failures close the begun gateway.
 - [Independent source-native receipt](INDEPENDENT_HOST_RECEIPT_2026-11-09.md): matched **RED 1/2 → GREEN 2/2**, exact source and patch hashes, host monitoring session, Python/Tornado environment and output caveats. [Reproducible host script](run-native.sh) invokes tests without a live model or gateway.
 
+## Reviewed patch selection for preparation (2026-11-11)
+
+The two existing, first-party-tested patch artifacts are now explicitly selected for the generated working-fork registry, with no new code changes:
+
+- Production: `native-fix.patch`, SHA-256 `11afa4ea02e7c1107a8e1e77ca7333951dfa627e251c3057b6fb854633c99430`.
+- Tornado regression: `native-regression.patch`, SHA-256 `9265f2da99a4edba0d690bb152d894157f51ede0a94978b716c3be2adc78adf6`.
+
+The exact target remains `xingyaoww/code-act main@d607f56c9cfe9e8632ebaf65dcaf2b4b7fe1c6f8`, and the direct public fork `opensiro-contributions/code-act` currently has a source-identical default branch. This selection unlocks a *candidate-specific* preparation preflight under the standing mandate; it does not itself push a branch or publish a PR. Rerun source-native checks on the actual fork head and recheck the source after any drift.
+
 ## Remaining decision boundary
 
 This is an internal engineering result, **not a contribution to `xingyaoww/code-act` yet**. No third-party fork, branch, PR, merger, deployment or maintainer feedback is claimed. Upstream #6 must authorize actual external stages independently. Before external publication, recheck the target's then-current source, contribution rules and maintainer interest; a standalone upstream maintainer may prefer a different allocation policy. Full integration tests with real Docker/Jupyter remain unrun and are not equivalent to the deterministic mocked-backend correctness evidence. There is **no automatic Index grade increase** or new S2 ownership in this change.
