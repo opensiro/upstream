@@ -3,7 +3,7 @@
   "state": "READ_ONLY_PROPOSAL_NOT_APPROVED",
   "destination_org": "opensiro-contributions",
   "source_registry": "data/contribution-workspaces/registry.json",
-  "source_registry_sha256": "b6e35764335d9c2c8a4e7bd5b70ad03f49881ff99800079c53133f75b551f116",
+  "source_registry_sha256": "749d3e56bdbaa1077de86404145464be43d03ece8a31dce56b40971f5187a1a3",
   "priority_snapshot": "data/fork-priorities/2026-11-08.json",
   "batch_size_max": 10,
   "counts": {
@@ -15,8 +15,8 @@
     "by_state": {
       "HOLD_HISTORICAL_OR_NEGATIVE_CASE": 99,
       "HOLD_LICENSE_REVIEW": 5,
-      "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT": 82,
-      "RECHECK_MAPPED_FORK": 16
+      "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT": 81,
+      "RECHECK_MAPPED_FORK": 17
     }
   },
   "authority": {
@@ -35,7 +35,7 @@
     {
       "id": "bootstrap-001",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "758640dca17e89602107f4208033dfc7c45ac82ae7c38cf4e4fc470b8d3b67c8",
+      "selection_sha256": "56bc2f116626c9c25cbd60ca3cace20ff95cc0292a776e5f8d485f2db51c4934",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -84,7 +84,7 @@
     {
       "id": "bootstrap-002",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "850ddd62875733f2a7fd08ac08e11b6c94761b41a0a8685e8b296bfdb1caee6b",
+      "selection_sha256": "3bcbd422f147f715aa7d6624c6b3a8fd58a30b57775cc7e35eda5bf9d64d3f78",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -133,7 +133,7 @@
     {
       "id": "bootstrap-003",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "a95235e11b6f57eaa011e60fc5a18b19243ab35ec29e833e661f847ae6561ea7",
+      "selection_sha256": "93be59844f7b8947e987b3e54c6159f8554ee08e3c37d2819c113084b41c54d8",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -182,7 +182,7 @@
     {
       "id": "bootstrap-004",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "29aee1b994c832d66d237e572231d33674f40fab9904f65df4e9a35d5f7a1add",
+      "selection_sha256": "2b6ab41480556f0b9daf175bab986070e9312e8961b09e8aa82c6f8d972d2004",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -231,7 +231,7 @@
     {
       "id": "bootstrap-005",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "86ca0e704c723e935c34a807d52ba8b1d6b33e4d3c26beed8e5013ed525158a4",
+      "selection_sha256": "0c7ada53c5d930960f934c06ee5cc441906a80134930a2c3c2d554ec1109a1f4",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -280,7 +280,7 @@
     {
       "id": "bootstrap-006",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "4043c694b156a8e5accf30130852fcd07381b34afe5680e13028375aca2469fc",
+      "selection_sha256": "9cd1049fbe45a9270603dc5a8d748ba0517d5d552a393418b55737ab6e991e69",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -329,7 +329,7 @@
     {
       "id": "bootstrap-007",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "b738b5d3a48b329de88bd2715e70a0b8548fd734c76fd8354a2921984edc44ac",
+      "selection_sha256": "ccbaf28e474d152dfd477c08b83c5a89822ac5f48e408980b7c5bb4e2bb801a0",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -378,7 +378,7 @@
     {
       "id": "bootstrap-008",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "d330ce65e36ed49cc923c108b90362cdcf60a6ced0747a792a3c1b5efb48d293",
+      "selection_sha256": "4929b5a8f1a8d5d22af902c6b002725f68b52930fca9ea3c8759f2cf6c7f035b",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -399,10 +399,6 @@
           "candidate_fork": "opensiro-contributions/NovaCode"
         },
         {
-          "source": "knowflow-ai/KnowWork",
-          "candidate_fork": "opensiro-contributions/KnowWork"
-        },
-        {
           "source": "leprachuan/Wee-Orchestrator",
           "candidate_fork": "opensiro-contributions/Wee-Orchestrator"
         },
@@ -421,20 +417,20 @@
         {
           "source": "splashxmoon/friday",
           "candidate_fork": "opensiro-contributions/friday"
+        },
+        {
+          "source": "xingyaoww/code-act",
+          "candidate_fork": "opensiro-contributions/code-act"
         }
       ]
     },
     {
       "id": "bootstrap-009",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "41202b8fa4a8af257a6a5144263163d1c6e95f811c7d052cd8758fb0749c26e2",
-      "source_count": 2,
+      "selection_sha256": "2f94f4c38791d163fb5dbc18922e49ae790d89d23db312f17c305cd36364c3b6",
+      "source_count": 1,
       "has_collision_name_proposals": false,
       "selection": [
-        {
-          "source": "xingyaoww/code-act",
-          "candidate_fork": "opensiro-contributions/code-act"
-        },
         {
           "source": "yologdev/yoagent",
           "candidate_fork": "opensiro-contributions/yoagent"
@@ -2056,7 +2052,7 @@
       "candidate_fork": "opensiro-contributions/KnowWork",
       "candidate_name": "KnowWork",
       "collision_name_proposal": false,
-      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "state": "RECHECK_MAPPED_FORK",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
