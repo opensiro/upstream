@@ -54,6 +54,8 @@ APPROVED_CHECKPOINT_ADDITIONS = {
     "https://github.com/talktorana/agent-harness/pull/1",
     "https://github.com/ruslantrachuk/dark-factory/pull/106",
     "https://github.com/gczhuang-cmd/NovaCode/pull/1",
+    # Operator-approved publication 2026-11-11, with authenticated readback.
+    "https://github.com/knowflow-ai/KnowWork/pull/4",
 }
 CHECK_CONCLUSIONS = {
     "failure": ("CI_FAILED", "action_required"),

@@ -151,6 +151,8 @@ class WatchTests(unittest.TestCase):
         self.assertEqual(len({t["url"] for t in data["targets"]}), 26)
         self.assertIn("https://github.com/knowflow-ai/KnowWork/pull/4",
                       {t["url"] for t in data["targets"]})
+        self.assertIn("https://github.com/knowflow-ai/KnowWork/pull/4",
+                      watch.APPROVED_CHECKPOINT_ADDITIONS)
         self.assertIn("https://github.com/cbrock84/headcount/pull/47",
                       [t["url"] for t in data["targets"]])
         self.assertIn("https://github.com/chumingjun/dsh-harness-one/pull/173",
