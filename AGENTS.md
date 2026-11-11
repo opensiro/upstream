@@ -1,33 +1,13 @@
-# Agent entry point — OpenSiro Upstream Contributions
+# OpenSiro Upstream — agent entry
 
-This file routes agents. It does not confer authority, define VSM semantics, or substitute for a fresh GitHub readback.
+This file is a short execution route, **not** a grant of authority or a second source of truth.
 
-1. Read the current public [OpenSiro START_HERE.md](https://github.com/opensiro/vsm-oss-organization/blob/main/START_HERE.md), then its [ecosystem owner map](https://github.com/opensiro/vsm-oss-organization/blob/main/docs/ECOSYSTEM.md).
-2. Read [README.md](README.md), the local [UPSTREAMING.md](UPSTREAMING.md) contract, [CONTRIBUTING.md](CONTRIBUTING.md) and [docs/OPERATIONS.md](docs/OPERATIONS.md).
-3. For open-ended existing work follow the shared [Organization TODO.md](https://github.com/opensiro/vsm-oss-organization/blob/main/TODO.md); for new or cross-repository work follow [CONTRIBUTOR_START.md](https://github.com/opensiro/vsm-oss-organization/blob/main/CONTRIBUTOR_START.md).
-4. Read the **exact owning issue and PR**, their current heads and any frozen source refs before acting. An open PR title or older chat is not authoritative for current state.
-5. Use a reviewable PR for meaningful local changes. Treat external forks, PRs and comments, protected-branch integration, branch deletion, publication-grant activation and license selection as separate actions with their own authority.
-6. Before preparing an **external** PR title/body, follow the target repository's current [source-native PR template and contributor requirements](docs/ORGANIZATION_FORK_UPSTREAM_PR.md#source-native-pr-form-and-contributor-requirements). An OpenSiro generic description does not replace the target's form.
-7. For an approved, validated external PR, default to **Open · Ready for review** (`draft: false`). Draft requires an explicitly documented unresolved readiness condition; an internal OpenSiro PR may follow its own separate gate. Neither state authorizes external merge.
-8. For external publication, follow the [working-fork-first pipeline](docs/CONTINUOUS_WORKING_FORK_PIPELINE.md) and [five-repository wave contract](docs/EXTERNAL_PUBLICATION_WAVES.md): authorized source code, regression tests and the candidate PR diff belong on an `opensiro/...` branch of the correctly parented `opensiro-contributions/<target>` fork. Keep source-pinned technical evidence and lifecycle records in Upstream. **Do not open an internal Upstream PR whose only deliverable is a copy of a future third-party PR title/body.** Compose the final description from the checked fork diff and target's current template. **Preparation and external PR publication have separate standing mandates; neither requires repeated per-PR conversational approval** ([preparation](docs/STANDING_PREPARATION_AUTONOMY.md), [publication](docs/STANDING_EXTERNAL_PR_PUBLICATION.md)). All source-native checks, authentic provider rights and revocation controls remain mandatory. A disconnected host, ineligible source, expired mandate or unavailable provider capability remains a technical blocker.
+1. Bootstrap from [START_HERE](https://github.com/opensiro/vsm-oss-organization/blob/main/START_HERE.md) → [ECOSYSTEM](https://github.com/opensiro/vsm-oss-organization/blob/main/docs/ECOSYSTEM.md) → this repository's current default branch. [Organization TODO](https://github.com/opensiro/vsm-oss-organization/blob/main/TODO.md) selects shared work; the **exact owning issue/PR** sets task scope, pins, status and gates.
+2. Read [UPSTREAMING.md](UPSTREAMING.md) for local source-of-truth, lifecycle and evidence rules. Read **only the procedure relevant to the operation** (linked from [README](README.md)); use [operations](docs/OPERATIONS.md) for commands and [Actions map](docs/ACTIONS.md) for workflow ownership.
+3. Keep live source-native code, tests, an `opensiro/...` working branch and the **one unpublished PR proposal** on the correctly parented `opensiro-contributions/<target>` fork. Upstream stores only provenance, receipts, maintenance records and generated views. Never create an internal Upstream PR solely to mirror an outgoing PR description.
+4. For writes, verify the current source and fork SHA, license and contributor requirements, actual authenticated permissions, effective exact-stage standing mandate, native checks and target policy. Preparation and external PR publication use **different** mandates ([prepare](docs/STANDING_PREPARATION_AUTONOMY.md), [publish](docs/STANDING_EXTERNAL_PR_PUBLICATION.md)). Do not request another per-PR owner approval inside these envelopes. A policy file or passing mock test is not proof of a functioning host; fail closed if the capability or gate is missing.
+5. Form an external PR from the real fork diff and the target's current PR template, including [AI-assisted disclosure](docs/AI_ASSISTED_PR_DISCLOSURE.md). Default to **Open, ready for review** when all target requirements are met. Do not impersonate personal DCO/CLA attestations or merge into someone else's repository.
+6. Validate local changes with the [repository checks](README.md#repository-checks) and relevant generated-artifact check. Use a reviewable internal PR; verify exact-head CI and applicable merge gates before integration. Never rewrite Index assessments or hand-edit generated dashboards.
+7. Record external PR identity, maintainer response and source-pinned evidence separately. `closed` is not by itself rejection; machine `VERIFIED` is not an accepted outcome or deployment claim. See [outcomes](docs/VERIFIED_EXTERNAL_OUTCOMES.md) and [triage #150](https://github.com/opensiro/upstream/issues/150). Preserve historical evidence and retained branches until individually adjudicated.
 
-## Evidence and non-conflation
-
-- The [Index](https://github.com/opensiro/vsm-harness-index) owns accepted VSM assessments, [Skills](https://github.com/opensiro/vsm-harness-skills) owns methodology, [Profile](https://github.com/opensiro/vsm-harness-profile) owns semantics, and [Organization](https://github.com/opensiro/vsm-oss-organization) owns the S1/S5 domain boundary and experimental fit.
-- Upstream owns its local contribution records, native test receipts, public external-PR lifecycle observations and generated views. Keep external PR identity, distinct intervention identity, product-native effect, cohort-relative fit and fork-lifecycle state separate.
-- Pin external product code for native tests. Do not run live model/browser agent quality trials as if they were required evidence for assessment-derived product improvement.
-- A `closed` external PR is not by itself a rejection. The actor who performed closure requires GitHub issue-event evidence; the **reason** needs separate primary evidence. A maintainer-written replacement is not a contributor PR merge.
-- Never silently widen the 18-target acceptance cohort, change the Organization fit ledger, or count both original and replacement PRs as separate interventions.
-- `DASHBOARD.md`, `HARNESS_STATUS.md`, `docs/index.html` and generated casebook regions are materializations; use their scripts and validate rather than hand-editing.
-
-## Common local verification
-
-```bash
-python3 -m unittest discover -s tests -v
-python3 scripts/upstream_status.py --check-generated
-python3 scripts/harness_status.py --check
-python3 scripts/portfolio_reconcile.py --validate-only
-python3 scripts/verified_external_outcomes.py --validate-only
-```
-
-For live checks, privileges, repository branches and retained closed PRs, follow [docs/OPERATIONS.md](docs/OPERATIONS.md) and the exact owning issue. A successful offline mock is not authorization for a network write.
+**Current boundary:** only Upstream owns external OSS contribution records. [Organization](https://github.com/opensiro/vsm-oss-organization) owns S1/S5 boundaries; [Index](https://github.com/opensiro/vsm-harness-index) owns accepted assessments. Upstream's branch and workflow administration is distinct from third-party maintainer authority.
