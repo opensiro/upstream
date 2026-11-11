@@ -50,9 +50,9 @@ class FakeAPI:
 class PortfolioReconcileTests(unittest.TestCase):
     def test_frozen_source_union_exact_size_and_identity(self):
         entries = portfolio.cohort()
-        self.assertEqual(len(entries), 33)
-        self.assertEqual(sum("watchlist" in row["groups"] for row in entries), 26)
-        self.assertEqual(len({row["url"] for row in entries}), 33)
+        self.assertEqual(len(entries), 34)
+        self.assertEqual(sum("watchlist" in row["groups"] for row in entries), 27)
+        self.assertEqual(len({row["url"] for row in entries}), 34)
         self.assertEqual(len([row for row in entries if "casebook" in row["groups"]]), 9)
         self.assertEqual(len([row for row in entries if "registry" in row["groups"]]), 1)
         self.assertEqual(
