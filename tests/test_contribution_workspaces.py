@@ -148,6 +148,19 @@ class WorkspaceTests(unittest.TestCase):
                                         "Duplicate selected packet"):
                 workspaces._selected_patch_packets(root)
 
+    def test_wave_pilot_only_sources_not_misclassified_as_stage_ready(self):
+        by_source = {r["source"].casefold(): r for r in workspaces.build()["sources"]}
+        for source, pr in (("scaleml/agentspex", 116),
+                           ("howl-anderson/agentsilex", 115)):
+            row = by_source[source]
+            self.assertEqual(row["priority_group"], "PILOT_EXTRA")
+            self.assertEqual(row["handoffs"], [])
+            self.assertIsNone(row["latest_stage"])
+            self.assertEqual(len(row["pilot_links"]), 1)
+            self.assertEqual(row["pilot_links"][0]["evidence"],
+                             "https://github.com/opensiro/upstream/pull/" + str(pr))
+            self.assertFalse(row["license_review"])
+
     def test_generated_registry_is_current_and_check_is_read_only(self):
         self.assertEqual((ROOT / workspaces.REGISTRY).read_text(encoding="utf-8"),
                          workspaces.encoded(workspaces.build()))

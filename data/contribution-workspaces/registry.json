@@ -4,11 +4,11 @@
   "batch_sources": "data/assessment-candidate-batches/*.json",
   "counts": {
     "priority_sources": 100,
-    "historical_extras": 102,
+    "historical_extras": 104,
     "batch_only_extras": 89,
-    "pilot_only_extras": 5,
+    "pilot_only_extras": 7,
     "portfolio_only_extras": 8,
-    "unique_sources": 202,
+    "unique_sources": 204,
     "batch_manifests": 25,
     "batch_cases": 145,
     "historical_fork_mappings": 16,
@@ -1975,6 +1975,29 @@
       "proposed_fork": null,
       "license_review": false,
       "next_step": "RESOLVE_FORK_PARENT_AND_NAME"
+    },
+    {
+      "source": "howl-anderson/agentsilex",
+      "priority_group": "PILOT_EXTRA",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "pilot_links": [
+        {
+          "case_id": "agentsilex-offline-recorded-audit",
+          "evidence": "https://github.com/opensiro/upstream/pull/115",
+          "patch_path": null,
+          "local_evidence": null,
+          "local_patch_sha256": null
+        }
+      ],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/agentsilex",
+      "license_review": false,
+      "next_step": "RECONCILE_NATIVE_PILOT_BEFORE_FORK_STAGE"
     },
     {
       "source": "hsghcop/ForestCode",
@@ -3969,6 +3992,29 @@
       "proposed_fork": "opensiro-contributions/savant-code",
       "license_review": false,
       "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "ScaleML/AgentSPEX",
+      "priority_group": "PILOT_EXTRA",
+      "batches": [],
+      "latest_stage": null,
+      "handoffs": [],
+      "pilot_links": [
+        {
+          "case_id": "agentspex-offline-checkpoint-preflight",
+          "evidence": "https://github.com/opensiro/upstream/pull/116",
+          "patch_path": null,
+          "local_evidence": null,
+          "local_patch_sha256": null
+        }
+      ],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/AgentSPEX",
+      "license_review": false,
+      "next_step": "RECONCILE_NATIVE_PILOT_BEFORE_FORK_STAGE"
     },
     {
       "source": "senweaver/senweavercoding",
