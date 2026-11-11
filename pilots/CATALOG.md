@@ -7,7 +7,7 @@ fitness, fork existence, PR publication, maintainer acceptance, or VSM grades.
 See [experiment contract](EXPERIMENT_CONTRACT.md) and
 [working-fork pipeline](../docs/CONTINUOUS_WORKING_FORK_PIPELINE.md).
 
-**Coverage:** 73 indexed pilot directories · 228 files. The frozen baseline protects 66 historical directories and their files; 7 directories were added later.
+**Coverage:** 73 indexed pilot directories · 232 files. The frozen baseline protects 66 historical directories and their files; 7 directories were added later.
 
 Each row links its preferred entry file. Read the actual receipt and governing
 batch/PR before attributing positive results or current status.
@@ -16,7 +16,7 @@ batch/PR before attributing positive results or current status.
 
 | Pilot | Entry point | Artifacts |
 | --- | --- | --- |
-| `agent-code-524` | [Open](agent-code-524/README.md) | patch: 1, handoff: 1, protocol: 1, native_code: 7, other: 1 |
+| `agent-code-524` | [Open](agent-code-524/README.md) | patch: 1, handoff: 1, protocol: 1, native_code: 7, fixture_or_recipe: 3, other: 2 |
 | `agentbox-s2` | [Open](agentbox-s2/SCREENING_AND_NATIVE_FIT_2026-10-20.md) | handoff: 1, screen: 2, protocol: 1, receipt: 2, native_code: 4, fixture_or_recipe: 2, other: 4 |
 | `kram-s2` | [Open](kram-s2/README.md) | patch: 1, handoff: 2, receipt: 1, fixture_or_recipe: 1, other: 2 |
 | `zot-shared-workspace` | [Open](zot-shared-workspace/SCREENING_2026-10-20.md) | screen: 1, protocol: 9, receipt: 4, native_code: 1, fixture_or_recipe: 3, other: 2 |

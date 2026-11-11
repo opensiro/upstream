@@ -25,9 +25,6 @@ UPSTREAM_CONTROL = frozenset({
 # These may be retired after source-native coverage and historical receipts
 # are independently reconciled; do not add new entries to this frozen set.
 LEGACY_SOURCE_NATIVE = frozenset({
-    "agent-code-524-offline-delta.yml",
-    "agent-code-524-offline.yml",
-    "agent-code-524-upstream-audit.yml",
     "agentbox-s2-manager-advisory.yml",
     "harnessdesk-v2-current-source.yml",
     "harnessdesk-v2-macos.yml",
