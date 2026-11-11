@@ -87,15 +87,17 @@ class VerifiedExternalOutcomeTests(unittest.TestCase):
     def test_owner_ledgers_cover_exact_portfolio_with_one_replacement_chain(self):
         items, blocked = outcomes.cohort()
         self.assertEqual((len(items), sum(len(x["pr_urls"]) for x in items), blocked),
-                         (33, 34, 21))
+                         (34, 35, 21))
         self.assertEqual(len([x for x in items if x["kind"] == "improvement"]), 2)
         self.assertEqual(len([x for x in items if x["kind"] == "corrective"]), 13)
         self.assertEqual(len([x for x in items if x["kind"] == "casebook"]), 8)
         self.assertEqual(len([x for x in items if x["kind"] == "registry"]), 1)
-        self.assertEqual(len([x for x in items if x["kind"] == "publication"]), 9)
+        self.assertEqual(len([x for x in items if x["kind"] == "publication"]), 10)
         self.assertIn("publication:knowwork-sandbox-start-race",
                       {x["id"] for x in items})
         self.assertIn("publication:runloop-budget-finalization-idempotency",
+                      {x["id"] for x in items})
+        self.assertIn("publication:codeact-same-session-first-kernel-race",
                       {x["id"] for x in items})
         self.assertEqual(len([x for x in items if len(x["pr_urls"]) > 1]), 1)
         self.assertRegex(outcomes.digest_sources(), r"^[0-9a-f]{64}$")

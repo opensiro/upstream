@@ -5,7 +5,7 @@
 
 A harness may have several independent interventions and PRs. A historical `AWAITING_EXTERNAL` batch state **remains historical** even when a separate publication ledger later confirms an upstream merge. All external submission/acceptance claims below come from the linked owning source; `SUBMITTED_UNVERIFIED_LIVE` means **no current PR-state claim**.
 
-**Scope:** 153 harnesses · 163 interventions · 34 unique external PR URLs · 25 assessment batches · 27 monitored PR targets.
+**Scope:** 153 harnesses · 164 interventions · 35 unique external PR URLs · 25 assessment batches · 28 monitored PR targets.
 
 ## Harness overview
 
@@ -157,7 +157,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | [voly-codes/voly](https://github.com/voly-codes/voly) | 1 | 1 | 0 | 0 | 0 |
 | [xiaotianfotos/homerail](https://github.com/xiaotianfotos/homerail) | 1 | 0 | 0 | 0 | 0 |
 | [xincode-ai/xin-code](https://github.com/xincode-ai/xin-code) | 1 | 0 | 0 | 0 | 1 |
-| [xingyaoww/code-act](https://github.com/xingyaoww/code-act) | 1 | 1 | 0 | 0 | 0 |
+| [xingyaoww/code-act](https://github.com/xingyaoww/code-act) | 2 | 1 | 0 | 0 | 0 |
 | [xpressabhi/agentic-sdlc-control-plane](https://github.com/xpressabhi/agentic-sdlc-control-plane) | 1 | 0 | 0 | 0 | 1 |
 | [yoheinakajima/activegraph](https://github.com/yoheinakajima/activegraph) | 1 | 1 | 0 | 0 | 1 |
 | [yologdev/yoagent](https://github.com/yologdev/yoagent) | 1 | 1 | 0 | 0 | 0 |
@@ -326,6 +326,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | xiaotianfotos/homerail | [assessment:homerail-budget-concurrent-reservation](data/assessment-candidate-batches/2026-11-10-24.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-10-24 | No code change justified |
 | xincode-ai/xin-code | [assessment:xin-code-executor-permission](data/assessment-candidate-batches/2026-10-22-02.json) | S1 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-10-22-02 | Obtain missing native evidence |
 | xingyaoww/code-act | [assessment:codeact-same-session-first-kernel-race](data/assessment-candidate-batches/2026-11-09-22.json) | S2 | AWAITING_EXTERNAL | NOT_SUBMITTED | — | assessment-upstream-2026-11-09-22 | Refresh source; check external publication grant |
+| xingyaoww/code-act | [monitor:xingyaoww/code-act#26](data/pr-maintenance/targets.json) | — | NOT_TRACKED | WATCHLIST_ONLY | [#26](https://github.com/xingyaoww/code-act/pull/26) | monitor_only | Read PR maintenance inbox; no technical inference |
 | xpressabhi/agentic-sdlc-control-plane | [assessment:conductor-sdlc-s2-replan-closure](data/assessment-candidate-batches/2026-11-06-12.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-06-12 | Obtain missing native evidence |
 | yoheinakajima/activegraph | [assessment:activegraph-event-patch-invariants](data/assessment-candidate-batches/2026-10-23-08.json) | S1 | AWAITING_EXTERNAL | BLOCKED_PUBLICATION | — | assessment-upstream-2026-10-23-08 | Resolve documented publication gate |
 | yologdev/yoagent | [assessment:yoagent-file-alias-lock](data/assessment-candidate-batches/2026-11-10-24.json) | S2 | AWAITING_EXTERNAL | NOT_SUBMITTED | — | assessment-upstream-2026-11-10-24 | Refresh source; check external publication grant |
