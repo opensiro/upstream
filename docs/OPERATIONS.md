@@ -18,6 +18,10 @@ start with [GitHub Actions ownership](ACTIONS.md). The dated
 [Actions audit](../reports/2026-11-11-actions-audit.md) reconciles GitHub's
 registered-workflow list with the files on `main`; registered workflows
 from an open PR are not safe to disable without checking that PR.
+The [run-volume audit](../reports/2026-11-11-actions-run-volume.md)
+explains why cumulative run counts are not operating cost and records the
+retirement of the duplicate fork-lifecycle test workflow; the unfiltered
+`repository-integrity` job remains responsible for the full suite.
 
 Use [native CI placement](NATIVE_CI_EXECUTION.md) for assessment-derived and ordinary source-native patches. The `.github/workflows/` files here are for Upstream's own validation, read-only observation and explicitly gated operations, **not** a new workflow per outside project. First-party before/after tests run in an authorized `opensiro-contributions` working fork or separately controlled deterministic runner; retain independently attributable logs, source/test/patch pins and outcome receipts here. Never infer permission to create a fork or publish a PR from the existence of a test workflow.
 

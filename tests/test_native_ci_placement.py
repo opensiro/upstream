@@ -16,7 +16,6 @@ UPSTREAM_CONTROL = frozenset({
     "portfolio-reconciliation.yml",
     "pr-maintenance.yml",
     "repository-integrity.yml",
-    "test-fork-lifecycle.yml",
     "upstream-status-freshness.yml",
     "upstream-status-proposal.yml",
     "verified-external-outcomes.yml",

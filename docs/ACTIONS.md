@@ -12,7 +12,6 @@ receipts, see the [2026-11-11 audit](../reports/2026-11-11-actions-audit.md).
 | Intent | Action on `main` | Effect |
 | --- | --- | --- |
 | Check repository data and documentation | [`repository-integrity.yml`](../.github/workflows/repository-integrity.yml) | PR/push/offline tests; does not validate an external harness's product behavior |
-| Test fork-lifecycle code | [`test-fork-lifecycle.yml`](../.github/workflows/test-fork-lifecycle.yml) | Local fork-lifecycle regression checks |
 | Preview a fork lifecycle | [`fork-lifecycle.yml`](../.github/workflows/fork-lifecycle.yml) | Manual preview; **no fork write** |
 | Watch external PR reviews and CI | [`pr-maintenance.yml`](../.github/workflows/pr-maintenance.yml) | Hourly/opt-in, bounded local issue-inbox updates |
 | Collect external PR status evidence | [`portfolio-reconciliation.yml`](../.github/workflows/portfolio-reconciliation.yml) | Read-only portfolio reconciliation and retained run artifact |
@@ -24,6 +23,11 @@ The jobs above have different credentials, schedules, outputs and failure
 contracts. In particular, do **not** merge write-capable inbox maintenance
 into read-only external observers merely to reduce the workflow count.
 See [operations](OPERATIONS.md) for commands and exact permissions.
+
+The former `test-fork-lifecycle.yml` repeated the full `unittest discover`
+suite already run on every PR and `main` push by `repository-integrity.yml`.
+It was retired after verifying no required status-check dependency; the
+historical GitHub runs remain accessible. No fork-lifecycle test was removed.
 
 ## Third-party native workflows (retirement queue)
 

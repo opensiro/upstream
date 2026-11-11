@@ -118,3 +118,14 @@ on `main` is still 23. This targeted API cleanup is reversible and did not
 alter Git history, source-native receipts, workflow permissions or CI in
 active PRs. The 15 legacy main-branch files remain subject to the separate
 source-equivalence gate [#214](https://github.com/opensiro/upstream/issues/214).
+
+## Subsequent control-workflow deduplication
+
+The [run-volume audit](2026-11-11-actions-run-volume.md) found that the
+separate `test-fork-lifecycle.yml` control workflow executed the same full
+offline test suite as the unfiltered `repository-integrity.yml`. With no
+unique test or required-status-check dependency, it was removed from the
+control allowlist and `main` by a follow-up reviewable change. This brings
+the control set from eight to **seven**, without affecting the 15
+source-native legacy workflows or their migration gates. The 23-file count
+above is the **initial dated baseline**, not the post-dedup count.
