@@ -19,7 +19,9 @@ class KramReplayContractTest(unittest.TestCase):
         self.assertIn("POTENTIALLY_CONTAMINATED", receipt)
 
     def test_workflow_is_pinned_read_only_and_preserves_before_after_separation(self):
-        workflow = (ROOT / ".github" / "workflows" / "kram-s2-native-replay.yml").read_text()
+        # This exact historical recipe moved out of Upstream Actions after
+        # the matching contributor-fork native runner reproduced the tests.
+        workflow = (PILOT / "historical-upstream-native-replay.yml").read_text()
         self.assertIn("repository: codexmark/kram", workflow)
         self.assertIn("ref: " + SOURCE_SHA, workflow)
         self.assertIn("contents: read", workflow)
@@ -31,6 +33,14 @@ class KramReplayContractTest(unittest.TestCase):
         self.assertIn("go test -race", workflow)
         self.assertNotIn("git push ", workflow)
         self.assertNotIn("gh pr create", workflow)
+
+    def test_matching_fork_runner_has_a_durable_migration_receipt(self):
+        receipt = (PILOT / "NATIVE_CI_MIGRATION_2026-11-11.md").read_text()
+        self.assertIn(SOURCE_SHA, receipt)
+        self.assertIn(PATCH_SHA256, receipt)
+        self.assertIn("43059374414", receipt)
+        self.assertIn("af6bbb28f6dc6ca867df011c8cd4ab6c54cd0676", receipt)
+        self.assertIn("external_delivery=NONE", receipt)
 
     def test_product_benefit_is_explicitly_unmeasured(self):
         readme = (PILOT / "README.md").read_text()

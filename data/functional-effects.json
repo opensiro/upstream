@@ -17,7 +17,7 @@
       "receipts": [
         "https://github.com/opensiro/upstream/blob/main/pilots/kram-s2/REPLAY_RECEIPT_2026-10-22.md",
         "https://github.com/opensiro/upstream/blob/main/pilots/kram-s2/s2-edit-file-atomicity-v2.patch",
-        "https://github.com/opensiro/upstream/blob/main/.github/workflows/kram-s2-native-replay.yml"
+        "https://github.com/opensiro/upstream/blob/c88b010894faa7fcf5981195de7e3894796d99f9/.github/workflows/kram-s2-native-replay.yml"
       ],
       "next_gate": "Native scripted technical gate satisfied for scoped edit_file correctness; remaining steps are first-party code/fit review, exact-stage authority and human-owned external contribution. No S2 regrade."
     },

@@ -31,7 +31,9 @@ historical GitHub runs remain accessible. No fork-lifecycle test was removed.
 
 ## Third-party native workflows (retirement queue)
 
-`main` also retains historical source-native CI for these six projects:
+`main` retains historical source-native CI for five projects; the Kram
+one-workflow group was migrated to its matching fork and is listed for
+traceability:
 
 | Source | Legacy workflows | Working-fork migration |
 | --- | ---: | --- |
@@ -39,7 +41,7 @@ historical GitHub runs remain accessible. No fork-lifecycle test was removed.
 | AgentBox | 3 | Reconcile source-native tests and any still-open pilot PR dependencies |
 | HarnessDesk | 2 | Reconcile current-source and pinned macOS checks with first-party CI |
 | Kit | 2 | Reconcile pinned compatibility and offline evidence |
-| Kram | 1 | Establish a source-matched native runner first; no fork CI replacement was evidenced in the dated audit |
+| Kram | 0 | [Pinned fork-native RED/GREEN PASS](../pilots/kram-s2/NATIVE_CI_MIGRATION_2026-11-11.md); original recipe archived |
 | Zot | 4 | Reconcile four independent pinned behavioral cases |
 
 **Do not run these by default, add new per-harness Actions here, or delete
