@@ -11,5 +11,6 @@ This directory holds immutable-in-meaning, **source-dated observations**. A repo
 - [2026-11-11 external publication wave 01](2026-11-11-external-publication-wave-01.md) — five selected source-first handoffs, explicit blockers and per-PR publication gate
 - [2026-11-11 external publication wave 02](2026-11-11-external-publication-wave-02.md) — five additional handoffs, two proposed final PR descriptions, source drift and DCO gates
 - [2026-11-11 external publication wave 03](2026-11-11-external-publication-wave-03.md) — five further handoffs, one proposed PR description, security/contributor/duplicate gates
+- [2026-11-11 GitHub Actions cleanup audit](2026-11-11-actions-audit.md) — control vs legacy native workflows, registered-branch discrepancies and evidence-gated retirement plan
 
 For a current read-only PR-lifecycle observation use `python3 scripts/portfolio_reconcile.py --report` with a suitable token, or [the daily workflow](../.github/workflows/portfolio-reconciliation.yml). Neither assigns product fit or closure motive.

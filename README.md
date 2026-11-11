@@ -2,21 +2,7 @@
 
 OpenSiro's public, evidence-backed record of contributions to **third-party open-source projects**: what was investigated, what was prepared or submitted, what maintainers did, and what remains unresolved.
 
-This repository is a **contribution portfolio and operating system**, not a fork monorepo, upstream endorsement, VSM assessment index, or an independent authority to publish changes into other projects.
-
-## I'm human
-
-| I want to… | Start here |
-| --- | --- |
-| Explore the contribution portfolio | [public source-dated PR metrics](https://opensiro.com/upstream-portfolio.html) · [GitHub dashboard](DASHBOARD.md) · [cross-lane harness status](HARNESS_STATUS.md) |
-| See OpenSiro-owned working forks | [registry.yaml](registry.yaml) · [project records](projects/) |
-| Track the 100 priority targets and previously screened sources | [continuous working-fork pipeline](docs/CONTINUOUS_WORKING_FORK_PIPELINE.md) · [generated inventory](data/contribution-workspaces/registry.json) · [supervised fork bootstrap proposal](docs/FORK_BOOTSTRAP_AND_COLLABORATION.md) |
-| Examine interventions and evidence | [casebook](cases/README.md) · [technical pilots](pilots/README.md) |
-| Follow external pull requests | [PR maintenance](docs/PR_MAINTENANCE.md) · [resolved-PR metric](docs/RESOLVED_PR_ACCEPTANCE.md) · [verified external outcome evidence](docs/VERIFIED_EXTERNAL_OUTCOMES.md) |
-| Propose or review a contribution | [CONTRIBUTING.md](CONTRIBUTING.md) · [Upstream operating contract](UPSTREAMING.md) |
-| Understand architecture or automation | [Documentation map](docs/README.md) · [operations](docs/OPERATIONS.md) |
-
-The dashboards are **dated, generated views**. The public website is a consumer of this repository's read-only PR observer, not the owner of a new adoption metric. For the latest merge, closure or review outcome, inspect the linked external GitHub PR. An unavailable PR is not automatically a rejection.
+This repository is the **evidence and coordination layer**, not a fork monorepo, upstream endorsement, VSM assessment index, or independent authority to publish changes into other projects. Actual contribution code, target-native CI and unpublished external PR proposals live in the matching `opensiro-contributions` working fork.
 
 ## I'm AI
 
@@ -26,17 +12,40 @@ Follow the current OpenSiro [START_HERE.md](https://github.com/opensiro/vsm-oss-
 - **New, unclassified or cross-domain work:** [Organization contributor entry](https://github.com/opensiro/vsm-oss-organization/blob/main/CONTRIBUTOR_START.md).
 - **Upstream-owned work:** the specific local issue/PR defines the evidence, frozen inputs, tests and authorization boundary. [PR portfolio triage #150](https://github.com/opensiro/upstream/issues/150) and [repository standards #130](https://github.com/opensiro/upstream/issues/130) are review queues, not instructions to merge, close or delete.
 
+| Intent | Current operational route |
+| --- | --- |
+| Find or prioritize an improvement | [Candidate batches](docs/ASSESSMENT_CANDIDATE_BATCHES.md) · [assessment → improvement](docs/ASSESSMENT_TO_IMPROVEMENT.md) |
+| Prepare a patch, native tests and an unpublished PR proposal | [Five-source working-fork pipeline](docs/CONTINUOUS_WORKING_FORK_PIPELINE.md) · [standing preparation policy and limits](docs/STANDING_PREPARATION_AUTONOMY.md) · [native CI placement](docs/NATIVE_CI_EXECUTION.md) |
+| Publish an external PR | [Exact per-PR human approval and fork-local proposal contract](UPSTREAMING.md#contribution-lifecycle) · [AI disclosure](docs/AI_ASSISTED_PR_DISCLOSURE.md) |
+| Observe PRs and outcomes | [PR maintenance](docs/PR_MAINTENANCE.md) · [verified outcomes](docs/VERIFIED_EXTERNAL_OUTCOMES.md) |
+| Find the right GitHub Action | [Action ownership and migration map](docs/ACTIONS.md) |
+
+Routine fork creation and patch preparation **do not require a fresh user approval for each step** when a live, scoped standing policy and authenticated execution host permit them. An unavailable host capability is a technical blocker, not a new human-approval request. External PR publication still needs approval of the exact proposal.
+
+## I'm human
+
+| I want to… | Start here |
+| --- | --- |
+| Browse external contributions and outcomes | [Public portfolio](https://opensiro.com/upstream-portfolio.html) · [GitHub dashboard](DASHBOARD.md) · [harness status](HARNESS_STATUS.md) |
+| See working forks and priority targets | [registry.yaml](registry.yaml) · [generated working-fork inventory](data/contribution-workspaces/registry.json) |
+| Examine technical evidence | [Casebook](cases/README.md) · [pilots](pilots/README.md) |
+| Contribute or review | [CONTRIBUTING.md](CONTRIBUTING.md) · [UPSTREAMING.md](UPSTREAMING.md) |
+| Understand the infrastructure | [Documentation map](docs/README.md) · [Actions map](docs/ACTIONS.md) |
+
+Dashboards are **dated generated views**; for the latest status, follow the exact external GitHub PR. The website consumes read-only observations and does not establish an adoption metric. An unavailable PR is not automatically a rejection.
+
 ## What belongs here
 
 | Surface | Responsibility | Source of truth |
 | --- | --- | --- |
 | `registry.yaml`, `projects/` | OpenSiro-owned forks, individual contribution status and fork maintenance | Reviewed local records corroborated by the external PR/fork |
 | `data/assessment-candidate-batches/` | Pinned five-source technical screening batches and dispositions | Frozen batch manifests; [batch contract](docs/ASSESSMENT_CANDIDATE_BATCHES.md) |
-| `pilots/`, `cases/` | Patches, native replay receipts and the historical eight-intervention experiment view | Pinned product-native evidence; [Organization fit experiment](https://github.com/opensiro/vsm-oss-organization/tree/main/experiments/upstream-intervention-fit) owns fit |
+| `pilots/`, `cases/` | Historical patches, reproducible native replay packets and technical receipts; **not** the live outgoing contribution branch | Pinned product-native evidence; [Organization fit experiment](https://github.com/opensiro/vsm-oss-organization/tree/main/experiments/upstream-intervention-fit) owns historical fit |
 | `data/corrective-publication/`, `data/improvement-publication/` | Separate finite publication cohorts | Their own explicitly bounded grants and ledgers |
 | `data/pr-maintenance/` | Explicitly reviewed external PR watchlist | Exact external PRs; [watcher](docs/PR_MAINTENANCE.md) |
-| `scripts/`, `tests/`, `.github/workflows/` | Deterministic checks, read-only sensing and explicitly gated operations | Source code and CI; [operations](docs/OPERATIONS.md) |
+| `scripts/`, `tests/`, `.github/workflows/` | Upstream's own deterministic checks, sensing and gated operations; legacy per-harness workflows await retirement | [Actions ownership map](docs/ACTIONS.md) · [migration #214](https://github.com/opensiro/upstream/issues/214) |
 | `DASHBOARD.md`, `HARNESS_STATUS.md`, `docs/index.html` | Generated portfolio projections | Their input ledgers and renderers, not manual edits |
+| `opensiro-contributions/<target>` (separate repository) | Current source-native patch, tests, branch-specific CI and **one fork-local PR** containing the proposed external title/body | Verified working-fork branch, head SHA and fork-local PR; [UPSTREAMING.md](UPSTREAMING.md#source-of-truth-separation) |
 
 See [UPSTREAMING.md](UPSTREAMING.md) for the full ownership and lifecycle rules. The Index owns canonical VSM harness assessments; [Skills](https://github.com/opensiro/vsm-harness-skills) owns assessment methodology; [Profile](https://github.com/opensiro/vsm-harness-profile) owns VSM semantics.
 
@@ -57,7 +66,7 @@ Upstream Contributions is the **fourth admitted S1 domain** within OpenSiro's pu
 
 Source preparation, offline native tests and GitHub read-only observation are distinct from privileged actions. The finite [Corrective publication mandate](docs/CORRECTIVE_PR_PUBLICATION.md) does not activate the general [fork executor](docs/AUTOMATIC_FORK_EXECUTOR_RECOVERY.md); [Issue #6](https://github.com/opensiro/upstream/issues/6) owns that separate gate. Never treat a selected batch, an approval text in a file or a successful unit test as an effective external write grant.
 
-The proposed autonomy-transfer model at [docs/OSM_DELEGATION_DESIGN.md](docs/OSM_DELEGATION_DESIGN.md) is **design only**, not an issued standing mandate.
+The broader transfer model in [docs/OSM_DELEGATION_DESIGN.md](docs/OSM_DELEGATION_DESIGN.md) remains a design. **Separately**, the owner has issued a narrow, revocable [standing preparation mandate](docs/STANDING_PREPARATION_AUTONOMY.md), recorded in [policy](policies/standing-preparation-p1.json) and bounded by [#6](https://github.com/opensiro/upstream/issues/6). It delegates eligible fork/patch preparation without repeated user prompts; it does **not** grant automatic external publication, unrestricted writes or proof that the connected executor can perform every stage.
 
 ## Validate locally
 

@@ -13,6 +13,12 @@ Use [UPSTREAMING.md](../UPSTREAMING.md) for data ownership and permission bounda
 
 ## External native CI placement
 
+For a short **which Action does what** view and the historical cleanup queue,
+start with [GitHub Actions ownership](ACTIONS.md). The dated
+[Actions audit](../reports/2026-11-11-actions-audit.md) reconciles GitHub's
+registered-workflow list with the files on `main`; registered workflows
+from an open PR are not safe to disable without checking that PR.
+
 Use [native CI placement](NATIVE_CI_EXECUTION.md) for assessment-derived and ordinary source-native patches. The `.github/workflows/` files here are for Upstream's own validation, read-only observation and explicitly gated operations, **not** a new workflow per outside project. First-party before/after tests run in an authorized `opensiro-contributions` working fork or separately controlled deterministic runner; retain independently attributable logs, source/test/patch pins and outcome receipts here. Never infer permission to create a fork or publish a PR from the existence of a test workflow.
 
 Project-specific legacy workflows are migration candidates, not automatically deletable: preserve their runs, active triggers and evidence before moving or retiring them. In particular, [Draft PR #174](https://github.com/opensiro/upstream/pull/174) has an already completed Runloop CI pilot; that historical run is not a reason to add its workflow to `main`.
