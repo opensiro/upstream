@@ -7,6 +7,21 @@ failed to allocate the required hosted macOS runner on attempt 1. This is a
 historical replay at a frozen Kit revision, **not** a new Kit issue fix,
 external PR, first-party maintainer adoption or current-release guarantee.
 
+**Placement update — 2026-11-12: `MACOS_PARITY_UNVERIFIED_ARCHIVED`.**
+Both original source-native YAMLs are archived byte-for-byte. The matching fork
+has the corresponding Linux/macOS workflow, and a separate macOS-only parity
+workflow; none of the macOS attempts had a runner execute native Kit tests
+on the latest verified readback. This is **CI ownership/placement completion**,
+not 15/15 source-native parity. The earlier paragraphs below are retained
+as dated history; superseded retirement instructions are not live gates.
+
+[Matching fork workflow](https://github.com/opensiro-contributions/kit/blob/opensiro/ci-kit-222-parity-20261111/.github/workflows/opensiro-kit-222-compat-parity.yml)
+· [macOS-only experiment](https://github.com/opensiro-contributions/kit/actions/runs/43097309626)
+· [Linux PASS / macOS not executed (attempts 1–3)](https://github.com/opensiro-contributions/kit/actions/runs/43064796979)
+· [historical original archived](historical-upstream-compat.yml).
+
+---
+
 ## Immutable sources and runs
 
 | Evidence | Identity |
@@ -23,7 +38,7 @@ external PR, first-party maintainer adoption or current-release guarantee.
 | Production-only patch | [kit-222-safe-default.patch](kit-222-safe-default.patch) — SHA256 `951952eef85d5d6e78c763fcbc30a28d620246af3a8991175780a1f89c814659` |
 | Combined patch for compatibility | [kit-222-upstream-combined.patch](kit-222-upstream-combined.patch) — SHA256 `cc997c7ee350db49c4a4f03789da25a3a4a8760281fefcc178e3a71c6b972389` |
 | Archived original offline Git blob | `b2f6332a5dbd116c2580e40ba064cae929e20622` — [historical-upstream-offline.yml](historical-upstream-offline.yml) |
-| Still-active original compatibility Git blob | `fa327f9f4325dbdcc5302afd025db6abc720e132` — [kit-222-compat.yml](../../.github/workflows/kit-222-compat.yml) |
+| Archived original compatibility Git blob | `fa327f9f4325dbdcc5302afd025db6abc720e132` — [historical-upstream-compat.yml](historical-upstream-compat.yml) |
 
 ## Native reproduction scope
 
@@ -70,25 +85,26 @@ macOS job **did not execute** on the first attempt: GitHub Actions reported
 attempts" with `macos-15` capacity warnings. This is an infrastructure
 runner-acquisition failure, **not** a failed Kit native test. A rerun of
 failed jobs was requested, but until the macOS job actually passes the
-compatibility workflow must remain in Upstream.
+the macOS validation remains unverified; the original YAML is archived rather than active.
 
 ## Upstream historical YAML retirement
 
-Only the old **offline** YAML moves out of `upstream/.github/workflows/`
-into this pilot directory, **preserving its exact Git blob**. The original
+Both historical **offline and compatibility** YAMLs have moved out of `upstream/.github/workflows/`
+into this pilot directory, preserving exact Git blobs. This completes placement,
+not native macOS parity. The original
 source is independently retrievable at:
 
 - [offline YAML before migration](https://github.com/opensiro/upstream/blob/ac73fb102652e30e81426567bbdbb11e4070dacb/.github/workflows/kit-222-offline.yml)
-- [compatibility YAML retained on `main`](../../.github/workflows/kit-222-compat.yml)
+- [archived compatibility YAML](historical-upstream-compat.yml)
 
-The validated offline removal may be published independently; no change to
-the existing macOS-containing workflow is permitted without its own full
-fork-native equivalence. The branch-only runners stay available to
+The archive-only relocation was explicitly requested by the repository owner;
+macOS parity remains `UNVERIFIED` and must not be represented as a successful
+native replacement. The branch-only runners stay available to
 reproduce their pinned inputs; they are not part of the third-party
 publication diff or merged into the fork's default branch. Logs may expire
 under GitHub retention, so this receipt preserves exact run identities,
 source/test/patch hashes, commands and observations.
 
 **Scope:** `external_delivery=NONE`; `product_benefit=NOT_MEASURED`;
-remaining legacy workflows require independent parity under
+macOS parity verification remains an independent open question under
 [Upstream #214](https://github.com/opensiro/upstream/issues/214).

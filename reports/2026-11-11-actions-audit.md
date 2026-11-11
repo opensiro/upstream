@@ -5,6 +5,12 @@
 GitHub Actions workflow registration API and recorded native run evidence.
 This is a dated cleanup baseline, **not** a live workflow-status dashboard.
 
+**Later 2026-11-12 placement checkpoint:** Kit compatibility source-native
+workflow was archived byte-for-byte in [the pilot](../pilots/kit-222/NATIVE_CI_MIGRATION_2026-11-11.md);
+matching-fork Linux/native offline PASS, but **macOS parity remains unverified**
+(runner allocation failures). No source-native YAML remains on Upstream main.
+The inventory below is the frozen November 11 baseline.
+
 ## Reconciliation
 
 | Classification | Workflows | Disposition |
