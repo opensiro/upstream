@@ -9,14 +9,14 @@ The root [README.md](../README.md) is the public handoff. [AGENTS.md](../AGENTS.
 | Which GitHub Action to use, what to keep, what to retire | [ACTIONS.md](ACTIONS.md) · [native CI placement](NATIVE_CI_EXECUTION.md) · [migration issue #214](https://github.com/opensiro/upstream/issues/214) |
 | Tests, automation, scheduled sensing, generated views | [OPERATIONS.md](OPERATIONS.md) |
 | Five-source upstream screening | [ASSESSMENT_CANDIDATE_BATCHES.md](ASSESSMENT_CANDIDATE_BATCHES.md) |
-| Five-repository external publication waves | [EXTERNAL_PUBLICATION_WAVES.md](EXTERNAL_PUBLICATION_WAVES.md) · [working-fork-first pipeline](CONTINUOUS_WORKING_FORK_PIPELINE.md) · [historical wave 01 report](../reports/2026-11-11-external-publication-wave-01.md) |
+| Five-repository external publication waves | [EXTERNAL_PUBLICATION_WAVES.md](EXTERNAL_PUBLICATION_WAVES.md) · [working-fork-first pipeline](CONTINUOUS_WORKING_FORK_PIPELINE.md) |
 | Upstream Auto (on-demand task balancing and opt-in CAS claims) | [UPSTREAM_AUTO.md](UPSTREAM_AUTO.md) · [owner issue #161](https://github.com/opensiro/upstream/issues/161) |
 | Assessment → testable external improvement | [ASSESSMENT_TO_IMPROVEMENT.md](ASSESSMENT_TO_IMPROVEMENT.md) |
 | Native effect evidence, not adoption | [FUNCTIONAL_EFFECTS.md](FUNCTIONAL_EFFECTS.md) |
 | External PR maintenance and triage | [PR_MAINTENANCE.md](PR_MAINTENANCE.md) · [PR_MAINTENANCE_TRIAGE.md](PR_MAINTENANCE_TRIAGE.md) |
 | Official resolved-PR acceptance | [RESOLVED_PR_ACCEPTANCE.md](RESOLVED_PR_ACCEPTANCE.md) |
 | Dated external PR observations and bounded history | [PORTFOLIO_HISTORY.md](PORTFOLIO_HISTORY.md) |
-| Verified external outcomes — candidate evidence gate, not claimed KPI | [VERIFIED_EXTERNAL_OUTCOMES.md](VERIFIED_EXTERNAL_OUTCOMES.md) |
+| Verified external outcomes — candidate observation vs accepted-source export | [VERIFIED_EXTERNAL_OUTCOMES.md](VERIFIED_EXTERNAL_OUTCOMES.md) |
 | External PR state freshness | [UPSTREAM_STATUS_FRESHNESS.md](UPSTREAM_STATUS_FRESHNESS.md) |
 | Guarded status-drift patch and manual Draft PR | [OPERATIONS.md](OPERATIONS.md#external-observation-read-only) |
 | Cross-lane status model | [HARNESS_STATUS_MODEL.md](HARNESS_STATUS_MODEL.md) |
@@ -38,7 +38,7 @@ Many adapter documents are deliberately **source-prepared, mock-tested or histor
 
 ## Historical handoffs and dated receipts
 
-- [FIRST_LIVE_FORK_TEST.md](FIRST_LIVE_FORK_TEST.md), [NEXT_SESSION_CORRECTIVE_PR_PROMPT.md](NEXT_SESSION_CORRECTIVE_PR_PROMPT.md), [IMPROVEMENT_PR_PUBLICATION_2026-10-24.md](IMPROVEMENT_PR_PUBLICATION_2026-10-24.md).
+- [Historical publication wave 01](../reports/2026-11-11-external-publication-wave-01.md), [FIRST_LIVE_FORK_TEST.md](FIRST_LIVE_FORK_TEST.md), [NEXT_SESSION_CORRECTIVE_PR_PROMPT.md](NEXT_SESSION_CORRECTIVE_PR_PROMPT.md), [IMPROVEMENT_PR_PUBLICATION_2026-10-24.md](IMPROVEMENT_PR_PUBLICATION_2026-10-24.md).
 - [Reports](../reports/README.md), [casebook](../cases/README.md), [technical pilots](../pilots/README.md).
 
 For current S1 admission and S5 authority, the [Organization repository](https://github.com/opensiro/vsm-oss-organization) is authoritative; an older document's historical admission status must not override it.
