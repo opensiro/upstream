@@ -1,0 +1,193 @@
+diff --git a/README.md b/README.md
+index 0774974..8916f5a 100644
+--- a/README.md
++++ b/README.md
+@@ -172,6 +172,14 @@ search_manager = ManagerAgent(llm, manager_agent_info["name"],
+                               TeamAgents=[wiki_search_agent, duck_search_agent])
+ ```
+ 
++To put a deterministic ceiling on child-agent execution, pass
++`max_team_calls_per_task=2` to `ManagerAgent`. Once that many worker calls have
++started during a manager task, further worker selections return a visible
++"Team delegation limit reached" observation without executing another worker;
++the manager can still use its other actions or finish. The quota resets for
++each task. The default `None` preserves existing delegation behavior. This
++controls the number of child calls, not their individual latency or token cost.
++
+ **3. Test the Manager Agent with a TaskPackage**
+ 
+ ```python
+diff --git a/agentlite/agents/ManagerAgent.py b/agentlite/agents/ManagerAgent.py
+index 71c15a2..a2e5406 100644
+--- a/agentlite/agents/ManagerAgent.py
++++ b/agentlite/agents/ManagerAgent.py
+@@ -1,4 +1,5 @@
+-from typing import List
++from contextvars import ContextVar
++from typing import List, Optional
+ 
+ from agentlite.actions import FinishAct
+ from agentlite.agent_prompts import ManagerPromptGen
+@@ -25,6 +26,7 @@ class ManagerAgent(BaseAgent):
+         reasoning_type: str = "react",
+         TeamAgents: List[ABCAgent] = [],
+         logger: AgentLogger = DefaultLogger,
++        max_team_calls_per_task: Optional[int] = None,
+         **kwargs
+     ):
+         """ManagerAgent inherits BaseAgent. It has all methods for base agent
+@@ -48,7 +50,14 @@ class ManagerAgent(BaseAgent):
+         :type TeamAgents: List[ABCAgent], optional
+         :param logger: the logger for this agent, defaults to DefaultLogger
+         :type logger: AgentLogger, optional
++        :param max_team_calls_per_task: optional limit on worker calls during one
++            manager task; None preserves the existing unlimited delegation behavior.
++        :type max_team_calls_per_task: int or None
+         """
++        if max_team_calls_per_task is not None and (
++            type(max_team_calls_per_task) is not int or max_team_calls_per_task < 0
++        ):
++            raise ValueError("max_team_calls_per_task must be a non-negative integer or None")
+         super().__init__(
+             name=name,
+             role=role,
+@@ -59,12 +68,26 @@ class ManagerAgent(BaseAgent):
+             logger=logger,
+         )
+         self.team = TeamAgents
++        self.max_team_calls_per_task = max_team_calls_per_task
++        # Context-local so nested or simultaneous manager executions do not
++        # reset another task's quota. A token restores the prior state on exit.
++        self._team_calls_used = ContextVar(
++            f"manager_team_calls_{id(self)}", default=None
++        )
+         self.prompt_gen = ManagerPromptGen(
+             agent_role=self.role,
+             constraint=self.constraint,
+             instruction=self.instruction,
+         )
+ 
++    def execute(self, task: TaskPackage):
++        """Start a fresh delegation allowance for each ordinary task execution."""
++        token = self._team_calls_used.set(0)
++        try:
++            return super().execute(task)
++        finally:
++            self._team_calls_used.reset(token)
++
+     def agent_match(self, agent_name: str, agent: ABCAgent) -> bool:
+         """math the generated action of agent_name with an agent in the team
+ 
+@@ -151,6 +174,15 @@ class ManagerAgent(BaseAgent):
+         for agent in self.team:
+             if self.agent_match(agent_act.name, agent):
+                 act_found_flag = True
++                used = self._team_calls_used.get()
++                if self.max_team_calls_per_task is not None and used is not None:
++                    if used >= self.max_team_calls_per_task:
++                        return (
++                            "Team delegation limit reached "
++                            f"({self.max_team_calls_per_task} calls per task). "
++                            "Select a different action or finish the task."
++                        )
++                    self._team_calls_used.set(used + 1)
+                 new_task_package = self.create_TP(
+                     agent_act.params[AGENT_CALL_ARG_KEY], agent.id
+                 )
+diff --git a/tests/test_manager_delegation_budget.py b/tests/test_manager_delegation_budget.py
+new file mode 100644
+index 0000000..57780cd
+--- /dev/null
++++ b/tests/test_manager_delegation_budget.py
+@@ -0,0 +1,91 @@
++"""Native, provider-free checks for opt-in per-task manager delegation limits."""
++
++import unittest
++
++from agentlite.agents import ABCAgent, ManagerAgent
++from agentlite.commons import TaskPackage
++
++
++class ScriptedLLM:
++    def __init__(self, *actions):
++        self.actions = iter(actions)
++
++    def run(self, prompt):
++        return next(self.actions)
++
++
++class QuietLogger:
++    def __getattr__(self, name):
++        return lambda *args, **kwargs: None
++
++
++class RecordingWorker(ABCAgent):
++    def __init__(self):
++        super().__init__(name="Worker", role="Handle delegated task")
++        self.calls = []
++
++    def __call__(self, task):
++        self.calls.append(task.instruction)
++        return "done"
++
++
++def manager_with_actions(*actions, limit=None):
++    worker = RecordingWorker()
++    options = {}
++    if limit is not None:
++        options["max_team_calls_per_task"] = limit
++    manager = ManagerAgent(
++        llm=ScriptedLLM(*actions),
++        TeamAgents=[worker],
++        logger=QuietLogger(),
++        **options,
++    )
++    return manager, worker
++
++
++def task_with_id(task_id):
++    return TaskPackage(instruction="run", task_id=task_id)
++
++
++class ManagerDelegationBudgetTests(unittest.TestCase):
++    def test_opt_in_limit_prevents_second_worker_execution(self):
++        manager, worker = manager_with_actions(
++            'Worker[{"Task":"first"}]',
++            'Worker[{"Task":"second"}]',
++            'Finish[{"response":"complete"}]',
++            limit=1,
++        )
++        task = task_with_id("budgeted")
++        self.assertEqual(manager(task), "complete")
++        self.assertEqual(worker.calls, ["first"])
++        observations = manager.short_term_memory.get_action_chain(task)
++        self.assertIn("limit", observations[1][1].lower())
++
++    def test_legacy_default_keeps_both_delegations(self):
++        manager, worker = manager_with_actions(
++            'Worker[{"Task":"first"}]',
++            'Worker[{"Task":"second"}]',
++            'Finish[{"response":"complete"}]',
++        )
++        self.assertEqual(manager(task_with_id("legacy")), "complete")
++        self.assertEqual(worker.calls, ["first", "second"])
++
++    def test_budget_resets_for_new_task_on_same_manager(self):
++        manager, worker = manager_with_actions(
++            'Worker[{"Task":"first"}]',
++            'Finish[{"response":"one"}]',
++            'Worker[{"Task":"second"}]',
++            'Finish[{"response":"two"}]',
++            limit=1,
++        )
++        self.assertEqual(manager(task_with_id("one")), "one")
++        self.assertEqual(manager(task_with_id("two")), "two")
++        self.assertEqual(worker.calls, ["first", "second"])
++
++    def test_negative_budget_is_rejected(self):
++        with self.assertRaises(ValueError):
++            manager_with_actions('Finish[{"response":"done"}]', limit=-1)
++
++
++if __name__ == "__main__":
++    unittest.main()
