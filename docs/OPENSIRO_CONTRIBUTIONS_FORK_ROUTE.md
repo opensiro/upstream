@@ -1,6 +1,6 @@
 # OpenSiro Contributions — fork creation via the existing Control Plane
 
-**Owner:** `opensiro/upstream` · **Task:** [Upstream #28](https://github.com/opensiro/upstream/issues/28) (focused executor/first-fork blocker), parent [Upstream #6](https://github.com/opensiro/upstream/issues/6) · **Status:** one-off owner-supervised operations are a separately bounded path; autonomous executor remains `BLOCKED_EXECUTOR / BLOCKED_AUTHORIZATION`. **No standing grant.**
+**Owner:** `opensiro/upstream` · **Task:** [Upstream #28](https://github.com/opensiro/upstream/issues/28) (focused executor/first-fork blocker), parent [Upstream #6](https://github.com/opensiro/upstream/issues/6) · **Historical status:** the earlier one-off owner-supervised route predates the [standing autonomous preparation mandate](STANDING_PREPARATION_AUTONOMY.md). The new owner policy removes repeated human authorization for qualifying five-source waves; it does not retroactively turn this historical fork path into a proven live host or authorize external PR publication.
 
 ## Principle
 

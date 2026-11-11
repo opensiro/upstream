@@ -61,7 +61,15 @@ the connected host runs the selected GitHub action in the observed session;
 branches are not discarded. A displayed command is not independently proven
 safe or approved, and remote checks must precede **every** write.
 
-### Protected automated route remains separate
+### Protected automated route — newer standing delegation
+
+The historical one-use **human-granted** automated route below predates
+the [2026-11-11 standing preparation mandate](STANDING_PREPARATION_AUTONOMY.md).
+For five-source waves with eligible reviewed packets, the host now makes
+bound one-use *execution* decisions automatically under a current-main
+standing owner policy; it does not ask for a new human vote on each fork
+or patch. The technical provider, fork, source and write controls still
+apply, and `submit_external_pr` remains human-approved per PR.
 
 Unattended/batch-agent execution using
 [`batch_fork_executor.py`](../scripts/batch_fork_executor.py), an automated

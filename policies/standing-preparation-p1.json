@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "mandate_id": "upstream-preparation-p1-20261111",
+  "status": "ACTIVE",
+  "issuer_actor": "xLagerFeuer",
+  "actor": "xLagerFeuer",
+  "execution_host": "dev-alpha-2",
+  "owner_decision_url": "https://github.com/opensiro/upstream/issues/6#issuecomment-6799137559",
+  "valid_from": 1794355200,
+  "valid_until": 1796947200,
+  "source_registry": "data/contribution-workspaces/registry.json",
+  "destination_owner": "opensiro-contributions",
+  "max_distinct_sources_per_wave": 5,
+  "allowed_stages": ["create_public_fork", "prepare_contribution"],
+  "branch_prefix": "opensiro/",
+  "required_packet_state": "EXPLICIT_PATCH_HASH_MATCHED",
+  "publication_owner": "human_operator",
+  "external_pr_publication": "EXACT_PER_PR_HUMAN_APPROVAL"
+}

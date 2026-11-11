@@ -68,14 +68,18 @@ contains a tested contribution.
    existing third-party PRs and fork state first. Upstream's patch is an
    attributable evidence packet, **not the live candidate PR diff**; avoid
    repetitive internal PRs containing only a copy of a future PR body.
-4. **Fork preparation, conditionally executable:** a **trusted, actor-bound
-   execution host** verifies exact source, license, branch, SHA, parent,
-   visibility, destination permissions, and its one-use create/prepare-stage
-   grant. Reuse the verified existing fork or create the exact missing public
+4. **Autonomous fork preparation, conditionally executable:** an eligible
+   five-repository wave is covered by the revocable, time-bounded
+   [standing preparation mandate](STANDING_PREPARATION_AUTONOMY.md).
+   The **trusted, actor-bound execution host** verifies exact source,
+   license, branch, SHA, parent, visibility, destination permissions and
+   fresh current-main policy, then internally issues a one-use stage decision
+   **without requesting new human approval**. Reuse the verified existing
+   fork or create the exact missing public
    fork; put the validated change on an `opensiro/...` working branch and run
    allowed native CI. Read back the commit and record its attributable SHA.
-   The next technical change must update that working branch under a fresh
-   bound stage decision and drift checks; no detached private side queue.
+   The next technical change must update that working branch under fresh
+   automatic bound stage checks; no detached private side queue.
    The candidate diff lives on this **source-matched contributor fork**, not
    in an `opensiro/upstream` documentation or PR-body staging branch.
 5. **Human release decision:** show the exact changed files, test receipt,
@@ -88,14 +92,15 @@ contains a tested contribution.
    batch command, internal PR, prior approvals, or the finite 34-case mandate.
    The external maintainer alone decides acceptance or merge.
 
-The step-4 write executor is **not live-connected** in the current ChatGPT
-GitHub connector. The preparatory adapters in `scripts/` and offline tests
-do not constitute host authentication or stage authority. Until #6/#28 are
-resolved, `WAITING_FOR_TRUSTED_EXECUTOR` is a real blocked state: the inventory
-and technical handoff are continuously updated in Upstream, while fork
-creation, branch sync, and third-party PRs remain unexecuted. Do not
-silently substitute a PAT, direct CLI write, unprotected Actions workflow,
-or an arbitrary `approved_by` field for the missing host boundary.
+The owner's **preparation decision is now standing**, not a repeated
+human prompt. This does **not** mean every writer is live-connected: the
+ChatGPT GitHub connector lacks general fork creation; the two-file CLI
+stage is narrow, and existing-branch updates require safe compare-and-swap
+support. A valid connected host must actually check current-main policy
+and authenticated provider state. Otherwise `WAITING_FOR_TRUSTED_EXECUTOR`
+is a **technical** block, **not a request for the owner to authorize
+preparation again**. Do not substitute a PAT, raw CLI write, unprotected
+Actions workflow, or arbitrary `approved_by` field for host enforcement.
 
 ### Dated external PR publication readbacks
 

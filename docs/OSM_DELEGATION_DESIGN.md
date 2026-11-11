@@ -1,6 +1,11 @@
 # OSM autonomy-transfer design for Upstream Contributions
 
-**Status: PROPOSED DESIGN ONLY — not a standing grant, S1 admission, host integration, or authority to mutate GitHub.**
+**Historical status: PROPOSED DESIGN ONLY — not a standing grant.** The
+original P1 plan below remains historical, not a write grant. A later, narrower [standing preparation
+decision](STANDING_PREPARATION_AUTONOMY.md) now governs routine fork/patch
+preparation; it does **not** activate every capability proposed in this
+document, change external PR publication rights, or prove a connected
+executor exists.
 
 **Separate later owner decision (2026-10-23):** the [34-case Corrective publication mandate](CORRECTIVE_PR_PUBLICATION.md) is an explicitly finite exception to the earlier human-only external Draft PR policy. It **does not activate** the broad `UPSTREAM-OSM-P1` proposal below, make this design operational, add an Organization S1 domain, or grant external maintainer merge rights. Historic proposed-stage descriptions below are retained as the original prospective design, not a denial of the dated finite exception.
 
