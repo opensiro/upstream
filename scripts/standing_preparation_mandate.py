@@ -153,20 +153,9 @@ class StandingPreparationHost:
         sources = {s["source"].casefold(): s for s in registry["sources"]
                    if type(s) is dict and type(s.get("source")) is str}
         need(all(s in sources for s in self.wave), "Wave source not in registry")
-        for source in self.wave:
-            row = sources[source]
-            need(row.get("license_review") is False
-                 and row.get("latest_stage") == "AWAITING_EXTERNAL"
-                 and type(row.get("proposed_fork")) is str
-                 and row["proposed_fork"].casefold().startswith(
-                     DESTINATION.casefold() + "/")
-                 and any(type(h) is dict
-                         and h.get("stage") == "AWAITING_EXTERNAL"
-                         and type(h.get("technical_packet")) is dict
-                         and h["technical_packet"].get("state") ==
-                         "EXPLICIT_PATCH_HASH_MATCHED"
-                         for h in row.get("handoffs", [])),
-                 "Wave source lacks eligible, reviewed, source-linked packet")
+        # A blocked member stays in the five-source wave, but must not prevent
+        # a distinct eligible member from receiving its own exact one-use grant.
+        # Ineligible members themselves still fail closed before any write.
         need(type(intent) is dict
              and intent.get("stage") in STAGES
              and type(intent.get("source")) is str
@@ -176,6 +165,18 @@ class StandingPreparationHost:
                   else (intent.get("connected_actor") == ACTOR)),
              "Action outside authenticated preparation scope")
         row = sources[intent["source"].casefold()]
+        need(row.get("license_review") is False
+             and row.get("latest_stage") == "AWAITING_EXTERNAL"
+             and type(row.get("proposed_fork")) is str
+             and row["proposed_fork"].casefold().startswith(
+                 DESTINATION.casefold() + "/")
+             and any(type(h) is dict
+                     and h.get("stage") == "AWAITING_EXTERNAL"
+                     and type(h.get("technical_packet")) is dict
+                     and h["technical_packet"].get("state") ==
+                     "EXPLICIT_PATCH_HASH_MATCHED"
+                     for h in row.get("handoffs", [])),
+             "Requested source lacks eligible, reviewed, source-linked packet")
         fork = row["proposed_fork"].casefold()
         if intent["stage"] == "prepare_contribution":
             branch = intent.get("new_branch")
