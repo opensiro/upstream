@@ -940,8 +940,8 @@
           "patch_path": "pilots/kram-s2/s2-edit-file-atomicity-v2.patch",
           "local_evidence": {
             "directory": "pilots/kram-s2",
-            "files": 5,
-            "content_sha256": "aa9ae2e58c381726ed3b8fc8a9912f99c6269324ac57e736ff26d22408ee3244",
+            "files": 7,
+            "content_sha256": "4bdcbae977337d04b00b8e3368a47d4af249c3fd662ac4c9941e465072360cdb",
             "patch_candidates": [
               {
                 "path": "pilots/kram-s2/s2-edit-file-atomicity-v2.patch",

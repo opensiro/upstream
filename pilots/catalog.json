@@ -5,7 +5,7 @@
   "generated_from": "pilots/ direct subdirectories and their preserved files",
   "counts": {
     "pilot_directories": 73,
-    "artifact_files": 216,
+    "artifact_files": 218,
     "historical_directories": 66,
     "new_directories": 7,
     "by_kind": {
@@ -586,13 +586,16 @@
         "patch": 1,
         "handoff": 2,
         "receipt": 1,
-        "other": 1
+        "fixture_or_recipe": 1,
+        "other": 2
       },
       "files": [
         "CONTRIBUTION_HANDOFF.md",
+        "NATIVE_CI_MIGRATION_2026-11-11.md",
         "README.md",
         "REPLAY_RECEIPT_2026-10-22.md",
         "contribution-handoff-2026-10-22.json",
+        "historical-upstream-native-replay.yml",
         "s2-edit-file-atomicity-v2.patch"
       ]
     },

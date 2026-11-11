@@ -13,7 +13,7 @@ The selection arose from [current canonical Index `assessments/kr/kram.md`](http
 
 The [reviewed three-file patch](s2-edit-file-atomicity-v2.patch) has SHA-256 `c8877dda2405f6d18d5c0693c3620115c8b57907248b4f6c3d42007dec0d030b`. Full [preregistered method and local observations](REPLAY_RECEIPT_2026-10-22.md) include null hypotheses, validity limits and exact commands.
 
-The [read-only CI replay](../../.github/workflows/kram-s2-native-replay.yml) checks out the first-party commit, injects **tests only** for BEFORE, asserts a reproducible original failure, applies just the production change for AFTER, and runs native/race/regression verification. The runner's temporary source checkout is discarded. It does not push to Kram.
+The [historical Upstream CI recipe](historical-upstream-native-replay.yml) checks out the first-party commit, injects **tests only** for BEFORE, asserts a reproducible original failure, applies just the production change for AFTER, and runs native/race/regression verification. On 2026-11-11 the exact source/test/patch replay [passed in the matching contributor fork](NATIVE_CI_MIGRATION_2026-11-11.md), so the duplicate workflow was removed from `upstream/.github/workflows/`. The independent runner's temporary source checkout is discarded; it does not push to the original Kram repository.
 
 For a future authorized contributor stage, see the [prepared Kram contribution handoff](CONTRIBUTION_HANDOFF.md) and [exact machine-readable packet](contribution-handoff-2026-10-22.json). They include the first-party PR text, immutable patch digest, target `master` and explicit **no external write** status; neither is an authorization.
 

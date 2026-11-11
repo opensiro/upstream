@@ -35,7 +35,6 @@ LEGACY_SOURCE_NATIVE = frozenset({
     "harnessdesk-v2-macos.yml",
     "kit-222-compat.yml",
     "kit-222-offline.yml",
-    "kram-s2-native-replay.yml",
     "zot-manual-worktrees-counterfactual.yml",
     "zot-native-tool-turn-boundaries.yml",
     "zot-scoped-admission-after.yml",

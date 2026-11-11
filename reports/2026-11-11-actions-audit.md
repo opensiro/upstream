@@ -129,3 +129,16 @@ control allowlist and `main` by a follow-up reviewable change. This brings
 the control set from eight to **seven**, without affecting the 15
 source-native legacy workflows or their migration gates. The 23-file count
 above is the **initial dated baseline**, not the post-dedup count.
+
+## First source-native migration: Kram
+
+On 2026-11-11, the source-matched
+[`opensiro-contributions/kram` pinned native runner](https://github.com/opensiro-contributions/kram/actions/runs/43059374414)
+completed `success`. It reproduced the original S2 RED, the source-only
+patched GREEN under the Go race detector and the complete first-party
+`scripts/verify.sh`. The [durable migration receipt](../pilots/kram-s2/NATIVE_CI_MIGRATION_2026-11-11.md)
+records source, patch, test digests, branch SHA, exact native counts, original
+Upstream run and runner permissions. The old workflow is preserved byte-for-
+byte as a pilot artifact and retired from `.github/workflows` by reviewable
+PR. After that merge, **14** historical source-native workflows remain on
+Upstream `main`; this does not close any other source's parity gate.

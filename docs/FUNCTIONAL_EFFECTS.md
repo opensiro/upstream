@@ -20,7 +20,7 @@ Source-only matched tests and a green CI run cannot be counted as an improvement
 
 - **Comparability:** Same Kram commit, native Go tool and fixed concurrent source workloads. Delegated calls use a synthetic task selector, not a model; 50-trial and 30-trial results are local observations. Independent blind selection is potentially contaminated by prior session context.
 - **Next gate:** Native scripted technical gate satisfied for scoped edit_file correctness; remaining steps are first-party code/fit review, exact-stage authority and human-owned external contribution. No S2 regrade.
-- **Receipts:** [1](https://github.com/opensiro/upstream/blob/main/pilots/kram-s2/REPLAY_RECEIPT_2026-10-22.md), [2](https://github.com/opensiro/upstream/blob/main/pilots/kram-s2/s2-edit-file-atomicity-v2.patch), [3](https://github.com/opensiro/upstream/blob/main/.github/workflows/kram-s2-native-replay.yml)
+- **Receipts:** [1](https://github.com/opensiro/upstream/blob/main/pilots/kram-s2/REPLAY_RECEIPT_2026-10-22.md), [2](https://github.com/opensiro/upstream/blob/main/pilots/kram-s2/s2-edit-file-atomicity-v2.patch), [3](https://github.com/opensiro/upstream/blob/c88b010894faa7fcf5981195de7e3894796d99f9/.github/workflows/kram-s2-native-replay.yml)
 
 ### Zot — `zot-scoped-admission`
 
