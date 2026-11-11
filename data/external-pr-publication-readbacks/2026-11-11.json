@@ -68,6 +68,19 @@
       "publication_state": "OPEN_READY",
       "approved_exact_title_body": true,
       "approval_boundary": "Owner standing external PR publication mandate effective 2026-11-11; authenticated xLagerFeuer host POST and exact title/body/two-file GitHub readback; no individual PR approval"
+    },
+    {
+      "id": "phax-cross-run-overlap-reconciliation",
+      "repository": "lbdremy/phax",
+      "public_fork": "opensiro-contributions/phax",
+      "fork_local_pr_url": "https://github.com/opensiro-contributions/phax/pull/1",
+      "pr_url": "https://github.com/lbdremy/phax/pull/205",
+      "base_sha": "75afd70adae7adebe7f750c49942abbad308e774",
+      "head_sha": "45e90eaad89f7503ef7dbaed1d24a41c0418e3d5",
+      "pr_commits": 3,
+      "publication_state": "OPEN_READY",
+      "approved_exact_title_body": true,
+      "approval_boundary": "Owner standing external PR publication mandate effective 2026-11-11; authenticated xLagerFeuer host POST and matching title/body (one trailing LF normalized), three-file head/base GitHub readback; no individual PR approval"
     }
   ]
 }
