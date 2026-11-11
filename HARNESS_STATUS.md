@@ -5,7 +5,7 @@
 
 A harness may have several independent interventions and PRs. A historical `AWAITING_EXTERNAL` batch state **remains historical** even when a separate publication ledger later confirms an upstream merge. All external submission/acceptance claims below come from the linked owning source; `SUBMITTED_UNVERIFIED_LIVE` means **no current PR-state claim**.
 
-**Scope:** 153 harnesses · 166 interventions · 37 unique external PR URLs · 25 assessment batches · 30 monitored PR targets.
+**Scope:** 153 harnesses · 167 interventions · 38 unique external PR URLs · 25 assessment batches · 31 monitored PR targets.
 
 ## Harness overview
 
@@ -84,7 +84,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | [kstawiski/evidence-gated-scientific-agent](https://github.com/kstawiski/evidence-gated-scientific-agent) | 1 | 1 | 0 | 0 | 0 |
 | [KumihoIO/Revka](https://github.com/KumihoIO/Revka) | 1 | 1 | 0 | 0 | 1 |
 | [kushagrathisside/bridle](https://github.com/kushagrathisside/bridle) | 1 | 0 | 0 | 0 | 0 |
-| [lbdremy/phax](https://github.com/lbdremy/phax) | 1 | 1 | 0 | 0 | 0 |
+| [lbdremy/phax](https://github.com/lbdremy/phax) | 2 | 1 | 0 | 0 | 0 |
 | [LEO001020/pi-loop-studio-orchestra](https://github.com/LEO001020/pi-loop-studio-orchestra) | 1 | 1 | 1 | 0 | 0 |
 | [leprachuan/Wee-Orchestrator](https://github.com/leprachuan/Wee-Orchestrator) | 1 | 1 | 0 | 0 | 0 |
 | [LofiSu/deepseek-super-agent](https://github.com/LofiSu/deepseek-super-agent) | 1 | 0 | 0 | 0 | 0 |
@@ -248,6 +248,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | KumihoIO/Revka | [assessment:revka-workflow-validation-contract](data/assessment-candidate-batches/2026-10-23-10.json) | S1 | AWAITING_EXTERNAL | BLOCKED_PUBLICATION | — | assessment-upstream-2026-10-23-10 | Resolve documented publication gate |
 | kushagrathisside/bridle | [assessment:bridle-run-admission-crash-recovery](data/assessment-candidate-batches/2026-11-09-19.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-19 | No code change justified |
 | lbdremy/phax | [assessment:phax-cross-run-overlap-reconciliation](data/assessment-candidate-batches/2026-11-06-13.json) | S2 | AWAITING_EXTERNAL | NOT_SUBMITTED | — | assessment-upstream-2026-11-06-13 | Refresh source; check external publication grant |
+| lbdremy/phax | [monitor:lbdremy/phax#205](data/pr-maintenance/targets.json) | — | NOT_TRACKED | WATCHLIST_ONLY | [#205](https://github.com/lbdremy/phax/pull/205) | monitor_only | Read PR maintenance inbox; no technical inference |
 | LEO001020/pi-loop-studio-orchestra | [assessment:pi-loop-worktree-publication-integrity](data/assessment-candidate-batches/2026-10-22-07.json) | S1 | AWAITING_EXTERNAL | SUBMITTED_UNVERIFIED_LIVE | [#1](https://github.com/LEO001020/pi-loop-studio-orchestra/pull/1) | assessment-upstream-2026-10-22-07 | Check current maintainer/CI outcome |
 | leprachuan/Wee-Orchestrator | [assessment:wee-delegation-cancel-cleanup](data/assessment-candidate-batches/2026-11-10-23.json) | S2 | AWAITING_EXTERNAL | NOT_SUBMITTED | — | assessment-upstream-2026-11-10-23 | Refresh source; check external publication grant |
 | LofiSu/deepseek-super-agent | [assessment:deepseek-mesh-capacity-release](data/assessment-candidate-batches/2026-11-06-13.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-06-13 | No code change justified |

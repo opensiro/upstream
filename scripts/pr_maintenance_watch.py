@@ -64,6 +64,8 @@ APPROVED_CHECKPOINT_ADDITIONS = {
     "https://github.com/FonaTech/Clouds-Coder/pull/50",
     # yoagent standing-mandate publication, native all-features validated on 2026-11-11.
     "https://github.com/yologdev/yoagent/pull/450",
+    # phax source-native full-gate PASS and standing publication 2026-11-11.
+    "https://github.com/lbdremy/phax/pull/205",
 }
 CHECK_CONCLUSIONS = {
     "failure": ("CI_FAILED", "action_required"),
