@@ -97,7 +97,7 @@ Do not promote `ASSESSMENT_INFORMED` into `ASSESSMENT_DERIVED` by finding a post
 | `after` | Matched execution with result, failures, regressions, observed delta and validity limits |
 | `runner_execution` | Distinct deterministic CI/runner identity, exact run URL/artifact, source/test SHA, commands/environment, before/after logs and checks; or `BLOCKED_INDEPENDENT_EXECUTION` without a supported effect claim |
 | `classification_and_outcome` | One origin class, separate execution stage, one effect verdict; explicit counterevidence and unknowns |
-| `publication_feedback` | Fork/PR refs **only when they exist**, permissions, human publication decision, maintainer disposition, further investigation |
+| `publication_feedback` | Fork/PR refs **only when they exist**, effective standing publication mandate and per-case gate evidence, maintainer disposition, further investigation |
 
 ### Classification example: HarnessDesk #1772
 

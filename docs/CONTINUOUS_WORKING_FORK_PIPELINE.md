@@ -4,8 +4,8 @@
 fork executor [#28](https://github.com/opensiro/upstream/issues/28) under
 [#6](https://github.com/opensiro/upstream/issues/6). **Policy decision:**
 technical changes should reach the matching `opensiro-contributions` working
-fork in the same contribution cycle; an external upstream PR requires an
-**explicit human approval for that PR**. No automatic external PR publication.
+fork in the same contribution cycle. The owner's [standing publication decision](STANDING_EXTERNAL_PR_PUBLICATION.md)
+now authorizes qualified external PR publication **without repeated per-PR human approval**.
 
 ## One source inventory, additive to the original 100
 
@@ -82,15 +82,16 @@ contains a tested contribution.
    automatic bound stage checks; no detached private side queue.
    The candidate diff lives on this **source-matched contributor fork**, not
    in an `opensiro/upstream` documentation or PR-body staging branch.
-5. **Fork-local proposal and human release decision:** create a PR inside the
+5. **Fork-local proposal and standing release gate:** create a PR inside the
    matching `opensiro-contributions/<target>` fork, from the validated
    `opensiro/...` head to the fork's source-matched default branch. Its
    exact title/body come from the checked code diff, latest target PR template,
-   contributor requirements and disclosure v2. Show that fork-local PR URL,
-   unchanged head/base SHAs, final text and test receipt to the human owner.
-   Only after **specific approval of that exact proposal** may an authorized
-   publisher open the third-party PR; re-read both GitHub PRs afterward.
-   Neither a fork-local PR nor a batch command grants publication rights.
+   contributor requirements and disclosure v3. Verify that fork-local PR URL,
+   unchanged head/base SHAs, final text and test receipt in the fork-local proposal.
+   Under the [independent standing publication mandate](STANDING_EXTERNAL_PR_PUBLICATION.md),
+   an authorized publisher may open a qualifying third-party PR **without another owner prompt**
+   after verifying the exact proposal, current policies and native checks; re-read both GitHub PRs afterward.
+   Neither a fork-local PR nor a batch command by itself grants publication rights.
    The external maintainer alone decides acceptance or merge.
 
 The owner's **preparation decision is now standing**, not a repeated
@@ -105,7 +106,7 @@ Actions workflow, or arbitrary `approved_by` field for host enforcement.
 
 ### Dated external PR publication readbacks
 
-When a specifically approved external PR has actually been published, record
+When an externally authorized PR has actually been published, record
 its authenticated GitHub PR identity, actor, fork and head SHA in a separately
 reviewed dated readback. The [2026-11-10 publication readback](../data/external-pr-publication-readbacks/2026-11-10.json)
 is the first such additive source. Register its verified PR URL in the
@@ -130,7 +131,7 @@ a grant to merge the fork's default branch.
   non-overlapping PRs. Obtain the applicable fork/branch/proposal write authority;
   do not infer it from the existence of a fork or earlier approval.
 - Reuse/update the **one fork-local PR per technical topic**. Its title/body
-  reflect the target's actual PR format plus disclosure v2; link the pinned
+  reflect the target's actual PR format plus disclosure v3; link the pinned
   Index assessment, current assessment and test evidence. Do not invent
   first-party checks, author attestations, independent human review or adoption.
 - Do **not** commit `PR_PROPOSAL.md`, `.opensiro/pr-body.md` or similar
@@ -138,10 +139,10 @@ a grant to merge the fork's default branch.
   Do **not** create an Upstream docs-only PR or report to store the draft
   title/body. Existing dated Upstream proposals remain historical read-only
   records; they are never copied without current fork/source verification.
-- Bind the human publication approval to the fork-local PR URL, unchanged
+- Bind the standing-publication eligibility check to the fork-local PR URL, unchanged
   head/base SHA and **exact** title/body readback. A changed diff, target
-  template or material PR prose requires refreshed validation and approval.
-  An ordinary wave command is not a blanket grant.
+  template or material PR prose requires refreshed validation, **not another routine owner prompt**.
+  An ordinary wave command is not itself the standing grant.
 - On authorized external publication, create the third-party PR from that
   exact fork branch as **Open · Ready for review** unless a real source-native
   readiness condition justifies Draft. Require a fresh GitHub readback and

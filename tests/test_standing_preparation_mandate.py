@@ -71,7 +71,7 @@ class StandingPreparationTests(unittest.TestCase):
         second_intent = dict(self.intent, new_branch="opensiro/fix-second")
         second = host.verify_exact_prepare(second_intent)
         self.assertTrue(host.authorize_exact_stage(second, second_intent))
-        self.assertEqual(self.policy["publication_owner"], "human_operator")
+        self.assertEqual(self.policy["publication_owner"], "separate_standing_policy")
 
     def test_reused_exact_grant_rejected(self):
         host = self.host()

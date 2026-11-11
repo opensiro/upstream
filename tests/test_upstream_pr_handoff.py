@@ -17,7 +17,7 @@ FORK = "opensiro-contributions/HarnessDesk"
 HEAD = "opensiro/fix-toolgateway-1772"
 B_SHA = "b" * 40
 H_SHA = "c" * 40
-DISCLOSURE = (ROOT / "templates/EXTERNAL_PR_DISCLOSURE.md").read_text(encoding="utf-8").strip()
+DISCLOSURE = (ROOT / "templates/EXTERNAL_PR_DISCLOSURE_V3.md").read_text(encoding="utf-8").strip()
 for marker, value in {
     "ASSESSMENT_PATH": "assessments/ha/harnessdesk.md",
     "ASSESSMENT_INDEX_SHA": "a" * 40,
@@ -88,12 +88,12 @@ class UpstreamPRHandoffTests(unittest.TestCase):
 
     def test_success_is_only_ready_for_review_rest_handoff(self):
         r = self.preview()
-        self.assertEqual(r["status"], "PR_READY_FOR_MANUAL_REVIEW_NOT_PUBLISHED")
+        self.assertEqual(r["status"], "PR_PREFLIGHT_READY_NOT_PUBLISHED")
         self.assertEqual(r["draft_request_body"]["head"],
                          "opensiro-contributions:" + HEAD)
         self.assertEqual(r["draft_request_body"]["base"], "development")
         self.assertFalse(r["draft_request_body"]["draft"])
-        self.assertEqual(r["api_path_if_separately_approved"],
+        self.assertEqual(r["api_path_if_authorized"],
                          "repos/HarnessDesk/HarnessDesk/pulls")
         self.assertEqual(len(r["intent_sha256"]), 64)
         self.assertNotIn("token", json.dumps(r).lower())
@@ -108,7 +108,7 @@ class UpstreamPRHandoffTests(unittest.TestCase):
         self.assertEqual(self.fake.calls, [])
         with self.assertRaisesRegex(PRBlocked, "AI-assisted disclosure"):
             self.preview(body=self.data["body"].replace(
-                "a human approves publication", "no human approves publication"))
+                "without a separate human approval of this PR", "with human approval of this PR"))
         self.assertEqual(self.fake.calls, [])
         with self.assertRaisesRegex(PRBlocked, "AI-assisted disclosure"):
             self.preview(body=self.data["body"] + "\n" + DISCLOSURE)
@@ -122,7 +122,7 @@ class UpstreamPRHandoffTests(unittest.TestCase):
             self.data["body"].replace("`" + "f" * 40 + "`", "`unknown`"),
             self.data["body"].replace("blob/" + "a" * 40,
                                       "blob/main"),
-            self.data["body"].replace("disclosure:v2", "disclosure:v1"),
+            self.data["body"].replace("disclosure:v3", "disclosure:v1"),
             self.data["body"] + "\nExtra text after disclosure",
         )
         for body in cases:
@@ -285,7 +285,7 @@ class UpstreamPRHandoffTests(unittest.TestCase):
                 rc = main(argv, runner=self.fake)
             self.assertEqual(rc, 0)
             self.assertEqual(json.loads(capture.getvalue())["authorization"],
-                             "EXTERNAL_PR_HUMAN_OWNED_NO_WRITE")
+                             "REQUIRES_EFFECTIVE_STANDING_PUBLICATION_POLICY_AND_NATIVE_GATES")
             self.assertFalse(json.loads(capture.getvalue())["draft_request_body"]["draft"])
 
     def test_cli_explicit_draft_requires_reason(self):

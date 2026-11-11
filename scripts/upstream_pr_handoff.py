@@ -2,8 +2,8 @@
 """Read-only, exact external upstream PR handoff for an organization-owned fork.
 
 No create/publish option, no POST, no token reads, no auth/grant issuance.
-Prints the reviewed GitHub REST payload for a SEPARATE human-owned action.
-A green handoff is not permission to publish.
+Prints the reviewed GitHub REST payload for a separate publication action
+under the effective standing mandate. A green handoff is not permission to publish.
 """
 import argparse
 from datetime import date
@@ -23,8 +23,8 @@ LOGIN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9-]{0,38}$")
 CONTRIB_BRANCH = re.compile(r"^opensiro/[a-z0-9][a-z0-9._/-]{0,79}$")
 ALLOWED_OWNERS = {"opensiro", "opensiro-contributions"}
 DISCLOSURE_TEMPLATE = (Path(__file__).resolve().parents[1] /
-                       "templates/EXTERNAL_PR_DISCLOSURE.md")
-DISCLOSURE_MARKER = "<!-- opensiro-ai-assessment-disclosure:v2 -->"
+                       "templates/EXTERNAL_PR_DISCLOSURE_V3.md")
+DISCLOSURE_MARKER = "<!-- opensiro-ai-assessment-disclosure:v3 -->"
 
 
 def _verify_disclosure(body):
@@ -205,18 +205,18 @@ def prepare_pr_handoff(*, upstream, fork, head_branch, head_sha, base_branch,
     canonical = json.dumps({"evidence": evidence, "payload": post},
                            sort_keys=True, separators=(",", ":"), ensure_ascii=False)
     return {
-        "status": "PR_READY_FOR_MANUAL_REVIEW_NOT_PUBLISHED",
-        "authorization": "EXTERNAL_PR_HUMAN_OWNED_NO_WRITE",
-        "api_method_if_separately_approved": "POST",
-        "api_path_if_separately_approved": "repos/" + upstream + "/pulls",
+        "status": "PR_PREFLIGHT_READY_NOT_PUBLISHED",
+        "authorization": "REQUIRES_EFFECTIVE_STANDING_PUBLICATION_POLICY_AND_NATIVE_GATES",
+        "api_method_if_authorized": "POST",
+        "api_path_if_authorized": "repos/" + upstream + "/pulls",
         "draft_request_body": post, "evidence": evidence,
         "intent_sha256": hashlib.sha256(canonical.encode()).hexdigest(),
         "notes": [
             "This handoff performs authenticated GET operations ONLY.",
-            "A body/digest/preview is not signed approval or an execution permit.",
-            "Revalidate branch refs, policy, duplicate PRs and diff before manual publication.",
+            "A body/digest/preview is not an execution permit; check current standing policy separately.",
+            "Revalidate branch refs, contributor policy, native checks, duplicates and diff before publication.",
             "Use GitHub REST for organization heads; gh pr create --head ORG:branch is not supported.",
-            "Do not POST from an unprotected runner or publish an upstream PR automatically.",
+            "Do not POST from an unprotected runner or without an effective standing publication grant.",
         ],
     }
 
@@ -249,10 +249,10 @@ def main(argv=None, *, runner=subprocess.run):
             runner=runner)
     except (PRBlocked, StageBlocked, OSError, UnicodeError) as exc:
         result = {"status": "PR_BLOCKED_NO_WRITE",
-                  "authorization": "EXTERNAL_PR_HUMAN_OWNED_NO_WRITE",
+                  "authorization": "EXTERNAL_PR_PREFLIGHT_NO_WRITE",
                   "reason": str(exc)}
     print(json.dumps(result, ensure_ascii=False, sort_keys=True))
-    return 0 if result["status"] == "PR_READY_FOR_MANUAL_REVIEW_NOT_PUBLISHED" else 2
+    return 0 if result["status"] == "PR_PREFLIGHT_READY_NOT_PUBLISHED" else 2
 
 
 if __name__ == "__main__":
