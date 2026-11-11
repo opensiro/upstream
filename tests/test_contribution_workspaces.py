@@ -109,6 +109,45 @@ class WorkspaceTests(unittest.TestCase):
         self.assertGreaterEqual(counts["technical_packet_states"]
                                 ["EXPLICIT_PATCH_HASH_MATCHED"], 10)
 
+    def test_selected_legacy_packets_are_exact_and_frozen_batches_unchanged(self):
+        by_source = {r["source"].casefold(): r for r in workspaces.build()["sources"]}
+        for source, digest in (
+            ("microsoft/fara", "fce42386bd6b1cf1ea0fed6c22a206589239cdeeb37f53cfaa48eb027da9002e"),
+            ("kstawiski/evidence-gated-scientific-agent",
+             "0974cdefa228cfdf37e1b750144e01c269c8f2dee6d9aa8ea01e86dd79b23646"),
+        ):
+            handoff = by_source[source]["handoffs"][0]
+            self.assertEqual(handoff["technical_packet"]["state"],
+                             "EXPLICIT_PATCH_HASH_MATCHED")
+            self.assertEqual(handoff["patch_sha256"], digest)
+            self.assertEqual(handoff["technical_packet"]["explicit_patch"]["sha256"], digest)
+        frozen = json.loads((ROOT / workspaces.BATCH_DIR / "2026-10-23-11.json").read_text())
+        for item in frozen["candidates"]:
+            if item["source"].casefold() in (
+                "microsoft/fara", "kstawiski/evidence-gated-scientific-agent"
+            ):
+                self.assertNotIn("patch_path", item)
+                self.assertNotIn("patch_sha256", item)
+
+    def test_selected_packet_duplicate_and_missing_receipt_fail_closed(self):
+        data = json.loads((ROOT / workspaces.SELECTED_PACKETS).read_text())
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            destination = root / workspaces.SELECTED_PACKETS
+            destination.parent.mkdir(parents=True)
+            destination.write_text(json.dumps(data))
+            with self.assertRaisesRegex(workspaces.WorkspaceError,
+                                        "native validation receipt"):
+                workspaces._selected_patch_packets(root)
+            report = root / data["selections"][0]["receipt"]
+            report.parent.mkdir(parents=True)
+            report.write_text("verified")
+            data["selections"].append(dict(data["selections"][0]))
+            destination.write_text(json.dumps(data))
+            with self.assertRaisesRegex(workspaces.WorkspaceError,
+                                        "Duplicate selected packet"):
+                workspaces._selected_patch_packets(root)
+
     def test_generated_registry_is_current_and_check_is_read_only(self):
         self.assertEqual((ROOT / workspaces.REGISTRY).read_text(encoding="utf-8"),
                          workspaces.encoded(workspaces.build()))

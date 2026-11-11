@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "selections": [
+    {
+      "source": "kstawiski/evidence-gated-scientific-agent",
+      "candidate_id": "evidence-bench-native-evidence-admission",
+      "source_sha": "85b396a824dfad6ec0880cbe07d86d3e24920ae8",
+      "patch_path": "pilots/evidence-bench/retrieval-error-admission.patch",
+      "patch_sha256": "0974cdefa228cfdf37e1b750144e01c269c8f2dee6d9aa8ea01e86dd79b23646",
+      "receipt": "reports/2026-11-12-native-packet-requalification-wave-01.md"
+    },
+    {
+      "source": "microsoft/fara",
+      "candidate_id": "fara-native-checkpoint-integrity",
+      "source_sha": "a675d6d61c41c47ae87bacefeab22caad18e3e84",
+      "patch_path": "pilots/fara/resume-task-identity.patch",
+      "patch_sha256": "fce42386bd6b1cf1ea0fed6c22a206589239cdeeb37f53cfaa48eb027da9002e",
+      "receipt": "reports/2026-11-12-native-packet-requalification-wave-01.md"
+    }
+  ]
+}

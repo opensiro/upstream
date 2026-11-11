@@ -17,10 +17,10 @@
     "dated_fork_readbacks": 17,
     "same_named_ref_matches_at_readback": 10,
     "technical_packet_states": {
-      "EXPLICIT_PATCH_HASH_MATCHED": 16,
+      "EXPLICIT_PATCH_HASH_MATCHED": 18,
       "LOCAL_MULTI_PATCH_SELECTION_REQUIRED": 1,
       "LOCAL_SINGLE_PATCH_UNREVIEWED": 33,
-      "NO_LOCAL_PACKET_OR_PR_ONLY_HANDOFF": 4
+      "NO_LOCAL_PACKET_OR_PR_ONLY_HANDOFF": 2
     }
   },
   "execution": {
@@ -2377,13 +2377,16 @@
           "stage": "AWAITING_EXTERNAL",
           "origin": "ASSESSMENT_DERIVED",
           "handoff_url": "https://github.com/opensiro/upstream/pull/120",
-          "patch_path": null,
-          "patch_sha256": null,
+          "patch_path": "pilots/evidence-bench/retrieval-error-admission.patch",
+          "patch_sha256": "0974cdefa228cfdf37e1b750144e01c269c8f2dee6d9aa8ea01e86dd79b23646",
           "test_patch_path": null,
           "technical_packet": {
-            "state": "NO_LOCAL_PACKET_OR_PR_ONLY_HANDOFF",
+            "state": "EXPLICIT_PATCH_HASH_MATCHED",
             "pilot": null,
-            "explicit_patch": null,
+            "explicit_patch": {
+              "path": "pilots/evidence-bench/retrieval-error-admission.patch",
+              "sha256": "0974cdefa228cfdf37e1b750144e01c269c8f2dee6d9aa8ea01e86dd79b23646"
+            },
             "explicit_test_patch": null
           }
         }
@@ -2870,13 +2873,16 @@
           "stage": "AWAITING_EXTERNAL",
           "origin": "ASSESSMENT_DERIVED",
           "handoff_url": "https://github.com/opensiro/upstream/pull/121",
-          "patch_path": null,
-          "patch_sha256": null,
+          "patch_path": "pilots/fara/resume-task-identity.patch",
+          "patch_sha256": "fce42386bd6b1cf1ea0fed6c22a206589239cdeeb37f53cfaa48eb027da9002e",
           "test_patch_path": null,
           "technical_packet": {
-            "state": "NO_LOCAL_PACKET_OR_PR_ONLY_HANDOFF",
+            "state": "EXPLICIT_PATCH_HASH_MATCHED",
             "pilot": null,
-            "explicit_patch": null,
+            "explicit_patch": {
+              "path": "pilots/fara/resume-task-identity.patch",
+              "sha256": "fce42386bd6b1cf1ea0fed6c22a206589239cdeeb37f53cfaa48eb027da9002e"
+            },
             "explicit_test_patch": null
           }
         }

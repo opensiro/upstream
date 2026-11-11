@@ -7,7 +7,7 @@ fitness, fork existence, PR publication, maintainer acceptance, or VSM grades.
 See [experiment contract](EXPERIMENT_CONTRACT.md) and
 [working-fork pipeline](../docs/CONTINUOUS_WORKING_FORK_PIPELINE.md).
 
-**Coverage:** 73 indexed pilot directories · 242 files. The frozen baseline protects 66 historical directories and their files; 7 directories were added later.
+**Coverage:** 75 indexed pilot directories · 244 files. The frozen baseline protects 66 historical directories and their files; 9 directories were added later.
 
 Each row links its preferred entry file. Read the actual receipt and governing
 batch/PR before attributing positive results or current status.
@@ -77,6 +77,13 @@ batch/PR before attributing positive results or current status.
 | `wee-delegation-s2` | [Open](wee-delegation-s2/CONTRIBUTION_HANDOFF.md) | patch: 2, handoff: 1, receipt: 1 |
 | `workflow-one` | [Open](workflow-one/CONTRIBUTION_HANDOFF.md) | patch: 1, handoff: 1 |
 | `yoagent-file-alias-s2` | [Open](yoagent-file-alias-s2/CONTRIBUTION_HANDOFF.md) | patch: 3, handoff: 1, receipt: 2, other: 1 |
+
+## Patches with other technical evidence (2)
+
+| Pilot | Entry point | Artifacts |
+| --- | --- | --- |
+| `evidence-bench` | [Open](evidence-bench/retrieval-error-admission.patch) | patch: 1 |
+| `fara` | [Open](fara/resume-task-identity.patch) | patch: 1 |
 
 ## Screened or blocked hypotheses without a patch (16)
 

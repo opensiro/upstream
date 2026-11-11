@@ -4,14 +4,14 @@
   "meaning": "FILE_INVENTORY_ONLY_NO_SUCCESS_OR_EXTERNAL_PUBLICATION_CLAIM",
   "generated_from": "pilots/ direct subdirectories and their preserved files",
   "counts": {
-    "pilot_directories": 73,
-    "artifact_files": 242,
+    "pilot_directories": 75,
+    "artifact_files": 244,
     "historical_directories": 66,
-    "new_directories": 7,
+    "new_directories": 9,
     "by_kind": {
       "EXPERIMENT_SERIES": 4,
       "PATCH_HANDOFF": 52,
-      "PATCH_EVIDENCE": 0,
+      "PATCH_EVIDENCE": 2,
       "SCREEN_ONLY": 16,
       "OTHER_EVIDENCE": 1
     }
@@ -344,6 +344,18 @@
       ]
     },
     {
+      "id": "evidence-bench",
+      "path": "pilots/evidence-bench",
+      "kind": "PATCH_EVIDENCE",
+      "start_here": "pilots/evidence-bench/retrieval-error-admission.patch",
+      "artifact_counts": {
+        "patch": 1
+      },
+      "files": [
+        "retrieval-error-admission.patch"
+      ]
+    },
+    {
       "id": "evidenceloom",
       "path": "pilots/evidenceloom",
       "kind": "PATCH_HANDOFF",
@@ -355,6 +367,18 @@
       "files": [
         "CONTRIBUTION_HANDOFF.md",
         "unicode-spaced-numeric-scale.patch"
+      ]
+    },
+    {
+      "id": "fara",
+      "path": "pilots/fara",
+      "kind": "PATCH_EVIDENCE",
+      "start_here": "pilots/fara/resume-task-identity.patch",
+      "artifact_counts": {
+        "patch": 1
+      },
+      "files": [
+        "resume-task-identity.patch"
       ]
     },
     {
