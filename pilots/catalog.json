@@ -5,7 +5,7 @@
   "generated_from": "pilots/ direct subdirectories and their preserved files",
   "counts": {
     "pilot_directories": 73,
-    "artifact_files": 223,
+    "artifact_files": 228,
     "historical_directories": 66,
     "new_directories": 7,
     "by_kind": {
@@ -1121,14 +1121,16 @@
       "start_here": "pilots/zot-shared-workspace/SCREENING_2026-10-20.md",
       "artifact_counts": {
         "screen": 1,
-        "protocol": 8,
+        "protocol": 9,
         "receipt": 4,
         "native_code": 1,
-        "other": 1
+        "fixture_or_recipe": 3,
+        "other": 2
       },
       "files": [
         "BASELINE_RECEIPT_2026-10-20.md",
         "MAINTAINER_DESIGN_DRAFT.md",
+        "NATIVE_CI_MIGRATION_2026-11-11.md",
         "NATIVE_TOOL_TURN_BOUNDARY_EXPERIMENT_2026-10-20.md",
         "NATIVE_TOOL_TURN_BOUNDARY_RECEIPT_2026-10-20.md",
         "SCOPED_AFTER_EXPERIMENT_2026-10-20.md",
@@ -1141,7 +1143,11 @@
         "experimental_native_tools_bypass_test.go",
         "experimental_scoped_spawn.go",
         "experimental_scoped_spawn_test.go",
-        "experimental_turn_boundary_gap_test.go"
+        "experimental_turn_boundary_gap_test.go",
+        "historical-upstream-manual-worktrees-counterfactual.yml",
+        "historical-upstream-native-tool-turn-boundaries.yml",
+        "historical-upstream-scoped-admission-after.yml",
+        "historical-upstream-shared-workspace-baseline.yml"
       ]
     }
   ]

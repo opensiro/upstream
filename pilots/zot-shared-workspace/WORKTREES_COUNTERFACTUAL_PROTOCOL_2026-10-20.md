@@ -6,7 +6,7 @@
 **Canonical origin:** [Index Zot assessment at 5393b698](https://github.com/opensiro/vsm-harness-index/blob/5393b698bfdfa4ca14d97a79238234eca20694e5/assessments/zo/zot.md).
 **Current tested source:** [Zot c62d1c549d52cd33390968ffa50667cb79609152](https://github.com/patriceckhart/zot/commit/c62d1c549d52cd33390968ffa50667cb79609152).
 **Fixture:** [native WriteTool + Swarm test](experimental_manual_worktrees_counterfactual_test.go).
-**Runner:** [credential-free source-pinned Actions](../../.github/workflows/zot-manual-worktrees-counterfactual.yml), Go 1.25.0.
+**Runner:** [historical credential-free source-pinned Actions recipe](historical-upstream-manual-worktrees-counterfactual.yml), Go 1.25.0; [2026-11-11 matching-fork replay](NATIVE_CI_MIGRATION_2026-11-11.md).
 
 ## Research question
 

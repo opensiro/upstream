@@ -31,9 +31,9 @@ historical GitHub runs remain accessible. No fork-lifecycle test was removed.
 
 ## Third-party native workflows (retirement queue)
 
-`main` retains historical source-native CI for five projects; Kram was
-fully migrated and Kit's offline workflow has matching-fork parity, while
-its macOS-containing compatibility workflow still awaits a fork runner:
+`main` retains historical source-native CI for four projects; Kram and Zot
+are fully migrated, and Kit's offline workflow has matching-fork parity,
+while its macOS-containing compatibility workflow still awaits a fork runner:
 
 | Source | Legacy workflows | Working-fork migration |
 | --- | ---: | --- |
@@ -42,7 +42,7 @@ its macOS-containing compatibility workflow still awaits a fork runner:
 | HarnessDesk | 2 | Reconcile current-source and pinned macOS checks with first-party CI |
 | Kit | 1 | [Pinned fork-native offline RED/GREEN PASS](../pilots/kit-222/NATIVE_CI_MIGRATION_2026-11-11.md); compatibility retained until macOS parity |
 | Kram | 0 | [Pinned fork-native RED/GREEN PASS](../pilots/kram-s2/NATIVE_CI_MIGRATION_2026-11-11.md); original recipe archived |
-| Zot | 4 | Reconcile four independent pinned behavioral cases |
+| Zot | 0 | [Four pinned native cases migrated to the matching fork](../pilots/zot-shared-workspace/NATIVE_CI_MIGRATION_2026-11-11.md); original recipes archived |
 
 **Do not run these by default, add new per-harness Actions here, or delete
 them solely because they are old.** New source-native checks live in the
