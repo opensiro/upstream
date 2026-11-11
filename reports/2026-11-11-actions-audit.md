@@ -202,3 +202,26 @@ pins runner, source, test hashes, results, historical run URLs and unchanged
 archived CI recipes. After the retirement PR, **7** legacy native workflows
 remain on `upstream/main` and Zot has zero. No Zot production improvement,
 maintainer adoption or assessment change is implied.
+
+## Fifth source-native migration: Agent Code #524 three native gates
+
+The exact original first-party
+`avala-ai/agent-code@82e0edfa7372c256d893d0854f954d9099254f88`
+and immutable eight-file reviewer patch were successfully checked on the
+matching `opensiro-contributions/agent-code` fork without modifying its
+`main`. The [offline binary before/after](https://github.com/opensiro-contributions/agent-code/actions/runs/43073752245)
+and [offline native validation](https://github.com/opensiro-contributions/agent-code/actions/runs/43073752502)
+each passed on their first attempt; the latter reran 1,761 lib and 1,022 CLI
+Rust tests, native format/Clippy and deterministic model-free process smokes.
+The [corrected audit-only branch run](https://github.com/opensiro-contributions/agent-code/actions/runs/43074382674)
+passed Linux all-targets check/test, Windows all-targets test and strict
+Clippy baseline-vs-patched diagnostic-location parity. An earlier
+[audit orchestration failure](https://github.com/opensiro-contributions/agent-code/actions/runs/43073752362)
+from missing fixture checkouts in two jobs remains recorded as a failed
+attempt, not hidden or interpreted as product regression. The
+[durable receipt](../pilots/agent-code-524/NATIVE_CI_MIGRATION_2026-11-11.md)
+records both branches, original runs, source/patch/test hashes, exact
+archived YAML Git blobs and limitations. On retirement-PR merge,
+**4** source-native legacy workflows remain on Upstream `main`.
+This is deterministic source behavior, not third-party adoption,
+real-model reviewer performance or an Index regrade.
