@@ -147,8 +147,8 @@ class WatchTests(unittest.TestCase):
 
     def test_exact_manifest_has_twenty_eight_targets_and_no_duplicates(self):
         data = watch.validate_targets()
-        self.assertEqual(len(data["targets"]), 28)
-        self.assertEqual(len({t["url"] for t in data["targets"]}), 28)
+        self.assertEqual(len(data["targets"]), 30)
+        self.assertEqual(len({t["url"] for t in data["targets"]}), 30)
         self.assertIn("https://github.com/knowflow-ai/KnowWork/pull/4",
                       {t["url"] for t in data["targets"]})
         self.assertIn("https://github.com/knowflow-ai/KnowWork/pull/4",
@@ -161,6 +161,10 @@ class WatchTests(unittest.TestCase):
                       {t["url"] for t in data["targets"]})
         self.assertIn("https://github.com/xingyaoww/code-act/pull/26",
                       watch.APPROVED_CHECKPOINT_ADDITIONS)
+        self.assertIn("https://github.com/yologdev/yoagent/pull/450", {t["url"] for t in data["targets"]})
+        self.assertIn("https://github.com/yologdev/yoagent/pull/450", watch.APPROVED_CHECKPOINT_ADDITIONS)
+        self.assertIn("https://github.com/FonaTech/Clouds-Coder/pull/50", {t["url"] for t in data["targets"]})
+        self.assertIn("https://github.com/FonaTech/Clouds-Coder/pull/50", watch.APPROVED_CHECKPOINT_ADDITIONS)
         self.assertIn("https://github.com/cbrock84/headcount/pull/47",
                       [t["url"] for t in data["targets"]])
         self.assertIn("https://github.com/chumingjun/dsh-harness-one/pull/173",

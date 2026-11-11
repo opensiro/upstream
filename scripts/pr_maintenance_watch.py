@@ -60,6 +60,10 @@ APPROVED_CHECKPOINT_ADDITIONS = {
     "https://github.com/murilo-bassan/durable-agent-runtime/pull/1",
     # CodeAct standing-mandate publication, tested fork head read back on 2026-11-11.
     "https://github.com/xingyaoww/code-act/pull/26",
+    # Clouds-Coder standing publication, exact validated 2026-11-11 readback.
+    "https://github.com/FonaTech/Clouds-Coder/pull/50",
+    # yoagent standing-mandate publication, native all-features validated on 2026-11-11.
+    "https://github.com/yologdev/yoagent/pull/450",
 }
 CHECK_CONCLUSIONS = {
     "failure": ("CI_FAILED", "action_required"),

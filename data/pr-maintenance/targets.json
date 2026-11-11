@@ -26,6 +26,11 @@
       "url": "https://github.com/CorticalComputer/Spartan/pull/1"
     },
     {
+      "repository": "FonaTech/Clouds-Coder",
+      "number": 50,
+      "url": "https://github.com/FonaTech/Clouds-Coder/pull/50"
+    },
+    {
       "repository": "Gen-Verse/DiscoveryRSI",
       "number": 2,
       "url": "https://github.com/Gen-Verse/DiscoveryRSI/pull/2"
@@ -145,6 +150,11 @@
       "repository": "xingyaoww/code-act",
       "number": 26,
       "url": "https://github.com/xingyaoww/code-act/pull/26"
+    },
+    {
+      "repository": "yologdev/yoagent",
+      "number": 450,
+      "url": "https://github.com/yologdev/yoagent/pull/450"
     }
   ]
 }

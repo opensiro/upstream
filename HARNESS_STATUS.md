@@ -5,7 +5,7 @@
 
 A harness may have several independent interventions and PRs. A historical `AWAITING_EXTERNAL` batch state **remains historical** even when a separate publication ledger later confirms an upstream merge. All external submission/acceptance claims below come from the linked owning source; `SUBMITTED_UNVERIFIED_LIVE` means **no current PR-state claim**.
 
-**Scope:** 153 harnesses · 164 interventions · 35 unique external PR URLs · 25 assessment batches · 28 monitored PR targets.
+**Scope:** 153 harnesses · 166 interventions · 37 unique external PR URLs · 25 assessment batches · 30 monitored PR targets.
 
 ## Harness overview
 
@@ -52,7 +52,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | [fbrubacher/orch](https://github.com/fbrubacher/orch) | 1 | 1 | 0 | 0 | 1 |
 | [first-fluke/oh-my-agent](https://github.com/first-fluke/oh-my-agent) | 1 | 0 | 0 | 0 | 0 |
 | [folke/zaly](https://github.com/folke/zaly) | 1 | 0 | 0 | 0 | 0 |
-| [FonaTech/Clouds-Coder](https://github.com/FonaTech/Clouds-Coder) | 1 | 1 | 0 | 0 | 0 |
+| [FonaTech/Clouds-Coder](https://github.com/FonaTech/Clouds-Coder) | 2 | 1 | 0 | 0 | 0 |
 | [fred1433/cloud-coding-agent-node](https://github.com/fred1433/cloud-coding-agent-node) | 1 | 0 | 0 | 0 | 0 |
 | [FuzzyKuji/OpenProgram](https://github.com/FuzzyKuji/OpenProgram) | 1 | 0 | 0 | 0 | 0 |
 | [gczhuang-cmd/NovaCode](https://github.com/gczhuang-cmd/NovaCode) | 2 | 1 | 0 | 0 | 0 |
@@ -160,7 +160,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | [xingyaoww/code-act](https://github.com/xingyaoww/code-act) | 2 | 1 | 0 | 0 | 0 |
 | [xpressabhi/agentic-sdlc-control-plane](https://github.com/xpressabhi/agentic-sdlc-control-plane) | 1 | 0 | 0 | 0 | 1 |
 | [yoheinakajima/activegraph](https://github.com/yoheinakajima/activegraph) | 1 | 1 | 0 | 0 | 1 |
-| [yologdev/yoagent](https://github.com/yologdev/yoagent) | 1 | 1 | 0 | 0 | 0 |
+| [yologdev/yoagent](https://github.com/yologdev/yoagent) | 2 | 1 | 0 | 0 | 0 |
 | [zenodea/zaino](https://github.com/zenodea/zaino) | 1 | 0 | 0 | 0 | 0 |
 | [zhanghaojie513/Dougong](https://github.com/zhanghaojie513/Dougong) | 1 | 0 | 0 | 0 | 1 |
 | [Zleap-AI/Zleap-Agent](https://github.com/Zleap-AI/Zleap-Agent) | 1 | 0 | 0 | 0 | 1 |
@@ -213,6 +213,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | first-fluke/oh-my-agent | [portfolio:oh-my-agent-819](cases/oh-my-agent.md) | — | NOT_TRACKED | CLOSED_UNMERGED | [#819](https://github.com/first-fluke/oh-my-agent/pull/819) | casebook | Recorded external no-merge outcome |
 | folke/zaly | [assessment:zaly-stale-edit-permission](data/assessment-candidate-batches/2026-10-22-03.json) | S1 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-10-22-03 | No code change justified |
 | FonaTech/Clouds-Coder | [assessment:clouds-coder-frozen-revision-retry-guard](data/assessment-candidate-batches/2026-11-08-15.json) | S2 | AWAITING_EXTERNAL | NOT_SUBMITTED | — | assessment-upstream-2026-11-08-15 | Refresh source; check external publication grant |
+| FonaTech/Clouds-Coder | [monitor:fonatech/clouds-coder#50](data/pr-maintenance/targets.json) | — | NOT_TRACKED | WATCHLIST_ONLY | [#50](https://github.com/FonaTech/Clouds-Coder/pull/50) | monitor_only | Read PR maintenance inbox; no technical inference |
 | fred1433/cloud-coding-agent-node | [assessment:cloud-coding-same-tenant-start-race](data/assessment-candidate-batches/2026-11-10-25.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-10-25 | No code change justified |
 | FuzzyKuji/OpenProgram | [assessment:openprogram-capacity-recovery-fairness](data/assessment-candidate-batches/2026-11-08-15.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-08-15 | No code change justified |
 | gczhuang-cmd/NovaCode | [assessment:novacode-worktree-cwd-escape](data/assessment-candidate-batches/2026-11-10-23.json) | S2 | AWAITING_EXTERNAL | NOT_SUBMITTED | — | assessment-upstream-2026-11-10-23 | Refresh source; check external publication grant |
@@ -330,6 +331,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | xpressabhi/agentic-sdlc-control-plane | [assessment:conductor-sdlc-s2-replan-closure](data/assessment-candidate-batches/2026-11-06-12.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-06-12 | Obtain missing native evidence |
 | yoheinakajima/activegraph | [assessment:activegraph-event-patch-invariants](data/assessment-candidate-batches/2026-10-23-08.json) | S1 | AWAITING_EXTERNAL | BLOCKED_PUBLICATION | — | assessment-upstream-2026-10-23-08 | Resolve documented publication gate |
 | yologdev/yoagent | [assessment:yoagent-file-alias-lock](data/assessment-candidate-batches/2026-11-10-24.json) | S2 | AWAITING_EXTERNAL | NOT_SUBMITTED | — | assessment-upstream-2026-11-10-24 | Refresh source; check external publication grant |
+| yologdev/yoagent | [monitor:yologdev/yoagent#450](data/pr-maintenance/targets.json) | — | NOT_TRACKED | WATCHLIST_ONLY | [#450](https://github.com/yologdev/yoagent/pull/450) | monitor_only | Read PR maintenance inbox; no technical inference |
 | zenodea/zaino | [assessment:zaino-shared-stale-write](data/assessment-candidate-batches/2026-10-22-02.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-10-22-02 | No code change justified |
 | zhanghaojie513/Dougong | [assessment:dougong-detached-child-workspace-exclusion](data/assessment-candidate-batches/2026-11-09-16.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-09-16 | Obtain missing native evidence |
 | Zleap-AI/Zleap-Agent | [assessment:zleap-conversation-cross-service-serialization](data/assessment-candidate-batches/2026-11-10-23.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-10-23 | Obtain missing native evidence |
