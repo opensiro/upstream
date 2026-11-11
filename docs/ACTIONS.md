@@ -38,7 +38,7 @@ its macOS-containing compatibility workflow still awaits a fork runner:
 | Source | Legacy workflows | Working-fork migration |
 | --- | ---: | --- |
 | Agent Code | 3 | Reconcile historic pinned native tests with `opensiro-contributions/agent-code` |
-| AgentBox | 3 | Reconcile source-native tests and any still-open pilot PR dependencies |
+| AgentBox | 1 | [Two pinned baselines migrated to fork-native CI](../pilots/agentbox-s2/NATIVE_CI_MIGRATION_2026-11-11.md); retain manager-advisory workflow for [open PR #71](https://github.com/opensiro/upstream/pull/71) |
 | HarnessDesk | 2 | Reconcile current-source and pinned macOS checks with first-party CI |
 | Kit | 1 | [Pinned fork-native offline RED/GREEN PASS](../pilots/kit-222/NATIVE_CI_MIGRATION_2026-11-11.md); compatibility retained until macOS parity |
 | Kram | 0 | [Pinned fork-native RED/GREEN PASS](../pilots/kram-s2/NATIVE_CI_MIGRATION_2026-11-11.md); original recipe archived |
