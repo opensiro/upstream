@@ -7,7 +7,7 @@
 | I want to… | Go to |
 | --- | --- |
 | Understand the broader OpenSiro project | [Visual VSM map](https://opensiro.com/vsm.html) |
-| See contributions and what happened to them | [Public portfolio](https://opensiro.com/upstream-portfolio.html) · [GitHub dashboard](DASHBOARD.md) · [Harness status](HARNESS_STATUS.md) |
+| See contributions and what happened to them | [Public portfolio](https://opensiro.com/upstream-portfolio.html) · [Verified merged changes](https://opensiro.com/vsm-index.html#upstream-verified) · [GitHub dashboard](DASHBOARD.md) · [Harness status](HARNESS_STATUS.md) |
 | Inspect actual third-party PRs | [Citadel #366](https://github.com/SethGammon/Citadel/pull/366) · [Agent Fleet #43](https://github.com/chankov/agent-fleet/pull/43) · [PR observation and verification rules](docs/VERIFIED_EXTERNAL_OUTCOMES.md) |
 | Review source-backed evidence | [Casebook](cases/README.md) · [Native test pilots](pilots/README.md) |
 | Contribute or maintain this project | [CONTRIBUTING.md](CONTRIBUTING.md) · [UPSTREAMING.md](UPSTREAMING.md) |
