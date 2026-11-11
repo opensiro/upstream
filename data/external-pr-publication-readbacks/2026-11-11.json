@@ -29,6 +29,19 @@
       "publication_state": "OPEN_READY",
       "approved_exact_title_body": true,
       "approval_boundary": "Owner standing external PR publication mandate effective 2026-11-11; authenticated xLagerFeuer host action, no individual PR approval"
+    },
+    {
+      "id": "codeact-same-session-first-kernel-race",
+      "repository": "xingyaoww/code-act",
+      "public_fork": "opensiro-contributions/code-act",
+      "fork_local_pr_url": "https://github.com/opensiro-contributions/code-act/pull/1",
+      "pr_url": "https://github.com/xingyaoww/code-act/pull/26",
+      "base_sha": "d607f56c9cfe9e8632ebaf65dcaf2b4b7fe1c6f8",
+      "head_sha": "797c8acdecf6ee857bc3f092f4f68691e1ee7d78",
+      "pr_commits": 1,
+      "publication_state": "OPEN_READY",
+      "approved_exact_title_body": true,
+      "approval_boundary": "Owner standing external PR publication mandate effective 2026-11-11; authenticated xLagerFeuer host action, no individual PR approval"
     }
   ]
 }
