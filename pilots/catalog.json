@@ -5,7 +5,7 @@
   "generated_from": "pilots/ direct subdirectories and their preserved files",
   "counts": {
     "pilot_directories": 73,
-    "artifact_files": 232,
+    "artifact_files": 235,
     "historical_directories": 66,
     "new_directories": 7,
     "by_kind": {
@@ -458,18 +458,21 @@
         "handoff": 2,
         "receipt": 1,
         "native_code": 1,
-        "fixture_or_recipe": 4,
-        "other": 6
+        "fixture_or_recipe": 6,
+        "other": 7
       },
       "files": [
         "ASSESSMENT_LINKAGE_2026-10-20.md",
         "IMPLEMENTATION_REVIEW_V2_2026-10-20.md",
         "IMPLEMENTATION_VALIDATION_2026-10-20.md",
+        "NATIVE_CI_MIGRATION_2026-11-11.md",
         "PREPARE_SHARED_CURRENT_20261020.md",
         "PREPARE_V2_HANDOFF.md",
         "README.md",
         "UNPUBLISHED_PR_PACKAGE_20261020.md",
         "UNPUBLISHED_UPSTREAM_PR_DRAFT_V2.md",
+        "historical-upstream-current-source.yml",
+        "historical-upstream-macos.yml",
         "prepare-v2-20261020-24aa8d7.json",
         "prepare-v2-20261020-81d5e34-shared.json",
         "prepare-v2-handoff.json",
