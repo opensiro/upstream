@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "observed_on": "2026-11-11",
-  "source": "GITHUB_CONNECTOR_POST_WRITE_READBACK",
+  "source": "CONNECTED_GITHUB_REST_READ_ONLY",
   "meaning": "ONE_OFF_OPERATOR_REQUESTED_FORK_AND_BRANCH_OBSERVATION_NOT_AUTOMATED_PREPARE_GRANT_OR_EXTERNAL_PR",
   "entries": [
     {
@@ -15,8 +15,8 @@
       "source_same_named_branch_sha": "033b49240ec49c7b8d3b43f1783b9b4d89425b5e",
       "ref_relation": "MATCH",
       "repo_evidence": "https://api.github.com/repos/opensiro-contributions/KnowWork",
-      "fork_branch_evidence": "https://api.github.com/repos/opensiro-contributions/KnowWork/git/ref/heads/main",
-      "source_branch_evidence": "https://api.github.com/repos/knowflow-ai/KnowWork/git/ref/heads/main",
+      "fork_branch_evidence": "https://api.github.com/repos/opensiro-contributions/KnowWork/branches/main",
+      "source_branch_evidence": "https://api.github.com/repos/knowflow-ai/KnowWork/branches/main",
       "working_branch": "opensiro/fix-sandbox-start-race",
       "working_commit_sha": "8aa8cb823a2f3598cff0f85835d10fb6f040ea8c",
       "working_commit_parent_sha": "033b49240ec49c7b8d3b43f1783b9b4d89425b5e",
