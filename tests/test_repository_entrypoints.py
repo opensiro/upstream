@@ -38,7 +38,7 @@ class RepositoryEntrypointsTests(unittest.TestCase):
             self.assertIn(title, readme)
         for filename in ("START_HERE.md", "ECOSYSTEM.md", "TODO.md"):
             self.assertIn(filename, agent)
-        for term in ("18-target", "Organization", "closed", "publication",
+        for term in ("explicit manifest", "Organization", "closed", "publication",
                      "source-of-truth", "generated"):
             self.assertIn(term.lower(), contract.lower())
         self.assertIn("does **not** grant", readme.lower())

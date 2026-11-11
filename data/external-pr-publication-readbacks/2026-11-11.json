@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-11-11",
+  "source": "Authenticated GitHub PR GET readback after operator-approved host publication; fork-local PR confirmed by GitHub connector",
+  "authenticated_actor": "xLagerFeuer",
+  "metric_boundary": "publication evidence only; neither third-party acceptance nor verified adoption",
+  "cases": [
+    {
+      "id": "knowwork-sandbox-start-race",
+      "repository": "knowflow-ai/KnowWork",
+      "public_fork": "opensiro-contributions/KnowWork",
+      "fork_local_pr_url": "https://github.com/opensiro-contributions/KnowWork/pull/1",
+      "pr_url": "https://github.com/knowflow-ai/KnowWork/pull/4",
+      "head_sha": "8aa8cb823a2f3598cff0f85835d10fb6f040ea8c",
+      "pr_commits": 1,
+      "publication_state": "OPEN_READY",
+      "approved_exact_title_body": true,
+      "approval_boundary": "operator-approved one PR; no general autonomous external publication grant"
+    }
+  ]
+}

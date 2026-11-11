@@ -82,14 +82,15 @@ contains a tested contribution.
    automatic bound stage checks; no detached private side queue.
    The candidate diff lives on this **source-matched contributor fork**, not
    in an `opensiro/upstream` documentation or PR-body staging branch.
-5. **Human release decision:** show the exact changed files, test receipt,
-   fork branch, license/contributor conditions, target base and draft external
-   PR body to a human. Assemble that final body **from the checked fork diff**,
-   the target's latest PR template and the disclosure v2; a stored Upstream
-   prose proposal is never the publication payload or an authorization.
-   Only after a **specific human approval** may the
-   trusted publisher create that external PR. No implied approval from a
-   batch command, internal PR, prior approvals, or the finite 34-case mandate.
+5. **Fork-local proposal and human release decision:** create a PR inside the
+   matching `opensiro-contributions/<target>` fork, from the validated
+   `opensiro/...` head to the fork's source-matched default branch. Its
+   exact title/body come from the checked code diff, latest target PR template,
+   contributor requirements and disclosure v2. Show that fork-local PR URL,
+   unchanged head/base SHAs, final text and test receipt to the human owner.
+   Only after **specific approval of that exact proposal** may an authorized
+   publisher open the third-party PR; re-read both GitHub PRs afterward.
+   Neither a fork-local PR nor a batch command grants publication rights.
    The external maintainer alone decides acceptance or merge.
 
 The owner's **preparation decision is now standing**, not a repeated
@@ -113,6 +114,52 @@ same change. The Verified external outcomes candidate observer includes these
 publication identities to reconcile its portfolio exactly, but treats them
 as **publication-only** evidence, never automatic verified adoption. This
 does not mutate the historical finite Corrective or Improvement ledgers.
+
+## Fork-local PR proposal contract
+
+The source-specific **unpublished publication proposal** lives as a normal
+Pull Request in the correctly parented public `opensiro-contributions/<target>`
+fork. The fork's `opensiro/...` working branch contains **only the product code,
+tests and approved source-native files**; its pull request is against the
+fork's own source-matched default branch, not against the third-party original.
+This is a reviewable preparation record, not a third-party submission or
+a grant to merge the fork's default branch.
+
+- Verify current target license, contributor/security policies, template,
+  target default SHA, fork parent/visibility/push rights, branch/head SHA and
+  non-overlapping PRs. Obtain the applicable fork/branch/proposal write authority;
+  do not infer it from the existence of a fork or earlier approval.
+- Reuse/update the **one fork-local PR per technical topic**. Its title/body
+  reflect the target's actual PR format plus disclosure v2; link the pinned
+  Index assessment, current assessment and test evidence. Do not invent
+  first-party checks, author attestations, independent human review or adoption.
+- Do **not** commit `PR_PROPOSAL.md`, `.opensiro/pr-body.md` or similar
+  publication-only files into the branch that will be submitted externally.
+  Do **not** create an Upstream docs-only PR or report to store the draft
+  title/body. Existing dated Upstream proposals remain historical read-only
+  records; they are never copied without current fork/source verification.
+- Bind the human publication approval to the fork-local PR URL, unchanged
+  head/base SHA and **exact** title/body readback. A changed diff, target
+  template or material PR prose requires refreshed validation and approval.
+  An ordinary wave command is not a blanket grant.
+- On authorized external publication, create the third-party PR from that
+  exact fork branch as **Open · Ready for review** unless a real source-native
+  readiness condition justifies Draft. Require a fresh GitHub readback and
+  matching code/head, title and body. Record **both** PR URLs and the
+  source/head SHA in the dated Upstream readback; add only the external PR
+  to the maintenance watchlist and adoption observers.
+- After publication, the third-party PR owns maintainer interaction and the
+  live published description. The fork-local PR remains a durable
+  preparation/revision trail; it may be closed **without merge** after its
+  publication link is recorded, but must never be merged automatically into
+  the fork default branch. External PRs are never merged by OpenSiro.
+
+`upstream` owns selection, assessment-linked hypotheses, pinned independent
+RED/GREEN receipts, stage/publication decisions, fork/external PR **links**,
+external lifecycle readbacks and portfolio metrics. It does **not** own the
+live contribution diff, fork-native CI or editable target PR proposal.
+[Native CI placement](NATIVE_CI_EXECUTION.md) and
+[publication waves](EXTERNAL_PUBLICATION_WAVES.md) apply unchanged.
 
 ## Command and CI contract
 

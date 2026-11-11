@@ -5,6 +5,18 @@ maintained third-party PRs prepared by the OpenSiro AI-agent contribution
 workflow. The target repository's own current PR template and contributor
 requirements remain primary.
 
+## Proposal ownership
+
+For a prepared contribution with a verified `opensiro-contributions/<target>`
+working branch, store the **exact prospective external title/body** in one
+fork-local PR to that fork's own default branch. Compose it using the original
+target's latest PR template and this disclosure; re-read the final fork-local
+text and diff before requesting human publication approval. After a real
+third-party PR is submitted, its own title/body become authoritative for
+maintainer-facing discussion. Upstream keeps only proposal/publication links,
+verified SHAs and decision/readback evidence, not a parallel editable PR-body
+file. See [fork-local proposal contract](CONTINUOUS_WORKING_FORK_PIPELINE.md#fork-local-pr-proposal-contract).
+
 ## Required publication text
 
 Append the [versioned disclosure template](../templates/EXTERNAL_PR_DISCLOSURE.md)
