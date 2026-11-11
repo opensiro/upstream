@@ -138,8 +138,8 @@ class StandingPreparationHost:
              and p["allowed_stages"] == STAGES
              and p["branch_prefix"] == "opensiro/"
              and p["required_packet_state"] == "EXPLICIT_PATCH_HASH_MATCHED"
-             and p["publication_owner"] == "human_operator"
-             and p["external_pr_publication"] == "EXACT_PER_PR_HUMAN_APPROVAL",
+             and p["publication_owner"] == "separate_standing_policy"
+             and p["external_pr_publication"] == "SEE_STANDING_EXTERNAL_PUBLICATION_P1",
              "No effective owner-selected standing preparation mandate")
         now, start, end = self.clock(), p["valid_from"], p["valid_until"]
         need(type(now) in (int, float) and type(start) is int and type(end) is int

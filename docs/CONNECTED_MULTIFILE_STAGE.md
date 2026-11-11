@@ -88,7 +88,7 @@ is **`ACTION_PREPARED_NOT_AUTHORIZED`**. That packet is a dated evidence
 snapshot and **must not be rewritten as an approval**. The existing fork
 `development` is behind the source and must be reconciled by an
 independently authorized operation. The external upstream PR still
-requires a separate human publication decision and is not in scope.
+requires a separate, currently effective [standing publication mandate](STANDING_EXTERNAL_PR_PUBLICATION.md) and is not in scope for this preparation adapter.
 
 ## Offline test coverage
 

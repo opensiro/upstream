@@ -11,7 +11,7 @@ For a prepared contribution with a verified `opensiro-contributions/<target>`
 working branch, store the **exact prospective external title/body** in one
 fork-local PR to that fork's own default branch. Compose it using the original
 target's latest PR template and this disclosure; re-read the final fork-local
-text and diff before requesting human publication approval. After a real
+text and diff before submitting under the standing publication gate. After a real
 third-party PR is submitted, its own title/body become authoritative for
 maintainer-facing discussion. Upstream keeps only proposal/publication links,
 verified SHAs and decision/readback evidence, not a parallel editable PR-body
@@ -19,7 +19,7 @@ file. See [fork-local proposal contract](CONTINUOUS_WORKING_FORK_PIPELINE.md#for
 
 ## Required publication text
 
-Append the [versioned disclosure template](../templates/EXTERNAL_PR_DISCLOSURE.md)
+Append the [current v3 disclosure template](../templates/EXTERNAL_PR_DISCLOSURE_V3.md)
 to the PR body **after** the original project's required sections and
 checkboxes. Fill each `{{ASSESSMENT_*}}` field from the **current canonical
 Index record** for the target, not from guesses, the PR creation date, or a
@@ -60,46 +60,31 @@ mandate, a technical review, or a change to the original approval evidence.
 If provenance is missing, ambiguous, or the PR is outside that finite cohort,
 do not apply this template or invent an assessment.
 
-**Newly published PRs**, including any historical packet that would be
-reopened for publication, still require the v2 current-policy disclosure and
-the current per-PR publication approval. The `upstream_pr_handoff.py` preflight
-must continue to reject the historical template for a new PR; the exception
-applies solely to already-published descriptions.
+**Newly published PRs from 2026-11-11 onward**, including any historical packet reopened for publication, require v3 disclosure under the [standing publication mandate](STANDING_EXTERNAL_PR_PUBLICATION.md), not a new human approval. The `upstream_pr_handoff.py` preflight rejects historical disclosure templates for new PRs; the retrospective exception applies solely to already-published descriptions. Preserve pre-2026-11-11 v2 bodies as truthful historical evidence rather than editing them to imply a standing mandate existed then.
 
-An external PR published under the **current v2 policy** must explain three
+An external PR published under the **current v3 policy** must explain three
 separate facts:
 
 1. **Technical work and provenance:** an AI-agent workflow, informed by the
    linked, dated and revision-pinned VSM assessment,
    prepared the analysis and change. An assessment suggests a candidate
    improvement; it is not proof that the patch works or changes a VSM grade.
-2. **Current human involvement:** the owner is temporarily approving each
-   external publication while checking the pipeline for bugs. This release
-   approval is not a claim of manual technical review or a correctness
-   certification. Do not write “fully autonomous” or “no human involvement”
-   about a PR published under this gate.
+2. **Current human involvement:** the owner has issued a continuing publication decision, so the agent need not ask for individual PR approval. This is **not** a claim that a human reviewed the code or that the entire assessment→patch→publication pipeline operates unattended. The owner still sets organizational policy and may revoke the mandate.
 3. **Risk and authority:** agent-generated work can be wrong. Third-party
    maintainers retain review and merge authority; no upstream acceptance,
    adoption or benefit follows from opening a PR.
 
 The read-only `scripts/upstream_pr_handoff.py` preflight requires the complete
-v2 disclosure with syntactically valid, internally consistent current/pinned
+v3 disclosure with syntactically valid, internally consistent current/pinned
 links, date and source SHA in its bounded reviewed body before contacting
 GitHub. This structural check does **not** independently fetch or confirm the
 assessment's content: preparers must verify the record and `reviewed_at` from
 the authoritative Index first. Publication
-must still satisfy the exact human approval gate and independent credential,
+must still satisfy the standing mandate and independent credential,
 license, branch, target-template and native-test requirements. A post-hoc
 disclosure edit to an already published PR changes only the description,
 never the code, approval record or downstream outcome.
 
-## Future fully autonomous mode — not yet operative
+## Autonomous end-to-end execution — not yet established
 
-The intended end state is one autonomous assessment → hypothesis → native
-test → patch → publication → observation pipeline. A future disclosure may
-truthfully say “published without per-PR human approval” **only after** the
-owning S5 authority has expressly delegated that decision, the executor and
-recovery controls are operational, and the dated PR evidence proves the
-autonomous action. That future mode needs a separately reviewed version of
-this template and its preflight contract. This document itself grants no
-publication autonomy and removes no present approval requirement.
+The intended end state is one autonomous assessment → hypothesis → native test → patch → publication → observation pipeline. The owner has now **delegated the publication decision** but that alone is not evidence of live autonomous execution, reliable recovery or a fully unattended scientific workflow. The v3 template truthfully describes a *specific publication* under a standing mandate only when it actually occurs; never infer deployment, correctness, adoption or VSM autonomy grades from this document.

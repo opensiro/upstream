@@ -14,6 +14,6 @@
   "allowed_stages": ["create_public_fork", "prepare_contribution"],
   "branch_prefix": "opensiro/",
   "required_packet_state": "EXPLICIT_PATCH_HASH_MATCHED",
-  "publication_owner": "human_operator",
-  "external_pr_publication": "EXACT_PER_PR_HUMAN_APPROVAL"
+  "publication_owner": "separate_standing_policy",
+  "external_pr_publication": "SEE_STANDING_EXTERNAL_PUBLICATION_P1"
 }

@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "mandate_id": "upstream-external-publication-p1-20261111",
+  "status": "ACTIVE",
+  "issuer_actor": "xLagerFeuer",
+  "owner_decision_url": "https://github.com/opensiro/upstream/issues/6#issuecomment-6801859676",
+  "effective_from": "2026-11-11",
+  "allowed_stage": "submit_external_pr",
+  "approval_mode": "STANDING_NO_PER_PR_PROMPT",
+  "source_fork_owner": "opensiro-contributions",
+  "working_branch_prefix": "opensiro/",
+  "target_relation": "verified_direct_parent",
+  "default_draft": false,
+  "required_checks": [
+    "current_source_license_and_contributor_policy",
+    "authenticated_actor_permissions_and_direct_fork_parent",
+    "current_source_and_branch_head_base_readback",
+    "nonduplicate_bounded_product_native_diff",
+    "source_native_tests_and_honest_gaps",
+    "target_pr_template_and_disclosure_v3",
+    "human_only_legal_attestations",
+    "external_pr_readback_and_maintenance_registration"
+  ],
+  "reserved_actions": [
+    "merge_into_third_party",
+    "bypass_upstream_policy_or_protected_branches",
+    "fabricate_cla_dco_or_personal_attestations",
+    "arbitrary_external_comments_or_issues",
+    "manage_credentials_or_unrelated_repositories"
+  ],
+  "revocation": "attributable_owner_instruction_or_policy_status_revoked"
+}

@@ -7,9 +7,9 @@ fork credential/creation evidence: [#28](https://github.com/opensiro/upstream/is
 PR publication **NOT EXECUTED** as of this historical handoff. Since
 2026-10-23, exactly 34 frozen Corrective cases had a separate
 [owner-approved finite publication mandate](CORRECTIVE_PR_PUBLICATION.md),
-subsequently amended to prefer Ready for review. Since the 2026-11-09 policy
-update, **each new external PR needs specific human publication approval**,
-including any reopened historical packet. No additional Control
+subsequently amended to prefer Ready for review. The 2026-11-09 per-PR approval
+rule was superseded on 2026-11-11 by the [standing publication mandate](STANDING_EXTERNAL_PR_PUBLICATION.md).
+No additional Control
 Plane or background agent is installed.
 
 ## Actual credential and rights evidence (2026-10-20)
@@ -85,7 +85,7 @@ record its prospective external PR title/body in a normal Pull Request from
 that branch to the **matching contributor fork's default branch**. That
 fork-local PR is the canonical proposal; it is not an external publication
 or a merge request to accept into fork `main`. It retains the current
-source-native template and [disclosure v2](AI_ASSISTED_PR_DISCLOSURE.md).
+source-native template and [current disclosure v3](AI_ASSISTED_PR_DISCLOSURE.md).
 Publish only the exact human-approved title/body and checked head to the
 third-party repository after the normal permission gate. See
 [fork-local proposal contract](CONTINUOUS_WORKING_FORK_PIPELINE.md#fork-local-pr-proposal-contract).
@@ -167,7 +167,7 @@ python3 scripts/upstream_pr_handoff.py \
   --body-file /path/to/reviewed-pr-body.md > pr-handoff.json
 ```
 
-The script returns `PR_READY_FOR_MANUAL_REVIEW_NOT_PUBLISHED` with
+The script returns `PR_PREFLIGHT_READY_NOT_PUBLISHED` with
 the **exact draft** REST request only if all checks pass. If the branch does
 not exist, its SHA differs, the fork is mismatched/unwritable, a PR already
 exists, or the comparison has no file changes, it **fails closed** with
@@ -188,36 +188,32 @@ says organization owners are not currently supported by its
 accepts `head=organization:branch` for a cross-repository PR, with
 `head_repo` required if both repositories share the same organization
 owner. The handoff builds the exact path/payload for these scenarios and
-defaults to **Ready for review (`draft=false`)** for a reviewed, approved,
+defaults to **Ready for review (`draft=false`)** for a validated, authorized,
 source-native-valid contribution. Use `--draft --draft-reason 'specific pending
-review condition'` only when the human approves a concrete outstanding
+review condition'` only when source policy permits a concrete outstanding
 readiness condition; this is not a way to bypass a mandatory source-policy,
 license, CLA/DCO or publication gate. The `draft_request_body` JSON key is
 retained for backward compatibility, even when its `draft` value is `false`.
 
-## C. External publication: ordinary human decision or finite Corrective grant
+## C. External publication: standing owner decision and case-local checks
 
-For **every new external PR** under the 2026-11-09 policy, after the operator explicitly approves **this
-exact title, body, fork, branch, target base and observed SHAs**, they can
-re-run preflight and publish **manually** from the credential-owning VM/host:
+For **every new external PR**, the [current standing owner decision](STANDING_EXTERNAL_PR_PUBLICATION.md) replaces individual approval. After independently revalidating **this exact title, body, fork, branch, target base, native tests, contributor policy and observed SHAs**, an authorized publisher can use the credential-owning VM/host:
 
 ```bash
-jq -er '.status == "PR_READY_FOR_MANUAL_REVIEW_NOT_PUBLISHED"' pr-handoff.json
+jq -er '.status == "PR_PREFLIGHT_READY_NOT_PUBLISHED"' pr-handoff.json
 jq -e '.draft_request_body' pr-handoff.json > reviewed-pr-request.json
 
-# WRITE: manually authorized for ordinary cases; never called by preflight
+# WRITE: requires the effective standing publication grant and source-native checks; never called by preflight
 gh api --method POST repos/HarnessDesk/HarnessDesk/pulls \
   --input reviewed-pr-request.json
 ```
 
 No script in this historical handoff executes the write command. For **only**
 the 34 cases enumerated in the [finite Corrective queue](../data/corrective-publication/2026-10-23-01.json),
-the 2026-10-23 owner decision is the publication authorization: the
-authorized contribution actor may perform equivalent live operations to
-create the public `opensiro-contributions` fork, push a bounded working
+the 2026-10-23 owner decision was the historical publication authorization: the
+authorized contribution actor could create the public `opensiro-contributions` fork, push a bounded working
 branch and open an external PR without a new per-case vote **under that
-historical mandate**. That authorization is not a standing exception to the
-new per-PR approval rule. For submitted or separately approved new PRs,
+historical mandate**. The current general standing grant is separate. For new, fully validated PRs,
 prefer Ready for review (`draft: false`); Draft needs a concrete pending
 readiness reason. This remains subject to fresh preflight and provider
 identity/readback checks. It is **not** a

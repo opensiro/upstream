@@ -6,8 +6,8 @@
 
 The owner delegates routine `create_public_fork` and `prepare_contribution`
 decisions to Upstream Contributions S1 **without per-repository or per-action
-conversational approval**. This is **not** a delegation of
-`submit_external_pr`. Each wave consists of five distinct external source
+conversational approval**. This policy **does not itself** delegate
+`submit_external_pr`, which now has a [separate standing publication mandate](STANDING_EXTERNAL_PR_PUBLICATION.md). Each wave consists of five distinct external source
 repositories, not five future PR titles. Agents may select eligible handoffs,
 implement source-native code and regression tests, create/reuse matching public
 direct forks **only in `opensiro-contributions`**, prepare dedicated
@@ -62,8 +62,9 @@ fork with a provider-attested real execution.
 ## Decisions still reserved
 
 - **Every external PR:** exact final title/body, tested fork diff, current
-  source-native PR form and AI disclosure require separate human approval.
-  Approved, validated external PRs default to Open/Ready, not Draft.
+  source-native PR form and AI disclosure still require independent verification,
+  but **no longer a separate human approval** under the current [publication policy](STANDING_EXTERNAL_PR_PUBLICATION.md).
+  Qualified, validated external PRs default to Open/Ready, not Draft.
 - **Legal attestations:** CLA, DCO and other contributor-person statements
   require the actual authorized person's attestation; agents may not invent
   one.
@@ -72,5 +73,5 @@ fork with a provider-attested real execution.
   deletions, unsolicited maintainer contact or policy/permission expansion.
   Revocation or expiry on current main immediately denies later preparation.
 
-The human publication gate never supplies an extra fork-write permission,
-and the preparation mandate never authorizes an external PR POST.
+The separate publication mandate never supplies an extra fork-write permission,
+and this preparation mandate never authorizes an external PR POST.

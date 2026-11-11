@@ -1,14 +1,12 @@
 # Bounded publication mandate — assessment-informed Corrective PRs
 
-> **2026-11-09 owner policy update (prospective):** Every **new external PR**
-> requires a **specific human publication approval**, including a reopened
-> historical Corrective packet. The finite 2026-10-23 standing publication
+> **2026-11-11 superseding owner decision:** [Standing external PR publication](STANDING_EXTERNAL_PR_PUBLICATION.md) now authorizes qualifying future submissions without a separate human approval for each PR, including eligible reopened historical packets. The 2026-11-09 specific per-PR human gate applied **only until this superseding decision**. The finite 2026-10-23 standing publication
 > mandate remains historical evidence of what was permitted and submitted
-> at that time; it is **not a continuing bypass** of this newer gate. The
+> at that time; it is not the authority for future general publication. The
 > completed 13 submitted PRs are not withdrawn or retroactively relabeled.
 > Existing cohort PR descriptions may receive only the historically accurate
 > [AI disclosure variant](AI_ASSISTED_PR_DISCLOSURE.md#historical-corrective-cohort-retrospective-descriptions-only)
-> with verified assessment provenance. This does not approve new publications.
+> with verified assessment provenance. That historical-description correction does not itself publish anything.
 > Local preparation and authorized working-fork synchronization stay separate
 > from publishing. See [continuous working-fork pipeline](CONTINUOUS_WORKING_FORK_PIPELINE.md).
 
@@ -18,7 +16,7 @@
 
 **Owning experiment:** [Upstream #56](https://github.com/opensiro/upstream/issues/56), under the Upstream contribution execution route of [#6](https://github.com/opensiro/upstream/issues/6). **Operator decision:** confirmed in the current owner conversation on **2026-10-23** after an explicit question about transferring external-publication rights. **Decision holder:** the OpenSiro owner, `xLagerFeuer` (declared holder; this conversation is not a substitute for authenticated GitHub actor readback). **Mandate:** `CORRECTIVE-PUBLISH-2026-10-23-01`.
 
-Historically, this superseded the prior **human-per-PR publication choice only within the enumerated Corrective packet set**. Under that finite mandate, an assistant with legitimate contributor credentials could create public organization forks, branches, fixes/tests and external PRs without separate routine per-PR approval. On **2026-10-24**, the owner corrected the publication-state preference to **Ready for review (`draft: false`)** for fully checked, non-blocked cases, with Draft reserved for a real prerequisite. **The 2026-11-09 prospective human-per-PR publication gate above now controls any new submission.** Neither policy authorizes external merge.
+Historically, this superseded the prior **human-per-PR publication choice only within the enumerated Corrective packet set**. Under that finite mandate, an assistant with legitimate contributor credentials could create public organization forks, branches, fixes/tests and external PRs without separate routine per-PR approval. On **2026-10-24**, the owner corrected the publication-state preference to **Ready for review (`draft: false`)** for fully checked, non-blocked cases, with Draft reserved for a real prerequisite. The **2026-11-09 human-per-PR gate was superseded on 2026-11-11** by the separate continuing mandate; historical grant boundaries and ledgers remain unchanged. Neither policy authorizes external merge.
 
 ## Finite source and allowed actions
 
