@@ -13,6 +13,41 @@
 
 `opensiro-contributions` is the normal working-fork location, **not** an automatic stage grant. The general connected fork/branch executor is still gated by [#6](https://github.com/opensiro/upstream/issues/6). Neither this document nor a batch selection authorizes a new fork, branch, external PR, comment or third-party workflow mutation. A source-only independent host test may proceed only under the actual host/tool permissions and without a chatbot directly executing the strict-derived before/after validation.
 
+## Enforced placement for new workflows (2026-11-11)
+
+**All new harness-specific native GitHub Actions belong in the correctly
+parented `opensiro-contributions/<target>` working fork**, on an authorized
+`opensiro/...` branch when a temporary evidence runner is needed. Prefer the
+source project's existing native workflows first; do not introduce a duplicate
+workflow merely to obtain a green badge. Where a fork cannot run the test, use
+a separately controlled deterministic runner with an attributable receipt.
+
+`opensiro/upstream/.github/workflows` may contain only Upstream-owned
+repository-integrity, provenance/registry, fork lifecycle and external-PR
+observation workflows. The distinction is **what is being validated**:
+running Upstream's own evidence/metadata checks is allowed; executing a target
+harness's native regression in a new Upstream workflow is not. This includes
+manually dispatched and path-filtered pilot workflows; making them optional
+does not change their ownership.
+
+The [unit-test guard](../tests/test_native_ci_placement.py) recognizes eight
+existing Upstream control workflows and freezes the 15 historical
+project-specific workflows as **retirement-only exceptions**. New workflow
+filenames fail unfiltered repository-integrity CI until their genuine
+Upstream-control ownership is explicitly reviewed. The historical list may
+shrink as each pilot is migrated, but must not expand. See
+[Upstream #214](https://github.com/opensiro/upstream/issues/214) for the
+six-source inventory, native-CI readbacks and migration checklist.
+
+Migration is not a blind move: historical Upstream runs and logs remain valid
+evidence for their pinned inputs. A corresponding first-party workflow in the
+fork is **not automatically equivalent** to a past RED/GREEN pilot. Preserve the
+run links and source/test hashes, demonstrate equivalent coverage or a
+replacement deterministic runner, then remove the superseded Upstream
+workflow in a reviewable PR. Do not copy internal Upstream `pilots/` fixtures
+into a third-party publication diff or install unrelated CI into the
+original project's `main`.
+
 ## Runner selection and evidence
 
 1. Prefer the project's existing native tests/CI in a **currently authorized working fork**; use its pinned source/base and a separate feature branch so the original developer's CI/configuration is not silently changed. When necessary, a temporary project-specific workflow may live only on the working branch. Avoid including test-only orchestration in an external contribution unless a maintainer requests it.
