@@ -1,3 +1,8 @@
+**Native CI placement update (2026-11-11):** This historical prototype was
+[reproduced in the exact matching public fork](../MANAGER_ADVISORY_CI_MIGRATION_2026-11-11.md)
+and its former Upstream workflow archived byte-for-byte. This does not
+publish or deploy an AgentBox feature; Draft #71 has a separate CI path.
+
 # AgentBox S2 — bounded Phase 4 manager advisory prototype
 
 **Research-only OpenSiro implementation (2026-10-22)**, [Upstream #61](https://github.com/opensiro/upstream/issues/61) under [experiment #56](https://github.com/opensiro/upstream/issues/56). Origin hypothesis: `ASSESSMENT_DERIVED`; **native user benefit and first-party acceptance remain unproven**. This does **not** change `madarco/agentbox` or enable its autonomous manager.
@@ -10,7 +15,7 @@
 
 Safety bounds: lexical paths **are not verified realpath scope**; aliases, symlinks, case-folding, stale read snapshots, unlisted in-progress tasks, and global workspace controls are unhandled. Reject traversal, absolute/drive paths, undocumented wildcard patterns, unknown or duplicate task identifiers. `groups` are **recommendations, never automatically authorized launches**. All plans require revalidation and user/maintainer design decisions before use. Not an OS isolation mechanism.
 
-[`module.test.ts`](module.test.ts) contains independently falsifiable native Vitest scenarios: same-file and nested tree interference, disjoint parallel docs, distinct-project boundaries, unknown and invalid scope fail-closed, unfinished dependencies, already allocated tasks, and pure no-mutation behavior. [Actions workflow](../../../.github/workflows/agentbox-s2-manager-advisory.yml) performs an **immutable upstream checkout**, injects exactly two untracked files into a disposable CI runner, performs original `pnpm build`, runs native Vitest, TypeScript type checking and ESLint. No Docker, real model API, worker operations, true before/after file conflict or external repo write.
+[`module.test.ts`](module.test.ts) contains independently falsifiable native Vitest scenarios: same-file and nested tree interference, disjoint parallel docs, distinct-project boundaries, unknown and invalid scope fail-closed, unfinished dependencies, already allocated tasks, and pure no-mutation behavior. [archived native Actions recipe](../historical-upstream-manager-advisory.yml) performs an **immutable upstream checkout**, injects exactly two untracked files into a disposable CI runner, performs original `pnpm build`, runs native Vitest, TypeScript type checking and ESLint. No Docker, real model API, worker operations, true before/after file conflict or external repo write.
 
 ## Acceptance, measurement and exit criteria
 

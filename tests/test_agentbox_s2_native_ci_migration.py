@@ -15,6 +15,8 @@ HISTORICAL_BLOBS = {
     "historical-upstream-native-dependency-dispatch.yml":
         ("2a779f2d5ec1dffb61dd4c57fb677e5f60d092db",
          "agentbox-native-dependency-dispatch.yml"),
+    "historical-upstream-manager-advisory.yml":
+        ("0b5479c2dc186b80b3ceabce8b36f4ff88d9f0e6", "agentbox-s2-manager-advisory.yml"),
 }
 
 
@@ -28,8 +30,7 @@ class AgentBoxNativeCIMigrationTests(unittest.TestCase):
                     original_sha,
                 )
                 self.assertFalse((WORKFLOWS / original_name).exists())
-        # Do not discard the CI of still-open Upstream PR #71.
-        self.assertTrue((WORKFLOWS / "agentbox-s2-manager-advisory.yml").exists())
+        # PR #71 retains its own independent plan-prototype CI on its branch.
 
     def test_durable_matching_fork_receipt_covers_both_baselines(self):
         receipt = (PILOT / "NATIVE_CI_MIGRATION_2026-11-11.md").read_text()
@@ -43,6 +44,14 @@ class AgentBoxNativeCIMigrationTests(unittest.TestCase):
             "manager_advisory=RETAINED_OPEN_PR_71",
             "external_delivery=NONE",
         ):
+            with self.subTest(marker=marker):
+                self.assertIn(marker, receipt)
+
+    def test_manager_advisory_fork_parity_receipt(self):
+        receipt = (PILOT / "MANAGER_ADVISORY_CI_MIGRATION_2026-11-11.md").read_text()
+        for marker in ("43090937771", "e9b40d947463adace9ea09aa8facc28518620b92",
+                       "605ee75d63319003c188bc532d4e5b2ba36a51d6",
+                       "39683286746", "PR #71"):
             with self.subTest(marker=marker):
                 self.assertIn(marker, receipt)
 
