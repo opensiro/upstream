@@ -3,8 +3,9 @@
 A trusted execution HOST supplies an authenticated GitHub patch port and an
 authenticated one-use approval issuer. Arbitrary Python mocks are ONLY tests.
 This source does not load PATs, run git push, issue approvals or create PRs.
-Unlike connected_stage_adapter.py, this permits one existing package source
-file plus one NEW package-local test file, with pre/post content fingerprints.
+Unlike connected_stage_adapter.py, this permits a bounded existing production
+source file plus a new or previously tracked native test file. Both files are
+bound to exact source/fork preimages and expected postimages.
 """
 from copy import deepcopy
 import hashlib
@@ -17,7 +18,10 @@ from connected_stage_adapter import NotFound, StageBlocked
 SHA = re.compile(r"^[0-9a-f]{40}$")
 DIGEST = re.compile(r"^[0-9a-f]{64}$")
 BRANCH = re.compile(r"^opensiro/[a-z0-9][a-z0-9._/-]{0,79}$")
-PATH = re.compile(r"^packages/[a-zA-Z0-9_-]+/(?:src|test)/[a-zA-Z0-9_./-]+\.tsx?$")
+TS_SOURCE = re.compile(r"^packages/[a-zA-Z0-9_-]+/src/[a-zA-Z0-9_./-]+\.tsx?$")
+TS_TEST = re.compile(r"^packages/[a-zA-Z0-9_-]+/test/[a-zA-Z0-9_./-]+\.tsx?$")
+PY_SOURCE = re.compile(r"^(?:src/[a-zA-Z0-9_-]+/|scientific_agent/)[a-zA-Z0-9_./-]+\.py$")
+PY_TEST = re.compile(r"^tests/(?:[a-zA-Z0-9_./-]+/)?test_[a-zA-Z0-9_-]+\.py$")
 DIFF = re.compile(r"^diff --git a/([^\n]+) b/([^\n]+)$", re.M)
 STAGE = "prepare_contribution"
 FIELDS = {"working_repo", "source_branch", "source_sha", "base_branch",
@@ -43,6 +47,25 @@ def good_branch(value):
             and not value.endswith(("/", ".", ".lock")))
 
 
+def classified_paths(paths):
+    """Only a matched native source/test pair in the same language."""
+    need(type(paths) is list and len(paths) == 2
+         and all(type(p) is str
+                 and p == str(PurePosixPath(p))
+                 and len(p) <= 200
+                 and not any(part in (".", "..") for part in p.split("/"))
+                 and "//" not in p for p in paths),
+         "Invalid two-path source/test scope")
+    need(len(set(paths)) == 2, "Duplicate native path")
+    for source_rule, test_rule in ((TS_SOURCE, TS_TEST),
+                                   (PY_SOURCE, PY_TEST)):
+        sources = [p for p in paths if source_rule.fullmatch(p)]
+        tests = [p for p in paths if test_rule.fullmatch(p)]
+        if len(sources) == len(tests) == 1:
+            return sources[0], tests[0]
+    raise StageBlocked("Only bounded native source/test pairs allowed")
+
+
 def _validate(action):
     need(type(action) is dict and
          (set(action) == FIELDS or
@@ -66,31 +89,17 @@ def _validate(action):
     need(action["source_sha"] == action["base_sha"],
          "The fork base must match reviewed current upstream commit")
     need(good_branch(action["new_branch"]), "Invalid new branch")
-    need(type(action["changed_paths"]) is list
-         and len(action["changed_paths"]) == 2
-         and len(set(action["changed_paths"])) == 2,
-         "Exactly two distinct changed paths required")
-    src = [p for p in action["changed_paths"] if type(p) is str and
-           "/src/" in p]
-    tests = [p for p in action["changed_paths"] if type(p) is str and
-             "/test/" in p]
-    need(len(src) == len(tests) == 1,
-         "One source file and one new package test file required")
-    for path in action["changed_paths"]:
-        need(type(path) is str and PATH.fullmatch(path)
-             and path == str(PurePosixPath(path))
-             and not any(part in (".", "..") for part in path.split("/"))
-             and "//" not in path and ".." not in path
-             and len(path) <= 200,
-             "Path outside controlled production/test scope")
-    need(type(action["preimage_sha256"]) is dict
-         and set(action["preimage_sha256"]) == set(src)
+    prod, test = classified_paths(action["changed_paths"])
+    preimages = action["preimage_sha256"]
+    need(type(preimages) is dict
+         and set(preimages) in ({prod}, {prod, test})
+         and (test not in preimages or PY_TEST.fullmatch(test))
          and type(action["postimage_sha256"]) is dict
          and set(action["postimage_sha256"]) == set(action["changed_paths"])
          and all(type(v) is str and DIGEST.fullmatch(v)
-                 for v in list(action["preimage_sha256"].values())
+                 for v in list(preimages.values())
                  + list(action["postimage_sha256"].values())),
-         "Missing bound pre/postimage SHA256")
+         "Missing bound source/test pre/postimage SHA256")
     patch = action["patch_text"]
     need(0 < len(patch.encode("utf-8")) <= 131072
          and patch.endswith("\n") and "\r" not in patch
@@ -109,10 +118,19 @@ def _validate(action):
                                    "GIT binary patch", "Binary files "))
                  for line in patch.splitlines()),
          "Patch cannot rename, delete, copy or carry binary objects")
-    need(patch.count("new file mode ") == 1
-         and "new file mode " in patch.split("diff --git a/" + tests[0])[1]
-         and "--- /dev/null" in patch.split("diff --git a/" + tests[0])[1],
-         "Patch must introduce precisely one test file")
+    test_patch = patch.split("diff --git a/" + test + " b/" + test + "\n")
+    need(len(test_patch) == 2, "Missing exact test patch section")
+    if test in preimages:
+        need(patch.count("new file mode ") == 0
+             and "--- a/" + test + "\n" in test_patch[1]
+             and "+++ b/" + test + "\n" in test_patch[1]
+             and "--- /dev/null" not in test_patch[1],
+             "Existing test patch must not create a new test")
+    else:
+        need(patch.count("new file mode ") == 1
+             and "new file mode 100644" in test_patch[1]
+             and "--- /dev/null" in test_patch[1],
+             "New test patch must create exactly one ordinary test")
 
 
 def _observed_file(github, repo, path, branch):
@@ -190,25 +208,26 @@ def _preflight(item, action, github):
         pass
     else:
         raise StageBlocked("Contribution branch already exists")
-    prod = next(p for p in action["changed_paths"] if "/src/" in p)
-    test = next(p for p in action["changed_paths"] if "/test/" in p)
-    need(digest(_observed_file(github, source_name, prod,
-                               action["source_branch"])) ==
-         action["preimage_sha256"][prod],
-         "Source preimage SHA mismatch")
-    # Shared-object mode reads the target fork by exact source SHA,
-    # never by its intentionally unchanged old development branch.
+    prod, test = classified_paths(action["changed_paths"])
     target_ref = (action["base_sha"] if "fork_observed_sha" in action
                   else action["base_branch"])
-    need(digest(_observed_file(github, work_name, prod, target_ref)) ==
-         action["preimage_sha256"][prod],
-         "Exact fork commit preimage differs from reviewed source")
-    try:
-        github.file(work_name, test, target_ref)
-    except NotFound:
-        pass
-    else:
-        raise StageBlocked("Expected new test file already exists")
+    for path, expected in action["preimage_sha256"].items():
+        need(digest(_observed_file(github, source_name, path,
+                                   action["source_branch"])) == expected,
+             "Source preimage SHA mismatch")
+        need(digest(_observed_file(github, work_name, path,
+                                   target_ref)) == expected,
+             "Exact fork commit preimage differs from reviewed source")
+    if test not in action["preimage_sha256"]:
+        # Absence matters on the original as well as on the matching fork.
+        for repo, ref in ((source_name, action["source_branch"]),
+                          (work_name, target_ref)):
+            try:
+                github.file(repo, test, ref)
+            except NotFound:
+                pass
+            else:
+                raise StageBlocked("Expected new test file already exists")
     return rights["actor"]
 
 

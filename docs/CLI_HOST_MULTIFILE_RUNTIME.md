@@ -65,10 +65,12 @@ commit, whole patch text and exactly two paths. Using normal
    clean working tree.
 3. Validates current tracked regular `100644` source file and new
    test-path constraints, rejecting symlink/nonregular modes.
-4. Runs `git apply --check`, `git apply`, stages only the two
+4. Supports both a new Python test and an already tracked Python test only
+   after the exact source+test pair has passed the bound preimage checks.
+5. Runs `git apply --check`, `git apply`, stages only the two
    approved paths, then verifies the complete staged path set,
    whitespace errors, file modes and actual UTF-8 postimages.
-5. Returns the exact text of both resulting blobs for the
+6. Returns the exact text of both resulting blobs for the
    [GitHub REST Git Trees/Commit/Ref port](REST_MULTIFILE_PATCH_PORT.md)
    to compare against the expected postimage SHA256 fingerprints
    **before** its first POST.

@@ -186,6 +186,45 @@ class RealLocalGitMaterializerTests(unittest.TestCase):
         self.assertTrue(any(c[1]=="apply" if len(c)>1 else False for c in calls) is False
                         or len(calls)>0)
 
+    def _python_patch_from_real_local_git(self, *, existing):
+        work = self.root / "work"
+        prod = ("scientific_agent/policy.py" if existing
+                else "src/fara/core/run_context.py")
+        test = ("tests/test_policy.py" if existing
+                else "tests/test_run_context_resume_identity.py")
+        for relative in (prod, test):
+            (work / relative).parent.mkdir(parents=True, exist_ok=True)
+        (work / prod).write_text("ENABLED = False\n")
+        if existing:
+            (work / test).write_text("def test_old():\n    assert True\n")
+        args = ["git", "-C", str(work), "add", "--", prod]
+        if existing:
+            args.append(test)
+        self.call(*args)
+        self.call("git", "-C", str(work), "commit", "-m", "native baseline")
+        self.call("git", "-C", str(work), "push", "origin", "development")
+        base = self.call("git", "-C", str(work), "rev-parse", "HEAD").strip()
+        (work / prod).write_text("ENABLED = True\n")
+        changed_test = ("def test_old():\n    assert not False\n"
+                        if existing else "def test_resume():\n    assert True\n")
+        (work / test).write_text(changed_test)
+        if not existing:
+            self.call("git", "-C", str(work), "add", "-N", "--", test)
+        patch = self.call("git", "-C", str(work), "diff", "--", prod, test)
+        self.assertEqual(len(patch.split("diff --git a/")) - 1, 2)
+        actual = self.materialize(REPO, base, patch, [prod, test])
+        self.assertEqual(actual["changed_paths"], [prod, test])
+        self.assertEqual(actual["files"][prod], "ENABLED = True\n")
+        self.assertEqual(actual["files"][test], changed_test)
+        self.assertEqual(actual["source_file_modes"],
+                         {prod: "100644", test: "100644"})
+
+    def test_python_new_test_real_git_materialization(self):
+        self._python_patch_from_real_local_git(existing=False)
+
+    def test_python_existing_test_real_git_materialization(self):
+        self._python_patch_from_real_local_git(existing=True)
+
     def test_no_patch_can_overwrite_foreign_test_path(self):
         f=Path(self.tmp.name)/"work"/TEST
         f.parent.mkdir(parents=True,exist_ok=True)
