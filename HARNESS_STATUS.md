@@ -5,7 +5,7 @@
 
 A harness may have several independent interventions and PRs. A historical `AWAITING_EXTERNAL` batch state **remains historical** even when a separate publication ledger later confirms an upstream merge. All external submission/acceptance claims below come from the linked owning source; `SUBMITTED_UNVERIFIED_LIVE` means **no current PR-state claim**.
 
-**Scope:** 153 harnesses · 162 interventions · 33 unique external PR URLs · 25 assessment batches · 26 monitored PR targets.
+**Scope:** 153 harnesses · 163 interventions · 34 unique external PR URLs · 25 assessment batches · 27 monitored PR targets.
 
 ## Harness overview
 
@@ -97,7 +97,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | [microsoft/fara](https://github.com/microsoft/fara) | 1 | 1 | 0 | 0 | 0 |
 | [mila-iqia/babyai](https://github.com/mila-iqia/babyai) | 1 | 1 | 1 | 0 | 0 |
 | [mnbresearch/crewdeck](https://github.com/mnbresearch/crewdeck) | 2 | 1 | 0 | 0 | 0 |
-| [murilo-bassan/durable-agent-runtime](https://github.com/murilo-bassan/durable-agent-runtime) | 1 | 1 | 0 | 0 | 0 |
+| [murilo-bassan/durable-agent-runtime](https://github.com/murilo-bassan/durable-agent-runtime) | 2 | 1 | 0 | 0 | 0 |
 | [nearai/ironclaw](https://github.com/nearai/ironclaw) | 1 | 0 | 0 | 0 | 0 |
 | [NeoPanic/harness3](https://github.com/NeoPanic/harness3) | 1 | 0 | 0 | 0 | 1 |
 | [NickGuAI/Herd](https://github.com/NickGuAI/Herd) | 1 | 0 | 0 | 0 | 1 |
@@ -261,6 +261,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | mnbresearch/crewdeck | [assessment:crewdeck-s2-manual-claim-admission](data/assessment-candidate-batches/2026-11-06-12.json) | S2 | AWAITING_EXTERNAL | NOT_SUBMITTED | — | assessment-upstream-2026-11-06-12 | Refresh source; check external publication grant |
 | mnbresearch/crewdeck | [monitor:mnbresearch/crewdeck#1](data/pr-maintenance/targets.json) | — | NOT_TRACKED | WATCHLIST_ONLY | [#1](https://github.com/mnbresearch/crewdeck/pull/1) | monitor_only | Read PR maintenance inbox; no technical inference |
 | murilo-bassan/durable-agent-runtime | [assessment:runloop-reservation-recovery-and-settlement](data/assessment-candidate-batches/2026-11-08-14.json) | S2 | AWAITING_EXTERNAL | NOT_SUBMITTED | — | assessment-upstream-2026-11-08-14 | Refresh source; check external publication grant |
+| murilo-bassan/durable-agent-runtime | [monitor:murilo-bassan/durable-agent-runtime#1](data/pr-maintenance/targets.json) | — | NOT_TRACKED | WATCHLIST_ONLY | [#1](https://github.com/murilo-bassan/durable-agent-runtime/pull/1) | monitor_only | Read PR maintenance inbox; no technical inference |
 | nearai/ironclaw | [assessment:ironclaw-job-scheduler](data/assessment-candidate-batches/2026-10-22-01.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-10-22-01 | No code change justified |
 | NeoPanic/harness3 | [assessment:neopanic-orphaned-child-claim-recovery](data/assessment-candidate-batches/2026-11-09-20.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-09-20 | Obtain missing native evidence |
 | NickGuAI/Herd | [assessment:herd-native-quest-ownership](data/assessment-candidate-batches/2026-10-23-11.json) | S1 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-10-23-11 | Obtain missing native evidence |
