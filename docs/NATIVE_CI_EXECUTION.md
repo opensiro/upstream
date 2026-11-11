@@ -31,7 +31,7 @@ manually dispatched and path-filtered pilot workflows; making them optional
 does not change their ownership.
 
 The [unit-test guard](../tests/test_native_ci_placement.py) recognizes seven
-existing Upstream control workflows and freezes the 11 remaining historical
+existing Upstream control workflows and freezes the 7 remaining historical
 project-specific workflows as **retirement-only exceptions**. New workflow
 filenames fail unfiltered repository-integrity CI until their genuine
 Upstream-control ownership is explicitly reviewed. The historical list may

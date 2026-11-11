@@ -3,7 +3,7 @@
   "state": "READ_ONLY_PROPOSAL_NOT_APPROVED",
   "destination_org": "opensiro-contributions",
   "source_registry": "data/contribution-workspaces/registry.json",
-  "source_registry_sha256": "3cf75147520f1f49b66706204c91e8711c5b33fd119735d072b8d03b89437b74",
+  "source_registry_sha256": "f450fdb8a4d054b13c8fea9a94d46609744754ad5a90955e4569f32278d2d5a7",
   "priority_snapshot": "data/fork-priorities/2026-11-08.json",
   "batch_size_max": 10,
   "counts": {
@@ -35,7 +35,7 @@
     {
       "id": "bootstrap-001",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "a367ee3b090ed7774508f5c88e1f4495329b3b6449b717e55357b2b497da5532",
+      "selection_sha256": "4fc5c5d752bf9558bb9764edd2599579a989a08ede070a25943acf4f8118edc6",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -84,7 +84,7 @@
     {
       "id": "bootstrap-002",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "d36b2ed9e66083c83152392ca95fa7309b348ff23ed00374148d7736b7b8b9c9",
+      "selection_sha256": "e23544e9269568c5431e2c3542e8c43abd34a98bd9a6455682d1d25d5513be2e",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -133,7 +133,7 @@
     {
       "id": "bootstrap-003",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "82dd6fb588b94616df42db2b0b746648505f5e5718f14f609e1e2feb756aff4e",
+      "selection_sha256": "4fed028804673933031ca0b5f7b5a2c392fa536bd54ec42e6284a28d97c196a6",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -182,7 +182,7 @@
     {
       "id": "bootstrap-004",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "96810ff80671a0a8ae1fd0d08254cb7c31fcdf3c006add61f8c9fb54f4c9b03f",
+      "selection_sha256": "f20a91f49ad19dffe58f10b44e36093bb67fc5b73356d2633c672bcf3d04502d",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -231,7 +231,7 @@
     {
       "id": "bootstrap-005",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "854e2950c08054bfd22342bd1f739a1c8e1a5266772fd6817f8759ea782c4a79",
+      "selection_sha256": "618954dff8abff9d564910966fbe01f490128a5c3a9e5abb008a10d76e073cbb",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -280,7 +280,7 @@
     {
       "id": "bootstrap-006",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "0e8fa6d7fcc3837f96c4d502ea1291c0c0dc2cb44658b49f4e28276dd1725042",
+      "selection_sha256": "2f2e5295c62afb11ce7fc761d59da41602a63bb47835e14fee879671e7686df3",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -329,7 +329,7 @@
     {
       "id": "bootstrap-007",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "0f3983855901f3fe67b23507eb2b41cf25d0acbe0895151dd7d7d418711caa46",
+      "selection_sha256": "cf59e3568791da46e03a79b985194651d1ea40ca73f1c07b7423493981359cba",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -378,7 +378,7 @@
     {
       "id": "bootstrap-008",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "bbd4f0e0ca389e0d56901d2f1bd71106f10cc74c2e548b593c4677d3ab82ae20",
+      "selection_sha256": "6ce5b26f21791c456232638152407b48ab2ed9ed22735c5aa8ba32c495dd74cb",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -427,7 +427,7 @@
     {
       "id": "bootstrap-009",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "638c36f914752b49356e918026f8a76640527b60329e89e9df7d683bfc90aadf",
+      "selection_sha256": "755a6e616fb73e54f4faa367cb9fab4e73f4ac5f71f9efb920da4f36a2678182",
       "source_count": 1,
       "has_collision_name_proposals": false,
       "selection": [

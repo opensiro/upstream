@@ -3457,8 +3457,8 @@
           "patch_path": null,
           "local_evidence": {
             "directory": "pilots/zot-shared-workspace",
-            "files": 15,
-            "content_sha256": "7ea582e44c31f13e3aa04a013802fe62aa78197ab6878ffc37036e9b1c4f9036",
+            "files": 20,
+            "content_sha256": "de3059d7e3519c71d2aad169e4ad950e6817ce4c315e20b5624f8913e9ce96bc",
             "patch_candidates": []
           },
           "local_patch_sha256": null

@@ -181,3 +181,24 @@ merge **11** source-native workflows remain on `upstream/main`. The third
 AgentBox manager-advisory YAML remains on main because [PR #71](https://github.com/opensiro/upstream/pull/71)
 is still open. Baseline PASS is not a RED/GREEN product intervention or
 maintainer adoption evidence.
+
+## Fourth source-native migration: Zot's four pinned experiments
+
+All four historical Zot source-only Go experiments were successfully
+reproduced on the correctly parented
+[`opensiro-contributions/zot` fork](https://github.com/opensiro-contributions/zot)
+at the identical first-party source
+`patriceckhart/zot@c62d1c549d52cd33390968ffa50667cb79609152`.
+Fork branch `opensiro/ci-zot-native-parity-20261111` at immutable commit
+`b70ce41b14955842ebd5c5b5263a5a63947a6f19` ran the original native
+Go commands and package regressions (including the race detector in three
+workflows). [Baseline 43071812474](https://github.com/opensiro-contributions/zot/actions/runs/43071812474),
+[after-case 43071812481](https://github.com/opensiro-contributions/zot/actions/runs/43071812481),
+[native gaps 43071812486](https://github.com/opensiro-contributions/zot/actions/runs/43071812486)
+and [manual worktrees 43071812698](https://github.com/opensiro-contributions/zot/actions/runs/43071812698)
+all finished **success on attempt 1**. The
+[durable receipt](../pilots/zot-shared-workspace/NATIVE_CI_MIGRATION_2026-11-11.md)
+pins runner, source, test hashes, results, historical run URLs and unchanged
+archived CI recipes. After the retirement PR, **7** legacy native workflows
+remain on `upstream/main` and Zot has zero. No Zot production improvement,
+maintainer adoption or assessment change is implied.
