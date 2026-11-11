@@ -78,6 +78,18 @@ already legitimately available to `gh` on the VM/host. It requires:
   organization fork head, no existing open matching pull request;
 - bounded, explicitly reviewed PR title and body, and an actor identity.
 
+### Fork-local proposal ownership
+
+After a verified, authorized `opensiro/...` contribution branch is ready,
+record its prospective external PR title/body in a normal Pull Request from
+that branch to the **matching contributor fork's default branch**. That
+fork-local PR is the canonical proposal; it is not an external publication
+or a merge request to accept into fork `main`. It retains the current
+source-native template and [disclosure v2](AI_ASSISTED_PR_DISCLOSURE.md).
+Publish only the exact human-approved title/body and checked head to the
+third-party repository after the normal permission gate. See
+[fork-local proposal contract](CONTINUOUS_WORKING_FORK_PIPELINE.md#fork-local-pr-proposal-contract).
+
 ### Source-native PR form and contributor requirements
 
 The **target upstream repository owns the shape of its PR**. Before drafting,
