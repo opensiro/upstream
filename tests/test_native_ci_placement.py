@@ -26,8 +26,6 @@ UPSTREAM_CONTROL = frozenset({
 # are independently reconciled; do not add new entries to this frozen set.
 LEGACY_SOURCE_NATIVE = frozenset({
     "agentbox-s2-manager-advisory.yml",
-    "harnessdesk-v2-current-source.yml",
-    "harnessdesk-v2-macos.yml",
     "kit-222-compat.yml",
 })
 

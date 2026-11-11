@@ -1,3 +1,14 @@
+# 2026-11-11 native CI migration update
+
+[Current-source macOS + Linux parity](NATIVE_CI_MIGRATION_2026-11-11.md)
+is verified in the correctly parented working fork. Its original
+Upstream workflow is archived. Older-source macOS is verified and archived. This is reproducible testing, not an external PR or product adoption.
+
+The following original pilot is a dated historical snapshot, including
+its old authorization and publication statements.
+
+---
+
 # HarnessDesk #1772 — assessment-informed reliability contribution (blocked; unpublished)
 
 > **Assessment linkage clarification (2026-10-20):** This work is

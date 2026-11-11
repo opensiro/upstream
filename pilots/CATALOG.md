@@ -7,7 +7,7 @@ fitness, fork existence, PR publication, maintainer acceptance, or VSM grades.
 See [experiment contract](EXPERIMENT_CONTRACT.md) and
 [working-fork pipeline](../docs/CONTINUOUS_WORKING_FORK_PIPELINE.md).
 
-**Coverage:** 73 indexed pilot directories · 232 files. The frozen baseline protects 66 historical directories and their files; 7 directories were added later.
+**Coverage:** 73 indexed pilot directories · 235 files. The frozen baseline protects 66 historical directories and their files; 7 directories were added later.
 
 Each row links its preferred entry file. Read the actual receipt and governing
 batch/PR before attributing positive results or current status.
@@ -44,7 +44,7 @@ batch/PR before attributing positive results or current status.
 | `forgedock` | [Open](forgedock/CONTRIBUTION_HANDOFF.md) | patch: 1, handoff: 1 |
 | `friday-s2` | [Open](friday-s2/CONTRIBUTION_HANDOFF.md) | patch: 2, handoff: 1, receipt: 1 |
 | `harness2` | [Open](harness2/CONTRIBUTION_HANDOFF.md) | patch: 1, handoff: 1 |
-| `harnessdesk-1772` | [Open](harnessdesk-1772/README.md) | patch: 2, handoff: 2, receipt: 1, native_code: 1, fixture_or_recipe: 4, other: 6 |
+| `harnessdesk-1772` | [Open](harnessdesk-1772/README.md) | patch: 2, handoff: 2, receipt: 1, native_code: 1, fixture_or_recipe: 6, other: 7 |
 | `henrik-agent-harness` | [Open](henrik-agent-harness/CONTRIBUTION_HANDOFF.md) | patch: 1, handoff: 1 |
 | `histh-s2` | [Open](histh-s2/CONTRIBUTION_HANDOFF.md) | patch: 2, handoff: 1, receipt: 1 |
 | `join-the-team` | [Open](join-the-team/CONTRIBUTION_HANDOFF.md) | patch: 1, handoff: 1 |

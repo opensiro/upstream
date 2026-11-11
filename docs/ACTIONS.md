@@ -31,7 +31,7 @@ historical GitHub runs remain accessible. No fork-lifecycle test was removed.
 
 ## Third-party native workflows (retirement queue)
 
-`main` retains historical source-native CI for three projects. Agent Code,
+`main` retains historical source-native CI for two projects. Agent Code,
 Kram and Zot are fully migrated, while Kit's offline workflow has matching-fork
 parity and its macOS-containing compatibility workflow still awaits a runner:
 
@@ -39,7 +39,7 @@ parity and its macOS-containing compatibility workflow still awaits a runner:
 | --- | ---: | --- |
 | Agent Code | 0 | [Three Agent Code 524 native gates migrated to the matching fork](../pilots/agent-code-524/NATIVE_CI_MIGRATION_2026-11-11.md); original recipes archived |
 | AgentBox | 1 | [Two pinned baselines migrated to fork-native CI](../pilots/agentbox-s2/NATIVE_CI_MIGRATION_2026-11-11.md); retain manager-advisory workflow for [open PR #71](https://github.com/opensiro/upstream/pull/71) |
-| HarnessDesk | 2 | [Pinned matching-fork Linux `check:push` PASS](https://github.com/opensiro-contributions/HarnessDesk/actions/runs/43075481763); both macOS jobs [blocked before runner acquisition](https://github.com/opensiro/upstream/issues/214#issuecomment-6804460569). Preserve both historical YAML until macOS parity succeeds |
+| HarnessDesk | 0 | [Both native checks reproduced on the matching fork](../pilots/harnessdesk-1772/NATIVE_CI_MIGRATION_2026-11-11.md): current-source Linux + macOS and older-source macOS PASS (attempt 2 each). Original YAML archived |
 | Kit | 1 | [Pinned fork-native offline RED/GREEN PASS](../pilots/kit-222/NATIVE_CI_MIGRATION_2026-11-11.md); compatibility retained until macOS parity |
 | Kram | 0 | [Pinned fork-native RED/GREEN PASS](../pilots/kram-s2/NATIVE_CI_MIGRATION_2026-11-11.md); original recipe archived |
 | Zot | 0 | [Four pinned native cases migrated to the matching fork](../pilots/zot-shared-workspace/NATIVE_CI_MIGRATION_2026-11-11.md); original recipes archived |

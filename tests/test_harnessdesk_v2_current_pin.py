@@ -16,7 +16,7 @@ class CurrentSourceV2EvidenceTests(unittest.TestCase):
         cls.packet = json.loads((P / "prepare-v2-20261020-24aa8d7.json").read_text())
         cls.old = json.loads((P / "prepare-v2-handoff.json").read_text())
         cls.patch = (P / "tool-gateway-ownership-fix-v2.patch").read_bytes()
-        cls.ci = (ROOT / ".github/workflows/harnessdesk-v2-macos.yml").read_text()
+        cls.ci = (P / "historical-upstream-macos.yml").read_text()
 
     def test_exact_patch_bytes_remain_pinned(self):
         self.assertEqual(hashlib.sha256(self.patch).hexdigest(),
