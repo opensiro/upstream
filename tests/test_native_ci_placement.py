@@ -25,7 +25,6 @@ UPSTREAM_CONTROL = frozenset({
 # These may be retired after source-native coverage and historical receipts
 # are independently reconciled; do not add new entries to this frozen set.
 LEGACY_SOURCE_NATIVE = frozenset({
-    "kit-222-compat.yml",
 })
 
 

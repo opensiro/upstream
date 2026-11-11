@@ -31,16 +31,16 @@ historical GitHub runs remain accessible. No fork-lifecycle test was removed.
 
 ## Third-party native workflows (retirement queue)
 
-`main` retains historical source-native CI for one project. Agent Code,
-Kram and Zot are fully migrated, while Kit's offline workflow has matching-fork
-parity and its macOS-containing compatibility workflow still awaits a runner:
+`main` retains **no third-party source-native CI workflows**. The former
+historical copies now live under pinned pilot archives. Native parity is
+tracked separately from CI placement; Kit macOS remains unverified:
 
 | Source | Legacy workflows | Working-fork migration |
 | --- | ---: | --- |
 | Agent Code | 0 | [Three Agent Code 524 native gates migrated to the matching fork](../pilots/agent-code-524/NATIVE_CI_MIGRATION_2026-11-11.md); original recipes archived |
 | AgentBox | 0 | [Two baselines and manager advisory reproduced on the matching fork](../pilots/agentbox-s2/MANAGER_ADVISORY_CI_MIGRATION_2026-11-11.md); original recipes archived. [Draft #71](https://github.com/opensiro/upstream/pull/71) has its own separate plan-prototype workflow |
 | HarnessDesk | 0 | [Both native checks reproduced on the matching fork](../pilots/harnessdesk-1772/NATIVE_CI_MIGRATION_2026-11-11.md): current-source Linux + macOS and older-source macOS PASS (attempt 2 each). Original YAML archived |
-| Kit | 1 | [Pinned fork-native offline RED/GREEN PASS](../pilots/kit-222/NATIVE_CI_MIGRATION_2026-11-11.md); compatibility retained until macOS parity |
+| Kit | 0 | [Pinned fork-native offline RED/GREEN and Linux compatibility PASS](../pilots/kit-222/NATIVE_CI_MIGRATION_2026-11-11.md); both original YAMLs archived, **macOS parity unverified** (runner unavailable) |
 | Kram | 0 | [Pinned fork-native RED/GREEN PASS](../pilots/kram-s2/NATIVE_CI_MIGRATION_2026-11-11.md); original recipe archived |
 | Zot | 0 | [Four pinned native cases migrated to the matching fork](../pilots/zot-shared-workspace/NATIVE_CI_MIGRATION_2026-11-11.md); original recipes archived |
 
@@ -50,15 +50,16 @@ matching `opensiro-contributions/<target>` fork (or a distinct deterministic
 runner) under [native CI placement](NATIVE_CI_EXECUTION.md). The current
 automated guard is [`tests/test_native_ci_placement.py`](../tests/test_native_ci_placement.py).
 
-An equivalent migration needs:
+A migration **with verified native parity** needs:
 
 1. Source commit, exact patch/test hashes, native OS/runtime, historical run
    and artifact retention recorded in Upstream.
 2. A real source-matched fork/runner run demonstrating equivalent native
    before/after behavior (including expected RED, controls and GREEN).
-3. Updated references and pinned tests, followed by a **reviewed removal PR**
-   for the replaced Upstream workflow. Removing YAML must not remove its
-   durable evidence.
+3. Updated references and pinned tests, followed by a **reviewed removal PR**.
+   Removing YAML must not remove durable evidence. **Archive-only relocation**
+   may close CI placement with a separately recorded unverified native gate;
+   it must never be reported as a passing replacement test.
 
 Track retirement in [Upstream #214](https://github.com/opensiro/upstream/issues/214).
 The related [repository standards #130](https://github.com/opensiro/upstream/issues/130)
