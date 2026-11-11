@@ -67,4 +67,12 @@ A runner PASS validates the bounded scripted mechanism under these conditions on
 
 Do **not** delete, disable or rewrite existing harness-specific workflows merely because this rule is adopted. Inventory their existing runs and schedules, retain attributable historical evidence, then migrate active native validation to the corresponding permitted fork/runner in a reviewable change. Avoid per-harness workflow files in new Upstream PRs that would reach `main`.
 
-**Batch 14 / Runloop:** [Draft PR #174](https://github.com/opensiro/upstream/pull/174) already ran [a successful independent pinned before/after pilot](https://github.com/opensiro/upstream/actions/runs/42493920695). That earlier run remains evidence for its exact tested inputs and SHA; it does not permanently authorize or justify adding `assessment-upgrade-b14-runloop-native.yml` to `upstream/main`. Before integrating #174, preserve an attributable receipt, arrange future reproducibility at a genuinely authorized runner, and remove its project-specific workflow from the integration diff. Until then, leave the PR Draft and report the outstanding runner/authorization boundary rather than treating historical PASS as a new permission.
+**Batch 14 / Runloop:** [PR #174](https://github.com/opensiro/upstream/pull/174)
+has since merged **without** adding `assessment-upgrade-b14-runloop-native.yml`
+to `upstream/main`. Its [successful independent pinned before/after run](https://github.com/opensiro/upstream/actions/runs/42493920695)
+remains evidence only for the exact tested inputs and SHA. The obsolete
+branch-only workflow registration was disabled after the merge; the run
+remains available. Any **future** Runloop-native regression must use a
+legitimately authorized source-matched fork or distinct deterministic runner
+and preserve a new attributable receipt. The historical PASS is not a
+standing permission or a reusable current-main CI gate.

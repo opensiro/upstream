@@ -93,6 +93,28 @@ match each registered ID to its exact branch and live PR disposition.
 3. **Separately:** reconcile the nine API-only registrations against open PRs
    and protected evidence; disable only individually confirmed orphans.
 
-**Changes made by this audit:** documentation/navigation only. **Workflows
-removed or disabled:** zero; migration-equivalence evidence was not yet
-demonstrated. No CI or publication permissions were widened.
+**Initial documentation PR #218:** navigation and report only; no YAML
+removed and no workflow state changed at that stage. Native equivalence for
+the 15 legacy `main` files was not yet demonstrated, and no CI or publication
+permissions were widened.
+
+## Post-audit registered-workflow cleanup (2026-11-11)
+
+After checking the exact associated PRs, current-main workflow paths and
+historical run receipts, two **branch-only** registrations were disabled via
+the GitHub Actions API. Neither workflow YAML exists on `main`, neither
+related PR is open, and no run artifacts were deleted:
+
+| Workflow ID | Path | Source PR / historical evidence | Verified API state |
+| --- | --- | --- | --- |
+| `411236102` | `assessment-upgrade-b14-runloop-native.yml` | [Merged #174](https://github.com/opensiro/upstream/pull/174) · [run 42493920695](https://github.com/opensiro/upstream/actions/runs/42493920695) | `disabled_manually` |
+| `390833119` | `harnessdesk-v2-current-full-gate.yml` | [Merged #55](https://github.com/opensiro/upstream/pull/55) · [run 39467673123](https://github.com/opensiro/upstream/actions/runs/39467673123) | `disabled_manually` |
+
+The **other seven** registered, absent-from-main workflow paths correspond
+to open technical PRs (#71, #67, #119, #118, #120, #121, #123) and remain
+enabled pending their PR disposition. The resulting registered workflow
+states are **30 active + 2 manually disabled**; the number of workflow files
+on `main` is still 23. This targeted API cleanup is reversible and did not
+alter Git history, source-native receipts, workflow permissions or CI in
+active PRs. The 15 legacy main-branch files remain subject to the separate
+source-equivalence gate [#214](https://github.com/opensiro/upstream/issues/214).
