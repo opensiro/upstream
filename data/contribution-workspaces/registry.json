@@ -17,8 +17,8 @@
     "dated_fork_readbacks": 17,
     "same_named_ref_matches_at_readback": 10,
     "technical_packet_states": {
-      "EXPLICIT_PATCH_HASH_MATCHED": 15,
-      "LOCAL_MULTI_PATCH_SELECTION_REQUIRED": 2,
+      "EXPLICIT_PATCH_HASH_MATCHED": 16,
+      "LOCAL_MULTI_PATCH_SELECTION_REQUIRED": 1,
       "LOCAL_SINGLE_PATCH_UNREVIEWED": 33,
       "NO_LOCAL_PACKET_OR_PR_ONLY_HANDOFF": 4
     }
@@ -1490,11 +1490,11 @@
           "stage": "AWAITING_EXTERNAL",
           "origin": "ASSESSMENT_DERIVED",
           "handoff_url": "https://github.com/opensiro/upstream/blob/a9c08d010c856568bb6544f50a25e2d68b6c683c/pilots/clouds-coder-s2/CONTRIBUTION_HANDOFF.md",
-          "patch_path": null,
-          "patch_sha256": null,
+          "patch_path": "pilots/clouds-coder-s2/frozen-process-fix.patch",
+          "patch_sha256": "5d9d91a29fa6f06060a67f75c36bd60fe530a21f91b37f034ad98c4e52002a83",
           "test_patch_path": null,
           "technical_packet": {
-            "state": "LOCAL_MULTI_PATCH_SELECTION_REQUIRED",
+            "state": "EXPLICIT_PATCH_HASH_MATCHED",
             "pilot": {
               "directory": "pilots/clouds-coder-s2",
               "files": 5,
@@ -1510,7 +1510,10 @@
                 }
               ]
             },
-            "explicit_patch": null,
+            "explicit_patch": {
+              "path": "pilots/clouds-coder-s2/frozen-process-fix.patch",
+              "sha256": "5d9d91a29fa6f06060a67f75c36bd60fe530a21f91b37f034ad98c4e52002a83"
+            },
             "explicit_test_patch": null
           }
         }

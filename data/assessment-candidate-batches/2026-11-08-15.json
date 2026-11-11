@@ -74,7 +74,10 @@
         "https://github.com/opensiro/upstream/blob/67f19d625553700d35d325d3fd2c0c602ca223bc/pilots/clouds-coder-s2/INDEPENDENT_HOST_RECEIPT_2026-11-08.md"
       ],
       "handoff_url": "https://github.com/opensiro/upstream/blob/a9c08d010c856568bb6544f50a25e2d68b6c683c/pilots/clouds-coder-s2/CONTRIBUTION_HANDOFF.md",
-      "external_action": "NOT_EXECUTED"
+      "external_action": "NOT_EXECUTED",
+      "patch_path": "pilots/clouds-coder-s2/frozen-process-fix.patch",
+      "patch_sha256": "5d9d91a29fa6f06060a67f75c36bd60fe530a21f91b37f034ad98c4e52002a83",
+      "test_patch_path": null
     },
     {
       "id": "vibe-coder-parallel-child-feedback-isolation",
