@@ -5,7 +5,7 @@
   "generated_from": "pilots/ direct subdirectories and their preserved files",
   "counts": {
     "pilot_directories": 73,
-    "artifact_files": 237,
+    "artifact_files": 239,
     "historical_directories": 66,
     "new_directories": 7,
     "by_kind": {
@@ -105,11 +105,12 @@
         "protocol": 1,
         "receipt": 2,
         "native_code": 4,
-        "fixture_or_recipe": 2,
-        "other": 4
+        "fixture_or_recipe": 3,
+        "other": 5
       },
       "files": [
         "AGENTBOX_DESIGN_INQUIRY_DRAFT.md",
+        "MANAGER_ADVISORY_CI_MIGRATION_2026-11-11.md",
         "NATIVE_CI_MIGRATION_2026-11-11.md",
         "NATIVE_DEPENDENCY_DISPATCH_PROTOCOL_2026-10-20.md",
         "NATIVE_DEPENDENCY_DISPATCH_RECEIPT_2026-10-20.md",
@@ -119,6 +120,7 @@
         "SCREENING_AND_NATIVE_FIT_2026-10-20.md",
         "assessment_native_dependency_dispatch_baseline.test.ts",
         "assessment_native_task_conflict_baseline.test.ts",
+        "historical-upstream-manager-advisory.yml",
         "historical-upstream-native-dependency-dispatch.yml",
         "historical-upstream-task-conflict-baseline.yml",
         "manager-advisory/README.md",

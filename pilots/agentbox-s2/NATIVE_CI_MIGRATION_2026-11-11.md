@@ -1,3 +1,11 @@
+**Later 2026-11-11 checkpoint (do not rewrite this original baseline snapshot):**
+The separate manager-advisory workflow also passed [native matching-fork CI](MANAGER_ADVISORY_CI_MIGRATION_2026-11-11.md)
+and was archived. Draft PR #71 has an independent plan-prototype workflow.
+The original baseline dispositions and retention statements below are dated evidence,
+not a live CI inventory.
+
+---
+
 # AgentBox S2 baseline CI migration — 2026-11-11
 
 **Disposition:** `NATIVE_PARITY_PASS_BASELINES_ONLY` for the two historical
