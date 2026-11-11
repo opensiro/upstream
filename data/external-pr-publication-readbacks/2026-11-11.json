@@ -55,6 +55,19 @@
       "publication_state": "OPEN_READY",
       "approved_exact_title_body": true,
       "approval_boundary": "Owner standing external PR publication mandate effective 2026-11-11; authenticated xLagerFeuer host POST and exact title/body/three-file GitHub readback; no individual PR approval"
+    },
+    {
+      "id": "yoagent-file-alias-lock",
+      "repository": "yologdev/yoagent",
+      "public_fork": "opensiro-contributions/yoagent",
+      "fork_local_pr_url": "https://github.com/opensiro-contributions/yoagent/pull/1",
+      "pr_url": "https://github.com/yologdev/yoagent/pull/450",
+      "base_sha": "f1495e7f5746445a269ec6a9d14fa8ac346b359d",
+      "head_sha": "b06e768ad53ab01c4e1f26dca4af156652712684",
+      "pr_commits": 1,
+      "publication_state": "OPEN_READY",
+      "approved_exact_title_body": true,
+      "approval_boundary": "Owner standing external PR publication mandate effective 2026-11-11; authenticated xLagerFeuer host POST and exact title/body/two-file GitHub readback; no individual PR approval"
     }
   ]
 }
