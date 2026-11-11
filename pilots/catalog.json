@@ -5,7 +5,7 @@
   "generated_from": "pilots/ direct subdirectories and their preserved files",
   "counts": {
     "pilot_directories": 73,
-    "artifact_files": 240,
+    "artifact_files": 242,
     "historical_directories": 66,
     "new_directories": 7,
     "by_kind": {
@@ -519,10 +519,11 @@
       "artifact_counts": {
         "patch": 2,
         "handoff": 1,
-        "receipt": 1
+        "receipt": 2
       },
       "files": [
         "CONTRIBUTION_HANDOFF.md",
+        "CURRENT_FORK_NATIVE_GATE_RECEIPT_2026-11-11.md",
         "INDEPENDENT_HOST_RECEIPT_2026-11-09.md",
         "native-fix.patch",
         "native-regression.patch"
@@ -1001,10 +1002,11 @@
       "artifact_counts": {
         "patch": 2,
         "handoff": 1,
-        "receipt": 1
+        "receipt": 2
       },
       "files": [
         "CONTRIBUTION_HANDOFF.md",
+        "CURRENT_FORK_NATIVE_GATE_RECEIPT_2026-11-11.md",
         "INDEPENDENT_HOST_RECEIPT_2026-11-09.md",
         "native-fix.patch",
         "native-regression.patch"
