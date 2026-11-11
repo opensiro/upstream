@@ -1,10 +1,10 @@
 # Shared working forks: supervised bootstrap and cross-plugin contribution
 
-**Status: OWNER-SUPERVISED ONE-OFF ROUTE DOCUMENTED; NO BULK FORK WRITES YET.**
+**Status: historical owner-supervised bootstrap plus current standing preparation/publication routing; no blanket unattended bulk executor is attested.**
 **Owner:** [Upstream #28](https://github.com/opensiro/upstream/issues/28)
 under the [#6 protected executor boundary](https://github.com/opensiro/upstream/issues/6).
 **Destination:** public GitHub organization `opensiro-contributions`.
-**External PR publication:** an explicit human decision for **each exact PR**.
+**External PR publication:** the separate [standing publication mandate](STANDING_EXTERNAL_PR_PUBLICATION.md) authorizes qualified PR submissions without a new owner approval for each PR. The target policy, native checks, legal attestations and third-party merge rights remain separate.
 
 ## Why bootstrap once
 
@@ -69,7 +69,7 @@ For five-source waves with eligible reviewed packets, the host now makes
 bound one-use *execution* decisions automatically under a current-main
 standing owner policy; it does not ask for a new human vote on each fork
 or patch. The technical provider, fork, source and write controls still
-apply, and `submit_external_pr` remains human-approved per PR.
+apply. The [separate standing publication mandate](STANDING_EXTERNAL_PR_PUBLICATION.md) allows a qualifying `submit_external_pr` without another per-PR owner vote; legal attestations, target checks and third-party merges remain reserved.
 
 Unattended/batch-agent execution using
 [`batch_fork_executor.py`](../scripts/batch_fork_executor.py), an automated
@@ -128,13 +128,17 @@ automatic requirement to create a fork for negative or historical-only cases.
 | OpenSiro agent or plugin with an effective fork-write grant | Update a dedicated working branch with exact source and fork SHA checks; retain native CI and readback | A new exact `prepare_contribution` stage decision; never infer it from the bootstrap grant |
 | External contributor without organization write rights | Use their own branch/fork in the compatible GitHub fork network, then propose an **internal PR targeting `opensiro-contributions/<name>`** | Normal GitHub author identity and repository PR/CI/review settings; **no shared OpenSiro SSH credentials** |
 | OpenSiro maintainer with actual merge rights | Review and integrate the internal PR into the organization's selected working branch | Existing branch protection and required CI; internal approval is not external publication approval |
-| Human owner of publication | Review the exact files, upstream-native tests, source base, licensing/CLA/DCO, **target's original PR template/contributor requirements** and the completed title/body; explicitly release **that** external PR | Separate human decision for each external PR; external maintainers own acceptance/merge |
+| Authorized publisher under a current standing mandate | Verify exact fork head, source-native checks, source base, licensing/CLA/DCO, **target's original PR template/contributor requirements**, disclosure and title/body before creating the external PR | No repeated owner prompt for qualifying publication; never fabricate legal assent or exercise the target maintainer's merge rights |
 
 An internal PR into an OpenSiro-owned fork and a PR **from** that fork **to**
-the third-party parent are different operations. Neither a prior contributor
-approval nor a successful internal CI run grants external publication rights.
+the third-party parent are different operations. Neither a fork-local proposal,
+a prior contributor approval nor successful CI **alone** satisfies the active
+standing publication gate; each exact external PR needs current-policy,
+provider and native-evidence checks.
 The `upstream auto` and `upstream upgrade batch` commands may produce and
-update internal handoffs, but cannot silently publish to external projects.
+update internal handoffs, but they are **not themselves external publishers**.
+A separately authenticated publisher must verify the current standing mandate,
+the exact fork and source, and every target-native/legal gate before submission.
 
 For multiple plugins working concurrently, use the same source identity and
 one reviewed branch/PR per intervention. The Upstream registry and GitHub
