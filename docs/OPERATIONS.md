@@ -49,7 +49,7 @@ The unfiltered [repository-integrity workflow](../.github/workflows/repository-i
 | [PR maintenance](../.github/workflows/pr-maintenance.yml) | Hourly and manual | Read external PR reviews/CI; update only this repo's bounded issue #125 inbox |
 | [Resolved PR acceptance](RESOLVED_PR_ACCEPTANCE.md) | Alongside maintenance | Observe the separate 18-target cohort and update its own bot-owned summary in #125 |
 | [Portfolio reconciliation](../.github/workflows/portfolio-reconciliation.yml) | Daily and manual | GET exact watched, historical and registered PRs; write the run summary **and a 90-day JSON artifact**; no issue edit, Git commit or external write |
-| [Verified external outcome evidence](../.github/workflows/verified-external-outcomes.yml) | Daily and manual | Recheck intervention identities, third-party disposition and pinned native CI; publish **candidate-only** status artifact, not the Organization KPI; read-only |
+| [Verified external outcome evidence](../.github/workflows/verified-external-outcomes.yml) | Daily and manual | Recheck intervention identities, third-party disposition and pinned native CI; publish separately labelled **candidate observation and accepted merged-change source** artifacts, not a deployed-benefit KPI; read-only |
 | [Status freshness](../.github/workflows/upstream-status-freshness.yml) | Daily | Verify stored lifecycle against live PRs; fail on drift, no auto-change |
 | [Lifecycle proposal](../.github/workflows/upstream-status-proposal.yml) | Daily read-only; explicit manual Draft PR option | GET the same pinned PRs; if the lifecycle changed, upload an exact-scope patch. An internal Draft PR is created **only** on an explicit `workflow_dispatch.create_draft_pr=true`; no scheduled repository write |
 | `python3 scripts/portfolio_reconcile.py --report` | Operator run with `GITHUB_TOKEN` | Report exact PR lifecycle, final closing actor (if evidenced) and cohort-separated counts |
@@ -61,6 +61,8 @@ The per-run JSON artifact includes an observation timestamp, all exact PR URLs w
 their separate cohort memberships and a `cohort_sha256` identity fingerprint.
 See [portfolio history](PORTFOLIO_HISTORY.md) for retention, comparability and
 the important distinction between observed PR merging and verified adoption.
+The two-stage accepted-source exporter requires independently rechecked first-party GitHub merge, source-delta and native CI evidence. Its `accepted_count` is a bounded merged-change result; the Organization metric collector is a separate consumer, not a second intervention adjudicator. [Organization PR #322](https://github.com/opensiro/vsm-oss-organization/pull/322) implements that consumer, subject to its own CI and merge rules.
+
 The [public Upstream PR status page](https://opensiro.com/upstream-portfolio.html)
 is a separately deployed, source-dated consumer managed by
 [`opensiro/opensiro.com`](https://github.com/opensiro/opensiro.com/blob/main/docs/UPSTREAM_PORTFOLIO_SYNC.md).
@@ -99,7 +101,7 @@ reviewer must run/verify required tests and source receipts before any merge.
 | --- | --- | --- |
 | Data model and navigation | Standardized local contract; existing multiple ledgers remain distinct | Audit every new source/metric against ownership table |
 | Reconciliation sensing | Automatic 18-PR watcher and broader read-only union; bounded 90-day observation artifacts | Verify first live artifact and add regression cases before expanding manifests |
-| Verified external outcomes | Source-checked 24-intervention candidate cohort; pinned native CI and maintainer-merge verification on pre-reviewed Improvement cases | Verify first live evidence artifact, review ambiguous cases, introduce accepted owner ledger before any Organization metric claim |
+| Verified external outcomes | 37-intervention owner-verifier corpus at the 2026-11-11 live checkpoint; deterministic acceptance rechecks first-party merges/native CI; 2 accepted merged changes, measured benefit **not claimed** | Keep observing live and retain ambiguous cases; Organization collector admission is a distinct CI/protection-gated change, not an Upstream exporter assertion |
 | Lifecycle status correction | Daily read-only patch proposals; opt-in internal Draft PR only | Verify first live patch, configure explicit Actions PR permission if needed, require human merge; scheduled auto-PR activation remains a separate decision |
 | Cross-batch source coordination | Optional, dormant Git compare-and-swap prototype under [#144](https://github.com/opensiro/upstream/issues/144) | Integrate only with an explicit collision policy and reviewed activation |
 | Connected external fork/patch/PR executor | [Time-bounded preparation mandate](STANDING_PREPARATION_AUTONOMY.md) and [standing publication mandate](STANDING_EXTERNAL_PR_PUBLICATION.md) separately authorize qualifying fork/patch preparation and external PR submission without repeated owner approvals; executor capabilities and live provider verification remain case-specific | Verify both current-main policies and actor/provider permissions at each authorized stage; require source-native CI, destination rules, the final PR readback and an attributable receipt; neither mandate grants third-party merge rights |
@@ -110,6 +112,6 @@ This is a migration path beyond a pilot's manually maintained reports, **not** a
 ## Branch and PR hygiene
 
 - GitHub currently has automatic branch deletion **after future merges**, and `main` reports as protected. Exact protection requirements may require an administrator readback.
-- The [pre-refactor inventory from 2026-11-07](../reports/2026-11-07-internal-pr-branch-inventory.md) matched **21 open PRs + 6 retained closed-unmerged PR branches + protected main**. Opening this refactor PR #153 adds another head, so these are **not live counts**. [#150](https://github.com/opensiro/upstream/issues/150) is the review queue; do not delete a retained branch based on age or naming alone.
+- [The dated 2026-11-07 branch inventory](../reports/2026-11-07-internal-pr-branch-inventory.md) is historical, not a current count. [#150](https://github.com/opensiro/upstream/issues/150) owns live PR disposition; do not delete retained evidence branches by age or name.
 - Before any deletion verify the precise ref/SHA, no open PR targeting or using it, any closed-PR evidence-retention decision, and branch protection. [#130](https://github.com/opensiro/upstream/issues/130) owns the prior cleanup receipt.
 - The 2026-11-07 [closure-attribution report](../reports/2026-11-07-external-pr-closure-attribution.md) was integrated via [PR #152](https://github.com/opensiro/upstream/pull/152); the reconciler reports source events, not a substitute for reviewed human motive attribution.
