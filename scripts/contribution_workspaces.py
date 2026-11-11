@@ -433,7 +433,11 @@ def build(root=ROOT):
         "execution": {
             "fork_and_patch_writes": "SEPARATE_TRUSTED_HOST_STAGE_GRANT_REQUIRED",
             "continuous_link": "REGENERATE_WITH_EVERY_BATCH_OR_PATCH_RECORD_CHANGE",
-            "external_pr": "HUMAN_EXPLICIT_APPROVAL_REQUIRED",
+            # Source-linked intent only: current-main policy and native gates
+            # must be independently checked by the actual publisher.
+            "external_pr": "CHECK_EFFECTIVE_STANDING_MANDATE_AND_NATIVE_GATES",
+            "external_pr_policy_source": "policies/standing-external-publication-p1.json",
+            # No unattended end-to-end executor is attested by this registry.
             "auto_external_pr": False,
             "live_forks_verified_by_this_script": False,
             "dated_fork_readback_is_live_authority": False,

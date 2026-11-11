@@ -65,7 +65,11 @@ class WorkspaceTests(unittest.TestCase):
         self.assertIsNone(talktorana["fork"])
         self.assertIsNone(talktorana["proposed_fork"])
         self.assertEqual(talktorana["next_step"], "RESOLVE_FORK_PARENT_AND_NAME")
-        self.assertEqual(report["execution"]["external_pr"], "HUMAN_EXPLICIT_APPROVAL_REQUIRED")
+        self.assertEqual(report["execution"]["external_pr"],
+                         "CHECK_EFFECTIVE_STANDING_MANDATE_AND_NATIVE_GATES")
+        self.assertEqual(report["execution"]["external_pr_policy_source"],
+                         "policies/standing-external-publication-p1.json")
+        self.assertTrue((ROOT / report["execution"]["external_pr_policy_source"]).is_file())
         self.assertFalse(report["execution"]["auto_external_pr"])
         self.assertFalse(report["execution"]["live_forks_verified_by_this_script"])
         self.assertFalse(report["execution"]["dated_fork_readback_is_live_authority"])

@@ -26,7 +26,8 @@
   "execution": {
     "fork_and_patch_writes": "SEPARATE_TRUSTED_HOST_STAGE_GRANT_REQUIRED",
     "continuous_link": "REGENERATE_WITH_EVERY_BATCH_OR_PATCH_RECORD_CHANGE",
-    "external_pr": "HUMAN_EXPLICIT_APPROVAL_REQUIRED",
+    "external_pr": "CHECK_EFFECTIVE_STANDING_MANDATE_AND_NATIVE_GATES",
+    "external_pr_policy_source": "policies/standing-external-publication-p1.json",
     "auto_external_pr": false,
     "live_forks_verified_by_this_script": false,
     "dated_fork_readback_is_live_authority": false
