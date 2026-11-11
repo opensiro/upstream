@@ -1,6 +1,11 @@
 # Bounded local prepare mandate — HarnessDesk #1772 (proposal)
 
-**Status: PROPOSED / NOT ACTIVE.** This is the simpler trust-based alternative to [Draft #52](https://github.com/opensiro/upstream/pull/52). It neither issues an operator decision nor activates a live external GitHub write. See [Upstream #6](https://github.com/opensiro/upstream/issues/6) and the parent [OSM delegation design](OSM_DELEGATION_DESIGN.md).
+**Historical single-case status: PROPOSED / NOT ACTIVE.** This HarnessDesk
+#1772-only, expired policy is not activated by the newer, separate
+[standing portfolio preparation mandate](STANDING_PREPARATION_AUTONOMY.md).
+Its earlier requirements remain relevant to this specific old pilot but
+must not be applied as new human approval prompts to qualifying portfolio
+waves. This is the simpler trust-based alternative to [Draft #52](https://github.com/opensiro/upstream/pull/52). See [Upstream #6](https://github.com/opensiro/upstream/issues/6).
 
 ## Why this is smaller
 
