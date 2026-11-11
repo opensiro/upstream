@@ -6,6 +6,7 @@ The root [README.md](../README.md) is the public handoff. [AGENTS.md](../AGENTS.
 
 | Task | Owner document |
 | --- | --- |
+| Which GitHub Action to use, what to keep, what to retire | [ACTIONS.md](ACTIONS.md) · [native CI placement](NATIVE_CI_EXECUTION.md) · [migration issue #214](https://github.com/opensiro/upstream/issues/214) |
 | Tests, automation, scheduled sensing, generated views | [OPERATIONS.md](OPERATIONS.md) |
 | Five-source upstream screening | [ASSESSMENT_CANDIDATE_BATCHES.md](ASSESSMENT_CANDIDATE_BATCHES.md) |
 | Five-repository external publication waves | [EXTERNAL_PUBLICATION_WAVES.md](EXTERNAL_PUBLICATION_WAVES.md) · [working-fork-first pipeline](CONTINUOUS_WORKING_FORK_PIPELINE.md) · [historical wave 01 report](../reports/2026-11-11-external-publication-wave-01.md) |
@@ -21,6 +22,8 @@ The root [README.md](../README.md) is the public handoff. [AGENTS.md](../AGENTS.
 | Cross-lane status model | [HARNESS_STATUS_MODEL.md](HARNESS_STATUS_MODEL.md) |
 | Corrective publication authority | [CORRECTIVE_PR_PUBLICATION.md](CORRECTIVE_PR_PUBLICATION.md) |
 | Control Plane → local prepare | [CONTROL_PLANE_HANDOFF.md](CONTROL_PLANE_HANDOFF.md) |
+| Standing autonomous fork/patch preparation (no per-action owner prompt) | [STANDING_PREPARATION_AUTONOMY.md](STANDING_PREPARATION_AUTONOMY.md) · [current policy](../policies/standing-preparation-p1.json) · [execution gate #6](https://github.com/opensiro/upstream/issues/6) |
+| Source-native PR proposal and disclosure in its working fork | [UPSTREAMING.md](../UPSTREAMING.md#contribution-lifecycle) · [AI disclosure](AI_ASSISTED_PR_DISCLOSURE.md) |
 | Supervised org-fork bootstrap and cross-plugin internal contributions | [FORK_BOOTSTRAP_AND_COLLABORATION.md](FORK_BOOTSTRAP_AND_COLLABORATION.md) · [read-only proposal](../data/contribution-workspaces/fork-bootstrap-proposal.json) |
 | Source collision preflight and optional reservation | [ASSESSMENT_SOURCE_RESERVATIONS.md](ASSESSMENT_SOURCE_RESERVATIONS.md) |
 
@@ -31,7 +34,7 @@ The root [README.md](../README.md) is the public handoff. [AGENTS.md](../AGENTS.
 - **Host/provider transports:** [CLI_FORK_HOST.md](CLI_FORK_HOST.md), [CLI_HOST_MULTIFILE_RUNTIME.md](CLI_HOST_MULTIFILE_RUNTIME.md), [REST_FORK_PORT.md](REST_FORK_PORT.md), [REST_MULTIFILE_PATCH_PORT.md](REST_MULTIFILE_PATCH_PORT.md), [ORGANIZATION_FORK_UPSTREAM_PR.md](ORGANIZATION_FORK_UPSTREAM_PR.md), [OPENSIRO_CONTRIBUTIONS_FORK_ROUTE.md](OPENSIRO_CONTRIBUTIONS_FORK_ROUTE.md).
 - **Authority and bounded pilots:** [OSM_DELEGATION_DESIGN.md](OSM_DELEGATION_DESIGN.md), [P1_SCOPE_PREFLIGHT.md](P1_SCOPE_PREFLIGHT.md), [BOUNDED_LOCAL_PREPARE_MANDATE.md](BOUNDED_LOCAL_PREPARE_MANDATE.md), [FORK_PUBLIC_PREFLIGHT.md](FORK_PUBLIC_PREFLIGHT.md), [FORK_LIFECYCLE.md](FORK_LIFECYCLE.md), [FUNCTIONAL_EFFECTS.md](FUNCTIONAL_EFFECTS.md).
 
-Many adapter documents are deliberately **source-prepared, mock-tested or historical**. A page's presence does not mean the executor is deployed, a connected write grant exists, or third-party publication is authorized. Read its exact gate and owning issue.
+Many adapter documents are deliberately **source-prepared, mock-tested or historical**. The narrow standing preparation mandate is issued, but an active policy file alone does not prove provider-authenticated execution or authorize external PR publication. Read its exact gate and owning issue.
 
 ## Historical handoffs and dated receipts
 

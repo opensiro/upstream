@@ -1,0 +1,69 @@
+# GitHub Actions: ownership and cleanup
+
+**Operator question:** Which workflow should I use, and why are there so many?
+
+This is an **ownership map**, not a request to run every workflow. The live
+GitHub Actions screen also includes some workflows registered from branches
+that are **not** on `main`. For a source-dated count, exact names and run
+receipts, see the [2026-11-11 audit](../reports/2026-11-11-actions-audit.md).
+
+## Upstream-owned workflows (keep)
+
+| Intent | Action on `main` | Effect |
+| --- | --- | --- |
+| Check repository data and documentation | [`repository-integrity.yml`](../.github/workflows/repository-integrity.yml) | PR/push/offline tests; does not validate an external harness's product behavior |
+| Test fork-lifecycle code | [`test-fork-lifecycle.yml`](../.github/workflows/test-fork-lifecycle.yml) | Local fork-lifecycle regression checks |
+| Preview a fork lifecycle | [`fork-lifecycle.yml`](../.github/workflows/fork-lifecycle.yml) | Manual preview; **no fork write** |
+| Watch external PR reviews and CI | [`pr-maintenance.yml`](../.github/workflows/pr-maintenance.yml) | Hourly/opt-in, bounded local issue-inbox updates |
+| Collect external PR status evidence | [`portfolio-reconciliation.yml`](../.github/workflows/portfolio-reconciliation.yml) | Read-only portfolio reconciliation and retained run artifact |
+| Screen externally verified outcome candidates | [`verified-external-outcomes.yml`](../.github/workflows/verified-external-outcomes.yml) | Candidate evidence only; no adoption-KPI claim |
+| Detect stale local PR lifecycle data | [`upstream-status-freshness.yml`](../.github/workflows/upstream-status-freshness.yml) | Read-only drift check; no automatic change |
+| Prepare a lifecycle drift correction | [`upstream-status-proposal.yml`](../.github/workflows/upstream-status-proposal.yml) | Read-only scheduled patch artifact; **internal Draft PR only by explicit manual input** |
+
+The jobs above have different credentials, schedules, outputs and failure
+contracts. In particular, do **not** merge write-capable inbox maintenance
+into read-only external observers merely to reduce the workflow count.
+See [operations](OPERATIONS.md) for commands and exact permissions.
+
+## Third-party native workflows (retirement queue)
+
+`main` also retains historical source-native CI for these six projects:
+
+| Source | Legacy workflows | Working-fork migration |
+| --- | ---: | --- |
+| Agent Code | 3 | Reconcile historic pinned native tests with `opensiro-contributions/agent-code` |
+| AgentBox | 3 | Reconcile source-native tests and any still-open pilot PR dependencies |
+| HarnessDesk | 2 | Reconcile current-source and pinned macOS checks with first-party CI |
+| Kit | 2 | Reconcile pinned compatibility and offline evidence |
+| Kram | 1 | Establish a source-matched native runner first; no fork CI replacement was evidenced in the dated audit |
+| Zot | 4 | Reconcile four independent pinned behavioral cases |
+
+**Do not run these by default, add new per-harness Actions here, or delete
+them solely because they are old.** New source-native checks live in the
+matching `opensiro-contributions/<target>` fork (or a distinct deterministic
+runner) under [native CI placement](NATIVE_CI_EXECUTION.md). The current
+automated guard is [`tests/test_native_ci_placement.py`](../tests/test_native_ci_placement.py).
+
+An equivalent migration needs:
+
+1. Source commit, exact patch/test hashes, native OS/runtime, historical run
+   and artifact retention recorded in Upstream.
+2. A real source-matched fork/runner run demonstrating equivalent native
+   before/after behavior (including expected RED, controls and GREEN).
+3. Updated references and pinned tests, followed by a **reviewed removal PR**
+   for the replaced Upstream workflow. Removing YAML must not remove its
+   durable evidence.
+
+Track retirement in [Upstream #214](https://github.com/opensiro/upstream/issues/214).
+The related [repository standards #130](https://github.com/opensiro/upstream/issues/130)
+covers the broader repo cleanup. The existence of a generic `ci.yml` in a
+working fork is **not** proof of equivalent pinned native coverage.
+
+## Why GitHub's Actions tab may show more than `main`
+
+GitHub can continue to list registered workflows from PR branches after their
+workflow file is absent from `main`. A registered `active` status in the API
+does **not** establish that the workflow is present or scheduled on `main`.
+Investigate the workflow path, exact PR/head ref, existing runs and branch
+retention before disabling or retiring it. Do not delete a workflow on an
+open technical PR just to simplify the list.
