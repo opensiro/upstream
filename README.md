@@ -30,9 +30,11 @@ For the common operations:
 
 **Where work belongs:** actual patches, tests, and proposed external PR bodies belong in the matching `opensiro-contributions/<target>` fork. This repository holds governance, historical test evidence, registries, observations and derived dashboards. [Source-of-truth contract](UPSTREAMING.md#source-of-truth-separation). Index owns canonical VSM assessments; Skills owns their methodology; Profile owns VSM semantics.
 
+An **Index assessment** can lead to the strict [assessment-derived S1 test](docs/ASSESSMENT_DRIVEN_S1_TEST.md); the separate [generic OSS preview](docs/BATCH_PROPOSALS.md) does not prove an assessment-derived fix. The historical [OSM delegation design](docs/OSM_DELEGATION_DESIGN.md) does **not** grant host execution rights; see [automatic fork executor recovery](docs/AUTOMATIC_FORK_EXECUTOR_RECOVERY.md) for the specific technical gate.
+
 Effective [standing preparation](docs/STANDING_PREPARATION_AUTONOMY.md) and [publication](docs/STANDING_EXTERNAL_PR_PUBLICATION.md) mandates remove repetitive owner prompts for qualifying operations. They do **not** supply missing host credentials, waive source-native CI, target contribution policies, legal attestations or third-party merge authority. Check current policies and permissions before writing. [Executor gate #6](https://github.com/opensiro/upstream/issues/6).
 
-## Repository checks
+## Validate locally
 
 ```sh
 python3 -m unittest discover -s tests -v
