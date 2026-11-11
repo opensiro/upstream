@@ -17,8 +17,8 @@
     "dated_fork_readbacks": 17,
     "same_named_ref_matches_at_readback": 10,
     "technical_packet_states": {
-      "EXPLICIT_PATCH_HASH_MATCHED": 14,
-      "LOCAL_MULTI_PATCH_SELECTION_REQUIRED": 3,
+      "EXPLICIT_PATCH_HASH_MATCHED": 15,
+      "LOCAL_MULTI_PATCH_SELECTION_REQUIRED": 2,
       "LOCAL_SINGLE_PATCH_UNREVIEWED": 33,
       "NO_LOCAL_PACKET_OR_PR_ONLY_HANDOFF": 4
     }
@@ -4731,15 +4731,15 @@
           "stage": "AWAITING_EXTERNAL",
           "origin": "ASSESSMENT_DERIVED",
           "handoff_url": "https://github.com/opensiro/upstream/blob/7bd909e57098d28e206cc0854b94eae0fd434c31/pilots/codeact-s2/CONTRIBUTION_HANDOFF.md",
-          "patch_path": null,
-          "patch_sha256": null,
-          "test_patch_path": null,
+          "patch_path": "pilots/codeact-s2/native-fix.patch",
+          "patch_sha256": "11afa4ea02e7c1107a8e1e77ca7333951dfa627e251c3057b6fb854633c99430",
+          "test_patch_path": "pilots/codeact-s2/native-regression.patch",
           "technical_packet": {
-            "state": "LOCAL_MULTI_PATCH_SELECTION_REQUIRED",
+            "state": "EXPLICIT_PATCH_HASH_MATCHED",
             "pilot": {
               "directory": "pilots/codeact-s2",
               "files": 5,
-              "content_sha256": "5b9d9d096cf28723fc40f81d72a217e3b00e70c4443a5fe95fa002a12829a301",
+              "content_sha256": "aee72b638f98901e98a0a63568600e33d26e9101506a46f6f3ce3757731ad84b",
               "patch_candidates": [
                 {
                   "path": "pilots/codeact-s2/native-fix.patch",
@@ -4751,8 +4751,14 @@
                 }
               ]
             },
-            "explicit_patch": null,
-            "explicit_test_patch": null
+            "explicit_patch": {
+              "path": "pilots/codeact-s2/native-fix.patch",
+              "sha256": "11afa4ea02e7c1107a8e1e77ca7333951dfa627e251c3057b6fb854633c99430"
+            },
+            "explicit_test_patch": {
+              "path": "pilots/codeact-s2/native-regression.patch",
+              "sha256": "9265f2da99a4edba0d690bb152d894157f51ede0a94978b716c3be2adc78adf6"
+            }
           }
         }
       ],
