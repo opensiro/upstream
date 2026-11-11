@@ -103,7 +103,7 @@ class StandingPreparationTests(unittest.TestCase):
                     host_identity="dev-alpha-2", clock=lambda: self.now
                 ).verify_exact_prepare(self.intent)
 
-    def test_unqualified_registry_blocks_all_stages(self):
+    def test_unqualified_member_does_not_block_eligible_wave_peer(self):
         for field, replacement in [
             ("license_review", True),
             ("latest_stage", "CLOSED_NO_CHANGE"),
@@ -113,9 +113,35 @@ class StandingPreparationTests(unittest.TestCase):
             with self.subTest(field=field):
                 original = self.registry["sources"][4][field]
                 self.registry["sources"][4][field] = replacement
-                with self.assertRaises(StageBlocked):
-                    self.host().verify_exact_prepare(self.intent)
+                # The permitted source is still bound to the same five-member
+                # wave and checked against its own packet before use.
+                host = self.host()
+                grant = host.verify_exact_prepare(self.intent)
+                self.assertTrue(host.authorize_exact_stage(grant, self.intent))
+
+                blocked_intent = {
+                    **self.intent,
+                    "source": self.sources[4],
+                    "working_repo": self.forks[4],
+                }
+                with self.assertRaisesRegex(StageBlocked, "Requested source"):
+                    self.host().verify_exact_prepare(blocked_intent)
+                blocked_fork = {
+                    "stage": "create_public_fork",
+                    "source": self.sources[4],
+                    "connected_actor": "xLagerFeuer",
+                    "destination": self.forks[4],
+                    "working_branch_sha": "a" * 40,
+                    "default_branch_only": False,
+                }
+                with self.assertRaisesRegex(StageBlocked, "Requested source"):
+                    self.host().authorize_fork(blocked_fork)
                 self.registry["sources"][4][field] = original
+
+    def test_eligible_member_is_blocked_if_its_own_packet_becomes_ineligible(self):
+        self.registry["sources"][0]["handoffs"] = []
+        with self.assertRaisesRegex(StageBlocked, "Requested source"):
+            self.host().verify_exact_prepare(self.intent)
 
     def test_denied_scope_actor_host_branch_destination_and_publication(self):
         for update in [

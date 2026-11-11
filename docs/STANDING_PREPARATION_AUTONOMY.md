@@ -21,10 +21,13 @@ PR packages autonomously.
    It verifies `ACTIVE`, actor, execution host, owner decision link, expiry
    and revocation, and binds the selected five-source wave. Editing a local
    JSON, an agent message or an arbitrary `approved_by` does not activate it.
-2. Every wave member must have an actual eligible, source-pinned
-   `AWAITING_EXTERNAL` handoff, a matched patch hash, reviewed licensing
-   and a unique destination. Ambiguous patches, same-name fork collisions
-   and license conflicts remain stopped until evidence resolves them.
+2. Every **member selected for an actual fork/patch write** must independently have
+   an eligible, source-pinned `AWAITING_EXTERNAL` handoff, a matched patch hash,
+   reviewed licensing and a unique destination. A blocked member remains in
+   the reported five-source wave but does not block a separate eligible member.
+   The blocked member still cannot receive an execution decision. Ambiguous
+   patches, same-name fork collisions and license conflicts remain stopped
+   until evidence resolves them.
 3. Before each fork or patch **write**, the provider-authenticated actor
    and permissions, current source/license/policy, public direct-parent fork,
    pinned source/base/branch SHA, patch and prior work are rechecked.
