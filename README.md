@@ -63,7 +63,7 @@ An **Index assessment** can motivate the separate [assessment-driven S1 function
 
 ## Operating boundary
 
-Upstream Contributions is the **fourth admitted S1 domain** within OpenSiro's public OSS boundary ([Organization #274](https://github.com/opensiro/vsm-oss-organization/issues/274)). That does **not** grant third-party repository write rights, automatic external PR publication/merge, independent S3/S3* authority, or a VSM autonomy grade.
+Upstream Contributions is the **fourth admitted S1 domain** within OpenSiro's public OSS boundary ([Organization #274](https://github.com/opensiro/vsm-oss-organization/issues/274)). S1 admission does **not** grant third-party repository write or merge rights, independent S3/S3* authority, or a VSM autonomy grade by itself. A separate, revocable owner mandate now permits **qualifying external PR submissions** after the specific checks below; it never grants third-party merge rights.
 
 Source preparation, offline native tests and GitHub read-only observation are distinct from privileged actions. The finite [Corrective publication mandate](docs/CORRECTIVE_PR_PUBLICATION.md) does not activate the general [fork executor](docs/AUTOMATIC_FORK_EXECUTOR_RECOVERY.md); [Issue #6](https://github.com/opensiro/upstream/issues/6) owns that separate gate. Never treat a selected batch, an approval text in a file or a successful unit test as an effective external write grant.
 
