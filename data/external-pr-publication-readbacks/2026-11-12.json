@@ -18,6 +18,20 @@
       "publication_state": "OPEN_READY",
       "approved_exact_title_body": true,
       "approval_boundary": "ACTIVE standing external PR mandate; authenticated xLagerFeuer dev-alpha-2 REST POST and exact title/body/head/base/two-file external readback; 16/16 Python policy tests PASS and full Python non-live test command exited 0; npm ci not run (Node/npm unavailable), disclosed in external PR. No legal-person CLA/DCO or maintainer acceptance claim."
+    },
+    {
+      "id": "oh-my-hermes-crossprocess-lock",
+      "repository": "witt3rd/oh-my-hermes",
+      "public_fork": "opensiro-contributions/oh-my-hermes",
+      "fork_local_pr_url": "https://github.com/opensiro-contributions/oh-my-hermes/pull/1",
+      "pr_url": "https://github.com/witt3rd/oh-my-hermes/pull/28",
+      "published_at": "2026-11-12T18:44:10Z",
+      "base_sha": "3b06e33ae67b202b342989b484f08143e65e250d",
+      "head_sha": "6eced4fdad9ff4faa7daf0979021d870558e8d26",
+      "pr_commits": 1,
+      "publication_state": "OPEN_READY",
+      "approved_exact_title_body": true,
+      "approval_boundary": "ACTIVE standing external PR mandate from authenticated xLagerFeuer dev-alpha-2 GitHub CLI POST, after original/fork parent and source/base/head/license/template/CLA/DCO/readback gates; fork-local #1 and original #28 share exact title/body (SHA256 142f0a0eae0162708b6727544696975b552e40e79c3a896340e94a5a7cfa569e), two files and one commit. Original source regression RED (both A and B acquired), patched 1/1 GREEN; full first-party plugin 195 PASS, 7 SKIP, no live agent/model/deployment. No individual CLA/DCO representation or maintainer acceptance/adoption."
     }
   ]
 }

@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "observed_on": "2026-11-12",
+  "source": "CONNECTED_GITHUB_REST_READ_ONLY",
+  "meaning": "DATE_PINNED_AUTHENTICATED_FORK_PARENT_WORKING_BRANCH_AND_EXTERNAL_PR_READBACK_NOT_A_GRANT",
+  "entries": [
+    {
+      "source": "witt3rd/oh-my-hermes",
+      "fork": "opensiro-contributions/oh-my-hermes",
+      "parent_verified": true,
+      "public_fork_verified": true,
+      "fork_push_permission_verified": true,
+      "branch": "master",
+      "fork_sha": "3b06e33ae67b202b342989b484f08143e65e250d",
+      "source_same_named_branch_sha": "3b06e33ae67b202b342989b484f08143e65e250d",
+      "ref_relation": "MATCH",
+      "repo_evidence": "https://api.github.com/repos/opensiro-contributions/oh-my-hermes",
+      "fork_branch_evidence": "https://api.github.com/repos/opensiro-contributions/oh-my-hermes/branches/master",
+      "source_branch_evidence": "https://api.github.com/repos/witt3rd/oh-my-hermes/branches/master",
+      "working_branch": "opensiro/fix-omh-stale-lock-reclaim",
+      "working_commit_sha": "6eced4fdad9ff4faa7daf0979021d870558e8d26",
+      "working_commit_parent_sha": "3b06e33ae67b202b342989b484f08143e65e250d",
+      "working_branch_evidence": "https://api.github.com/repos/opensiro-contributions/oh-my-hermes/git/ref/heads/opensiro/fix-omh-stale-lock-reclaim",
+      "working_diff_evidence": "https://github.com/opensiro-contributions/oh-my-hermes/compare/3b06e33ae67b202b342989b484f08143e65e250d...6eced4fdad9ff4faa7daf0979021d870558e8d26",
+      "changed_files": [
+        "plugins/omh/omh_state.py",
+        "plugins/omh/tests/test_state.py"
+      ],
+      "prior_native_receipt": "https://github.com/opensiro/upstream/blob/main/reports/2026-11-12-omh-stale-lock-native-replay.md",
+      "post_publication_branch_ci": "FIRST_PARTY_NATIVE_PYTEST_195_PASS_7_SKIP_LINUX_PYTHON_3_12",
+      "fork_creation_authority": "ACTIVE_STANDING_PREPARATION_P1_XLAGERFEUER_DEV_ALPHA_2_CREATED_VERIFIED",
+      "branch_write_authority": "ACTIVE_STANDING_PREPARATION_P1_XLAGERFEUER_DEV_ALPHA_2_PREPARED_VERIFIED",
+      "external_pr_state": "OPEN_READY",
+      "external_pr_url": "https://github.com/witt3rd/oh-my-hermes/pull/28",
+      "fork_local_pr_url": "https://github.com/opensiro-contributions/oh-my-hermes/pull/1"
+    }
+  ]
+}

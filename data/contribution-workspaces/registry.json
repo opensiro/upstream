@@ -14,8 +14,8 @@
     "historical_fork_mappings": 16,
     "name_collision_sources": 11,
     "technical_handoffs": 55,
-    "dated_fork_readbacks": 17,
-    "same_named_ref_matches_at_readback": 10,
+    "dated_fork_readbacks": 18,
+    "same_named_ref_matches_at_readback": 11,
     "technical_packet_states": {
       "EXPLICIT_PATCH_HASH_MATCHED": 20,
       "LOCAL_MULTI_PATCH_SELECTION_REQUIRED": 1,
@@ -4917,7 +4917,7 @@
             "pilot": {
               "directory": "pilots/omh-stale-lock-s2",
               "files": 4,
-              "content_sha256": "3e9cb74f2f151b7c1870cc487ab6fe1ee21940f8e6e26873c34bb056c6e745f0",
+              "content_sha256": "32ace2df9c49f3e84849d651ec226bdc9a2b17783890184a456f66be047dc267",
               "patch_candidates": [
                 {
                   "path": "pilots/omh-stale-lock-s2/native-contribution.patch",
@@ -4947,8 +4947,17 @@
       "pilot_links": [],
       "historical_prs": [],
       "fork": null,
-      "dated_fork_readback": null,
-      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "dated_fork_readback": {
+        "observed_on": "2026-11-12",
+        "receipt": "data/contribution-workspaces/fork-readbacks/2026-11-12.json",
+        "fork": "opensiro-contributions/oh-my-hermes",
+        "branch": "master",
+        "fork_sha": "3b06e33ae67b202b342989b484f08143e65e250d",
+        "source_same_named_branch_sha": "3b06e33ae67b202b342989b484f08143e65e250d",
+        "ref_relation": "MATCH",
+        "recheck_before_any_write": true
+      },
+      "fork_state": "DATED_MAPPING_REQUIRES_LIVE_READBACK",
       "proposed_fork": "opensiro-contributions/oh-my-hermes",
       "license_review": false,
       "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
