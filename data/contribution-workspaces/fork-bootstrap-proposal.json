@@ -3,19 +3,19 @@
   "state": "READ_ONLY_PROPOSAL_NOT_APPROVED",
   "destination_org": "opensiro-contributions",
   "source_registry": "data/contribution-workspaces/registry.json",
-  "source_registry_sha256": "1e53c33a78f4070ff2e064b78599f417a8bf455b01ffc1cbc3775a852d6b979d",
+  "source_registry_sha256": "eee0bd0aecef728c20405bb8756c38a83763573dbeb45ee207cefb126f4d82a5",
   "priority_snapshot": "data/fork-priorities/2026-11-08.json",
   "batch_size_max": 10,
   "counts": {
-    "sources": 229,
+    "sources": 234,
     "priority_sources": 100,
-    "additive_extras": 129,
+    "additive_extras": 134,
     "collision_name_proposals": 11,
     "creation_batches": 9,
     "by_state": {
       "HOLD_HISTORICAL_OR_NEGATIVE_CASE": 123,
       "HOLD_LICENSE_REVIEW": 5,
-      "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT": 83,
+      "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT": 88,
       "RECHECK_MAPPED_FORK": 18
     }
   },
@@ -35,7 +35,7 @@
     {
       "id": "bootstrap-001",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "c81da0f32a8b1d1b6801971b4bbaf0c6b0b837daef622752a57ecd8124505523",
+      "selection_sha256": "f5cb9682bfc4e37f067cba1353bff5a53145170571ca00d1e2d0b6ee74bb706f",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -84,7 +84,7 @@
     {
       "id": "bootstrap-002",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "2832d0362608bd2218630cfca3094733ef71739727055f10a8c8e523169400d8",
+      "selection_sha256": "096197ce946a8250db311aec45f06062bf61a958dea3550098bce0be390683f0",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -133,7 +133,7 @@
     {
       "id": "bootstrap-003",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "0b7f786bd57e60ac95ff09064c1fa568973067bb89a2c26727a3fa45e74cf45b",
+      "selection_sha256": "c117e88f9051ff4acfaa9bae93a67d776a6f32b416e38d4d087453383beaef47",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -182,7 +182,7 @@
     {
       "id": "bootstrap-004",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "2f955aa74ba50d5cc6d61fd9c522baf0867ea574817379efc2399f64f6f31696",
+      "selection_sha256": "90139c7ed8fb21811d64df15659cb8f7861102a6a2f1f5f1e3398354c15d411b",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -231,7 +231,7 @@
     {
       "id": "bootstrap-005",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "f2d8017fcdf015a445af89bd6a12a8f9b8d3833fd429b417c07c457257f83600",
+      "selection_sha256": "b71cb8e8d8d18fb16e3521cdfc7c961e8ff99f11ffc333d5ed179f48339d99ab",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -280,7 +280,7 @@
     {
       "id": "bootstrap-006",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "ce25dce47450917442b72084600c15a8afb6fac5a5e0f2555faadd45fda54794",
+      "selection_sha256": "ad808670567066521a2b52559c4c3c8f9bfb5eece51cf401f93a2191beb2f87a",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -329,7 +329,7 @@
     {
       "id": "bootstrap-007",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "9dc8faaad6d3242afd1b95975a8fc1b90d2f62dcb3ced572c35a04644a6cc448",
+      "selection_sha256": "dbc38d7c4fe07b458ece72fdc3f037502c44f0adf3fa4bbbf398a5178810ada6",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -378,7 +378,7 @@
     {
       "id": "bootstrap-008",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "5b3e765c50972dbe6fac893a0393c81e3b5b8569fbfc49a0572cd32869788463",
+      "selection_sha256": "9572fa0a83ef5e5be47bc8f5d2ef854780acadb9c82dfbf3b817d2f7aebab794",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -403,12 +403,37 @@
           "candidate_fork": "opensiro-contributions/agentsilex"
         },
         {
+          "source": "jwangkun/Pi-Multi-Agent",
+          "candidate_fork": "opensiro-contributions/Pi-Multi-Agent"
+        },
+        {
+          "source": "langroid/langroid",
+          "candidate_fork": "opensiro-contributions/langroid"
+        },
+        {
           "source": "leprachuan/Wee-Orchestrator",
           "candidate_fork": "opensiro-contributions/Wee-Orchestrator"
         },
         {
           "source": "madarco/agentbox",
           "candidate_fork": "opensiro-contributions/agentbox"
+        },
+        {
+          "source": "omergocmen/CrewCtl",
+          "candidate_fork": "opensiro-contributions/CrewCtl"
+        }
+      ]
+    },
+    {
+      "id": "bootstrap-009",
+      "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
+      "selection_sha256": "bd9abbc049ff24284b260082165a7bfd27975affcf60ed30cc816650a8b10707",
+      "source_count": 8,
+      "has_collision_name_proposals": false,
+      "selection": [
+        {
+          "source": "onevcat/argue",
+          "candidate_fork": "opensiro-contributions/argue"
         },
         {
           "source": "patriceckhart/zot",
@@ -421,19 +446,14 @@
         {
           "source": "speakeasy-api/kit",
           "candidate_fork": "opensiro-contributions/kit"
-        }
-      ]
-    },
-    {
-      "id": "bootstrap-009",
-      "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "ede6dbf2a151c80fcf8f9437fc82deea71cdeb51fd1389e9ccac6888598bbbac",
-      "source_count": 3,
-      "has_collision_name_proposals": false,
-      "selection": [
+        },
         {
           "source": "splashxmoon/friday",
           "candidate_fork": "opensiro-contributions/friday"
+        },
+        {
+          "source": "wanxunyang/mocode",
+          "candidate_fork": "opensiro-contributions/mocode"
         },
         {
           "source": "xingyaoww/code-act",
@@ -2197,6 +2217,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "jwangkun/Pi-Multi-Agent",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/Pi-Multi-Agent",
+      "candidate_name": "Pi-Multi-Agent",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "k4yt3x/meka",
       "priority_group": "HISTORICAL_EXTRA",
       "next_step": "TRACK_ONLY_NO_CHANGE",
@@ -2248,6 +2279,17 @@
       "candidate_name": "bridle",
       "collision_name_proposal": false,
       "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "langroid/langroid",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/langroid",
+      "candidate_name": "langroid",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
@@ -2406,6 +2448,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "omergocmen/CrewCtl",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/CrewCtl",
+      "candidate_name": "CrewCtl",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "onecli/onecli",
       "priority_group": "HISTORICAL_EXTRA",
       "next_step": "TRACK_ONLY_NO_CHANGE",
@@ -2413,6 +2466,17 @@
       "candidate_name": "onecli",
       "collision_name_proposal": false,
       "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "onevcat/argue",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/argue",
+      "candidate_name": "argue",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
@@ -2864,6 +2928,17 @@
       "candidate_name": "VTCode",
       "collision_name_proposal": false,
       "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "wanxunyang/mocode",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/mocode",
+      "candidate_name": "mocode",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
     },

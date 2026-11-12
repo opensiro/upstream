@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-12-31",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "85ae995fc2551ac0a076609bce0300d075cac2d5",
+  "frozen_at": "2026-11-12",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Five source-disjoint newest available included S1=A/S2=C Index original identities at fixed 85ae995f, excluding 30 integrated batch cohorts and source-to-fork registry. Falsifiers published before current external source/policy/issues inspections at 2026-11-12 pre-code git SHA d57310e. Prospective hypotheses not admitted defects or expected grade changes.",
+  "candidates": [
+    {
+      "id": "crewctl-worktree-task-identity-collision",
+      "assessment_path": "assessments/cr/crewctl.md",
+      "source": "omergocmen/CrewCtl",
+      "review_ref": "834c399cf28a9e83e7e47f81544ed52dfbeb92cc",
+      "reviewed_at": "2026-10-26",
+      "function": "S2",
+      "finding": "Can two distinct concurrent task identifiers sanitize to the same worktree branch/path and leak ownership or events?",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/cr/crewctl.md",
+        "https://github.com/opensiro/upstream/commit/d57310e8627bfd994a2f1a80b53e0c7d85687fd3"
+      ],
+      "screening_result": "Prospective first-party S2 hypothesis only; original current license and source-native fit remain unchecked.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "argue-transitive-claim-merge-remap",
+      "assessment_path": "assessments/ar/argue.md",
+      "source": "onevcat/argue",
+      "review_ref": "7939e67c8479aa3b9f5d070f5e7feff8b90f876d",
+      "reviewed_at": "2026-10-25",
+      "function": "S2",
+      "finding": "Do chained claim merges preserve all judgment and vote references to the final active canonical ID?",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ar/argue.md",
+        "https://github.com/opensiro/upstream/commit/d57310e8627bfd994a2f1a80b53e0c7d85687fd3"
+      ],
+      "screening_result": "Prospective first-party S2 hypothesis only; original current license and source-native fit remain unchecked.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "langroid-no-answer-nonprogress-oscillation",
+      "assessment_path": "assessments/la/langroid.md",
+      "source": "langroid/langroid",
+      "review_ref": "1e0f5ab7d9d589d79928c39ed147ca8a2bd6a590",
+      "reviewed_at": "2026-10-25",
+      "function": "S2",
+      "finding": "Can whitespace and NO_ANSWER variants evade shipped two-actor infinite-loop stopping in supported nested Task.run?",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/la/langroid.md",
+        "https://github.com/opensiro/upstream/commit/d57310e8627bfd994a2f1a80b53e0c7d85687fd3"
+      ],
+      "screening_result": "Prospective first-party S2 hypothesis only; original current license and source-native fit remain unchecked.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "pi-multi-agent-debate-peer-history",
+      "assessment_path": "assessments/pi/pi-multi-agent.md",
+      "source": "jwangkun/Pi-Multi-Agent",
+      "review_ref": "d2fef0f30a762ec04eff9d8dde6cd406648955bc",
+      "reviewed_at": "2026-10-25",
+      "function": "S2",
+      "finding": "Does debate-round history always give an actor its opposite peer's prior position rather than its own or a stale reply?",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/pi/pi-multi-agent.md",
+        "https://github.com/opensiro/upstream/commit/d57310e8627bfd994a2f1a80b53e0c7d85687fd3"
+      ],
+      "screening_result": "Prospective first-party S2 hypothesis only; original current license and source-native fit remain unchecked.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "mocode-resource-path-alias-admission",
+      "assessment_path": "assessments/mo/mocode.md",
+      "source": "wanxunyang/mocode",
+      "review_ref": "b6cb603a541e10862005c046fcdaea45a5e70f47",
+      "reviewed_at": "2026-10-24",
+      "function": "S2",
+      "finding": "Do equivalent in-root nonexistent path aliases get different arbitration resource keys permitting two conflicting nested writes?",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/mo/mocode.md",
+        "https://github.com/opensiro/upstream/commit/d57310e8627bfd994a2f1a80b53e0c7d85687fd3"
+      ],
+      "screening_result": "Prospective first-party S2 hypothesis only; original current license and source-native fit remain unchecked.",
+      "external_action": "NOT_EXECUTED"
+    }
+  ]
+}

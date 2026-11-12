@@ -4,13 +4,13 @@
   "batch_sources": "data/assessment-candidate-batches/*.json",
   "counts": {
     "priority_sources": 100,
-    "historical_extras": 129,
-    "batch_only_extras": 114,
+    "historical_extras": 134,
+    "batch_only_extras": 119,
     "pilot_only_extras": 7,
     "portfolio_only_extras": 8,
-    "unique_sources": 229,
-    "batch_manifests": 30,
-    "batch_cases": 170,
+    "unique_sources": 234,
+    "batch_manifests": 31,
+    "batch_cases": 175,
     "historical_fork_mappings": 16,
     "name_collision_sources": 11,
     "technical_handoffs": 55,
@@ -2529,6 +2529,23 @@
       "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
     },
     {
+      "source": "jwangkun/Pi-Multi-Agent",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-31.json"
+      ],
+      "latest_stage": "SCREENING",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/Pi-Multi-Agent",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
       "source": "k4yt3x/meka",
       "priority_group": "HISTORICAL_EXTRA",
       "batches": [
@@ -2768,6 +2785,23 @@
       "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/langflow",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "langroid/langroid",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-31.json"
+      ],
+      "latest_stage": "SCREENING",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/langroid",
       "license_review": false,
       "next_step": "SCREEN_BEFORE_FORK_WRITE"
     },
@@ -3515,6 +3549,23 @@
       "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
+      "source": "omergocmen/CrewCtl",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-31.json"
+      ],
+      "latest_stage": "SCREENING",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/CrewCtl",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
       "source": "onecli/onecli",
       "priority_group": "HISTORICAL_EXTRA",
       "batches": [
@@ -3530,6 +3581,23 @@
       "proposed_fork": "opensiro-contributions/onecli",
       "license_review": false,
       "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "onevcat/argue",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-31.json"
+      ],
+      "latest_stage": "SCREENING",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/argue",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
     },
     {
       "source": "Onipounds/agent-loop",
@@ -5150,6 +5218,23 @@
       "proposed_fork": "opensiro-contributions/voly",
       "license_review": false,
       "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "wanxunyang/mocode",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-31.json"
+      ],
+      "latest_stage": "SCREENING",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/mocode",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
     },
     {
       "source": "witt3rd/oh-my-hermes",
