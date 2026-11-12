@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-12-29",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "85ae995fc2551ac0a076609bce0300d075cac2d5",
+  "frozen_at": "2026-11-12",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Five newest source-disjoint available included S1=A/S2=C canonical Index assessments at immutable 85ae995f after excluding 28 earlier integrated batches and source-to-fork registry. Predictive falsifiers written and pushed in commit 0f67323 on current branch BEFORE fresh original code, license, issue/PR inspections. Negative source-native counterexamples and genuine target gates govern admission.",
+  "candidates": [
+    {
+      "id": "macher-agent-stale-child-vfs-merge",
+      "assessment_path": "assessments/ma/macher-agent.md",
+      "source": "elij/macher-agent",
+      "review_ref": "f60786359a175d6c7f0c56ec3faeb74ae2bda22d",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Could the first-party VFS child merge overwrite an outside newer version when the clean-merge stub accepts a stale child?",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ma/macher-agent.md",
+        "https://github.com/opensiro/upstream/commit/0f6732337488ce5ac1c56586e4c982a48353e771"
+      ],
+      "screening_result": "Prospective Index-first S2 hypothesis only. Current original license, source SHA, native fit and contributor intake not yet inspected.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "linear-harness-parallel-issue-claim",
+      "assessment_path": "assessments/li/linear-coding-agent-harness.md",
+      "source": "coleam00/Linear-Coding-Agent-Harness",
+      "review_ref": "c37dc096993011cb0cc48a0afab176cd9c8f2375",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Could two concurrently supported coding sessions both begin one issue after reading Linear state before either publishes an In Progress claim?",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/li/linear-coding-agent-harness.md",
+        "https://github.com/opensiro/upstream/commit/0f6732337488ce5ac1c56586e4c982a48353e771"
+      ],
+      "screening_result": "Prospective Index-first S2 hypothesis only. Current original license, source SHA, native fit and contributor intake not yet inspected.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "agent-cli-failed-launch-worktree-liveness",
+      "assessment_path": "assessments/ag/agent-cli.md",
+      "source": "basnijholt/agent-cli",
+      "review_ref": "554344e6ed5266bcc2a7b1461d4c84744ff5e0af",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Does dev new retain an unowned or inaccessible created worktree when the agent launch fails after successful provisioning?",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ag/agent-cli.md",
+        "https://github.com/opensiro/upstream/commit/0f6732337488ce5ac1c56586e4c982a48353e771"
+      ],
+      "screening_result": "Prospective Index-first S2 hypothesis only. Current original license, source SHA, native fit and contributor intake not yet inspected.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "agent-of-empires-failed-provision-ghost-worktree",
+      "assessment_path": "assessments/ag/agent-of-empires.md",
+      "source": "agent-of-empires/agent-of-empires",
+      "review_ref": "81d4672a846798d0a9b02183d9dce83ea6bf6917",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Can a post-worktree session provisioning failure leave a ghost tracked worktree preventing safe retry without an agent?",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ag/agent-of-empires.md",
+        "https://github.com/opensiro/upstream/commit/0f6732337488ce5ac1c56586e4c982a48353e771"
+      ],
+      "screening_result": "Prospective Index-first S2 hypothesis only. Current original license, source SHA, native fit and contributor intake not yet inspected.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "fiber-cancelled-isolate-recovery",
+      "assessment_path": "assessments/fi/fiber.md",
+      "source": "aakshintala/fiber",
+      "review_ref": "61af2a84f70a2ece2b6cf8f73a8fa70116360da7",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Can cancellation between isolated delegate worktree creation and registration leak a lifetime lock without recoverable ownership?",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/fi/fiber.md",
+        "https://github.com/opensiro/upstream/commit/0f6732337488ce5ac1c56586e4c982a48353e771"
+      ],
+      "screening_result": "Prospective Index-first S2 hypothesis only. Current original license, source SHA, native fit and contributor intake not yet inspected.",
+      "external_action": "NOT_EXECUTED"
+    }
+  ]
+}
