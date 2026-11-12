@@ -88,7 +88,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | [jpantsjoha/ai-native-developer-experience](https://github.com/jpantsjoha/ai-native-developer-experience) | 1 | 1 | 0 | 0 | 1 |
 | [JuliusBrussee/caveman-code](https://github.com/JuliusBrussee/caveman-code) | 1 | 0 | 0 | 0 | 1 |
 | [k4yt3x/meka](https://github.com/k4yt3x/meka) | 1 | 0 | 0 | 0 | 0 |
-| [kdlbs/kandev](https://github.com/kdlbs/kandev) | 1 | 0 | 0 | 0 | 0 |
+| [kdlbs/kandev](https://github.com/kdlbs/kandev) | 1 | 0 | 0 | 0 | 1 |
 | [khanuzeb/axiom](https://github.com/khanuzeb/axiom) | 1 | 0 | 0 | 0 | 0 |
 | [knowflow-ai/KnowWork](https://github.com/knowflow-ai/KnowWork) | 2 | 1 | 0 | 0 | 0 |
 | [kstawiski/evidence-gated-scientific-agent](https://github.com/kstawiski/evidence-gated-scientific-agent) | 2 | 1 | 0 | 0 | 0 |
@@ -225,8 +225,8 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | devincii-io/QuickCode | [assessment:quickcode-failed-worktree-child-settlement](data/assessment-candidate-batches/2026-11-08-15.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-08-15 | No code change justified |
 | DMRLZZ/DaveCode | [assessment:davecode-independent-cli-lock](data/assessment-candidate-batches/2026-11-09-21.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-21 | No code change justified |
 | dyabel/AnyTool | [assessment:anytool-sufficiency-race](data/assessment-candidate-batches/2026-11-10-23.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-10-23 | No code change justified |
-| elmissouri16/snow-core | [assessment:snow-core-mutation-gate-liveness](data/assessment-candidate-batches/2026-11-12-28.json) | S2 | SCREENING | NONE | — | assessment-upstream-2026-11-12-28 | Inspect owner evidence; no assumed next write |
-| enmanuelmag/agent-harness-kit | [assessment:agent-harness-kit-double-claim](data/assessment-candidate-batches/2026-11-12-28.json) | S2 | SCREENING | NONE | — | assessment-upstream-2026-11-12-28 | Inspect owner evidence; no assumed next write |
+| elmissouri16/snow-core | [assessment:snow-core-mutation-gate-liveness](data/assessment-candidate-batches/2026-11-12-28.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-12-28 | No code change justified |
+| enmanuelmag/agent-harness-kit | [assessment:agent-harness-kit-double-claim](data/assessment-candidate-batches/2026-11-12-28.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-12-28 | No code change justified |
 | epicsagas/epic-harness | [assessment:epic-harness-overlap-alias](data/assessment-candidate-batches/2026-11-12-27.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-12-27 | Obtain missing native evidence |
 | EverMind-AI/Raven | [assessment:raven-stale-edit-ledger](data/assessment-candidate-batches/2026-10-22-01.json) | S2 | AWAITING_EXTERNAL | BLOCKED_PUBLICATION | — | assessment-upstream-2026-10-22-01 | Resolve documented publication gate |
 | evotai/evot | [assessment:evot-file-mutex-alias](data/assessment-candidate-batches/2026-11-12-27.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-12-27 | Obtain missing native evidence |
@@ -265,7 +265,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | jpantsjoha/ai-native-developer-experience | [assessment:join-the-team-bootstrap-validation](data/assessment-candidate-batches/2026-10-22-04.json) | S1 | AWAITING_EXTERNAL | BLOCKED_PUBLICATION | — | assessment-upstream-2026-10-22-04 | Resolve documented publication gate |
 | JuliusBrussee/caveman-code | [assessment:caveman-child-worktree-cleanup](data/assessment-candidate-batches/2026-10-22-03.json) | S1 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-10-22-03 | Obtain missing native evidence |
 | k4yt3x/meka | [assessment:meka-cross-session-stale-edit-fencing](data/assessment-candidate-batches/2026-11-08-14.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-08-14 | No code change justified |
-| kdlbs/kandev | [assessment:kandev-isolated-workspace-race](data/assessment-candidate-batches/2026-11-12-28.json) | S2 | SCREENING | NONE | — | assessment-upstream-2026-11-12-28 | Inspect owner evidence; no assumed next write |
+| kdlbs/kandev | [assessment:kandev-isolated-workspace-race](data/assessment-candidate-batches/2026-11-12-28.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-12-28 | Obtain missing native evidence |
 | khanuzeb/axiom | [assessment:axiom-staged-code-double-hop](data/assessment-candidate-batches/2026-11-10-23.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-10-23 | No code change justified |
 | knowflow-ai/KnowWork | [assessment:knowwork-sandbox-multiprocess-ownership](data/assessment-candidate-batches/2026-11-10-25.json) | S2 | AWAITING_EXTERNAL | NOT_SUBMITTED | — | assessment-upstream-2026-11-10-25 | Refresh source; check external publication grant |
 | knowflow-ai/KnowWork | [monitor:knowflow-ai/knowwork#4](data/pr-maintenance/targets.json) | — | NOT_TRACKED | WATCHLIST_ONLY | [#4](https://github.com/knowflow-ai/KnowWork/pull/4) | monitor_only | Read PR maintenance inbox; no technical inference |
@@ -280,7 +280,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | LofiSu/deepseek-super-agent | [assessment:deepseek-mesh-capacity-release](data/assessment-candidate-batches/2026-11-06-13.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-06-13 | No code change justified |
 | maneja81/OpenOrbit | [assessment:openorbit-approval-boundary-validation](data/assessment-candidate-batches/2026-10-22-07.json) | S1 | AWAITING_EXTERNAL | BLOCKED_PUBLICATION | — | assessment-upstream-2026-10-22-07 | Resolve documented publication gate |
 | manishiitg/agentworks | [assessment:agentworks-concurrent-crew-delivery-claim](data/assessment-candidate-batches/2026-11-09-22.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-22 | No code change justified |
-| manuel-koch/ylva | [assessment:ylva-shared-retry-deadline](data/assessment-candidate-batches/2026-11-12-28.json) | S2 | SCREENING | NONE | — | assessment-upstream-2026-11-12-28 | Inspect owner evidence; no assumed next write |
+| manuel-koch/ylva | [assessment:ylva-shared-retry-deadline](data/assessment-candidate-batches/2026-11-12-28.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-12-28 | No code change justified |
 | maref-org/maref | [assessment:maref-run-state-boundary](data/assessment-candidate-batches/2026-10-22-04.json) | S1 | AWAITING_EXTERNAL | BLOCKED_PUBLICATION | — | assessment-upstream-2026-10-22-04 | Resolve documented publication gate |
 | markmhendrickson/ateles | [assessment:ateles-python-dispatch-gate](data/assessment-candidate-batches/2026-10-22-04.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-10-22-04 | Obtain missing native evidence |
 | martian56/rook | [assessment:rook-dispatch-approval](data/assessment-candidate-batches/2026-10-22-02.json) | S1 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-10-22-02 | No code change justified |
@@ -288,7 +288,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | microsoft/fara | [assessment:fara-native-checkpoint-integrity](data/assessment-candidate-batches/2026-10-23-11.json) | S1 | AWAITING_EXTERNAL | NOT_SUBMITTED | — | assessment-upstream-2026-10-23-11 | Refresh source; check external publication grant |
 | microsoft/fara | [monitor:microsoft/fara#96](data/pr-maintenance/targets.json) | — | NOT_TRACKED | WATCHLIST_ONLY | [#96](https://github.com/microsoft/fara/pull/96) | monitor_only | Read PR maintenance inbox; no technical inference |
 | mila-iqia/babyai | [assessment:babyai-task-evaluation-input-contract](data/assessment-candidate-batches/2026-10-23-09.json) | S1 | AWAITING_EXTERNAL | SUBMITTED_UNVERIFIED_LIVE | [#128](https://github.com/mila-iqia/babyai/pull/128) | assessment-upstream-2026-10-23-09 | Check current maintainer/CI outcome |
-| mjoneill/manyhands | [assessment:manyhands-atomic-card-claim](data/assessment-candidate-batches/2026-11-12-28.json) | S2 | SCREENING | NONE | — | assessment-upstream-2026-11-12-28 | Inspect owner evidence; no assumed next write |
+| mjoneill/manyhands | [assessment:manyhands-atomic-card-claim](data/assessment-candidate-batches/2026-11-12-28.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-12-28 | No code change justified |
 | mnbresearch/crewdeck | [assessment:crewdeck-s2-manual-claim-admission](data/assessment-candidate-batches/2026-11-06-12.json) | S2 | AWAITING_EXTERNAL | NOT_SUBMITTED | — | assessment-upstream-2026-11-06-12 | Refresh source; check external publication grant |
 | mnbresearch/crewdeck | [monitor:mnbresearch/crewdeck#1](data/pr-maintenance/targets.json) | — | NOT_TRACKED | WATCHLIST_ONLY | [#1](https://github.com/mnbresearch/crewdeck/pull/1) | monitor_only | Read PR maintenance inbox; no technical inference |
 | murilo-bassan/durable-agent-runtime | [assessment:runloop-reservation-recovery-and-settlement](data/assessment-candidate-batches/2026-11-08-14.json) | S2 | AWAITING_EXTERNAL | NOT_SUBMITTED | — | assessment-upstream-2026-11-08-14 | Refresh source; check external publication grant |
