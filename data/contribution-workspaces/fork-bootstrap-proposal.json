@@ -3,19 +3,19 @@
   "state": "READ_ONLY_PROPOSAL_NOT_APPROVED",
   "destination_org": "opensiro-contributions",
   "source_registry": "data/contribution-workspaces/registry.json",
-  "source_registry_sha256": "f907419085d24497caa12d47e5c7cb2c7e52a4f022f035fcac430e6ca0d7abf9",
+  "source_registry_sha256": "bff505788bbaad9674fb2ab7128074194b84741e3607d1b13b96cc2eb103ce6c",
   "priority_snapshot": "data/fork-priorities/2026-11-08.json",
   "batch_size_max": 10,
   "counts": {
-    "sources": 239,
+    "sources": 244,
     "priority_sources": 100,
-    "additive_extras": 139,
+    "additive_extras": 144,
     "collision_name_proposals": 11,
     "creation_batches": 9,
     "by_state": {
       "HOLD_HISTORICAL_OR_NEGATIVE_CASE": 133,
       "HOLD_LICENSE_REVIEW": 5,
-      "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT": 83,
+      "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT": 88,
       "RECHECK_MAPPED_FORK": 18
     }
   },
@@ -35,7 +35,7 @@
     {
       "id": "bootstrap-001",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "2d6877bb1ae5b7ae3fdb506e5fe0ec3ec4dfaac88c3e3b921deb3a3f868049b8",
+      "selection_sha256": "2e0f426729a9d00404cb2b4ff072fdc2428aa0991c1c0070a3d0b95dcccb5bb3",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -84,7 +84,7 @@
     {
       "id": "bootstrap-002",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "f5e2b6f54c49a272f48993f05386475919706b61417a3400a64ac497121b5b93",
+      "selection_sha256": "b35c533d5430ee8aa6ef9376ec920c80d1f9f302267c0534ee12958fd991ac28",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -133,7 +133,7 @@
     {
       "id": "bootstrap-003",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "25edd234af96ebea07b32df34443aff2e6c81c3b809935e745ee837b86242a0f",
+      "selection_sha256": "ec054dcfde094c4f827b845bcbcf24961be2eca698bf5b37a552f52cbadcf26e",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -182,7 +182,7 @@
     {
       "id": "bootstrap-004",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "47f2088294732e39ae7428f849b603dbe6ae94be1fc0652dcd528f0ba964ad5f",
+      "selection_sha256": "f4e7c2137877f202e0facbeec91ba63c9bccbc7fb3fb9559fc46a508550f7d42",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -231,7 +231,7 @@
     {
       "id": "bootstrap-005",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "3f23f0ec1fba9caf366bc5affb5be27b16c34223d081d9d3c726cbb0f29fbc10",
+      "selection_sha256": "99c5a01c55d93df04555ab1496cf543c3bbd283c5a49ce75f5572792995b0ccc",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -280,7 +280,7 @@
     {
       "id": "bootstrap-006",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "f2cab8897abb80c6218761c9f911d48bd007e3bdbd2d2e6cc062dc3181ef5c17",
+      "selection_sha256": "4fdf5259bbcf3f863bb3e11a9d96388b572d66902d0bc6a2ec7a464e1736b712",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -329,7 +329,7 @@
     {
       "id": "bootstrap-007",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "263d2eac68d41f488e7c26ffb780a533fbf0aa24e0ce125095dae8540968a30c",
+      "selection_sha256": "54352a9b2b94ee316af1fe919c740bbd5768845035c01fd285da7a212de1d5fe",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -370,18 +370,26 @@
           "candidate_fork": "opensiro-contributions/lacp"
         },
         {
-          "source": "avala-ai/agent-code",
-          "candidate_fork": "opensiro-contributions/agent-code"
+          "source": "airiclenz/apogee",
+          "candidate_fork": "opensiro-contributions/apogee"
         }
       ]
     },
     {
       "id": "bootstrap-008",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "e6f71f0b1464ab02fd70d634e1e310019b3c7fb876f7bfa64985d90f43eb8309",
+      "selection_sha256": "5fc18849c59fa48b1fb46f4a035655188d1d64fac9a2d01a525123ad69bccef8",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
+        {
+          "source": "avala-ai/agent-code",
+          "candidate_fork": "opensiro-contributions/agent-code"
+        },
+        {
+          "source": "black141312/ada",
+          "candidate_fork": "opensiro-contributions/ada"
+        },
         {
           "source": "chekusu/wanman",
           "candidate_fork": "opensiro-contributions/wanman"
@@ -395,13 +403,34 @@
           "candidate_fork": "opensiro-contributions/Clouds-Coder"
         },
         {
+          "source": "gasantiago16/polycode",
+          "candidate_fork": "opensiro-contributions/polycode"
+        },
+        {
           "source": "gczhuang-cmd/NovaCode",
           "candidate_fork": "opensiro-contributions/NovaCode"
+        },
+        {
+          "source": "Gentleman-Programming/gentle-shell",
+          "candidate_fork": "opensiro-contributions/gentle-shell"
         },
         {
           "source": "howl-anderson/agentsilex",
           "candidate_fork": "opensiro-contributions/agentsilex"
         },
+        {
+          "source": "keakon/chord",
+          "candidate_fork": "opensiro-contributions/chord"
+        }
+      ]
+    },
+    {
+      "id": "bootstrap-009",
+      "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
+      "selection_sha256": "da0c8db06b216ef496c8033251997bc1377d6d2763df07ead9091276eeeccd4d",
+      "source_count": 8,
+      "has_collision_name_proposals": false,
+      "selection": [
         {
           "source": "leprachuan/Wee-Orchestrator",
           "candidate_fork": "opensiro-contributions/Wee-Orchestrator"
@@ -421,16 +450,7 @@
         {
           "source": "speakeasy-api/kit",
           "candidate_fork": "opensiro-contributions/kit"
-        }
-      ]
-    },
-    {
-      "id": "bootstrap-009",
-      "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "f3d6a8f7616a7452e3cf74f8fea3427ab0ed74265bca27f45e2444847cda9bbd",
-      "source_count": 3,
-      "has_collision_name_proposals": false,
-      "selection": [
+        },
         {
           "source": "splashxmoon/friday",
           "candidate_fork": "opensiro-contributions/friday"
@@ -1625,6 +1645,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "airiclenz/apogee",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/apogee",
+      "candidate_name": "apogee",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "AmbientCrypto/ambient-cli",
       "priority_group": "HISTORICAL_EXTRA",
       "next_step": "TRACK_ONLY_NO_CHANGE",
@@ -1742,6 +1773,17 @@
       "candidate_name": "free-multi-agent-ai-council",
       "collision_name_proposal": false,
       "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "black141312/ada",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/ada",
+      "candidate_name": "ada",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
@@ -2021,11 +2063,33 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "gasantiago16/polycode",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/polycode",
+      "candidate_name": "polycode",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "gczhuang-cmd/NovaCode",
       "priority_group": "HISTORICAL_EXTRA",
       "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
       "candidate_fork": "opensiro-contributions/NovaCode",
       "candidate_name": "NovaCode",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "Gentleman-Programming/gentle-shell",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/gentle-shell",
+      "candidate_name": "gentle-shell",
       "collision_name_proposal": false,
       "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
       "current_fork_mapping": null,
@@ -2237,6 +2301,17 @@
       "candidate_name": "kandev",
       "collision_name_proposal": false,
       "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "keakon/chord",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/chord",
+      "candidate_name": "chord",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
