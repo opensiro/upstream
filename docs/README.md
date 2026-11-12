@@ -25,7 +25,7 @@ The root [README.md](../README.md) is the public handoff. [AGENTS.md](../AGENTS.
 | Standing autonomous fork/patch preparation (no per-action owner prompt) | [STANDING_PREPARATION_AUTONOMY.md](STANDING_PREPARATION_AUTONOMY.md) · [current policy](../policies/standing-preparation-p1.json) · [execution gate #6](https://github.com/opensiro/upstream/issues/6) |
 | Source-native PR proposal and disclosure in its working fork | [UPSTREAMING.md](../UPSTREAMING.md#contribution-lifecycle) · [AI disclosure](AI_ASSISTED_PR_DISCLOSURE.md) |
 | Supervised org-fork bootstrap and cross-plugin internal contributions | [FORK_BOOTSTRAP_AND_COLLABORATION.md](FORK_BOOTSTRAP_AND_COLLABORATION.md) · [read-only proposal](../data/contribution-workspaces/fork-bootstrap-proposal.json) |
-| Source collision preflight and optional reservation | [ASSESSMENT_SOURCE_RESERVATIONS.md](ASSESSMENT_SOURCE_RESERVATIONS.md) |
+| Read-only next-cohort discovery and source collision preflight | [ASSESSMENT_SOURCE_RESERVATIONS.md](ASSESSMENT_SOURCE_RESERVATIONS.md) |
 
 ## Detailed designs and gated execution
 

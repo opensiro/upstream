@@ -2177,7 +2177,7 @@
       "batches": [
         "data/assessment-candidate-batches/2026-11-12-32.json"
       ],
-      "latest_stage": "SCREENING",
+      "latest_stage": "CLOSED_NO_CHANGE",
       "handoffs": [],
       "pilot_links": [],
       "historical_prs": [],
@@ -2186,7 +2186,7 @@
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/codewhip",
       "license_review": false,
-      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+      "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
       "source": "henrik-me/agent-harness",
@@ -3896,7 +3896,7 @@
       "batches": [
         "data/assessment-candidate-batches/2026-11-12-32.json"
       ],
-      "latest_stage": "SCREENING",
+      "latest_stage": "BLOCKED_EVIDENCE",
       "handoffs": [],
       "pilot_links": [],
       "historical_prs": [],
@@ -3905,7 +3905,7 @@
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/OwnPilot",
       "license_review": false,
-      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
     },
     {
       "source": "paperclipai/paperclip",
@@ -4620,7 +4620,7 @@
       "batches": [
         "data/assessment-candidate-batches/2026-11-12-32.json"
       ],
-      "latest_stage": "SCREENING",
+      "latest_stage": "CLOSED_NO_CHANGE",
       "handoffs": [],
       "pilot_links": [],
       "historical_prs": [],
@@ -4629,7 +4629,7 @@
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/phone-harness",
       "license_review": false,
-      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+      "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
       "source": "shep-ai/shep",
@@ -4860,7 +4860,7 @@
       "batches": [
         "data/assessment-candidate-batches/2026-11-12-32.json"
       ],
-      "latest_stage": "SCREENING",
+      "latest_stage": "CLOSED_NO_CHANGE",
       "handoffs": [],
       "pilot_links": [],
       "historical_prs": [],
@@ -4869,7 +4869,7 @@
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/ucode-agent",
       "license_review": false,
-      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+      "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
       "source": "stablyai/orca",
@@ -5559,7 +5559,7 @@
       "batches": [
         "data/assessment-candidate-batches/2026-11-12-32.json"
       ],
-      "latest_stage": "SCREENING",
+      "latest_stage": "BLOCKED_EVIDENCE",
       "handoffs": [],
       "pilot_links": [],
       "historical_prs": [],
@@ -5568,7 +5568,7 @@
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/yottacode",
       "license_review": false,
-      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
     },
     {
       "source": "zenodea/zaino",

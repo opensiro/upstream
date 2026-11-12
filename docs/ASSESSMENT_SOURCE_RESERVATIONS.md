@@ -68,6 +68,44 @@ canonical Index main SHA, ancestral pin, count of upstream main manifests,
 open PRs, active PR manifests and exact conflicts.
 `CLEAR_PREVIEW_ONLY` is **not** a reservation or an admission.
 
+## Read-only discovery of the next five-source cohort
+
+`scripts/assessment_batch_discovery.py` implements [#144's](https://github.com/opensiro/upstream/issues/144)
+bounded **selection preview**, not admission. It reads an exact, **clean**
+canonical Index checkout (`git HEAD == --index-sha`) and enumerates all
+included `S1=A / S2=C` assessments with their reviewed source/date/ref. It
+attests the pinned Index SHA as an ancestor of live Index `main`, then reads
+the **current public Upstream main tree**, all accepted frozen batch manifests,
+all visible **open PR heads and their changed manifest files**, and the
+main-SHA-pinned source-to-fork registry. It rereads both main SHAs and open
+PR heads before reporting. It rejects duplicate or case-alias Index identities,
+dirty/pin-mismatched checkouts, incomplete GitHub snapshots, malformed
+manifests or an incomplete five-row cohort.
+
+```bash
+# Execute with an existing scoped GitHub credential; never print/paste tokens.
+GITHUB_TOKEN="$(gh auth token)" python3 scripts/assessment_batch_discovery.py \
+  --index-root /path/to/clean-pinned-vsm-harness-index \
+  --index-sha <exact-40-char-index-main-sha> \
+  --count 5
+```
+
+A successful `PROPOSED_ONLY` receipt identifies five reproducibly ordered
+sources and their **reviewed** Index refs; it is **not** the hypothesis
+checkpoint, source reservation, native fit, a publication grant or a guarantee
+that no other worker will claim one in the next second. `NO_ELIGIBLE_ASSESSMENT_CANDIDATE`
+is a fail-closed exit (not an automatically shortened batch). Before fresh
+target-source inspection preregister the distinct, falsifiable function
+hypotheses. Reconcile again immediately before source work and merge using
+`assessment_batch_conflict_preflight.py`; if any competing claim emerges,
+stop. Only the separately controlled Git CAS reservation path can serialize
+two concurrent claims, and **its branch is not automatically activated here**.
+
+Offline tests: `python3 -m unittest tests.test_assessment_batch_discovery -v`.
+The tests assert merged/open/registry source exclusions, case aliases, missing
+Index pin, dirty checkout, insufficient cohort and loss of GitHub visibility,
+without calling any external provider.
+
 ## Default: human-owned merge decision, no reservation activation
 
 The repository owner may keep ordinary `batch upstream` work **manual at merge**:
