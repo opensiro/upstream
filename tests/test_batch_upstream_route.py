@@ -45,14 +45,16 @@ class BatchUpstreamRouteTests(unittest.TestCase):
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase, self.section)
 
-    def test_acceptance_and_external_grant_are_separate(self):
+    def test_acceptance_and_publication_are_separate(self):
         self.assertNotIn("S1_WITNESS_PENDING", self.document)
         self.assertIn("construction witness", self.document)
         for phrase in (
-            "separate effective external fork/branch/PR-stage grant",
+            "standing P1 mandates",
+            "without a new owner prompt",
             "AWAITING_EXTERNAL",
-            "finite 34-case Corrective mandate",
-            "internal reviewable OpenSiro patch/PR",
+            "internal OpenSiro patch or PR",
+            "legal clearance",
+            "provider receipts and maintainer decisions",
         ):
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase, self.section)

@@ -99,11 +99,15 @@ the strict single-candidate origin/fit/admission gates below.
    `create_public_fork`, `prepare_contribution`, or `submit_external_pr`
    took place, by whom and with which exact source/destination GitHub refs.
    An existing fork does **not** prove new fork creation. The connected
-   preparation adapter supports only a narrow one-new-test-file stage and
-   still requires separate exact-action, trusted current-session
-   authorization. Fork creation and external PR publication are not silently
-   enabled by this test or P1 source-only checks. Do not provision a PAT,
-   bypass stage gates or manufacture a host grant.
+   trusted-host preparation now supports *bounded* source-native two-file
+   patches under [standing preparation P1](STANDING_PREPARATION_AUTONOMY.md).
+   Its opaque one-use decisions still require a trusted current-session
+   stage decision, exact current-main policy, actor/source/fork checks and
+   fresh commit readback. Separate
+   [standing publication P1](STANDING_EXTERNAL_PR_PUBLICATION.md) authorizes
+   qualified third-party PRs without per-PR owner prompts. Neither mandate
+   follows from this assessment test, permits unreviewed arbitrary patches,
+   waives legal attestations or grants external merge rights.
 7. **Validate via a separate deterministic runner and return feedback.** Capture implemented diff and independently executed native tests
    (or `BLOCKED_INDEPENDENT_EXECUTION`), run URL, source/test pins, commands, logs, readback, partial/failed
    operations, owner interventions, external PR/review outcome where it
@@ -113,19 +117,22 @@ the strict single-candidate origin/fit/admission gates below.
    Preserve Index grades and historical assessment sources; any new
    assessment/reassessment is separately owned by Index/Skills.
 
-## Working fork creation route (not yet activated)
+## Working fork execution under the current P1 envelope
 
-A qualified Index-derived candidate that needs a new working fork should
-target the **`opensiro-contributions`** organization through the existing
-Control Plane, not default to a manually created personal fork. The
-[dedicated route](OPENSIRO_CONTRIBUTIONS_FORK_ROUTE.md) and
-[Upstream #28](https://github.com/opensiro/upstream/issues/28) own the
-native provider capability, exact-stage authority and branch-aware readback
-requirements. Current GitHub tools **cannot** create a fork; this stage
-remains `BLOCKED_CAPABILITY` and does not unblock a proposal or permit
-`prepare_contribution`. For nondefault contribution branches (such as
-HarnessDesk `development`), a copied `main` alone is not an acceptable
-working-fork verification.
+A qualified Index-derived candidate uses an authentic public direct fork in
+**`opensiro-contributions`**, not a personal or coincidentally named fork.
+The [working-fork pipeline](CONTINUOUS_WORKING_FORK_PIPELINE.md), [fork route](OPENSIRO_CONTRIBUTIONS_FORK_ROUTE.md)
+and [Upstream #28](https://github.com/opensiro/upstream/issues/28)
+own stage capability, exact authority and provider readback. The connected
+GitHub integration cannot generally create forks; the separately authenticated
+`dev-alpha-2` trusted-host route has demonstrated bounded source-native
+preparation, including [Revka's two-file fork-local PR #1](https://github.com/opensiro-contributions/Revka/pull/1).
+This does **not** imply arbitrary patch support or authorize retries after an
+unknown write. Verify current source/fork base SHA, direct parent, branch,
+native tests and trusted stage decision for *each* operation. Nondefault
+source branches such as HarnessDesk `development` must not be replaced with
+an unrelated fork `main`. Qualified external publication follows separate
+standing P1 checks; CLA/DCO, security-policy and maintainer gates remain.
 
 ## Offline Index-origin consistency gate (implemented)
 
