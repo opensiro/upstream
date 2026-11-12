@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-12-28",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "85ae995fc2551ac0a076609bce0300d075cac2d5",
+  "frozen_at": "2026-11-12",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Batch 28: five recently reviewed distinct included S1=A/S2=C canonical Index assessments, excluding original identities from prior 27 integrated batches and source-to-fork registry. Hypotheses plus explicit nulls committed aee29e7 before any fresh target code/policy/PR inspection. These are questions, not admitted defects or external PR grants.",
+  "candidates": [
+    {
+      "id": "manyhands-atomic-card-claim",
+      "assessment_path": "assessments/ma/manyhands.md",
+      "source": "mjoneill/manyhands",
+      "review_ref": "94010f1227d03152f6d745f7da2fd89ef06d0a96",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Check if two concurrently connected operational seats can both claim one pending board card due a split check/update operation.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ma/manyhands.md",
+        "https://github.com/opensiro/upstream/commit/aee29e79a4ec59ae0ba23903e50c6c0ec029ed92"
+      ],
+      "screening_result": "Pre-source hypothetical S2 disruption, current first-party source and policies uninspected.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "ylva-shared-retry-deadline",
+      "assessment_path": "assessments/yl/ylva.md",
+      "source": "manuel-koch/ylva",
+      "review_ref": "f1275d3dbb4e055798b53033f483e59d34c978d8",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Check if a later shorter Retry-After can replace a shared provider cooldown, allowing colliding concurrent loops to retry early.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/yl/ylva.md",
+        "https://github.com/opensiro/upstream/commit/aee29e79a4ec59ae0ba23903e50c6c0ec029ed92"
+      ],
+      "screening_result": "Pre-source hypothetical S2 disruption, current first-party source and policies uninspected.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "kandev-isolated-workspace-race",
+      "assessment_path": "assessments/ka/kandev.md",
+      "source": "kdlbs/kandev",
+      "review_ref": "a2e13dcf5584e3462ea995791e245177249a9845",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Check if two concurrent new_workspace creation requests can attach distinct child agents to one uninitialized or shared worktree.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ka/kandev.md",
+        "https://github.com/opensiro/upstream/commit/aee29e79a4ec59ae0ba23903e50c6c0ec029ed92"
+      ],
+      "screening_result": "Pre-source hypothetical S2 disruption, current first-party source and policies uninspected.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "agent-harness-kit-double-claim",
+      "assessment_path": "assessments/ag/agent-harness-kit.md",
+      "source": "enmanuelmag/agent-harness-kit",
+      "review_ref": "25edd77efd4e046bfc8fd232c406759f2b48caef",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Check if two concurrent tasks.claim MCP calls can both succeed on the same pending task despite a transactional claim contract.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ag/agent-harness-kit.md",
+        "https://github.com/opensiro/upstream/commit/aee29e79a4ec59ae0ba23903e50c6c0ec029ed92"
+      ],
+      "screening_result": "Pre-source hypothetical S2 disruption, current first-party source and policies uninspected.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "snow-core-mutation-gate-liveness",
+      "assessment_path": "assessments/sn/snow.md",
+      "source": "elmissouri16/snow-core",
+      "review_ref": "631586d013897a85c0c1f79830204af7822e60b0",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Check whether native failure or panic during rootedMutationGate ownership leaves the process-wide mutation gate unavailable to later supported writes.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/sn/snow.md",
+        "https://github.com/opensiro/upstream/commit/aee29e79a4ec59ae0ba23903e50c6c0ec029ed92"
+      ],
+      "screening_result": "Pre-source hypothetical S2 disruption, current first-party source and policies uninspected.",
+      "external_action": "NOT_EXECUTED"
+    }
+  ]
+}
