@@ -29,8 +29,8 @@
       "source": "witt3rd/oh-my-hermes",
       "candidate_id": "oh-my-hermes-crossprocess-lock",
       "source_sha": "3b06e33ae67b202b342989b484f08143e65e250d",
-      "patch_path": "pilots/omh-stale-lock-s2/native-fix.patch",
-      "patch_sha256": "3195879df9cca44921c4e8b859bd7fe0f996a923f4c006222afbfa94d6a8a1d2",
+      "patch_path": "pilots/omh-stale-lock-s2/native-contribution.patch",
+      "patch_sha256": "7510b3a3c6e0fc1e476490848f12cb5225101414e4f479a71031d843e3017e9e",
       "receipt": "reports/2026-11-12-omh-stale-lock-native-replay.md"
     }
   ]

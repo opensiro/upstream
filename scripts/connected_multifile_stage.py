@@ -24,6 +24,9 @@ PY_SOURCE = re.compile(r"^(?:src/[a-zA-Z0-9_-]+/|scientific_agent/)[a-zA-Z0-9_./
 PY_TEST = re.compile(r"^tests/(?:[a-zA-Z0-9_./-]+/)?test_[a-zA-Z0-9_-]+\.py$")
 OPERATOR_PY_SOURCE = re.compile(r"^operator-mcp/operator_mcp/workflow/[a-zA-Z0-9_]+\.py$")
 OPERATOR_PY_TEST = re.compile(r"^operator-mcp/tests/test_[a-zA-Z0-9_]+\.py$")
+# Exact first-party OMH plugin pair; do not admit arbitrary plugin paths.
+OMH_PY_SOURCE = re.compile(r"^plugins/omh/omh_state\.py$")
+OMH_PY_TEST = re.compile(r"^plugins/omh/tests/test_state\.py$")
 DIFF = re.compile(r"^diff --git a/([^\n]+) b/([^\n]+)$", re.M)
 STAGE = "prepare_contribution"
 FIELDS = {"working_repo", "source_branch", "source_sha", "base_branch",
@@ -61,7 +64,8 @@ def classified_paths(paths):
     need(len(set(paths)) == 2, "Duplicate native path")
     for source_rule, test_rule in ((TS_SOURCE, TS_TEST),
                                    (PY_SOURCE, PY_TEST),
-                                   (OPERATOR_PY_SOURCE, OPERATOR_PY_TEST)):
+                                   (OPERATOR_PY_SOURCE, OPERATOR_PY_TEST),
+                                   (OMH_PY_SOURCE, OMH_PY_TEST)):
         sources = [p for p in paths if source_rule.fullmatch(p)]
         tests = [p for p in paths if test_rule.fullmatch(p)]
         if len(sources) == len(tests) == 1:
@@ -97,7 +101,8 @@ def _validate(action):
     need(type(preimages) is dict
          and set(preimages) in ({prod}, {prod, test})
          and (test not in preimages or PY_TEST.fullmatch(test)
-              or OPERATOR_PY_TEST.fullmatch(test))
+              or OPERATOR_PY_TEST.fullmatch(test)
+              or OMH_PY_TEST.fullmatch(test))
          and type(action["postimage_sha256"]) is dict
          and set(action["postimage_sha256"]) == set(action["changed_paths"])
          and all(type(v) is str and DIGEST.fullmatch(v)

@@ -520,5 +520,51 @@ class TestOperatorMcpNativePair(unittest.TestCase):
                     classified_paths([self.SRC, test])
 
 
+
+class TestOhMyHermesNativePair(unittest.TestCase):
+    SRC = "plugins/omh/omh_state.py"
+    TEST = "plugins/omh/tests/test_state.py"
+
+    def test_only_first_party_omh_plugin_pair_is_admitted(self):
+        from connected_multifile_stage import classified_paths
+        self.assertEqual(classified_paths([self.SRC, self.TEST]), (self.SRC, self.TEST))
+        self.assertEqual(classified_paths([self.TEST, self.SRC]), (self.SRC, self.TEST))
+
+    def test_exact_reviewed_combined_native_packet_is_valid(self):
+        from connected_multifile_stage import _validate
+        p = ROOT / "pilots/omh-stale-lock-s2/native-contribution.patch"
+        patch = p.read_text()
+        self.assertEqual(
+            digest(patch),
+            "7510b3a3c6e0fc1e476490848f12cb5225101414e4f479a71031d843e3017e9e",
+        )
+        candidate = action()
+        candidate.update({
+            "working_repo": "opensiro-contributions/oh-my-hermes",
+            "source_branch": "master", "base_branch": "master",
+            "new_branch": "opensiro/fix-omh-stale-lock-reclaim",
+            "patch_text": patch, "patch_sha256": digest(patch),
+            "changed_paths": [self.SRC, self.TEST],
+            "preimage_sha256": {self.SRC: "1" * 64, self.TEST: "2" * 64},
+            "postimage_sha256": {self.SRC: "3" * 64, self.TEST: "4" * 64},
+        })
+        _validate(candidate)
+
+    def test_cross_module_and_unsafe_plugin_paths_rejected(self):
+        from connected_multifile_stage import classified_paths
+        examples = (
+            ["plugins/omh/omh_state.py", "plugins/omh/tests/test_delegate.py"],
+            ["plugins/omh/omh_delegate.py", "plugins/omh/tests/test_state.py"],
+            ["plugins/omh/omh_state.py", "tests/test_state.py"],
+            ["plugins/other/omh_state.py", "plugins/omh/tests/test_state.py"],
+            ["plugins/omh/omh_state.py", "plugins/omh/tests/../tests/test_state.py"],
+            ["plugins/omh/omh_state.py", "plugins/omh/tests/helper.py"],
+        )
+        for paths in examples:
+            with self.subTest(paths=paths):
+                with self.assertRaises(StageBlocked):
+                    classified_paths(paths)
+
+
 if __name__ == "__main__":
     unittest.main()

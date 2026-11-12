@@ -1,0 +1,112 @@
+diff --git a/plugins/omh/omh_state.py b/plugins/omh/omh_state.py
+index d00a16d..0279759 100644
+--- a/plugins/omh/omh_state.py
++++ b/plugins/omh/omh_state.py
+@@ -15,6 +15,7 @@ import json
+ import logging
+ import os
+ import re
++import sqlite3
+ import stat
+ import time
+ import uuid
+@@ -453,14 +454,14 @@ def state_lock_acquire(mode: str, lock_key: str, session_id: str | None = None,
+             existing = _read_lock(path)
+             held_pid = int(existing.get("pid") or 0)
+             if held_pid and not _pid_alive(held_pid):
+-                # Stale lock — remove and retry once.
+-                logger.warning("Removing stale lock %s (pid=%d not alive)", path, held_pid)
++                # A second reclaimer may replace this path after our first read.
+                 try:
+-                    path.unlink()
+-                except FileNotFoundError:
+-                    pass
+-                if attempt == 0:
++                    reclaimed = _reclaim_stale_lock(path)
++                except (OSError, sqlite3.Error) as exc:
++                    return {"acquired": False, "error": str(exc), "path": str(path)}
++                if reclaimed and attempt == 0:
+                     continue
++                existing = _read_lock(path)
+             return {
+                 "acquired": False,
+                 "held_by": existing,
+@@ -484,6 +485,28 @@ def state_lock_acquire(mode: str, lock_key: str, session_id: str | None = None,
+     return {"acquired": False, "path": str(path), "error": "lock acquire exhausted retries"}
+ 
+ 
++def _reclaim_stale_lock(path: Path) -> bool:
++    """Recheck a dead holder under an interprocess guard before unlinking.
++
++    The lock file itself is replaced with O_EXCL, so it cannot serve as a
++    stable mutex for stale-file removal. A sibling SQLite write transaction
++    serializes reclaimers without changing the ordinary uncontended path.
++    """
++    guard = path.parent / ".omh-lock-reclaim.sqlite3"
++    conn = sqlite3.connect(str(guard), timeout=5.0)
++    try:
++        conn.execute("BEGIN IMMEDIATE")
++        current = _read_lock(path)
++        pid = int(current.get("pid") or 0)
++        if not pid or _pid_alive(pid):
++            return False
++        logger.warning("Removing stale lock %s (pid=%d not alive)", path, pid)
++        path.unlink(missing_ok=True)
++        return True
++    finally:
++        conn.close()
++
++
+ def _read_lock(path: Path) -> dict:
+     try:
+         return json.loads(path.read_text(encoding="utf-8"))
+diff --git a/plugins/omh/tests/test_state.py b/plugins/omh/tests/test_state.py
+index f82da18..a305498 100644
+--- a/plugins/omh/tests/test_state.py
++++ b/plugins/omh/tests/test_state.py
+@@ -858,3 +858,45 @@ def test_handler_list_instances():
+     out = json.loads(omh_state_handler({"action": "list_instances", "mode": "ralph"}))
+     ids = {i["instance_id"] for i in out["instances"]}
+     assert ids == {"p1", "p2"}
++
++
++def test_concurrent_stale_reclaim_does_not_remove_new_holder(monkeypatch):
++    """Two reclaimers must never both acquire after inspecting the same stale PID."""
++    import threading
++    import plugins.omh.omh_state as mod
++
++    stale_pid = 999_999_991
++    path = mod._lock_path("ralph", "stale-reclaim-race")
++    path.write_text(json.dumps({"pid": stale_pid, "session_id": "stale"}))
++    b_checked_stale = threading.Event()
++    let_b_continue = threading.Event()
++    real_pid_alive = mod._pid_alive
++
++    def coordinated_pid_alive(pid):
++        if pid == stale_pid:
++            if threading.current_thread().name == "claim-B":
++                b_checked_stale.set()
++                assert let_b_continue.wait(timeout=5), "timed out after stale read"
++            return False
++        return real_pid_alive(pid)
++
++    monkeypatch.setattr(mod, "_pid_alive", coordinated_pid_alive)
++    results = {}
++
++    def acquire(name):
++        results[name] = mod.state_lock_acquire("ralph", "stale-reclaim-race", session_id=name)
++
++    b = threading.Thread(target=acquire, name="claim-B", args=("B",))
++    a = threading.Thread(target=acquire, name="claim-A", args=("A",))
++    b.start()
++    assert b_checked_stale.wait(2), "B never observed the old stale lock"
++    a.start()
++    a.join(timeout=0.3)
++    let_b_continue.set()
++    a.join(timeout=4)
++    b.join(timeout=4)
++    assert not a.is_alive() and not b.is_alive()
++    assert set(results) == {"A", "B"}
++    winners = [name for name, result in results.items() if result["acquired"]]
++    assert len(winners) == 1, f"two sessions acquired the same lock: {results}"
++    assert mod.state_lock_check("ralph", "stale-reclaim-race")["holder"]["session_id"] == winners[0]

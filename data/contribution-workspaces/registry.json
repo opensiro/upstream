@@ -4909,16 +4909,20 @@
           "stage": "AWAITING_EXTERNAL",
           "origin": "ASSESSMENT_DERIVED",
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/omh-stale-lock-s2/CONTRIBUTION_HANDOFF.md",
-          "patch_path": "pilots/omh-stale-lock-s2/native-fix.patch",
-          "patch_sha256": "3195879df9cca44921c4e8b859bd7fe0f996a923f4c006222afbfa94d6a8a1d2",
+          "patch_path": "pilots/omh-stale-lock-s2/native-contribution.patch",
+          "patch_sha256": "7510b3a3c6e0fc1e476490848f12cb5225101414e4f479a71031d843e3017e9e",
           "test_patch_path": "pilots/omh-stale-lock-s2/native-regression.patch",
           "technical_packet": {
             "state": "EXPLICIT_PATCH_HASH_MATCHED",
             "pilot": {
               "directory": "pilots/omh-stale-lock-s2",
-              "files": 3,
-              "content_sha256": "6050e6c5c4c4e42eb17ec00d07a08568e168039837e607e10b06b904e8f4f8a7",
+              "files": 4,
+              "content_sha256": "3e9cb74f2f151b7c1870cc487ab6fe1ee21940f8e6e26873c34bb056c6e745f0",
               "patch_candidates": [
+                {
+                  "path": "pilots/omh-stale-lock-s2/native-contribution.patch",
+                  "sha256": "7510b3a3c6e0fc1e476490848f12cb5225101414e4f479a71031d843e3017e9e"
+                },
                 {
                   "path": "pilots/omh-stale-lock-s2/native-fix.patch",
                   "sha256": "3195879df9cca44921c4e8b859bd7fe0f996a923f4c006222afbfa94d6a8a1d2"
@@ -4930,8 +4934,8 @@
               ]
             },
             "explicit_patch": {
-              "path": "pilots/omh-stale-lock-s2/native-fix.patch",
-              "sha256": "3195879df9cca44921c4e8b859bd7fe0f996a923f4c006222afbfa94d6a8a1d2"
+              "path": "pilots/omh-stale-lock-s2/native-contribution.patch",
+              "sha256": "7510b3a3c6e0fc1e476490848f12cb5225101414e4f479a71031d843e3017e9e"
             },
             "explicit_test_patch": {
               "path": "pilots/omh-stale-lock-s2/native-regression.patch",

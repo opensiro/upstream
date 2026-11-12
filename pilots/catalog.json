@@ -5,7 +5,7 @@
   "generated_from": "pilots/ direct subdirectories and their preserved files",
   "counts": {
     "pilot_directories": 76,
-    "artifact_files": 247,
+    "artifact_files": 248,
     "historical_directories": 66,
     "new_directories": 10,
     "by_kind": {
@@ -728,11 +728,12 @@
       "kind": "PATCH_HANDOFF",
       "start_here": "pilots/omh-stale-lock-s2/CONTRIBUTION_HANDOFF.md",
       "artifact_counts": {
-        "patch": 2,
+        "patch": 3,
         "handoff": 1
       },
       "files": [
         "CONTRIBUTION_HANDOFF.md",
+        "native-contribution.patch",
         "native-fix.patch",
         "native-regression.patch"
       ]
