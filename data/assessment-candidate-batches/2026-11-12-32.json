@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-12-32",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "85ae995fc2551ac0a076609bce0300d075cac2d5",
+  "frozen_at": "2026-11-12",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Five newest available source-disjoint included S1=A/S2=C canonical Index originals at SHA 85ae995f after excluding 31 integrated cohorts and source-to-fork workspace identities. S2 falsifiable native risks and null controls publicly preregistered as commit 98b08b3 before current original code/policy/issues inspection. Every source starts SCREENING, not a proven defect.",
+  "candidates": [
+    {
+      "id": "ucode-worker-effect-lock-tail",
+      "assessment_path": "assessments/uc/ucode.md",
+      "source": "sppideey/ucode-agent",
+      "review_ref": "be41840d1219ea45490ac8c61ba84fa48d3119a6",
+      "reviewed_at": "2026-10-24",
+      "function": "S2",
+      "finding": "Can a failed first-party file/command tool leave a permanently rejected shared Promise lock tail and prevent the next worker's legitimate write?",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/uc/ucode.md",
+        "https://github.com/opensiro/upstream/commit/98b08b346cd36d92903fbefde821018a3af6e1f0",
+        "https://github.com/sppideey/ucode-agent/blob/252f6d645c0c8ae303881018f59d64d40de3a6df/src/core/loop.js",
+        "https://github.com/sppideey/ucode-agent/blob/252f6d645c0c8ae303881018f59d64d40de3a6df/CONTRIBUTING.md"
+      ],
+      "screening_result": "Current original sppideey/ucode-agent main@252f6d645c0c8ae303881018f59d64d40de3a6df (AGPL-3.0 with additional NOTICE/attribution terms) differs from assessed be41840. First-party src/core/loop.js Agent.fileLock(fn) uses (this.lockChain ?? Promise.resolve()).then(fn,fn) and records this.lockChain=run.catch(()=>{}), so the next holder remains admissible even if previous fn rejects. Shared FILE_WRITES/run_command worker effects use that lock. Contradicts predicted permanently rejected Promise-tail starvation; no native failure or derivative patch. Original CONTRIBUTING requires personal DCO Signed-off-by per commit and MIT contributor grant, beyond current agent authority.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "ownpilot-stale-crew-task-claim",
+      "assessment_path": "assessments/ow/ownpilot.md",
+      "source": "ownpilot/OwnPilot",
+      "review_ref": "eb4c27f29d4d12778621a83e49cd673cd8b62239",
+      "reviewed_at": "2026-10-24",
+      "function": "S2",
+      "finding": "Can a worker task claim survive a failed/cancelled owner without a supported requeue/reclamation path, or two workers both win?",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ow/ownpilot.md",
+        "https://github.com/opensiro/upstream/commit/98b08b346cd36d92903fbefde821018a3af6e1f0",
+        "https://github.com/ownpilot/OwnPilot/blob/eb4c27f29d4d12778621a83e49cd673cd8b62239/packages/gateway/src/db/repositories/crew/tasks.ts",
+        "https://github.com/ownpilot/OwnPilot/blob/eb4c27f29d4d12778621a83e49cd673cd8b62239/AGENTS.md"
+      ],
+      "screening_result": "Current original ownpilot/OwnPilot main@eb4c27f29d4d12778621a83e49cd673cd8b62239 matches assessed pin, MIT. First-party packages/gateway/src/db/repositories/crew/tasks.ts claim WHERE status='pending'; claimHighestPriority uses UPDATE ... WHERE id=(SELECT ... FOR UPDATE SKIP LOCKED), and complete/fail require claimed_by=agentId. This protects duplicate concurrent ownership. Whether a crashed/abandoned owner permanently strands a claim was not verified against the actual crew lifecycle or first-party Postgres test. No native RED/GREEN or patch; AGENTS requires pnpm test and more extensive integration controls.",
+      "external_action": "NOT_EXECUTED",
+      "blocker": "Single-winner atomic task claim is guarded in first-party PostgreSQL. No source-native supported crash/reclamation fixture or explicit automatic orphan-claim recovery contract was reproduced or demonstrated. Cannot assume in_progress rows left by sudden worker termination must be automatically requeued without changing product semantics or maintainer acceptance."
+    },
+    {
+      "id": "codewhip-small-budget-delegates",
+      "assessment_path": "assessments/co/codewhip.md",
+      "source": "hasitpbhatt/codewhip",
+      "review_ref": "be51da68db85096e9fa0455777e3ed89985df756",
+      "reviewed_at": "2026-10-24",
+      "function": "S2",
+      "finding": "Can rounding tiny but valid parent token budgets produce zero or overcommitted child quotas while violating the promised parent reserve?",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/co/codewhip.md",
+        "https://github.com/opensiro/upstream/commit/98b08b346cd36d92903fbefde821018a3af6e1f0",
+        "https://github.com/hasitpbhatt/codewhip/blob/80b4dbbfd80fecf6ebca924179a8f41d931d1f54/src/budget.ts",
+        "https://github.com/hasitpbhatt/codewhip/blob/80b4dbbfd80fecf6ebca924179a8f41d931d1f54/src/tools/delegate_many.ts"
+      ],
+      "screening_result": "Current original hasitpbhatt/codewhip main@80b4dbbfd80fecf6ebca924179a8f41d931d1f54 (MIT) differs from assessed be51da. src/budget.ts deliberately floors 85%-child pool and each child share without Math.max(1) clamp; remaining tokens form coordinator reserve. src/tools/delegate_many.ts filters allocated==0 children and returns a bounded no-budget error if no child can run, explicitly explaining why old min1 allocation overcommitted. Predicted tiny-parent-budget over-allocation/reckless zero-child execution is already prevented by design. No live model or new native tests run; no patch.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "phone-harness-child-spawn-lock-release",
+      "assessment_path": "assessments/ph/phone-harness.md",
+      "source": "ShawnPana/phone-harness",
+      "review_ref": "a80f8845e125269545bbf462967fe7b620691422",
+      "reviewed_at": "2026-10-24",
+      "function": "S2",
+      "finding": "Does a supported failed phone_exec subprocess spawn strand the process-wide device lock and leave later subagents blocked?",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ph/phone-harness.md",
+        "https://github.com/opensiro/upstream/commit/98b08b346cd36d92903fbefde821018a3af6e1f0",
+        "https://github.com/ShawnPana/phone-harness/blob/4bebff105af853215fb74c958c2c5e78bc275be2/integrations/hermes/__init__.py"
+      ],
+      "screening_result": "Current original ShawnPana/phone-harness main@4bebff105af853215fb74c958c2c5e78bc275be2 (MIT), changed from assessed a80f884. First-party integrations/hermes/__init__.py @contextlib.contextmanager _phone_lock acquires process-wide threading.Lock and releases via finally. phone_exec executes subprocess.Popen and communicate inside with _phone_lock; timeout/launch OSError and PhoneBusy responses are handled outside the context and do not strand it. Predicted failure to release on supported subprocess launch error is contradicted by current code, no phone interaction or patch performed.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "yottacode-dispatch-partition-alias",
+      "assessment_path": "assessments/yo/yottacode.md",
+      "source": "yottadynamics/yottacode",
+      "review_ref": "11ffd5884a2827636d54b14c0d60d53c9c93c5d8",
+      "reviewed_at": "2026-10-23",
+      "function": "S2",
+      "finding": "Can two aliased spellings of the same allowed file evade first-party dispatch file partition overlap admission?",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/yo/yottacode.md",
+        "https://github.com/opensiro/upstream/commit/98b08b346cd36d92903fbefde821018a3af6e1f0",
+        "https://github.com/yottadynamics/yottacode/blob/d8e6289317ee3d24249022e90d21145238fa8694/internal/agent/dispatch_tool.go",
+        "https://github.com/yottadynamics/yottacode/blob/d8e6289317ee3d24249022e90d21145238fa8694/internal/agent/dispatch_tool_test.go",
+        "https://github.com/yottadynamics/yottacode/blob/d8e6289317ee3d24249022e90d21145238fa8694/SECURITY.md"
+      ],
+      "screening_result": "Current original yottadynamics/yottacode main@d8e6289317ee3d24249022e90d21145238fa8694 (MIT), drifted from Index pin. First-party internal/agent/dispatch_tool.go validateWritePartition compares filepath.Clean path scopes, parent/child overlap, active registry claims, and case-awareness flag; native dispatch_tool_test.go covers ./ aliases, directory overlap, root rejection, case-only collisions. Write-time internal/agent/writepath.go resolves parent symlinks (unless explicitly --allow-symlinks) and checks owned scopes. No matched alias bypass was executed; Go toolchain unavailable on host and SECURITY.md requires private vulnerability reporting. No derivative code/external PR.",
+      "external_action": "NOT_EXECUTED",
+      "blocker": "First-party validateWritePartition already normalizes lexical aliases with filepath.Clean and includes running-task claims, with tests for dot prefix, directory overlaps and case-sensitive/insensitive paths. Potential symlink/path ownership issues are not source-native reproduced and belong to original private SECURITY.md disclosure route; no public security patch/issue/PR without verified source-native evidence and private intake."
+    }
+  ]
+}

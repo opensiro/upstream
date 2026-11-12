@@ -3,17 +3,17 @@
   "state": "READ_ONLY_PROPOSAL_NOT_APPROVED",
   "destination_org": "opensiro-contributions",
   "source_registry": "data/contribution-workspaces/registry.json",
-  "source_registry_sha256": "702212ea81119bcbaee840e38fab90f15a518bf7a49718051be2a8d64cfbdb45",
+  "source_registry_sha256": "f907419085d24497caa12d47e5c7cb2c7e52a4f022f035fcac430e6ca0d7abf9",
   "priority_snapshot": "data/fork-priorities/2026-11-08.json",
   "batch_size_max": 10,
   "counts": {
-    "sources": 234,
+    "sources": 239,
     "priority_sources": 100,
-    "additive_extras": 134,
+    "additive_extras": 139,
     "collision_name_proposals": 11,
     "creation_batches": 9,
     "by_state": {
-      "HOLD_HISTORICAL_OR_NEGATIVE_CASE": 128,
+      "HOLD_HISTORICAL_OR_NEGATIVE_CASE": 133,
       "HOLD_LICENSE_REVIEW": 5,
       "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT": 83,
       "RECHECK_MAPPED_FORK": 18
@@ -35,7 +35,7 @@
     {
       "id": "bootstrap-001",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "4f4c4290fe7be012869465c76d16a26dd7b22441c6b1f5a669a8bc01ebd439ff",
+      "selection_sha256": "2d6877bb1ae5b7ae3fdb506e5fe0ec3ec4dfaac88c3e3b921deb3a3f868049b8",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -84,7 +84,7 @@
     {
       "id": "bootstrap-002",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "74f18ccbcb5b810e444ecd5ed430c7b72980d63cdcba28f779a3a7d9a6f6f444",
+      "selection_sha256": "f5e2b6f54c49a272f48993f05386475919706b61417a3400a64ac497121b5b93",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -133,7 +133,7 @@
     {
       "id": "bootstrap-003",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "3350de1449f0327e4a2ae4f355c6ed953b78a25b61a93fc3404de189d26f59b0",
+      "selection_sha256": "25edd234af96ebea07b32df34443aff2e6c81c3b809935e745ee837b86242a0f",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -182,7 +182,7 @@
     {
       "id": "bootstrap-004",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "18c8dae6a01419532eea75bc6a1611507c263a883759ddd0057e87a055b52c3d",
+      "selection_sha256": "47f2088294732e39ae7428f849b603dbe6ae94be1fc0652dcd528f0ba964ad5f",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -231,7 +231,7 @@
     {
       "id": "bootstrap-005",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "b55cb9ebb16c4dbea6dc2db93c2a1a8e868299e8e7af3c4c8f117b6a08c6ac10",
+      "selection_sha256": "3f23f0ec1fba9caf366bc5affb5be27b16c34223d081d9d3c726cbb0f29fbc10",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -280,7 +280,7 @@
     {
       "id": "bootstrap-006",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "673ce1086da0869a588fabac8ecea1de30f6ab523b6fef6c3a5d9e769a5a5a90",
+      "selection_sha256": "f2cab8897abb80c6218761c9f911d48bd007e3bdbd2d2e6cc062dc3181ef5c17",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -329,7 +329,7 @@
     {
       "id": "bootstrap-007",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "73751210be0d21d6bd521f870d0970813385bff1d322f2df900d46dc776f0063",
+      "selection_sha256": "263d2eac68d41f488e7c26ffb780a533fbf0aa24e0ce125095dae8540968a30c",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -378,7 +378,7 @@
     {
       "id": "bootstrap-008",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "7fe93295956dbac51e236b3875971ce74bfa80bae605fb52218551f803babca1",
+      "selection_sha256": "e6f71f0b1464ab02fd70d634e1e310019b3c7fb876f7bfa64985d90f43eb8309",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -427,7 +427,7 @@
     {
       "id": "bootstrap-009",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "bc81e0a772278a19f2572e3fcde1c8ac934aa660f2bb1428f9ce73161bfe2533",
+      "selection_sha256": "f3d6a8f7616a7452e3cf74f8fea3427ab0ed74265bca27f45e2444847cda9bbd",
       "source_count": 3,
       "has_collision_name_proposals": false,
       "selection": [
@@ -2109,6 +2109,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "hasitpbhatt/codewhip",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/codewhip",
+      "candidate_name": "codewhip",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "howl-anderson/agentsilex",
       "priority_group": "PILOT_EXTRA",
       "next_step": "RECONCILE_NATIVE_PILOT_BEFORE_FORK_STAGE",
@@ -2527,6 +2538,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "ownpilot/OwnPilot",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/OwnPilot",
+      "candidate_name": "OwnPilot",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "patriceckhart/zot",
       "priority_group": "PILOT_EXTRA",
       "next_step": "RECONCILE_NATIVE_PILOT_BEFORE_FORK_STAGE",
@@ -2692,6 +2714,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "ShawnPana/phone-harness",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/phone-harness",
+      "candidate_name": "phone-harness",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "shep-ai/shep",
       "priority_group": "PORTFOLIO_EXTRA",
       "next_step": "HISTORICAL_PR_TRACK_ONLY_NO_NEW_PUBLICATION",
@@ -2776,6 +2809,17 @@
       "candidate_name": "friday",
       "collision_name_proposal": false,
       "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "sppideey/ucode-agent",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/ucode-agent",
+      "candidate_name": "ucode-agent",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
@@ -2985,6 +3029,17 @@
       "candidate_name": "yoagent",
       "collision_name_proposal": false,
       "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "yottadynamics/yottacode",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/yottacode",
+      "candidate_name": "yottacode",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
     },

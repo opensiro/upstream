@@ -4,13 +4,13 @@
   "batch_sources": "data/assessment-candidate-batches/*.json",
   "counts": {
     "priority_sources": 100,
-    "historical_extras": 134,
-    "batch_only_extras": 119,
+    "historical_extras": 139,
+    "batch_only_extras": 124,
     "pilot_only_extras": 7,
     "portfolio_only_extras": 8,
-    "unique_sources": 234,
-    "batch_manifests": 31,
-    "batch_cases": 175,
+    "unique_sources": 239,
+    "batch_manifests": 32,
+    "batch_cases": 180,
     "historical_fork_mappings": 16,
     "name_collision_sources": 11,
     "technical_handoffs": 55,
@@ -2172,6 +2172,23 @@
       "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
     },
     {
+      "source": "hasitpbhatt/codewhip",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-32.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/codewhip",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
       "source": "henrik-me/agent-harness",
       "priority_group": "PREPARED_PACKET",
       "batches": [
@@ -3874,6 +3891,23 @@
       "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
     },
     {
+      "source": "ownpilot/OwnPilot",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-32.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/OwnPilot",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
       "source": "paperclipai/paperclip",
       "priority_group": "INDEX_HYPOTHESIS",
       "batches": [],
@@ -4581,6 +4615,23 @@
       "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
     },
     {
+      "source": "ShawnPana/phone-harness",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-32.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/phone-harness",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
       "source": "shep-ai/shep",
       "priority_group": "PORTFOLIO_EXTRA",
       "batches": [],
@@ -4802,6 +4853,23 @@
       "proposed_fork": "opensiro-contributions/friday",
       "license_review": false,
       "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "sppideey/ucode-agent",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-32.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/ucode-agent",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
       "source": "stablyai/orca",
@@ -5484,6 +5552,23 @@
       "proposed_fork": "opensiro-contributions/yoagent",
       "license_review": false,
       "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "yottadynamics/yottacode",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-32.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/yottacode",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
     },
     {
       "source": "zenodea/zaino",
