@@ -1,12 +1,13 @@
 # Functional effects — evidence ledger
 
-**Evidence date:** 2026-10-22. **Owner:** `opensiro/upstream`.
+**Evidence date:** 2026-11-12. **Owner:** `opensiro/upstream`.
 This is **not** the eight-intervention PR acceptance dashboard, the Organization-owned product-native fit snapshot, or a VSM S2 regrade.
 Source-only matched tests and a green CI run cannot be counted as an improvement deployed to users.
 **Binding test policy:** [native scripted tests only](ASSESSMENT_TO_IMPROVEMENT.md#mandatory-validation-boundary--native-scripted-tests-only). Pinned product-code before/after scripts and regressions can establish a bounded technical effect; live LLM agents and model API evaluations are not required or in scope.
 
 | Pilot | Origin | Before | After | Evidence level | Product benefit | External delivery |
 | --- | --- | --- | --- | --- | --- | --- |
+| [Friday](https://github.com/opensiro/upstream/issues/56) | `ASSESSMENT_DERIVED_HYPOTHESIS` | On pinned Friday source, the two corrected native path-alias custody regressions both returned no holder for an equivalently named owned file (0/2 PASS). | On the same source plus the scoped normalization fix, both alias regressions passed (2/2); the combined native controls passed 12/12 and TypeScript typecheck passed. External PR #23 was merged by the original maintainer. | `NATIVE_TOOL_BEHAVIOR` | `NOT_MEASURED` | `MERGED` |
 | [Kram](https://github.com/opensiro/upstream/issues/56) | `ASSESSMENT_DERIVED_HYPOTHESIS` | Pinned native edit_file lost one distinct same-file edit in 50/50 trials; shared-registry delegate_task replay lost 29/30. | Local per-file guarded edit_file preserved both in 50/50 native trials and 30/30 delegated-registry replays; disjoint-file control 50/50. | `NATIVE_TOOL_BEHAVIOR` | `NOT_MEASURED` | `NONE` |
 | [Zot](https://github.com/opensiro/upstream/issues/56) | `ASSESSMENT_DERIVED_HYPOTHESIS` | Controlled two-worker shared-file schedule: 1/2 intended updates preserved; both reported done, no conflict feedback. | Opt-in file-scope wrapper: 2/2 updates preserved after explicit retry; 1 conflicting admission refused; disjoint declared workers remained concurrent. | `SOURCE_ONLY_MECHANISM` | `NOT_MEASURED` | `NONE` |
 | [AgentBox](https://github.com/opensiro/upstream/issues/61) | `ASSESSMENT_DERIVED_HYPOTHESIS` | Native CLI preflight/assignment accepted T-1, T-2 and T-3 as three separate box allocation requests against a stubbed Hub API. | Opt-in planner recommended [T-1,T-2] and [T-3] using explicitly supplied write intent; 20/20 new native Vitest checks passed. | `SOURCE_ONLY_PLANNING` | `NOT_MEASURED` | `NONE` |
@@ -15,6 +16,12 @@ Source-only matched tests and a green CI run cannot be counted as an improvement
 | [HarnessDesk](https://github.com/opensiro/upstream/pull/55) | `ASSESSMENT_INFORMED` | First-party issue #1772 reports second-host socket takeover; original gateway source unlinks the socket without host ownership. | V2 gateway-ownership patch passed source-pinned native gateway regressions and full check:push; no deployed end-user result measured. | `SOURCE_REGRESSION_ONLY` | `NOT_MEASURED` | `NONE` |
 
 ## Reproducibility and next gate
+
+### Friday — `friday-s2-file-custody-alias`
+
+- **Comparability:** The Index S2 file-custody hypothesis was committed before fresh Friday source inspection (OpenSiro 0fbad73f); matched corrected test fixture and pinned Friday main@079c5af5 were independently executed on dev-alpha-2. An earlier incomplete test fixture was reported and corrected before the matched RED/GREEN comparison. Merge/readback is a later external GitHub observation, not the same test run. No deployment or user workload was measured.
+- **Next gate:** Native S2 coordination correctness and original maintainer merger are source-backed; monitor delivery and actual user impact separately. Do not infer a deployed product benefit, new VSM grade or independent S1 autonomy.
+- **Receipts:** [1](https://github.com/opensiro/upstream/commit/0fbad73f3e11b36a55d46ff3f1ae5ec1f4678b51), [2](https://github.com/opensiro/upstream/blob/main/pilots/friday-s2/INDEPENDENT_HOST_RECEIPT_2026-11-09.md), [3](https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/fr/friday.md), [4](https://github.com/splashxmoon/friday/pull/23), [5](https://github.com/splashxmoon/friday/commit/9cdbe26b6e4cb61f88c1fe6e9a6dda503a3b6cb6)
 
 ### Kram — `kram-s2-native-edit-atomicity`
 

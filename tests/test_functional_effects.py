@@ -27,6 +27,18 @@ class FunctionalEffectsTest(unittest.TestCase):
             (DATA.parent.parent / "docs" / "FUNCTIONAL_EFFECTS.md").read_text(encoding="utf-8"),
         )
 
+    def test_friday_is_derived_native_effect_with_verified_merge_not_user_benefit(self):
+        payload = load_and_validate()
+        friday = next(case for case in payload['cases'] if case['id'] == 'friday-s2-file-custody-alias')
+        self.assertEqual(friday['origin'], 'ASSESSMENT_DERIVED_HYPOTHESIS')
+        self.assertEqual(friday['measurement_level'], 'NATIVE_TOOL_BEHAVIOR')
+        self.assertEqual(friday['external_delivery'], 'MERGED')
+        self.assertEqual(friday['product_benefit'], 'NOT_MEASURED')
+        self.assertIn('0/2 PASS', friday['before'])
+        self.assertIn('12/12', friday['after'])
+        self.assertIn('https://github.com/splashxmoon/friday/pull/23', friday['receipts'])
+        self.assertTrue(any('0fbad73f' in url for url in friday['receipts']))
+
     def test_rejects_duplicate_case_and_unverified_promotion(self):
         payload = load_and_validate()
         for variant in ("duplicate", "promotion", "url"):
