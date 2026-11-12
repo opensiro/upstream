@@ -106,6 +106,32 @@ The tests assert merged/open/registry source exclusions, case aliases, missing
 Index pin, dirty checkout, insufficient cohort and loss of GitHub visibility,
 without calling any external provider.
 
+## Required CI: offline globally distinct merged cohorts
+
+`scripts/assessment_batch_disjointness.py` verifies every tracked
+`data/assessment-candidate-batches/YYYY-MM-DD-NN.json` manifest in the
+checked-out Git tree. It checks existing manifest schemas, exact filenames,
+batch IDs, and **casefold source uniqueness across all merged/proposed
+manifests visible in that checkout**. The existing unfiltered required
+`repository-integrity` workflow runs this as its own inexpensive offline
+step (and the unit suite tests the same invariant), with no extra workflow.
+
+```bash
+python3 scripts/assessment_batch_disjointness.py
+```
+
+A proposed PR merge checkout containing both already-merged batch 28 and an
+overlapping competing batch would fail with `BLOCKED_DUPLICATE_SOURCE`,
+rather than relying solely on a later human conflict report. The receipt
+reports manifest/source counts and an identity SHA-256, **not an admission**.
+
+**Boundary:** this checks the exact local CI merge tree only; it cannot see
+a second simultaneous unmerged PR absent from that tree. GitHub required
+check behavior still depends on the current branch rules, and `strict=false`
+does not make simultaneous remote proposals atomic. Run the live GET-only
+preflight immediately before any batch admission/merge; opt-in Git CAS is
+still a separately reviewed decision and is not activated here.
+
 ## Default: human-owned merge decision, no reservation activation
 
 The repository owner may keep ordinary `batch upstream` work **manual at merge**:
@@ -136,9 +162,12 @@ initialize the ledger branch or treat a successful claim as full admission.
   can change **after** that scan, while only reservation commits are serialized
   by CAS. Revalidate at review/merge and ensure admitted work uses the gate.
   A GitHub repository rename/alias is not resolved by case folding alone.
-- **Required CI/admission:** provide a reviewable check verifying source
-  disjointness, provenance, per-row gates, and the authoritative reservation
-  ledger. Existing `validate/status/next` remain read-only and unchanged.
+- **Required CI/admission:** offline cross-manifest source uniqueness now runs
+  inside the existing required repository-integrity job, but still lacks a
+  **cross-ref atomic** comparison with all concurrent unmerged PRs and the
+  authoritative CAS ledger at merge time. Pinned Index provenance/per-row gates
+  remain individual manifest checks, not a new blanket grant. Existing
+  `validate/status/next` remain read-only and unchanged.
 - **Recovery:** introduce an owner-reviewed release/abandoned-draft procedure
   with evidence and a release writer. `replay()` already checks release events,
   but this prototype does not expose release mutation via CLI.
