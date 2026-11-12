@@ -2444,7 +2444,7 @@
             "pilot": {
               "directory": "pilots/revka",
               "files": 2,
-              "content_sha256": "bbe65eae4640a1a109a3b0b4318363a4f1f39154895b9e746e8a9b08f8dea523",
+              "content_sha256": "e3effc3c72aaf6ed005ace151717bf2b16c488a22e36962d6dc8363cac506653",
               "patch_candidates": [
                 {
                   "path": "pilots/revka/workflow-deep-dag-validation.patch",

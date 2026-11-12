@@ -1,6 +1,6 @@
 # Revka — validate deep workflow DAGs without recursion overflow
 
-**Status:** bounded native first-party validator patch, `ASSESSMENT_INFORMED` / `AWAITING_EXTERNAL`; **CLA_OWNER_CONSENT_REQUIRED** before any external code submission. No external issue, fork, commit or PR was written to Revka.
+**Current status (2026-11-12):** `FORK_LOCAL_OPEN` / `ASSESSMENT_INFORMED`; `LEGAL_ATTESTATION_REQUIRED` before any code submission to the original Revka project. Historical 2026-10-24/25 records are preserved below.
 
 ## Source and problem
 
@@ -41,3 +41,15 @@ The actual first-party [Revka CLA](https://github.com/KumihoIO/Revka/blob/main/d
 The finite OpenSiro corrective-publication mandate expressly does **not** delegate contributor-specific CLA attestations or consent. Therefore the prepared local patch is **not authorized for external submission under the current mandate**, even though native tests pass. Leave its ledger row `QUEUED`; no fake `SUBMITTED` or PR URL. The legitimate contributor/owner can separately decide whether to accept the actual CLA terms, after which upstream PR template, privacy, risk, and native validation gates must still be completed. No CLA agreement has been asserted on the owner's behalf.
 
 **2026-10-25 terminal queue review:** Confirmed [Revka CLA v1.0](https://github.com/KumihoIO/Revka/blob/main/docs/contributing/cla.md) still defines code/PR submission itself as acceptance of Kumiho Inc. copyright and patent licensing, with originality/employer warranties. **Ledger now `BLOCKED`** pending a separate personal contributor decision, superseding the 2026-10-24 `QUEUED` instruction above. The prior deterministic RED/GREEN is unchanged; no new tests, fork, PR or agreement was executed in this pass.
+
+## Current fork-local preparation  2026-11-12
+
+**Verified stage:** `FORK_LOCAL_OPEN` (technical preparation complete); **external publication: `LEGAL_ATTESTATION_REQUIRED`**.
+
+- Exact current original source / direct public fork `main`: `KumihoIO/Revka@a1acd826502e12a6c2f3d147e488a7d2982c480b`.
+- Prepared branch in `opensiro-contributions/Revka`: `opensiro/fix-validator-deep-dag`, commit [`75c7adfca75fb30075e75674eb1badc2f6b7c90a`](https://github.com/opensiro-contributions/Revka/commit/75c7adfca75fb30075e75674eb1badc2f6b7c90a). Independent GitHub readback verified one direct parent matching source `main` and exactly the two expected source/test files.
+- **Open, non-Draft, fork-local PR:** [opensiro-contributions/Revka #1](https://github.com/opensiro-contributions/Revka/pull/1). Base = fork `main`, head = selected commit; **this is not an external PR to KumihoIO/Revka**. Its body reproduces the target template, source-native evidence, assessment provenance, AI declaration and legal gate.
+- Native proof replayed on 2026-11-12 in isolated Python 3.12 environment: baseline 3 PASS / 1 `RecursionError`; patched 4/4 PASS; adjacent first-party workflow-validator tests **17/17 PASS**. The historical 2026-10-24 pytest-unavailable statement above applies only to that prior environment. Full Rust and cross-component CI remain unrun.
+- The patch SHA256 is `61c63244a659849c4c25adee79eb1d6abc4ee859eff906069284579365fb82e5`; its additive selection and dated native receipt were merged via [Upstream #254](https://github.com/opensiro/upstream/pull/254). The trusted exact two-file adapter accepted native paths after [#255](https://github.com/opensiro/upstream/pull/255). A first preparation attempt returned `UNKNOWN_AFTER_WRITE`; the observed large-checkout failure was fixed via sparse read-only materialization in [#256](https://github.com/opensiro/upstream/pull/256). GitHub readback confirmed no branch after the first attempt; a fresh one-use preparation authorization on current main then returned `PREPARED_VERIFIED`.
+- Authoritative stage readbacks and decision boundary: [Upstream #6](https://github.com/opensiro/upstream/issues/6#issuecomment-6827421403) and [#56](https://github.com/opensiro/upstream/issues/56#issuecomment-6827422477).
+- **CLA remains separate**: the original project accepts an individual contributor's CLA through actual submission, including copyright/patent license and contributor-rights representations. OpenSiro's technical standing mandate does not authorize the AI to give personal assent. No external PR, CLA assent, original-project acceptance, product benefit or VSM-grade improvement is claimed.
