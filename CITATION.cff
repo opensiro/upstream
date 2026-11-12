@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use the OpenSiro upstream contributions registry, please cite this repository and identify the exact Git commit examined."
+title: "OpenSiro Upstream Contributions Registry"
+authors:
+  - name: "OpenSiro contributors"
+type: dataset
+abstract: >-
+  Public OpenSiro-owned portfolio and lifecycle registry of contributions
+  to third-party open-source projects. The registry records contribution
+  outcomes and fork maintenance status without claiming upstream endorsement.
+repository-code: "https://github.com/opensiro/upstream"
+url: "https://github.com/opensiro/upstream"
+keywords:
+  - "open-source contributions"
+  - "upstream"
+  - "contribution registry"
