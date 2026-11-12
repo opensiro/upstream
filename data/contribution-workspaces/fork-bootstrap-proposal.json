@@ -3,17 +3,17 @@
   "state": "READ_ONLY_PROPOSAL_NOT_APPROVED",
   "destination_org": "opensiro-contributions",
   "source_registry": "data/contribution-workspaces/registry.json",
-  "source_registry_sha256": "9a0f60e88ac7a468f77aa5ab006a166a2613c62b96571f39ccd4f52c89d93fcd",
+  "source_registry_sha256": "1e53c33a78f4070ff2e064b78599f417a8bf455b01ffc1cbc3775a852d6b979d",
   "priority_snapshot": "data/fork-priorities/2026-11-08.json",
   "batch_size_max": 10,
   "counts": {
-    "sources": 224,
+    "sources": 229,
     "priority_sources": 100,
-    "additive_extras": 124,
+    "additive_extras": 129,
     "collision_name_proposals": 11,
     "creation_batches": 9,
     "by_state": {
-      "HOLD_HISTORICAL_OR_NEGATIVE_CASE": 118,
+      "HOLD_HISTORICAL_OR_NEGATIVE_CASE": 123,
       "HOLD_LICENSE_REVIEW": 5,
       "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT": 83,
       "RECHECK_MAPPED_FORK": 18
@@ -35,7 +35,7 @@
     {
       "id": "bootstrap-001",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "0b4d9906ee97b48d684595833a707f633d4ec3a69e4b39abdf1df47f111ef9e5",
+      "selection_sha256": "c81da0f32a8b1d1b6801971b4bbaf0c6b0b837daef622752a57ecd8124505523",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -84,7 +84,7 @@
     {
       "id": "bootstrap-002",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "0c594bb57dca424fdf84adf46c4865d071bba2dbd35c4f5c89898438db61231d",
+      "selection_sha256": "2832d0362608bd2218630cfca3094733ef71739727055f10a8c8e523169400d8",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -133,7 +133,7 @@
     {
       "id": "bootstrap-003",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "cfccd129e0c9f06e5b42434cf686adc2a2a63a1eb3a71e39685af48ac6510554",
+      "selection_sha256": "0b7f786bd57e60ac95ff09064c1fa568973067bb89a2c26727a3fa45e74cf45b",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -182,7 +182,7 @@
     {
       "id": "bootstrap-004",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "63d30f6fa20cef4849cd9d0e0825524af687e7ca8e0768083116ebe5cde2c932",
+      "selection_sha256": "2f955aa74ba50d5cc6d61fd9c522baf0867ea574817379efc2399f64f6f31696",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -231,7 +231,7 @@
     {
       "id": "bootstrap-005",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "2a97ae27b8bb9086b73c8e55956fd41cdf2335c2c8500569f5582cfaba04bbdf",
+      "selection_sha256": "f2d8017fcdf015a445af89bd6a12a8f9b8d3833fd429b417c07c457257f83600",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -280,7 +280,7 @@
     {
       "id": "bootstrap-006",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "3988f7598d44dca3bb216f3d6f1d47759e15e7ecfb54be06a9a1fcf99e7d5c16",
+      "selection_sha256": "ce25dce47450917442b72084600c15a8afb6fac5a5e0f2555faadd45fda54794",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -329,7 +329,7 @@
     {
       "id": "bootstrap-007",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "e1e52b4eb39f7ce09dbb3e7bbeca1e2f88caf648c0af2e904ecd67ffd4548c0f",
+      "selection_sha256": "9dc8faaad6d3242afd1b95975a8fc1b90d2f62dcb3ced572c35a04644a6cc448",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -378,7 +378,7 @@
     {
       "id": "bootstrap-008",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "5adeb7cbe47b60292c5bc3c730c09faa3c2ff61c05eb4266980766329b4b2d10",
+      "selection_sha256": "5b3e765c50972dbe6fac893a0393c81e3b5b8569fbfc49a0572cd32869788463",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -427,7 +427,7 @@
     {
       "id": "bootstrap-009",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "f186abdc19edede92a3aa13b47ee64470dbe0984e24f2decf84fee0f1ce6ba17",
+      "selection_sha256": "ede6dbf2a151c80fcf8f9437fc82deea71cdeb51fd1389e9ccac6888598bbbac",
       "source_count": 3,
       "has_collision_name_proposals": false,
       "selection": [
@@ -2274,6 +2274,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "Lukeus/taurus",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/taurus",
+      "candidate_name": "taurus",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "madarco/agentbox",
       "priority_group": "PILOT_EXTRA",
       "next_step": "RECONCILE_NATIVE_PILOT_BEFORE_FORK_STAGE",
@@ -2395,12 +2406,34 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "onecli/onecli",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/onecli",
+      "candidate_name": "onecli",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "openJiuwen-ai/agent-runtime",
       "priority_group": "HISTORICAL_EXTRA",
       "next_step": "RESOLVE_FORK_PARENT_AND_NAME",
       "candidate_fork": "opensiro-contributions/openJiuwen-ai--agent-runtime",
       "candidate_name": "openJiuwen-ai--agent-runtime",
       "collision_name_proposal": true,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "opensesh/KARIMO",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/KARIMO",
+      "candidate_name": "KARIMO",
+      "collision_name_proposal": false,
       "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
@@ -2637,6 +2670,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "SichengLong26/deepresearch_agent_harness",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/deepresearch_agent_harness",
+      "candidate_name": "deepresearch_agent_harness",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "Sinkear/agentwork",
       "priority_group": "HISTORICAL_EXTRA",
       "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
@@ -2730,6 +2774,17 @@
       "next_step": "TRACK_ONLY_NO_CHANGE",
       "candidate_fork": "opensiro-contributions/tale",
       "candidate_name": "tale",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "The-Swarm-Corporation/swarms-rs",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/swarms-rs",
+      "candidate_name": "swarms-rs",
       "collision_name_proposal": false,
       "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,

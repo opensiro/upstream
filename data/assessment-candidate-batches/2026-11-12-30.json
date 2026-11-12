@@ -15,19 +15,20 @@
       "reviewed_at": "2026-10-27",
       "function": "S2",
       "finding": "Check if a ConcurrentWorkflow cancelled/failed task leaves its task-key DashSet reservation and blocks later legitimate work.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/sw/swarms-rust.md",
-        "https://github.com/opensiro/upstream/commit/7ac617db4149d240e6e327b2aac3de59d353bc1d"
+        "https://github.com/opensiro/upstream/commit/7ac617db4149d240e6e327b2aac3de59d353bc1d",
+        "https://github.com/The-Swarm-Corporation/swarms-rs/blob/ee1e74cb6e2c94775db88dddb311f2235e3fe9e3/swarms-rs/src/structs/concurrent_workflow.rs"
       ],
-      "screening_result": "Pre-source falsifiable hypothesis only; original source/policy/test not inspected at freeze.",
+      "screening_result": "Original `main@ee1e74cb6e2c94775db88dddb311f2235e3fe9e3` (same as October Index pin), Apache-2.0. First-party ConcurrentWorkflow::run inserts the task key only after empty-agent/task guard, immediately binds it to RunningTask, and `impl Drop for RunningTask` removes the key on all normal Rust future return/drop/unwind paths. The proposed persistent reservation after failed/cancelled same-key task is prevented by this RAII guard. No source-native failing reproducer or patch; no Rust suite claimed.",
       "external_action": "NOT_EXECUTED"
     },
     {
@@ -38,19 +39,20 @@
       "reviewed_at": "2026-10-27",
       "function": "S2",
       "finding": "Check if custom/aliased background delegate may be admitted despite built-in mutating effects on the shared checkout.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ta/taurus-ai-shell.md",
-        "https://github.com/opensiro/upstream/commit/7ac617db4149d240e6e327b2aac3de59d353bc1d"
+        "https://github.com/opensiro/upstream/commit/7ac617db4149d240e6e327b2aac3de59d353bc1d",
+        "https://github.com/Lukeus/taurus/blob/3be6ff94b5e7adfee30f5ead8972dbdbbb5c4319/crates/taurus-core/src/subagent.rs"
       ],
-      "screening_result": "Pre-source falsifiable hypothesis only; original source/policy/test not inspected at freeze.",
+      "screening_result": "Original `main@3be6ff94b5e7adfee30f5ead8972dbdbbb5c4319` differs from October pin, MIT. Current built-in spawn subagent classifies read-only agent tools via registry effect metadata; writable background/isolate only runs concurrently when isolation is available. On isolation-open failure it refuses background writer with explicit error; foreground mutable execution receives an alone/serial permit. The predicted supported writable background escape has no first-party evidence. No native Rust test or patch executed.",
       "external_action": "NOT_EXECUTED"
     },
     {
@@ -61,7 +63,7 @@
       "reviewed_at": "2026-10-26",
       "function": "S2",
       "finding": "Check whether ordered _merge_isolated_state loses one worker's accepted execution_context key when independent parallel workers update same key.",
-      "stage": "SCREENING",
+      "stage": "BLOCKED_EVIDENCE",
       "origin": "INSUFFICIENT",
       "fit": {
         "need": "PENDING",
@@ -71,10 +73,13 @@
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/de/deepresearch-agent-harness.md",
-        "https://github.com/opensiro/upstream/commit/7ac617db4149d240e6e327b2aac3de59d353bc1d"
+        "https://github.com/opensiro/upstream/commit/7ac617db4149d240e6e327b2aac3de59d353bc1d",
+        "https://github.com/SichengLong26/deepresearch_agent_harness/pull/5",
+        "https://github.com/SichengLong26/deepresearch_agent_harness/tree/4c98d6e144fde5bc28c821e6ee2c3b980eecc9a0"
       ],
-      "screening_result": "Pre-source falsifiable hypothesis only; original source/policy/test not inspected at freeze.",
-      "external_action": "NOT_EXECUTED"
+      "screening_result": "Current DeepResearch Agent Harness `main@4c98d6e144fde5bc28c821e6ee2c3b980eecc9a0` lacks a root LICENSE and GitHub `license=null`; first-party PR #5 proposes adding MIT LICENSE but remains OPEN. No derivative inspection/patch/fork or third-party PR permitted until target source licensing is established. Index-assessed Python coordination path not interpreted as a reproduced lost update. No native test.",
+      "external_action": "NOT_EXECUTED",
+      "blocker": "Current DeepResearch Agent Harness `main@4c98d6e144fde5bc28c821e6ee2c3b980eecc9a0` lacks a root LICENSE and GitHub `license=null`; first-party PR #5 proposes adding MIT LICENSE but remains OPEN. No derivative inspection/patch/fork or third-party PR permitted until target source licensing is established. Index-assessed Python coordination path not interpreted as a reproduced lost update. No native test."
     },
     {
       "id": "karimo-corrected-wave-cache",
@@ -84,20 +89,23 @@
       "reviewed_at": "2026-10-26",
       "function": "S2",
       "finding": "Check whether corrected task dependencies are published but dispatch still uses stale pre-correction wave plan, causing known parallel worker overlap.",
-      "stage": "SCREENING",
+      "stage": "BLOCKED_EVIDENCE",
       "origin": "INSUFFICIENT",
       "fit": {
         "need": "PENDING",
-        "mechanism": "PENDING",
+        "mechanism": "PASS",
         "counterfactual": "PENDING",
         "scope": "PENDING"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ka/karimo.md",
-        "https://github.com/opensiro/upstream/commit/7ac617db4149d240e6e327b2aac3de59d353bc1d"
+        "https://github.com/opensiro/upstream/commit/7ac617db4149d240e6e327b2aac3de59d353bc1d",
+        "https://github.com/opensesh/KARIMO/blob/305abbe8d7a86d01023913cd12072cd83e937f52/.claude/plugins/karimo/commands/run.md",
+        "https://github.com/opensesh/KARIMO/blob/305abbe8d7a86d01023913cd12072cd83e937f52/CONTRIBUTING.md"
       ],
-      "screening_result": "Pre-source falsifiable hypothesis only; original source/policy/test not inspected at freeze.",
-      "external_action": "NOT_EXECUTED"
+      "screening_result": "Current KARIMO `main@305abbe8d7a86d01023913cd12072cd83e937f52`, Apache-2.0. Shipped run command and brief-corrector are Claude Code agent/markdown procedures: user chooses Apply fixes, corrector edits and commits tasks.yaml/briefs then run proceeds. No first-party deterministic executable scheduler or tested stale cached wave after correction identified; CONTRIBUTING requires manual Claude Code end-to-end testing. No permitted live model/human choice as a native RED/GREEN substitute; no patch or public fork prepared.",
+      "external_action": "NOT_EXECUTED",
+      "blocker": "Current KARIMO `main@305abbe8d7a86d01023913cd12072cd83e937f52`, Apache-2.0. Shipped run command and brief-corrector are Claude Code agent/markdown procedures: user chooses Apply fixes, corrector edits and commits tasks.yaml/briefs then run proceeds. No first-party deterministic executable scheduler or tested stale cached wave after correction identified; CONTRIBUTING requires manual Claude Code end-to-end testing. No permitted live model/human choice as a native RED/GREEN substitute; no patch or public fork prepared."
     },
     {
       "id": "onecli-pair-close-promotion-race",
@@ -107,19 +115,21 @@
       "reviewed_at": "2026-10-26",
       "function": "S2",
       "finding": "Check whether closing an active PeerTask and promoting FIFO allows a concurrent admission to accept a second active task for the same agent pair.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/on/onecli.md",
-        "https://github.com/opensiro/upstream/commit/7ac617db4149d240e6e327b2aac3de59d353bc1d"
+        "https://github.com/opensiro/upstream/commit/7ac617db4149d240e6e327b2aac3de59d353bc1d",
+        "https://github.com/onecli/onecli/blob/90e874c0cf4e059401577f687bee93e9f376bc65/packages/api/src/services/channels/peer-task-service.ts",
+        "https://github.com/onecli/onecli/blob/90e874c0cf4e059401577f687bee93e9f376bc65/CLA.md"
       ],
-      "screening_result": "Pre-source falsifiable hypothesis only; original source/policy/test not inspected at freeze.",
+      "screening_result": "Current onecli `main@90e874c0cf4e059401577f687bee93e9f376bc65`, Apache-2.0 core with separately enterprise-licensed paths. First-party peer-task-service.ts declares a one-open-per-pair partial unique index; opening races use uniqueness-error handling, queued promotion is conditional `updateMany WHERE status=queued` and handles unique collision as a lost race. The hypothesized two simultaneous active pair tasks is already fenced; no native counterexample or patch. CLA.md explicitly treats *submitting contributions* as personal CLA acceptance, so any future proposed external PR requires valid contributor-person legal authorization beyond routine publication mandate.",
       "external_action": "NOT_EXECUTED"
     }
   ]
