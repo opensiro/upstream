@@ -68,6 +68,8 @@ APPROVED_CHECKPOINT_ADDITIONS = {
     "https://github.com/kstawiski/evidence-gated-scientific-agent/pull/9",
     # Fara focused 3/3 native tests and exact external #96 readback 2026-11-11.
     "https://github.com/microsoft/fara/pull/96",
+    # Oh My Hermes #28 standing-P1 publication with exact original/fork-local readback.
+    "https://github.com/witt3rd/oh-my-hermes/pull/28",
     # phax source-native full-gate PASS and standing publication 2026-11-11.
     "https://github.com/lbdremy/phax/pull/205",
 }

@@ -1,6 +1,8 @@
 # Oh My Hermes — prevent two claimants during stale plan-lock reclamation
 
-**Batch:** [Upstream #56](https://github.com/opensiro/upstream/issues/56), 2026-11-12 batch 27. **Current stage:** `ASSESSMENT_DERIVED / AWAITING_EXTERNAL`; first-party native packet READY, **no fork, branch, fork-local PR or original external PR yet**.
+**Batch:** [Upstream #56](https://github.com/opensiro/upstream/issues/56), 2026-11-12 batch 27. **Current verified publication stage:** `EXTERNAL_OPEN_READY / ASSESSMENT_DERIVED` (no maintainer decision yet). The historical frozen screening manifest records the earlier `AWAITING_EXTERNAL` checkpoint; it is not rewritten.
+
+**Public GitHub readbacks (2026-11-12):** [Original upstream PR #28](https://github.com/witt3rd/oh-my-hermes/pull/28) · [Matching fork-local proposal #1](https://github.com/opensiro-contributions/oh-my-hermes/pull/1) · [Contributor fork](https://github.com/opensiro-contributions/oh-my-hermes) · [exact working commit `6eced4f`](https://github.com/opensiro-contributions/oh-my-hermes/commit/6eced4fdad9ff4faa7daf0979021d870558e8d26). Open/Ready, one commit based on original `master@3b06e33`, the two native files only, fork-local and original PR bodies identical (SHA256 `142f0a0eae0162708b6727544696975b552e40e79c3a896340e94a5a7cfa569e`), checked first-party plugin suite **195 PASS / 7 SKIP** on the actual published fork branch. The external maintainer has not accepted or merged the change. Public submission was performed by the authenticated `xLagerFeuer` dev-alpha-2 host under the current owner standing publication mandate, after separate P1 fork/branch preparation.
 
 ## Native product contract
 
