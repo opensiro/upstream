@@ -1,0 +1,43 @@
+name: Fara native task-resume identity replay
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'pilots/fara/**'
+      - '.github/workflows/fara-native-resume.yml'
+permissions:
+  contents: read
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: microsoft/fara
+          ref: a675d6d61c41c47ae87bacefeab22caad18e3e84
+          path: fara
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install native core/test dependencies only
+        run: python -m pip install 'pytest>=8.4,<10' 'pydantic>=2.11,<3'
+      - name: Check patch SHA
+        run: echo 'fce42386bd6b1cf1ea0fed6c22a206589239cdeeb37f53cfaa48eb027da9002e  pilots/fara/resume-task-identity.patch' | sha256sum --check
+      - name: BEFORE - original native source must fail mixed-task guard
+        shell: bash
+        run: |
+          git -C fara apply --include='tests/test_run_context_resume_identity.py' "$GITHUB_WORKSPACE/pilots/fara/resume-task-identity.patch"
+          cd fara
+          if python -m pytest tests/test_run_context_resume_identity.py -q; then
+            echo 'Unexpected baseline PASS'
+            exit 1
+          fi
+      - name: AFTER - source patch passes positive and negative fixtures
+        shell: bash
+        run: |
+          git -C fara apply --exclude='tests/test_run_context_resume_identity.py' "$GITHUB_WORKSPACE/pilots/fara/resume-task-identity.patch"
+          cd fara
+          python -m pytest tests/test_run_context_resume_identity.py -q
