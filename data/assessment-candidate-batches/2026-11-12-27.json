@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-12-27",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "85ae995fc2551ac0a076609bce0300d075cac2d5",
+  "frozen_at": "2026-11-12",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Upstream upgrade batch 27: five newest reviewed eligible distinct included S1=A/S2=C canonical Index assessments at immutable 85ae995f, excluding 26 earlier integrated candidate manifests (150 unique original sources) and current contribution-workspaces registry (209 source identities). Prior to fresh target code/issues inspection, five S2 falsifiable hypotheses and null controls committed 9e2c1e9. Sorted by reviewed_at descending, original selection order preserved. These are screening questions, not fixes.",
+  "candidates": [
+    {
+      "id": "evot-file-mutex-alias",
+      "assessment_path": "assessments/ev/evot.md",
+      "source": "evotai/evot",
+      "review_ref": "011af29261930f1589c1ded6f8ca5793e271b83a",
+      "reviewed_at": "2026-10-29",
+      "function": "S2",
+      "finding": "Determine whether two supported source-native Edit/Write operations on equivalent in-root path aliases for an absent file can bypass the process-global canonical path mutex.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ev/evot.md",
+        "https://github.com/opensiro/upstream/commit/9e2c1e9695a82fcb853d05244ba8198dcd61dc1b",
+        "https://github.com/evotai/evot/tree/9921b7d72dbe09b0ef53e8a58aa933ebbdce404e"
+      ],
+      "screening_result": "Evot main@9921b7d72dbe09b0ef53e8a58aa933ebbdce404e differs from assessed ref. Root contains no OSS LICENSE/COPYING; only source notices unrelated to a repository-wide license. No native code inspection or derivative code permitted.",
+      "external_action": "NOT_EXECUTED",
+      "blocker": "No source license at current Evot main; root tree lacks LICENSE/COPYING and GitHub license=null. License-first gate denies derivative patch or public fork."
+    },
+    {
+      "id": "epic-harness-overlap-alias",
+      "assessment_path": "assessments/ep/epic-harness.md",
+      "source": "epicsagas/epic-harness",
+      "review_ref": "1f3823af536b1f56b3cb8af90cc8ea77ef71c4bd",
+      "reviewed_at": "2026-10-29",
+      "function": "S2",
+      "finding": "Determine whether source-native file-footprint aliases in installed /go and /orbit coordination can be admitted to one parallel shared-worktree builder wave as falsely disjoint.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ep/epic-harness.md",
+        "https://github.com/opensiro/upstream/commit/9e2c1e9695a82fcb853d05244ba8198dcd61dc1b",
+        "https://github.com/epicsagas/epic-harness/blob/9213936bf4d1519f22f386d2ab4abc9e3954c9/skills/go/SKILL.md",
+        "https://github.com/epicsagas/epic-harness/pull/355"
+      ],
+      "screening_result": "Epic Harness main@9213936bf4d1519f22f386d2ab4abc9e3954c9 differs from assessed ref; Apache-2.0. /go says overlap -> serialize or isolate; /orbit normally uses isolated worktrees. No first-party deterministic checker or matched RED found; source has active worktree-identity fixes. No code or external publication.",
+      "external_action": "NOT_EXECUTED",
+      "blocker": "No native same-worktree alias collision reproduced; /go scheduling is a skill instruction and /orbit isolates worktrees. Current target drift and active overlapping worktree PRs #169/#355."
+    },
+    {
+      "id": "gruai-wave-scope-dependency",
+      "assessment_path": "assessments/gr/gruai.md",
+      "source": "andrew-yangy/gru-ai",
+      "review_ref": "8fba47928a0fe3fdfda7a31d22b73625c78cbfc4",
+      "reviewed_at": "2026-10-29",
+      "function": "S2",
+      "finding": "Determine whether the shipped dependency and active_files overlap wave scheduler incorrectly admits builders with transitive dependencies or normalized file-scope collisions.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/gr/gruai.md",
+        "https://github.com/opensiro/upstream/commit/9e2c1e9695a82fcb853d05244ba8198dcd61dc1b",
+        "https://github.com/andrew-yangy/gru-ai/blob/8fba47928a0fe3fdfda7a31d22b73625c78cbfc4/.claude/skills/directive/docs/pipeline/09-execute-projects.md"
+      ],
+      "screening_result": "gru-ai main@8fba47928a0fe3fdfda7a31d22b73625c78cbfc4 matches assessed MIT revision; .claude/skills/directive/docs/pipeline/09-execute-projects.md specifies intersections/dependencies and a warning-only post-wave diff check. scripts/spawn-agent.ts executes delegates, not a verified scheduler. No native RED/GREEN or product defect; no external PR.",
+      "external_action": "NOT_EXECUTED",
+      "blocker": "computeWaves is orchestration pseudocode in a skill, with no first-party runnable deterministic wave admission implementation or reproduced file-alias/dependency failure in inspected source."
+    },
+    {
+      "id": "oh-my-hermes-crossprocess-lock",
+      "assessment_path": "assessments/oh/oh-my-hermes.md",
+      "source": "witt3rd/oh-my-hermes",
+      "review_ref": "3b06e33ae67b202b342989b484f08143e65e250d",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Determine whether separate supported OMH processes can both acquire one named plan lock if the first-party state tool implements a non-atomic check then record sequence.",
+      "stage": "AWAITING_EXTERNAL",
+      "origin": "ASSESSMENT_DERIVED",
+      "fit": {
+        "need": "PASS",
+        "mechanism": "PASS",
+        "counterfactual": "PASS",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/oh/oh-my-hermes.md",
+        "https://github.com/opensiro/upstream/commit/9e2c1e9695a82fcb853d05244ba8198dcd61dc1b",
+        "https://github.com/witt3rd/oh-my-hermes/blob/3b06e33ae67b202b342989b484f08143e65e250d/plugins/omh/omh_state.py",
+        "https://github.com/opensiro/upstream/blob/main/reports/2026-11-12-omh-stale-lock-native-replay.md"
+      ],
+      "screening_result": "witt3rd/oh-my-hermes current MIT master@3b06e33ae67b202b342989b484f08143e65e250d matches Index. Separate first-party native RED: two stale recoverers both return acquired=True; same test after SQLite BEGIN IMMEDIATE re-check patch GREEN 1/1. Complete plugin pytest 195 PASS 7 SKIP, no live LLM. Exact two-file patch source and test archived, original GitHub PR/fork not created. Next stage is reviewed exact-patch selection under standing preparation and native/policy checks.",
+      "external_action": "NOT_EXECUTED",
+      "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/omh-stale-lock-s2/CONTRIBUTION_HANDOFF.md",
+      "test_patch_path": "pilots/omh-stale-lock-s2/native-regression.patch"
+    },
+    {
+      "id": "limina-reclaimed-lease-completion",
+      "assessment_path": "assessments/li/limina.md",
+      "source": "theam/limina",
+      "review_ref": "56a4e2f3c9c613c7bc61f6a260ade379b21cd782",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Determine whether a stale owner can finish an experiment after its lease is reclaimed by another research lane due to incomplete owner, generation, or CAS checks.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/li/limina.md",
+        "https://github.com/opensiro/upstream/commit/9e2c1e9695a82fcb853d05244ba8198dcd61dc1b",
+        "https://github.com/theam/limina/blob/56a4e2f3c9c613c7bc61f6a260ade379b21cd782/src/limina_cloud/research_service.py",
+        "https://github.com/theam/limina/blob/56a4e2f3c9c613c7bc61f6a260ade379b21cd782/src/limina_cloud/service.py",
+        "https://github.com/theam/limina/pull/9"
+      ],
+      "screening_result": "Limina main@56a4e2f3c9c613c7bc61f6a260ade379b21cd782 matches Apache-2.0 assessed code. Lease acquisition is SQL ON CONFLICT with owner/expiration guard and lease version; complete_experiment requires current RUNNING artifact, active nonexpired lease owner==actor, and atomic Artifact.version==expected_version CAS. A distinct stale owner cannot complete a new claimant's lease. No matching defect; open original PR #9 replaces much of runtime; no external work.",
+      "external_action": "NOT_EXECUTED"
+    }
+  ]
+}

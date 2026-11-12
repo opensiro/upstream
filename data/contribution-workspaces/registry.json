@@ -4,20 +4,20 @@
   "batch_sources": "data/assessment-candidate-batches/*.json",
   "counts": {
     "priority_sources": 100,
-    "historical_extras": 109,
-    "batch_only_extras": 94,
+    "historical_extras": 114,
+    "batch_only_extras": 99,
     "pilot_only_extras": 7,
     "portfolio_only_extras": 8,
-    "unique_sources": 209,
-    "batch_manifests": 26,
-    "batch_cases": 150,
+    "unique_sources": 214,
+    "batch_manifests": 27,
+    "batch_cases": 155,
     "historical_fork_mappings": 16,
     "name_collision_sources": 11,
-    "technical_handoffs": 54,
+    "technical_handoffs": 55,
     "dated_fork_readbacks": 17,
     "same_named_ref_matches_at_readback": 10,
     "technical_packet_states": {
-      "EXPLICIT_PATCH_HASH_MATCHED": 19,
+      "EXPLICIT_PATCH_HASH_MATCHED": 20,
       "LOCAL_MULTI_PATCH_SELECTION_REQUIRED": 1,
       "LOCAL_SINGLE_PATCH_UNREVIEWED": 32,
       "NO_LOCAL_PACKET_OR_PR_ONLY_HANDOFF": 2
@@ -317,6 +317,23 @@
       "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/Tirith",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "andrew-yangy/gru-ai",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-27.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/gru-ai",
       "license_review": false,
       "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
     },
@@ -1357,6 +1374,23 @@
       "next_step": "SCREEN_BEFORE_FORK_WRITE"
     },
     {
+      "source": "epicsagas/epic-harness",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-27.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/epic-harness",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
       "source": "eust-w/opengeniemaster",
       "priority_group": "INDEX_HYPOTHESIS",
       "batches": [],
@@ -1417,6 +1451,23 @@
       "proposed_fork": "opensiro-contributions/Raven",
       "license_review": false,
       "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "evotai/evot",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-27.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/evot",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
     },
     {
       "source": "fbrubacher/orch",
@@ -4658,6 +4709,23 @@
       "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
+      "source": "theam/limina",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-27.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/limina",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
       "source": "tigicion/dao-code",
       "priority_group": "INDEX_HYPOTHESIS",
       "batches": [],
@@ -4825,6 +4893,59 @@
       "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/voly",
+      "license_review": false,
+      "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "witt3rd/oh-my-hermes",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-27.json"
+      ],
+      "latest_stage": "AWAITING_EXTERNAL",
+      "handoffs": [
+        {
+          "candidate_id": "oh-my-hermes-crossprocess-lock",
+          "stage": "AWAITING_EXTERNAL",
+          "origin": "ASSESSMENT_DERIVED",
+          "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/omh-stale-lock-s2/CONTRIBUTION_HANDOFF.md",
+          "patch_path": "pilots/omh-stale-lock-s2/native-fix.patch",
+          "patch_sha256": "3195879df9cca44921c4e8b859bd7fe0f996a923f4c006222afbfa94d6a8a1d2",
+          "test_patch_path": "pilots/omh-stale-lock-s2/native-regression.patch",
+          "technical_packet": {
+            "state": "EXPLICIT_PATCH_HASH_MATCHED",
+            "pilot": {
+              "directory": "pilots/omh-stale-lock-s2",
+              "files": 3,
+              "content_sha256": "6050e6c5c4c4e42eb17ec00d07a08568e168039837e607e10b06b904e8f4f8a7",
+              "patch_candidates": [
+                {
+                  "path": "pilots/omh-stale-lock-s2/native-fix.patch",
+                  "sha256": "3195879df9cca44921c4e8b859bd7fe0f996a923f4c006222afbfa94d6a8a1d2"
+                },
+                {
+                  "path": "pilots/omh-stale-lock-s2/native-regression.patch",
+                  "sha256": "f345b09552108041fa5b66d9e959d9b5c17a3204a5d69a318fc163ee6c068791"
+                }
+              ]
+            },
+            "explicit_patch": {
+              "path": "pilots/omh-stale-lock-s2/native-fix.patch",
+              "sha256": "3195879df9cca44921c4e8b859bd7fe0f996a923f4c006222afbfa94d6a8a1d2"
+            },
+            "explicit_test_patch": {
+              "path": "pilots/omh-stale-lock-s2/native-regression.patch",
+              "sha256": "f345b09552108041fa5b66d9e959d9b5c17a3204a5d69a318fc163ee6c068791"
+            }
+          }
+        }
+      ],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/oh-my-hermes",
       "license_review": false,
       "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
     },

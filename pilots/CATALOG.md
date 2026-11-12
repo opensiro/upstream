@@ -7,7 +7,7 @@ fitness, fork existence, PR publication, maintainer acceptance, or VSM grades.
 See [experiment contract](EXPERIMENT_CONTRACT.md) and
 [working-fork pipeline](../docs/CONTINUOUS_WORKING_FORK_PIPELINE.md).
 
-**Coverage:** 75 indexed pilot directories · 244 files. The frozen baseline protects 66 historical directories and their files; 9 directories were added later.
+**Coverage:** 76 indexed pilot directories · 247 files. The frozen baseline protects 66 historical directories and their files; 10 directories were added later.
 
 Each row links its preferred entry file. Read the actual receipt and governing
 batch/PR before attributing positive results or current status.
@@ -21,7 +21,7 @@ batch/PR before attributing positive results or current status.
 | `kram-s2` | [Open](kram-s2/README.md) | patch: 1, handoff: 2, receipt: 1, fixture_or_recipe: 1, other: 2 |
 | `zot-shared-workspace` | [Open](zot-shared-workspace/SCREENING_2026-10-20.md) | screen: 1, protocol: 9, receipt: 4, native_code: 1, fixture_or_recipe: 3, other: 2 |
 
-## Patch packets and handoffs (52)
+## Patch packets and handoffs (53)
 
 | Pilot | Entry point | Artifacts |
 | --- | --- | --- |
@@ -55,6 +55,7 @@ batch/PR before attributing positive results or current status.
 | `matterloop` | [Open](matterloop/CONTRIBUTION_HANDOFF.md) | patch: 1, handoff: 1 |
 | `novacode-s2` | [Open](novacode-s2/CONTRIBUTION_HANDOFF.md) | patch: 2, handoff: 1, receipt: 1 |
 | `oblivion-batch-edit` | [Open](oblivion-batch-edit/CONTRIBUTION_HANDOFF.md) | patch: 1, handoff: 1, native_code: 1 |
+| `omh-stale-lock-s2` | [Open](omh-stale-lock-s2/CONTRIBUTION_HANDOFF.md) | patch: 2, handoff: 1 |
 | `oniroute` | [Open](oniroute/CONTRIBUTION_HANDOFF.md) | patch: 1, handoff: 1 |
 | `openorbit` | [Open](openorbit/CONTRIBUTION_HANDOFF.md) | patch: 1, handoff: 1 |
 | `orch` | [Open](orch/CONTRIBUTION_HANDOFF.md) | patch: 1, handoff: 1 |
