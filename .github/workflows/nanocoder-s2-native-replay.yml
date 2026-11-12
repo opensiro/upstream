@@ -1,0 +1,47 @@
+name: NanoCoder S2 source-pinned replay
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'pilots/nanocoder-s2/**'
+      - '.github/workflows/nanocoder-s2-native-replay.yml'
+permissions:
+  contents: read
+jobs:
+  native:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: Nano-Collective/nanocoder
+          ref: ef41e8aa0092e2c3e7b5932f480f920bcffb68da
+          path: nanocoder
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.19.0'
+      - name: Check immutable patch
+        run: echo '39222202f3f8ed7cad8a252c856b122a7844e91518b179fd0dc9f8b97acaf5b1  pilots/nanocoder-s2/latest-busy-event-replay.patch' | sha256sum --check
+      - name: BEFORE - require original replay hypothesis RED
+        shell: bash
+        run: |
+          git -C nanocoder apply --whitespace=nowarn --include='scripts/test-backpressure-replay.mjs' "$GITHUB_WORKSPACE/pilots/nanocoder-s2/latest-busy-event-replay.patch"
+          set +e
+          node --no-warnings --experimental-transform-types nanocoder/scripts/test-backpressure-replay.mjs > /tmp/nanocoder-before.txt 2>&1
+          code=$?
+          set -e
+          cat /tmp/nanocoder-before.txt
+          test "$code" -ne 0
+          grep -q 'PASS default busy-event drop preserved' /tmp/nanocoder-before.txt
+          grep -q 'testOptInReplayLast' /tmp/nanocoder-before.txt
+          grep -q 'AssertionError' /tmp/nanocoder-before.txt
+      - name: AFTER - opt-in replay with unchanged default behavior
+        shell: bash
+        run: |
+          git -C nanocoder apply --whitespace=nowarn --exclude='scripts/test-backpressure-replay.mjs' "$GITHUB_WORKSPACE/pilots/nanocoder-s2/latest-busy-event-replay.patch"
+          node --no-warnings --experimental-transform-types nanocoder/scripts/test-backpressure-replay.mjs
+          node --no-warnings --experimental-transform-types --check nanocoder/source/events/backpressure.ts
+          node --no-warnings --experimental-transform-types --check nanocoder/source/daemon/daemon.ts
+          git -C nanocoder diff --check

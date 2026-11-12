@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "id": "NANOCODER-S2-REPLAY-2026-10-24",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "21b0887f16bc12de22b0cecbcfcccb4862c90c83",
+  "assessment": "assessments/na/nanocoder.md",
+  "source": "Nano-Collective/nanocoder@ef41e8aa0092e2c3e7b5932f480f920bcffb68da",
+  "license": "MIT",
+  "license_file": "LICENSE.md",
+  "function": "S2",
+  "kind": "Improvement",
+  "origin": "ASSESSMENT_DERIVED_FEATURE_HYPOTHESIS",
+  "need": "UNVERIFIED",
+  "admission": "PROTOTYPE_ONLY",
+  "source_behavior": "intentional v1 drop while subscription is in flight",
+  "change": "opt-in replay latest after prior completion; legacy default unchanged",
+  "before": {
+    "replay_test": "FAIL",
+    "calls": [
+      "a"
+    ]
+  },
+  "after": {
+    "native_script_scenarios_pass": 6,
+    "native_script_scenarios_fail": 0,
+    "replay_calls": [
+      "a",
+      "c"
+    ]
+  },
+  "test_mode": "NODE_22_SCRIPT_ONLY_NO_MODELS",
+  "patch_sha256": "39222202f3f8ed7cad8a252c856b122a7844e91518b179fd0dc9f8b97acaf5b1",
+  "full_suite": "NOT_RUN",
+  "user_benefit": "NOT_MEASURED",
+  "maintainer_feedback": "NONE",
+  "external_publication": "NONE",
+  "authorization": "INTERNAL_ONLY"
+}
