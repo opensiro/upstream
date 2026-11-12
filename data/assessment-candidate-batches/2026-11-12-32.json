@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-12-32",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "85ae995fc2551ac0a076609bce0300d075cac2d5",
+  "frozen_at": "2026-11-12",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Five newest available source-disjoint included S1=A/S2=C canonical Index originals at SHA 85ae995f after excluding 31 integrated cohorts and source-to-fork workspace identities. S2 falsifiable native risks and null controls publicly preregistered as commit 98b08b3 before current original code/policy/issues inspection. Every source starts SCREENING, not a proven defect.",
+  "candidates": [
+    {
+      "id": "ucode-worker-effect-lock-tail",
+      "assessment_path": "assessments/uc/ucode.md",
+      "source": "sppideey/ucode-agent",
+      "review_ref": "be41840d1219ea45490ac8c61ba84fa48d3119a6",
+      "reviewed_at": "2026-10-24",
+      "function": "S2",
+      "finding": "Can a failed first-party file/command tool leave a permanently rejected shared Promise lock tail and prevent the next worker's legitimate write?",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/uc/ucode.md",
+        "https://github.com/opensiro/upstream/commit/98b08b346cd36d92903fbefde821018a3af6e1f0"
+      ],
+      "screening_result": "Prerecorded first-party S2 hypothesis only. Original current source/policy/native evidence not yet reviewed.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "ownpilot-stale-crew-task-claim",
+      "assessment_path": "assessments/ow/ownpilot.md",
+      "source": "ownpilot/OwnPilot",
+      "review_ref": "eb4c27f29d4d12778621a83e49cd673cd8b62239",
+      "reviewed_at": "2026-10-24",
+      "function": "S2",
+      "finding": "Can a worker task claim survive a failed/cancelled owner without a supported requeue/reclamation path, or two workers both win?",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ow/ownpilot.md",
+        "https://github.com/opensiro/upstream/commit/98b08b346cd36d92903fbefde821018a3af6e1f0"
+      ],
+      "screening_result": "Prerecorded first-party S2 hypothesis only. Original current source/policy/native evidence not yet reviewed.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "codewhip-small-budget-delegates",
+      "assessment_path": "assessments/co/codewhip.md",
+      "source": "hasitpbhatt/codewhip",
+      "review_ref": "be51da68db85096e9fa0455777e3ed89985df756",
+      "reviewed_at": "2026-10-24",
+      "function": "S2",
+      "finding": "Can rounding tiny but valid parent token budgets produce zero or overcommitted child quotas while violating the promised parent reserve?",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/co/codewhip.md",
+        "https://github.com/opensiro/upstream/commit/98b08b346cd36d92903fbefde821018a3af6e1f0"
+      ],
+      "screening_result": "Prerecorded first-party S2 hypothesis only. Original current source/policy/native evidence not yet reviewed.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "phone-harness-child-spawn-lock-release",
+      "assessment_path": "assessments/ph/phone-harness.md",
+      "source": "ShawnPana/phone-harness",
+      "review_ref": "a80f8845e125269545bbf462967fe7b620691422",
+      "reviewed_at": "2026-10-24",
+      "function": "S2",
+      "finding": "Does a supported failed phone_exec subprocess spawn strand the process-wide device lock and leave later subagents blocked?",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ph/phone-harness.md",
+        "https://github.com/opensiro/upstream/commit/98b08b346cd36d92903fbefde821018a3af6e1f0"
+      ],
+      "screening_result": "Prerecorded first-party S2 hypothesis only. Original current source/policy/native evidence not yet reviewed.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "yottacode-dispatch-partition-alias",
+      "assessment_path": "assessments/yo/yottacode.md",
+      "source": "yottadynamics/yottacode",
+      "review_ref": "11ffd5884a2827636d54b14c0d60d53c9c93c5d8",
+      "reviewed_at": "2026-10-23",
+      "function": "S2",
+      "finding": "Can two aliased spellings of the same allowed file evade first-party dispatch file partition overlap admission?",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/yo/yottacode.md",
+        "https://github.com/opensiro/upstream/commit/98b08b346cd36d92903fbefde821018a3af6e1f0"
+      ],
+      "screening_result": "Prerecorded first-party S2 hypothesis only. Original current source/policy/native evidence not yet reviewed.",
+      "external_action": "NOT_EXECUTED"
+    }
+  ]
+}

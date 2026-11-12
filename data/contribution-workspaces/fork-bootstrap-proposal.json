@@ -3,19 +3,19 @@
   "state": "READ_ONLY_PROPOSAL_NOT_APPROVED",
   "destination_org": "opensiro-contributions",
   "source_registry": "data/contribution-workspaces/registry.json",
-  "source_registry_sha256": "702212ea81119bcbaee840e38fab90f15a518bf7a49718051be2a8d64cfbdb45",
+  "source_registry_sha256": "8860bcaabd26c0cd042ff4350978f76e8da8ca67e4730ae2d46e71ac7ddbfbaf",
   "priority_snapshot": "data/fork-priorities/2026-11-08.json",
   "batch_size_max": 10,
   "counts": {
-    "sources": 234,
+    "sources": 239,
     "priority_sources": 100,
-    "additive_extras": 134,
+    "additive_extras": 139,
     "collision_name_proposals": 11,
     "creation_batches": 9,
     "by_state": {
       "HOLD_HISTORICAL_OR_NEGATIVE_CASE": 128,
       "HOLD_LICENSE_REVIEW": 5,
-      "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT": 83,
+      "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT": 88,
       "RECHECK_MAPPED_FORK": 18
     }
   },
@@ -35,7 +35,7 @@
     {
       "id": "bootstrap-001",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "4f4c4290fe7be012869465c76d16a26dd7b22441c6b1f5a669a8bc01ebd439ff",
+      "selection_sha256": "00507d2e7210738f03ffbc5bb9a424a7c6a0bb71dfc546b0d4aa03a0349b7801",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -84,7 +84,7 @@
     {
       "id": "bootstrap-002",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "74f18ccbcb5b810e444ecd5ed430c7b72980d63cdcba28f779a3a7d9a6f6f444",
+      "selection_sha256": "7dfb4efc072d4de8cbd06a516191d16e09d3245a659b1870502fdc20d11e11f6",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -133,7 +133,7 @@
     {
       "id": "bootstrap-003",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "3350de1449f0327e4a2ae4f355c6ed953b78a25b61a93fc3404de189d26f59b0",
+      "selection_sha256": "d2034e20c9966e23ab7213a014ac6ced20909940f01cae44d11522ca92ef54f3",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -182,7 +182,7 @@
     {
       "id": "bootstrap-004",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "18c8dae6a01419532eea75bc6a1611507c263a883759ddd0057e87a055b52c3d",
+      "selection_sha256": "41e0843fe1e5fc5b34dd5a6c418841a4610d49caeb004c35d933789505859948",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -231,7 +231,7 @@
     {
       "id": "bootstrap-005",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "b55cb9ebb16c4dbea6dc2db93c2a1a8e868299e8e7af3c4c8f117b6a08c6ac10",
+      "selection_sha256": "5e3e555eb56ca54e1a8eed02763942481ef016c8b6ae7c4c8b361f11ea67d7d5",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -280,7 +280,7 @@
     {
       "id": "bootstrap-006",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "673ce1086da0869a588fabac8ecea1de30f6ab523b6fef6c3a5d9e769a5a5a90",
+      "selection_sha256": "4e1d8e7cb9eeb09a219fefa86aaeaa9916e11bd516a5f8e962dd2af4325b7f01",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -329,7 +329,7 @@
     {
       "id": "bootstrap-007",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "73751210be0d21d6bd521f870d0970813385bff1d322f2df900d46dc776f0063",
+      "selection_sha256": "42233cab3891e2ea4586e515931b9d00385b33cd7940c7bb90d48d9dee7c80c8",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -378,7 +378,7 @@
     {
       "id": "bootstrap-008",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "7fe93295956dbac51e236b3875971ce74bfa80bae605fb52218551f803babca1",
+      "selection_sha256": "544ed9f5cbda1828a8bb3ff79233381df55ef25ebaf2a5c8862efe7ae4be42dc",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -399,6 +399,10 @@
           "candidate_fork": "opensiro-contributions/NovaCode"
         },
         {
+          "source": "hasitpbhatt/codewhip",
+          "candidate_fork": "opensiro-contributions/codewhip"
+        },
+        {
           "source": "howl-anderson/agentsilex",
           "candidate_fork": "opensiro-contributions/agentsilex"
         },
@@ -411,29 +415,41 @@
           "candidate_fork": "opensiro-contributions/agentbox"
         },
         {
+          "source": "ownpilot/OwnPilot",
+          "candidate_fork": "opensiro-contributions/OwnPilot"
+        },
+        {
           "source": "patriceckhart/zot",
           "candidate_fork": "opensiro-contributions/zot"
-        },
-        {
-          "source": "ScaleML/AgentSPEX",
-          "candidate_fork": "opensiro-contributions/AgentSPEX"
-        },
-        {
-          "source": "speakeasy-api/kit",
-          "candidate_fork": "opensiro-contributions/kit"
         }
       ]
     },
     {
       "id": "bootstrap-009",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "bc81e0a772278a19f2572e3fcde1c8ac934aa660f2bb1428f9ce73161bfe2533",
-      "source_count": 3,
+      "selection_sha256": "1b298420eab893ac72fe7c43e6538fb8ea8d90dbca428951659d9d5dafa5de4b",
+      "source_count": 8,
       "has_collision_name_proposals": false,
       "selection": [
         {
+          "source": "ScaleML/AgentSPEX",
+          "candidate_fork": "opensiro-contributions/AgentSPEX"
+        },
+        {
+          "source": "ShawnPana/phone-harness",
+          "candidate_fork": "opensiro-contributions/phone-harness"
+        },
+        {
+          "source": "speakeasy-api/kit",
+          "candidate_fork": "opensiro-contributions/kit"
+        },
+        {
           "source": "splashxmoon/friday",
           "candidate_fork": "opensiro-contributions/friday"
+        },
+        {
+          "source": "sppideey/ucode-agent",
+          "candidate_fork": "opensiro-contributions/ucode-agent"
         },
         {
           "source": "xingyaoww/code-act",
@@ -442,6 +458,10 @@
         {
           "source": "yologdev/yoagent",
           "candidate_fork": "opensiro-contributions/yoagent"
+        },
+        {
+          "source": "yottadynamics/yottacode",
+          "candidate_fork": "opensiro-contributions/yottacode"
         }
       ]
     }
@@ -2109,6 +2129,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "hasitpbhatt/codewhip",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/codewhip",
+      "candidate_name": "codewhip",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "howl-anderson/agentsilex",
       "priority_group": "PILOT_EXTRA",
       "next_step": "RECONCILE_NATIVE_PILOT_BEFORE_FORK_STAGE",
@@ -2527,6 +2558,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "ownpilot/OwnPilot",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/OwnPilot",
+      "candidate_name": "OwnPilot",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "patriceckhart/zot",
       "priority_group": "PILOT_EXTRA",
       "next_step": "RECONCILE_NATIVE_PILOT_BEFORE_FORK_STAGE",
@@ -2692,6 +2734,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "ShawnPana/phone-harness",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/phone-harness",
+      "candidate_name": "phone-harness",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "shep-ai/shep",
       "priority_group": "PORTFOLIO_EXTRA",
       "next_step": "HISTORICAL_PR_TRACK_ONLY_NO_NEW_PUBLICATION",
@@ -2774,6 +2827,17 @@
       "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
       "candidate_fork": "opensiro-contributions/friday",
       "candidate_name": "friday",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "sppideey/ucode-agent",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/ucode-agent",
+      "candidate_name": "ucode-agent",
       "collision_name_proposal": false,
       "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
       "current_fork_mapping": null,
@@ -2983,6 +3047,17 @@
       "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
       "candidate_fork": "opensiro-contributions/yoagent",
       "candidate_name": "yoagent",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "yottadynamics/yottacode",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/yottacode",
+      "candidate_name": "yottacode",
       "collision_name_proposal": false,
       "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
       "current_fork_mapping": null,
