@@ -129,7 +129,7 @@
       "batches": [
         "data/assessment-candidate-batches/2026-11-12-29.json"
       ],
-      "latest_stage": "SCREENING",
+      "latest_stage": "CLOSED_NO_CHANGE",
       "handoffs": [],
       "pilot_links": [],
       "historical_prs": [],
@@ -138,7 +138,7 @@
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/fiber",
       "license_review": false,
-      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+      "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
       "source": "affaan-m/ECC",
@@ -176,7 +176,7 @@
       "batches": [
         "data/assessment-candidate-batches/2026-11-12-29.json"
       ],
-      "latest_stage": "SCREENING",
+      "latest_stage": "CLOSED_NO_CHANGE",
       "handoffs": [],
       "pilot_links": [],
       "historical_prs": [],
@@ -185,7 +185,7 @@
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/agent-of-empires",
       "license_review": false,
-      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+      "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
       "source": "agentarea/agentarea",
@@ -606,7 +606,7 @@
       "batches": [
         "data/assessment-candidate-batches/2026-11-12-29.json"
       ],
-      "latest_stage": "SCREENING",
+      "latest_stage": "BLOCKED_EVIDENCE",
       "handoffs": [],
       "pilot_links": [],
       "historical_prs": [],
@@ -615,7 +615,7 @@
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/agent-cli",
       "license_review": false,
-      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
     },
     {
       "source": "beipo-ai/NorthCUA",
@@ -1035,7 +1035,7 @@
       "batches": [
         "data/assessment-candidate-batches/2026-11-12-29.json"
       ],
-      "latest_stage": "SCREENING",
+      "latest_stage": "BLOCKED_EVIDENCE",
       "handoffs": [],
       "pilot_links": [],
       "historical_prs": [],
@@ -1044,7 +1044,7 @@
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/Linear-Coding-Agent-Harness",
       "license_review": false,
-      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
     },
     {
       "source": "converged-computing/fractale",
@@ -1447,7 +1447,7 @@
       "batches": [
         "data/assessment-candidate-batches/2026-11-12-29.json"
       ],
-      "latest_stage": "SCREENING",
+      "latest_stage": "BLOCKED_EVIDENCE",
       "handoffs": [],
       "pilot_links": [],
       "historical_prs": [],
@@ -1456,7 +1456,7 @@
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/macher-agent",
       "license_review": false,
-      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
     },
     {
       "source": "elmissouri16/snow-core",

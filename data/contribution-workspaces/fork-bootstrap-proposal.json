@@ -3,7 +3,7 @@
   "state": "READ_ONLY_PROPOSAL_NOT_APPROVED",
   "destination_org": "opensiro-contributions",
   "source_registry": "data/contribution-workspaces/registry.json",
-  "source_registry_sha256": "abad5c73bc287f0050661c37a3d2d50a8a5f5eeadbfba4d8938caa5daa3fb6ae",
+  "source_registry_sha256": "9a0f60e88ac7a468f77aa5ab006a166a2613c62b96571f39ccd4f52c89d93fcd",
   "priority_snapshot": "data/fork-priorities/2026-11-08.json",
   "batch_size_max": 10,
   "counts": {
@@ -13,9 +13,9 @@
     "collision_name_proposals": 11,
     "creation_batches": 9,
     "by_state": {
-      "HOLD_HISTORICAL_OR_NEGATIVE_CASE": 113,
+      "HOLD_HISTORICAL_OR_NEGATIVE_CASE": 118,
       "HOLD_LICENSE_REVIEW": 5,
-      "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT": 88,
+      "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT": 83,
       "RECHECK_MAPPED_FORK": 18
     }
   },
@@ -35,7 +35,7 @@
     {
       "id": "bootstrap-001",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "27bd29ed1e61ae43fb15c06839f937051de00447a6edd8c436a4b1924e31387f",
+      "selection_sha256": "0b4d9906ee97b48d684595833a707f633d4ec3a69e4b39abdf1df47f111ef9e5",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -84,7 +84,7 @@
     {
       "id": "bootstrap-002",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "e4d26c9983edf227a37c122f780b96ac4c9702c7f399cf39aa2de016b8bcca08",
+      "selection_sha256": "0c594bb57dca424fdf84adf46c4865d071bba2dbd35c4f5c89898438db61231d",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -133,7 +133,7 @@
     {
       "id": "bootstrap-003",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "119f5d56fff33473044d70f003189f3685dd5c06d8bc225cc1b48b6ac1e0f5da",
+      "selection_sha256": "cfccd129e0c9f06e5b42434cf686adc2a2a63a1eb3a71e39685af48ac6510554",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -182,7 +182,7 @@
     {
       "id": "bootstrap-004",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "73e8aabc665505cec880a6c30d04b6091521b8bfbb83f8eccccc1514c6a874fc",
+      "selection_sha256": "63d30f6fa20cef4849cd9d0e0825524af687e7ca8e0768083116ebe5cde2c932",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -231,7 +231,7 @@
     {
       "id": "bootstrap-005",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "14ef51f2f11e594631d7d7cd9f083641d2104cf1a1db68befa483f9483b43eb4",
+      "selection_sha256": "2a97ae27b8bb9086b73c8e55956fd41cdf2335c2c8500569f5582cfaba04bbdf",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -280,7 +280,7 @@
     {
       "id": "bootstrap-006",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "055970faba530a13da06d067c2ac76d40574d02bd5f292204dccbaa9b86bc096",
+      "selection_sha256": "3988f7598d44dca3bb216f3d6f1d47759e15e7ecfb54be06a9a1fcf99e7d5c16",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -329,7 +329,7 @@
     {
       "id": "bootstrap-007",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "e6b9c8f370132ad45033743b177babf6d9aaecccdd8917249e6e96d60af86c1b",
+      "selection_sha256": "e1e52b4eb39f7ce09dbb3e7bbeca1e2f88caf648c0af2e904ecd67ffd4548c0f",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -370,30 +370,18 @@
           "candidate_fork": "opensiro-contributions/lacp"
         },
         {
-          "source": "aakshintala/fiber",
-          "candidate_fork": "opensiro-contributions/fiber"
+          "source": "avala-ai/agent-code",
+          "candidate_fork": "opensiro-contributions/agent-code"
         }
       ]
     },
     {
       "id": "bootstrap-008",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "4ebe5b730ccb317fb8fe580d21634cfeb5e49922017e6919b6ca54d321d5c8ab",
+      "selection_sha256": "5adeb7cbe47b60292c5bc3c730c09faa3c2ff61c05eb4266980766329b4b2d10",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
-        {
-          "source": "agent-of-empires/agent-of-empires",
-          "candidate_fork": "opensiro-contributions/agent-of-empires"
-        },
-        {
-          "source": "avala-ai/agent-code",
-          "candidate_fork": "opensiro-contributions/agent-code"
-        },
-        {
-          "source": "basnijholt/agent-cli",
-          "candidate_fork": "opensiro-contributions/agent-cli"
-        },
         {
           "source": "chekusu/wanman",
           "candidate_fork": "opensiro-contributions/wanman"
@@ -401,14 +389,6 @@
         {
           "source": "codexmark/kram",
           "candidate_fork": "opensiro-contributions/kram"
-        },
-        {
-          "source": "coleam00/Linear-Coding-Agent-Harness",
-          "candidate_fork": "opensiro-contributions/Linear-Coding-Agent-Harness"
-        },
-        {
-          "source": "elij/macher-agent",
-          "candidate_fork": "opensiro-contributions/macher-agent"
         },
         {
           "source": "FonaTech/Clouds-Coder",
@@ -421,16 +401,7 @@
         {
           "source": "howl-anderson/agentsilex",
           "candidate_fork": "opensiro-contributions/agentsilex"
-        }
-      ]
-    },
-    {
-      "id": "bootstrap-009",
-      "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "267101bf38267a0dc7f10cfd3ac548329a458fdeee550a925a27a2c065bb3236",
-      "source_count": 8,
-      "has_collision_name_proposals": false,
-      "selection": [
+        },
         {
           "source": "leprachuan/Wee-Orchestrator",
           "candidate_fork": "opensiro-contributions/Wee-Orchestrator"
@@ -450,7 +421,16 @@
         {
           "source": "speakeasy-api/kit",
           "candidate_fork": "opensiro-contributions/kit"
-        },
+        }
+      ]
+    },
+    {
+      "id": "bootstrap-009",
+      "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
+      "selection_sha256": "f186abdc19edede92a3aa13b47ee64470dbe0984e24f2decf84fee0f1ce6ba17",
+      "source_count": 3,
+      "has_collision_name_proposals": false,
+      "selection": [
         {
           "source": "splashxmoon/friday",
           "candidate_fork": "opensiro-contributions/friday"
@@ -1614,22 +1594,22 @@
     {
       "source": "aakshintala/fiber",
       "priority_group": "HISTORICAL_EXTRA",
-      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
       "candidate_fork": "opensiro-contributions/fiber",
       "candidate_name": "fiber",
       "collision_name_proposal": false,
-      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
       "source": "agent-of-empires/agent-of-empires",
       "priority_group": "HISTORICAL_EXTRA",
-      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
       "candidate_fork": "opensiro-contributions/agent-of-empires",
       "candidate_name": "agent-of-empires",
       "collision_name_proposal": false,
-      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
@@ -1735,11 +1715,11 @@
     {
       "source": "basnijholt/agent-cli",
       "priority_group": "HISTORICAL_EXTRA",
-      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
       "candidate_fork": "opensiro-contributions/agent-cli",
       "candidate_name": "agent-cli",
       "collision_name_proposal": false,
-      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
@@ -1823,11 +1803,11 @@
     {
       "source": "coleam00/Linear-Coding-Agent-Harness",
       "priority_group": "HISTORICAL_EXTRA",
-      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
       "candidate_fork": "opensiro-contributions/Linear-Coding-Agent-Harness",
       "candidate_name": "Linear-Coding-Agent-Harness",
       "collision_name_proposal": false,
-      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
@@ -1911,11 +1891,11 @@
     {
       "source": "elij/macher-agent",
       "priority_group": "HISTORICAL_EXTRA",
-      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
       "candidate_fork": "opensiro-contributions/macher-agent",
       "candidate_name": "macher-agent",
       "collision_name_proposal": false,
-      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
