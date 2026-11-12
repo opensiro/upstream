@@ -3,17 +3,17 @@
   "state": "READ_ONLY_PROPOSAL_NOT_APPROVED",
   "destination_org": "opensiro-contributions",
   "source_registry": "data/contribution-workspaces/registry.json",
-  "source_registry_sha256": "2adb2d409284ed6376644c996ef0452773c692d3a7796a3bde9dd8c2d88c044a",
+  "source_registry_sha256": "996b517f9e5e97fa71d1ac9879a2cc97fcac6c9c71b5a2bdc8159208d9f7c7d0",
   "priority_snapshot": "data/fork-priorities/2026-11-08.json",
   "batch_size_max": 10,
   "counts": {
-    "sources": 204,
+    "sources": 209,
     "priority_sources": 100,
-    "additive_extras": 104,
+    "additive_extras": 109,
     "collision_name_proposals": 11,
     "creation_batches": 9,
     "by_state": {
-      "HOLD_HISTORICAL_OR_NEGATIVE_CASE": 99,
+      "HOLD_HISTORICAL_OR_NEGATIVE_CASE": 104,
       "HOLD_LICENSE_REVIEW": 5,
       "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT": 83,
       "RECHECK_MAPPED_FORK": 17
@@ -35,7 +35,7 @@
     {
       "id": "bootstrap-001",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "502f191810d21d25a42f062033055917efdb5deec0007e5c46576f804d18572f",
+      "selection_sha256": "0dda3f6a16d5cb685cae92b2d70eff92d7ce29a8727c5d5244dff854273ec540",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -84,7 +84,7 @@
     {
       "id": "bootstrap-002",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "921e3de2cb5d5e5670b9b4229358e3e09c6a553a4bd8799afe1c5750d53e3a8e",
+      "selection_sha256": "c2ef8d981cd35eecedbefda3320615a3ee796092e13b0fd9e6b9c116e155c44c",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -133,7 +133,7 @@
     {
       "id": "bootstrap-003",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "c83bf36c0259ebb82fae544a69159eb3dfed8b2024c2deb17f1a3ae1bdb0a68a",
+      "selection_sha256": "9c6ec0505dfeff24900e8a46ad8e16ad462c3026858d6c15c6c544cd05823401",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -182,7 +182,7 @@
     {
       "id": "bootstrap-004",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "3cfa6ebca46487a7ceb001630731b2cb350202894c324ac7c0cf5a3d45ceb027",
+      "selection_sha256": "308d4fc672d7ef496173516314a125feff6b5bfc2bcf4e1c8ba085d9e1624920",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -231,7 +231,7 @@
     {
       "id": "bootstrap-005",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "1614dd1c4711f0b2db089800e60c8d6f4c282a9c0e218e98ae43ac558a4e16af",
+      "selection_sha256": "2362668009a3e437c9015b82441933e5a92065ef59f6952c89a33e034a3d1c63",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -280,7 +280,7 @@
     {
       "id": "bootstrap-006",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "f6c498a00f538afa04618ae3fc2b79bca116b8c663282dc2823944f288df4272",
+      "selection_sha256": "c964a4bafd19ebca3f2a9f5d9c67e59367c6541689eddee197e8afbee908bc1c",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -329,7 +329,7 @@
     {
       "id": "bootstrap-007",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "f886cd1ce5e24b6d54ebe5dff2015fab8076baf325f6ad56fb39952ae0d4029a",
+      "selection_sha256": "8410d3e9a0e2ef43f0c91be858dc4825bd145a4d3ba299d688763f8da234cc97",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -378,7 +378,7 @@
     {
       "id": "bootstrap-008",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "0fd7702bc9268e623e7b1a370d35cbf6f896293b80385fd0fb7df55a0d96abbe",
+      "selection_sha256": "b09a464d64e412c7d2a3aaf4d4b3724d4369f574e5034be6df5296310b9f9176",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -427,7 +427,7 @@
     {
       "id": "bootstrap-009",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "7b368d5af209af4f4b2bdc79feb88a3c9e58621bca965fe46a9dea44bbb48aac",
+      "selection_sha256": "ec61487132484b3052a114754e029e5ec32a68b6f87d48fbb2520bd79a9c4d8e",
       "source_count": 3,
       "has_collision_name_proposals": false,
       "selection": [
@@ -1779,6 +1779,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "crossoverJie/botler-agent",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/botler-agent",
+      "candidate_name": "botler-agent",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "cUDGk/nipus-harness",
       "priority_group": "HISTORICAL_EXTRA",
       "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
@@ -1889,6 +1900,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "gannonh/kata-symphony",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/kata-symphony",
+      "candidate_name": "kata-symphony",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "gczhuang-cmd/NovaCode",
       "priority_group": "HISTORICAL_EXTRA",
       "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT",
@@ -1896,6 +1918,17 @@
       "candidate_name": "NovaCode",
       "collision_name_proposal": false,
       "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "gke-labs/kube-agents",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/kube-agents",
+      "candidate_name": "kube-agents",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
@@ -1916,6 +1949,17 @@
       "next_step": "TRACK_ONLY_NO_CHANGE",
       "candidate_fork": "opensiro-contributions/kheish",
       "candidate_name": "kheish",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "GreenSheep01201/claw-empire",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/claw-empire",
+      "candidate_name": "claw-empire",
       "collision_name_proposal": false,
       "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
@@ -2512,6 +2556,17 @@
       "candidate_name": "pyflue",
       "collision_name_proposal": false,
       "state": "HOLD_LICENSE_REVIEW",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "Sweetienite/personal-agent-runtime",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/personal-agent-runtime",
+      "candidate_name": "personal-agent-runtime",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
     },

@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-12-26",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "85ae995fc2551ac0a076609bce0300d075cac2d5",
+  "frozen_at": "2026-11-12",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Upstream upgrade batch 26: five most recently reviewed distinct available included S1=A / S2=C canonical Index assessments at 85ae995f, excluding identities from all 25 integrated batch manifests and source-to-fork registry. Reviewed-at descending order. S2 predictions, expected benefit and explicit null/falsifiers publicly committed as 8229aad before any fresh original repository code/issues/policy inspection. Selection is five testable questions, not five admitted fixes.",
+  "candidates": [
+    {
+      "id": "botler-cancelled-dispatch-token",
+      "assessment_path": "assessments/bo/botler-agent.md",
+      "source": "crossoverJie/botler-agent",
+      "review_ref": "6dd4986fd236f75053f15905f66adcb0df9a8431",
+      "reviewed_at": "2026-11-11",
+      "function": "S2",
+      "finding": "Check whether a supported cancelled or failed dispatch can retain the shared one-token mutation lock and indefinitely prevent a later agent task from accessing DATA_ROOT.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/bo/botler-agent.md",
+        "https://github.com/opensiro/upstream/commit/8229aad2d773747881e061cd46285357bccceb34",
+        "https://github.com/crossoverJie/botler-agent/blob/7d576a3378bdf7ed4223e9dc4d408621bf92a939/internal/dispatch/dispatch.go",
+        "https://github.com/crossoverJie/botler-agent/blob/7d576a3378bdf7ed4223e9dc4d408621bf92a939/internal/dispatch/dispatch_test.go",
+        "https://github.com/crossoverJie/botler-agent/blob/7d576a3378bdf7ed4223e9dc4d408621bf92a939/AGENTS.md"
+      ],
+      "screening_result": "Current original main@7d576a3 AGPL-3.0. The one-token chain is acquired before runner work, with deferred release after accounting and a later-registered recover defer. Existing source-native first-party tests exercise panic in model and script runner; ordinary failure/cancel does not prove a stranded token. A failure inside deferred accounting could bypass its trailing release, but no reachable matched native reproducer or maintainer need has been established. Source inspection only; no tests or derivative patch run.",
+      "external_action": "NOT_EXECUTED",
+      "blocker": "No supported first-party accounting/monitor panic or cancellation path reproduces a leaked dispatch token; existing model/script panic regression recovery passes historically. A theoretical secondary defer panic is not an admitted product defect."
+    },
+    {
+      "id": "par-concurrent-project-admission",
+      "assessment_path": "assessments/pe/personal-agent-runtime.md",
+      "source": "Sweetienite/personal-agent-runtime",
+      "review_ref": "41940107f285b6be0679962abe37be0e8d6441fe",
+      "reviewed_at": "2026-11-11",
+      "function": "S2",
+      "finding": "Check whether concurrent run_next invocations can separately select and then claim same-project work outside one SQLite transaction, despite project lock and dependency readiness.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/pe/personal-agent-runtime.md",
+        "https://github.com/opensiro/upstream/commit/8229aad2d773747881e061cd46285357bccceb34",
+        "https://github.com/Sweetienite/personal-agent-runtime/blob/41940107f285b6be0679962abe37be0e8d6441fe/src/par/core/kernel.py",
+        "https://github.com/Sweetienite/personal-agent-runtime/blob/41940107f285b6be0679962abe37be0e8d6441fe/src/par/core/store.py",
+        "https://github.com/Sweetienite/personal-agent-runtime/blob/41940107f285b6be0679962abe37be0e8d6441fe/CONTRIBUTING.md"
+      ],
+      "screening_result": "Current original main@4194010 MIT. Kernel.run_next calls run and _start, which validates fresh task version/status, capacity, inserts attempt, acquires project lock and sets STARTING within one Store.tx. Store.tx begins BEGIN IMMEDIATE and project_locks has unique project_id primary key; concurrent conflicting admission becomes Busy(project_locked) or Busy(changed). The hypothesized separate-check/claim race is already closed by first-party code. Static source check only; no new native test, patch, issue or PR.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "claw-empire-delegation-review-readiness",
+      "assessment_path": "assessments/cl/claw-empire.md",
+      "source": "GreenSheep01201/claw-empire",
+      "review_ref": "66a24ea7df2435ef897c48c147deb7ec572c01c2",
+      "reviewed_at": "2026-11-10",
+      "function": "S2",
+      "finding": "Check whether a review-round acceptance overlapping a still-outstanding delegated child or remediation step can advance parent readiness from an obsolete state snapshot.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/cl/claw-empire.md",
+        "https://github.com/opensiro/upstream/commit/8229aad2d773747881e061cd46285357bccceb34",
+        "https://github.com/GreenSheep01201/claw-empire/blob/66a24ea7df2435ef897c48c147deb7ec572c01c2/server/modules/routes/ops/messages/decision-inbox/review-round-reply.ts",
+        "https://github.com/GreenSheep01201/claw-empire/blob/66a24ea7df2435ef897c48c147deb7ec572c01c2/server/modules/routes/collab/subtask-delegation.ts",
+        "https://github.com/GreenSheep01201/claw-empire/pull/91",
+        "https://github.com/GreenSheep01201/claw-empire/blob/66a24ea7df2435ef897c48c147deb7ec572c01c2/CONTRIBUTING.md"
+      ],
+      "screening_result": "Current original default main and contributor dev both @66a24ea Apache-2.0. Review reply checks task and meeting states, and delegation uses an in-flight set and queued follow-up. Neither constitutes a proven atomic interleaving of all parent/child transitions, but no observed native stale parent completion was produced. PR #91 modifies directive integration/parallel department planning (55 files) on dev and overlaps the proposed mechanism; CONTRIBUTING requires external contributions to target dev with CI/review. No separate native test, patch, external fork write or PR.",
+      "external_action": "NOT_EXECUTED",
+      "blocker": "No isolated supported stale parent-readiness counterexample or matched native interleaving; concurrently open 55-file PR #91 changes directive integration and parallel planning, and contributor PRs must target dev."
+    },
+    {
+      "id": "kube-agents-reserved-slot-boundary",
+      "assessment_path": "assessments/ku/kube-agents.md",
+      "source": "gke-labs/kube-agents",
+      "review_ref": "c20297fccc667bec06b5d78f89ee4e368fd29f3d",
+      "reviewed_at": "2026-10-29",
+      "function": "S2",
+      "finding": "Check whether the existing bilateral worker slot reservation can be bypassed at a supported capacity boundary while the opposite workload class has ready cards.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ku/kube-agents.md",
+        "https://github.com/opensiro/upstream/commit/8229aad2d773747881e061cd46285357bccceb34",
+        "https://github.com/gke-labs/kube-agents/blob/92c49bf3b5de18d4fa55b43701b1b51b7cbd3f06/deploy/docker/patches/kanban_priority.py",
+        "https://github.com/gke-labs/kube-agents/blob/92c49bf3b5de18d4fa55b43701b1b51b7cbd3f06/CONTRIBUTING.md"
+      ],
+      "screening_result": "Current original main@92c49bf Apache-2.0 drifted from assessed c20297f. First-party class_cap explicitly returns cap-1 for max_in_progress >=2, else no reservation for cap 1. ReservedSlot counts per class and holds_back denies spawn when a class already holds its cap. On state-read failures the code deliberately fails open to preserve dispatch, which is a declared compatibility policy, not an observed concurrency defect. No supported bypass identified. CONTRIBUTING requires Google CLA personal assent; no external action or native test performed.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "kata-symphony-expired-conflict-feedback",
+      "assessment_path": "assessments/ka/kata-symphony.md",
+      "source": "gannonh/kata-symphony",
+      "review_ref": "e7c160f5e4d485fdfb6d79296f56d36c8872b2a9",
+      "reviewed_at": "2026-10-29",
+      "function": "S2",
+      "finding": "Check whether overlap-warning cooldown can suppress new feedback after the shared-context TTL expires but before an affected issue worker consumes that warning.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ka/kata-symphony.md",
+        "https://github.com/opensiro/upstream/commit/8229aad2d773747881e061cd46285357bccceb34",
+        "https://github.com/gannonh/kata-symphony/blob/e7c160f5e4d485fdfb6d79296f56d36c8872b2a9/apps/symphony/src/supervisor.rs",
+        "https://github.com/gannonh/kata-symphony/blob/e7c160f5e4d485fdfb6d79296f56d36c8872b2a9/apps/symphony/tests/supervisor_tests.rs"
+      ],
+      "screening_result": "Current original main@e7c160f MIT. Supervisor CONFLICT_DEDUP_WINDOW_MS=120000 (2 min) while ContextEntryDraft TTL=1800000 (30 min); repeated conflict after dedup writes project-scoped shared context unconditionally, even if per-worker steer cooldown stops a direct steer event. The proposed expiration-before-dedup loss is therefore contradicted by current first-party code, and existing supervisor tests cover conflict reporting and cooldown separately. No new tests or source edits performed.",
+      "external_action": "NOT_EXECUTED"
+    }
+  ]
+}
