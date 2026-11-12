@@ -1,5 +1,8 @@
 # Dark Factory: fail closed on unknown or aliased parallel file scopes
 
+> **Current third-party lifecycle (readback 2026-11-12):** **MERGED**: [original ruslantrachuk/dark-factory PR #106](https://github.com/ruslantrachuk/dark-factory/pull/106) on 2026-11-10T16:44:55Z by `ruslantrachuk`. Final source PR head `bbcd33077bb94befe9599f6f62642caac1cfc885` and merge commit `36d788ad7df913d09f91c63be88155323a9f5ae8`. [Five-source GitHub evidence](../../reports/2026-11-12-five-merged-external-pr-lifecycle-readback.md). Any older unpublished or AWAITING_EXTERNAL wording below is a **historical preparation snapshot**, not the current external lifecycle. Strict native-outcome metric acceptance is separate and remains unclaimed.
+
+
 Status: `ASSESSMENT_DERIVED` / **native helper source-tested**, OpenSiro-only unpublished packet.
 Owning route: [Upstream #56](https://github.com/opensiro/upstream/issues/56),
 batch `data/assessment-candidate-batches/2026-11-06-12.json`.

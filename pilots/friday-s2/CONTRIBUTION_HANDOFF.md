@@ -1,5 +1,8 @@
 # Friday — S2 file custody canonicalization (unpublished technical handoff)
 
+> **Current third-party lifecycle (readback 2026-11-12):** **MERGED**: [original splashxmoon/friday PR #23](https://github.com/splashxmoon/friday/pull/23) on 2026-11-10T17:47:58Z by `splashxmoon`. Final source PR head `0b98947ee5077a08de485b22d13830bcaf9adf90` and merge commit `9cdbe26b6e4cb61f88c1fe6e9a6dda503a3b6cb6`. [Five-source GitHub evidence](../../reports/2026-11-12-five-merged-external-pr-lifecycle-readback.md). Any older unpublished or AWAITING_EXTERNAL wording below is a **historical preparation snapshot**, not the current external lifecycle. Strict native-outcome metric acceptance is separate and remains unclaimed.
+
+
 **Status:** `ASSESSMENT_DERIVED / AWAITING_EXTERNAL`, native mechanism RED→GREEN confirmed on a **separate deterministic runner**; **no external contribution published**.
 
 - **Pre-registered origin:** [batch-19 S2 hypothesis](../../data/assessment-candidate-batches/2026-11-09-19-HYPOTHESES.md), immutable [pre-source commit](https://github.com/opensiro/upstream/commit/0fbad73f3e11b36a55d46ff3f1ae5ec1f4678b51), canonical [Index assessment](https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/fr/friday.md).
