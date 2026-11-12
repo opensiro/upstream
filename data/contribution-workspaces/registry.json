@@ -4,13 +4,13 @@
   "batch_sources": "data/assessment-candidate-batches/*.json",
   "counts": {
     "priority_sources": 100,
-    "historical_extras": 119,
-    "batch_only_extras": 104,
+    "historical_extras": 124,
+    "batch_only_extras": 109,
     "pilot_only_extras": 7,
     "portfolio_only_extras": 8,
-    "unique_sources": 219,
-    "batch_manifests": 28,
-    "batch_cases": 160,
+    "unique_sources": 224,
+    "batch_manifests": 29,
+    "batch_cases": 165,
     "historical_fork_mappings": 16,
     "name_collision_sources": 11,
     "technical_handoffs": 55,
@@ -124,6 +124,23 @@
       "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
+      "source": "aakshintala/fiber",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-29.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/fiber",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
       "source": "affaan-m/ECC",
       "priority_group": "INDEX_HYPOTHESIS",
       "batches": [],
@@ -152,6 +169,23 @@
       "proposed_fork": "opensiro-contributions/ag2",
       "license_review": false,
       "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "agent-of-empires/agent-of-empires",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-29.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/agent-of-empires",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
       "source": "agentarea/agentarea",
@@ -567,6 +601,23 @@
       "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
     },
     {
+      "source": "basnijholt/agent-cli",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-29.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/agent-cli",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
       "source": "beipo-ai/NorthCUA",
       "priority_group": "HISTORICAL_EXTRA",
       "batches": [
@@ -979,6 +1030,23 @@
       "next_step": "RECONCILE_NATIVE_PILOT_BEFORE_FORK_STAGE"
     },
     {
+      "source": "coleam00/Linear-Coding-Agent-Harness",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-29.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/Linear-Coding-Agent-Harness",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
       "source": "converged-computing/fractale",
       "priority_group": "HISTORICAL_EXTRA",
       "batches": [
@@ -1372,6 +1440,23 @@
       "proposed_fork": "opensiro-contributions/pi",
       "license_review": false,
       "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
+      "source": "elij/macher-agent",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-29.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/macher-agent",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
     },
     {
       "source": "elmissouri16/snow-core",
