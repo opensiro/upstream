@@ -3,19 +3,19 @@
   "state": "READ_ONLY_PROPOSAL_NOT_APPROVED",
   "destination_org": "opensiro-contributions",
   "source_registry": "data/contribution-workspaces/registry.json",
-  "source_registry_sha256": "996b517f9e5e97fa71d1ac9879a2cc97fcac6c9c71b5a2bdc8159208d9f7c7d0",
+  "source_registry_sha256": "df230150009067f8dbca539d9686781957bd4219ad76dded268823108ea83f58",
   "priority_snapshot": "data/fork-priorities/2026-11-08.json",
   "batch_size_max": 10,
   "counts": {
-    "sources": 209,
+    "sources": 214,
     "priority_sources": 100,
-    "additive_extras": 109,
+    "additive_extras": 114,
     "collision_name_proposals": 11,
     "creation_batches": 9,
     "by_state": {
       "HOLD_HISTORICAL_OR_NEGATIVE_CASE": 104,
       "HOLD_LICENSE_REVIEW": 5,
-      "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT": 83,
+      "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT": 88,
       "RECHECK_MAPPED_FORK": 17
     }
   },
@@ -35,7 +35,7 @@
     {
       "id": "bootstrap-001",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "0dda3f6a16d5cb685cae92b2d70eff92d7ce29a8727c5d5244dff854273ec540",
+      "selection_sha256": "636f1715dafd3a28263bf2e1a9e5f5df73f2f609ccdd9f77c636eee9926f456c",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -84,7 +84,7 @@
     {
       "id": "bootstrap-002",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "c2ef8d981cd35eecedbefda3320615a3ee796092e13b0fd9e6b9c116e155c44c",
+      "selection_sha256": "80278e045470592949de14a6662614b8a3db011e1ea0fd1cbc61c61d77c3ad88",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -133,7 +133,7 @@
     {
       "id": "bootstrap-003",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "9c6ec0505dfeff24900e8a46ad8e16ad462c3026858d6c15c6c544cd05823401",
+      "selection_sha256": "e497ee70c98c5cde01f443c62c561cfdb69c8f0c66b999b21e39186136fdcda2",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -182,7 +182,7 @@
     {
       "id": "bootstrap-004",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "308d4fc672d7ef496173516314a125feff6b5bfc2bcf4e1c8ba085d9e1624920",
+      "selection_sha256": "d3c3cf7a2ab854371d23d92c5644c76dcc251efeb7744d3fd913e58e84f046a1",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -231,7 +231,7 @@
     {
       "id": "bootstrap-005",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "2362668009a3e437c9015b82441933e5a92065ef59f6952c89a33e034a3d1c63",
+      "selection_sha256": "10807945e61585183d709b99624ef63d3939328082ead4595a0782d6981c2f73",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -280,7 +280,7 @@
     {
       "id": "bootstrap-006",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "c964a4bafd19ebca3f2a9f5d9c67e59367c6541689eddee197e8afbee908bc1c",
+      "selection_sha256": "47ebdc66702f782931989d7a1a5182778e5d955887b5bff32f44c4c82d9189ae",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -329,7 +329,7 @@
     {
       "id": "bootstrap-007",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "8410d3e9a0e2ef43f0c91be858dc4825bd145a4d3ba299d688763f8da234cc97",
+      "selection_sha256": "dfacf7ed2d3fb08a8f18f699e9c86b0378a1034392c0847b72a80207ac98a0da",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -370,18 +370,22 @@
           "candidate_fork": "opensiro-contributions/lacp"
         },
         {
-          "source": "avala-ai/agent-code",
-          "candidate_fork": "opensiro-contributions/agent-code"
+          "source": "andrew-yangy/gru-ai",
+          "candidate_fork": "opensiro-contributions/gru-ai"
         }
       ]
     },
     {
       "id": "bootstrap-008",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "b09a464d64e412c7d2a3aaf4d4b3724d4369f574e5034be6df5296310b9f9176",
+      "selection_sha256": "9f1324662cea4f55eec59501ce3e4ff92bea3f64799f5d6f1aa6dfb60f8b2ec7",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
+        {
+          "source": "avala-ai/agent-code",
+          "candidate_fork": "opensiro-contributions/agent-code"
+        },
         {
           "source": "chekusu/wanman",
           "candidate_fork": "opensiro-contributions/wanman"
@@ -389,6 +393,14 @@
         {
           "source": "codexmark/kram",
           "candidate_fork": "opensiro-contributions/kram"
+        },
+        {
+          "source": "epicsagas/epic-harness",
+          "candidate_fork": "opensiro-contributions/epic-harness"
+        },
+        {
+          "source": "evotai/evot",
+          "candidate_fork": "opensiro-contributions/evot"
         },
         {
           "source": "FonaTech/Clouds-Coder",
@@ -409,7 +421,16 @@
         {
           "source": "madarco/agentbox",
           "candidate_fork": "opensiro-contributions/agentbox"
-        },
+        }
+      ]
+    },
+    {
+      "id": "bootstrap-009",
+      "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
+      "selection_sha256": "c3acde4f2b3a54c8402ac0bc0ebe6ea5ac52d291f057374ec4fc2998b86b0b0a",
+      "source_count": 8,
+      "has_collision_name_proposals": false,
+      "selection": [
         {
           "source": "patriceckhart/zot",
           "candidate_fork": "opensiro-contributions/zot"
@@ -421,19 +442,18 @@
         {
           "source": "speakeasy-api/kit",
           "candidate_fork": "opensiro-contributions/kit"
-        }
-      ]
-    },
-    {
-      "id": "bootstrap-009",
-      "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "ec61487132484b3052a114754e029e5ec32a68b6f87d48fbb2520bd79a9c4d8e",
-      "source_count": 3,
-      "has_collision_name_proposals": false,
-      "selection": [
+        },
         {
           "source": "splashxmoon/friday",
           "candidate_fork": "opensiro-contributions/friday"
+        },
+        {
+          "source": "theam/limina",
+          "candidate_fork": "opensiro-contributions/limina"
+        },
+        {
+          "source": "witt3rd/oh-my-hermes",
+          "candidate_fork": "opensiro-contributions/oh-my-hermes"
         },
         {
           "source": "xingyaoww/code-act",
@@ -1625,6 +1645,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "andrew-yangy/gru-ai",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/gru-ai",
+      "candidate_name": "gru-ai",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "androoAGI/starnet",
       "priority_group": "PORTFOLIO_EXTRA",
       "next_step": "HISTORICAL_PR_TRACK_ONLY_NO_NEW_PUBLICATION",
@@ -1830,6 +1861,28 @@
       "candidate_name": "AnyTool",
       "collision_name_proposal": false,
       "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "epicsagas/epic-harness",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/epic-harness",
+      "candidate_name": "epic-harness",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "evotai/evot",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/evot",
+      "candidate_name": "evot",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
@@ -2593,6 +2646,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "theam/limina",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/limina",
+      "candidate_name": "limina",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "topoteretes/cognee-community",
       "priority_group": "PORTFOLIO_EXTRA",
       "next_step": "HISTORICAL_PR_TRACK_ONLY_NO_NEW_PUBLICATION",
@@ -2655,6 +2719,17 @@
       "candidate_name": "VTCode",
       "collision_name_proposal": false,
       "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "witt3rd/oh-my-hermes",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "candidate_fork": "opensiro-contributions/oh-my-hermes",
+      "candidate_name": "oh-my-hermes",
+      "collision_name_proposal": false,
+      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
     },

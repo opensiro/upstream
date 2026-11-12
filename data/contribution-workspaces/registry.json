@@ -4,13 +4,13 @@
   "batch_sources": "data/assessment-candidate-batches/*.json",
   "counts": {
     "priority_sources": 100,
-    "historical_extras": 109,
-    "batch_only_extras": 94,
+    "historical_extras": 114,
+    "batch_only_extras": 99,
     "pilot_only_extras": 7,
     "portfolio_only_extras": 8,
-    "unique_sources": 209,
-    "batch_manifests": 26,
-    "batch_cases": 150,
+    "unique_sources": 214,
+    "batch_manifests": 27,
+    "batch_cases": 155,
     "historical_fork_mappings": 16,
     "name_collision_sources": 11,
     "technical_handoffs": 54,
@@ -319,6 +319,23 @@
       "proposed_fork": "opensiro-contributions/Tirith",
       "license_review": false,
       "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "andrew-yangy/gru-ai",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-27.json"
+      ],
+      "latest_stage": "SCREENING",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/gru-ai",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
     },
     {
       "source": "androoAGI/starnet",
@@ -1357,6 +1374,23 @@
       "next_step": "SCREEN_BEFORE_FORK_WRITE"
     },
     {
+      "source": "epicsagas/epic-harness",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-27.json"
+      ],
+      "latest_stage": "SCREENING",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/epic-harness",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
       "source": "eust-w/opengeniemaster",
       "priority_group": "INDEX_HYPOTHESIS",
       "batches": [],
@@ -1417,6 +1451,23 @@
       "proposed_fork": "opensiro-contributions/Raven",
       "license_review": false,
       "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "evotai/evot",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-27.json"
+      ],
+      "latest_stage": "SCREENING",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/evot",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
     },
     {
       "source": "fbrubacher/orch",
@@ -4658,6 +4709,23 @@
       "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
+      "source": "theam/limina",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-27.json"
+      ],
+      "latest_stage": "SCREENING",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/limina",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
       "source": "tigicion/dao-code",
       "priority_group": "INDEX_HYPOTHESIS",
       "batches": [],
@@ -4827,6 +4895,23 @@
       "proposed_fork": "opensiro-contributions/voly",
       "license_review": false,
       "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "witt3rd/oh-my-hermes",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-27.json"
+      ],
+      "latest_stage": "SCREENING",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/oh-my-hermes",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
     },
     {
       "source": "xiaotianfotos/homerail",

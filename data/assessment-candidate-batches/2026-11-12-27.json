@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-12-27",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "85ae995fc2551ac0a076609bce0300d075cac2d5",
+  "frozen_at": "2026-11-12",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Upstream upgrade batch 27: five newest reviewed eligible distinct included S1=A/S2=C canonical Index assessments at immutable 85ae995f, excluding 26 earlier integrated candidate manifests (150 unique original sources) and current contribution-workspaces registry (209 source identities). Prior to fresh target code/issues inspection, five S2 falsifiable hypotheses and null controls committed 9e2c1e9. Sorted by reviewed_at descending, original selection order preserved. These are screening questions, not fixes.",
+  "candidates": [
+    {
+      "id": "evot-file-mutex-alias",
+      "assessment_path": "assessments/ev/evot.md",
+      "source": "evotai/evot",
+      "review_ref": "011af29261930f1589c1ded6f8ca5793e271b83a",
+      "reviewed_at": "2026-10-29",
+      "function": "S2",
+      "finding": "Determine whether two supported source-native Edit/Write operations on equivalent in-root path aliases for an absent file can bypass the process-global canonical path mutex.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ev/evot.md",
+        "https://github.com/opensiro/upstream/commit/9e2c1e9695a82fcb853d05244ba8198dcd61dc1b"
+      ],
+      "screening_result": "Pre-source prospective prediction only; current original policy, first-party fit, counterfactual benefit and evidence are not yet verified.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "epic-harness-overlap-alias",
+      "assessment_path": "assessments/ep/epic-harness.md",
+      "source": "epicsagas/epic-harness",
+      "review_ref": "1f3823af536b1f56b3cb8af90cc8ea77ef71c4bd",
+      "reviewed_at": "2026-10-29",
+      "function": "S2",
+      "finding": "Determine whether source-native file-footprint aliases in installed /go and /orbit coordination can be admitted to one parallel shared-worktree builder wave as falsely disjoint.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ep/epic-harness.md",
+        "https://github.com/opensiro/upstream/commit/9e2c1e9695a82fcb853d05244ba8198dcd61dc1b"
+      ],
+      "screening_result": "Pre-source prospective prediction only; current original policy, first-party fit, counterfactual benefit and evidence are not yet verified.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "gruai-wave-scope-dependency",
+      "assessment_path": "assessments/gr/gruai.md",
+      "source": "andrew-yangy/gru-ai",
+      "review_ref": "8fba47928a0fe3fdfda7a31d22b73625c78cbfc4",
+      "reviewed_at": "2026-10-29",
+      "function": "S2",
+      "finding": "Determine whether the shipped dependency and active_files overlap wave scheduler incorrectly admits builders with transitive dependencies or normalized file-scope collisions.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/gr/gruai.md",
+        "https://github.com/opensiro/upstream/commit/9e2c1e9695a82fcb853d05244ba8198dcd61dc1b"
+      ],
+      "screening_result": "Pre-source prospective prediction only; current original policy, first-party fit, counterfactual benefit and evidence are not yet verified.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "oh-my-hermes-crossprocess-lock",
+      "assessment_path": "assessments/oh/oh-my-hermes.md",
+      "source": "witt3rd/oh-my-hermes",
+      "review_ref": "3b06e33ae67b202b342989b484f08143e65e250d",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Determine whether separate supported OMH processes can both acquire one named plan lock if the first-party state tool implements a non-atomic check then record sequence.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/oh/oh-my-hermes.md",
+        "https://github.com/opensiro/upstream/commit/9e2c1e9695a82fcb853d05244ba8198dcd61dc1b"
+      ],
+      "screening_result": "Pre-source prospective prediction only; current original policy, first-party fit, counterfactual benefit and evidence are not yet verified.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "limina-reclaimed-lease-completion",
+      "assessment_path": "assessments/li/limina.md",
+      "source": "theam/limina",
+      "review_ref": "56a4e2f3c9c613c7bc61f6a260ade379b21cd782",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Determine whether a stale owner can finish an experiment after its lease is reclaimed by another research lane due to incomplete owner, generation, or CAS checks.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/li/limina.md",
+        "https://github.com/opensiro/upstream/commit/9e2c1e9695a82fcb853d05244ba8198dcd61dc1b"
+      ],
+      "screening_result": "Pre-source prospective prediction only; current original policy, first-party fit, counterfactual benefit and evidence are not yet verified.",
+      "external_action": "NOT_EXECUTED"
+    }
+  ]
+}
