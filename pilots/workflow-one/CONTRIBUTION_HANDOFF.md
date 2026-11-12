@@ -1,5 +1,8 @@
 # Workflow One — active run ID can be overwritten in scheduler registry
 
+> **Current third-party lifecycle (readback 2026-11-12):** **MERGED**: [original chumingjun/dsh-harness-one PR #173](https://github.com/chumingjun/dsh-harness-one/pull/173) on 2026-10-29T08:17:44Z by `chumingjun`. Final source PR head `daa232cac3096e418e70c887079f8bdac4466a14` and merge commit `b0bf15853e3656cb0e5445d06215f66449d395ce`. [Five-source GitHub evidence](../../reports/2026-11-12-five-merged-external-pr-lifecycle-readback.md). Any older unpublished or AWAITING_EXTERNAL wording below is a **historical preparation snapshot**, not the current external lifecycle. Strict native-outcome metric acceptance is separate and remains unclaimed.
+
+
 **Stage:** `SUBMITTED_READY_FOR_REVIEW` as of 2026-10-24. [Upstream PR #173](https://github.com/chumingjun/dsh-harness-one/pull/173) is **OPEN / Ready for review**, authored by `xLagerFeuer` using public `opensiro-contributions/dsh-harness-one` fork. The original script-only experiment involved no live dsh execution.
 
 - **Publication readback:** base `08aef04761e8c6586efaa4077b49d349d4f0f920`, head `daa232cac3096e418e70c887079f8bdac4466a14`. Upstream full suite remains unverified; merge belongs to upstream maintainers.
