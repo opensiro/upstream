@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-12-28",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "85ae995fc2551ac0a076609bce0300d075cac2d5",
+  "frozen_at": "2026-11-12",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Batch 28: five recently reviewed distinct included S1=A/S2=C canonical Index assessments, excluding original identities from prior 27 integrated batches and source-to-fork registry. Hypotheses plus explicit nulls committed aee29e7 before any fresh target code/policy/PR inspection. These are questions, not admitted defects or external PR grants.",
+  "candidates": [
+    {
+      "id": "manyhands-atomic-card-claim",
+      "assessment_path": "assessments/ma/manyhands.md",
+      "source": "mjoneill/manyhands",
+      "review_ref": "94010f1227d03152f6d745f7da2fd89ef06d0a96",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Check if two concurrently connected operational seats can both claim one pending board card due a split check/update operation.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ma/manyhands.md",
+        "https://github.com/opensiro/upstream/commit/aee29e79a4ec59ae0ba23903e50c6c0ec029ed92",
+        "https://github.com/mjoneill/manyhands/blob/35cffa653b83101d67c6706f3561b00251614621/server.js"
+      ],
+      "screening_result": "Current Manyhands main@35cffa653b83101d67c6706f3561b00251614621 is MIT, source drifted from Index. First-party server.js handleClaimCard performs check claimedBy, conditional writeBoard, and 200/409 response inside one withWriteLock callback. Existing claim decision already serializes concurrent same-card same-process requests; no first-party duplicate win evidenced. No native tests executed; no changes.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "ylva-shared-retry-deadline",
+      "assessment_path": "assessments/yl/ylva.md",
+      "source": "manuel-koch/ylva",
+      "review_ref": "f1275d3dbb4e055798b53033f483e59d34c978d8",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Check if a later shorter Retry-After can replace a shared provider cooldown, allowing colliding concurrent loops to retry early.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/yl/ylva.md",
+        "https://github.com/opensiro/upstream/commit/aee29e79a4ec59ae0ba23903e50c6c0ec029ed92",
+        "https://github.com/manuel-koch/ylva/blob/46378bd1663ef998ac695b2e4f76e337fb35d97f/src/http.rs"
+      ],
+      "screening_result": "Current Ylva main@46378bd1663ef998ac695b2e4f76e337fb35d97f Apache-2.0, source drift. src/http.rs RetryCooldown::note_retry_after locks shared Mutex and only updates if current deadline is earlier than the new deadline; wait_until_open loops until the current shared deadline. Therefore shorter retry does not shorten cooldown. No native test or fix performed.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "kandev-isolated-workspace-race",
+      "assessment_path": "assessments/ka/kandev.md",
+      "source": "kdlbs/kandev",
+      "review_ref": "a2e13dcf5584e3462ea995791e245177249a9845",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Check if two concurrent new_workspace creation requests can attach distinct child agents to one uninitialized or shared worktree.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ka/kandev.md",
+        "https://github.com/opensiro/upstream/commit/aee29e79a4ec59ae0ba23903e50c6c0ec029ed92",
+        "https://github.com/kdlbs/kandev/blob/94e35cd2234608185643c91e9f1aeebf1f1956ca/docs/public/coordination.md",
+        "https://github.com/kdlbs/kandev/blob/94e35cd2234608185643c91e9f1aeebf1f1956ca/CONTRIBUTING.md"
+      ],
+      "screening_result": "Current Kandev main@94e35cd2234608185643c91e9f1aeebf1f1956ca AGPL-3.0, substantial source drift. Current first-party coordination.md documents new_workspace isolation and external_id idempotent existing-work response, but neither demonstrates a concurrent two-task collision or its absence in the executor. No supported native reproducer or proven defect. CONTRIBUTING requires manual feature testing and issue discussion before architecture/new execution boundary changes. No patch or third-party write.",
+      "external_action": "NOT_EXECUTED",
+      "blocker": "No deterministic first-party concurrent new_workspace duplicate-ownership reproduction, and Kandev CONTRIBUTING demands manually tested changes and prior issue discussion for new execution-boundary or architecture modifications; fresh source SHA and target-specific authorization required."
+    },
+    {
+      "id": "agent-harness-kit-double-claim",
+      "assessment_path": "assessments/ag/agent-harness-kit.md",
+      "source": "enmanuelmag/agent-harness-kit",
+      "review_ref": "25edd77efd4e046bfc8fd232c406759f2b48caef",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Check if two concurrent tasks.claim MCP calls can both succeed on the same pending task despite a transactional claim contract.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ag/agent-harness-kit.md",
+        "https://github.com/opensiro/upstream/commit/aee29e79a4ec59ae0ba23903e50c6c0ec029ed92",
+        "https://github.com/enmanuelmag/agent-harness-kit/blob/cf46b89d75dfbffb5b34b47d709fb28d149942a9/src/core/db.ts",
+        "https://github.com/enmanuelmag/agent-harness-kit/blob/cf46b89d75dfbffb5b34b47d709fb28d149942a9/src/core/repositories/TaskRepository.ts"
+      ],
+      "screening_result": "Current Agent Harness Kit main@cf46b89d75dfbffb5b34b47d709fb28d149942a9 Apache-2.0, drift. HarnessDB.claimTask calls TaskRepository.claim within driver.transaction. Actual TaskRepository.claim is one SQL UPDATE ... WHERE id = ? AND status = 'pending', affected-row-gated, increments claim_generation, and fails subsequent competing claim. The predicted check-then-update gap is already prevented. No native test or patch run.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "snow-core-mutation-gate-liveness",
+      "assessment_path": "assessments/sn/snow.md",
+      "source": "elmissouri16/snow-core",
+      "review_ref": "631586d013897a85c0c1f79830204af7822e60b0",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Check whether native failure or panic during rootedMutationGate ownership leaves the process-wide mutation gate unavailable to later supported writes.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/sn/snow.md",
+        "https://github.com/opensiro/upstream/commit/aee29e79a4ec59ae0ba23903e50c6c0ec029ed92",
+        "https://github.com/elmissouri16/snow-core/blob/1047f8e933442fa156d53ca78aa869792e9f9188/internal/tools/builtin/root_mutation.go",
+        "https://github.com/elmissouri16/snow-core/blob/1047f8e933442fa156d53ca78aa869792e9f9188/internal/tools/builtin/edit.go",
+        "https://github.com/elmissouri16/snow-core/blob/1047f8e933442fa156d53ca78aa869792e9f9188/internal/tools/builtin/write.go"
+      ],
+      "screening_result": "Current Snow Core main@1047f8e933442fa156d53ca78aa869792e9f9188 is MIT; drift from Index pin. lockRootedMutation in root_mutation.go returns a release closure and removes the channel token on immediate cancellation. Both built-in edit.go and write.go defer unlock() immediately after successful acquisition, so subsequent errors and normal panic unwinding do not strand the process-wide gate. No failing supported counterexample and no patch or native test executed.",
+      "external_action": "NOT_EXECUTED"
+    }
+  ]
+}

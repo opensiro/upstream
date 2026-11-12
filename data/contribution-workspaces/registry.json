@@ -4,13 +4,13 @@
   "batch_sources": "data/assessment-candidate-batches/*.json",
   "counts": {
     "priority_sources": 100,
-    "historical_extras": 114,
-    "batch_only_extras": 99,
+    "historical_extras": 119,
+    "batch_only_extras": 104,
     "pilot_only_extras": 7,
     "portfolio_only_extras": 8,
-    "unique_sources": 214,
-    "batch_manifests": 27,
-    "batch_cases": 155,
+    "unique_sources": 219,
+    "batch_manifests": 28,
+    "batch_cases": 160,
     "historical_fork_mappings": 16,
     "name_collision_sources": 11,
     "technical_handoffs": 55,
@@ -1374,6 +1374,40 @@
       "next_step": "SCREEN_BEFORE_FORK_WRITE"
     },
     {
+      "source": "elmissouri16/snow-core",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-28.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/snow-core",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "enmanuelmag/agent-harness-kit",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-28.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/agent-harness-kit",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
       "source": "epicsagas/epic-harness",
       "priority_group": "HISTORICAL_EXTRA",
       "batches": [
@@ -2427,6 +2461,23 @@
       "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
+      "source": "kdlbs/kandev",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-28.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/kandev",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
       "source": "khanuzeb/axiom",
       "priority_group": "HISTORICAL_EXTRA",
       "batches": [
@@ -2912,6 +2963,23 @@
       "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
+      "source": "manuel-koch/ylva",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-28.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/ylva",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
       "source": "maref-org/maref",
       "priority_group": "PREPARED_PACKET",
       "batches": [
@@ -3122,6 +3190,23 @@
       "proposed_fork": "opensiro-contributions/babyai",
       "license_review": false,
       "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "mjoneill/manyhands",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-28.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/manyhands",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
       "source": "mnbresearch/crewdeck",
