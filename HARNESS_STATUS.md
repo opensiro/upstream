@@ -5,7 +5,7 @@
 
 A harness may have several independent interventions and PRs. A historical `AWAITING_EXTERNAL` batch state **remains historical** even when a separate publication ledger later confirms an upstream merge. All external submission/acceptance claims below come from the linked owning source; `SUBMITTED_UNVERIFIED_LIVE` means **no current PR-state claim**.
 
-**Scope:** 153 harnesses · 167 interventions · 38 unique external PR URLs · 25 assessment batches · 31 monitored PR targets.
+**Scope:** 153 harnesses · 168 interventions · 39 unique external PR URLs · 25 assessment batches · 32 monitored PR targets.
 
 ## Harness overview
 
@@ -94,7 +94,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | [markmhendrickson/ateles](https://github.com/markmhendrickson/ateles) | 1 | 0 | 0 | 0 | 1 |
 | [martian56/rook](https://github.com/martian56/rook) | 1 | 0 | 0 | 0 | 0 |
 | [me7ko-dev/genesis-agent](https://github.com/me7ko-dev/genesis-agent) | 1 | 0 | 0 | 0 | 0 |
-| [microsoft/fara](https://github.com/microsoft/fara) | 1 | 1 | 0 | 0 | 0 |
+| [microsoft/fara](https://github.com/microsoft/fara) | 2 | 1 | 0 | 0 | 0 |
 | [mila-iqia/babyai](https://github.com/mila-iqia/babyai) | 1 | 1 | 1 | 0 | 0 |
 | [mnbresearch/crewdeck](https://github.com/mnbresearch/crewdeck) | 2 | 1 | 0 | 0 | 0 |
 | [murilo-bassan/durable-agent-runtime](https://github.com/murilo-bassan/durable-agent-runtime) | 2 | 1 | 0 | 0 | 0 |
@@ -259,6 +259,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | martian56/rook | [assessment:rook-dispatch-approval](data/assessment-candidate-batches/2026-10-22-02.json) | S1 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-10-22-02 | No code change justified |
 | me7ko-dev/genesis-agent | [assessment:genesis-agent-multiprocess-skill-commit](data/assessment-candidate-batches/2026-11-09-18.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-18 | No code change justified |
 | microsoft/fara | [assessment:fara-native-checkpoint-integrity](data/assessment-candidate-batches/2026-10-23-11.json) | S1 | AWAITING_EXTERNAL | NOT_SUBMITTED | — | assessment-upstream-2026-10-23-11 | Refresh source; check external publication grant |
+| microsoft/fara | [monitor:microsoft/fara#96](data/pr-maintenance/targets.json) | — | NOT_TRACKED | WATCHLIST_ONLY | [#96](https://github.com/microsoft/fara/pull/96) | monitor_only | Read PR maintenance inbox; no technical inference |
 | mila-iqia/babyai | [assessment:babyai-task-evaluation-input-contract](data/assessment-candidate-batches/2026-10-23-09.json) | S1 | AWAITING_EXTERNAL | SUBMITTED_UNVERIFIED_LIVE | [#128](https://github.com/mila-iqia/babyai/pull/128) | assessment-upstream-2026-10-23-09 | Check current maintainer/CI outcome |
 | mnbresearch/crewdeck | [assessment:crewdeck-s2-manual-claim-admission](data/assessment-candidate-batches/2026-11-06-12.json) | S2 | AWAITING_EXTERNAL | NOT_SUBMITTED | — | assessment-upstream-2026-11-06-12 | Refresh source; check external publication grant |
 | mnbresearch/crewdeck | [monitor:mnbresearch/crewdeck#1](data/pr-maintenance/targets.json) | — | NOT_TRACKED | WATCHLIST_ONLY | [#1](https://github.com/mnbresearch/crewdeck/pull/1) | monitor_only | Read PR maintenance inbox; no technical inference |

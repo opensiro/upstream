@@ -81,6 +81,20 @@
       "publication_state": "OPEN_READY",
       "approved_exact_title_body": true,
       "approval_boundary": "Owner standing external PR publication mandate effective 2026-11-11; authenticated xLagerFeuer host POST and matching title/body (one trailing LF normalized), three-file head/base GitHub readback; no individual PR approval"
+    },
+    {
+      "id": "fara-native-checkpoint-integrity",
+      "repository": "microsoft/fara",
+      "public_fork": "opensiro-contributions/fara",
+      "fork_local_pr_url": "https://github.com/opensiro-contributions/fara/pull/1",
+      "pr_url": "https://github.com/microsoft/fara/pull/96",
+      "published_at": "2026-11-11T23:58:47Z",
+      "base_sha": "a675d6d61c41c47ae87bacefeab22caad18e3e84",
+      "head_sha": "5b2499026322e25ac6d6182778914171a85f56b6",
+      "pr_commits": 1,
+      "publication_state": "OPEN_READY",
+      "approved_exact_title_body": true,
+      "approval_boundary": "Standing external-PR mandate ACTIVE; authenticated xLagerFeuer dev-alpha-2 GitHub REST POST; unchanged fork-local #1 title/body; external #96 open, non-draft, two-file exact head/base/provider readback. Python 3/3 targeted native tests PASS; browser/model suite not run; no CLA/DCO-person attestation."
     }
   ]
 }
