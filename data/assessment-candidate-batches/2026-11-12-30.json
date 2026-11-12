@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-12-30",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "85ae995fc2551ac0a076609bce0300d075cac2d5",
+  "frozen_at": "2026-11-12",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Batch 30: five highest reviewed-at descending and source descending distinct included S1=A/S2=C original identities after excluding 28 integrated batches, in-flight batch 29 five sources, and working-fork source registry. Pre-source falsifiers committed/pushed at 7ac617d before inspecting fresh code/target policy. No rights or defect assumed.",
+  "candidates": [
+    {
+      "id": "swarms-rust-task-claim-liveness",
+      "assessment_path": "assessments/sw/swarms-rust.md",
+      "source": "The-Swarm-Corporation/swarms-rs",
+      "review_ref": "ee1e74cb6e2c94775db88dddb311f2235e3fe9e3",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Check if a ConcurrentWorkflow cancelled/failed task leaves its task-key DashSet reservation and blocks later legitimate work.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/sw/swarms-rust.md",
+        "https://github.com/opensiro/upstream/commit/7ac617db4149d240e6e327b2aac3de59d353bc1d"
+      ],
+      "screening_result": "Pre-source falsifiable hypothesis only; original source/policy/test not inspected at freeze.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "taurus-background-writer-escape",
+      "assessment_path": "assessments/ta/taurus-ai-shell.md",
+      "source": "Lukeus/taurus",
+      "review_ref": "b643754200a241299bb6c3bac7e9dd8237e1da8d",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Check if custom/aliased background delegate may be admitted despite built-in mutating effects on the shared checkout.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ta/taurus-ai-shell.md",
+        "https://github.com/opensiro/upstream/commit/7ac617db4149d240e6e327b2aac3de59d353bc1d"
+      ],
+      "screening_result": "Pre-source falsifiable hypothesis only; original source/policy/test not inspected at freeze.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "deepresearch-parallel-state-lost-update",
+      "assessment_path": "assessments/de/deepresearch-agent-harness.md",
+      "source": "SichengLong26/deepresearch_agent_harness",
+      "review_ref": "4c98d6e144fde5bc28c821e6ee2c3b980eecc9a0",
+      "reviewed_at": "2026-10-26",
+      "function": "S2",
+      "finding": "Check whether ordered _merge_isolated_state loses one worker's accepted execution_context key when independent parallel workers update same key.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/de/deepresearch-agent-harness.md",
+        "https://github.com/opensiro/upstream/commit/7ac617db4149d240e6e327b2aac3de59d353bc1d"
+      ],
+      "screening_result": "Pre-source falsifiable hypothesis only; original source/policy/test not inspected at freeze.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "karimo-corrected-wave-cache",
+      "assessment_path": "assessments/ka/karimo.md",
+      "source": "opensesh/KARIMO",
+      "review_ref": "305abbe8d7a86d01023913cd12072cd83e937f52",
+      "reviewed_at": "2026-10-26",
+      "function": "S2",
+      "finding": "Check whether corrected task dependencies are published but dispatch still uses stale pre-correction wave plan, causing known parallel worker overlap.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ka/karimo.md",
+        "https://github.com/opensiro/upstream/commit/7ac617db4149d240e6e327b2aac3de59d353bc1d"
+      ],
+      "screening_result": "Pre-source falsifiable hypothesis only; original source/policy/test not inspected at freeze.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "onecli-pair-close-promotion-race",
+      "assessment_path": "assessments/on/onecli.md",
+      "source": "onecli/onecli",
+      "review_ref": "6eaf8780f6310587ae86906eb9573ab531e92c12",
+      "reviewed_at": "2026-10-26",
+      "function": "S2",
+      "finding": "Check whether closing an active PeerTask and promoting FIFO allows a concurrent admission to accept a second active task for the same agent pair.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/on/onecli.md",
+        "https://github.com/opensiro/upstream/commit/7ac617db4149d240e6e327b2aac3de59d353bc1d"
+      ],
+      "screening_result": "Pre-source falsifiable hypothesis only; original source/policy/test not inspected at freeze.",
+      "external_action": "NOT_EXECUTED"
+    }
+  ]
+}
