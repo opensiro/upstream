@@ -5,7 +5,7 @@
 
 A harness may have several independent interventions and PRs. A historical `AWAITING_EXTERNAL` batch state **remains historical** even when a separate publication ledger later confirms an upstream merge. All external submission/acceptance claims below come from the linked owning source; `SUBMITTED_UNVERIFIED_LIVE` means **no current PR-state claim**.
 
-**Scope:** 153 harnesses · 168 interventions · 39 unique external PR URLs · 25 assessment batches · 32 monitored PR targets.
+**Scope:** 153 harnesses · 169 interventions · 40 unique external PR URLs · 25 assessment batches · 33 monitored PR targets.
 
 ## Harness overview
 
@@ -81,7 +81,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | [k4yt3x/meka](https://github.com/k4yt3x/meka) | 1 | 0 | 0 | 0 | 0 |
 | [khanuzeb/axiom](https://github.com/khanuzeb/axiom) | 1 | 0 | 0 | 0 | 0 |
 | [knowflow-ai/KnowWork](https://github.com/knowflow-ai/KnowWork) | 2 | 1 | 0 | 0 | 0 |
-| [kstawiski/evidence-gated-scientific-agent](https://github.com/kstawiski/evidence-gated-scientific-agent) | 1 | 1 | 0 | 0 | 0 |
+| [kstawiski/evidence-gated-scientific-agent](https://github.com/kstawiski/evidence-gated-scientific-agent) | 2 | 1 | 0 | 0 | 0 |
 | [KumihoIO/Revka](https://github.com/KumihoIO/Revka) | 1 | 1 | 0 | 0 | 1 |
 | [kushagrathisside/bridle](https://github.com/kushagrathisside/bridle) | 1 | 0 | 0 | 0 | 0 |
 | [lbdremy/phax](https://github.com/lbdremy/phax) | 2 | 1 | 0 | 0 | 0 |
@@ -245,6 +245,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | knowflow-ai/KnowWork | [assessment:knowwork-sandbox-multiprocess-ownership](data/assessment-candidate-batches/2026-11-10-25.json) | S2 | AWAITING_EXTERNAL | NOT_SUBMITTED | — | assessment-upstream-2026-11-10-25 | Refresh source; check external publication grant |
 | knowflow-ai/KnowWork | [monitor:knowflow-ai/knowwork#4](data/pr-maintenance/targets.json) | — | NOT_TRACKED | WATCHLIST_ONLY | [#4](https://github.com/knowflow-ai/KnowWork/pull/4) | monitor_only | Read PR maintenance inbox; no technical inference |
 | kstawiski/evidence-gated-scientific-agent | [assessment:evidence-bench-native-evidence-admission](data/assessment-candidate-batches/2026-10-23-11.json) | S1 | AWAITING_EXTERNAL | NOT_SUBMITTED | — | assessment-upstream-2026-10-23-11 | Refresh source; check external publication grant |
+| kstawiski/evidence-gated-scientific-agent | [monitor:kstawiski/evidence-gated-scientific-agent#9](data/pr-maintenance/targets.json) | — | NOT_TRACKED | WATCHLIST_ONLY | [#9](https://github.com/kstawiski/evidence-gated-scientific-agent/pull/9) | monitor_only | Read PR maintenance inbox; no technical inference |
 | KumihoIO/Revka | [assessment:revka-workflow-validation-contract](data/assessment-candidate-batches/2026-10-23-10.json) | S1 | AWAITING_EXTERNAL | BLOCKED_PUBLICATION | — | assessment-upstream-2026-10-23-10 | Resolve documented publication gate |
 | kushagrathisside/bridle | [assessment:bridle-run-admission-crash-recovery](data/assessment-candidate-batches/2026-11-09-19.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-19 | No code change justified |
 | lbdremy/phax | [assessment:phax-cross-run-overlap-reconciliation](data/assessment-candidate-batches/2026-11-06-13.json) | S2 | AWAITING_EXTERNAL | NOT_SUBMITTED | — | assessment-upstream-2026-11-06-13 | Refresh source; check external publication grant |

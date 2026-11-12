@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-11-12",
+  "source": "Authenticated dev-alpha-2 GitHub REST POST and exact external/fork-local GET readback; effective standing publication mandate",
+  "authenticated_actor": "xLagerFeuer",
+  "metric_boundary": "Publication evidence only; no maintainer merge, verified adoption or VSM regrade",
+  "cases": [
+    {
+      "id": "evidence-bench-native-evidence-admission",
+      "repository": "kstawiski/evidence-gated-scientific-agent",
+      "public_fork": "opensiro-contributions/evidence-gated-scientific-agent",
+      "fork_local_pr_url": "https://github.com/opensiro-contributions/evidence-gated-scientific-agent/pull/1",
+      "pr_url": "https://github.com/kstawiski/evidence-gated-scientific-agent/pull/9",
+      "published_at": "2026-11-12T00:11:59Z",
+      "base_sha": "85b396a824dfad6ec0880cbe07d86d3e24920ae8",
+      "head_sha": "9710d908adb05bc5effc6a557de321bff8cda142",
+      "pr_commits": 1,
+      "publication_state": "OPEN_READY",
+      "approved_exact_title_body": true,
+      "approval_boundary": "ACTIVE standing external PR mandate; authenticated xLagerFeuer dev-alpha-2 REST POST and exact title/body/head/base/two-file external readback; 16/16 Python policy tests PASS and full Python non-live test command exited 0; npm ci not run (Node/npm unavailable), disclosed in external PR. No legal-person CLA/DCO or maintainer acceptance claim."
+    }
+  ]
+}
