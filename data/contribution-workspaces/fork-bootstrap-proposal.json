@@ -3,7 +3,7 @@
   "state": "READ_ONLY_PROPOSAL_NOT_APPROVED",
   "destination_org": "opensiro-contributions",
   "source_registry": "data/contribution-workspaces/registry.json",
-  "source_registry_sha256": "d72a930cbbc55b5de5fc302299fd5818600d3dca5f780c99f3493ac919749100",
+  "source_registry_sha256": "76ad6fa366f54c2dcf4be9695aebac5c6055ca1f5248e2a829d0a7ef680d20ff",
   "priority_snapshot": "data/fork-priorities/2026-11-08.json",
   "batch_size_max": 10,
   "counts": {
@@ -13,9 +13,9 @@
     "collision_name_proposals": 11,
     "creation_batches": 9,
     "by_state": {
-      "HOLD_HISTORICAL_OR_NEGATIVE_CASE": 99,
+      "HOLD_HISTORICAL_OR_NEGATIVE_CASE": 104,
       "HOLD_LICENSE_REVIEW": 5,
-      "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT": 88,
+      "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT": 83,
       "RECHECK_MAPPED_FORK": 17
     }
   },
@@ -35,7 +35,7 @@
     {
       "id": "bootstrap-001",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "95bff24af3ffd6822eec9857d9f3262b43cd5f951b115f89038dea640ef76c23",
+      "selection_sha256": "f6fc39c08f15151524df32194a7b0691d22fd2762abe860ed383aa2819d6a907",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -84,7 +84,7 @@
     {
       "id": "bootstrap-002",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "5184c4a42d79c45d40f89a8a5859d84b197f9279662fceb9b69b49232ff2b11c",
+      "selection_sha256": "fa98e369037bf27901d295eea4099c2e6d4c85622399bb8b9b3b37d464116857",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -133,7 +133,7 @@
     {
       "id": "bootstrap-003",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "ca6a087484c702d53eb977b39c948f89572412d149c15297141c51e6c1c43293",
+      "selection_sha256": "6dd4ba26d1f12f785be07fd17f04b2a134dfeed754a36f48be996072c6eff904",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -182,7 +182,7 @@
     {
       "id": "bootstrap-004",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "968b5188898a84eaaaea54f693268183135c88c1260d10b74fec69d2d395cf54",
+      "selection_sha256": "2cb9084da1823b67b3a72716524bc3385d82e5ad04bc26f7c920276c31c39f49",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -231,7 +231,7 @@
     {
       "id": "bootstrap-005",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "9b84e3c4ce35273595ba81af736000fab27ecddd31b79e6a505d05c3b48b43b5",
+      "selection_sha256": "2f87702b2e7c6a95b3bcf8eeb5c04fd13c9744afcae9dbe2ed1c90f08ffd990a",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -280,7 +280,7 @@
     {
       "id": "bootstrap-006",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "6b18b0219c475f13848b77b4efeabad7b98d39e8d9de2ebf113251c9c0440f4b",
+      "selection_sha256": "e9f9adb171aff49de0256fee734c2623620eca7c3641474aa6700641f3012b26",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -329,7 +329,7 @@
     {
       "id": "bootstrap-007",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "fc23db4604e8d5dbc4bd07c6336753c0af0cfbd1c587cdce0933f524a44e927f",
+      "selection_sha256": "e5c04eb845e6e0211eafe960a125ff1e889aa56687ac374b5c5b2aa5e5e0c91e",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -378,7 +378,7 @@
     {
       "id": "bootstrap-008",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "7ca7ae5f6576cba03f057ecba0400d0a77b569dd92fc82031359a355b700101a",
+      "selection_sha256": "39d7c8293714b15216c307c89c473e743e3eea1e197847187fbc59f812344aa8",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -391,28 +391,12 @@
           "candidate_fork": "opensiro-contributions/kram"
         },
         {
-          "source": "crossoverJie/botler-agent",
-          "candidate_fork": "opensiro-contributions/botler-agent"
-        },
-        {
           "source": "FonaTech/Clouds-Coder",
           "candidate_fork": "opensiro-contributions/Clouds-Coder"
         },
         {
-          "source": "gannonh/kata-symphony",
-          "candidate_fork": "opensiro-contributions/kata-symphony"
-        },
-        {
           "source": "gczhuang-cmd/NovaCode",
           "candidate_fork": "opensiro-contributions/NovaCode"
-        },
-        {
-          "source": "gke-labs/kube-agents",
-          "candidate_fork": "opensiro-contributions/kube-agents"
-        },
-        {
-          "source": "GreenSheep01201/claw-empire",
-          "candidate_fork": "opensiro-contributions/claw-empire"
         },
         {
           "source": "howl-anderson/agentsilex",
@@ -421,16 +405,7 @@
         {
           "source": "leprachuan/Wee-Orchestrator",
           "candidate_fork": "opensiro-contributions/Wee-Orchestrator"
-        }
-      ]
-    },
-    {
-      "id": "bootstrap-009",
-      "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "3bdc35f9f02dc109c88e4090f1ece744c57930e0dd1263b715310205118cb088",
-      "source_count": 8,
-      "has_collision_name_proposals": false,
-      "selection": [
+        },
         {
           "source": "madarco/agentbox",
           "candidate_fork": "opensiro-contributions/agentbox"
@@ -446,14 +421,19 @@
         {
           "source": "speakeasy-api/kit",
           "candidate_fork": "opensiro-contributions/kit"
-        },
+        }
+      ]
+    },
+    {
+      "id": "bootstrap-009",
+      "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
+      "selection_sha256": "e74fff5aaf84c30c64fbb94f3878ce44677404da4dfea5c87bf65be53a0da0d2",
+      "source_count": 3,
+      "has_collision_name_proposals": false,
+      "selection": [
         {
           "source": "splashxmoon/friday",
           "candidate_fork": "opensiro-contributions/friday"
-        },
-        {
-          "source": "Sweetienite/personal-agent-runtime",
-          "candidate_fork": "opensiro-contributions/personal-agent-runtime"
         },
         {
           "source": "xingyaoww/code-act",
@@ -1801,11 +1781,11 @@
     {
       "source": "crossoverJie/botler-agent",
       "priority_group": "HISTORICAL_EXTRA",
-      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
       "candidate_fork": "opensiro-contributions/botler-agent",
       "candidate_name": "botler-agent",
       "collision_name_proposal": false,
-      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
@@ -1922,11 +1902,11 @@
     {
       "source": "gannonh/kata-symphony",
       "priority_group": "HISTORICAL_EXTRA",
-      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
       "candidate_fork": "opensiro-contributions/kata-symphony",
       "candidate_name": "kata-symphony",
       "collision_name_proposal": false,
-      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
@@ -1944,11 +1924,11 @@
     {
       "source": "gke-labs/kube-agents",
       "priority_group": "HISTORICAL_EXTRA",
-      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
       "candidate_fork": "opensiro-contributions/kube-agents",
       "candidate_name": "kube-agents",
       "collision_name_proposal": false,
-      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
@@ -1977,11 +1957,11 @@
     {
       "source": "GreenSheep01201/claw-empire",
       "priority_group": "HISTORICAL_EXTRA",
-      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
       "candidate_fork": "opensiro-contributions/claw-empire",
       "candidate_name": "claw-empire",
       "collision_name_proposal": false,
-      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
@@ -2582,11 +2562,11 @@
     {
       "source": "Sweetienite/personal-agent-runtime",
       "priority_group": "HISTORICAL_EXTRA",
-      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
       "candidate_fork": "opensiro-contributions/personal-agent-runtime",
       "candidate_name": "personal-agent-runtime",
       "collision_name_proposal": false,
-      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
     },

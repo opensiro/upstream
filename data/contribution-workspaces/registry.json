@@ -1157,7 +1157,7 @@
       "batches": [
         "data/assessment-candidate-batches/2026-11-12-26.json"
       ],
-      "latest_stage": "SCREENING",
+      "latest_stage": "BLOCKED_EVIDENCE",
       "handoffs": [],
       "pilot_links": [],
       "historical_prs": [],
@@ -1166,7 +1166,7 @@
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/botler-agent",
       "license_review": false,
-      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
     },
     {
       "source": "cubeplexai/cubeloop",
@@ -1585,7 +1585,7 @@
       "batches": [
         "data/assessment-candidate-batches/2026-11-12-26.json"
       ],
-      "latest_stage": "SCREENING",
+      "latest_stage": "CLOSED_NO_CHANGE",
       "handoffs": [],
       "pilot_links": [],
       "historical_prs": [],
@@ -1594,7 +1594,7 @@
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/kata-symphony",
       "license_review": false,
-      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+      "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
       "source": "gczhuang-cmd/NovaCode",
@@ -1791,7 +1791,7 @@
       "batches": [
         "data/assessment-candidate-batches/2026-11-12-26.json"
       ],
-      "latest_stage": "SCREENING",
+      "latest_stage": "CLOSED_NO_CHANGE",
       "handoffs": [],
       "pilot_links": [],
       "historical_prs": [],
@@ -1800,7 +1800,7 @@
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/kube-agents",
       "license_review": false,
-      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+      "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
       "source": "google-gemini/gemini-cli",
@@ -1900,7 +1900,7 @@
       "batches": [
         "data/assessment-candidate-batches/2026-11-12-26.json"
       ],
-      "latest_stage": "SCREENING",
+      "latest_stage": "BLOCKED_EVIDENCE",
       "handoffs": [],
       "pilot_links": [],
       "historical_prs": [],
@@ -1909,7 +1909,7 @@
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/claw-empire",
       "license_review": false,
-      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
     },
     {
       "source": "greyhaven-ai/autocontext",
@@ -4542,7 +4542,7 @@
       "batches": [
         "data/assessment-candidate-batches/2026-11-12-26.json"
       ],
-      "latest_stage": "SCREENING",
+      "latest_stage": "CLOSED_NO_CHANGE",
       "handoffs": [],
       "pilot_links": [],
       "historical_prs": [],
@@ -4551,7 +4551,7 @@
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/personal-agent-runtime",
       "license_review": false,
-      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+      "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
       "source": "Szotasz/marveen",
