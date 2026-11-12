@@ -10,6 +10,14 @@
       "receipt": "reports/2026-11-12-native-packet-requalification-wave-01.md"
     },
     {
+      "source": "KumihoIO/Revka",
+      "candidate_id": "revka-workflow-validation-contract",
+      "source_sha": "a1acd826502e12a6c2f3d147e488a7d2982c480b",
+      "patch_path": "pilots/revka/workflow-deep-dag-validation.patch",
+      "patch_sha256": "61c63244a659849c4c25adee79eb1d6abc4ee859eff906069284579365fb82e5",
+      "receipt": "reports/2026-11-12-revka-native-patch-selection.md"
+    },
+    {
       "source": "microsoft/fara",
       "candidate_id": "fara-native-checkpoint-integrity",
       "source_sha": "a675d6d61c41c47ae87bacefeab22caad18e3e84",
