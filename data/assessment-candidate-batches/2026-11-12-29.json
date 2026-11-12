@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-12-29",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "85ae995fc2551ac0a076609bce0300d075cac2d5",
+  "frozen_at": "2026-11-12",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Five newest source-disjoint available included S1=A/S2=C canonical Index assessments at immutable 85ae995f after excluding 28 earlier integrated batches and source-to-fork registry. Predictive falsifiers written and pushed in commit 0f67323 on current branch BEFORE fresh original code, license, issue/PR inspections. Negative source-native counterexamples and genuine target gates govern admission.",
+  "candidates": [
+    {
+      "id": "macher-agent-stale-child-vfs-merge",
+      "assessment_path": "assessments/ma/macher-agent.md",
+      "source": "elij/macher-agent",
+      "review_ref": "f60786359a175d6c7f0c56ec3faeb74ae2bda22d",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Could the first-party VFS child merge overwrite an outside newer version when the clean-merge stub accepts a stale child?",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ma/macher-agent.md",
+        "https://github.com/opensiro/upstream/commit/0f6732337488ce5ac1c56586e4c982a48353e771",
+        "https://github.com/elij/macher-agent/blob/1b8e48d80779a7f54fde71908943d4b773e4bf05/macher-agent-vfs.el",
+        "https://github.com/elij/macher-agent/blob/1b8e48d80779a7f54fde71908943d4b773e4bf05/README.md"
+      ],
+      "screening_result": "Current original elij/macher-agent main@1b8e48d80779a7f54fde71908943d4b773e4bf05 (GPL-3.0) differs from assessed f607863. First-party macher-agent-vfs.el macher-agent--merge-contexts applies child pending curr to parent via macher-agent--update-context-file; another code path macher-agent--sync-context-entry resets staged content on outside modification. A stale-child external-edit overwrite remains plausible but not independently reproduced under supported live Emacs VFS semantics. No source-native RED/GREEN, derivative code, fork or external PR.",
+      "external_action": "NOT_EXECUTED",
+      "blocker": "Current child context merge directly updates parent VFS from pending child entries, but there is no Emacs binary on the authenticated validation host and no first-party matched stale-parent/child native RED replay. Dynamic external-edit synchronization may alter which state is current at merge time. Without a native evidence-supported scenario and target-native test runner, no fix or external PR."
+    },
+    {
+      "id": "linear-harness-parallel-issue-claim",
+      "assessment_path": "assessments/li/linear-coding-agent-harness.md",
+      "source": "coleam00/Linear-Coding-Agent-Harness",
+      "review_ref": "c37dc096993011cb0cc48a0afab176cd9c8f2375",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Could two concurrently supported coding sessions both begin one issue after reading Linear state before either publishes an In Progress claim?",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/li/linear-coding-agent-harness.md",
+        "https://github.com/opensiro/upstream/commit/0f6732337488ce5ac1c56586e4c982a48353e771",
+        "https://github.com/coleam00/Linear-Coding-Agent-Harness/blob/c37dc096993011cb0cc48a0afab176cd9c8f2375/prompts/coding_prompt.md",
+        "https://github.com/coleam00/Linear-Coding-Agent-Harness/blob/c37dc096993011cb0cc48a0afab176cd9c8f2375/client.py",
+        "https://github.com/coleam00/Linear-Coding-Agent-Harness/pull/4"
+      ],
+      "screening_result": "Current original coleam00/Linear-Coding-Agent-Harness main@c37dc096993011cb0cc48a0afab176cd9c8f2375 (MIT) matches Index pin. First-party prompts/coding_prompt.md reads In Progress, prohibits another owner's task, and sets issue In Progress with mcp__linear__update_issue; client.py forwards Linear MCP APIs and does not implement compare-and-swap. A possible two-peer read-then-claim race is an explicitly bounded external integration limitation, not independently demonstrated product-native defect. Original open PR #4 changes SDK integration, no overlap assumed. No patch or native tests.",
+      "external_action": "NOT_EXECUTED",
+      "blocker": "First-party prompt provides only non-atomic Linear issue status conventions, already noted in Index assessment; no first-party deterministic claim transaction, race reproducer, or target-owned CAS capability is shown. Testing live Linear multi-agent conflicts or changing third-party Linear semantics is outside current native no-provider boundary."
+    },
+    {
+      "id": "agent-cli-failed-launch-worktree-liveness",
+      "assessment_path": "assessments/ag/agent-cli.md",
+      "source": "basnijholt/agent-cli",
+      "review_ref": "554344e6ed5266bcc2a7b1461d4c84744ff5e0af",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Does dev new retain an unowned or inaccessible created worktree when the agent launch fails after successful provisioning?",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ag/agent-cli.md",
+        "https://github.com/opensiro/upstream/commit/0f6732337488ce5ac1c56586e4c982a48353e771",
+        "https://github.com/basnijholt/agent-cli/blob/7de04affc3b8bc758a11c75ce555e5097b71b363/agent_cli/dev/cli.py",
+        "https://github.com/basnijholt/agent-cli/blob/7de04affc3b8bc758a11c75ce555e5097b71b363/docs/commands/dev.md",
+        "https://github.com/basnijholt/agent-cli/issues/423"
+      ],
+      "screening_result": "Current original basnijholt/agent-cli main@7de04affc3b8bc758a11c75ce555e5097b71b363 (MIT) differs from Index pin. dev new creates a worktree, then applies environment setup/agent launch and displays a dev-environment-created summary. First-party dev list/path/remove make retained worktrees actionable. A failure to start an iTerm2 agent is separately reported in original issue #423, no matched native Linux/macOS failure or automatic-cleanup safety case demonstrated. No new code, RED/GREEN or external PR.",
+      "external_action": "NOT_EXECUTED",
+      "blocker": "First-party dev new intentionally provisions a durable editable worktree before optional agent launch; no native test demonstrates an unowned unsafe orphan instead of the documented recoverable dev environment. Original open issue #423 reports misleading process-launch success specifically for macOS/iTerm2 and requires a macOS native launch proof, unavailable on this Linux host. Any issue-origin fix would be ASSESSMENT_INFORMED, not silently upgraded to derived."
+    },
+    {
+      "id": "agent-of-empires-failed-provision-ghost-worktree",
+      "assessment_path": "assessments/ag/agent-of-empires.md",
+      "source": "agent-of-empires/agent-of-empires",
+      "review_ref": "81d4672a846798d0a9b02183d9dce83ea6bf6917",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Can a post-worktree session provisioning failure leave a ghost tracked worktree preventing safe retry without an agent?",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ag/agent-of-empires.md",
+        "https://github.com/opensiro/upstream/commit/0f6732337488ce5ac1c56586e4c982a48353e771",
+        "https://github.com/agent-of-empires/agent-of-empires/blob/61058ce97b2813c98674d6d575f6d2dd053c9dbe/src/session/builder.rs",
+        "https://github.com/agent-of-empires/agent-of-empires/blob/61058ce97b2813c98674d6d575f6d2dd053c9dbe/src/server/session_spawn.rs",
+        "https://github.com/agent-of-empires/agent-of-empires/blob/61058ce97b2813c98674d6d575f6d2dd053c9dbe/CONTRIBUTING.md"
+      ],
+      "screening_result": "Current original agent-of-empires/agent-of-empires main@61058ce97b2813c98674d6d575f6d2dd053c9dbe (MIT) differs materially from 2026-10-27 Index pin. InstancePlan::provision tracks branch/worktree ownership even after partial failure using BuildResult/BuildFailure. Native server/session_spawn.rs converts failure to retained created_worktree and created_workspace_worktrees, and PurgeTransaction::reserve_failed_creation(...).complete_creation_rollback(...) removes only owned worktree/branch on failures including hook/finalization. Current code includes first-party pre_launch_hook_failure_rolls_back_resources_and_owner and post_launch_finalization_failure_rolls_back_without_deadlock tests. No matched source-native leak or needed fix; source inspection only, no new tests.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "fiber-cancelled-isolate-recovery",
+      "assessment_path": "assessments/fi/fiber.md",
+      "source": "aakshintala/fiber",
+      "review_ref": "61af2a84f70a2ece2b6cf8f73a8fa70116360da7",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Can cancellation between isolated delegate worktree creation and registration leak a lifetime lock without recoverable ownership?",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/fi/fiber.md",
+        "https://github.com/opensiro/upstream/commit/0f6732337488ce5ac1c56586e4c982a48353e771",
+        "https://github.com/aakshintala/fiber/blob/297cdb6a1a2740fc82c6e3374c6a5ab359776b8a/crates/jobs/src/delegate.rs",
+        "https://github.com/aakshintala/fiber/blob/297cdb6a1a2740fc82c6e3374c6a5ab359776b8a/docs/delegates.md",
+        "https://github.com/aakshintala/fiber/blob/297cdb6a1a2740fc82c6e3374c6a5ab359776b8a/docs/workflow.md"
+      ],
+      "screening_result": "Current original aakshintala/fiber main@297cdb6a1a2740fc82c6e3374c6a5ab359776b8a (MIT), changed from assessed 61af2a8. First-party delegate.rs registers a worktree guard in WorktreeRun before Runner::spawn and on spawn/process_identity errors calls runner.end_worktree; registry.admit owns the start gate. First-party docs/delegates.md explicitly describe retained dirty worktrees and resume lifecycle. No first-party evidence for orphaned lock from cancellation between create and register under supported operation. Owner docs/workflow.md require ticket/owner approval for significant changes, none claimed. Native Rust cargo unavailable on host, no new tests run; no patch.",
+      "external_action": "NOT_EXECUTED"
+    }
+  ]
+}
