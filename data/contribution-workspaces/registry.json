@@ -4,13 +4,13 @@
   "batch_sources": "data/assessment-candidate-batches/*.json",
   "counts": {
     "priority_sources": 100,
-    "historical_extras": 104,
-    "batch_only_extras": 89,
+    "historical_extras": 109,
+    "batch_only_extras": 94,
     "pilot_only_extras": 7,
     "portfolio_only_extras": 8,
-    "unique_sources": 204,
-    "batch_manifests": 25,
-    "batch_cases": 145,
+    "unique_sources": 209,
+    "batch_manifests": 26,
+    "batch_cases": 150,
     "historical_fork_mappings": 16,
     "name_collision_sources": 11,
     "technical_handoffs": 54,
@@ -1152,6 +1152,23 @@
       "next_step": "RESOLVE_FORK_PARENT_AND_NAME"
     },
     {
+      "source": "crossoverJie/botler-agent",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-26.json"
+      ],
+      "latest_stage": "SCREENING",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/botler-agent",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
       "source": "cubeplexai/cubeloop",
       "priority_group": "PREPARED_PACKET",
       "batches": [
@@ -1563,6 +1580,23 @@
       "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
+      "source": "gannonh/kata-symphony",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-26.json"
+      ],
+      "latest_stage": "SCREENING",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/kata-symphony",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
       "source": "gczhuang-cmd/NovaCode",
       "priority_group": "HISTORICAL_EXTRA",
       "batches": [
@@ -1752,6 +1786,23 @@
       "next_step": "SCREEN_BEFORE_FORK_WRITE"
     },
     {
+      "source": "gke-labs/kube-agents",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-26.json"
+      ],
+      "latest_stage": "SCREENING",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/kube-agents",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+    },
+    {
       "source": "google-gemini/gemini-cli",
       "priority_group": "INDEX_HYPOTHESIS",
       "batches": [],
@@ -1842,6 +1893,23 @@
       "proposed_fork": "opensiro-contributions/kheish",
       "license_review": false,
       "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "GreenSheep01201/claw-empire",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-26.json"
+      ],
+      "latest_stage": "SCREENING",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/claw-empire",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
     },
     {
       "source": "greyhaven-ai/autocontext",
@@ -4467,6 +4535,23 @@
       "proposed_fork": "opensiro-contributions/SwarmOS",
       "license_review": false,
       "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "Sweetienite/personal-agent-runtime",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-26.json"
+      ],
+      "latest_stage": "SCREENING",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/personal-agent-runtime",
+      "license_review": false,
+      "next_step": "SCREEN_BEFORE_FORK_WRITE"
     },
     {
       "source": "Szotasz/marveen",

@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-12-26",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "85ae995fc2551ac0a076609bce0300d075cac2d5",
+  "frozen_at": "2026-11-12",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Upstream upgrade batch 26: five most recently reviewed distinct available included S1=A / S2=C canonical Index assessments at 85ae995f, excluding identities from all 25 integrated batch manifests and source-to-fork registry. Reviewed-at descending order. S2 predictions, expected benefit and explicit null/falsifiers publicly committed as 8229aad before any fresh original repository code/issues/policy inspection. Selection is five testable questions, not five admitted fixes.",
+  "candidates": [
+    {
+      "id": "botler-cancelled-dispatch-token",
+      "assessment_path": "assessments/bo/botler-agent.md",
+      "source": "crossoverJie/botler-agent",
+      "review_ref": "6dd4986fd236f75053f15905f66adcb0df9a8431",
+      "reviewed_at": "2026-11-11",
+      "function": "S2",
+      "finding": "Check whether a supported cancelled or failed dispatch can retain the shared one-token mutation lock and indefinitely prevent a later agent task from accessing DATA_ROOT.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/bo/botler-agent.md",
+        "https://github.com/opensiro/upstream/commit/8229aad2d773747881e061cd46285357bccceb34"
+      ],
+      "screening_result": "Prospective hypothesis only. Original first-party source, contribution policy, tests and nonduplication remain unverified.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "par-concurrent-project-admission",
+      "assessment_path": "assessments/pe/personal-agent-runtime.md",
+      "source": "Sweetienite/personal-agent-runtime",
+      "review_ref": "41940107f285b6be0679962abe37be0e8d6441fe",
+      "reviewed_at": "2026-11-11",
+      "function": "S2",
+      "finding": "Check whether concurrent run_next invocations can separately select and then claim same-project work outside one SQLite transaction, despite project lock and dependency readiness.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/pe/personal-agent-runtime.md",
+        "https://github.com/opensiro/upstream/commit/8229aad2d773747881e061cd46285357bccceb34"
+      ],
+      "screening_result": "Prospective hypothesis only. Original first-party source, contribution policy, tests and nonduplication remain unverified.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "claw-empire-delegation-review-readiness",
+      "assessment_path": "assessments/cl/claw-empire.md",
+      "source": "GreenSheep01201/claw-empire",
+      "review_ref": "66a24ea7df2435ef897c48c147deb7ec572c01c2",
+      "reviewed_at": "2026-11-10",
+      "function": "S2",
+      "finding": "Check whether a review-round acceptance overlapping a still-outstanding delegated child or remediation step can advance parent readiness from an obsolete state snapshot.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/cl/claw-empire.md",
+        "https://github.com/opensiro/upstream/commit/8229aad2d773747881e061cd46285357bccceb34"
+      ],
+      "screening_result": "Prospective hypothesis only. Original first-party source, contribution policy, tests and nonduplication remain unverified.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "kube-agents-reserved-slot-boundary",
+      "assessment_path": "assessments/ku/kube-agents.md",
+      "source": "gke-labs/kube-agents",
+      "review_ref": "c20297fccc667bec06b5d78f89ee4e368fd29f3d",
+      "reviewed_at": "2026-10-29",
+      "function": "S2",
+      "finding": "Check whether the existing bilateral worker slot reservation can be bypassed at a supported capacity boundary while the opposite workload class has ready cards.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ku/kube-agents.md",
+        "https://github.com/opensiro/upstream/commit/8229aad2d773747881e061cd46285357bccceb34"
+      ],
+      "screening_result": "Prospective hypothesis only. Original first-party source, contribution policy, tests and nonduplication remain unverified.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "kata-symphony-expired-conflict-feedback",
+      "assessment_path": "assessments/ka/kata-symphony.md",
+      "source": "gannonh/kata-symphony",
+      "review_ref": "e7c160f5e4d485fdfb6d79296f56d36c8872b2a9",
+      "reviewed_at": "2026-10-29",
+      "function": "S2",
+      "finding": "Check whether overlap-warning cooldown can suppress new feedback after the shared-context TTL expires but before an affected issue worker consumes that warning.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ka/kata-symphony.md",
+        "https://github.com/opensiro/upstream/commit/8229aad2d773747881e061cd46285357bccceb34"
+      ],
+      "screening_result": "Prospective hypothesis only. Original first-party source, contribution policy, tests and nonduplication remain unverified.",
+      "external_action": "NOT_EXECUTED"
+    }
+  ]
+}
