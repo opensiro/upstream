@@ -77,11 +77,6 @@
       "monitoring": "verify_404_only"
     },
     {
-      "repository": "chumingjun/dsh-harness-one",
-      "number": 173,
-      "url": "https://github.com/chumingjun/dsh-harness-one/pull/173"
-    },
-    {
       "repository": "chankov/agent-fleet",
       "number": 43,
       "url": "https://github.com/chankov/agent-fleet/pull/43"
@@ -90,6 +85,11 @@
       "repository": "chekusu/wanman",
       "number": 38,
       "url": "https://github.com/chekusu/wanman/pull/38"
+    },
+    {
+      "repository": "chumingjun/dsh-harness-one",
+      "number": 173,
+      "url": "https://github.com/chumingjun/dsh-harness-one/pull/173"
     },
     {
       "repository": "cordfuse/politik",
@@ -115,6 +115,11 @@
       "repository": "lbdremy/phax",
       "number": 205,
       "url": "https://github.com/lbdremy/phax/pull/205"
+    },
+    {
+      "repository": "microsoft/fara",
+      "number": 96,
+      "url": "https://github.com/microsoft/fara/pull/96"
     },
     {
       "repository": "mila-iqia/babyai",
