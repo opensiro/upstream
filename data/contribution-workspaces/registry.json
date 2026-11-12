@@ -17,9 +17,9 @@
     "dated_fork_readbacks": 17,
     "same_named_ref_matches_at_readback": 10,
     "technical_packet_states": {
-      "EXPLICIT_PATCH_HASH_MATCHED": 18,
+      "EXPLICIT_PATCH_HASH_MATCHED": 19,
       "LOCAL_MULTI_PATCH_SELECTION_REQUIRED": 1,
-      "LOCAL_SINGLE_PATCH_UNREVIEWED": 33,
+      "LOCAL_SINGLE_PATCH_UNREVIEWED": 32,
       "NO_LOCAL_PACKET_OR_PR_ONLY_HANDOFF": 2
     }
   },
@@ -2436,11 +2436,11 @@
           "stage": "AWAITING_EXTERNAL",
           "origin": "ASSESSMENT_INFORMED",
           "handoff_url": "https://github.com/opensiro/upstream/blob/main/pilots/revka/CONTRIBUTION_HANDOFF.md",
-          "patch_path": null,
-          "patch_sha256": null,
+          "patch_path": "pilots/revka/workflow-deep-dag-validation.patch",
+          "patch_sha256": "61c63244a659849c4c25adee79eb1d6abc4ee859eff906069284579365fb82e5",
           "test_patch_path": null,
           "technical_packet": {
-            "state": "LOCAL_SINGLE_PATCH_UNREVIEWED",
+            "state": "EXPLICIT_PATCH_HASH_MATCHED",
             "pilot": {
               "directory": "pilots/revka",
               "files": 2,
@@ -2452,7 +2452,10 @@
                 }
               ]
             },
-            "explicit_patch": null,
+            "explicit_patch": {
+              "path": "pilots/revka/workflow-deep-dag-validation.patch",
+              "sha256": "61c63244a659849c4c25adee79eb1d6abc4ee859eff906069284579365fb82e5"
+            },
             "explicit_test_patch": null
           }
         }

@@ -113,6 +113,7 @@ class WorkspaceTests(unittest.TestCase):
         by_source = {r["source"].casefold(): r for r in workspaces.build()["sources"]}
         for source, digest in (
             ("microsoft/fara", "fce42386bd6b1cf1ea0fed6c22a206589239cdeeb37f53cfaa48eb027da9002e"),
+            ("kumihoio/revka", "61c63244a659849c4c25adee79eb1d6abc4ee859eff906069284579365fb82e5"),
             ("kstawiski/evidence-gated-scientific-agent",
              "0974cdefa228cfdf37e1b750144e01c269c8f2dee6d9aa8ea01e86dd79b23646"),
         ):
@@ -131,6 +132,8 @@ class WorkspaceTests(unittest.TestCase):
 
     def test_selected_packet_duplicate_and_missing_receipt_fail_closed(self):
         data = json.loads((ROOT / workspaces.SELECTED_PACKETS).read_text())
+        # This isolated negative case tests one receipt, independent of later selections.
+        data["selections"] = data["selections"][:1]
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             destination = root / workspaces.SELECTED_PACKETS
