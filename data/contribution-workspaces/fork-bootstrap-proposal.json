@@ -3,17 +3,17 @@
   "state": "READ_ONLY_PROPOSAL_NOT_APPROVED",
   "destination_org": "opensiro-contributions",
   "source_registry": "data/contribution-workspaces/registry.json",
-  "source_registry_sha256": "6107d9dc09c960bcebeb80f07f8e7504a0d9a0e7c3b05fdad555c4546eb79be6",
+  "source_registry_sha256": "0cd1be459608e16985f633c57109273a8c8626a5a7673d1e3100e8fce2e57849",
   "priority_snapshot": "data/fork-priorities/2026-11-08.json",
   "batch_size_max": 10,
   "counts": {
-    "sources": 214,
+    "sources": 224,
     "priority_sources": 100,
-    "additive_extras": 114,
+    "additive_extras": 124,
     "collision_name_proposals": 11,
     "creation_batches": 9,
     "by_state": {
-      "HOLD_HISTORICAL_OR_NEGATIVE_CASE": 108,
+      "HOLD_HISTORICAL_OR_NEGATIVE_CASE": 118,
       "HOLD_LICENSE_REVIEW": 5,
       "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT": 84,
       "RECHECK_MAPPED_FORK": 17
@@ -35,7 +35,7 @@
     {
       "id": "bootstrap-001",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "4b4fcf25474b0a2aa8d21357cafc1dfec18a6eeef3bf522bab5e493510c5758d",
+      "selection_sha256": "41c60e8627cc54306dbe740b7e4a0adaf8a7328466ec8e31fcfd42affeda4ad6",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -84,7 +84,7 @@
     {
       "id": "bootstrap-002",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "cea7e6c1e08526e7b1f36348156b6feed3233ae81a58c91b9984dd0b7f8d73eb",
+      "selection_sha256": "27fa0e294b4c90d3e122a433bfe67585cad13b69802035e24cc20861d17e9f35",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -133,7 +133,7 @@
     {
       "id": "bootstrap-003",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "7780154a3dff38d95cddab999a31335eed6fbdd88bb9a9c12c4020974f5ccff9",
+      "selection_sha256": "78fd38ccd086ffc3a58741b1854e6cdd8f092b5258c19e52adb9185597658094",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -182,7 +182,7 @@
     {
       "id": "bootstrap-004",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "b321b54fbcc8ad26905e1e7b8b0fd71913ad4444e23b3d3f6d327c7410df0041",
+      "selection_sha256": "b99f75d8076502a7a14c6e4786f94a9b0ea9de5539f6a2be9d8349095887bdb4",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -231,7 +231,7 @@
     {
       "id": "bootstrap-005",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "e2c97eaca13f7bec1a0f35c658fba4858c2f7ffb9455412eda9cb0546b40ecfa",
+      "selection_sha256": "548708d5549e438a931fae61e248a54380777369827414cc0c60d30d4a25dea4",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -280,7 +280,7 @@
     {
       "id": "bootstrap-006",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "d178582cd62410bf65de6eb4848e51c7056595c0dc2800b4e78ba3417452a917",
+      "selection_sha256": "97a20ec862d17247ed3c96452ed5d44492f22069337e5a21ab63f6573d0d1085",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -329,7 +329,7 @@
     {
       "id": "bootstrap-007",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "efb1231cb1d80adb8a98f7916145911df80f51aa986e171b28350dc51c7193c5",
+      "selection_sha256": "b7ca9b0a41b9e8d0119a4a482e0d2d3508b62b34d7429dcb9b4e1701220984ab",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -378,7 +378,7 @@
     {
       "id": "bootstrap-008",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "741bf437183c44bc1d98fffcfe7bbd0d630fe9b7b282564f030d9229e19c49f8",
+      "selection_sha256": "665942dbd6d985335d1ce75fd204af83409cdf3585e7024d98d9e8e61abe8c90",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -427,7 +427,7 @@
     {
       "id": "bootstrap-009",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "bfed2cd7c12ca1b40c439fe3939806564ef3cc63d598dce3d7df4a65e907f543",
+      "selection_sha256": "f521ddaed64ac923f9fed57fc73231505ff08d605312cfde24550e8c36324c61",
       "source_count": 4,
       "has_collision_name_proposals": false,
       "selection": [
@@ -1695,6 +1695,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "basnijholt/agent-cli",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/agent-cli",
+      "candidate_name": "agent-cli",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "beipo-ai/NorthCUA",
       "priority_group": "HISTORICAL_EXTRA",
       "next_step": "TRACK_ONLY_NO_CHANGE",
@@ -1772,6 +1783,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "coleam00/Linear-Coding-Agent-Harness",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/Linear-Coding-Agent-Harness",
+      "candidate_name": "Linear-Coding-Agent-Harness",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "converged-computing/fractale",
       "priority_group": "HISTORICAL_EXTRA",
       "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
@@ -1843,6 +1865,39 @@
       "next_step": "TRACK_ONLY_NO_CHANGE",
       "candidate_fork": "opensiro-contributions/AnyTool",
       "candidate_name": "AnyTool",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "elij/macher-agent",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/macher-agent",
+      "candidate_name": "macher-agent",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "elmissouri16/snow-core",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/snow-core",
+      "candidate_name": "snow-core",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "enmanuelmag/agent-harness-kit",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/agent-harness-kit",
+      "candidate_name": "agent-harness-kit",
       "collision_name_proposal": false,
       "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
@@ -2135,6 +2190,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "kdlbs/kandev",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/kandev",
+      "candidate_name": "kandev",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "khanuzeb/axiom",
       "priority_group": "HISTORICAL_EXTRA",
       "next_step": "TRACK_ONLY_NO_CHANGE",
@@ -2190,6 +2256,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "Lukeus/taurus",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/taurus",
+      "candidate_name": "taurus",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "madarco/agentbox",
       "priority_group": "PILOT_EXTRA",
       "next_step": "RECONCILE_NATIVE_PILOT_BEFORE_FORK_STAGE",
@@ -2206,6 +2283,17 @@
       "next_step": "TRACK_ONLY_NO_CHANGE",
       "candidate_fork": "opensiro-contributions/agentworks",
       "candidate_name": "agentworks",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "manuel-koch/ylva",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/ylva",
+      "candidate_name": "ylva",
       "collision_name_proposal": false,
       "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
@@ -2239,6 +2327,17 @@
       "next_step": "TRACK_ONLY_NO_CHANGE",
       "candidate_fork": "opensiro-contributions/genesis-agent",
       "candidate_name": "genesis-agent",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "mjoneill/manyhands",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/manyhands",
+      "candidate_name": "manyhands",
       "collision_name_proposal": false,
       "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
@@ -2624,6 +2723,17 @@
       "next_step": "TRACK_ONLY_NO_CHANGE",
       "candidate_fork": "opensiro-contributions/tale",
       "candidate_name": "tale",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "The-Swarm-Corporation/swarms-rs",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/swarms-rs",
+      "candidate_name": "swarms-rs",
       "collision_name_proposal": false,
       "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,

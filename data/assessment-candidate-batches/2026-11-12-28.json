@@ -15,19 +15,22 @@
       "reviewed_at": "2026-10-27",
       "function": "S2",
       "finding": "Check whether concurrent skipped/failed predecessors can cause a duplicate or stranded DAG join worker.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/sw/swarms-rust.md",
-        "https://github.com/opensiro/upstream/commit/e8329c3e87bff974a30bd475b0f39053a19a83d2"
+        "https://github.com/opensiro/upstream/commit/e8329c3e87bff974a30bd475b0f39053a19a83d2",
+        "https://github.com/The-Swarm-Corporation/swarms-rs/tree/ee1e74cb6e2c94775db88dddb311f2235e3fe9e3",
+        "https://github.com/The-Swarm-Corporation/swarms-rs/blob/ee1e74cb6e2c94775db88dddb311f2235e3fe9e3/swarms-rs/src/structs/graph_workflow.rs"
       ],
-      "external_action": "NOT_EXECUTED"
+      "external_action": "NOT_EXECUTED",
+      "screening_result": "Source default main@ee1e74cb6e2c94775db88dddb311f2235e3fe9e3, GitHub LICENSE API Apache-2.0. At current source the graph joins wait for all incoming edges, started.insert(target) atomically rejects duplicate launches and empty aggregated inputs propagate terminal skip. No native reproducer of a duplicate or stranded supported join established."
     },
     {
       "id": "manyhands-stale-release-owner",
@@ -37,19 +40,23 @@
       "reviewed_at": "2026-10-27",
       "function": "S2",
       "finding": "Check whether a stale card holder can release a newer card owner after a concurrent reclaim.",
-      "stage": "SCREENING",
+      "stage": "BLOCKED_EVIDENCE",
       "origin": "INSUFFICIENT",
       "fit": {
         "need": "PENDING",
-        "mechanism": "PENDING",
+        "mechanism": "PASS",
         "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ma/manyhands.md",
-        "https://github.com/opensiro/upstream/commit/e8329c3e87bff974a30bd475b0f39053a19a83d2"
+        "https://github.com/opensiro/upstream/commit/e8329c3e87bff974a30bd475b0f39053a19a83d2",
+        "https://github.com/mjoneill/manyhands/tree/35cffa653b83101d67c6706f3561b00251614621",
+        "https://github.com/mjoneill/manyhands/blob/35cffa653b83101d67c6706f3561b00251614621/server.js"
       ],
-      "external_action": "NOT_EXECUTED"
+      "external_action": "NOT_EXECUTED",
+      "screening_result": "Source default main@35cffa653b83101d67c6706f3561b00251614621, GitHub LICENSE API MIT. The current claim and DELETE release handlers run under withWriteLock, with release checking claimedBy against body.by but no required claim generation. A stale same-holder release after a re-claim is a plausible ABA question, not a proven supported failure. No independent native RED or maintainer issue-policy basis established.",
+      "blocker": "Unproven same-actor ABA release impact/contract; requires first-party native regression and contributor intent before API change."
     },
     {
       "id": "ylva-provider-cooldown-race",
@@ -59,19 +66,22 @@
       "reviewed_at": "2026-10-27",
       "function": "S2",
       "finding": "Check whether competing Retry-After responses can shorten an already extended provider cooldown.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/yl/ylva.md",
-        "https://github.com/opensiro/upstream/commit/e8329c3e87bff974a30bd475b0f39053a19a83d2"
+        "https://github.com/opensiro/upstream/commit/e8329c3e87bff974a30bd475b0f39053a19a83d2",
+        "https://github.com/manuel-koch/ylva/tree/46378bd1663ef998ac695b2e4f76e337fb35d97f",
+        "https://github.com/manuel-koch/ylva/blob/46378bd1663ef998ac695b2e4f76e337fb35d97f/src/http.rs"
       ],
-      "external_action": "NOT_EXECUTED"
+      "external_action": "NOT_EXECUTED",
+      "screening_result": "Source default main@46378bd1663ef998ac695b2e4f76e337fb35d97f, GitHub LICENSE API Apache-2.0. First-party RetryCooldown.note_retry_after locks a shared not_before and sets it only when the new deadline is later. The proposed shorter-overwrite race is contradicted by inspected source; no eligible change."
     },
     {
       "id": "taurus-delegate-scope-bypass",
@@ -81,19 +91,23 @@
       "reviewed_at": "2026-10-27",
       "function": "S2",
       "finding": "Check whether a background read-only delegate can mutate via a first-party indirect tool path.",
-      "stage": "SCREENING",
+      "stage": "BLOCKED_EVIDENCE",
       "origin": "INSUFFICIENT",
       "fit": {
         "need": "PENDING",
-        "mechanism": "PENDING",
+        "mechanism": "PASS",
         "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ta/taurus-ai-shell.md",
-        "https://github.com/opensiro/upstream/commit/e8329c3e87bff974a30bd475b0f39053a19a83d2"
+        "https://github.com/opensiro/upstream/commit/e8329c3e87bff974a30bd475b0f39053a19a83d2",
+        "https://github.com/Lukeus/taurus/tree/3be6ff94b5e7adfee30f5ead8972dbdbbb5c4319",
+        "https://github.com/Lukeus/taurus/blob/3be6ff94b5e7adfee30f5ead8972dbdbbb5c4319/crates/taurus-core/src/subagent.rs"
       ],
-      "external_action": "NOT_EXECUTED"
+      "external_action": "NOT_EXECUTED",
+      "screening_result": "Source default main@3be6ff94b5e7adfee30f5ead8972dbdbbb5c4319, GitHub LICENSE API MIT. Delegate scheduling explicitly serializes ordinary mutating work and only treats read-only or isolated/background flows as concurrent. No concrete first-party indirect write bypass or deterministic supported failing scenario established.",
+      "blocker": "No deterministic source-native writable background delegate bypass or policy-consistent fix demonstrated."
     },
     {
       "id": "kandev-shared-workspace-overlap",
@@ -103,7 +117,7 @@
       "reviewed_at": "2026-10-27",
       "function": "S2",
       "finding": "Check whether overlapping shared-workspace tasks can proceed without conflict feedback or isolation.",
-      "stage": "SCREENING",
+      "stage": "BLOCKED_EVIDENCE",
       "origin": "INSUFFICIENT",
       "fit": {
         "need": "PENDING",
@@ -113,9 +127,13 @@
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ka/kandev.md",
-        "https://github.com/opensiro/upstream/commit/e8329c3e87bff974a30bd475b0f39053a19a83d2"
+        "https://github.com/opensiro/upstream/commit/e8329c3e87bff974a30bd475b0f39053a19a83d2",
+        "https://github.com/kdlbs/kandev/tree/94e35cd2234608185643c91e9f1aeebf1f1956ca",
+        "https://github.com/kdlbs/kandev/blob/94e35cd2234608185643c91e9f1aeebf1f1956ca/README.md"
       ],
-      "external_action": "NOT_EXECUTED"
+      "external_action": "NOT_EXECUTED",
+      "screening_result": "Source default main@94e35cd2234608185643c91e9f1aeebf1f1956ca, GitHub LICENSE API AGPL-3.0. Current repository advertises AGPL-3.0. Working checkout was not complete enough to validate a specific native shared-workspace failure and contributor/legal fit for a derivative change remains unreviewed. Do not infer a bug from S2=C.",
+      "blocker": "AGPL-3.0 compatibility/contributor review pending; checkout incomplete and no reproduced shared-workspace conflict."
     },
     {
       "id": "agent-harness-kit-double-claim",
@@ -125,19 +143,22 @@
       "reviewed_at": "2026-10-27",
       "function": "S2",
       "finding": "Check whether concurrent MCP claims can return success to two owners for one pending task.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ag/agent-harness-kit.md",
-        "https://github.com/opensiro/upstream/commit/e8329c3e87bff974a30bd475b0f39053a19a83d2"
+        "https://github.com/opensiro/upstream/commit/e8329c3e87bff974a30bd475b0f39053a19a83d2",
+        "https://github.com/enmanuelmag/agent-harness-kit/tree/cf46b89d75dfbffb5b34b47d709fb28d149942a9",
+        "https://github.com/enmanuelmag/agent-harness-kit/blob/cf46b89d75dfbffb5b34b47d709fb28d149942a9/src/core/repositories/TaskRepository.ts"
       ],
-      "external_action": "NOT_EXECUTED"
+      "external_action": "NOT_EXECUTED",
+      "screening_result": "Source default main@cf46b89d75dfbffb5b34b47d709fb28d149942a9, GitHub LICENSE API Apache-2.0. Current TaskRepository.claim performs UPDATE ... WHERE id=? AND status=pending, and DB.claimTask executes claim inside a transaction then checks status and assigned_to. The hypothesized two successful owners is not supported by inspected transaction path."
     },
     {
       "id": "snow-root-path-alias",
@@ -147,19 +168,22 @@
       "reviewed_at": "2026-10-27",
       "function": "S2",
       "finding": "Check whether equivalent rooted path spellings or file swaps evade the first-party mutation gate.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/sn/snow.md",
-        "https://github.com/opensiro/upstream/commit/e8329c3e87bff974a30bd475b0f39053a19a83d2"
+        "https://github.com/opensiro/upstream/commit/e8329c3e87bff974a30bd475b0f39053a19a83d2",
+        "https://github.com/elmissouri16/snow-core/tree/1047f8e933442fa156d53ca78aa869792e9f9188",
+        "https://github.com/elmissouri16/snow-core/blob/1047f8e933442fa156d53ca78aa869792e9f9188/internal/tools/builtin/root_mutation.go"
       ],
-      "external_action": "NOT_EXECUTED"
+      "external_action": "NOT_EXECUTED",
+      "screening_result": "Source default main@1047f8e933442fa156d53ca78aa869792e9f9188, GitHub LICENSE API MIT. The global rootedMutationGate serializes built-in tool mutations regardless of path spelling, and rootedEditSnapshot.validate checks file identity, content and target name before replacement. It explicitly excludes an external writer racing final rename; the proposed in-process alias bypass is unsupported."
     },
     {
       "id": "macher-agent-vfs-merge-divergence",
@@ -169,19 +193,23 @@
       "reviewed_at": "2026-10-27",
       "function": "S2",
       "finding": "Check whether child VFS payload merge can silently replace an independently changed parent buffer.",
-      "stage": "SCREENING",
+      "stage": "BLOCKED_EVIDENCE",
       "origin": "INSUFFICIENT",
       "fit": {
         "need": "PENDING",
-        "mechanism": "PENDING",
+        "mechanism": "PASS",
         "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ma/macher-agent.md",
-        "https://github.com/opensiro/upstream/commit/e8329c3e87bff974a30bd475b0f39053a19a83d2"
+        "https://github.com/opensiro/upstream/commit/e8329c3e87bff974a30bd475b0f39053a19a83d2",
+        "https://github.com/elij/macher-agent/tree/1b8e48d80779a7f54fde71908943d4b773e4bf05",
+        "https://github.com/elij/macher-agent/blob/1b8e48d80779a7f54fde71908943d4b773e4bf05/macher-agent-vfs.el"
       ],
-      "external_action": "NOT_EXECUTED"
+      "external_action": "NOT_EXECUTED",
+      "screening_result": "Source default main@1b8e48d80779a7f54fde71908943d4b773e4bf05, GitHub LICENSE API GPL-3.0. The current child-context merge writes pending child VFS content into the parent; parent-divergence semantics require a first-party deterministic Emacs regression and review of GPL-3.0 target contribution constraints. No separate-runner RED/GREEN receipt or product-native requirement established.",
+      "blocker": "Missing first-party reproducible parent/child merge scenario, GPL-3.0 contributor review and independent native runner."
     },
     {
       "id": "linear-coding-double-claim",
@@ -191,7 +219,7 @@
       "reviewed_at": "2026-10-27",
       "function": "S2",
       "finding": "Check whether concurrent Linear issue claim conventions allow duplicate feature work without a CAS.",
-      "stage": "SCREENING",
+      "stage": "BLOCKED_EVIDENCE",
       "origin": "INSUFFICIENT",
       "fit": {
         "need": "PENDING",
@@ -201,9 +229,13 @@
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/li/linear-coding-agent-harness.md",
-        "https://github.com/opensiro/upstream/commit/e8329c3e87bff974a30bd475b0f39053a19a83d2"
+        "https://github.com/opensiro/upstream/commit/e8329c3e87bff974a30bd475b0f39053a19a83d2",
+        "https://github.com/coleam00/Linear-Coding-Agent-Harness/tree/c37dc096993011cb0cc48a0afab176cd9c8f2375",
+        "https://github.com/coleam00/Linear-Coding-Agent-Harness/blob/c37dc096993011cb0cc48a0afab176cd9c8f2375/prompts/coding_prompt.md"
       ],
-      "external_action": "NOT_EXECUTED"
+      "external_action": "NOT_EXECUTED",
+      "screening_result": "Source default main@c37dc096993011cb0cc48a0afab176cd9c8f2375, GitHub LICENSE API MIT. The source uses a Linear issue status and coding-prompt convention, not a first-party atomic server claim interface. No validated supported source-native CAS endpoint or maintainer-requested backwards-compatible alternative; do not equate an unenforced convention with a proven fixable source bug.",
+      "blocker": "Prompt-only coordination; no first-party transactional claim mechanism or maintainer-approved native API to amend."
     },
     {
       "id": "agent-cli-duplicate-worktree",
@@ -213,19 +245,22 @@
       "reviewed_at": "2026-10-27",
       "function": "S2",
       "finding": "Check whether two dev-new requests can launch agents into the same reused branch/worktree.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ag/agent-cli.md",
-        "https://github.com/opensiro/upstream/commit/e8329c3e87bff974a30bd475b0f39053a19a83d2"
+        "https://github.com/opensiro/upstream/commit/e8329c3e87bff974a30bd475b0f39053a19a83d2",
+        "https://github.com/basnijholt/agent-cli/tree/7de04affc3b8bc758a11c75ce555e5097b71b363",
+        "https://github.com/basnijholt/agent-cli/blob/7de04affc3b8bc758a11c75ce555e5097b71b363/agent_cli/dev/worktree.py"
       ],
-      "external_action": "NOT_EXECUTED"
+      "external_action": "NOT_EXECUTED",
+      "screening_result": "Source default main@7de04affc3b8bc758a11c75ce555e5097b71b363, GitHub LICENSE API MIT. Current create_worktree checks for an existing target path and git worktree add enforces Git branch/worktree ownership. No reproduced dual-launch collision through the supported dev-new command; no justified change."
     }
   ]
 }
