@@ -64,6 +64,8 @@ APPROVED_CHECKPOINT_ADDITIONS = {
     "https://github.com/FonaTech/Clouds-Coder/pull/50",
     # yoagent standing-mandate publication, native all-features validated on 2026-11-11.
     "https://github.com/yologdev/yoagent/pull/450",
+    # Evidence Bench policy 16/16 and full non-live exit 0; external #9 readback 2026-11-12.
+    "https://github.com/kstawiski/evidence-gated-scientific-agent/pull/9",
     # Fara focused 3/3 native tests and exact external #96 readback 2026-11-11.
     "https://github.com/microsoft/fara/pull/96",
     # phax source-native full-gate PASS and standing publication 2026-11-11.
