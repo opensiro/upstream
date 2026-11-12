@@ -138,10 +138,17 @@ class CleanPublicGitPatchMaterializer:
                 return self._run(args, timeout=timeout, env=env)
             root = Path(tmp) / "repo"
             repo_url = self._clone_base + "/" + repo + ".git"
-            run(["git", "clone", "--quiet", "--no-checkout", "--depth", "1",
+            run(["git", "clone", "--quiet", "--no-checkout", "--sparse", "--depth", "1",
                        "--filter=blob:none", repo_url, str(root)], timeout=120)
             run(["git", "-C", str(root), "fetch", "--quiet", "--depth", "1",
                        "origin", base_sha], timeout=120)
+            # Restrict blobs fetched during checkout to the independently
+            # admitted source/test directories. This avoids materializing
+            # unrelated large upstream trees without weakening exact path,
+            # tree, preimage and postimage verification.
+            scoped_dirs = sorted({str(Path(p).parent) for p in changed_paths})
+            run(["git", "-C", str(root), "sparse-checkout", "set",
+                 "--cone", *scoped_dirs], timeout=90)
             run(["git", "-C", str(root), "-c", "core.hooksPath=/dev/null",
                        "checkout", "--detach", base_sha], timeout=90)
             need(run(["git", "-C", str(root), "rev-parse", "HEAD"]).strip()

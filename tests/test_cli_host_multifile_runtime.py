@@ -186,6 +186,24 @@ class RealLocalGitMaterializerTests(unittest.TestCase):
         self.assertTrue(any(c[1]=="apply" if len(c)>1 else False for c in calls) is False
                         or len(calls)>0)
 
+    def test_sparse_checkout_is_limited_to_verified_pair_directories(self):
+        calls = []
+        def runner(args, **kwargs):
+            calls.append(args)
+            return subprocess.run(args, **kwargs)
+        materializer = CleanPublicGitPatchMaterializer(
+            runner=runner, clone_base=str(self.root))
+        result = materializer(REPO, self.base, PATCH, [SOURCE, TEST])
+        self.assertEqual(result["files"][SOURCE], NEW)
+        clone = [c for c in calls if len(c) > 2 and c[1] == "clone"]
+        self.assertEqual(len(clone), 1)
+        self.assertIn("--sparse", clone[0])
+        sparse = [c for c in calls if "sparse-checkout" in c]
+        self.assertEqual(len(sparse), 1)
+        self.assertEqual(sparse[0][-2:],
+                         ["packages/server/src", "packages/server/test"])
+        self.assertNotIn("push", [part for c in calls for part in c])
+
     def _python_patch_from_real_local_git(self, *, existing):
         work = self.root / "work"
         prod = ("scientific_agent/policy.py" if existing
