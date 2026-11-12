@@ -22,6 +22,8 @@ TS_SOURCE = re.compile(r"^packages/[a-zA-Z0-9_-]+/src/[a-zA-Z0-9_./-]+\.tsx?$")
 TS_TEST = re.compile(r"^packages/[a-zA-Z0-9_-]+/test/[a-zA-Z0-9_./-]+\.tsx?$")
 PY_SOURCE = re.compile(r"^(?:src/[a-zA-Z0-9_-]+/|scientific_agent/)[a-zA-Z0-9_./-]+\.py$")
 PY_TEST = re.compile(r"^tests/(?:[a-zA-Z0-9_./-]+/)?test_[a-zA-Z0-9_-]+\.py$")
+OPERATOR_PY_SOURCE = re.compile(r"^operator-mcp/operator_mcp/workflow/[a-zA-Z0-9_]+\.py$")
+OPERATOR_PY_TEST = re.compile(r"^operator-mcp/tests/test_[a-zA-Z0-9_]+\.py$")
 DIFF = re.compile(r"^diff --git a/([^\n]+) b/([^\n]+)$", re.M)
 STAGE = "prepare_contribution"
 FIELDS = {"working_repo", "source_branch", "source_sha", "base_branch",
@@ -58,7 +60,8 @@ def classified_paths(paths):
          "Invalid two-path source/test scope")
     need(len(set(paths)) == 2, "Duplicate native path")
     for source_rule, test_rule in ((TS_SOURCE, TS_TEST),
-                                   (PY_SOURCE, PY_TEST)):
+                                   (PY_SOURCE, PY_TEST),
+                                   (OPERATOR_PY_SOURCE, OPERATOR_PY_TEST)):
         sources = [p for p in paths if source_rule.fullmatch(p)]
         tests = [p for p in paths if test_rule.fullmatch(p)]
         if len(sources) == len(tests) == 1:
@@ -93,7 +96,8 @@ def _validate(action):
     preimages = action["preimage_sha256"]
     need(type(preimages) is dict
          and set(preimages) in ({prod}, {prod, test})
-         and (test not in preimages or PY_TEST.fullmatch(test))
+         and (test not in preimages or PY_TEST.fullmatch(test)
+              or OPERATOR_PY_TEST.fullmatch(test))
          and type(action["postimage_sha256"]) is dict
          and set(action["postimage_sha256"]) == set(action["changed_paths"])
          and all(type(v) is str and DIGEST.fullmatch(v)
