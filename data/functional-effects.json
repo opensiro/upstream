@@ -1,8 +1,28 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-22",
+  "as_of": "2026-11-12",
   "owner": "opensiro/upstream",
   "cases": [
+    {
+      "id": "friday-s2-file-custody-alias",
+      "project": "Friday",
+      "experiment": "https://github.com/opensiro/upstream/issues/56",
+      "origin": "ASSESSMENT_DERIVED_HYPOTHESIS",
+      "measurement_level": "NATIVE_TOOL_BEHAVIOR",
+      "before": "On pinned Friday source, the two corrected native path-alias custody regressions both returned no holder for an equivalently named owned file (0/2 PASS).",
+      "after": "On the same source plus the scoped normalization fix, both alias regressions passed (2/2); the combined native controls passed 12/12 and TypeScript typecheck passed. External PR #23 was merged by the original maintainer.",
+      "comparability": "The Index S2 file-custody hypothesis was committed before fresh Friday source inspection (OpenSiro 0fbad73f); matched corrected test fixture and pinned Friday main@079c5af5 were independently executed on dev-alpha-2. An earlier incomplete test fixture was reported and corrected before the matched RED/GREEN comparison. Merge/readback is a later external GitHub observation, not the same test run. No deployment or user workload was measured.",
+      "product_benefit": "NOT_MEASURED",
+      "external_delivery": "MERGED",
+      "receipts": [
+        "https://github.com/opensiro/upstream/commit/0fbad73f3e11b36a55d46ff3f1ae5ec1f4678b51",
+        "https://github.com/opensiro/upstream/blob/main/pilots/friday-s2/INDEPENDENT_HOST_RECEIPT_2026-11-09.md",
+        "https://github.com/opensiro/vsm-harness-index/blob/46219bf103b0b122d86abc3ca70ae3d8bc820e2c/assessments/fr/friday.md",
+        "https://github.com/splashxmoon/friday/pull/23",
+        "https://github.com/splashxmoon/friday/commit/9cdbe26b6e4cb61f88c1fe6e9a6dda503a3b6cb6"
+      ],
+      "next_gate": "Native S2 coordination correctness and original maintainer merger are source-backed; monitor delivery and actual user impact separately. Do not infer a deployed product benefit, new VSM grade or independent S1 autonomy."
+    },
     {
       "id": "kram-s2-native-edit-atomicity",
       "project": "Kram",
