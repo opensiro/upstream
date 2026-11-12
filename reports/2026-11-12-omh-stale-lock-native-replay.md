@@ -25,6 +25,8 @@ The test runs genuine `plugins/omh/omh_state.py::state_lock_acquire` twice in se
 - Patched source SHA256 `7b9651103d8546f8fc8398b7b495b2974c0bef98c9273f9216de35644af37cd4`; patched test SHA256 `bea6419613cb2c140eef5736a402e43fc79ce34c1d92c4ae5e73f37a4a9ed6a9`.
 - Logs on the distinct host: `/tmp/opensiro-omh-replay-red-b27.log`, `/tmp/opensiro-omh-replay-green-b27.log`, `/tmp/opensiro-omh-replay-full-b27.log`; reproduced twice including the initial `/tmp/opensiro-omh-stale-red-20261112.log` and patched full suite.
 
+**Combined branch materialization packet:** [native-contribution.patch](../pilots/omh-stale-lock-s2/native-contribution.patch), SHA256 `7510b3a3c6e0fc1e476490848f12cb5225101414e4f479a71031d843e3017e9e`. This contains exactly the identical two-file source/test changes replayed above. A separate source-side native allowlist gate requires this specific `plugins/omh/omh_state.py` + `plugins/omh/tests/test_state.py` pair. No original or fork branch was written as part of this technical packet.
+
 ## Native-fit gates and boundaries
 
 - **Need=PASS:** the lock directly promises one active holder per `(mode, lock_key)`; two `acquired=True` results are observed in the original source.

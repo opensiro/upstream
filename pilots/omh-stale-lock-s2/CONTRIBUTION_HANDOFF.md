@@ -13,6 +13,8 @@ First-party [Oh My Hermes](https://github.com/witt3rd/oh-my-hermes/tree/3b06e33a
 - [Distinct-host native RED/GREEN replay](../../reports/2026-11-12-omh-stale-lock-native-replay.md): original **1 FAIL** (A and B both `acquired=True`), patched **1 PASS**, full first-party Python plugin suite **195 PASS, 7 SKIP**.
 - Exact source `3b06e33ae67b202b342989b484f08143e65e250d`; [production patch](native-fix.patch) SHA256 `3195879df9cca44921c4e8b859bd7fe0f996a923f4c006222afbfa94d6a8a1d2`; [native regression](native-regression.patch) SHA256 `f345b09552108041fa5b66d9e959d9b5c17a3204a5d69a318fc163ee6c068791`.
 
+**Executable two-file packet for the connected stage:** [native-contribution.patch](native-contribution.patch), SHA256 `7510b3a3c6e0fc1e476490848f12cb5225101414e4f479a71031d843e3017e9e`. This includes the previously certified production and regression changes *unchanged*; additive selected-packets.json now selects the combined exact native pair for atomic creation of the working branch. Original individual patch hashes remain available above for independent review. The two-file host adapter accepts **only these exact OMH production/test paths**; it does not admit arbitrary plugin files.
+
 ## Fix and fit
 
 Protect *only the rare stale reclaimer* using a sibling SQLite `BEGIN IMMEDIATE` transaction and re-check the current lock PID before removal; ordinary uncontended acquisition still uses the original no-DB `O_EXCL` path. The extra `.omh-lock-reclaim.sqlite3` file lives under the existing private state root; Python standard library, no dependencies or provider calls.
