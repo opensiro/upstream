@@ -24,6 +24,14 @@
       "patch_path": "pilots/fara/resume-task-identity.patch",
       "patch_sha256": "fce42386bd6b1cf1ea0fed6c22a206589239cdeeb37f53cfaa48eb027da9002e",
       "receipt": "reports/2026-11-12-native-packet-requalification-wave-01.md"
+    },
+    {
+      "source": "witt3rd/oh-my-hermes",
+      "candidate_id": "oh-my-hermes-crossprocess-lock",
+      "source_sha": "3b06e33ae67b202b342989b484f08143e65e250d",
+      "patch_path": "pilots/omh-stale-lock-s2/native-fix.patch",
+      "patch_sha256": "3195879df9cca44921c4e8b859bd7fe0f996a923f4c006222afbfa94d6a8a1d2",
+      "receipt": "reports/2026-11-12-omh-stale-lock-native-replay.md"
     }
   ]
 }

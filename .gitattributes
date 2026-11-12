@@ -1,0 +1,3 @@
+# Native .patch files contain unified-diff context lines consisting of one space.
+# Those are required patch syntax, not accidental whitespace in repository source.
+pilots/omh-stale-lock-s2/*.patch -whitespace
