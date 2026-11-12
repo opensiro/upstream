@@ -1,0 +1,315 @@
+diff --git a/README.md b/README.md
+index cb8e4a2..9f1edb1 100644
+--- a/README.md
++++ b/README.md
+@@ -117,6 +117,19 @@ bash ./scripts/run_agent.sh workflows/quickstart.yaml --output_dir /path/to/outp
+ agentspex run workflows/quickstart.yaml --resume
+ ```
+ 
++### Inspect a checkpoint before resuming (offline)
++
++```bash
++agentspex inspect-checkpoint /path/to/checkpoint.json --expected_task_name=my_task --expected_steps=4
++# Optionally add --require_step_outputs=True to check saved top-level outputs.
++```
++
++This opt-in inspection returns a JSON verdict with stable reason codes and
++exit code 2 for an invalid/missing checkpoint. It does not start a model,
++MCP server, or sandbox, and never edits or recovers checkpoint files.
++It is a structural preflight, not proof that prior results were correct.
++The existing --resume behavior is unchanged.
++
+ ### Replay from trace (no real tool calls)
+ 
+ ```bash
+diff --git a/src/harness/checkpoints/__init__.py b/src/harness/checkpoints/__init__.py
+index e69bec8..3768b34 100644
+--- a/src/harness/checkpoints/__init__.py
++++ b/src/harness/checkpoints/__init__.py
+@@ -7,6 +7,7 @@ This module provides components for workflow checkpointing and recovery:
+ """
+ 
+ from .checkpoint_manager import CheckpointManager
++from .inspection import inspect_checkpoint_file
+ from .durable_execution import TraceWriter, iter_jsonl
+ from .tracing import TracingMixin
+ from .workspace_manifest import (capture_workspace_manifest,
+@@ -14,6 +15,7 @@ from .workspace_manifest import (capture_workspace_manifest,
+ 
+ __all__ = [
+     "CheckpointManager",
++    "inspect_checkpoint_file",
+     "TracingMixin",
+     "TraceWriter",
+     "iter_jsonl",
+diff --git a/src/harness/checkpoints/inspection.py b/src/harness/checkpoints/inspection.py
+new file mode 100644
+index 0000000..a0e3799
+--- /dev/null
++++ b/src/harness/checkpoints/inspection.py
+@@ -0,0 +1,92 @@
++"""Read-only checkpoint preflight: never runs a model, box, or MCP service."""
++
++import json
++from pathlib import Path
++from typing import Any, Optional
++
++from ..types.context import CHECKPOINT_KIND, CHECKPOINT_SCHEMA_VERSION
++
++
++def inspect_checkpoint_file(
++    checkpoint_path: str | Path,
++    *,
++    expected_task_name: Optional[str] = None,
++    expected_steps: Optional[int] = None,
++    require_step_outputs: bool = False,
++) -> dict[str, Any]:
++    """Check saved YAML-run state without mutating files.
++
++    The optional step-output check is conservative: some control-only steps
++    intentionally lack a file. Nested step ids do not require top-level files.
++    This is a structural check, not provenance or agent-quality verification.
++    """
++    if expected_steps is not None and (
++        isinstance(expected_steps, bool)
++        or not isinstance(expected_steps, int)
++        or expected_steps < 0
++    ):
++        raise ValueError("expected_steps must be a non-negative integer")
++
++    path = Path(checkpoint_path)
++    reasons: list[str] = []
++    missing_outputs: list[str] = []
++    report: dict[str, Any] = {
++        "checkpoint": str(path),
++        "valid": False,
++        "reason_codes": reasons,
++        "completed_steps": 0,
++        "missing_output_steps": missing_outputs,
++    }
++
++    try:
++        contents = path.read_text(encoding="utf-8")
++    except FileNotFoundError:
++        reasons.append("CHECKPOINT_NOT_FOUND")
++        return report
++    except (OSError, UnicodeError):
++        reasons.append("CHECKPOINT_UNREADABLE")
++        return report
++
++    try:
++        data = json.loads(contents)
++    except json.JSONDecodeError:
++        reasons.append("CHECKPOINT_INVALID_JSON")
++        return report
++    if not isinstance(data, dict):
++        reasons.append("CHECKPOINT_INVALID_ROOT")
++        return report
++
++    if data.get("kind") != CHECKPOINT_KIND:
++        reasons.append("CHECKPOINT_KIND_MISMATCH")
++    if data.get("schema_version") != CHECKPOINT_SCHEMA_VERSION:
++        reasons.append("SCHEMA_VERSION_MISMATCH")
++    if expected_task_name is not None and data.get("task_name") != expected_task_name:
++        reasons.append("TASK_NAME_MISMATCH")
++
++    steps = data.get("completed_steps", [])
++    if not isinstance(steps, list) or any(
++        isinstance(step, bool) or not isinstance(step, (str, int)) or not str(step)
++        for step in (steps if isinstance(steps, list) else [])
++    ):
++        reasons.append("INVALID_COMPLETED_STEPS")
++    else:
++        completed = [str(step) for step in steps]
++        report["completed_steps"] = len(completed)
++        if len(completed) != len(set(completed)):
++            reasons.append("DUPLICATE_COMPLETED_STEPS")
++        if expected_steps is not None:
++            for step_id in completed:
++                head = step_id.split(".", 1)[0]
++                if not head.isdecimal() or not 1 <= int(head) <= expected_steps:
++                    reasons.append("STEP_OUT_OF_RANGE")
++                    break
++        if require_step_outputs:
++            for step_id in completed:
++                if step_id.isdecimal() and not (
++                    path.parent / f"step-{step_id}-output.txt"
++                ).is_file():
++                    missing_outputs.append(step_id)
++            if missing_outputs:
++                reasons.append("STEP_OUTPUT_MISSING")
++    report["valid"] = not reasons
++    return report
+diff --git a/src/harness/ephemeral/cli.py b/src/harness/ephemeral/cli.py
+index 11f34ad..49f06cb 100644
+--- a/src/harness/ephemeral/cli.py
++++ b/src/harness/ephemeral/cli.py
+@@ -1,3 +1,4 @@
++import json
+ import os
+ import sys
+ from pathlib import Path
+@@ -48,6 +49,26 @@ def run(
+     )
+ 
+ 
++def inspect_checkpoint(
++    checkpoint,
++    expected_task_name=None,
++    expected_steps=None,
++    require_step_outputs=False,
++):
++    """Inspect a YAML checkpoint offline; exit 2 if structural preflight fails."""
++    from harness.checkpoints.inspection import inspect_checkpoint_file
++
++    result = inspect_checkpoint_file(
++        checkpoint,
++        expected_task_name=expected_task_name,
++        expected_steps=expected_steps,
++        require_step_outputs=require_step_outputs,
++    )
++    print(json.dumps(result, sort_keys=True))
++    if not result["valid"]:
++        raise SystemExit(2)
++
++
+ # ── setup ─────────────────────────────────────────────────────────────────────
+ 
+ 
+@@ -125,17 +146,20 @@ def cli(
+ def main():
+     from harness.paths import ensure_runtime_dirs
+ 
+-    ensure_runtime_dirs()
+-
+     if len(sys.argv) == 1:
++        ensure_runtime_dirs()
+         from harness.ephemeral.repl import launch_repl
+ 
+         launch_repl()
+         return
+ 
++    if sys.argv[1] not in ("inspect-checkpoint", "inspect_checkpoint"):
++        ensure_runtime_dirs()
++
+     fire.Fire(
+         {
+             "run": run,
++            "inspect-checkpoint": inspect_checkpoint,
+             "cli": cli,
+             "setup": {
+                 "slack": _setup_slack,
+diff --git a/tests/tool_tests/test_checkpoint_inspection.py b/tests/tool_tests/test_checkpoint_inspection.py
+new file mode 100644
+index 0000000..9b58713
+--- /dev/null
++++ b/tests/tool_tests/test_checkpoint_inspection.py
+@@ -0,0 +1,108 @@
++"""Offline checkpoint preflight: no model, box, or MCP service is needed."""
++
++import json
++import os
++import subprocess
++import sys
++from pathlib import Path
++
++import pytest
++
++from harness.checkpoints.inspection import inspect_checkpoint_file
++
++
++def _write_checkpoint(tmp_path, **changes):
++    path = tmp_path / "checkpoint.json"
++    record = {
++        "kind": "yaml_agent_checkpoint",
++        "schema_version": 1,
++        "task_name": "demo",
++        "completed_steps": ["1", "2"],
++        "run_id": "run-1",
++    }
++    record.update(changes)
++    path.write_text(json.dumps(record), encoding="utf-8")
++    return path
++
++
++def test_valid_checkpoint_reports_completed_steps_without_modifying_file(tmp_path):
++    checkpoint = _write_checkpoint(tmp_path)
++    original = checkpoint.read_bytes()
++    report = inspect_checkpoint_file(checkpoint, expected_task_name="demo", expected_steps=3)
++    assert report["valid"] is True
++    assert report["reason_codes"] == []
++    assert report["completed_steps"] == 2
++    assert checkpoint.read_bytes() == original
++
++
++@pytest.mark.parametrize(
++    ("change", "code"),
++    [
++        ({"kind": "other"}, "CHECKPOINT_KIND_MISMATCH"),
++        ({"schema_version": 99}, "SCHEMA_VERSION_MISMATCH"),
++        ({"completed_steps": "1,2"}, "INVALID_COMPLETED_STEPS"),
++        ({"completed_steps": ["1", "1"]}, "DUPLICATE_COMPLETED_STEPS"),
++        ({"completed_steps": ["1", "4"]}, "STEP_OUT_OF_RANGE"),
++    ],
++)
++def test_unsafe_checkpoint_rejected_with_machine_reason(tmp_path, change, code):
++    checkpoint = _write_checkpoint(tmp_path, **change)
++    report = inspect_checkpoint_file(checkpoint, expected_task_name="demo", expected_steps=3)
++    assert report["valid"] is False
++    assert code in report["reason_codes"]
++
++
++def test_unknown_task_rejected(tmp_path):
++    report = inspect_checkpoint_file(_write_checkpoint(tmp_path), expected_task_name="other")
++    assert report["reason_codes"] == ["TASK_NAME_MISMATCH"]
++
++
++def test_malformed_json_is_reported_without_recovery_side_effect(tmp_path):
++    checkpoint = tmp_path / "checkpoint.json"
++    checkpoint.write_text("{oops", encoding="utf-8")
++    report = inspect_checkpoint_file(checkpoint)
++    assert report["reason_codes"] == ["CHECKPOINT_INVALID_JSON"]
++    assert not list(tmp_path.glob("*.corrupted"))
++
++
++def test_missing_checkpoint_is_reported_without_creating_a_new_file(tmp_path):
++    checkpoint = tmp_path / "missing.json"
++    report = inspect_checkpoint_file(checkpoint)
++    assert report["reason_codes"] == ["CHECKPOINT_NOT_FOUND"]
++    assert not checkpoint.exists()
++
++
++def test_optional_completed_step_output_presence(tmp_path):
++    checkpoint = _write_checkpoint(tmp_path)
++    (tmp_path / "step-1-output.txt").write_text("done", encoding="utf-8")
++    report = inspect_checkpoint_file(checkpoint, require_step_outputs=True)
++    assert report["reason_codes"] == ["STEP_OUTPUT_MISSING"]
++    assert report["missing_output_steps"] == ["2"]
++    assert inspect_checkpoint_file(checkpoint)["valid"] is True
++
++
++def test_nested_substeps_are_not_required_to_have_top_level_output_files(tmp_path):
++    checkpoint = _write_checkpoint(tmp_path, completed_steps=["1.1", "1.2"])
++    assert inspect_checkpoint_file(checkpoint, expected_steps=2, require_step_outputs=True)["valid"]
++
++
++def test_public_cli_inspection_pass_and_fail_without_running_agents(tmp_path):
++    valid_checkpoint = _write_checkpoint(tmp_path)
++    env = dict(os.environ, PYTHONPATH=str(Path(__file__).parents[2] / "src"))
++    command = [
++        sys.executable,
++        "-m",
++        "harness.ephemeral.cli",
++        "inspect-checkpoint",
++        str(valid_checkpoint),
++        "--expected_task_name=demo",
++        "--expected_steps=3",
++    ]
++    passed = subprocess.run(command, capture_output=True, text=True, env=env)
++    assert passed.returncode == 0, passed.stderr
++    assert json.loads(passed.stdout)["valid"] is True
++
++    _write_checkpoint(tmp_path, kind="wrong")
++    rejected = subprocess.run(command, capture_output=True, text=True, env=env)
++    assert rejected.returncode == 2, rejected.stderr
++    assert "CHECKPOINT_KIND_MISMATCH" in json.loads(rejected.stdout)["reason_codes"]
