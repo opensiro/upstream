@@ -4,13 +4,13 @@
   "batch_sources": "data/assessment-candidate-batches/*.json",
   "counts": {
     "priority_sources": 100,
-    "historical_extras": 124,
-    "batch_only_extras": 109,
+    "historical_extras": 129,
+    "batch_only_extras": 114,
     "pilot_only_extras": 7,
     "portfolio_only_extras": 8,
-    "unique_sources": 224,
-    "batch_manifests": 29,
-    "batch_cases": 165,
+    "unique_sources": 229,
+    "batch_manifests": 30,
+    "batch_cases": 170,
     "historical_fork_mappings": 16,
     "name_collision_sources": 11,
     "technical_handoffs": 55,
@@ -2960,6 +2960,23 @@
       "next_step": "SCREEN_BEFORE_FORK_WRITE"
     },
     {
+      "source": "Lukeus/taurus",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-30.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/taurus",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
       "source": "madarco/agentbox",
       "priority_group": "PILOT_EXTRA",
       "batches": [],
@@ -3498,6 +3515,23 @@
       "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
+      "source": "onecli/onecli",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-30.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/onecli",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
       "source": "Onipounds/agent-loop",
       "priority_group": "EXISTING_FORK",
       "batches": [
@@ -3668,6 +3702,23 @@
       "proposed_fork": "opensiro-contributions/connectonion",
       "license_review": false,
       "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "opensesh/KARIMO",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-30.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/KARIMO",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
     },
     {
       "source": "openshift-online/agent-control-plane",
@@ -4512,6 +4563,23 @@
       "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
+      "source": "SichengLong26/deepresearch_agent_harness",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-30.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/deepresearch_agent_harness",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
       "source": "simonguo/evidenceloom",
       "priority_group": "PREPARED_PACKET",
       "batches": [
@@ -4875,6 +4943,23 @@
       "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/zeroshot",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "The-Swarm-Corporation/swarms-rs",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-12-30.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/swarms-rs",
       "license_review": false,
       "next_step": "TRACK_ONLY_NO_CHANGE"
     },
