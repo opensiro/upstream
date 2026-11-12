@@ -831,7 +831,7 @@
             "pilot": {
               "directory": "pilots/workflow-one",
               "files": 2,
-              "content_sha256": "c1dfdb9bf6a23d790127e5601ce7213c67ea613e1eb3896f65e283d00ffd5c78",
+              "content_sha256": "4c7fb62ea4a460825450ea18905760121c4219000f9f08124a686efd23623b3a",
               "patch_candidates": [
                 {
                   "path": "pilots/workflow-one/active-runid-registry-guard.patch",
@@ -1051,7 +1051,7 @@
             "pilot": {
               "directory": "pilots/politik",
               "files": 2,
-              "content_sha256": "afc71e2352888f1181befc95e110986d8ee245728ec990d49a24d1f6e32e9ed8",
+              "content_sha256": "726365071be14dfd89e2eb69ba36baa4870a6becbaec753797f017229c95dc3b",
               "patch_candidates": [
                 {
                   "path": "pilots/politik/containment-dotdot-prefix.patch",
@@ -1636,7 +1636,7 @@
             "pilot": {
               "directory": "pilots/discoveryrsi",
               "files": 2,
-              "content_sha256": "6f7fcbc1d45dadb196758be02963d2472cc8a1e527c30b8fcdfe27ea8692eafd",
+              "content_sha256": "e62bd3731e0be98d4456b7f4a0bc182ad547e3dc8cbf2ed5e293db26d8b555cb",
               "patch_candidates": [
                 {
                   "path": "pilots/discoveryrsi/candidate-episode-snapshot.patch",

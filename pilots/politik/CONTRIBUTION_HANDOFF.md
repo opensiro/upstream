@@ -1,5 +1,8 @@
 # Politik — containment false positive on filenames beginning with two dots
 
+> **Current third-party lifecycle (readback 2026-11-12):** **MERGED**: [original cordfuse/politik PR #33](https://github.com/cordfuse/politik/pull/33) on 2026-11-05T19:01:23Z by `steve-krisjanovs`. Final source PR head `23570ac446c5e84d20fd8794c9b578e8245c3a43` and merge commit `da28ee8523186947f490554df18ad47f6994d24f`. [Five-source GitHub evidence](../../reports/2026-11-12-five-merged-external-pr-lifecycle-readback.md). Any older unpublished or AWAITING_EXTERNAL wording below is a **historical preparation snapshot**, not the current external lifecycle. Strict native-outcome metric acceptance is separate and remains unclaimed.
+
+
 **Stage:** AWAITING_EXTERNAL; local native technical packet only, no fork or external PR.
 
 - Canonical assessment: Index assessments/po/politik.md at 396a54bb690f8ec7ce966bf9b00b241b30036307; reviewed and current source cordfuse/politik@c1fa7312c75599d72b187bf20088f51f5dda2247 (live main observed matching 2026-10-22).

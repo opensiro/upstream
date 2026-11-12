@@ -1,5 +1,8 @@
 # DiscoveryRSI — earlier episode records mutate after later scoring
 
+> **Current third-party lifecycle (readback 2026-11-12):** **MERGED**: [original Gen-Verse/DiscoveryRSI PR #2](https://github.com/Gen-Verse/DiscoveryRSI/pull/2) on 2026-10-30T06:10:37Z by `JianyuanZhong`. Final source PR head `03122c3c081fe2e386e3b6e7a250515f82b1ac15` and merge commit `d9a3dfe138a87706ac4850e1fcc6b2d5b0ec3353`. [Five-source GitHub evidence](../../reports/2026-11-12-five-merged-external-pr-lifecycle-readback.md). Any older unpublished or AWAITING_EXTERNAL wording below is a **historical preparation snapshot**, not the current external lifecycle. Strict native-outcome metric acceptance is separate and remains unclaimed.
+
+
 **Stage:** `AWAITING_EXTERNAL`. Internal native patch and evidence only; no external fork, issue, commit, PR, or merge.
 
 - **Source:** `Gen-Verse/DiscoveryRSI@7389e0b58ae50486ab35aa3dcbfa2fa15fea1a91`, pinned from the included `S1=A` Index assessment at `396a54bb690f8ec7ce966bf9b00b241b30036307`.
