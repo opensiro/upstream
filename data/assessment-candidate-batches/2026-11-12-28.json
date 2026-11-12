@@ -1,0 +1,231 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-12-28",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "85ae995fc2551ac0a076609bce0300d075cac2d5",
+  "frozen_at": "2026-11-12",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Owner-requested upstream upgrade batch 10: ten newest available distinct included S1=A/S2=C Index assessment sources at immutable 85ae995f, excluding all 27 integrated batch manifests (155 screened source identities) and 214 current source-to-fork registry identities, with open Upstream PR overlap checked before intake. Equal reviewed_at ties sorted deterministically by normalized source identity descending. Prospective source-independent hypotheses, null cases and falsifiers pre-registered in public commit e8329c3 before target code/license/issue inspection. These are screening questions, not qualified patches or publication rights.",
+  "candidates": [
+    {
+      "id": "swarms-rs-s2-join-terminal",
+      "assessment_path": "assessments/sw/swarms-rust.md",
+      "source": "The-Swarm-Corporation/swarms-rs",
+      "review_ref": "ee1e74cb6e2c94775db88dddb311f2235e3fe9e3",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Check whether concurrent skipped/failed predecessors can cause a duplicate or stranded DAG join worker.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/sw/swarms-rust.md",
+        "https://github.com/opensiro/upstream/commit/e8329c3e87bff974a30bd475b0f39053a19a83d2"
+      ],
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "manyhands-stale-release-owner",
+      "assessment_path": "assessments/ma/manyhands.md",
+      "source": "mjoneill/manyhands",
+      "review_ref": "94010f1227d03152f6d745f7da2fd89ef06d0a96",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Check whether a stale card holder can release a newer card owner after a concurrent reclaim.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ma/manyhands.md",
+        "https://github.com/opensiro/upstream/commit/e8329c3e87bff974a30bd475b0f39053a19a83d2"
+      ],
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "ylva-provider-cooldown-race",
+      "assessment_path": "assessments/yl/ylva.md",
+      "source": "manuel-koch/ylva",
+      "review_ref": "f1275d3dbb4e055798b53033f483e59d34c978d8",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Check whether competing Retry-After responses can shorten an already extended provider cooldown.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/yl/ylva.md",
+        "https://github.com/opensiro/upstream/commit/e8329c3e87bff974a30bd475b0f39053a19a83d2"
+      ],
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "taurus-delegate-scope-bypass",
+      "assessment_path": "assessments/ta/taurus-ai-shell.md",
+      "source": "Lukeus/taurus",
+      "review_ref": "b643754200a241299bb6c3bac7e9dd8237e1da8d",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Check whether a background read-only delegate can mutate via a first-party indirect tool path.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ta/taurus-ai-shell.md",
+        "https://github.com/opensiro/upstream/commit/e8329c3e87bff974a30bd475b0f39053a19a83d2"
+      ],
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "kandev-shared-workspace-overlap",
+      "assessment_path": "assessments/ka/kandev.md",
+      "source": "kdlbs/kandev",
+      "review_ref": "a2e13dcf5584e3462ea995791e245177249a9845",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Check whether overlapping shared-workspace tasks can proceed without conflict feedback or isolation.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ka/kandev.md",
+        "https://github.com/opensiro/upstream/commit/e8329c3e87bff974a30bd475b0f39053a19a83d2"
+      ],
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "agent-harness-kit-double-claim",
+      "assessment_path": "assessments/ag/agent-harness-kit.md",
+      "source": "enmanuelmag/agent-harness-kit",
+      "review_ref": "25edd77efd4e046bfc8fd232c406759f2b48caef",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Check whether concurrent MCP claims can return success to two owners for one pending task.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ag/agent-harness-kit.md",
+        "https://github.com/opensiro/upstream/commit/e8329c3e87bff974a30bd475b0f39053a19a83d2"
+      ],
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "snow-root-path-alias",
+      "assessment_path": "assessments/sn/snow.md",
+      "source": "elmissouri16/snow-core",
+      "review_ref": "631586d013897a85c0c1f79830204af7822e60b0",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Check whether equivalent rooted path spellings or file swaps evade the first-party mutation gate.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/sn/snow.md",
+        "https://github.com/opensiro/upstream/commit/e8329c3e87bff974a30bd475b0f39053a19a83d2"
+      ],
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "macher-agent-vfs-merge-divergence",
+      "assessment_path": "assessments/ma/macher-agent.md",
+      "source": "elij/macher-agent",
+      "review_ref": "f60786359a175d6c7f0c56ec3faeb74ae2bda22d",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Check whether child VFS payload merge can silently replace an independently changed parent buffer.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ma/macher-agent.md",
+        "https://github.com/opensiro/upstream/commit/e8329c3e87bff974a30bd475b0f39053a19a83d2"
+      ],
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "linear-coding-double-claim",
+      "assessment_path": "assessments/li/linear-coding-agent-harness.md",
+      "source": "coleam00/Linear-Coding-Agent-Harness",
+      "review_ref": "c37dc096993011cb0cc48a0afab176cd9c8f2375",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Check whether concurrent Linear issue claim conventions allow duplicate feature work without a CAS.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/li/linear-coding-agent-harness.md",
+        "https://github.com/opensiro/upstream/commit/e8329c3e87bff974a30bd475b0f39053a19a83d2"
+      ],
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "agent-cli-duplicate-worktree",
+      "assessment_path": "assessments/ag/agent-cli.md",
+      "source": "basnijholt/agent-cli",
+      "review_ref": "554344e6ed5266bcc2a7b1461d4c84744ff5e0af",
+      "reviewed_at": "2026-10-27",
+      "function": "S2",
+      "finding": "Check whether two dev-new requests can launch agents into the same reused branch/worktree.",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ag/agent-cli.md",
+        "https://github.com/opensiro/upstream/commit/e8329c3e87bff974a30bd475b0f39053a19a83d2"
+      ],
+      "external_action": "NOT_EXECUTED"
+    }
+  ]
+}
