@@ -2534,7 +2534,7 @@
       "batches": [
         "data/assessment-candidate-batches/2026-11-12-31.json"
       ],
-      "latest_stage": "SCREENING",
+      "latest_stage": "CLOSED_NO_CHANGE",
       "handoffs": [],
       "pilot_links": [],
       "historical_prs": [],
@@ -2543,7 +2543,7 @@
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/Pi-Multi-Agent",
       "license_review": false,
-      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+      "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
       "source": "k4yt3x/meka",
@@ -2794,7 +2794,7 @@
       "batches": [
         "data/assessment-candidate-batches/2026-11-12-31.json"
       ],
-      "latest_stage": "SCREENING",
+      "latest_stage": "BLOCKED_EVIDENCE",
       "handoffs": [],
       "pilot_links": [],
       "historical_prs": [],
@@ -2803,7 +2803,7 @@
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/langroid",
       "license_review": false,
-      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
     },
     {
       "source": "lbdremy/phax",
@@ -3554,7 +3554,7 @@
       "batches": [
         "data/assessment-candidate-batches/2026-11-12-31.json"
       ],
-      "latest_stage": "SCREENING",
+      "latest_stage": "BLOCKED_EVIDENCE",
       "handoffs": [],
       "pilot_links": [],
       "historical_prs": [],
@@ -3563,7 +3563,7 @@
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/CrewCtl",
       "license_review": false,
-      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
     },
     {
       "source": "onecli/onecli",
@@ -3588,7 +3588,7 @@
       "batches": [
         "data/assessment-candidate-batches/2026-11-12-31.json"
       ],
-      "latest_stage": "SCREENING",
+      "latest_stage": "CLOSED_NO_CHANGE",
       "handoffs": [],
       "pilot_links": [],
       "historical_prs": [],
@@ -3597,7 +3597,7 @@
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/argue",
       "license_review": false,
-      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+      "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
       "source": "Onipounds/agent-loop",
@@ -5225,7 +5225,7 @@
       "batches": [
         "data/assessment-candidate-batches/2026-11-12-31.json"
       ],
-      "latest_stage": "SCREENING",
+      "latest_stage": "CLOSED_NO_CHANGE",
       "handoffs": [],
       "pilot_links": [],
       "historical_prs": [],
@@ -5234,7 +5234,7 @@
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/mocode",
       "license_review": false,
-      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+      "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
       "source": "witt3rd/oh-my-hermes",
