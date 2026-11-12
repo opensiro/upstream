@@ -479,5 +479,46 @@ class TestTwoFileStage(unittest.TestCase):
         self.assertTrue(all(c[0] != "create_pull_request" for c in self.port.calls))
 
 
+class TestOperatorMcpNativePair(unittest.TestCase):
+    SRC = "operator-mcp/operator_mcp/workflow/validator.py"
+    TEST = "operator-mcp/tests/test_workflow_validator_deep_dag_native.py"
+
+    def test_exact_revka_source_test_pair_is_classified(self):
+        from connected_multifile_stage import classified_paths
+        self.assertEqual(classified_paths([self.SRC, self.TEST]),
+                         (self.SRC, self.TEST))
+
+    def test_reviewed_revka_patch_passes_two_file_shape_validation(self):
+        from connected_multifile_stage import _validate
+        patch = (ROOT / "pilots/revka/workflow-deep-dag-validation.patch").read_text()
+        self.assertEqual(digest(patch),
+                         "61c63244a659849c4c25adee79eb1d6abc4ee859eff906069284579365fb82e5")
+        candidate = action()
+        candidate.update({
+            "working_repo": "opensiro-contributions/Revka",
+            "source_branch": "main", "base_branch": "main",
+            "new_branch": "opensiro/fix-validator-deep-dag",
+            "patch_text": patch, "patch_sha256": digest(patch),
+            "changed_paths": [self.SRC, self.TEST],
+            "preimage_sha256": {self.SRC: "1" * 64},
+            "postimage_sha256": {self.SRC: "2" * 64, self.TEST: "3" * 64},
+        })
+        _validate(candidate)
+
+    def test_non_workflow_operator_file_is_not_admitted(self):
+        from connected_multifile_stage import classified_paths
+        with self.assertRaisesRegex(StageBlocked, "bounded native"):
+            classified_paths(["operator-mcp/operator_mcp/server.py", self.TEST])
+
+    def test_non_test_and_cross_domain_paths_are_not_admitted(self):
+        from connected_multifile_stage import classified_paths
+        for test in ("operator-mcp/tests/helpers.py",
+                     "tests/test_workflow_validator_deep_dag_native.py",
+                     "operator-mcp/tests/../test_workflow_validator_deep_dag_native.py"):
+            with self.subTest(test=test):
+                with self.assertRaises(StageBlocked):
+                    classified_paths([self.SRC, test])
+
+
 if __name__ == "__main__":
     unittest.main()
