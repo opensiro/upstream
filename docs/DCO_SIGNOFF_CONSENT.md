@@ -10,6 +10,14 @@ When adding a sign-off changes a functional commit SHA used by a later `fix.md` 
 
 Keep `PREPARED`, `PERSON_ATTESTED_EXACT_SCOPE`, `SIGNED_HISTORY_READBACK`, `EXTERNAL_PR_PUBLISHED` and `MAINTAINER_DECISION` separate. Technical publication mandates and GitHub credentials never establish the contributor's legal right to sign.
 
+## Chat-first DCO approval interface (no duplicate GitHub user post)
+
+A trusted assistant client may present the exact DCO 1.1 contribution card in the current chat and receive `Я утверждаю` / `I approve` **there**. The signatory does not have to manually repeat that decision as a GitHub comment merely for convenience; if all required verifications pass, the agent performs the scoped GitHub actions and stores minimally necessary provenance.
+
+This is a **channel preference**, not blanket future DCO consent. The actual approval must still be bound to the signatory's independently verified identity, exact unsigned commits/trees, DCO and target license text, authorized sign-off `Name <email>`, any permitted mechanical rewriting, and time. Provider-attested user identity and a genuine attributable exact-scope decision are distinct from a connected GitHub actor, an AI-generated GitHub comment or a text digest of a chat transcript. If this client does not provide the needed independent attribution, record `IN_CHAT_INTENT_RECORDED / IDENTITY_BINDING_UNAVAILABLE` and **do not sign or publish on that basis**.
+
+A third-party project may require a specific DCO trailer or legal acceptance mechanism irrespective of the chat channel; the agent must fulfill it only after the personal-assent and technical gates, never by claiming a chatbot preference waives target requirements. This chat-only UX rule is shared with [CLA template delegation](CLA_TEMPLATE_DELEGATION.md), but DCO and CLA remain separate agreements.
+
 ## Historical original approval card — superseded VOLY history
 
 **Counterparty / original repository:** `voly-codes/voly`  
