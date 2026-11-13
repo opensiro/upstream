@@ -147,8 +147,8 @@ class WatchTests(unittest.TestCase):
 
     def test_exact_manifest_has_thirty_five_targets_and_no_duplicates(self):
         data = watch.validate_targets()
-        self.assertEqual(len(data["targets"]), 35)
-        self.assertEqual(len({t["url"] for t in data["targets"]}), 35)
+        self.assertEqual(len(data["targets"]), 36)
+        self.assertEqual(len({t["url"] for t in data["targets"]}), 36)
         self.assertIn("https://github.com/witt3rd/oh-my-hermes/pull/28",
                       {t["url"] for t in data["targets"]})
         self.assertIn("https://github.com/witt3rd/oh-my-hermes/pull/28",
