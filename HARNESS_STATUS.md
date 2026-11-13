@@ -5,7 +5,7 @@
 
 A harness may have several independent interventions and PRs. A historical `AWAITING_EXTERNAL` batch state **remains historical** even when a separate publication ledger later confirms an upstream merge. All external submission/acceptance claims below come from the linked owning source; `SUBMITTED_UNVERIFIED_LIVE` means **no current PR-state claim**.
 
-**Scope:** 198 harnesses · 215 interventions · 41 unique external PR URLs · 34 assessment batches · 34 monitored PR targets.
+**Scope:** 198 harnesses · 216 interventions · 42 unique external PR URLs · 34 assessment batches · 35 monitored PR targets.
 
 ## Harness overview
 
@@ -196,7 +196,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | [uniac-ai/AgentOrg](https://github.com/uniac-ai/AgentOrg) | 1 | 0 | 0 | 0 | 1 |
 | [vercel/eve](https://github.com/vercel/eve) | 1 | 0 | 0 | 0 | 1 |
 | [vinhnx/VTCode](https://github.com/vinhnx/VTCode) | 1 | 0 | 0 | 0 | 1 |
-| [voly-codes/voly](https://github.com/voly-codes/voly) | 1 | 1 | 0 | 0 | 0 |
+| [voly-codes/voly](https://github.com/voly-codes/voly) | 2 | 1 | 0 | 0 | 0 |
 | [wanxunyang/mocode](https://github.com/wanxunyang/mocode) | 1 | 0 | 0 | 0 | 0 |
 | [witt3rd/oh-my-hermes](https://github.com/witt3rd/oh-my-hermes) | 2 | 1 | 0 | 0 | 0 |
 | [xiaotianfotos/homerail](https://github.com/xiaotianfotos/homerail) | 1 | 0 | 0 | 0 | 0 |
@@ -414,6 +414,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | vercel/eve | [assessment:eve-continuation-settlement-retry-duplicate](data/assessment-candidate-batches/2026-11-09-22.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-09-22 | Obtain missing native evidence |
 | vinhnx/VTCode | [assessment:vtcode-worktree-reconcile-name](data/assessment-candidate-batches/2026-10-22-02.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-10-22-02 | Obtain missing native evidence |
 | voly-codes/voly | [assessment:voly-unlocked-fallback-lock-error](data/assessment-candidate-batches/2026-11-09-20.json) | S2 | AWAITING_EXTERNAL | NOT_SUBMITTED | — | assessment-upstream-2026-11-09-20 | Refresh source; check external publication grant |
+| voly-codes/voly | [monitor:voly-codes/voly#20](data/pr-maintenance/targets.json) | — | NOT_TRACKED | WATCHLIST_ONLY | [#20](https://github.com/voly-codes/voly/pull/20) | monitor_only | Read PR maintenance inbox; no technical inference |
 | wanxunyang/mocode | [assessment:mocode-resource-path-alias-admission](data/assessment-candidate-batches/2026-11-12-31.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-12-31 | No code change justified |
 | witt3rd/oh-my-hermes | [assessment:oh-my-hermes-crossprocess-lock](data/assessment-candidate-batches/2026-11-12-27.json) | S2 | AWAITING_EXTERNAL | NOT_SUBMITTED | — | assessment-upstream-2026-11-12-27 | Refresh source; check external publication grant |
 | witt3rd/oh-my-hermes | [monitor:witt3rd/oh-my-hermes#28](data/pr-maintenance/targets.json) | — | NOT_TRACKED | WATCHLIST_ONLY | [#28](https://github.com/witt3rd/oh-my-hermes/pull/28) | monitor_only | Read PR maintenance inbox; no technical inference |
