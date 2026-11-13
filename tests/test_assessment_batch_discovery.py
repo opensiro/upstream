@@ -93,6 +93,13 @@ class DiscoveryTests(unittest.TestCase):
                          f"repository: https://github.com/Org/Repo{i:02d}\n"
                          f"review_ref: {'1' * 40}\nreviewed_at: 2026-10-27\n"
                          "status: included\nautonomy_s1: A\nautonomy_s2: C\n---\n")
+        # Included assessments with S1 != A or S2 != C belong to v2 intake.
+        for i, s1, s2 in ((9, "C", "A"), (10, "P", "C"), (11, "A", "A")):
+            p = cls.index / f"assessments/te/repo{i:02d}.md"
+            p.write_text(f"---\nharness_id: repo{i:02d}\nproject_name: Repo{i:02d}\n"
+                         f"repository: https://github.com/Org/Repo{i:02d}\n"
+                         f"review_ref: {'1' * 40}\nreviewed_at: 2026-10-26\n"
+                         f"status: included\nautonomy_s1: {s1}\nautonomy_s2: {s2}\n---\n")
         p = cls.index / "assessments/te/excluded.md"
         p.write_text("---\nharness_id: excluded\nrepository: https://github.com/Org/excluded\n"
                      f"review_ref: {'1' * 40}\nreviewed_at: 2026-10-27\n"
@@ -118,8 +125,10 @@ class DiscoveryTests(unittest.TestCase):
         self.assertEqual(report["status"], "PROPOSED_ONLY")
         self.assertEqual([r["source"] for r in report["selected"]],
                          [f"Org/Repo{i:02d}" for i in range(4, 9)])
-        self.assertEqual(report["included_filter_count"], 8)
-        self.assertEqual(report["eligible_count"], 5)
+        self.assertEqual(report["schema_version"], 2)
+        self.assertTrue(report["function_assignment_required"])
+        self.assertEqual(report["included_filter_count"], 11)
+        self.assertEqual(report["eligible_count"], 8)
         self.assertEqual(report["main_manifest_count"], 1)
         self.assertEqual(report["active_pr_manifest_count"], 1)
         self.assertEqual(report["open_pr_count"], 1)
@@ -127,8 +136,33 @@ class DiscoveryTests(unittest.TestCase):
         self.assertFalse(report["admission_attested"])
         self.assertFalse(report["external_writes_authorized"])
 
+    def test_v2_default_discovers_non_a_s1_and_non_c_s2_without_inventing_function(self):
+        fake = FakeReader(self.sha, registry=[])
+        report = mod.discover(self.index, self.sha, fake, count=10)
+        self.assertEqual(report["status"], "PROPOSED_ONLY")
+        self.assertEqual(report["schema_version"], 2)
+        self.assertTrue(report["function_assignment_required"])
+        self.assertEqual(report["included_filter_count"], 11)
+        selected = report["selected"]
+        self.assertEqual(len(selected), 10)
+        self.assertIn("Org/Repo09", [row["source"] for row in selected])
+        self.assertIn("Org/Repo10", [row["source"] for row in selected])
+        self.assertTrue(all("function" not in row for row in selected))
+
+    def test_explicit_v1_preserves_historical_a_c_s2_discovery(self):
+        reader = FakeReader(self.sha, registry=[])
+        report = mod.discover(self.index, self.sha, reader, schema_version=1)
+        self.assertEqual(report["schema_version"], 1)
+        self.assertFalse(report["function_assignment_required"])
+        self.assertEqual(report["included_filter_count"], 8)
+        self.assertEqual([row["source"] for row in report["selected"]],
+                         [f"Org/Repo{i:02d}" for i in range(1, 6)])
+        self.assertTrue(all(row["function"] == "S2" for row in report["selected"]))
+        with self.assertRaisesRegex(mod.BatchError, "Unsupported discovery schema"):
+            mod.index_candidates(self.index, self.sha, schema_version=3)
+
     def test_no_full_five_row_cohort_is_explicit_not_padded(self):
-        reader = FakeReader(self.sha, registry=[f"org/repo{i:02d}" for i in range(1, 7)])
+        reader = FakeReader(self.sha, registry=[f"org/repo{i:02d}" for i in range(1, 10)])
         report = mod.discover(self.index, self.sha, reader)
         self.assertEqual(report["status"], "NO_ELIGIBLE_ASSESSMENT_CANDIDATE")
         self.assertEqual(report["eligible_count"], 2)
@@ -170,7 +204,7 @@ class DiscoveryTests(unittest.TestCase):
 
     def test_excluded_records_are_never_selected_and_count_limits(self):
         rows = mod.index_candidates(self.index, self.sha)
-        self.assertEqual(len(rows), 8)
+        self.assertEqual(len(rows), 11)
         self.assertNotIn("Org/excluded", [r["source"] for r in rows])
         for count in (0, 4, 11):
             with self.assertRaisesRegex(mod.BatchError, "complete 5"):
