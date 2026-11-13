@@ -17,6 +17,27 @@ contributions and existing casebook remain valid separate work; they must
 [Organization #274](https://github.com/opensiro/vsm-oss-organization/issues/274)
 has admitted Upstream as the bounded fourth operational S1 domain; that decision does not prove this specific assessment-derived experiment or activate additional external rights.
 
+## Read-only first quality-census launch (2026-11-13)
+
+The source-owning [hypothesis quality census](../scripts/assessment_hypothesis_quality.py)
+can be run on the most recent eight frozen five-source batches without
+creating a new status ledger, scheduled workflow, discovery/selection mandate,
+or claim about deployed product impact:
+
+```bash
+python3 scripts/assessment_hypothesis_quality.py --last 8
+python3 scripts/assessment_hypothesis_quality.py --last 8 \
+  --output-json /tmp/upstream-quality.json --json
+```
+
+First baseline: [batches 27–34](../reports/2026-11-13-assessment-hypothesis-quality-baseline.md).
+The script validates frozen manifests and source-backed publication receipts,
+counts selection outcomes, and distinguishes recorded `ASSESSMENT_DERIVED`
+origins from technical/maintainer success. It only confirms existence of
+preregistration packets, **not** their commit chronology, independent native
+runner proof, live external PR state, Organization acceptance, or measured user
+benefit. Those remain separate, explicitly unclaimed gates under #56.
+
 ## Functional improvement evidence
 
 Use the [assessment-to-improvement protocol](ASSESSMENT_TO_IMPROVEMENT.md)
