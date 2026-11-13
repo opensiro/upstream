@@ -1,0 +1,268 @@
+{
+  "schema_version": 2,
+  "batch_id": "assessment-upstream-2026-11-13-38",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "75bb11fb29027ed579e4d24016a815b3d95c710c",
+  "frozen_at": "2026-11-13",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Explicit upstream upgrade batch 10 from authenticated read-only schema-v2 discovery at Index 75bb11f / Upstream faf9356; 10 of 821 eligible from 1099 included, excluding 279 prior/registered sources; 37 merged manifests, 14 open PRs, zero active PR manifests at selection. All 60 Index-only S1/S2/S3/S3*/S4/S5 preregistrations published BEFORE current original-source inspection at commit 9783107ea3f3b3f4ddd7cabd56523ab79ed04d81. Main branch and claims to be revalidated before merge; not an atomic reservation; no benefit or external write claimed. Source screens completed 2026-11-13: 60 function-level dispositions, 3 CLOSED_NO_CHANGE, 7 BLOCKED_EVIDENCE, 0 qualified patch or native matched benefit, external writes 0. CodeDen and MilletCode source drift reported. Controller NO_ACTIONABLE_CANDIDATE.",
+  "candidates": [
+    {
+      "id": "happyhands-feature-capability-preview",
+      "assessment_path": "assessments/ha/happyhands.md",
+      "source": "ShuaiMXu/happyhands",
+      "review_ref": "d469a02cb9b98c5f1a85b05201f5401bbec20ebf",
+      "reviewed_at": "2026-11-13",
+      "function": "S4",
+      "finding": "Prospective S4 MINOR_FEATURE: Verify activated Expertise release influences next scoped repair plan. Benefit: Approved method can be traced to next repair input. Null/falsifier: Activation is metadata-only by design or runner already reads the pointer. All functions covered in 2026-11-13-38-HYPOTHESES.md.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/75bb11fb29027ed579e4d24016a815b3d95c710c/assessments/ha/happyhands.md",
+        "https://github.com/opensiro/upstream/commit/9783107ea3f3b3f4ddd7cabd56523ab79ed04d81",
+        "https://github.com/ShuaiMXu/happyhands/blob/d469a02cb9b98c5f1a85b05201f5401bbec20ebf/packages/skill-core/releases.js",
+        "https://github.com/ShuaiMXu/happyhands/blob/d469a02cb9b98c5f1a85b05201f5401bbec20ebf/LICENSE"
+      ],
+      "external_action": "NOT_EXECUTED",
+      "screening_result": "Expertise activation writes an active release pointer, but the scoped implementation runner has no matching release reference. The actual user need and supported runtime linkage remain unknown. First-party checkout ShuaiMXu/happyhands@d469a02cb9b98c5f1a85b05201f5401bbec20ebf; no matched native tests or external source change. Function-level detail: 2026-11-13-38-SUMMARY.md.",
+      "blocker": "Independent user/maintainer need, release-to-runner input contract, and native acceptance scenario are missing."
+    },
+    {
+      "id": "axi-feature-capability-preview",
+      "assessment_path": "assessments/ax/axi.md",
+      "source": "devsohm/axi",
+      "review_ref": "b1d0fe007535f1c59d08c1f06e014c4558a4862d",
+      "reviewed_at": "2026-11-11",
+      "function": "S1",
+      "finding": "Prospective S1 MINOR_FEATURE: Expose a read-only interrupted ToolTask/GenerationTask handoff trace. Benefit: Host can distinguish already committed tool outcome without replay. Null/falsifier: Persisted phase/receipt already adequately observable. All functions covered in 2026-11-13-38-HYPOTHESES.md.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/75bb11fb29027ed579e4d24016a815b3d95c710c/assessments/ax/axi.md",
+        "https://github.com/opensiro/upstream/commit/9783107ea3f3b3f4ddd7cabd56523ab79ed04d81",
+        "https://github.com/devsohm/axi/blob/b1d0fe007535f1c59d08c1f06e014c4558a4862d/packages/durable/src/harness/tool.ts",
+        "https://github.com/devsohm/axi/blob/b1d0fe007535f1c59d08c1f06e014c4558a4862d/LICENSE"
+      ],
+      "external_action": "NOT_EXECUTED",
+      "screening_result": "Durable ToolTask/GenerationTask already store execution and replay phases. Distinct host-visible interruption receipts may be useful but are not first-party requested or specified. First-party checkout devsohm/axi@b1d0fe007535f1c59d08c1f06e014c4558a4862d; no matched native tests or external source change. Function-level detail: 2026-11-13-38-SUMMARY.md.",
+      "blocker": "No independent request or expected handoff output beyond existing persisted task status and receipts."
+    },
+    {
+      "id": "gamai-trust-layer-rush-feature-capability-preview",
+      "assessment_path": "assessments/ga/gamai-trust-layer-rush.md",
+      "source": "gamai-io/evidence-first-agent-runtime",
+      "review_ref": "0e02276df1c99c572949bec59fb8e7d20609a109",
+      "reviewed_at": "2026-11-11",
+      "function": "S1",
+      "finding": "Prospective S1 MINOR_FEATURE: Export and offline-verify completed rush evidence/proofgate results. Benefit: Operator can independently trace emitted outcomes without rerun. Null/falsifier: Existing evidence chain API already supplies equivalent export. All functions covered in 2026-11-13-38-HYPOTHESES.md.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/75bb11fb29027ed579e4d24016a815b3d95c710c/assessments/ga/gamai-trust-layer-rush.md",
+        "https://github.com/opensiro/upstream/commit/9783107ea3f3b3f4ddd7cabd56523ab79ed04d81",
+        "https://github.com/gamai-io/evidence-first-agent-runtime/blob/0e02276df1c99c572949bec59fb8e7d20609a109/rush/app.py",
+        "https://github.com/gamai-io/evidence-first-agent-runtime/blob/0e02276df1c99c572949bec59fb8e7d20609a109/LICENSE"
+      ],
+      "external_action": "NOT_EXECUTED",
+      "screening_result": "Ledger.verify and Ledger.to_dict already return full hash-chain evidence; /api/run and /api/run/stream return the complete run ledger and verification. New export is duplicative without confirmed incremental use. First-party checkout gamai-io/evidence-first-agent-runtime@0e02276df1c99c572949bec59fb8e7d20609a109; no matched native tests or external source change. Function-level detail: 2026-11-13-38-SUMMARY.md."
+    },
+    {
+      "id": "tiny-agent-feature-capability-preview",
+      "assessment_path": "assessments/ti/tiny-agent.md",
+      "source": "HowProgrammingWorks/Agent",
+      "review_ref": "d4822a9de234ff5dd7a2c7e40f1e2333b10c7827",
+      "reviewed_at": "2026-11-11",
+      "function": "S1",
+      "finding": "Prospective S1 MINOR_FEATURE: Offer deterministic permission preview for pending write-tool intent. Benefit: Operator can anticipate policy denial before action. Null/falsifier: Native permission flow already gives that preview. All functions covered in 2026-11-13-38-HYPOTHESES.md.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/75bb11fb29027ed579e4d24016a815b3d95c710c/assessments/ti/tiny-agent.md",
+        "https://github.com/opensiro/upstream/commit/9783107ea3f3b3f4ddd7cabd56523ab79ed04d81",
+        "https://github.com/HowProgrammingWorks/Agent/blob/d4822a9de234ff5dd7a2c7e40f1e2333b10c7827/agent/permissions.js",
+        "https://github.com/HowProgrammingWorks/Agent/blob/d4822a9de234ff5dd7a2c7e40f1e2333b10c7827/LICENSE"
+      ],
+      "external_action": "NOT_EXECUTED",
+      "screening_result": "The shipped createPermissions approve path checks trust-root and requests user approval before the tool call. A separate preview would change UX but has no demonstrated consumer or side-effect-free contract. First-party checkout HowProgrammingWorks/Agent@d4822a9de234ff5dd7a2c7e40f1e2333b10c7827; no matched native tests or external source change. Function-level detail: 2026-11-13-38-SUMMARY.md.",
+      "blocker": "No first-party requested permission preview or deterministic expected output."
+    },
+    {
+      "id": "openrecoding-feature-capability-preview",
+      "assessment_path": "assessments/op/openrecoding.md",
+      "source": "jiaxz/open-recoding",
+      "review_ref": "4d726930706bd24ff1f99803cf8e1678cae8c61b",
+      "reviewed_at": "2026-11-11",
+      "function": "S2",
+      "finding": "Prospective S2 MINOR_FEATURE: Export read-only file-scope negotiation receipts after peer contention. Benefit: Operator can trace responsibility changes before subsequent writes. Null/falsifier: Current peer messages are already sufficient evidence. All functions covered in 2026-11-13-38-HYPOTHESES.md.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/75bb11fb29027ed579e4d24016a815b3d95c710c/assessments/op/openrecoding.md",
+        "https://github.com/opensiro/upstream/commit/9783107ea3f3b3f4ddd7cabd56523ab79ed04d81",
+        "https://github.com/jiaxz/open-recoding/blob/4d726930706bd24ff1f99803cf8e1678cae8c61b/core/multiagent/prompts.py",
+        "https://github.com/jiaxz/open-recoding/blob/4d726930706bd24ff1f99803cf8e1678cae8c61b/LICENSE"
+      ],
+      "external_action": "NOT_EXECUTED",
+      "screening_result": "Master and peers already coordinate shared writes using direct messages; extra durable file-scope negotiation receipts are a possible extension without source-native demand. First-party checkout jiaxz/open-recoding@4d726930706bd24ff1f99803cf8e1678cae8c61b; no matched native tests or external source change. Function-level detail: 2026-11-13-38-SUMMARY.md.",
+      "blocker": "No verified missing audit workflow or expected receipt accepted by native project tests."
+    },
+    {
+      "id": "lumak-feature-capability-preview",
+      "assessment_path": "assessments/lu/lumak.md",
+      "source": "kuLm1Fs/lumak-ts",
+      "review_ref": "ef1d2ddb16630e537c205fadb11031ba7bae6131",
+      "reviewed_at": "2026-11-11",
+      "function": "S2",
+      "finding": "Prospective S2 MINOR_FEATURE: Preview overlapping sibling file scopes before concurrent delegate execution. Benefit: Prevent known conflicting edits without serializing disjoint tasks. Null/falsifier: Child tools cannot collide or existing runtime coordinates overlap. All functions covered in 2026-11-13-38-HYPOTHESES.md.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/75bb11fb29027ed579e4d24016a815b3d95c710c/assessments/lu/lumak.md",
+        "https://github.com/opensiro/upstream/commit/9783107ea3f3b3f4ddd7cabd56523ab79ed04d81",
+        "https://github.com/kuLm1Fs/lumak-ts/blob/ef1d2ddb16630e537c205fadb11031ba7bae6131/packages/core/src/runtime/delegate.ts",
+        "https://github.com/kuLm1Fs/lumak-ts/blob/ef1d2ddb16630e537c205fadb11031ba7bae6131/LICENSE"
+      ],
+      "external_action": "NOT_EXECUTED",
+      "screening_result": "The delegate tool supports subagent roles and permission ceilings; a pre-fanout sibling overlap check might help in a shared workspace but no concrete original collision or requested design is established. First-party checkout kuLm1Fs/lumak-ts@ef1d2ddb16630e537c205fadb11031ba7bae6131; no matched native tests or external source change. Function-level detail: 2026-11-13-38-SUMMARY.md.",
+      "blocker": "No first-party conflict reproduction, explicit scope input, or supported preview acceptance scenario."
+    },
+    {
+      "id": "codeden-feature-capability-preview",
+      "assessment_path": "assessments/co/codeden.md",
+      "source": "leonvanzyl/codeden",
+      "review_ref": "8a05e5c2117b8ee5794f75538953a92e8f51b1ae",
+      "reviewed_at": "2026-11-11",
+      "function": "S5",
+      "finding": "Prospective S5 MINOR_FEATURE: Show read-only protected vision/policy diff before parent adoption. Benefit: Operator can inspect governance consequences before approval. Null/falsifier: Existing protected policy workflow offers this diff. All functions covered in 2026-11-13-38-HYPOTHESES.md.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/75bb11fb29027ed579e4d24016a815b3d95c710c/assessments/co/codeden.md",
+        "https://github.com/opensiro/upstream/commit/9783107ea3f3b3f4ddd7cabd56523ab79ed04d81",
+        "https://github.com/leonvanzyl/codeden/blob/69ce835a7464e2404968ba22f74cee3f7484986e/apps/web/src/routes/vision.tsx",
+        "https://github.com/leonvanzyl/codeden/blob/69ce835a7464e2404968ba22f74cee3f7484986e/LICENSE"
+      ],
+      "external_action": "NOT_EXECUTED",
+      "screening_result": "VisionPage displays live parsed vision and protected areas, and the SaveDiffDialog compares before and after before saving. This already performs the proposed parent policy diff review. First-party checkout leonvanzyl/codeden@69ce835a7464e2404968ba22f74cee3f7484986e; no matched native tests or external source change. Function-level detail: 2026-11-13-38-SUMMARY.md."
+    },
+    {
+      "id": "endo-feature-capability-preview",
+      "assessment_path": "assessments/en/endo.md",
+      "source": "longsurf-ai/endo",
+      "review_ref": "bd7ec037f63d52766af5c80c82b8e185dd8b5380",
+      "reviewed_at": "2026-11-11",
+      "function": "S1",
+      "finding": "Prospective S1 MINOR_FEATURE: Report durable interrupted Run settlement and last committed tool effect. Benefit: User can avoid replaying completed tool actions. Null/falsifier: Run/Session already provides sufficient settlement history. All functions covered in 2026-11-13-38-HYPOTHESES.md.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/75bb11fb29027ed579e4d24016a815b3d95c710c/assessments/en/endo.md",
+        "https://github.com/opensiro/upstream/commit/9783107ea3f3b3f4ddd7cabd56523ab79ed04d81",
+        "https://github.com/longsurf-ai/endo/blob/bd7ec037f63d52766af5c80c82b8e185dd8b5380/server/agent/run/store.ts",
+        "https://github.com/longsurf-ai/endo/blob/bd7ec037f63d52766af5c80c82b8e185dd8b5380/LICENSE"
+      ],
+      "external_action": "NOT_EXECUTED",
+      "screening_result": "Endo stores queued/running and terminal Run states with guarded claims and transitions; a separate last-committed-tool resumption receipt has no demonstrated missing first-party workflow. First-party checkout longsurf-ai/endo@bd7ec037f63d52766af5c80c82b8e185dd8b5380; no matched native tests or external source change. Function-level detail: 2026-11-13-38-SUMMARY.md.",
+      "blocker": "Original tool-effect settlement need and interrupt/restart counterfactual are not specified."
+    },
+    {
+      "id": "milletcode-feature-capability-preview",
+      "assessment_path": "assessments/mi/milletcode.md",
+      "source": "milletcode/milletcode",
+      "review_ref": "2278a648381e3279bb1f29ed54cf48ad19c44d66",
+      "reviewed_at": "2026-11-11",
+      "function": "S3",
+      "finding": "Prospective S3 MINOR_FEATURE: Offer dry-run stop/restart impact view across active sessions. Benefit: Operator can preview which active commitments would change. Null/falsifier: Current dashboard already shows equivalent information. All functions covered in 2026-11-13-38-HYPOTHESES.md.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/75bb11fb29027ed579e4d24016a815b3d95c710c/assessments/mi/milletcode.md",
+        "https://github.com/opensiro/upstream/commit/9783107ea3f3b3f4ddd7cabd56523ab79ed04d81",
+        "https://github.com/milletcode/milletcode/blob/779dac1e80fecd3edfbf915fced944d3838a4ded/backend/src/api/sessions.rs",
+        "https://github.com/milletcode/milletcode/blob/779dac1e80fecd3edfbf915fced944d3838a4ded/LICENSE"
+      ],
+      "external_action": "NOT_EXECUTED",
+      "screening_result": "The sessions API lists sessions and supports stopping/replacing them; a dry-run stop/restart cross-session impact view remains speculative without accepted operator behavior. First-party checkout milletcode/milletcode@779dac1e80fecd3edfbf915fced944d3838a4ded; no matched native tests or external source change. Function-level detail: 2026-11-13-38-SUMMARY.md.",
+      "blocker": "Native operator need, safe impact semantics and matching deterministic test case not established."
+    },
+    {
+      "id": "mist-feature-capability-preview",
+      "assessment_path": "assessments/mi/mist.md",
+      "source": "mist-agent-harness/mist-agent",
+      "review_ref": "4e87b332140ce3d2eabeff7b4e16532c2c56a6be",
+      "reviewed_at": "2026-11-11",
+      "function": "S5",
+      "finding": "Prospective S5 MINOR_FEATURE: Offer read-only first-resident identity decision receipt. Benefit: Human can inspect adoption or rejection without altering resident identity. Null/falsifier: Registry already records full decision provenance or disclosure is unsupported. All functions covered in 2026-11-13-38-HYPOTHESES.md.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/75bb11fb29027ed579e4d24016a815b3d95c710c/assessments/mi/mist.md",
+        "https://github.com/opensiro/upstream/commit/9783107ea3f3b3f4ddd7cabd56523ab79ed04d81",
+        "https://github.com/mist-agent-harness/mist-agent/blob/4e87b332140ce3d2eabeff7b4e16532c2c56a6be/src/resident-continuity/identity-store.ts",
+        "https://github.com/mist-agent-harness/mist-agent/blob/4e87b332140ce3d2eabeff7b4e16532c2c56a6be/LICENSE"
+      ],
+      "external_action": "NOT_EXECUTED",
+      "screening_result": "The IdentityStore commits accepted/rejected candidate state and exposes read-only inspectCandidate, latestCandidateFor and readCandidate. This already supports the proposed identity decision receipt. First-party checkout mist-agent-harness/mist-agent@4e87b332140ce3d2eabeff7b4e16532c2c56a6be; no matched native tests or external source change. Function-level detail: 2026-11-13-38-SUMMARY.md."
+    }
+  ]
+}
