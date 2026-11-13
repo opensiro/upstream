@@ -1,0 +1,98 @@
+diff --git a/src/client/worker.test.ts b/src/client/worker.test.ts
+new file mode 100644
+index 0000000..2af9be5
+--- /dev/null
++++ b/src/client/worker.test.ts
+@@ -0,0 +1,92 @@
++/** First-party offline worktree integration: no agent/model/provider execution. */
++import { test } from "node:test";
++import assert from "node:assert/strict";
++import { execFileSync } from "node:child_process";
++import { mkdtempSync, mkdirSync, readFileSync, renameSync, rmSync, writeFileSync } from "node:fs";
++import { join } from "node:path";
++import { tmpdir } from "node:os";
++import { runIsolatedWorker } from "./worker.ts";
++
++function git(cwd: string, ...args: string[]): void {
++  execFileSync("git", ["-C", cwd, ...args], { stdio: "ignore" });
++}
++
++function fixture() {
++  const temp = mkdtempSync(join(tmpdir(), "ada-native-claim-"));
++  const repo = join(temp, "repo");
++  mkdirSync(repo);
++  git(repo, "init", "-q");
++  git(repo, "config", "user.name", "Native test");
++  git(repo, "config", "user.email", "native@test.invalid");
++  writeFileSync(join(repo, "target.txt"), "original");
++  git(repo, "add", "target.txt");
++  git(repo, "commit", "-qm", "source");
++  const child = join(temp, "offline-worker.mjs");
++  writeFileSync(child, [
++    'import { unlinkSync, writeFileSync } from "node:fs";',
++    'const prompt = process.argv[process.argv.indexOf("-p") + 1];',
++    'if (prompt === "delete") unlinkSync("target.txt");',
++    'else writeFileSync("target.txt", "written by " + prompt);',
++    'console.log(JSON.stringify({text: "offline", usage: "none"}));',
++  ].join("\n"));
++  const held = new Set<string>();
++  const claim = (paths: string[]) => {
++    const taken: string[] = [], collided: string[] = [];
++    for (const p of paths) {
++      if (held.has(p)) collided.push(p);
++      else { held.add(p); taken.push(p); }
++    }
++    return { taken, collided };
++  };
++  const release = (paths: string[]) => { for (const p of paths) held.delete(p); };
++  const run = (prompt: string) => runIsolatedWorker({
++    cwd: repo, prompt, model: "offline", binPath: child, claim, release,
++  });
++  return { temp, repo, held, run, close: () => rmSync(temp, { recursive: true, force: true }) };
++}
++
++test("unpropagated worker deletion does not reserve the parent's unchanged file", async (t) => {
++  const f = fixture();
++  t.after(f.close);
++  const first = await f.run("delete");
++  assert.deepEqual(first?.changed, []);
++  assert.deepEqual([...f.held], []);
++  assert.equal(readFileSync(join(f.repo, "target.txt"), "utf8"), "original");
++  const second = await f.run("retry");
++  assert.deepEqual(second?.collided, []);
++  assert.equal(readFileSync(join(f.repo, "target.txt"), "utf8"), "written by retry");
++});
++
++test("failed copy-back releases only its uninstalled path for a later worker", async (t) => {
++  const f = fixture();
++  t.after(f.close);
++  renameSync(join(f.repo, "target.txt"), join(f.repo, "backup.txt"));
++  mkdirSync(join(f.repo, "target.txt")); // copying a file into a directory fails deterministically
++  await assert.rejects(f.run("first"));
++  rmSync(join(f.repo, "target.txt"), { recursive: true });
++  renameSync(join(f.repo, "backup.txt"), join(f.repo, "target.txt"));
++  assert.deepEqual([...f.held], []);
++  const second = await f.run("retry");
++  assert.deepEqual(second?.collided, []);
++  assert.equal(readFileSync(join(f.repo, "target.txt"), "utf8"), "written by retry");
++});
++
++test("tracked modification keeps the full git porcelain pathname", async (t) => {
++  const f = fixture();
++  t.after(f.close);
++  const done = await f.run("change");
++  assert.deepEqual(done?.changed, ["target.txt"]);
++  assert.equal(readFileSync(join(f.repo, "target.txt"), "utf8"), "written by change");
++});
++
++test("an installed copy keeps its exclusive path claim against later writers", async (t) => {
++  const f = fixture();
++  t.after(f.close);
++  const first = await f.run("winner");
++  assert.deepEqual(first?.changed, ["target.txt"]);
++  assert.deepEqual([...f.held], ["target.txt"]);
++  const loser = await f.run("loser");
++  assert.deepEqual(loser?.changed, []);
++  assert.deepEqual(loser?.collided, ["target.txt"]);
++  assert.equal(readFileSync(join(f.repo, "target.txt"), "utf8"), "written by winner");
++});

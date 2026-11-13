@@ -7,7 +7,7 @@ fitness, fork existence, PR publication, maintainer acceptance, or VSM grades.
 See [experiment contract](EXPERIMENT_CONTRACT.md) and
 [working-fork pipeline](../docs/CONTINUOUS_WORKING_FORK_PIPELINE.md).
 
-**Coverage:** 76 indexed pilot directories · 248 files. The frozen baseline protects 66 historical directories and their files; 10 directories were added later.
+**Coverage:** 77 indexed pilot directories · 251 files. The frozen baseline protects 66 historical directories and their files; 11 directories were added later.
 
 Each row links its preferred entry file. Read the actual receipt and governing
 batch/PR before attributing positive results or current status.
@@ -21,11 +21,12 @@ batch/PR before attributing positive results or current status.
 | `kram-s2` | [Open](kram-s2/README.md) | patch: 1, handoff: 2, receipt: 1, fixture_or_recipe: 1, other: 2 |
 | `zot-shared-workspace` | [Open](zot-shared-workspace/SCREENING_2026-10-20.md) | screen: 1, protocol: 9, receipt: 4, native_code: 1, fixture_or_recipe: 3, other: 2 |
 
-## Patch packets and handoffs (53)
+## Patch packets and handoffs (54)
 
 | Pilot | Entry point | Artifacts |
 | --- | --- | --- |
 | `activegraph` | [Open](activegraph/CONTRIBUTION_HANDOFF.md) | patch: 1, handoff: 1 |
+| `ada-s2` | [Open](ada-s2/CONTRIBUTION_HANDOFF.md) | patch: 2, handoff: 1 |
 | `agent-context-lab` | [Open](agent-context-lab/CONTRIBUTION_HANDOFF.md) | patch: 1, handoff: 1 |
 | `agent-loop` | [Open](agent-loop/CONTRIBUTION_HANDOFF.md) | patch: 1, handoff: 1 |
 | `agentflow` | [Open](agentflow/CONTRIBUTION_HANDOFF.md) | patch: 1, handoff: 1 |

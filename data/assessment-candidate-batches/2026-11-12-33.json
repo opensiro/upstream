@@ -5,7 +5,7 @@
   "index_sha": "85ae995fc2551ac0a076609bce0300d075cac2d5",
   "frozen_at": "2026-11-12",
   "state": "FROZEN_SCREENING",
-  "selection_note": "Upgrade-mode five-source pre-source cohort from read-only current GitHub Index and Upstream main 25b157c. Excludes 32 integrated assessment batches and existing source-to-fork mappings. Nano-Collective/nanocoder was additionally excluded as an occupied open internal Draft PR #123 despite absent merged manifest/registry identity; the next eligible airiclenz/apogee was admitted instead. Pre-source hypotheses committed 996c731 before any fresh original-code, policy, issue, PR or native test inspection; selection is not an atomic cross-agent reservation.",
+  "selection_note": "Upgrade-mode five-source pre-source cohort from read-only current GitHub Index and Upstream main 25b157c. Excludes 32 integrated assessment batches and existing source-to-fork mappings. Nano-Collective/nanocoder was additionally excluded as an occupied open internal Draft PR #123 despite absent merged manifest/registry identity; the next eligible airiclenz/apogee was admitted instead. Pre-source hypotheses committed 996c731 before any fresh original-code, policy, issue, PR or native test inspection; selection is not an atomic cross-agent reservation. Final screening completed 2026-11-13; no original repository or fork writes. Ada native matched RED/GREEN is BLOCKED_EVIDENCE for source-required full selfcheck and missing independent native publication gate; four source-level nulls.",
   "candidates": [
     {
       "id": "ada-copyback-claim-release",
@@ -15,20 +15,24 @@
       "reviewed_at": "2026-10-23",
       "function": "S2",
       "finding": "Determine whether a failed Ada isolated worker copy-back after a first path reservation can strand ownership and reject a later safe retry.",
-      "stage": "SCREENING",
-      "origin": "INSUFFICIENT",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "ASSESSMENT_DERIVED",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "PASS",
+        "mechanism": "PASS",
+        "counterfactual": "PASS",
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ad/ada.md",
-        "https://github.com/opensiro/upstream/commit/996c7311ab31fba0edca72d832b226bb349a34b1"
+        "https://github.com/opensiro/upstream/commit/996c7311ab31fba0edca72d832b226bb349a34b1",
+        "https://github.com/black141312/ada/blob/20c3dd8813ce82fc82c2b243094ea239502e029f/src/client/worker.ts",
+        "https://github.com/black141312/ada/blob/20c3dd8813ce82fc82c2b243094ea239502e029f/src/client/agent.ts",
+        "https://github.com/black141312/ada/blob/20c3dd8813ce82fc82c2b243094ea239502e029f/CONTRIBUTING.md"
       ],
-      "screening_result": "Pre-source falsifiable S2 hypothesis only; current original implementation, policy, overlap, native benefit and tests are not yet checked.",
-      "external_action": "NOT_EXECUTED"
+      "screening_result": "Current original main@20c3dd8 remains identical to assessed ref and is MIT. Pre-source S2 hypothesis predicted a stale parent claim on failed first-party copy-back; exact original RED 0/4 and minimal patched GREEN 4/4 in real Git-worktree worker test. Supplemental git porcelain leading-status-space trim bug was SOURCE_DISCOVERED and not attributed to Index diagnosis. Replacing only parser gave 1 PASS/2 FAIL, proving independent claim leak. Full native acceptance remains unverified because selfcheck independently timed out on both original and patched source; source-only positive tests are not permission for submission.",
+      "external_action": "NOT_EXECUTED",
+      "blocker": "Original CONTRIBUTING requires npm run selfcheck and npm run typecheck. Typecheck and four matched native worker tests pass, but full selfcheck timed out on BOTH patched and unmodified source (exit 124). No independent GitHub native CI or exact three-file external stage admission; do not publish external PR."
     },
     {
       "id": "polycode-parallel-shared-isolation",
@@ -38,19 +42,22 @@
       "reviewed_at": "2026-10-23",
       "function": "S2",
       "finding": "Determine whether explicit shared-tree child isolation evades same-turn writable-task worktree stamping in first-party Agent dispatch.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/po/polycode.md",
-        "https://github.com/opensiro/upstream/commit/996c7311ab31fba0edca72d832b226bb349a34b1"
+        "https://github.com/opensiro/upstream/commit/996c7311ab31fba0edca72d832b226bb349a34b1",
+        "https://github.com/gasantiago16/polycode/blob/ed4b4be63921261534ac932817e863399274a888/packages/core/src/agent.ts",
+        "https://github.com/gasantiago16/polycode/blob/ed4b4be63921261534ac932817e863399274a888/packages/core/src/subagent.ts",
+        "https://github.com/gasantiago16/polycode/blob/ed4b4be63921261534ac932817e863399274a888/packages/core/src/agent.test.ts"
       ],
-      "screening_result": "Pre-source falsifiable S2 hypothesis only; current original implementation, policy, overlap, native benefit and tests are not yet checked.",
+      "screening_result": "Original MIT main@ed4b4be equals reviewed ref, no open upstream PRs. Agent.run stamps each of two+ writable task calls with isolation=worktree unless already worktree; input.isolation=none is NOT taskWantsWorktree and is overwritten. spawnChild only permits the configured isolated worktree path, and first-party native test asserts two writable calls are auto-isolated. Hypothesized explicit-none shared checkout escape falsified in code; no new patch/native test run or universal concurrency guarantee.",
       "external_action": "NOT_EXECUTED"
     },
     {
@@ -61,19 +68,22 @@
       "reviewed_at": "2026-10-23",
       "function": "S2",
       "finding": "Determine whether supported symlink aliases to one real git worktree permit concurrent duplicate sdd-remediate worker admission.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ge/gentle-shell.md",
-        "https://github.com/opensiro/upstream/commit/996c7311ab31fba0edca72d832b226bb349a34b1"
+        "https://github.com/opensiro/upstream/commit/996c7311ab31fba0edca72d832b226bb349a34b1",
+        "https://github.com/Gentleman-Programming/gentle-shell/blob/74c40493ef87c9e91755643c40cce7900055b267/lib/writer-surfaces.ts",
+        "https://github.com/Gentleman-Programming/gentle-shell/blob/74c40493ef87c9e91755643c40cce7900055b267/extensions/gentle-agents.ts",
+        "https://github.com/Gentleman-Programming/gentle-shell/blob/74c40493ef87c9e91755643c40cce7900055b267/tests/writer-surfaces.test.ts"
       ],
-      "screening_result": "Pre-source falsifiable S2 hypothesis only; current original implementation, policy, overlap, native benefit and tests are not yet checked.",
+      "screening_result": "Original MIT current main@74c40493 (drift from Index reviewed 40740437) uses canonicalWriterRoot resolving realpath/Git root for bounded writable worker claims. Runner atomically checks and reserves WriterSurfaceRegistry per canonical root; native first-party test asserts symlinked cwd and real root share a key and conflict, independent worktrees do not. Predicted symlink spelling escape is contradicted by shipped code/tests; no new external patch or test run.",
       "external_action": "NOT_EXECUTED"
     },
     {
@@ -84,19 +94,22 @@
       "reviewed_at": "2026-10-22",
       "function": "S2",
       "finding": "Determine whether parent-directory and nested-file declared expected_write_scope values fail first-party sibling collision detection.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "FAIL",
+        "mechanism": "FAIL",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ch/chord.md",
-        "https://github.com/opensiro/upstream/commit/996c7311ab31fba0edca72d832b226bb349a34b1"
+        "https://github.com/opensiro/upstream/commit/996c7311ab31fba0edca72d832b226bb349a34b1",
+        "https://github.com/keakon/chord/blob/2319ec34a2963f57e2f041ff82b1a6272435ee70/internal/agent/task_registry.go",
+        "https://github.com/keakon/chord/blob/32542e988ad344f929e37f8a25c21909d7098a5/internal/agent/task_registry.go",
+        "https://github.com/keakon/chord/blob/32542e988ad344f929e37f8a25c21909d7098a5/internal/tools/task.go"
       ],
-      "screening_result": "Pre-source falsifiable S2 hypothesis only; current original implementation, policy, overlap, native benefit and tests are not yet checked.",
+      "screening_result": "Original MIT main@32542e9 differs substantially from Index review_ref 2319ec3. At reviewed ref, writeScopesOverlap compares both file and directory PathPrefix via normalizedScopeAbsPath/pathWithinScope (so parent/nested prefix is already detected). Current registry instead classifies explicit task identity/semantic probable duplicates, with no expected_write_scope/WriteScope predicate in current registry or tool. Old scope hypothesis is already false on reviewed source and no longer applicable to current source; no native change justified and no Index grade re-evaluation asserted.",
       "external_action": "NOT_EXECUTED"
     },
     {
@@ -107,19 +120,22 @@
       "reviewed_at": "2026-10-21",
       "function": "S2",
       "finding": "Determine whether cancellation of one active first-party queued Approve request permanently blocks another waiting sibling child from receiving its approval.",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ap/apogee.md",
-        "https://github.com/opensiro/upstream/commit/996c7311ab31fba0edca72d832b226bb349a34b1"
+        "https://github.com/opensiro/upstream/commit/996c7311ab31fba0edca72d832b226bb349a34b1",
+        "https://github.com/airiclenz/apogee/blob/430a830da2397e56315cda880d19798d27bf670c/internal/agent/construct.go",
+        "https://github.com/airiclenz/apogee/blob/430a830da2397e56315cda880d19798d27bf670c/internal/domain/promptslot.go",
+        "https://github.com/airiclenz/apogee/blob/430a830da2397e56315cda880d19798d27bf670c/internal/domain/promptslot_test.go"
       ],
-      "screening_result": "Pre-source falsifiable S2 hypothesis only; current original implementation, policy, overlap, native benefit and tests are not yet checked.",
+      "screening_result": "Original MIT main@430a830 differs from Index reviewed 9fafafb, no open upstream PR. queuedApprover.Approve takes PromptSlotFor(ctx) and defers slot.Release immediately after successful Acquire; cancellation while queued returns ctx.Err. Native first-party tests specifically assert queued cancellation, waiter count decrement and next waiter progress after release. Predicted permanent slot-hold on cancel not supported; no additional patch/native runner invoked.",
       "external_action": "NOT_EXECUTED"
     }
   ]

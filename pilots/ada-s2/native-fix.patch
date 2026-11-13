@@ -1,0 +1,68 @@
+diff --git a/src/client/agent.ts b/src/client/agent.ts
+index ea6f9aa..a2d3a9c 100644
+--- a/src/client/agent.ts
++++ b/src/client/agent.ts
+@@ -1383,6 +1383,7 @@ export class Agent {
+           binPath: fileURLToPath(new URL("../../bin/ada.mjs", import.meta.url)),
+           budget: WORKER_TOKEN_BUDGET,
+           claim: (paths) => this.claimPaths(paths),
++          release: (paths) => { for (const p of paths) this.claimedPaths.delete(p); },
+         });
+         if (run) {
+           this.subAgents++;
+diff --git a/src/client/worker.ts b/src/client/worker.ts
+index 79f1ca3..2e98891 100644
+--- a/src/client/worker.ts
++++ b/src/client/worker.ts
+@@ -27,7 +27,7 @@ export interface WorkerRun {
+ }
+ 
+ function git(args: string[], cwd: string): string {
+-  return execFileSync("git", args, { cwd, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).trim();
++  return execFileSync("git", args, { cwd, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).replace(/\r?\n$/, "");
+ }
+ 
+ /** The repo root for `cwd`, or null when it isn't a git worktree at all. */
+@@ -49,6 +49,8 @@ export async function runIsolatedWorker(opts: {
+   /** Prompt-token ceiling for this worker; 0 to leave it uncapped. */
+   budget?: number;
+   claim: (paths: string[]) => { taken: string[]; collided: string[] };
++  /** Release claims for files which were never installed in the parent. */
++  release: (paths: string[]) => void;
+   signal?: AbortSignal;
+ }): Promise<WorkerRun | null> {
+   const root = repoRoot(opts.cwd);
+@@ -80,15 +82,25 @@ export async function runIsolatedWorker(opts: {
+       .filter(Boolean)
+       .map((p) => p.replace(/^"|"$/g, ""));
+ 
+-    const { taken, collided } = opts.claim(paths);
+-    for (const p of taken) {
+-      const from = resolve(dir, p);
+-      const to = resolve(opts.cwd, p);
+-      if (!existsSync(from)) continue; // worker deleted it; deletions are not propagated
+-      mkdirSync(dirname(to), { recursive: true });
+-      copyFileSync(from, to);
++    // Deleted files are deliberately not propagated; do not reserve their paths.
++    const copyable = paths.filter((p) => existsSync(resolve(dir, p)));
++    const { taken, collided } = opts.claim(copyable);
++    const installed: string[] = [];
++    try {
++      for (const p of taken) {
++        const from = resolve(dir, p);
++        const to = resolve(opts.cwd, p);
++        mkdirSync(dirname(to), { recursive: true });
++        copyFileSync(from, to);
++        installed.push(p);
++      }
++    } catch (error) {
++      // Keep claims for completed copies, but permit a safe retry of anything
++      // that failed before installation. Synchronous callbacks preserve ordering.
++      opts.release(taken.filter((p) => !installed.includes(p)));
++      throw error;
+     }
+-    return { text: parsed.text ?? "", usage: parsed.usage ?? "", changed: taken, collided };
++    return { text: parsed.text ?? "", usage: parsed.usage ?? "", changed: installed, collided };
+   } finally {
+     try {
+       git(["worktree", "remove", "--force", dir], root);
