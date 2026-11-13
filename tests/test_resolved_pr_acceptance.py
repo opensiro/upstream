@@ -139,7 +139,7 @@ class AcceptanceTests(unittest.TestCase):
         self.assertFalse(api.writes)
 
     def test_only_reviewed_watchlist_and_no_unreviewed_expansion(self):
-        self.assertEqual(len(metric.validate_targets()["targets"]), 35)
+        self.assertEqual(len(metric.validate_targets()["targets"]), 36)
         self.assertIn("https://github.com/witt3rd/oh-my-hermes/pull/28",
                       {r["url"] for r in metric.validate_targets()["targets"]})
         self.assertEqual(metric.INBOX_REPO, "opensiro/upstream")

@@ -6,6 +6,22 @@
   "metric_boundary": "Publication evidence only; no maintainer merge, verified adoption, deployed benefit or VSM regrade",
   "cases": [
     {
+      "id": "revka-workflow-validation-contract",
+      "repository": "KumihoIO/Revka",
+      "public_fork": "opensiro-contributions/Revka",
+      "fork_local_pr_url": "https://github.com/opensiro-contributions/Revka/pull/1",
+      "pr_url": "https://github.com/KumihoIO/Revka/pull/576",
+      "published_at": "2026-11-13T19:39:08Z",
+      "base_sha": "a1acd826502e12a6c2f3d147e488a7d2982c480b",
+      "head_sha": "14d0af81c45f6cf774e490cee35388ade1a5be89",
+      "pr_commits": 1,
+      "publication_state": "OPEN_READY",
+      "approved_exact_title_body": false,
+      "ci_state": "FIRST_TIME_EXTERNAL_ACTIONS_APPROVAL_REQUIRED_BY_UPSTREAM_MAINTAINER",
+      "approval_boundary": "Current-chat explicit individual Revka CLA v1.0 consent and specific original PR publication instruction by holder, with matching authenticated GitHub actor xLagerFeuer. Original Revka section 9 defines submitting the original PR as assent; no separate individual signature. The fork-local proposal and original target use the same exact two-file tree, but original-project PR body is adapted to target/audience and not byte-identical to fork-local text. Source-native Python 17/17 focused PASS; Rust cargo fmt PASS; Rust 1.91 cargo test --locked PASS (12545 tests, 0 failed); Rust 1.93 cargo clippy --all-targets --locked --offline -- -D warnings PASS; original-project GitHub Actions CI action_required pending upstream maintainer approval; PR independently read back OPEN READY. No independent legal-person identity certification, human code review, maintainer acceptance, merge, deployment, measured user benefit or VSM regrade claimed.",
+      "ready_at": "2026-11-13T19:53:07Z"
+    },
+    {
       "id": "voly-cwd-lock-fail-closed",
       "repository": "voly-codes/voly",
       "public_fork": "opensiro-contributions/voly",

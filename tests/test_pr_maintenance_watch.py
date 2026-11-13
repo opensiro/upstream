@@ -147,8 +147,8 @@ class WatchTests(unittest.TestCase):
 
     def test_exact_manifest_has_thirty_five_targets_and_no_duplicates(self):
         data = watch.validate_targets()
-        self.assertEqual(len(data["targets"]), 35)
-        self.assertEqual(len({t["url"] for t in data["targets"]}), 35)
+        self.assertEqual(len(data["targets"]), 36)
+        self.assertEqual(len({t["url"] for t in data["targets"]}), 36)
         self.assertIn("https://github.com/witt3rd/oh-my-hermes/pull/28",
                       {t["url"] for t in data["targets"]})
         self.assertIn("https://github.com/witt3rd/oh-my-hermes/pull/28",
@@ -162,6 +162,12 @@ class WatchTests(unittest.TestCase):
         self.assertIn("https://github.com/witt3rd/oh-my-hermes/pull/28",
                       watch.APPROVED_CHECKPOINT_ADDITIONS)
         self.assertIn("https://github.com/knowflow-ai/KnowWork/pull/4",
+                      watch.APPROVED_CHECKPOINT_ADDITIONS)
+        self.assertIn("https://github.com/KumihoIO/Revka/pull/576",
+                      {t["url"] for t in data["targets"]})
+        self.assertIn("https://github.com/KumihoIO/Revka/pull/576",
+                      watch.APPROVED_CHECKPOINT_ADDITIONS)
+        self.assertIn("https://github.com/voly-codes/voly/pull/20",
                       watch.APPROVED_CHECKPOINT_ADDITIONS)
         self.assertIn("https://github.com/murilo-bassan/durable-agent-runtime/pull/1",
                       {t["url"] for t in data["targets"]})

@@ -5,7 +5,7 @@
 
 A harness may have several independent interventions and PRs. A historical `AWAITING_EXTERNAL` batch state **remains historical** even when a separate publication ledger later confirms an upstream merge. All external submission/acceptance claims below come from the linked owning source; `SUBMITTED_UNVERIFIED_LIVE` means **no current PR-state claim**.
 
-**Scope:** 228 harnesses · 246 interventions · 42 unique external PR URLs · 37 assessment batches · 35 monitored PR targets.
+**Scope:** 228 harnesses · 247 interventions · 43 unique external PR URLs · 37 assessment batches · 36 monitored PR targets.
 
 ## Harness overview
 
@@ -127,7 +127,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | [KKKKhazix/agent-autoloop](https://github.com/KKKKhazix/agent-autoloop) | 1 | 0 | 0 | 0 | 0 |
 | [knowflow-ai/KnowWork](https://github.com/knowflow-ai/KnowWork) | 2 | 1 | 0 | 0 | 0 |
 | [kstawiski/evidence-gated-scientific-agent](https://github.com/kstawiski/evidence-gated-scientific-agent) | 2 | 1 | 0 | 0 | 0 |
-| [KumihoIO/Revka](https://github.com/KumihoIO/Revka) | 1 | 1 | 0 | 0 | 1 |
+| [KumihoIO/Revka](https://github.com/KumihoIO/Revka) | 2 | 1 | 0 | 0 | 1 |
 | [kushagrathisside/bridle](https://github.com/kushagrathisside/bridle) | 1 | 0 | 0 | 0 | 0 |
 | [langroid/langroid](https://github.com/langroid/langroid) | 1 | 0 | 0 | 0 | 1 |
 | [lanl/ursa](https://github.com/lanl/ursa) | 1 | 0 | 0 | 0 | 1 |
@@ -367,6 +367,7 @@ A harness may have several independent interventions and PRs. A historical `AWAI
 | kstawiski/evidence-gated-scientific-agent | [assessment:evidence-bench-native-evidence-admission](data/assessment-candidate-batches/2026-10-23-11.json) | S1 | AWAITING_EXTERNAL | NOT_SUBMITTED | — | assessment-upstream-2026-10-23-11 | Refresh source; check external publication grant |
 | kstawiski/evidence-gated-scientific-agent | [monitor:kstawiski/evidence-gated-scientific-agent#9](data/pr-maintenance/targets.json) | — | NOT_TRACKED | WATCHLIST_ONLY | [#9](https://github.com/kstawiski/evidence-gated-scientific-agent/pull/9) | monitor_only | Read PR maintenance inbox; no technical inference |
 | KumihoIO/Revka | [assessment:revka-workflow-validation-contract](data/assessment-candidate-batches/2026-10-23-10.json) | S1 | AWAITING_EXTERNAL | BLOCKED_PUBLICATION | — | assessment-upstream-2026-10-23-10 | Resolve documented publication gate |
+| KumihoIO/Revka | [monitor:kumihoio/revka#576](data/pr-maintenance/targets.json) | — | NOT_TRACKED | WATCHLIST_ONLY | [#576](https://github.com/KumihoIO/Revka/pull/576) | monitor_only | Read PR maintenance inbox; no technical inference |
 | kushagrathisside/bridle | [assessment:bridle-run-admission-crash-recovery](data/assessment-candidate-batches/2026-11-09-19.json) | S2 | CLOSED_NO_CHANGE | NONE | — | assessment-upstream-2026-11-09-19 | No code change justified |
 | langroid/langroid | [assessment:langroid-no-answer-nonprogress-oscillation](data/assessment-candidate-batches/2026-11-12-31.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-12-31 | Obtain missing native evidence |
 | lanl/ursa | [assessment:ursa-symposium-duplicate-member-workspace](data/assessment-candidate-batches/2026-11-13-34.json) | S2 | BLOCKED_EVIDENCE | NONE | — | assessment-upstream-2026-11-13-34 | Obtain missing native evidence |
