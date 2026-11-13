@@ -59,6 +59,14 @@ The **technical validation gate is complete** when an independently executed, pi
 
 This rule **does not** convert the observed scripted delta into measured deployed adoption, user productivity, security assurance, VSM autonomy/grade change, or upstream maintainer acceptance. Record these as unmeasured/unestablished unless independently evidenced. Delivery permissions, separately authorized external publication and maintainer review are separate gates, never additional LLM testing gates. If wider model-agent research is proposed in the future, it is **outside this experiment** and requires a distinct explicit operator decision.
 
+## Upgrade findings: features preferred, fixes still useful
+
+The single [`upstream upgrade batch` command](ASSESSMENT_CANDIDATE_BATCHES.md#control-plane-command-upstream-upgrade-batch) uses **new `MINOR_FEATURE` / `MAJOR_FEATURE` capabilities as its first search priority, `BUG_FIX` as fallback** when no independently supported capability fits the target source. These are **ordinary engineering descriptions**, not new origin classes, evidence verdicts or counters. All S1–S5 functional observations can motivate a hypothesis, including accepted Index assessments with human-owned S1 under new (prospective) schema-v2 intake. Do not infer a defect or new permission from a VSM autonomy label.
+
+A **repair** baseline must show the pinned native code failing an expected contract. A **new capability** baseline may instead show an independently desired workflow is unavailable, without falsely calling it a bug; the after-run must exercise a real new product-native workflow with matched inputs, scoped controls and regressions. Neither an absent feature, a green CI build, a new symbol, nor an issue title alone establishes a genuine need or observed end-user benefit. Large-feature design proposals must follow the target's normal maintainer issue/RFC/design gate before implementation. The existing independent deterministic runner requirement and no-live-model/user-trial scope remain unchanged.
+
+Preserve `ASSESSMENT_DERIVED` only for specifically preregistered Index-first hypotheses, whether capability or repair. A valid later issue/code-driven bug fix stays `ASSESSMENT_INFORMED` (or `GENERAL_UPSTREAM` when unlinked): it may still be published via its proper authorized lane but is not a strict-derived discovery. Track technical effect, user benefit (measured/unmeasured) and external PR disposition using **existing** evidence/outcome vocabulary, without claiming their equivalence or adding a new scorecard.
+
 ## Classification: origin strength is not implementation status
 
 | Class | Required explanatory evidence | May be counted as evidence of the assessment-derived discovery path? |

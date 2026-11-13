@@ -45,7 +45,9 @@ def _git(root, *args):
 
 def validate(manifest, index_root=None):
     """Check manifest and, if provided, exact local Index HEAD/object provenance."""
-    _require(isinstance(manifest, dict) and manifest.get("schema_version") == 1, "Unsupported schema")
+    # v1 preserves the historical S1=A cohort contract. v2 is opt-in for
+    # prospective multifunction upgrade cohorts; all other evidence gates stay.
+    _require(isinstance(manifest, dict) and manifest.get("schema_version") in {1, 2}, "Unsupported schema")
     _require(re.fullmatch(r"assessment-upstream-\d{4}-\d{2}-\d{2}-\d{2}", manifest.get("batch_id", "")) is not None, "Invalid batch ID")
     _require(manifest.get("owner_issue") == "https://github.com/opensiro/upstream/issues/56", "Invalid owner")
     sha = manifest.get("index_sha", "")
@@ -94,7 +96,8 @@ def validate(manifest, index_root=None):
             _require(fields.get("status") == "included", f"Non-included Index assessment: {ident}")
             _require(fields.get("review_ref") == ref and fields.get("repository", "").casefold() == ("https://github.com/" + source).casefold(), f"Index identity or reviewed ref changed: {ident}")
             _require(fields.get("reviewed_at") == reviewed_at and fields.get("harness_id") == path.rsplit("/", 1)[1][:-3], f"Index assessment metadata mismatch: {ident}")
-            _require(fields.get("autonomy_s1") == "A", f"Included S1=A filter violated: {ident}")
+            if manifest["schema_version"] == 1:
+                _require(fields.get("autonomy_s1") == "A", f"Included S1=A filter violated: {ident}")
     _require(order == sorted(order, reverse=True), "Frozen cohort must use reviewed_at descending")
     return manifest
 
