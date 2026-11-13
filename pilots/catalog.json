@@ -4,13 +4,13 @@
   "meaning": "FILE_INVENTORY_ONLY_NO_SUCCESS_OR_EXTERNAL_PUBLICATION_CLAIM",
   "generated_from": "pilots/ direct subdirectories and their preserved files",
   "counts": {
-    "pilot_directories": 76,
-    "artifact_files": 248,
+    "pilot_directories": 77,
+    "artifact_files": 251,
     "historical_directories": 66,
-    "new_directories": 10,
+    "new_directories": 11,
     "by_kind": {
       "EXPERIMENT_SERIES": 4,
-      "PATCH_HANDOFF": 53,
+      "PATCH_HANDOFF": 54,
       "PATCH_EVIDENCE": 2,
       "SCREEN_ONLY": 16,
       "OTHER_EVIDENCE": 1
@@ -33,6 +33,21 @@
       "files": [
         "CONTRIBUTION_HANDOFF.md",
         "nonobject-event-payload-rejection.patch"
+      ]
+    },
+    {
+      "id": "ada-s2",
+      "path": "pilots/ada-s2",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/ada-s2/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 2,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "native-fix.patch",
+        "native-regression.patch"
       ]
     },
     {
