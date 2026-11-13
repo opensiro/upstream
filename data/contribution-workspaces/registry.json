@@ -4,13 +4,13 @@
   "batch_sources": "data/assessment-candidate-batches/*.json",
   "counts": {
     "priority_sources": 100,
-    "historical_extras": 159,
-    "batch_only_extras": 144,
+    "historical_extras": 169,
+    "batch_only_extras": 154,
     "pilot_only_extras": 7,
     "portfolio_only_extras": 8,
-    "unique_sources": 259,
-    "batch_manifests": 35,
-    "batch_cases": 200,
+    "unique_sources": 269,
+    "batch_manifests": 36,
+    "batch_cases": 210,
     "historical_fork_mappings": 16,
     "name_collision_sources": 14,
     "technical_handoffs": 55,
@@ -71,6 +71,23 @@
       "proposed_fork": "opensiro-contributions/lacp",
       "license_review": false,
       "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "525300887039/BareAgent",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-13-36.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/BareAgent",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
       "source": "7ar-chat/harness",
@@ -596,6 +613,23 @@
       "next_step": "RECONCILE_NATIVE_PILOT_BEFORE_FORK_STAGE"
     },
     {
+      "source": "awslabs/cli-agent-orchestrator",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-13-36.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/cli-agent-orchestrator",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
       "source": "ayandexyz/Honey-I-Shrunk-the-Harness",
       "priority_group": "INDEX_HYPOTHESIS",
       "batches": [
@@ -1048,6 +1082,23 @@
       "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
+      "source": "codemonkeying/lean-coder",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-13-36.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/lean-coder",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
       "source": "codemowers/agent",
       "priority_group": "INDEX_HYPOTHESIS",
       "batches": [
@@ -1491,6 +1542,23 @@
       "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/DaveCode",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "DrSeedon/orchestra",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-13-36.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/orchestra",
       "license_review": false,
       "next_step": "TRACK_ONLY_NO_CHANGE"
     },
@@ -2126,6 +2194,23 @@
       "next_step": "SCREEN_BEFORE_FORK_WRITE"
     },
     {
+      "source": "Gitlawb/zero",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-13-36.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/zero",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
       "source": "gke-labs/kube-agents",
       "priority_group": "HISTORICAL_EXTRA",
       "batches": [
@@ -2474,6 +2559,23 @@
       "proposed_fork": "opensiro-contributions/tau",
       "license_review": false,
       "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
+      "source": "huiliyi37/Tianshu-harness",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-13-36.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/Tianshu-harness",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
     },
     {
       "source": "huleidada/matterloop",
@@ -3465,6 +3567,23 @@
       "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
+      "source": "mdiri-ai/SoduWork",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-13-36.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/SoduWork",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
       "source": "me7ko-dev/genesis-agent",
       "priority_group": "HISTORICAL_EXTRA",
       "batches": [
@@ -4322,6 +4441,23 @@
       "proposed_fork": "opensiro-contributions/ironcurtain",
       "license_review": false,
       "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "PyModel/pythinker-code",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-13-36.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/pythinker-code",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
       "source": "Qin-sor/agent-context-lab",
@@ -5645,6 +5781,23 @@
       "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
+      "source": "whycorporation/whycodes",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-13-36.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/whycodes",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
+    },
+    {
       "source": "witt3rd/oh-my-hermes",
       "priority_group": "HISTORICAL_EXTRA",
       "batches": [
@@ -5709,6 +5862,23 @@
       "proposed_fork": "opensiro-contributions/oh-my-hermes",
       "license_review": false,
       "next_step": "VERIFY_FORK_AND_PREPARE_PATCH_WITH_STAGE_GRANT"
+    },
+    {
+      "source": "WrongStack/WrongStack",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-13-36.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/WrongStack",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
     },
     {
       "source": "xiaotianfotos/homerail",
