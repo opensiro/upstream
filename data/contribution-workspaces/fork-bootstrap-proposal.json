@@ -3,17 +3,17 @@
   "state": "READ_ONLY_PROPOSAL_NOT_APPROVED",
   "destination_org": "opensiro-contributions",
   "source_registry": "data/contribution-workspaces/registry.json",
-  "source_registry_sha256": "21768cc22aa8b1f289b8e84478105694db883efce6931150b4cbc1c1bf1300f3",
+  "source_registry_sha256": "99bd0b8385275e258e194bcb904318bb2b7e157227be9d47ede96d4e28c74202",
   "priority_snapshot": "data/fork-priorities/2026-11-08.json",
   "batch_size_max": 10,
   "counts": {
-    "sources": 249,
+    "sources": 259,
     "priority_sources": 100,
-    "additive_extras": 149,
+    "additive_extras": 159,
     "collision_name_proposals": 14,
     "creation_batches": 9,
     "by_state": {
-      "HOLD_HISTORICAL_OR_NEGATIVE_CASE": 143,
+      "HOLD_HISTORICAL_OR_NEGATIVE_CASE": 153,
       "HOLD_LICENSE_REVIEW": 5,
       "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT": 83,
       "RECHECK_MAPPED_FORK": 18
@@ -35,7 +35,7 @@
     {
       "id": "bootstrap-001",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "dfa992a70d7df4bc6433915ddec5dae3744dacbaa75dba24aebb3074e06f1ef5",
+      "selection_sha256": "828b29efcd660a4a55722343861eb312c701d7dd67904221289365371e99582e",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -84,7 +84,7 @@
     {
       "id": "bootstrap-002",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "af9efb7ee0d8ad0d90e47d3617fdf29dd84ff4b2231a6120717ebc1f7a4de603",
+      "selection_sha256": "9d8836f870f97ffe8ce43db4ce6a9a82f9719b9fb13d69849b1a536fddc0cb10",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -133,7 +133,7 @@
     {
       "id": "bootstrap-003",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "d9f2875a7ee811b5bbd0d61cce264eff4ab906522f1f4965b8c493577d5d1eb3",
+      "selection_sha256": "6a5205dc8ca34dc399226633c26b5d886b15ca2f60dadadc7624e68b2b368640",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -182,7 +182,7 @@
     {
       "id": "bootstrap-004",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "147221192b24f8aff4c81ca142b7d52bb1d20e1c47d451591258171e9195261a",
+      "selection_sha256": "3dc916d9844cce64d410d3475d90eaf85a6e7faa6f1f80cc277b4174571a2468",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -231,7 +231,7 @@
     {
       "id": "bootstrap-005",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "1638f05c67e7068ecc2ac9f9647153051b4d343be8a5864b02d5ebfd2a1f012f",
+      "selection_sha256": "000d3028416ab874139c8ba2e7a981ebce914a491e2db6528c2fc3955e235d3d",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -280,7 +280,7 @@
     {
       "id": "bootstrap-006",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "191e1d09c035a2bb88ae5fab0433da22aaae159068d9b350c9caed32798f9d46",
+      "selection_sha256": "cb36b904204c011f463b4d51f2f5855c9e569c1516f77ae3b958de08accc6616",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -329,7 +329,7 @@
     {
       "id": "bootstrap-007",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "7092a3bf588148ddf40ec12588e2c7d1e0d9d59573694655620221f68c916349",
+      "selection_sha256": "71489f6a8276b164cc40d0a8b6223f86272251e4179b33b684fd48ed861e57e5",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -378,7 +378,7 @@
     {
       "id": "bootstrap-008",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "40a455f5d7fb885980ce39290333bb99260a9871eb3947765b8c5feffb42aa91",
+      "selection_sha256": "fc2aaa0294b6abfe9a40aedb43595f139c2db343d26d192627a754e985e9e025",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -427,7 +427,7 @@
     {
       "id": "bootstrap-009",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "cd26fa5e9a0e1d653f555bcb21dafc87c81daf8264047ab15c54ab10d96a4d68",
+      "selection_sha256": "fed529531dfc497a48712561c8d581d4e8412a09d05431891a992e353136e3d3",
       "source_count": 3,
       "has_collision_name_proposals": false,
       "selection": [
@@ -1746,6 +1746,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "bastani-inc/atomic",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/atomic",
+      "candidate_name": "atomic",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "beipo-ai/NorthCUA",
       "priority_group": "HISTORICAL_EXTRA",
       "next_step": "TRACK_ONLY_NO_CHANGE",
@@ -1977,6 +1988,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "escapeboy/agent-fleet-o",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/agent-fleet-o",
+      "candidate_name": "agent-fleet-o",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "evotai/evot",
       "priority_group": "HISTORICAL_EXTRA",
       "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
@@ -2004,6 +2026,17 @@
       "next_step": "HISTORICAL_PR_TRACK_ONLY_NO_NEW_PUBLICATION",
       "candidate_fork": "opensiro-contributions/oh-my-agent",
       "candidate_name": "oh-my-agent",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "Florious95/team-agent",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/team-agent",
+      "candidate_name": "team-agent",
       "collision_name_proposal": false,
       "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
@@ -2083,6 +2116,17 @@
       "candidate_name": "NovaCode",
       "collision_name_proposal": false,
       "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "GembaCore/gemba-core",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/gemba-core",
+      "candidate_name": "gemba-core",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
@@ -2180,6 +2224,17 @@
       "next_step": "TRACK_ONLY_NO_CHANGE",
       "candidate_fork": "opensiro-contributions/codewhip",
       "candidate_name": "codewhip",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "himkt/cafleet",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/cafleet",
+      "candidate_name": "cafleet",
       "collision_name_proposal": false,
       "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
@@ -2582,6 +2637,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "openJiuwen-ai/agent-core",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/agent-core",
+      "candidate_name": "agent-core",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "openJiuwen-ai/agent-runtime",
       "priority_group": "HISTORICAL_EXTRA",
       "next_step": "RESOLVE_FORK_PARENT_AND_NAME",
@@ -2769,6 +2835,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "russ-p/paseka",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/paseka",
+      "candidate_name": "paseka",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "ScaleML/AgentSPEX",
       "priority_group": "PILOT_EXTRA",
       "next_step": "RECONCILE_NATIVE_PILOT_BEFORE_FORK_STAGE",
@@ -2945,6 +3022,17 @@
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
     {
+      "source": "SuperagenticAI/superqode",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
+      "candidate_fork": "opensiro-contributions/superqode",
+      "candidate_name": "superqode",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
       "source": "Sweetienite/personal-agent-runtime",
       "priority_group": "HISTORICAL_EXTRA",
       "next_step": "TRACK_ONLY_NO_CHANGE",
@@ -2994,6 +3082,17 @@
       "next_step": "TRACK_ONLY_NO_CHANGE",
       "candidate_fork": "opensiro-contributions/limina",
       "candidate_name": "limina",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "threatclaw/threatclaw",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/threatclaw",
+      "candidate_name": "threatclaw",
       "collision_name_proposal": false,
       "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
@@ -3060,6 +3159,17 @@
       "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
       "candidate_fork": "opensiro-contributions/VTCode",
       "candidate_name": "VTCode",
+      "collision_name_proposal": false,
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
+      "current_fork_mapping": null,
+      "requires_fresh_source_license_policy_and_destination_checks": true
+    },
+    {
+      "source": "W-Mai/atman",
+      "priority_group": "HISTORICAL_EXTRA",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
+      "candidate_fork": "opensiro-contributions/atman",
+      "candidate_name": "atman",
       "collision_name_proposal": false,
       "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,

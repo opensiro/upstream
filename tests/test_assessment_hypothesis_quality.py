@@ -14,7 +14,8 @@ import assessment_hypothesis_quality as quality
 
 class AssessmentHypothesisQualityTests(unittest.TestCase):
     def cohort(self):
-        return quality.frozen_files()[-8:]
+        # The first launch is a pinned historical eight-cohort baseline, not the newest eight.
+        return [row for row in quality.frozen_files() if 27 <= row[0] <= 34]
 
     def test_first_launch_frozen_eight_batch_counts(self):
         files = self.cohort()
