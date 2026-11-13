@@ -82,8 +82,8 @@ class PortfolioReconcileTests(unittest.TestCase):
     def test_joined_view_preserves_distinct_external_and_accepted_counts(self):
         report = self.full_portfolio_report()
         view = portfolio.joined_view(report)
-        self.assertEqual(view["summary"]["unique_prs"], 41)
-        self.assertEqual(view["summary"]["watched_prs"], 34)
+        self.assertEqual(view["summary"]["unique_prs"], 42)
+        self.assertEqual(view["summary"]["watched_prs"], 35)
         self.assertIsNone(view["summary"]["accepted_changes"])
         self.assertEqual({r["verified_outcome"] for r in view["records"]}, {"NOT_LIVE_CHECKED"})
         self.assertIn("not live-checked", portfolio.render_joined(view))
@@ -95,7 +95,7 @@ class PortfolioReconcileTests(unittest.TestCase):
         self.assertEqual(friday["functional_effects"][0]["product_benefit"], "NOT_MEASURED")
         for r in view["records"]:
             self.assertNotEqual(r["product_benefit"], "MEASURED")
-        self.assertEqual(len({r["url"] for r in view["records"]}), 41)
+        self.assertEqual(len({r["url"] for r in view["records"]}), 42)
 
         accepted = self.accepted_export(report)
         verified = portfolio.joined_view(report, accepted)
@@ -106,7 +106,7 @@ class PortfolioReconcileTests(unittest.TestCase):
         self.assertTrue(all(r["product_benefit"] == "NOT_MEASURED"
                             for r in verified["records"]
                             if r["verified_outcome"] == "ACCEPTED_MERGED_CHANGE_ONLY"))
-        self.assertEqual(len({r["url"] for r in verified["records"]}), 41)
+        self.assertEqual(len({r["url"] for r in verified["records"]}), 42)
 
     def test_joined_view_rejects_stale_tampered_duplicate_or_unverified_acceptance(self):
         report = self.full_portfolio_report()
@@ -141,10 +141,10 @@ class PortfolioReconcileTests(unittest.TestCase):
             path.write_text(json.dumps(packet))
             with patch.object(portfolio, "PUBLICATION_READBACKS", Path(directory)):
                 cohort = portfolio.cohort()
-                self.assertEqual(len(cohort), 42)
+                self.assertEqual(len(cohort), 43)
                 self.assertEqual(next(r["groups"] for r in cohort if r["url"] == url),
                                  ["published"])
-                self.assertEqual(sum("watchlist" in r["groups"] for r in cohort), 34)
+                self.assertEqual(sum("watchlist" in r["groups"] for r in cohort), 35)
                 case["repository"] = "different/co"
                 path.write_text(json.dumps(packet))
                 with self.assertRaisesRegex(ValueError, "mismatch"):
@@ -152,9 +152,9 @@ class PortfolioReconcileTests(unittest.TestCase):
 
     def test_frozen_source_union_exact_size_and_identity(self):
         entries = portfolio.cohort()
-        self.assertEqual(len(entries), 41)
-        self.assertEqual(sum("watchlist" in row["groups"] for row in entries), 34)
-        self.assertEqual(len({row["url"] for row in entries}), 41)
+        self.assertEqual(len(entries), 42)
+        self.assertEqual(sum("watchlist" in row["groups"] for row in entries), 35)
+        self.assertEqual(len({row["url"] for row in entries}), 42)
         self.assertEqual([row["groups"] for row in entries if row["url"] ==
                          "https://github.com/witt3rd/oh-my-hermes/pull/28"],
                          [["watchlist"]])

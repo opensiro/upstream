@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-11-13",
+  "source": "Authenticated dev-alpha-2 GitHub REST POST and exact fork-local/original GET readback; effective standing external publication mandate",
+  "authenticated_actor": "xLagerFeuer",
+  "metric_boundary": "Publication evidence only; no maintainer merge, verified adoption, deployed benefit or VSM regrade",
+  "cases": [
+    {
+      "id": "voly-cwd-lock-fail-closed",
+      "repository": "voly-codes/voly",
+      "public_fork": "opensiro-contributions/voly",
+      "fork_local_pr_url": "https://github.com/opensiro-contributions/voly/pull/1",
+      "pr_url": "https://github.com/voly-codes/voly/pull/20",
+      "published_at": "2026-11-13T16:21:59Z",
+      "base_sha": "38aa1bf7074f7b1e0f79f559dfa3fc97d75a073d",
+      "head_sha": "649a3fac6b11f0cbc20ea091bed4184cb8b39352",
+      "pr_commits": 2,
+      "publication_state": "OPEN_READY",
+      "approved_exact_title_body": true,
+      "approval_boundary": "ACTIVE standing external publication mandate, authenticated xLagerFeuer; real contributor-person DCO 1.1 approval limited to two commits, commit trailers verified, original and fork-local GitHub title/body SHA-256 93ab3e8b9c92236c5eacb08982169bbc9a1b04b1ab3fb8189fd8555554feae02 matched; exact four-file diff and SHA; full native pytest 1228 pass, 4 skipped, 1 xfailed, zero failures, with doc checks PASS; no independent human code review or maintainer acceptance claimed"
+    }
+  ]
+}
