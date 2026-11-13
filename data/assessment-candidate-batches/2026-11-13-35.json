@@ -1,0 +1,241 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-13-35",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "85ae995fc2551ac0a076609bce0300d075cac2d5",
+  "frozen_at": "2026-11-13",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Explicit operator requested upstream upgrade batch 10. Single ten-row exceptional Index-first cohort under Upstream #56. Deterministic preview at Upstream main a1970f69d30afe0800c00990fca5725c665ffec7 / Index main 85ae995f; 112 eligible pre-exclusion. Excluded Nano-Collective/nanocoder due to active Upstream PR #123 despite absent manifest claim; selected next ten distinct available reviewed source identities from included S1=A/S2=C Index records. Prospective minor-feature capability questions preregistered before original-source inspections in commit d3d19335a4034a9c84898002ced6d27ad7500cce. No claim of need, tests, benefit, admission, atomic reservation, or external permission.",
+  "candidates": [
+    {
+      "id": "threatclaw-admission-explain",
+      "assessment_path": "assessments/th/threatclaw.md",
+      "source": "threatclaw/threatclaw",
+      "review_ref": "71540e5da1fc4dd5ff62c37842de25efab67a3f1",
+      "reviewed_at": "2026-10-17",
+      "function": "S2",
+      "finding": "Could a first-party read-only incident admission explanation expose semaphore, duplicate, cooldown or backpressure reasons without changing actual scheduling or response policy?",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/th/threatclaw.md",
+        "https://github.com/opensiro/upstream/commit/d3d19335a4034a9c84898002ced6d27ad7500cce"
+      ],
+      "screening_result": "PRE-SOURCE_HYPOTHESIS_ONLY: native need, target source, target policy, and benefit unverified.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "atomic-parallel-plan-preview",
+      "assessment_path": "assessments/at/atomic.md",
+      "source": "bastani-inc/atomic",
+      "review_ref": "d6bc44cf753bd2748ffac6dd994205a170216741",
+      "reviewed_at": "2026-10-16",
+      "function": "S2",
+      "finding": "Would a deterministic dry-run of Git worktree and output-publication allocation identify invalid parallel-worker layouts before workers start?",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/at/atomic.md",
+        "https://github.com/opensiro/upstream/commit/d3d19335a4034a9c84898002ced6d27ad7500cce"
+      ],
+      "screening_result": "PRE-SOURCE_HYPOTHESIS_ONLY: native need, target source, target policy, and benefit unverified.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "fleetq-claim-rejection-explain",
+      "assessment_path": "assessments/fl/fleetq.md",
+      "source": "escapeboy/agent-fleet-o",
+      "review_ref": "d949ff4510548171b8a8648c794a7efd9d9d8c8c",
+      "reviewed_at": "2026-10-16",
+      "function": "S2",
+      "finding": "Would an optional native task-claim rejection explanation help distinguish an occupied crew task from invalid or unavailable work without leaking private state?",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/fl/fleetq.md",
+        "https://github.com/opensiro/upstream/commit/d3d19335a4034a9c84898002ced6d27ad7500cce"
+      ],
+      "screening_result": "PRE-SOURCE_HYPOTHESIS_ONLY: native need, target source, target policy, and benefit unverified.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "team-agent-seat-restore-preview",
+      "assessment_path": "assessments/te/team-agent.md",
+      "source": "Florious95/team-agent",
+      "review_ref": "1107b2881b7c55bde14a270f472db034cfefcc9a",
+      "reviewed_at": "2026-10-16",
+      "function": "S2",
+      "finding": "Would a read-only preview of restored team seat and socket ownership safely identify stale or conflicting pane bindings before restart?",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/te/team-agent.md",
+        "https://github.com/opensiro/upstream/commit/d3d19335a4034a9c84898002ced6d27ad7500cce"
+      ],
+      "screening_result": "PRE-SOURCE_HYPOTHESIS_ONLY: native need, target source, target policy, and benefit unverified.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "gemba-dispatch-block-explain",
+      "assessment_path": "assessments/ge/gemba.md",
+      "source": "GembaCore/gemba-core",
+      "review_ref": "64c266f889c6d6a579904c5e336676fa1c49b216",
+      "reviewed_at": "2026-10-16",
+      "function": "S2",
+      "finding": "Would a first-party blocked-dispatch explanation identify worktree collision versus ordinary resource scarcity in the native pool operator workflow?",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ge/gemba.md",
+        "https://github.com/opensiro/upstream/commit/d3d19335a4034a9c84898002ced6d27ad7500cce"
+      ],
+      "screening_result": "PRE-SOURCE_HYPOTHESIS_ONLY: native need, target source, target policy, and benefit unverified.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "cafleet-monitor-ownership-health",
+      "assessment_path": "assessments/ca/cafleet.md",
+      "source": "himkt/cafleet",
+      "review_ref": "a991fe8f818a5e65770f32db3867f50b178c2e73",
+      "reviewed_at": "2026-10-16",
+      "function": "S2",
+      "finding": "Could a read-only monitor ownership health view distinguish valid exclusive registration, stale heartbeat and duplicate monitor contention without changing ownership?",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ca/cafleet.md",
+        "https://github.com/opensiro/upstream/commit/d3d19335a4034a9c84898002ced6d27ad7500cce"
+      ],
+      "screening_result": "PRE-SOURCE_HYPOTHESIS_ONLY: native need, target source, target policy, and benefit unverified.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "paseka-trace-merge-preview",
+      "assessment_path": "assessments/pa/paseka.md",
+      "source": "russ-p/paseka",
+      "review_ref": "11bc0b91e1442e74ccadd9bbe591ebaa8afcc8ac",
+      "reviewed_at": "2026-10-16",
+      "function": "S2",
+      "finding": "Could a trace worktree pre-integration readiness preview expose shared-root changed-path overlap before human review and merge?",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/pa/paseka.md",
+        "https://github.com/opensiro/upstream/commit/d3d19335a4034a9c84898002ced6d27ad7500cce"
+      ],
+      "screening_result": "PRE-SOURCE_HYPOTHESIS_ONLY: native need, target source, target policy, and benefit unverified.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "superqode-integration-conflict-preview",
+      "assessment_path": "assessments/su/superqode.md",
+      "source": "SuperagenticAI/superqode",
+      "review_ref": "5284b049e5e39e3159ca1a178ac4c655a3305a26",
+      "reviewed_at": "2026-10-16",
+      "function": "S2",
+      "finding": "Could a read-only WorkOrder integration conflict preview reuse native baseline checks to let a parent triage conflicting completed worker outputs?",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/su/superqode.md",
+        "https://github.com/opensiro/upstream/commit/d3d19335a4034a9c84898002ced6d27ad7500cce"
+      ],
+      "screening_result": "PRE-SOURCE_HYPOTHESIS_ONLY: native need, target source, target policy, and benefit unverified.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "atman-workspace-allocation-preview",
+      "assessment_path": "assessments/at/atman.md",
+      "source": "W-Mai/atman",
+      "review_ref": "56933fc40e38ccb5575cbfdda341d86a449643ac",
+      "reviewed_at": "2026-10-16",
+      "function": "S2",
+      "finding": "Could an opt-in flow.spawn workspace dry run report repository binding and ownership incompatibilities before actual child allocation?",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/at/atman.md",
+        "https://github.com/opensiro/upstream/commit/d3d19335a4034a9c84898002ced6d27ad7500cce"
+      ],
+      "screening_result": "PRE-SOURCE_HYPOTHESIS_ONLY: native need, target source, target policy, and benefit unverified.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "openjiuwen-claim-rejection-reasons",
+      "assessment_path": "assessments/op/openjiuwen-core.md",
+      "source": "openJiuwen-ai/agent-core",
+      "review_ref": "e23806c1073275780dced2b71ddd592ffb0a21fd",
+      "reviewed_at": "2026-10-15",
+      "function": "S2",
+      "finding": "Could authoritative team task-board rejection reasons for claim/start contention improve first-party operator recovery without modifying CAS ownership?",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/op/openjiuwen-core.md",
+        "https://github.com/opensiro/upstream/commit/d3d19335a4034a9c84898002ced6d27ad7500cce"
+      ],
+      "screening_result": "PRE-SOURCE_HYPOTHESIS_ONLY: native need, target source, target policy, and benefit unverified.",
+      "external_action": "NOT_EXECUTED"
+    }
+  ]
+}
