@@ -167,6 +167,8 @@ class WatchTests(unittest.TestCase):
                       {t["url"] for t in data["targets"]})
         self.assertIn("https://github.com/KumihoIO/Revka/pull/576",
                       watch.APPROVED_CHECKPOINT_ADDITIONS)
+        self.assertIn("https://github.com/voly-codes/voly/pull/20",
+                      watch.APPROVED_CHECKPOINT_ADDITIONS)
         self.assertIn("https://github.com/murilo-bassan/durable-agent-runtime/pull/1",
                       {t["url"] for t in data["targets"]})
         self.assertIn("https://github.com/murilo-bassan/durable-agent-runtime/pull/1",

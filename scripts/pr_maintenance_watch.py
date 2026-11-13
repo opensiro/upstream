@@ -75,6 +75,9 @@ APPROVED_CHECKPOINT_ADDITIONS = {
     # Revka source-native Rust 12,545 tests PASS, Clippy 1.93 PASS; original PR
     # #576 read back OPEN_READY on 2026-11-13; source CI awaits maintainer.
     "https://github.com/KumihoIO/Revka/pull/576",
+    # VOLY #20 DCO 1.1 commits and source-native evidence were published
+    # and read back in the 2026-11-13 reviewed publication receipt.
+    "https://github.com/voly-codes/voly/pull/20",
 }
 CHECK_CONCLUSIONS = {
     "failure": ("CI_FAILED", "action_required"),
