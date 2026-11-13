@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
-"""Read-only, Index-first five-source discovery; never reserves or admits work.
+"""Read-only, Index-first discovery; never reserves or admits work.
 
+Prospective upgrade intake defaults to VSM-wide schema v2. Historical v1
+S1=A/S2=C selection is available only for backward-compatible reproduction.
 Issue #144. Local Index must match its exact commit. Canonical Upstream main
 manifests, visible open PR manifests and the main registry are read from GitHub
 and checked for drift. Visibility errors fail closed.
@@ -99,7 +101,9 @@ def remote_inventory(reader, index_sha):
             "open_pr_count": len(prs), "active_pr_manifest_count": active_manifests}
 
 
-def index_candidates(index_root, index_sha, *, s1="A", s2="C"):
+def index_candidates(index_root, index_sha, *, schema_version=2):
+    if schema_version not in (1, 2):
+        raise BatchError("Unsupported discovery schema version")
     root = Path(index_root)
     if not HEX40.fullmatch(index_sha) or _git(root, "rev-parse", "HEAD") != index_sha:
         raise BatchError("BLOCKED_INDEX_PROVENANCE: local Index HEAD does not match pinned SHA")
@@ -118,7 +122,11 @@ def index_candidates(index_root, index_sha, *, s1="A", s2="C"):
             continue
         contents = (root / path).read_text(encoding="utf-8")
         meta = _frontmatter(contents)
-        if (meta.get("status"), meta.get("autonomy_s1"), meta.get("autonomy_s2")) != ("included", s1, s2):
+        if meta.get("status") != "included":
+            continue
+        # Historical v1 intake was restricted to A/C. Prospective v2 may
+        # propose any included Index assessment, regardless of S1/S2 grade.
+        if schema_version == 1 and (meta.get("autonomy_s1"), meta.get("autonomy_s2")) != ("A", "C"):
             continue
         url = meta.get("repository", "")
         if not url.startswith("https://github.com/"):
@@ -136,24 +144,32 @@ def index_candidates(index_root, index_sha, *, s1="A", s2="C"):
         if identity in identities:
             raise BatchError("BLOCKED_INDEX_PROVENANCE: duplicate included source or case alias")
         identities.add(identity)
-        rows.append({"source": source, "assessment_path": path,
-                     "review_ref": ref, "reviewed_at": reviewed, "function": "S2"})
+        row = {"source": source, "assessment_path": path,
+               "review_ref": ref, "reviewed_at": reviewed}
+        # Discovery does not prove a functional gap. The specific S1–S5
+        # function must be chosen from the pinned assessment and preregistered
+        # before inspecting target source. Never silently assign S2 in v2.
+        if schema_version == 1:
+            row["function"] = "S2"
+        rows.append(row)
     rows.sort(key=lambda x: (-int(x["reviewed_at"].replace("-", "")),
                              x["source"].casefold(), x["assessment_path"]))
     return rows
 
 
-def discover(index_root, index_sha, reader, count=5):
+def discover(index_root, index_sha, reader, count=5, *, schema_version=2):
     if not 5 <= count <= 10:
         raise BatchError("Discovery requires a complete 5–10-row cohort")
     # Local Index check before remote scan; remote GitHub separately attests
     # Index ancestry and stable canonical main visibility.
-    rows = index_candidates(index_root, index_sha)
+    rows = index_candidates(index_root, index_sha, schema_version=schema_version)
     live = remote_inventory(reader, index_sha)
     eligible = [row for row in rows if normalize(row["source"]) not in live["reserved"]]
     selected = eligible[:count]
     status = "PROPOSED_ONLY" if len(selected) == count else "NO_ELIGIBLE_ASSESSMENT_CANDIDATE"
-    return {"status": status, "index_sha": index_sha,
+    return {"status": status, "schema_version": schema_version,
+            "function_assignment_required": schema_version == 2,
+            "index_sha": index_sha,
             "index_main_sha": live["index_main_sha"], "upstream_main_sha": live["main_sha"],
             "required_count": count, "selected": selected if len(selected) == count else [],
             "eligible_count": len(eligible), "included_filter_count": len(rows),
@@ -164,7 +180,11 @@ def discover(index_root, index_sha, reader, count=5):
             "active_pr_manifest_count": live["active_pr_manifest_count"],
             "remote_visibility_checked": True, "admission_attested": False,
             "external_writes_authorized": False,
-            "limitation": "Read-only selection, not atomic; rerun admission gate before work/merge"}
+            "limitation": ("Read-only selection, not atomic; v2 function must be justified "
+                           "against the pinned Index before freezing; rerun admission gate "
+                           "before work/merge" if schema_version == 2 else
+                           "Read-only legacy v1 selection, not atomic; rerun admission "
+                           "gate before work/merge")}
 
 
 def main(argv=None):
@@ -172,10 +192,14 @@ def main(argv=None):
     parser.add_argument("--index-root", type=Path, required=True)
     parser.add_argument("--index-sha", required=True)
     parser.add_argument("--count", type=int, default=5)
+    parser.add_argument("--schema-version", type=int, choices=(1, 2), default=2,
+                        help="2: VSM-wide prospective upgrade intake (default); "
+                             "1: reproduce historical S1=A/S2=C selection")
     args = parser.parse_args(argv)
     try:
         report = discover(args.index_root, args.index_sha,
-                          GithubReader(os.environ.get("GITHUB_TOKEN")), args.count)
+                          GithubReader(os.environ.get("GITHUB_TOKEN")), args.count,
+                          schema_version=args.schema_version)
     except (BatchError, OSError, UnicodeError, ValueError) as exc:
         parser.exit(2, f"DISCOVERY_BLOCKED: {exc}\n")
     print(json.dumps(report, indent=2, sort_keys=True))
