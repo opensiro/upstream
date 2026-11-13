@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "delegation_authority_issue": "https://github.com/opensiro/vsm-oss-organization/issues/323",
+  "implementation_issue": "https://github.com/opensiro/upstream/issues/274",
+  "policy_status": "S5_CATEGORY_APPROVED_TEMPLATE_ENROLMENT_REQUIRED",
+  "default_decision": "BLOCK",
+  "legal_acceptance_executor_enabled": false,
+  "notice": "Descriptions are NOT CLA acceptance or approval of exact terms. No template may execute without independently verified signatory authorization and live source/readback.",
+  "templates": [
+    {
+      "id": "kumihoio-revka-cla-1",
+      "status": "PENDING_EXACT_TERMS_APPROVAL",
+      "repository": "KumihoIO/Revka",
+      "legal_counterparty": "Kumiho Inc.",
+      "terms_url": "https://github.com/KumihoIO/Revka/blob/main/docs/contributing/cla.md",
+      "observed_label": "Revka CLA v1.0 (February 2026)",
+      "mechanism": "PR_SUBMISSION_CONSTITUTES_ASSENT",
+      "terms_sha256": null,
+      "signer_actor": "xLagerFeuer",
+      "signer_capacity": null,
+      "exact_action": null,
+      "signer_approval_ref": null,
+      "valid_until": null
+    },
+    {
+      "id": "microsoft-fara-cla-bot",
+      "status": "PENDING_EXACT_TERMS_APPROVAL",
+      "repository": "microsoft/fara",
+      "legal_counterparty": "Microsoft Corporation",
+      "terms_url": "https://github.com/microsoft/fara/pull/96#issuecomment-6810190721",
+      "observed_label": "Microsoft CLA policy-service request, 2026-11-11",
+      "mechanism": "EXPLICIT_BOT_COMMENT_ASSENT",
+      "terms_sha256": null,
+      "signer_actor": "xLagerFeuer",
+      "signer_capacity": null,
+      "exact_action": null,
+      "signer_approval_ref": null,
+      "valid_until": null
+    }
+  ]
+}
