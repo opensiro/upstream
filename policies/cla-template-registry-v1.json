@@ -20,7 +20,11 @@
       "signer_capacity": null,
       "exact_action": null,
       "signer_approval_ref": null,
-      "valid_until": null
+      "valid_until": null,
+      "observed_source_ref": "a1acd826502e12a6c2f3d147e488a7d2982c480b",
+      "observed_terms_sha256": "c6f2f0061d44875d6043530ba2ce0b93a77327dca5672a92787f84afb20de623",
+      "observed_at": "2026-11-13",
+      "observation_status": "FIRST_PARTY_SOURCE_TEXT_ONLY_NOT_LEGAL_APPROVAL"
     },
     {
       "id": "microsoft-fara-cla-bot",

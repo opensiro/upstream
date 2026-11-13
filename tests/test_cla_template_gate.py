@@ -30,6 +30,17 @@ class ClaTemplateGateTests(unittest.TestCase):
     def test_current_registry_fails_closed(self):
         self.check_reason("EXACT_TERMS_NOT_APPROVED")
 
+    def test_observed_revka_source_text_is_not_legal_approval(self):
+        entry = self.registry["templates"][0]
+        self.assertEqual(entry["observed_source_ref"], "a1acd826502e12a6c2f3d147e488a7d2982c480b")
+        self.assertEqual(entry["observed_terms_sha256"], "c6f2f0061d44875d6043530ba2ce0b93a77327dca5672a92787f84afb20de623")
+        self.assertEqual(entry["status"], "PENDING_EXACT_TERMS_APPROVAL")
+        self.assertIsNone(entry["terms_sha256"])
+        self.arguments["terms_sha256"] = entry["observed_terms_sha256"]
+        self.check_reason("EXACT_TERMS_NOT_APPROVED")
+        entry["status"] = "ENROLLED_EXACT_TERMS"
+        self.check_reason("MISSING_EXACT_ENROLMENT_FIELD")
+
     def test_unknown_template_blocks(self):
         self.check_reason("TEMPLATE_MISSING_OR_AMBIGUOUS", template_id="unknown")
 
