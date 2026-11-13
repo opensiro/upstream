@@ -80,6 +80,46 @@ class ClaTemplateGateTests(unittest.TestCase):
                      valid_until="2027-11-13")
         self.check_reason("EXECUTOR_NOT_ACTIVATED")
 
+    def test_enrolled_unchanged_cla_no_artificial_expiration(self):
+        entry = self.registry["templates"][0]
+        entry.update(
+            status="ENROLLED_EXACT_TERMS",
+            terms_sha256="a" * 64,
+            signer_capacity="individual",
+            exact_action="PR_SUBMISSION_CONSTITUTES_ASSENT",
+            signer_approval_ref="https://example.invalid/first-verified-acceptance",
+            valid_until=None,
+        )
+        self.registry["legal_acceptance_executor_enabled"] = True
+        # Same signer, repository and legal terms: no new PR/commit signature
+        # required. Still cannot perform any legal action using static JSON.
+        self.check_reason("INDEPENDENT_LIVE_SIGNATORY_AND_SOURCE_VERIFICATION_REQUIRED")
+        self.assertNotIn("fork_head_sha", entry)
+
+    def test_explicit_expiration_is_still_enforced(self):
+        entry = self.registry["templates"][0]
+        entry.update(
+            status="ENROLLED_EXACT_TERMS", terms_sha256="a" * 64,
+            signer_capacity="individual",
+            exact_action="PR_SUBMISSION_CONSTITUTES_ASSENT",
+            signer_approval_ref="https://example.invalid/first-verified-acceptance",
+            valid_until="2000-01-01",
+        )
+        self.registry["legal_acceptance_executor_enabled"] = True
+        self.check_reason("APPROVAL_EXPIRED")
+
+    def test_invalid_optional_expiration_blocks(self):
+        entry = self.registry["templates"][0]
+        entry.update(
+            status="ENROLLED_EXACT_TERMS", terms_sha256="a" * 64,
+            signer_capacity="individual",
+            exact_action="PR_SUBMISSION_CONSTITUTES_ASSENT",
+            signer_approval_ref="https://example.invalid/first-verified-acceptance",
+            valid_until="tomorrow",
+        )
+        self.registry["legal_acceptance_executor_enabled"] = True
+        self.check_reason("INVALID_APPROVAL_EXPIRY")
+
     def test_invalid_root_contract_blocks(self):
         self.registry["default_decision"] = "ALLOW"
         self.check_reason("INVALID_REGISTRY_CONTRACT")

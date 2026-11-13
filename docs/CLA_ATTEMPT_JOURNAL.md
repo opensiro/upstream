@@ -16,6 +16,12 @@ A successful request to GitHub can be followed by a network timeout. Automatical
 
 A second reserve using the same nonce, a changed target, changed packet hash or changed fork SHA, a second dispatch attempt, or an out-of-order readback is rejected. Even a correct URL never becomes `CLA_ACCEPTED`, `VERIFIED`, `ALLOW`, or `LEGAL_CONSENT` here. The raw nonce is not stored.
 
+## CLA approval lifetime vs one-time transport
+
+A human's **valid, repository-scoped acceptance** of a specific unmodified CLA is reusable for later PRs by the same signatory. Its duration comes from the actual first-party contract and any genuine signatory revocation or restriction, **not** from the nonce, GitHub PR number, head commit or short-lived chat receipt. A single-use nonce guards **one acceptance event or one network dispatch**, not every future source contribution. A later PR can use the stored accepted CLA record without asking the human to approve that unchanged agreement again, while independently verifying rights to the new code and technical PR readiness.
+
+This SQLite journal does not store accepted CLA status or have authority to infer it from a completed POST; any accepted-term record must come from independent first-party readback and valid initial authorization. See [CLA reusable consent policy](CLA_TEMPLATE_DELEGATION.md#one-acceptance-reusable-for-unchanged-repository-cla-terms).
+
 ## Required caller boundaries
 
 1. A separate **trusted** client integration must supply an independently issuer-signed human approval for a *specific* source-pinned packet, verified against an independently provisioned Ed25519 issuer key and signatory identity mapping. This project cannot obtain such a signature from the current ChatGPT chat interface; model output and GitHub OAuth are not substitutes.
