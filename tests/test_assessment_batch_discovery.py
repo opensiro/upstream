@@ -3,10 +3,13 @@
 import base64
 import copy
 import json
+import io
 import subprocess
 import sys
 import tempfile
 import unittest
+from contextlib import redirect_stdout
+from unittest import mock
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -160,6 +163,20 @@ class DiscoveryTests(unittest.TestCase):
         self.assertTrue(all(row["function"] == "S2" for row in report["selected"]))
         with self.assertRaisesRegex(mod.BatchError, "Unsupported discovery schema"):
             mod.index_candidates(self.index, self.sha, schema_version=3)
+
+    def test_cli_defaults_to_v2_and_explicit_v1_is_legacy(self):
+        for args, schema, count in (([], 2, 11), (["--schema-version", "1"], 1, 8)):
+            buffer = io.StringIO()
+            with mock.patch.object(mod, "GithubReader",
+                                   return_value=FakeReader(self.sha, registry=[])):
+                with redirect_stdout(buffer):
+                    result = mod.main(["--index-root", str(self.index),
+                                       "--index-sha", self.sha] + args)
+            self.assertEqual(result, 0)
+            report = json.loads(buffer.getvalue())
+            self.assertEqual(report["schema_version"], schema)
+            self.assertEqual(report["included_filter_count"], count)
+            self.assertEqual(report["function_assignment_required"], schema == 2)
 
     def test_no_full_five_row_cohort_is_explicit_not_padded(self):
         reader = FakeReader(self.sha, registry=[f"org/repo{i:02d}" for i in range(1, 10)])
