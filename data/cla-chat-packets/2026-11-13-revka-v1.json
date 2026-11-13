@@ -1,0 +1,28 @@
+{
+  "enrolled_exact_terms": false,
+  "executor_enabled": false,
+  "external_submission": "NOT_PERFORMED",
+  "fork_local_pr": "https://github.com/opensiro-contributions/Revka/pull/1",
+  "frozen_at": "2026-11-13",
+  "kind": "HISTORICAL_READ_ONLY_CHAT_APPROVAL_PACKET",
+  "notice": "This public historical packet is not an approval receipt, proof of natural-person identity, a signed CLA, a current-source guarantee or permission to submit a PR. Revalidate live before any execution.",
+  "packet": {
+    "counterparty": "Kumiho Inc.",
+    "exact_action": "PR_SUBMISSION_CONSTITUTES_ASSENT",
+    "fork_branch": "opensiro/fix-validator-deep-dag",
+    "fork_head_sha": "75c7adfca75fb30075e75674eb1badc2f6b7c90a",
+    "fork_repository": "opensiro-contributions/Revka",
+    "repository": "KumihoIO/Revka",
+    "schema_version": 1,
+    "signer_actor": "xLagerFeuer",
+    "signer_capacity": "individual",
+    "target_base_sha": "a1acd826502e12a6c2f3d147e488a7d2982c480b",
+    "template_id": "kumihoio-revka-cla-1",
+    "terms_sha256": "c6f2f0061d44875d6043530ba2ce0b93a77327dca5672a92787f84afb20de623"
+  },
+  "packet_sha256": "9152d5b0badfd0c046e1a963b5f3fe05f57581679afe64d9f6e83fda729cc31d",
+  "rights_evidence": "NOT_PROVIDER_ATTESTED",
+  "schema_version": 1,
+  "signatory_attribution": "NOT_AVAILABLE_FROM_CHAT_CLIENT",
+  "terms_provenance": "https://github.com/KumihoIO/Revka/blob/a1acd826502e12a6c2f3d147e488a7d2982c480b/docs/contributing/cla.md"
+}

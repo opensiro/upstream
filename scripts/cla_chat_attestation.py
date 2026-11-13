@@ -103,8 +103,8 @@ def verify_receipt(packet, receipt, *, issuer_keys, signer_subjects,
         return _block("INVALID_NONCE")
     if not isinstance(issuer_keys, dict) or issuer not in issuer_keys:
         return _block("NO_INDEPENDENT_TRUSTED_ISSUER_KEY")
-    if (not isinstance(signer_subjects, dict)
-            or subject not in signer_subjects.get(packet["signer_actor"], ())):
+    subjects = signer_subjects.get(packet["signer_actor"]) if isinstance(signer_subjects, dict) else None
+    if not isinstance(subjects, (set, frozenset)) or subject not in subjects:
         return _block("NO_INDEPENDENT_SIGNER_IDENTITY_BINDING")
     if not isinstance(consumed_nonces, (set, frozenset)):
         return _block("NO_DURABLE_REPLAY_READBACK")

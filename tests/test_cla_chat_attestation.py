@@ -66,6 +66,25 @@ class PacketAndFailClosedTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "INVALID_SOURCE_SHA"):
             gate.packet_digest(data)
 
+    def test_historical_revka_packet_is_not_a_signature(self):
+        envelope = json.loads((ROOT / "data" / "cla-chat-packets"
+                               / "2026-11-13-revka-v1.json").read_text())
+        self.assertEqual(envelope["packet_sha256"],
+                         gate.packet_digest(envelope["packet"]))
+        self.assertFalse(envelope["enrolled_exact_terms"])
+        self.assertFalse(envelope["executor_enabled"])
+        self.assertEqual(envelope["external_submission"], "NOT_PERFORMED")
+        self.assertEqual(envelope["signatory_attribution"],
+                         "NOT_AVAILABLE_FROM_CHAT_CLIENT")
+        registry = json.loads((ROOT / "policies"
+                              / "cla-template-registry-v1.json").read_text())
+        revka = next(t for t in registry["templates"]
+                     if t["id"] == "kumihoio-revka-cla-1")
+        self.assertEqual(revka["status"], "PENDING_EXACT_TERMS_APPROVAL")
+        self.assertEqual(envelope["packet"]["terms_sha256"],
+                         revka["observed_terms_sha256"])
+        self.assertIsNone(revka["terms_sha256"])
+
     def test_missing_provider_receipt_fails(self):
         out = gate.verify_receipt(self.packet, {}, issuer_keys={},
                                   signer_subjects={}, consumed_nonces=set(),
@@ -99,7 +118,7 @@ class SignedReceiptTests(PacketAndFailClosedTests):
 
     def sign(self):
         payload = gate._canonical(self.receipt)
-        signature = self.key.sign(b"opensiro-cla-chat-receipt-v1\\0".replace(b"\\0", b"\\x00") + payload)
+        signature = self.key.sign(b"opensiro-cla-chat-receipt-v1" + bytes([0]) + payload)
         self.receipt["signature_b64"] = base64.b64encode(signature).decode()
 
     def verify(self, **kwargs):
@@ -121,6 +140,10 @@ class SignedReceiptTests(PacketAndFailClosedTests):
     def test_no_trusted_issuer_blocks(self):
         self.assertEqual(self.verify(issuer_keys={})["reason"],
                          "NO_INDEPENDENT_TRUSTED_ISSUER_KEY")
+
+    def test_subject_mapping_must_be_trusted_set_not_string(self):
+        self.assertEqual(self.verify(signer_subjects={"xLagerFeuer": self.subject})["reason"],
+                         "NO_INDEPENDENT_SIGNER_IDENTITY_BINDING")
 
     def test_spoofed_identity_blocks(self):
         self.assertEqual(self.verify(signer_subjects={"xLagerFeuer": {"other-person"}})["reason"],
