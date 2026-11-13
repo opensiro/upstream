@@ -47,6 +47,20 @@ Keep **decision transport** separate from **trustworthy legal-person attribution
 
 This defines the desired channel and fail-closed transition; it **does not** activate an unavailable client identity-attestation feature or independently certify that chat alone constitutes a legally valid signature. For any third-party agreement that mandates its own specific action, that target-controlled action remains necessary even when all human-facing decisions occur in chat.
 
+## Read-only cryptographic chat receipt verification (implementation stage)
+
+[Source library](../scripts/cla_chat_attestation.py) and [negative/positive tests](../tests/test_cla_chat_attestation.py) implement **only a cryptographic precheck** for a chat-originating, exact-packet approval. This component does not access the chat client, mint an identity claim, store credentials, perform a PR POST, accept a CLA or set `legal_acceptance_executor_enabled`.
+
+**A genuine provider-origin receipt must contain:** a versioned issuer and subject, `APPROVE` decision and affirmative rights assertion, a packet SHA-256 covering source repository/base, legal counterparty, original CLA text hash, branch/head, signer/capacity and exact acceptance action, issuance/expiry (maximum 10 minutes), a single-use nonce, and a detached Ed25519 signature. Signed bytes use canonical JSON and domain separation; a copied chat transcript, arbitrary GitHub comment, unsigned packet or untrusted self-signed issuer is not admissible.
+
+The verification interface requires **three independently controlled inputs** which must not be authored by the agent as evidence: (a) the client/provider's pinned Ed25519 public key, (b) the provider-subject → actual legal signatory binding, and (c) a durable anti-replay ledger. Ed25519 verification uses the optional `cryptography` package and fails closed if unavailable. The test suite uses a visibly fake local test issuer and never provisions a production trust root.
+
+Even when the cryptographic check succeeds, it returns `VERIFIED_RECEIPT_NON_EXECUTABLE`, **not `ALLOW`**. The future executor must still check live original-project CLA text, real contributor rights/employer permissions, exact template enrolment, source/base/fork heads, required first-party CI, issuer revocation and an **atomic** nonce claim before the third-party submission. Only actual target readback can prove the submitted action, and no result from this library may be promoted automatically to acceptance.
+
+[Historical Revka v1.0 source packet](../data/cla-chat-packets/2026-11-13-revka-v1.json) captures a reproducible digest and the prepared fork-local commit **without storing chat messages or pretending that the operator's earlier in-chat decision is a signed receipt**. It is a historical observation and cannot be replayed as current legal authorization.
+
+**Current platform blocker:** there is no independently verifiable provider signature or identity-linked chat receipt from the ChatGPT client in this workflow. Consequently both CLA execution and original Revka PR submission remain blocked. The owner should not need to repeat approval in a GitHub issue as a workaround; exposing a genuine first-party attestation API would be separate platform/integration work.
+
 ## Initial candidate cases (inactive)
 
 - [Revka CLA](https://github.com/KumihoIO/Revka/blob/main/docs/contributing/cla.md): PR submission itself indicates individual CLA assent; must verify current terms and contributor's legal rights before a PR which triggers assent.
