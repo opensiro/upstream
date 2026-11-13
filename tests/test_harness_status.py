@@ -23,6 +23,17 @@ class HarnessStatusTests(unittest.TestCase):
         cls.interventions = {row["id"]: row for row in cls.view["interventions"]}
         cls.harnesses = {row["id"]: row for row in cls.view["harnesses"]}
 
+    def test_multifunction_v2_screen_remains_distinct_from_external_delivery(self):
+        self.assertIn("assessment-upstream-2026-11-13-37", {b["id"] for b in self.view["batches"]})
+        for ident, function, stage in (("roboharness-observation-receipt-diagnostics", "S1", "CLOSED_NO_CHANGE"),
+                                      ("helix-framework-candidate-comparison", "S4", "BLOCKED_EVIDENCE"),
+                                      ("hyperscale-report-discrepancy-triage", "S3*", "CLOSED_NO_CHANGE")):
+            row = self.interventions["assessment:" + ident]
+            self.assertEqual(row["vsm_functions"], [function])
+            self.assertEqual(row["technical_status"], stage)
+            self.assertEqual(row["external_status"], "NONE")
+            self.assertEqual(row["pr_urls"], [])
+
     def test_reconciles_independent_owning_sources(self):
         self.assertGreaterEqual(self.view["sources"]["batch_manifests"], 12)
         self.assertGreaterEqual(len(self.view["harnesses"]), 1)

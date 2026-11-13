@@ -277,7 +277,7 @@ def build(root=ROOT):
     for path in batch_files:
         manifest = read(path)
         batch_id = manifest.get("batch_id")
-        require(manifest.get("schema_version") == 1
+        require(manifest.get("schema_version") in (1, 2)
                 and manifest.get("state") == "FROZEN_SCREENING"
                 and isinstance(batch_id, str) and batch_id not in seen_batches,
                 f"Invalid or duplicate batch: {path.name}")

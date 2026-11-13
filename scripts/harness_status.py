@@ -88,7 +88,7 @@ def build_view():
     require(manifests, "Assessment candidate manifests missing")
     for path in manifests:
         batch = read_json(path)
-        require(batch.get("schema_version") == 1 and isinstance(batch.get("candidates"), list), f"Invalid batch: {path}")
+        require(batch.get("schema_version") in (1, 2) and isinstance(batch.get("candidates"), list), f"Invalid batch: {path}")
         batch_id = batch["batch_id"]
         ids = []
         for candidate in batch["candidates"]:

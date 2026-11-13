@@ -1,0 +1,268 @@
+{
+  "schema_version": 2,
+  "batch_id": "assessment-upstream-2026-11-13-37",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "3896a2de54399beb137f9e9959bb2587ebf4fc4a",
+  "frozen_at": "2026-11-13",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Explicit upstream upgrade batch 10, schema v2 unrestricted across included Index (all S1–S5). Public read-only discovery from Index 3896a2de54399beb137f9e9959bb2587ebf4fc4a and Upstream ac0f154cc7d35622ec1b981efe0752b35db167f3 found 830 available and 10 source-disjoint assessments; feature-first preregistration was published BEFORE target source/issue inspection at 911456fc4acca4df5b9f38eac1395e97c3355aec. All ten originals screened from exact public default SHAs. Five CLOSED_NO_CHANGE, five BLOCKED_EVIDENCE; no admitted patches, native matched RED/GREEN, independent runner, external PR or VSM regrade. Index main later advanced to descendant 75bb11f; original frozen assessment pin preserved. Read-only snapshot is not atomic source reservation. Controller NO_ACTIONABLE_CANDIDATE.",
+  "candidates": [
+    {
+      "id": "roboharness-observation-receipt-diagnostics",
+      "assessment_path": "assessments/ro/roboharness.md",
+      "source": "BinceQu/RoboHarness",
+      "review_ref": "69b811646beaf6409194fc505ee70fb45e12da44",
+      "reviewed_at": "2026-11-13",
+      "function": "S1",
+      "finding": "Could an opt-in observation/action receipt diagnostic improve the single-episode hand-in?",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/3896a2de54399beb137f9e9959bb2587ebf4fc4a/assessments/ro/roboharness.md",
+        "https://github.com/opensiro/upstream/commit/911456fc4acca4df5b9f38eac1395e97c3355aec",
+        "https://github.com/BinceQu/RoboHarness/blob/69b811646beaf6409194fc505ee70fb45e12da44/harness/v2/R1_pro/tools/util/observation_hook.py",
+        "https://github.com/BinceQu/RoboHarness/blob/69b811646beaf6409194fc505ee70fb45e12da44/LICENSE"
+      ],
+      "screening_result": "License-first source-screen: root MIT; First-party PostToolUse hook already correlates native observation identifiers, verifies immutable receipt SHA/images, tracks delayed background gaps and supplies repeated-capture diagnostics. Incremental missing operator workflow and native benefit were not established; the single-episode S1 assessment does not imply missing S2.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "dsh-operator-capacity-impact-preview",
+      "assessment_path": "assessments/ds/dsh-superagent.md",
+      "source": "deepseek-ai/dsh-superagent-prototype",
+      "review_ref": "8c32a9dc5d72c033816c6a8110b37f40cf94fba4",
+      "reviewed_at": "2026-11-13",
+      "function": "S3",
+      "finding": "Would a non-mutating worker-capacity/ticket-impact preview help an operator before changing maxWorkers?",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/3896a2de54399beb137f9e9959bb2587ebf4fc4a/assessments/ds/dsh-superagent.md",
+        "https://github.com/opensiro/upstream/commit/911456fc4acca4df5b9f38eac1395e97c3355aec",
+        "https://github.com/deepseek-ai/dsh-superagent-prototype/blob/8c32a9dc5d72c033816c6a8110b37f40cf94fba4/src/app/views/overview.ts",
+        "https://github.com/deepseek-ai/dsh-superagent-prototype/blob/8c32a9dc5d72c033816c6a8110b37f40cf94fba4/LICENSE"
+      ],
+      "screening_result": "License-first source-screen: root MIT; First-party operator overview exposes open tickets, idle count, executor running load and maxWorkers; settings use validated optimistic-concurrency saves. A new hypothetical capacity-impact model lacks first-party demand, frozen expected behavior and independently executable before/after acceptance.",
+      "external_action": "NOT_EXECUTED",
+      "blocker": "Need and counterfactual for a new prediction workflow are not source-verified; no native test/independent runner."
+    },
+    {
+      "id": "helix-framework-candidate-comparison",
+      "assessment_path": "assessments/he/helixharness.md",
+      "source": "didi/helixharness",
+      "review_ref": "8b23069fb464104ce556798ec69737f7eba469b3",
+      "reviewed_at": "2026-11-13",
+      "function": "S4",
+      "finding": "Would an opt-in framework evaluation baseline/candidate comparison before adoption improve the evolution workflow?",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/3896a2de54399beb137f9e9959bb2587ebf4fc4a/assessments/he/helixharness.md",
+        "https://github.com/opensiro/upstream/commit/911456fc4acca4df5b9f38eac1395e97c3355aec",
+        "https://github.com/didi/helixharness/blob/8b23069fb464104ce556798ec69737f7eba469b3/helixharness-platform/evolution/service.py",
+        "https://github.com/didi/helixharness/blob/8b23069fb464104ce556798ec69737f7eba469b3/LICENSE"
+      ],
+      "screening_result": "License-first source-screen: root Apache-2.0; First-party Platform already freezes a Candidate, requires human selection for experiment, submits independent Benchmark evaluation and consumes verdicts. A distinct user-needed comparison/report path beyond the current verdict has not been established with a concrete accepted scenario.",
+      "external_action": "NOT_EXECUTED",
+      "blocker": "No first-party requested comparison output or matched native baseline; no permission to assert improved framework outcomes."
+    },
+    {
+      "id": "autoloop-suppression-reason-view",
+      "assessment_path": "assessments/ag/agent-autoloop.md",
+      "source": "KKKKhazix/agent-autoloop",
+      "review_ref": "55189165943bcdd39b113faceb97b8e1eeacabbd",
+      "reviewed_at": "2026-11-13",
+      "function": "S2",
+      "finding": "Would a per-subject queued/claimed suppression-reason view improve collision triage?",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/3896a2de54399beb137f9e9959bb2587ebf4fc4a/assessments/ag/agent-autoloop.md",
+        "https://github.com/opensiro/upstream/commit/911456fc4acca4df5b9f38eac1395e97c3355aec",
+        "https://github.com/KKKKhazix/agent-autoloop/blob/55189165943bcdd39b113faceb97b8e1eeacabbd/kernel/decide.ts",
+        "https://github.com/KKKKhazix/agent-autoloop/blob/55189165943bcdd39b113faceb97b8e1eeacabbd/LICENSE",
+        "https://github.com/KKKKhazix/agent-autoloop/blob/55189165943bcdd39b113faceb97b8e1eeacabbd/README.en.md"
+      ],
+      "screening_result": "License-first source-screen: root MIT; The kernel already records subject/lane, queued and claimed states, and per-run event history; its supported CLI explicitly offers `status`, `runs` and `why <round>` to explain a run. No independent new scenario unavailable from these current inspection surfaces was shown.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "line-review-coverage-view",
+      "assessment_path": "assessments/li/line-harness.md",
+      "source": "LineLuLan/line-harness",
+      "review_ref": "63c98c60b18cfe603381890e104a043627b35ccf",
+      "reviewed_at": "2026-11-13",
+      "function": "S3*",
+      "finding": "Would a separate review-coverage/unresolved-finding pre-delivery matrix help supervisor closure?",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/3896a2de54399beb137f9e9959bb2587ebf4fc4a/assessments/li/line-harness.md",
+        "https://github.com/opensiro/upstream/commit/911456fc4acca4df5b9f38eac1395e97c3355aec",
+        "https://github.com/LineLuLan/line-harness/blob/63c98c60b18cfe603381890e104a043627b35ccf/claude/bin/codex-review.ps1",
+        "https://github.com/LineLuLan/line-harness/blob/63c98c60b18cfe603381890e104a043627b35ccf/LICENSE"
+      ],
+      "screening_result": "License-first source-screen: root MIT; First-party independent Codex reviewer already checks actual diff and criteria, emits PASS/FAIL/UNKNOWN conditions and a bounded full report via `OutFile`; supervisor policy consumes review findings. No distinct required matrix or independently supported benefit was evidenced. Native Windows PowerShell reviewer/model was not executed.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "orchi-cross-wave-collision-preview",
+      "assessment_path": "assessments/or/orchi.md",
+      "source": "adamentwistle/orchi-build",
+      "review_ref": "db5a720ad7cccfd579e26b7ced7a1bbdcf586306",
+      "reviewed_at": "2026-11-11",
+      "function": "S2",
+      "finding": "Would a non-mutating file-scope collision preview before fanout improve cross-wave decisions?",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/3896a2de54399beb137f9e9959bb2587ebf4fc4a/assessments/or/orchi.md",
+        "https://github.com/opensiro/upstream/commit/911456fc4acca4df5b9f38eac1395e97c3355aec",
+        "https://github.com/adamentwistle/orchi-build/blob/db5a720ad7cccfd579e26b7ced7a1bbdcf586306/skills/fanout/SKILL.md",
+        "https://github.com/adamentwistle/orchi-build/blob/db5a720ad7cccfd579e26b7ced7a1bbdcf586306/LICENSE",
+        "https://github.com/adamentwistle/orchi-build/blob/db5a720ad7cccfd579e26b7ced7a1bbdcf586306/NOTICE.md"
+      ],
+      "screening_result": "License-first source-screen: root MIT with NOTICE; The shipped `/fanout` plan already marks parallel versus `after` dependencies and instructs the orchestrator to serialize uncertain or overlapping file/package scopes, then reconcile sibling branches. A separate deterministic preflight beyond this orchestration requires demonstrated first-party need, stable scope input and native acceptance. Root LICENSE grants MIT; NOTICE identifies separately licensed copied components outside this proposed path.",
+      "external_action": "NOT_EXECUTED",
+      "blocker": "No independently established missing preflight, counterfactual or native executable first-party input contract."
+    },
+    {
+      "id": "ruhui-tool-capability-preflight",
+      "assessment_path": "assessments/ru/ruhui-agent.md",
+      "source": "Andy1890/ruhui-agent",
+      "review_ref": "4bbff9f3094f5024edb7e25ba36b4c31d55df7d6",
+      "reviewed_at": "2026-11-11",
+      "function": "S1",
+      "finding": "Would an offline tool/permission pre-task explanation improve local task readiness?",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/3896a2de54399beb137f9e9959bb2587ebf4fc4a/assessments/ru/ruhui-agent.md",
+        "https://github.com/opensiro/upstream/commit/911456fc4acca4df5b9f38eac1395e97c3355aec",
+        "https://github.com/Andy1890/ruhui-agent/blob/4bbff9f3094f5024edb7e25ba36b4c31d55df7d6/packages/core/src/loop.ts",
+        "https://github.com/Andy1890/ruhui-agent/blob/4bbff9f3094f5024edb7e25ba36b4c31d55df7d6/LICENSE"
+      ],
+      "screening_result": "License-first source-screen: root MIT; The first-party S1 loop rejects provider profiles with `supportsTools !== true` before task model actions and returns normalized tool execution errors. An additional offline user-facing pre-task inventory has not been tied to an actual reported missing tool scenario or bounded CLI contract.",
+      "external_action": "NOT_EXECUTED",
+      "blocker": "Need for separate preflight over existing capability guard and tool errors unverified; no native matched test."
+    },
+    {
+      "id": "hyperscale-report-discrepancy-triage",
+      "assessment_path": "assessments/hy/hyperscale-agent-meta-harness.md",
+      "source": "aws-samples/sample-hyperscale-agent-meta-harness",
+      "review_ref": "3f80c19d2007415b97dd446f7b55d00349dc714d",
+      "reviewed_at": "2026-11-11",
+      "function": "S3*",
+      "finding": "Would additional read-only rerun discrepancy classification improve independent report triage?",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/3896a2de54399beb137f9e9959bb2587ebf4fc4a/assessments/hy/hyperscale-agent-meta-harness.md",
+        "https://github.com/opensiro/upstream/commit/911456fc4acca4df5b9f38eac1395e97c3355aec",
+        "https://github.com/aws-samples/sample-hyperscale-agent-meta-harness/blob/41c2360e10259c09af12b5845af3e7d573d07ae2/crates/harness-protocol/src/test_report.rs",
+        "https://github.com/aws-samples/sample-hyperscale-agent-meta-harness/blob/41c2360e10259c09af12b5845af3e7d573d07ae2/LICENSE"
+      ],
+      "screening_result": "License-first source-screen: root MIT-0; Current original main advanced to 41c2360e10259c09af12b5845af3e7d573d07ae2 after assessed review. Its first-party protocol already records clean checkout, per-step outputs, parser-recognized test counts, timeout attribution, NOT RUN and NEEDS service explanations, without converting tests into overall task success. New distinct discrepancy classification lacks an evidenced native case; no reruns performed.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "open-agent-entitlement-denial-preview",
+      "assessment_path": "assessments/cu/cuijiejie-open-agent-harness.md",
+      "source": "cuijiejie/open-agent-harness",
+      "review_ref": "9673ebb1ab77e89042a95e6c64cf19e2e2794943",
+      "reviewed_at": "2026-11-11",
+      "function": "S3",
+      "finding": "Would operator-facing session/tool denial-reason preview improve current RBAC intervention?",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/3896a2de54399beb137f9e9959bb2587ebf4fc4a/assessments/cu/cuijiejie-open-agent-harness.md",
+        "https://github.com/opensiro/upstream/commit/911456fc4acca4df5b9f38eac1395e97c3355aec",
+        "https://github.com/cuijiejie/open-agent-harness/blob/24b0170028ae7683867d2b8d5ce1589d8ace12eb/src/web/routers/rbac.py",
+        "https://github.com/cuijiejie/open-agent-harness/blob/24b0170028ae7683867d2b8d5ce1589d8ace12eb/LICENSE"
+      ],
+      "screening_result": "License-first source-screen: root Apache-2.0; Current main advanced to 24b0170028ae7683867d2b8d5ce1589d8ace12eb. The current authenticated `/api/rbac/me` exposes effective roles, admin state and sorted accessible tools, and role APIs already modify allocations. Whether a separate reason-before-denial preview improves an actual supported session/tool path remains unverified.",
+      "external_action": "NOT_EXECUTED",
+      "blocker": "Need and strict counterfactual for a second preview beyond effective entitlement API not established; no native matched test."
+    },
+    {
+      "id": "heaw-browser-verdict-summary",
+      "assessment_path": "assessments/he/heaw.md",
+      "source": "DaDozlov/harness-agent",
+      "review_ref": "dfff7b2bfbd6fb08cb754461124ac8dab2053622",
+      "reviewed_at": "2026-11-11",
+      "function": "S3*",
+      "finding": "Would a separate read-only grouped browser verification failure summary improve targeted rework?",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/3896a2de54399beb137f9e9959bb2587ebf4fc4a/assessments/he/heaw.md",
+        "https://github.com/opensiro/upstream/commit/911456fc4acca4df5b9f38eac1395e97c3355aec",
+        "https://github.com/DaDozlov/harness-agent/blob/dfff7b2bfbd6fb08cb754461124ac8dab2053622/src/skills/built-in.ts",
+        "https://github.com/DaDozlov/harness-agent/blob/dfff7b2bfbd6fb08cb754461124ac8dab2053622/LICENSE"
+      ],
+      "screening_result": "License-first source-screen: root MIT; The optional first-party tester recipe already requires user-flow steps, console/network failures and a final `works`/`fix first`/`could not test` verdict with reasons. `beforeStop` hook returns feedback or one-time note into correction/completion. A separate failure aggregation has no independently evidenced increment. No browser or model runs executed.",
+      "external_action": "NOT_EXECUTED"
+    }
+  ]
+}

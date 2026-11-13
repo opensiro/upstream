@@ -74,6 +74,18 @@ class WorkspaceTests(unittest.TestCase):
         self.assertFalse(report["execution"]["live_forks_verified_by_this_script"])
         self.assertFalse(report["execution"]["dated_fork_readback_is_live_authority"])
 
+    def test_schema_v2_all_function_batch_is_preserved_as_negative_screen(self):
+        report = workspaces.build()
+        by_source = {r["source"].casefold(): r for r in report["sources"]}
+        for source, stage in (("BinceQu/RoboHarness", "CLOSED_NO_CHANGE"),
+                              ("deepseek-ai/dsh-superagent-prototype", "BLOCKED_EVIDENCE"),
+                              ("didi/helixharness", "BLOCKED_EVIDENCE"),
+                              ("DaDozlov/harness-agent", "CLOSED_NO_CHANGE")):
+            row = by_source[source.casefold()]
+            self.assertEqual(row["latest_stage"], stage)
+            self.assertIn("data/assessment-candidate-batches/2026-11-13-37.json", row["batches"])
+            self.assertEqual(row["handoffs"], [])
+
     def test_negative_and_blocked_rows_remain_tracked_without_patch_claim(self):
         report = workspaces.build()
         by_source = {r["source"].casefold(): r for r in report["sources"]}
