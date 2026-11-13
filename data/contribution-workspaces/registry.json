@@ -394,7 +394,7 @@
       "batches": [
         "data/assessment-candidate-batches/2026-11-13-34.json"
       ],
-      "latest_stage": "SCREENING",
+      "latest_stage": "CLOSED_NO_CHANGE",
       "handoffs": [],
       "pilot_links": [],
       "historical_prs": [],
@@ -403,7 +403,7 @@
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/bough",
       "license_review": false,
-      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+      "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
       "source": "androoAGI/starnet",
@@ -760,7 +760,7 @@
       "batches": [
         "data/assessment-candidate-batches/2026-11-13-34.json"
       ],
-      "latest_stage": "SCREENING",
+      "latest_stage": "BLOCKED_EVIDENCE",
       "handoffs": [],
       "pilot_links": [],
       "historical_prs": [],
@@ -769,7 +769,7 @@
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/git-meta-harness",
       "license_review": false,
-      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
     },
     {
       "source": "browser-use/browser-harness",
@@ -2721,7 +2721,7 @@
       "batches": [
         "data/assessment-candidate-batches/2026-11-13-34.json"
       ],
-      "latest_stage": "SCREENING",
+      "latest_stage": "CLOSED_NO_CHANGE",
       "handoffs": [],
       "pilot_links": [],
       "historical_prs": [],
@@ -2964,7 +2964,7 @@
       "batches": [
         "data/assessment-candidate-batches/2026-11-13-34.json"
       ],
-      "latest_stage": "SCREENING",
+      "latest_stage": "BLOCKED_EVIDENCE",
       "handoffs": [],
       "pilot_links": [],
       "historical_prs": [],
@@ -2973,7 +2973,7 @@
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/ursa",
       "license_review": false,
-      "next_step": "SCREEN_BEFORE_FORK_WRITE"
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
     },
     {
       "source": "lbdremy/phax",
@@ -3214,7 +3214,7 @@
       "batches": [
         "data/assessment-candidate-batches/2026-11-13-34.json"
       ],
-      "latest_stage": "SCREENING",
+      "latest_stage": "CLOSED_NO_CHANGE",
       "handoffs": [],
       "pilot_links": [],
       "historical_prs": [],

@@ -3,7 +3,7 @@
   "state": "READ_ONLY_PROPOSAL_NOT_APPROVED",
   "destination_org": "opensiro-contributions",
   "source_registry": "data/contribution-workspaces/registry.json",
-  "source_registry_sha256": "0dd08b65e54bceaf85654fc821865126243ffa16ded473bb552ed065f973afd0",
+  "source_registry_sha256": "21768cc22aa8b1f289b8e84478105694db883efce6931150b4cbc1c1bf1300f3",
   "priority_snapshot": "data/fork-priorities/2026-11-08.json",
   "batch_size_max": 10,
   "counts": {
@@ -13,9 +13,9 @@
     "collision_name_proposals": 14,
     "creation_batches": 9,
     "by_state": {
-      "HOLD_HISTORICAL_OR_NEGATIVE_CASE": 138,
+      "HOLD_HISTORICAL_OR_NEGATIVE_CASE": 143,
       "HOLD_LICENSE_REVIEW": 5,
-      "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT": 88,
+      "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT": 83,
       "RECHECK_MAPPED_FORK": 18
     }
   },
@@ -35,7 +35,7 @@
     {
       "id": "bootstrap-001",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "632d4e78992a63f65b17b122cc220e304b2dc4984be7677c660eed50020b002b",
+      "selection_sha256": "dfa992a70d7df4bc6433915ddec5dae3744dacbaa75dba24aebb3074e06f1ef5",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -84,7 +84,7 @@
     {
       "id": "bootstrap-002",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "e1e0e162f8f8891d575260b1bce88b4e91c6c2cee8e0d2d2e8a9c68d42080b3e",
+      "selection_sha256": "af9efb7ee0d8ad0d90e47d3617fdf29dd84ff4b2231a6120717ebc1f7a4de603",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -133,7 +133,7 @@
     {
       "id": "bootstrap-003",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "4af47dee23466e321576531e715c8031a7e7f468a2279697e2e0b4c07c166f69",
+      "selection_sha256": "d9f2875a7ee811b5bbd0d61cce264eff4ab906522f1f4965b8c493577d5d1eb3",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -182,7 +182,7 @@
     {
       "id": "bootstrap-004",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "2952ef9ebf7287b9cb98df3424dc443cfe7299e672d9ec77df807a7c3e473f0a",
+      "selection_sha256": "147221192b24f8aff4c81ca142b7d52bb1d20e1c47d451591258171e9195261a",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -231,7 +231,7 @@
     {
       "id": "bootstrap-005",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "066cca5e5cec489ce79861bf8fce0c9c741322de4afb8cfc401e8e4918cf040c",
+      "selection_sha256": "1638f05c67e7068ecc2ac9f9647153051b4d343be8a5864b02d5ebfd2a1f012f",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -280,7 +280,7 @@
     {
       "id": "bootstrap-006",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "dace8ab89486d9e69bbafe7cf3077748821a0145b4dd157c4cc157a4bc2fadaa",
+      "selection_sha256": "191e1d09c035a2bb88ae5fab0433da22aaae159068d9b350c9caed32798f9d46",
       "source_count": 10,
       "has_collision_name_proposals": false,
       "selection": [
@@ -329,7 +329,7 @@
     {
       "id": "bootstrap-007",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "e06c19bdddb4160788df1221c14e1a2c5c30e3d6ed2194345abecd96bbcfec10",
+      "selection_sha256": "7092a3bf588148ddf40ec12588e2c7d1e0d9d59573694655620221f68c916349",
       "source_count": 10,
       "has_collision_name_proposals": true,
       "selection": [
@@ -370,26 +370,18 @@
           "candidate_fork": "opensiro-contributions/lacp"
         },
         {
-          "source": "andreylukin/bough",
-          "candidate_fork": "opensiro-contributions/bough"
+          "source": "avala-ai/agent-code",
+          "candidate_fork": "opensiro-contributions/agent-code"
         }
       ]
     },
     {
       "id": "bootstrap-008",
       "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "d250135a3a1793c31c497d0ba255c46192e0ec3e1a0b83ba5d4d40dd313b0c85",
+      "selection_sha256": "40a455f5d7fb885980ce39290333bb99260a9871eb3947765b8c5feffb42aa91",
       "source_count": 10,
-      "has_collision_name_proposals": true,
+      "has_collision_name_proposals": false,
       "selection": [
-        {
-          "source": "avala-ai/agent-code",
-          "candidate_fork": "opensiro-contributions/agent-code"
-        },
-        {
-          "source": "brenonaraujo/git-meta-harness",
-          "candidate_fork": "opensiro-contributions/git-meta-harness"
-        },
         {
           "source": "chekusu/wanman",
           "candidate_fork": "opensiro-contributions/wanman"
@@ -411,33 +403,12 @@
           "candidate_fork": "opensiro-contributions/agentsilex"
         },
         {
-          "source": "khang859/rune",
-          "candidate_fork": "opensiro-contributions/khang859--rune"
-        },
-        {
-          "source": "lanl/ursa",
-          "candidate_fork": "opensiro-contributions/ursa"
-        },
-        {
           "source": "leprachuan/Wee-Orchestrator",
           "candidate_fork": "opensiro-contributions/Wee-Orchestrator"
-        }
-      ]
-    },
-    {
-      "id": "bootstrap-009",
-      "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
-      "selection_sha256": "ac6e6e9d03aa86aa3a1a0ded7b4b64b0d131ffb42945f32b0dfe49c06eca547d",
-      "source_count": 8,
-      "has_collision_name_proposals": true,
-      "selection": [
+        },
         {
           "source": "madarco/agentbox",
           "candidate_fork": "opensiro-contributions/agentbox"
-        },
-        {
-          "source": "majiayu000/harness",
-          "candidate_fork": "opensiro-contributions/majiayu000--harness"
         },
         {
           "source": "patriceckhart/zot",
@@ -450,7 +421,16 @@
         {
           "source": "speakeasy-api/kit",
           "candidate_fork": "opensiro-contributions/kit"
-        },
+        }
+      ]
+    },
+    {
+      "id": "bootstrap-009",
+      "state": "UNAPPROVED_REQUIRES_TRUSTED_PREFLIGHT",
+      "selection_sha256": "cd26fa5e9a0e1d653f555bcb21dafc87c81daf8264047ab15c54ab10d96a4d68",
+      "source_count": 3,
+      "has_collision_name_proposals": false,
+      "selection": [
         {
           "source": "splashxmoon/friday",
           "candidate_fork": "opensiro-contributions/friday"
@@ -1691,11 +1671,11 @@
     {
       "source": "andreylukin/bough",
       "priority_group": "HISTORICAL_EXTRA",
-      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "next_step": "TRACK_ONLY_NO_CHANGE",
       "candidate_fork": "opensiro-contributions/bough",
       "candidate_name": "bough",
       "collision_name_proposal": false,
-      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
@@ -1801,11 +1781,11 @@
     {
       "source": "brenonaraujo/git-meta-harness",
       "priority_group": "HISTORICAL_EXTRA",
-      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
       "candidate_fork": "opensiro-contributions/git-meta-harness",
       "candidate_name": "git-meta-harness",
       "collision_name_proposal": false,
-      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
@@ -2344,7 +2324,7 @@
       "candidate_fork": "opensiro-contributions/khang859--rune",
       "candidate_name": "khang859--rune",
       "collision_name_proposal": true,
-      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
@@ -2395,11 +2375,11 @@
     {
       "source": "lanl/ursa",
       "priority_group": "HISTORICAL_EXTRA",
-      "next_step": "SCREEN_BEFORE_FORK_WRITE",
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE",
       "candidate_fork": "opensiro-contributions/ursa",
       "candidate_name": "ursa",
       "collision_name_proposal": false,
-      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
     },
@@ -2454,7 +2434,7 @@
       "candidate_fork": "opensiro-contributions/majiayu000--harness",
       "candidate_name": "majiayu000--harness",
       "collision_name_proposal": true,
-      "state": "PROPOSE_CREATE_REQUIRES_LIVE_PREFLIGHT",
+      "state": "HOLD_HISTORICAL_OR_NEGATIVE_CASE",
       "current_fork_mapping": null,
       "requires_fresh_source_license_policy_and_destination_checks": true
     },

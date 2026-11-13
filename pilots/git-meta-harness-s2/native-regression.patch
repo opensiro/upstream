@@ -1,0 +1,72 @@
+diff --git a/tests/test_parallel_builders.py b/tests/test_parallel_builders.py
+new file mode 100644
+index 0000000..85119d6
+--- /dev/null
++++ b/tests/test_parallel_builders.py
+@@ -0,0 +1,66 @@
++"""First-party Sensor 10 path-scope safety contract with a local gh stub."""
++import json
++import os
++import subprocess
++import tempfile
++import unittest
++from pathlib import Path
++
++ROOT = Path(__file__).resolve().parents[1]
++SENSOR = ROOT / "harness/scripts/check-parallel-builders.sh"
++
++
++class BuilderScopeTests(unittest.TestCase):
++    def check_case(self, left, right, expected, dependency=False):
++        with tempfile.TemporaryDirectory(prefix="gitmeta-sensor10-") as work:
++            d = Path(work)
++            issues = []
++            for number, scope in [(11, left), (12, right)]:
++                labels = [{"name": "ready"}, {"name": "path-scope:" + scope}]
++                if number == 12 and dependency:
++                    labels.append({"name": "depends-on:11"})
++                issues.append({"number": number, "title": str(number),
++                               "labels": labels, "state": "OPEN"})
++            (d / "issues.json").write_text(json.dumps(issues))
++            stub = d / "gh"
++            stub.write_text(
++                "#!/bin/sh\n"
++                "if [ \"$1\" = repo ]; then echo brenonaraujo/git-meta-harness; exit 0; fi\n"
++                "if [ \"$1\" = issue ]; then cat \"$(dirname \"$0\")/issues.json\"; exit 0; fi\n"
++                "exit 9\n"
++            )
++            stub.chmod(0o755)
++            env = dict(os.environ, PATH=str(d) + os.pathsep + os.environ["PATH"])
++            result = subprocess.run(["bash", str(SENSOR), "--ready"], cwd=ROOT,
++                                    env=env, text=True, stdout=subprocess.PIPE,
++                                    stderr=subprocess.STDOUT, timeout=10)
++            self.assertEqual(
++                result.returncode, expected,
++                f"scopes {left!r}, {right!r}: expected exit {expected}, got {result.returncode}\n{result.stdout}"
++            )
++
++    def test_glob_glob_intersection_must_block(self):
++        # Both match src/sub/data.py; the synthetic .go sample set misses it.
++        self.check_case("src/**/*.py", "src/*/data.*", 1)
++
++    def test_single_glob_vs_concrete_path_already_blocks(self):
++        self.check_case("src/**", "src/components/button.ts", 1)
++
++    def test_disjoint_directories_remain_parallel(self):
++        self.check_case("src/**/*.py", "docs/**/*.md", 0)
++
++    def test_disjoint_extensions_remain_parallel(self):
++        self.check_case("src/**/*.py", "src/**/*.js", 0)
++
++    def test_disjoint_subdirectories_remain_parallel(self):
++        self.check_case("src/components/*.ts", "src/pages/*.ts", 0)
++
++    def test_single_segment_glob_does_not_cross_directory(self):
++        self.check_case("src/*.ts", "src/sub/*.ts", 0)
++
++    def test_explicit_dependency_intentionally_serializes(self):
++        self.check_case("src/**/*.py", "src/*/data.*", 0, dependency=True)
++
++
++if __name__ == "__main__":
++    unittest.main()
