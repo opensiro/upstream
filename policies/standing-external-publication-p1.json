@@ -28,5 +28,24 @@
     "arbitrary_external_comments_or_issues",
     "manage_credentials_or_unrelated_repositories"
   ],
-  "revocation": "attributable_owner_instruction_or_policy_status_revoked"
+  "revocation": "attributable_owner_instruction_or_policy_status_revoked",
+  "interactive_pr_as_assent": {
+    "status": "HUMAN_DIRECTED_IN_ACTIVE_CHAT_ONLY",
+    "mechanism": "PR_SUBMISSION_CONSTITUTES_ASSENT",
+    "human_instruction": "explicit_current_chat_approval_of_exact_original_cla_and_original_pr_publication",
+    "scope": "specific_original_repo_current_terms_and_individual_signer",
+    "provider_signature_required": false,
+    "unattended": false,
+    "independent_identity_certification_claimed": false,
+    "required_checks": [
+      "live_first_party_cla_and_hash",
+      "matching_authenticated_publishing_account",
+      "explicit_individual_user_instruction_and_rights_representations",
+      "current_source_fork_heads_and_nonduplicate_diff",
+      "first_party_pre_pr_native_checks_and_pr_template",
+      "actual_original_repository_pr_readback"
+    ],
+    "does_not_activate_template_executor": true,
+    "does_not_authorize_standalone_cla_bot_comments": true
+  }
 }
