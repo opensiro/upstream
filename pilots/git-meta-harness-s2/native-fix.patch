@@ -1,0 +1,59 @@
+diff --git a/harness/scripts/check-parallel-builders.sh b/harness/scripts/check-parallel-builders.sh
+index aa21c64..52b9a20 100755
+--- a/harness/scripts/check-parallel-builders.sh
++++ b/harness/scripts/check-parallel-builders.sh
+@@ -172,9 +172,11 @@ def glob_to_regex(glob):
+     # fnmatch.translate handles * and ? but not ** (recursive).
+     # We translate ** manually.
+     pattern = re.escape(glob)
+-    # Unescape the ** back to .* for recursive
+-    pattern = pattern.replace(r"\*\*/", ".*").replace(r"\*", "[^/]*")
+-    pattern = pattern.replace(r"\?", ".")
++    # A globstar at the end also spans directory separators. A globstar
++    # followed by / may match zero or more directory levels.
++    pattern = pattern.replace(r"\*\*/", "(?:.*/)?")
++    pattern = pattern.replace(r"\*\*", ".*").replace(r"\*", "[^/]*")
++    pattern = pattern.replace(r"\?", "[^/]")
+     return "^" + pattern + "$"
+ 
+ def files_match(glob_a, glob_b):
+@@ -196,7 +198,38 @@ def files_match(glob_a, glob_b):
+         test_paths.append(glob_a)
+ 
+     regex_b = re.compile(glob_to_regex(glob_b))
+-    return any(regex_b.match(p) for p in test_paths)
++    if any(regex_b.match(p) for p in test_paths):
++        return True
++    # A handful of samples cannot prove two glob patterns disjoint.
++    # Fail closed only when fixed prefixes/suffixes and path depth permit
++    # a common file. This may require a dependency for ambiguous patterns.
++    if not any(c in glob_a for c in "*?") or not any(c in glob_b for c in "*?"):
++        return False
++
++    def fixed_parts(pattern):
++        positions = [i for i, c in enumerate(pattern) if c in "*?"]
++        return pattern[:positions[0]], pattern[positions[-1] + 1:]
++
++    pa, sa = fixed_parts(glob_a)
++    pb, sb = fixed_parts(glob_b)
++    if not (pa.startswith(pb) or pb.startswith(pa)):
++        return False
++    if not (sa.endswith(sb) or sb.endswith(sa)):
++        return False
++
++    def slash_bounds(pattern):
++        # A standalone globstar can absorb slashes; a single * or ? cannot.
++        minimum = pattern.replace("**/", "").count("/")
++        maximum = None if "**" in pattern else pattern.count("/")
++        return minimum, maximum
++
++    mina, maxa = slash_bounds(glob_a)
++    minb, maxb = slash_bounds(glob_b)
++    if maxa is not None and maxa < minb:
++        return False
++    if maxb is not None and maxb < mina:
++        return False
++    return True
+ 
+ data = json.load(sys.stdin)
+ overlaps = []

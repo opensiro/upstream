@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-13-34",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "85ae995fc2551ac0a076609bce0300d075cac2d5",
+  "frozen_at": "2026-11-13",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Five Index-first prospective assessment-derived S2 questions selected by live read-only discovery from Upstream main@c0b3b31bea4b7e39980dfa08a7a36c40c601ea3f after 33 merged cohorts. NanoCoder excluded from selection as occupied by active internal Draft PR #123 though absent merged registry; next five identities selected in reviewed-date order. Pre-source checkpoint 3f8674f published before current original source/policy/issue/PR inspection. The preview is not an atomic source reservation. Final 2026-11-13: 3 CLOSED_NO_CHANGE, 2 BLOCKED_EVIDENCE; git-meta-harness native source RED/GREEN blocked by required original stack check on both source and patch, URSA native reproduction absent. No external submission.",
+  "candidates": [
+    {
+      "id": "bough-queued-cancelled-child-recovery",
+      "assessment_path": "assessments/bo/bough.md",
+      "source": "andreylukin/bough",
+      "review_ref": "18d07fe115e6ca872273d40d7cedc0881af4561e",
+      "reviewed_at": "2026-10-21",
+      "function": "S2",
+      "finding": "Can a cancelled or failed queued Bough background child leave a stale FIFO slot and block a later eligible sibling after capacity becomes free?",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/bo/bough.md",
+        "https://github.com/opensiro/upstream/commit/3f8674fdffe0ae7f9191a329959ea92fb2839338",
+        "https://github.com/andreylukin/bough/blob/7e8ff0f8ab4c70adf3a8270c127d1c1d9724988a/go/internal/serve/children.go",
+        "https://github.com/andreylukin/bough/blob/7e8ff0f8ab4c70adf3a8270c127d1c1d9724988a/go/internal/serve/children_restart_test.go"
+      ],
+      "screening_result": "Current Apache-2.0 main@7e8ff0f differs from reviewed 18d07fe. First-party stopChild removes queued ID and metadata; WithdrawChild also deletes queue entry; abandon releases failed launch reservation and calls drainQueue. The queue shifts under mutex before launch; native restart tests cover queued recovery and booting child cancellation. No supported stale queued slot; code-only negative screen, no new Go native test run.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "rune-prerequisite-cancel-dependency-closure",
+      "assessment_path": "assessments/ru/rune.md",
+      "source": "khang859/rune",
+      "review_ref": "afefbad9f8f4a7818a6defc4165f4a0c6aeacdad",
+      "reviewed_at": "2026-10-21",
+      "function": "S2",
+      "finding": "Can Rune leave a waiting dependent task permanently pending after a prerequisite child is cancelled rather than completing with an attributable dependency failure?",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ru/rune.md",
+        "https://github.com/opensiro/upstream/commit/3f8674fdffe0ae7f9191a329959ea92fb2839338",
+        "https://github.com/khang859/rune/blob/afefbad9f8f4a7818a6defc4165f4a0c6aeacdad/internal/agent/subagents.go",
+        "https://github.com/khang859/rune/blob/afefbad9f8f4a7818a6defc4165f4a0c6aeacdad/internal/agent/subagents_test.go"
+      ],
+      "screening_result": "Current MIT main@afefbad equals Index ref. SubagentSupervisor.Cancel marks a pending/blocked prerequisite cancelled, closes completionCh, resolves blocked dependents; resolveBlockedLocked makes them Failed with explicit dependency error. First-party tests CancelBlockedDependencyFailsDependent and CancelPendingDependencyFailsDependent cover this exact hypothesis. No repair and no native Go suite re-run.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "git-meta-harness-glob-overlap",
+      "assessment_path": "assessments/gi/git-meta-harness.md",
+      "source": "brenonaraujo/git-meta-harness",
+      "review_ref": "167b13c66993fa0a5216e4be2fc9bf911cd02cf8",
+      "reviewed_at": "2026-10-18",
+      "function": "S2",
+      "finding": "Does the first-party Sensor 10 builder path-scope check miss a nested literal path overlapping a wildcard directory scope and allow conflicting writers?",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "ASSESSMENT_DERIVED",
+      "fit": {
+        "need": "PASS",
+        "mechanism": "PASS",
+        "counterfactual": "PASS",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/gi/git-meta-harness.md",
+        "https://github.com/opensiro/upstream/commit/3f8674fdffe0ae7f9191a329959ea92fb2839338",
+        "https://github.com/brenonaraujo/git-meta-harness/blob/167b13c66993fa0a5216e4be2fc9bf911cd02cf8/harness/scripts/check-parallel-builders.sh",
+        "https://github.com/brenonaraujo/git-meta-harness/blob/167b13c66993fa0a5216e4be2fc9bf911cd02cf8/CONTRIBUTING.md"
+      ],
+      "screening_result": "MIT main@167b13c matches assessed ref; no open original PR. PRE-SOURCE S2 hypothesis predicted missed src/** vs src/components/button.ts collision: genuine Sensor 10 returns exit 0 instead of block. Supplemental SOURCE-DISCOVERED intersection src/**/*.py vs src/*/data.* also misses src/sub/data.py. Exact source with 7 native tests in a clean original worktree RED 5 PASS/2 FAIL; patched one source file and same tests GREEN 7 PASS/0 FAIL. Negative tests preserve disjoint paths and explicit dependency. bash -n and git diff check PASS. Owner-required smoke 46 PASS/0 FAIL, owner-required stack/latest FAIL 3 identically on pristine original and patched checkout, so blocked without third-party PR.",
+      "external_action": "NOT_EXECUTED",
+      "blocker": "Original CONTRIBUTING requires both smoke-test.sh . and check-stack-versions.sh --check-latest PASS and every commit references an original issue. Smoke 46 PASS/0 FAIL; stack gate FAIL 3 on BOTH unmodified baseline and patched source (no go.mod, missing govulncheck CI, missing pnpm audit CI). Original issue/maintainer alternate gate, independent CI and exact fork authorization absent. External PR publication prohibited."
+    },
+    {
+      "id": "rust-harness-shadow-mode-no-deferral",
+      "assessment_path": "assessments/ru/rust-harness.md",
+      "source": "majiayu000/harness",
+      "review_ref": "7f75dee2cb2eaf7195c9b8938ac76db691f1d157",
+      "reviewed_at": "2026-10-18",
+      "function": "S2",
+      "finding": "Could Rust Harness shadow-only runtime profile fairness evaluation improperly execute Enforce-style command deferral while alternative claimable work is present?",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ru/rust-harness.md",
+        "https://github.com/opensiro/upstream/commit/3f8674fdffe0ae7f9191a329959ea92fb2839338",
+        "https://github.com/majiayu000/harness/blob/030fbbc302f0f1be76ae97f4991d22f4a2d0a6ed/crates/harness-workflow/src/runtime/dispatcher.rs",
+        "https://github.com/majiayu000/harness/blob/030fbbc302f0f1be76ae97f4991d22f4a2d0a6ed/crates/harness-workflow/src/runtime/dispatcher_throttle.rs"
+      ],
+      "screening_result": "Current MIT main@030fbbc differs from reviewed 7f75dee; release PR #2175 separate. First-party budget_gate_outcome uses budget_breach_outcome; RuntimeBudgetEnforcement::Shadow records BudgetShadowDecision and returns Ok(None), allowing dispatch. Only Enforce calls defer_claimed_command_if_owned. Predicted Shadow mutation absent in inspected code; no Rust cargo native run or patch.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "ursa-symposium-duplicate-member-workspace",
+      "assessment_path": "assessments/ur/ursa.md",
+      "source": "lanl/ursa",
+      "review_ref": "470b841d83e88457d5677fc824aea32e2d5a5e22",
+      "reviewed_at": "2026-10-17",
+      "function": "S2",
+      "finding": "Can two distinct Symposium researchers configured with the same member name receive one shared default output workspace and overwrite sibling artifacts?",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ur/ursa.md",
+        "https://github.com/opensiro/upstream/commit/3f8674fdffe0ae7f9191a329959ea92fb2839338",
+        "https://github.com/lanl/ursa/blob/441965247d2a64dcdd2e13f377fc0e43a2b13529/src/ursa/environments/config.py",
+        "https://github.com/lanl/ursa/blob/441965247d2a64dcdd2e13f377fc0e43a2b13529/src/ursa/environments/agent_symposium.py",
+        "https://github.com/lanl/ursa/blob/441965247d2a64dcdd2e13f377fc0e43a2b13529/src/ursa/environments/base.py",
+        "https://github.com/lanl/ursa/blob/441965247d2a64dcdd2e13f377fc0e43a2b13529/CONTRIBUTING.md"
+      ],
+      "screening_result": "BSD-3-Clause main@4419652 differs from reviewed 470b841, original has open unrelated PRs. Frozen dataclass AgentSymposiumConfig accepts duplicate member names; self.members maps each by member.name (last wins), while self.config.members remains a list iterated for concurrent phase calls and _member_workspace keys by same name. Contrast AgentEloConfig enforces unique member names. This is only potential identity/workspace collision; no actual first-party native RED/GREEN or source maintainer contract validation, so BLOCKED_EVIDENCE and no patch.",
+      "external_action": "NOT_EXECUTED",
+      "blocker": "Original AgentSymposiumConfig.from_mapping accepts a member list with no visible duplicate-name validation while constructor creates dictionaries keyed by member.name and concurrent _ainvoke walks original list. Duplicate names plausibly share workspace and overwrite member objects, but real supported first-party native URSA runtime reproduction is missing: LangChain and Pydantic packages absent, no source-native test run or maintainer semantics. A static source screen alone is not a native validated bug or reason to publish."
+    }
+  ]
+}

@@ -4,13 +4,13 @@
   "meaning": "FILE_INVENTORY_ONLY_NO_SUCCESS_OR_EXTERNAL_PUBLICATION_CLAIM",
   "generated_from": "pilots/ direct subdirectories and their preserved files",
   "counts": {
-    "pilot_directories": 77,
-    "artifact_files": 251,
+    "pilot_directories": 78,
+    "artifact_files": 254,
     "historical_directories": 66,
-    "new_directories": 11,
+    "new_directories": 12,
     "by_kind": {
       "EXPERIMENT_SERIES": 4,
-      "PATCH_HANDOFF": 54,
+      "PATCH_HANDOFF": 55,
       "PATCH_EVIDENCE": 2,
       "SCREEN_ONLY": 16,
       "OTHER_EVIDENCE": 1
@@ -461,6 +461,21 @@
       },
       "files": [
         "SCREENING_2026-10-22.md"
+      ]
+    },
+    {
+      "id": "git-meta-harness-s2",
+      "path": "pilots/git-meta-harness-s2",
+      "kind": "PATCH_HANDOFF",
+      "start_here": "pilots/git-meta-harness-s2/CONTRIBUTION_HANDOFF.md",
+      "artifact_counts": {
+        "patch": 2,
+        "handoff": 1
+      },
+      "files": [
+        "CONTRIBUTION_HANDOFF.md",
+        "native-fix.patch",
+        "native-regression.patch"
       ]
     },
     {

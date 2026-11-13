@@ -4,15 +4,15 @@
   "batch_sources": "data/assessment-candidate-batches/*.json",
   "counts": {
     "priority_sources": 100,
-    "historical_extras": 144,
-    "batch_only_extras": 129,
+    "historical_extras": 149,
+    "batch_only_extras": 134,
     "pilot_only_extras": 7,
     "portfolio_only_extras": 8,
-    "unique_sources": 244,
-    "batch_manifests": 33,
-    "batch_cases": 185,
+    "unique_sources": 249,
+    "batch_manifests": 34,
+    "batch_cases": 190,
     "historical_fork_mappings": 16,
-    "name_collision_sources": 11,
+    "name_collision_sources": 14,
     "technical_handoffs": 55,
     "dated_fork_readbacks": 18,
     "same_named_ref_matches_at_readback": 11,
@@ -118,10 +118,10 @@
       "historical_prs": [],
       "fork": null,
       "dated_fork_readback": null,
-      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
-      "proposed_fork": "opensiro-contributions/Rune",
+      "fork_state": "NAME_COLLISION_REQUIRES_EXACT_DECISION",
+      "proposed_fork": null,
       "license_review": false,
-      "next_step": "TRACK_ONLY_NO_CHANGE"
+      "next_step": "RESOLVE_FORK_PARENT_AND_NAME"
     },
     {
       "source": "aakshintala/fiber",
@@ -387,6 +387,23 @@
       "proposed_fork": "opensiro-contributions/gru-ai",
       "license_review": false,
       "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "andreylukin/bough",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-13-34.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/bough",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
       "source": "androoAGI/starnet",
@@ -734,6 +751,23 @@
       "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/ada",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "brenonaraujo/git-meta-harness",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-13-34.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/git-meta-harness",
       "license_review": false,
       "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
     },
@@ -2682,6 +2716,23 @@
       "next_step": "TRACK_ONLY_NO_CHANGE"
     },
     {
+      "source": "khang859/rune",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-13-34.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "NAME_COLLISION_REQUIRES_EXACT_DECISION",
+      "proposed_fork": null,
+      "license_review": false,
+      "next_step": "RESOLVE_FORK_PARENT_AND_NAME"
+    },
+    {
       "source": "khanuzeb/axiom",
       "priority_group": "HISTORICAL_EXTRA",
       "batches": [
@@ -2904,6 +2955,23 @@
       "dated_fork_readback": null,
       "fork_state": "UNVERIFIED_NOT_PROVISIONED",
       "proposed_fork": "opensiro-contributions/langroid",
+      "license_review": false,
+      "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
+    },
+    {
+      "source": "lanl/ursa",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-13-34.json"
+      ],
+      "latest_stage": "BLOCKED_EVIDENCE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "UNVERIFIED_NOT_PROVISIONED",
+      "proposed_fork": "opensiro-contributions/ursa",
       "license_review": false,
       "next_step": "TRACK_ONLY_REEVALUATE_EVIDENCE"
     },
@@ -3139,6 +3207,23 @@
       "proposed_fork": "opensiro-contributions/agentbox",
       "license_review": false,
       "next_step": "RECONCILE_NATIVE_PILOT_BEFORE_FORK_STAGE"
+    },
+    {
+      "source": "majiayu000/harness",
+      "priority_group": "HISTORICAL_EXTRA",
+      "batches": [
+        "data/assessment-candidate-batches/2026-11-13-34.json"
+      ],
+      "latest_stage": "CLOSED_NO_CHANGE",
+      "handoffs": [],
+      "pilot_links": [],
+      "historical_prs": [],
+      "fork": null,
+      "dated_fork_readback": null,
+      "fork_state": "NAME_COLLISION_REQUIRES_EXACT_DECISION",
+      "proposed_fork": null,
+      "license_review": false,
+      "next_step": "RESOLVE_FORK_PARENT_AND_NAME"
     },
     {
       "source": "maneja81/OpenOrbit",
