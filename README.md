@@ -34,6 +34,8 @@ An **Index assessment** can lead to the strict [assessment-derived S1 test](docs
 
 Effective [standing preparation](docs/STANDING_PREPARATION_AUTONOMY.md) and [publication](docs/STANDING_EXTERNAL_PR_PUBLICATION.md) mandates remove repetitive owner prompts for qualifying operations. They do **not** supply missing host credentials, waive source-native CI, target contribution policies, legal attestations or third-party merge authority. Check current policies and permissions before writing. [Executor gate #6](https://github.com/opensiro/upstream/issues/6).
 
+For `upstream upgrade batch`, [new minor/major capabilities take priority over bug-fix fallback](docs/ASSESSMENT_CANDIDATE_BATCHES.md#upgrade-priority--new-capabilities-first-repairs-retained), retaining the existing assessment/evidence and external-PR rules.
+
 ## Validate locally
 
 ```sh

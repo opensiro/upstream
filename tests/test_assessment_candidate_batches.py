@@ -251,5 +251,54 @@ class BatchTests(unittest.TestCase):
                 queue.validate(data, folder)
 
 
+    def test_prospective_v2_allows_non_a_s1_with_unchanged_legacy_fields(self):
+        # Only the S1=A selection filter changes; do not rewrite v1 cohorts or
+        # invent opportunity types, success counters or changed stage rules.
+        with tempfile.TemporaryDirectory() as temp:
+            folder = Path(temp)
+            subprocess.run(["git", "init", "-q", str(folder)], check=True)
+            subprocess.run(["git", "-C", str(folder), "config", "user.email", "test@example.com"], check=True)
+            subprocess.run(["git", "-C", str(folder), "config", "user.name", "Test"], check=True)
+            data = copy.deepcopy(self.original)
+            for index, row in enumerate(data["candidates"]):
+                row["function"] = ("S1", "S3", "S3*", "S4", "S5")[index]
+                file = folder / row["assessment_path"]
+                file.parent.mkdir(parents=True, exist_ok=True)
+                file.write_text("---\n" + "\n".join((
+                    f"harness_id: {file.stem}",
+                    f"repository: https://github.com/{row['source']}",
+                    f"review_ref: {row['review_ref']}",
+                    f"reviewed_at: {row['reviewed_at']}",
+                    "status: included", "autonomy_s1: C"
+                )) + "\n---\n", encoding="utf-8")
+            subprocess.run(["git", "-C", str(folder), "add", "assessments"], check=True)
+            subprocess.run(["git", "-C", str(folder), "commit", "-qm", "fixture"], check=True)
+            data["index_sha"] = subprocess.check_output(
+                ["git", "-C", str(folder), "rev-parse", "HEAD"], text=True).strip()
+            with self.assertRaisesRegex(queue.BatchError, "S1=A"):
+                queue.validate(data, folder)
+            data["schema_version"] = 2
+            queue.validate(data, folder)
+            report = queue.summarize(data, folder)
+            self.assertEqual(report["total"], 5)
+            self.assertEqual(report["test_mode"], "NATIVE_SCRIPT_ONLY_NO_LLM_AGENTS")
+            self.assertNotIn("opportunity_types", report)
+            self.assertNotIn("change_sizes", report)
+            data["candidates"][0]["review_ref"] = "0" * 40
+            with self.assertRaisesRegex(queue.BatchError, "identity or reviewed ref changed"):
+                queue.validate(data, folder)
+
+    def test_future_v2_retains_existing_stage_provenance_gates(self):
+        data = copy.deepcopy(self.original)
+        data["schema_version"] = 2
+        queue.validate(data)
+        data["candidates"][2].update(stage="ACTIVE")
+        with self.assertRaisesRegex(queue.BatchError, "Unqualified active"):
+            queue.validate(data)
+        data["schema_version"] = 3
+        with self.assertRaisesRegex(queue.BatchError, "Unsupported schema"):
+            queue.validate(data)
+
+
 if __name__ == "__main__":
     unittest.main()
