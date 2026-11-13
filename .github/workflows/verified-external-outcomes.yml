@@ -14,8 +14,12 @@ on:
       - 'scripts/verified_external_outcomes.py'
       - 'scripts/accepted_external_outcomes.py'
       - 'scripts/portfolio_reconcile.py'
+      - 'scripts/harness_status.py'
+      - 'data/functional-effects.json'
+      - 'data/external-pr-publication-readbacks/**'
       - 'tests/test_verified_external_outcomes.py'
       - 'tests/test_accepted_external_outcomes.py'
+      - 'tests/test_portfolio_reconcile.py'
       - 'data/verified-external-outcomes/**'
       - '.github/workflows/verified-external-outcomes.yml'
 
@@ -43,6 +47,8 @@ jobs:
           python3 scripts/verified_external_outcomes.py --validate-only
           python3 -m unittest discover -s tests -p 'test_verified_external_outcomes.py' -v
           python3 scripts/accepted_external_outcomes.py --validate-only
+          python3 scripts/portfolio_reconcile.py --validate-only
+          python3 -m unittest discover -s tests -p 'test_portfolio_reconcile.py' -v
           python3 -m unittest discover -s tests -p 'test_accepted_external_outcomes.py' -v
 
   observe:
@@ -71,6 +77,15 @@ jobs:
           python3 scripts/accepted_external_outcomes.py \
             --observation-json "$RUNNER_TEMP/upstream-external-outcomes.json" \
             --output-json "$RUNNER_TEMP/upstream-accepted-outcomes.json"
+      - name: Join every source-backed published PR with live lifecycle and accepted outcomes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 scripts/portfolio_reconcile.py --report --joined \
+            --accepted-json "$RUNNER_TEMP/upstream-accepted-outcomes.json" \
+            --output-json "$RUNNER_TEMP/upstream-portfolio-observation.json" \
+            --joined-json "$RUNNER_TEMP/upstream-joined-portfolio.json" \
+            >> "$GITHUB_STEP_SUMMARY"
       - name: Upload candidate and separately labeled accepted-source ledgers
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
@@ -78,5 +93,7 @@ jobs:
           path: |
             ${{ runner.temp }}/upstream-external-outcomes.json
             ${{ runner.temp }}/upstream-accepted-outcomes.json
+            ${{ runner.temp }}/upstream-portfolio-observation.json
+            ${{ runner.temp }}/upstream-joined-portfolio.json
           if-no-files-found: error
           retention-days: 90
