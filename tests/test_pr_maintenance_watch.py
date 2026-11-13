@@ -163,6 +163,10 @@ class WatchTests(unittest.TestCase):
                       watch.APPROVED_CHECKPOINT_ADDITIONS)
         self.assertIn("https://github.com/knowflow-ai/KnowWork/pull/4",
                       watch.APPROVED_CHECKPOINT_ADDITIONS)
+        self.assertIn("https://github.com/KumihoIO/Revka/pull/576",
+                      {t["url"] for t in data["targets"]})
+        self.assertIn("https://github.com/KumihoIO/Revka/pull/576",
+                      watch.APPROVED_CHECKPOINT_ADDITIONS)
         self.assertIn("https://github.com/murilo-bassan/durable-agent-runtime/pull/1",
                       {t["url"] for t in data["targets"]})
         self.assertIn("https://github.com/murilo-bassan/durable-agent-runtime/pull/1",

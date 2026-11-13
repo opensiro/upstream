@@ -72,6 +72,9 @@ APPROVED_CHECKPOINT_ADDITIONS = {
     "https://github.com/witt3rd/oh-my-hermes/pull/28",
     # phax source-native full-gate PASS and standing publication 2026-11-11.
     "https://github.com/lbdremy/phax/pull/205",
+    # Revka source-native Rust 12,545 tests PASS, Clippy 1.93 PASS; original PR
+    # #576 read back OPEN_READY on 2026-11-13; source CI awaits maintainer.
+    "https://github.com/KumihoIO/Revka/pull/576",
 }
 CHECK_CONCLUSIONS = {
     "failure": ("CI_FAILED", "action_required"),
