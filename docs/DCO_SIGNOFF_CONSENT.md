@@ -1,12 +1,20 @@
 # Short-form DCO 1.1 sign-off consent (exact-commit scope)
 
-**Status: proposed operator wording and execution checks, NOT an accepted DCO declaration or activated legal delegation.** Owner: Upstream Contributions. Governing technical publication rule: [standing external PR publication](STANDING_EXTERNAL_PR_PUBLICATION.md). This route is **separate** from the [organization-specific CLA template mechanism](CLA_TEMPLATE_DELEGATION.md) and [Organization S5 #323](https://github.com/opensiro/vsm-oss-organization/issues/323).
+**Status: reusable exact-commit operator procedure with an explicitly historical example; this file is NOT a fresh DCO declaration, legal delegation, or blanket consent.** Owner: Upstream Contributions. Governing technical publication rule: [standing external PR publication](STANDING_EXTERNAL_PR_PUBLICATION.md). This route is **separate** from the [organization-specific CLA template mechanism](CLA_TEMPLATE_DELEGATION.md) and [Organization S5 #323](https://github.com/opensiro/vsm-oss-organization/issues/323).
 
-## Approval card — what the human sees
+## Reusable card — every new packet needs its own attestation
+
+Show the contributor the **current** source/repository, license and unaltered DCO 1.1, exact unsigned commit SHAs **and content tree hashes**, verified signer name/email and rights/capacity, proposed branch and expected head, and any explicitly approved mechanical transformations. Do not reuse historical SHAs or a free-floating “Я утверждаю”.
+
+When adding a sign-off changes a functional commit SHA used by a later `fix.md` entry, explain this prospective one-reference update **before asking for permission**, then verify that the final tree differs only by that approved mechanical reference. Any changed code, changed terms or additional unapproved commits require fresh consent.
+
+Keep `PREPARED`, `PERSON_ATTESTED_EXACT_SCOPE`, `SIGNED_HISTORY_READBACK`, `EXTERNAL_PR_PUBLISHED` and `MAINTAINER_DECISION` separate. Technical publication mandates and GitHub credentials never establish the contributor's legal right to sign.
+
+## Historical original approval card — superseded VOLY history
 
 **Counterparty / original repository:** `voly-codes/voly`  
 **Working fork / proposal:** [`opensiro-contributions/voly` PR #1](https://github.com/opensiro-contributions/voly/pull/1)  
-**Original unsigned commits in order:**
+**Original unsigned commits in order (historical; no longer the live branch):**
 - [`311f0b468697d47f9ac5f84312202a4bcb10870c`](https://github.com/opensiro-contributions/voly/commit/311f0b468697d47f9ac5f84312202a4bcb10870c)
 - [`b42ec77f71560922af17b5160e0bf87238a60fcd`](https://github.com/opensiro-contributions/voly/commit/b42ec77f71560922af17b5160e0bf87238a60fcd)
 
@@ -34,6 +42,16 @@
 4. **Before external PR:** independently rerun applicable source-native gates and the target's current PR template, license, DCO/CLA and standing publication policy. Verify the fork-local proposal and new head; never call a changed history automatically approved just because a previous one was.
 5. **Audit outcome:** distinguish `PROPOSED`, `HUMAN_ATTESTED`, `COMMIT_MESSAGES_SIGNED`, `EXTERNAL_PR_PUBLISHED` and `MAINTAINER_DECISION`. No later state can be inferred from an earlier one. Do not claim deployment or third-party acceptance.
 
-**Current VOLY state at proposal drafting (2026-11-13):** fork-local PR #1 is open at `b42ec77f71560922af17b5160e0bf87238a60fcd`; its recorded first-party full-suite receipt is 1,228 passed / 4 skipped / 1 xfailed / 0 failed. That receipt is historical, not a fresh post-signoff check. **No signer acceptance or external VOLY PR is recorded by this document.**
+## Completed VOLY example — 2026-11-13
+
+The first unsigned pair above was individually attested and signed, but **superseded** once the source's same-commit documentation and `fix.md` requirements were checked. It cannot authorize changed content.
+
+The corrected pair received a **new exact-scope contributor-person DCO confirmation**: unsigned functional commit `d7728a1c26f6413f20daac757113ac8d49ea3730` and follow-on `fix.md` commit `247f0f1a8b4a8231d65abdc8aca5a95aaf8b6854`. Their final DCO-signed objects are [`840a7344ed6c07396ff661868b8219af02044098`](https://github.com/opensiro-contributions/voly/commit/840a7344ed6c07396ff661868b8219af02044098) and [`649a3fac6b11f0cbc20ea091bed4184cb8b39352`](https://github.com/opensiro-contributions/voly/commit/649a3fac6b11f0cbc20ea091bed4184cb8b39352). The second tree differs from the unsigned candidate **only** by the `fix.md` reference to the newly signed functional SHA.
+
+The exact signed head passed `1,228` first-party Python tests (4 skipped, 1 expected failure, 0 failures), the documentation-link gate and environment-documentation gate. [Original-project VOLY #20](https://github.com/voly-codes/voly/pull/20) was actually published as **Open, Ready for review**; its title/body/head matched [fork-local #1](https://github.com/opensiro-contributions/voly/pull/1). [Upstream #281](https://github.com/opensiro/upstream/pull/281) merged the dated GitHub publication readback and maintenance target. This is **not** evidence of third-party maintainer acceptance, merge, deployed benefit or autonomous legal-person identity verification.
+
+[Revka CLA](https://github.com/KumihoIO/Revka/blob/main/docs/contributing/cla.md) is a different instrument: submission itself signals copyright/patent and contributor-rights consent. VOLY DCO approval is **not** Revka CLA authorization.
+
+This is a historical evidence summary, not a reusable person's signature.
 
 This document is a compact presentation and operational wrapper for the existing DCO and upstream license. It is not a modified DCO text, a replacement for target legal terms, or legal advice.
