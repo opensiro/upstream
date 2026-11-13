@@ -1,0 +1,30 @@
+# External PR dispositions and blocked native publication — 2026-11-13
+
+**Owner:** Upstream Contributions S1, under [#56](https://github.com/opensiro/upstream/issues/56), [PR maintenance #125](https://github.com/opensiro/upstream/issues/125), and the [standing publication policy](../docs/STANDING_EXTERNAL_PR_PUBLICATION.md).
+**Evidence type:** date-scoped source-first maintainer feedback / native technical recheck; not a new external PR, accepted merge, automated legal attestation, benchmark, or verified end-user benefit.
+**Observed:** 2026-11-13 UTC. Repository/PR states and policy may evolve.
+
+## Two closed external PRs — exact maintainer disposition
+
+| External PR | Observed state | First-party maintainer feedback | Correct future disposition |
+| --- | --- | --- | --- |
+| [yologdev/yoagent #450](https://github.com/yologdev/yoagent/pull/450) | **CLOSED_UNMERGED** | [Maintainer `yuanhao`, 2026-11-12](https://github.com/yologdev/yoagent/pull/450#issuecomment-6827296446): confirms the resolved-path hard-link mutex observation but notes `write_file`/`edit_file` use atomic temp-file + rename since 0.27.5, breaking the shared-inode alias after a write. The only remaining in-place fallback scenario does not justify an extra stat + second mutex per call in their view. | `MAINTAINER_DECLINED_COST_BENEFIT`. Do not reopen or resubmit the inode-lock patch without independent evidence of a real affected run. No rejected hypothesis should be counted as merged adoption. |
+| [lbdremy/phax #205](https://github.com/lbdremy/phax/pull/205) | **CLOSED_UNMERGED** | [Maintainer `lbdremy`, 2026-11-13](https://github.com/lbdremy/phax/pull/205#issuecomment-6854860166): confirms that lexical path variants are a real gap but rejects normalizing overlap computation alone. Reconciliation, plan lint, glob protection and staleness would still disagree. The correct ownership is a canonical path schema at plan decoding. | `MAINTAINER_CONFIRMED_PROBLEM / REQUESTED_BROADER_ARCHITECTURE`. The maintainer's [`plan-path-canonical` brief](https://github.com/lbdremy/phax/blob/main/docs/briefs/plan-path-canonical.md) explicitly cites PR #205 and the two overlap tests. This is verified uptake of problem evidence **into a design brief**, not merged source code or a verified product improvement. Do not reopen #205; revisit only after the source-owned spec matures. |
+
+**Provenance:** published external PR heads remained `b06e768ad53ab01c4e1f26dca4af156652712684` (yoagent #450) and `45e90eaad89f7503ef7dbaed1d24a41c0418e3d5` (phax #205). Maintainer closures were verified against the original repositories and their comments, not inferred from missing workflow activity. Both were published earlier; **zero new external PRs are claimed** in this readback.
+
+## Two original PRs still not submitted: Revka and VOLY
+
+| Source / fork-local prepared proposal | Source default/base observed | Native evidence observed | Remaining source-native gate / legal boundary |
+| --- | --- | --- | --- |
+| [KumihoIO/Revka / prepared fork #1](https://github.com/opensiro-contributions/Revka/pull/1) | Original `main@a1acd826502e12a6c2f3d147e488a7d2982c480b`; prepared `75c7adfca75fb30075e75674eb1badc2f6b7c90a` | 17/17 validator tests passed (Python 3.12). Restored complete source and ran `cargo fmt --all -- --check` successfully with Rust 1.91 container. Entire operator-mcp test collection was blocked by a missing `mcp` dependency; Rust clippy, cargo test and full source CI have not been claimed PASS. | Original project [CLA v1.0](https://github.com/KumihoIO/Revka/blob/main/docs/contributing/cla.md) treats PR submission as agreement and represents contributor originality/rights/employer permission. [CLA registry](../policies/cla-template-registry-v1.json) marks Revka **`PENDING_EXACT_TERMS_APPROVAL`** with executor disabled. No original PR submitted; do not implicitly accept legal terms through the regular publication grant. |
+| [voly-codes/voly / prepared fork #1](https://github.com/opensiro-contributions/voly/pull/1) | Original `main@38aa1bf7074f7b1e0f79f559dfa3fc97d75a073d`; prepared `b42ec77f71560922af17b5160e0bf87238a60fcd` | Replayed full first-party `pytest tests/ -q` on the exact prepared working head: **1,228 passed, 4 skipped, 1 xfailed**, one dependency warning. `check_doc_links.py` PASS; `check_env_doc_sync.py` PASS with five pre-existing unused env-var warnings. | Original [DCO requirement](https://github.com/voly-codes/voly/blob/main/CONTRIBUTING.md) requires `Signed-off-by` on **every** commit; both prepared commits `311f0b468697d47f9ac5f84312202a4bcb10870c` and `b42ec77f71560922af17b5160e0bf87238a60fcd` lack it. Owner's general CLA-template authorization does **not** authorize invented per-commit DCO rights claims. No original PR submitted. |
+
+## Action / governance routing
+
+1. Continue collecting source-native CI evidence for Revka if available; do not count `cargo fmt` as `cargo test` or full CI. Enrol and verify **exact Revka CLA terms and legally effective signatory approval** under [Organization S5 #323](https://github.com/opensiro/vsm-oss-organization/issues/323) and [Upstream #274](https://github.com/opensiro/upstream/issues/274) before an assent-triggering original PR.
+2. For VOLY, obtain truthful per-commit DCO attestations from an authorized contributor, then force-with-lease update the fork branch and revalidate SHA/diff/tests. A Git user.name string is not evidence of DCO rights.
+3. Close yoagent's queued alternative as `NO_ACTION_UNLESS_REAL_REPRO`; retain phax's evidence-to-spec feedback as `MAINTAINER_SPEC_CITATION` without claiming code adoption or merger.
+4. Re-check exact original default branches and external PR states at execution time; this report is a dated observation and must never substitute for a live publication preflight.
+
+**Result:** two legitimate maintainer rejections analyzed, one source-specific problem/spec citation observed; both pending original PRs remain blocked by explicit native and legal-source rules. No new third-party PR or legal acceptance is claimed.
