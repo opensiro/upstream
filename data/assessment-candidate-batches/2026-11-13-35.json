@@ -5,7 +5,7 @@
   "index_sha": "85ae995fc2551ac0a076609bce0300d075cac2d5",
   "frozen_at": "2026-11-13",
   "state": "FROZEN_SCREENING",
-  "selection_note": "Explicit operator requested upstream upgrade batch 10. Single ten-row exceptional Index-first cohort under Upstream #56. Deterministic preview at Upstream main a1970f69d30afe0800c00990fca5725c665ffec7 / Index main 85ae995f; 112 eligible pre-exclusion. Excluded Nano-Collective/nanocoder due to active Upstream PR #123 despite absent manifest claim; selected next ten distinct available reviewed source identities from included S1=A/S2=C Index records. Prospective minor-feature capability questions preregistered before original-source inspections in commit d3d19335a4034a9c84898002ced6d27ad7500cce. No claim of need, tests, benefit, admission, atomic reservation, or external permission.",
+  "selection_note": "Explicit operator requested upstream upgrade batch 10. Single ten-row exceptional Index-first cohort under Upstream #56. Deterministic preview at Upstream main a1970f69d30afe0800c00990fca5725c665ffec7 / Index main 85ae995f; 112 eligible pre-exclusion. Excluded Nano-Collective/nanocoder due to active Upstream PR #123 despite absent manifest claim; selected next ten distinct available reviewed source identities from included S1=A/S2=C Index records. Prospective minor-feature capability questions preregistered before original-source inspections in commit d3d19335a4034a9c84898002ced6d27ad7500cce. No claim of need, tests, benefit, admission, atomic reservation, or external permission. Final source-native read-only 10-row screening: 6 CLOSED_NO_CHANGE, 4 BLOCKED_EVIDENCE. Current first-party source/license/policy text inspected, but no new feature admitted, no native independent before/after or original tests asserted, no external PR, no Index regrade; controller NO_ACTIONABLE_CANDIDATE.",
   "candidates": [
     {
       "id": "threatclaw-admission-explain",
@@ -15,20 +15,26 @@
       "reviewed_at": "2026-10-17",
       "function": "S2",
       "finding": "Could a first-party read-only incident admission explanation expose semaphore, duplicate, cooldown or backpressure reasons without changing actual scheduling or response policy?",
-      "stage": "SCREENING",
+      "stage": "BLOCKED_EVIDENCE",
       "origin": "INSUFFICIENT",
       "fit": {
         "need": "PENDING",
-        "mechanism": "PENDING",
+        "mechanism": "PASS",
         "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/th/threatclaw.md",
-        "https://github.com/opensiro/upstream/commit/d3d19335a4034a9c84898002ced6d27ad7500cce"
+        "https://github.com/opensiro/upstream/commit/d3d19335a4034a9c84898002ced6d27ad7500cce",
+        "https://github.com/threatclaw/threatclaw/blob/71540e5da1fc4dd5ff62c37842de25efab67a3f1/src/agent/intelligence_engine.rs",
+        "https://github.com/threatclaw/threatclaw/blob/71540e5da1fc4dd5ff62c37842de25efab67a3f1/src/agent/task_queue/backpressure.rs",
+        "https://github.com/threatclaw/threatclaw/blob/71540e5da1fc4dd5ff62c37842de25efab67a3f1/CONTRIBUTING.md",
+        "https://github.com/threatclaw/threatclaw/blob/71540e5da1fc4dd5ff62c37842de25efab67a3f1/CLA.md",
+        "https://github.com/threatclaw/threatclaw/blob/71540e5da1fc4dd5ff62c37842de25efab67a3f1/LICENSE"
       ],
-      "screening_result": "PRE-SOURCE_HYPOTHESIS_ONLY: native need, target source, target policy, and benefit unverified.",
-      "external_action": "NOT_EXECUTED"
+      "screening_result": "AGPL-3.0 plus dual-commercial and contributor CLA are first-party source policy; no derivative prepared. Existing Intelligence ticker already traces inventory skips, cooldown duplicate suppression and escalation, while task backpressure returns typed overload decisions. Prospective unified user-visible admission explanation could be distinct but no maintainer-requested workflow, supported missing-scenario baseline or deterministic first-party independently executed test exists. Null case not falsified; no feature or fallback bug admitted.",
+      "external_action": "NOT_EXECUTED",
+      "blocker": "Native product need and missing user-facing workflow not independently demonstrated; first-party feature-request process and CLA require external actor/maintainer steps before a PR. No independent first-party matched before/after."
     },
     {
       "id": "atomic-parallel-plan-preview",
@@ -38,20 +44,26 @@
       "reviewed_at": "2026-10-16",
       "function": "S2",
       "finding": "Would a deterministic dry-run of Git worktree and output-publication allocation identify invalid parallel-worker layouts before workers start?",
-      "stage": "SCREENING",
+      "stage": "BLOCKED_EVIDENCE",
       "origin": "INSUFFICIENT",
       "fit": {
         "need": "PENDING",
-        "mechanism": "PENDING",
+        "mechanism": "PASS",
         "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/at/atomic.md",
-        "https://github.com/opensiro/upstream/commit/d3d19335a4034a9c84898002ced6d27ad7500cce"
+        "https://github.com/opensiro/upstream/commit/d3d19335a4034a9c84898002ced6d27ad7500cce",
+        "https://github.com/bastani-inc/atomic/blob/9dcd29b31c37fed0895a57583413d8b727e1c6b3/packages/subagents/src/runs/foreground/subagent-executor-parallel.ts",
+        "https://github.com/bastani-inc/atomic/blob/9dcd29b31c37fed0895a57583413d8b727e1c6b3/packages/subagents/src/runs/foreground/subagent-executor-input.ts",
+        "https://github.com/bastani-inc/atomic/blob/9dcd29b31c37fed0895a57583413d8b727e1c6b3/packages/subagents/src/runs/foreground/subagent-executor-worktree.ts",
+        "https://github.com/bastani-inc/atomic/blob/9dcd29b31c37fed0895a57583413d8b727e1c6b3/LICENSE",
+        "https://github.com/bastani-inc/atomic/blob/9dcd29b31c37fed0895a57583413d8b727e1c6b3/CONTRIBUTING.md"
       ],
-      "screening_result": "PRE-SOURCE_HYPOTHESIS_ONLY: native need, target source, target policy, and benefit unverified.",
-      "external_action": "NOT_EXECUTED"
+      "screening_result": "Actual root LICENSE text is MIT even though GitHub SPDX metadata is NOASSERTION. Current parallel execution already checks duplicate output paths and per-task output-mode validity and performs isolated worktree setup. A separately exposed read-only pre-run preview is not established by these checks, but neither a first-party user need nor a deterministic baseline for proposed preview was established. No change made.",
+      "external_action": "NOT_EXECUTED",
+      "blocker": "Candidate dry-run capability need, source-native absent-workflow control and maintainer issue/feature fit remain unverified; current validations already guard some overlaps. No separate native runner evidence."
     },
     {
       "id": "fleetq-claim-rejection-explain",
@@ -61,20 +73,24 @@
       "reviewed_at": "2026-10-16",
       "function": "S2",
       "finding": "Would an optional native task-claim rejection explanation help distinguish an occupied crew task from invalid or unavailable work without leaking private state?",
-      "stage": "SCREENING",
+      "stage": "BLOCKED_EVIDENCE",
       "origin": "INSUFFICIENT",
       "fit": {
         "need": "PENDING",
-        "mechanism": "PENDING",
+        "mechanism": "PASS",
         "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/fl/fleetq.md",
-        "https://github.com/opensiro/upstream/commit/d3d19335a4034a9c84898002ced6d27ad7500cce"
+        "https://github.com/opensiro/upstream/commit/d3d19335a4034a9c84898002ced6d27ad7500cce",
+        "https://github.com/escapeboy/agent-fleet-o/blob/45fdba7c03912d87bbc4beec0e2abe2d16ff383c/app/Domain/Crew/Actions/ClaimNextTaskAction.php",
+        "https://github.com/escapeboy/agent-fleet-o/blob/45fdba7c03912d87bbc4beec0e2abe2d16ff383c/LICENSE",
+        "https://github.com/escapeboy/agent-fleet-o/blob/45fdba7c03912d87bbc4beec0e2abe2d16ff383c/CONTRIBUTING.md"
       ],
-      "screening_result": "PRE-SOURCE_HYPOTHESIS_ONLY: native need, target source, target policy, and benefit unverified.",
-      "external_action": "NOT_EXECUTED"
+      "screening_result": "Current AGPL-3.0 self-claim action selects the first pending task under transaction and returns a claimed execution or null when no task is claimable. The proposed rejection-reason explanation is not a documented first-party user need; no safe native UI/API scenario, maintainer contract or matched before/after acceptance has been demonstrated. No change made.",
+      "external_action": "NOT_EXECUTED",
+      "blocker": "No independently documented need to distinguish 'no pending' from claim-loss race in actual supported product UX; would require privacy/permission contract and source-native acceptance path. No independent CI test."
     },
     {
       "id": "team-agent-seat-restore-preview",
@@ -84,19 +100,23 @@
       "reviewed_at": "2026-10-16",
       "function": "S2",
       "finding": "Would a read-only preview of restored team seat and socket ownership safely identify stale or conflicting pane bindings before restart?",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/te/team-agent.md",
-        "https://github.com/opensiro/upstream/commit/d3d19335a4034a9c84898002ced6d27ad7500cce"
+        "https://github.com/opensiro/upstream/commit/d3d19335a4034a9c84898002ced6d27ad7500cce",
+        "https://github.com/Florious95/team-agent/blob/1ce7938be7efd3028a4a26a196c7b75533d8a274/crates/team-agent/src/cli/adapters.rs",
+        "https://github.com/Florious95/team-agent/blob/1ce7938be7efd3028a4a26a196c7b75533d8a274/crates/team-agent/src/cli/diagnose.rs",
+        "https://github.com/Florious95/team-agent/blob/1ce7938be7efd3028a4a26a196c7b75533d8a274/crates/team-agent/src/lifecycle/restart/agent.rs",
+        "https://github.com/Florious95/team-agent/blob/1ce7938be7efd3028a4a26a196c7b75533d8a274/LICENSE"
       ],
-      "screening_result": "PRE-SOURCE_HYPOTHESIS_ONLY: native need, target source, target policy, and benefit unverified.",
+      "screening_result": "Current AGPL-3.0 runtime already offers selected-team status/doctor-style read-only diagnosis, topology issues and suggested repairs. Restart has explicit socket-sensitive pane collision rejection and fresh-spawn with diagnostic event. A new pre-restart preview was not shown to supply an additional product-native outcome beyond existing diagnostics; no separate feature or real bug admitted. Source inspection only, no Rust tests run.",
       "external_action": "NOT_EXECUTED"
     },
     {
@@ -107,19 +127,22 @@
       "reviewed_at": "2026-10-16",
       "function": "S2",
       "finding": "Would a first-party blocked-dispatch explanation identify worktree collision versus ordinary resource scarcity in the native pool operator workflow?",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ge/gemba.md",
-        "https://github.com/opensiro/upstream/commit/d3d19335a4034a9c84898002ced6d27ad7500cce"
+        "https://github.com/opensiro/upstream/commit/d3d19335a4034a9c84898002ced6d27ad7500cce",
+        "https://github.com/GembaCore/gemba-core/blob/64c266f889c6d6a579904c5e336676fa1c49b216/internal/planner/autodispatch/daemon.go",
+        "https://github.com/GembaCore/gemba-core/blob/64c266f889c6d6a579904c5e336676fa1c49b216/internal/planner/autodispatch/daemon_test.go",
+        "https://github.com/GembaCore/gemba-core/blob/64c266f889c6d6a579904c5e336676fa1c49b216/LICENSE"
       ],
-      "screening_result": "PRE-SOURCE_HYPOTHESIS_ONLY: native need, target source, target policy, and benefit unverified.",
+      "screening_result": "Current MIT first-party autodispatch Action exposes stable outcome values blocked_by_gate / blocked_by_conflict and explicit Reason. Production ticker logs outcome and reason as structured autodispatch.action events; source tests cover blocked gating. This already gives operator-readable denial diagnostics; no verified incremental native workflow need for a new view. No new Go test run or patch.",
       "external_action": "NOT_EXECUTED"
     },
     {
@@ -130,19 +153,23 @@
       "reviewed_at": "2026-10-16",
       "function": "S2",
       "finding": "Could a read-only monitor ownership health view distinguish valid exclusive registration, stale heartbeat and duplicate monitor contention without changing ownership?",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "FAIL",
+        "mechanism": "FAIL",
+        "counterfactual": "FAIL",
+        "scope": "FAIL"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ca/cafleet.md",
-        "https://github.com/opensiro/upstream/commit/d3d19335a4034a9c84898002ced6d27ad7500cce"
+        "https://github.com/opensiro/upstream/commit/d3d19335a4034a9c84898002ced6d27ad7500cce",
+        "https://github.com/himkt/cafleet/blob/7d30f1cd72028b3d0913d36934a99e4e2da3be39/src/cli/fleet.rs",
+        "https://github.com/himkt/cafleet/blob/7d30f1cd72028b3d0913d36934a99e4e2da3be39/src/broker/runtime/events.rs",
+        "https://github.com/himkt/cafleet/blob/7d30f1cd72028b3d0913d36934a99e4e2da3be39/src/broker/runtime/mod.rs",
+        "https://github.com/himkt/cafleet/blob/7d30f1cd72028b3d0913d36934a99e4e2da3be39/LICENSE"
       ],
-      "screening_result": "PRE-SOURCE_HYPOTHESIS_ONLY: native need, target source, target policy, and benefit unverified.",
+      "screening_result": "The MIT current default main has evolved from assessed CAFleet ref: historical exclusive active monitor/migrations are not a reachable current monitoring command/service in the inspected native src tree; runtime now has generic MonitorLost event handling, not the earlier per-fleet owner heartbeat model. A status-view upgrade for an obsolete control unit has no current in-scope product-native baseline. No bug or new workflow admitted; this is a source-evolution screen, not a claim that current runtime has no monitoring whatsoever.",
       "external_action": "NOT_EXECUTED"
     },
     {
@@ -153,19 +180,25 @@
       "reviewed_at": "2026-10-16",
       "function": "S2",
       "finding": "Could a trace worktree pre-integration readiness preview expose shared-root changed-path overlap before human review and merge?",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/pa/paseka.md",
-        "https://github.com/opensiro/upstream/commit/d3d19335a4034a9c84898002ced6d27ad7500cce"
+        "https://github.com/opensiro/upstream/commit/d3d19335a4034a9c84898002ced6d27ad7500cce",
+        "https://github.com/russ-p/paseka/blob/3109195e79fe1c686b4441f9e2b8d6b264e97f09/internal/worktree/diff.go",
+        "https://github.com/russ-p/paseka/blob/3109195e79fe1c686b4441f9e2b8d6b264e97f09/internal/console/merge_diff.go",
+        "https://github.com/russ-p/paseka/blob/3109195e79fe1c686b4441f9e2b8d6b264e97f09/internal/console/handlers.go",
+        "https://github.com/russ-p/paseka/blob/3109195e79fe1c686b4441f9e2b8d6b264e97f09/internal/console/static/app.js",
+        "https://github.com/russ-p/paseka/blob/3109195e79fe1c686b4441f9e2b8d6b264e97f09/internal/worktree/diff_test.go",
+        "https://github.com/russ-p/paseka/blob/3109195e79fe1c686b4441f9e2b8d6b264e97f09/LICENSE"
       ],
-      "screening_result": "PRE-SOURCE_HYPOTHESIS_ONLY: native need, target source, target policy, and benefit unverified.",
+      "screening_result": "Current Apache-2.0 release already has a native three-dot trace worktree MergeDiff and first-party Queen Console GET merge preview for the final review gate, with source tests and UI showing 'Open merge preview'. Existing interface addresses the hypothesized pre-merge review purpose; a second preview is duplicative absent a distinct unmet need. No Go test run or patch.",
       "external_action": "NOT_EXECUTED"
     },
     {
@@ -176,19 +209,23 @@
       "reviewed_at": "2026-10-16",
       "function": "S2",
       "finding": "Could a read-only WorkOrder integration conflict preview reuse native baseline checks to let a parent triage conflicting completed worker outputs?",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/su/superqode.md",
-        "https://github.com/opensiro/upstream/commit/d3d19335a4034a9c84898002ced6d27ad7500cce"
+        "https://github.com/opensiro/upstream/commit/d3d19335a4034a9c84898002ced6d27ad7500cce",
+        "https://github.com/SuperagenticAI/superqode/blob/064f985ef55d0b71651210f5abaae1a22d9fc09c/src/superqode/workorders/cockpit.py",
+        "https://github.com/SuperagenticAI/superqode/blob/064f985ef55d0b71651210f5abaae1a22d9fc09c/src/superqode/workorders/integration.py",
+        "https://github.com/SuperagenticAI/superqode/blob/064f985ef55d0b71651210f5abaae1a22d9fc09c/src/superqode/workorders/inspection.py",
+        "https://github.com/SuperagenticAI/superqode/blob/064f985ef55d0b71651210f5abaae1a22d9fc09c/LICENSE"
       ],
-      "screening_result": "PRE-SOURCE_HYPOTHESIS_ONLY: native need, target source, target policy, and benefit unverified.",
+      "screening_result": "Current Apache-2.0 WorkOrder already supports prepare_integration constructing candidate and conflict evidence, cockpit showing 'conflict paths' and an inspectable candidate via :work diff before human approval. The proposed conflict preview is present as a native supported operator path; no verified incremental feature or repair need. No Python native tests run or patch.",
       "external_action": "NOT_EXECUTED"
     },
     {
@@ -199,20 +236,26 @@
       "reviewed_at": "2026-10-16",
       "function": "S2",
       "finding": "Could an opt-in flow.spawn workspace dry run report repository binding and ownership incompatibilities before actual child allocation?",
-      "stage": "SCREENING",
+      "stage": "BLOCKED_EVIDENCE",
       "origin": "INSUFFICIENT",
       "fit": {
         "need": "PENDING",
-        "mechanism": "PENDING",
+        "mechanism": "PASS",
         "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/at/atman.md",
-        "https://github.com/opensiro/upstream/commit/d3d19335a4034a9c84898002ced6d27ad7500cce"
+        "https://github.com/opensiro/upstream/commit/d3d19335a4034a9c84898002ced6d27ad7500cce",
+        "https://github.com/W-Mai/atman/blob/cb948cf50997423aca1c2c23d0735721640943e2/crates/atman-runtime/src/flow_workspace.rs",
+        "https://github.com/W-Mai/atman/blob/cb948cf50997423aca1c2c23d0735721640943e2/crates/atman-runtime/src/tools/agent_ctrl/instance_spawn.rs",
+        "https://github.com/W-Mai/atman/blob/cb948cf50997423aca1c2c23d0735721640943e2/crates/atman-runtime/tests/runtime_host.rs",
+        "https://github.com/W-Mai/atman/blob/cb948cf50997423aca1c2c23d0735721640943e2/LICENSE-APACHE",
+        "https://github.com/W-Mai/atman/blob/cb948cf50997423aca1c2c23d0735721640943e2/LICENSE-MIT"
       ],
-      "screening_result": "PRE-SOURCE_HYPOTHESIS_ONLY: native need, target source, target policy, and benefit unverified.",
-      "external_action": "NOT_EXECUTED"
+      "screening_result": "Current source is dual-licensed Apache-2.0/MIT; FlowWorkspaceService.prepare_instance explicitly prepares allocation metadata without creating a worktree or registry record and is called before child spawn. The internal nonmutating mechanism exists. User-facing allocation dry run remains a possible separate capability but no first-party user need, safe atomicity/lease contract, source-native missing-path scenario, or independent runner was established. No patch.",
+      "external_action": "NOT_EXECUTED",
+      "blocker": "Optional user-facing workspace planning need and stable preview-versus-actual-allocation semantics unverified; existing internal prepare_instance already performs preallocation validation. No native RED/GREEN or maintainer feature demand."
     },
     {
       "id": "openjiuwen-claim-rejection-reasons",
@@ -222,19 +265,21 @@
       "reviewed_at": "2026-10-15",
       "function": "S2",
       "finding": "Could authoritative team task-board rejection reasons for claim/start contention improve first-party operator recovery without modifying CAS ownership?",
-      "stage": "SCREENING",
+      "stage": "CLOSED_NO_CHANGE",
       "origin": "INSUFFICIENT",
       "fit": {
-        "need": "PENDING",
-        "mechanism": "PENDING",
-        "counterfactual": "PENDING",
-        "scope": "PENDING"
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
       },
       "evidence": [
         "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/op/openjiuwen-core.md",
-        "https://github.com/opensiro/upstream/commit/d3d19335a4034a9c84898002ced6d27ad7500cce"
+        "https://github.com/opensiro/upstream/commit/d3d19335a4034a9c84898002ced6d27ad7500cce",
+        "https://github.com/openJiuwen-ai/agent-core/blob/279086272882a4d5fd59dcd7ac57d174f4c29281/openjiuwen/agent_teams/tools/task_manager.py",
+        "https://github.com/openJiuwen-ai/agent-core/blob/279086272882a4d5fd59dcd7ac57d174f4c29281/LICENSE"
       ],
-      "screening_result": "PRE-SOURCE_HYPOTHESIS_ONLY: native need, target source, target policy, and benefit unverified.",
+      "screening_result": "Current Apache-2.0 default DEVELOP branch (not main) already returns explicit TaskOpResult.fail reasons for already-claimed task and claimant, illegal status, likely concurrent DB race, and busy member's other active task. Native team tool returns authoritative actionable rejection diagnostics. Proposed new error reasons duplicate installed behavior; no Python tests run or patch.",
       "external_action": "NOT_EXECUTED"
     }
   ]
