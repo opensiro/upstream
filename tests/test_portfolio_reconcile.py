@@ -1,5 +1,6 @@
 """Offline contract tests for the deduplicated external PR portfolio observer."""
 
+import copy
 import importlib.util
 import io
 import json
@@ -48,6 +49,107 @@ class FakeAPI:
 
 
 class PortfolioReconcileTests(unittest.TestCase):
+    @staticmethod
+    def full_portfolio_report():
+        entries = portfolio.cohort()
+        records = [dict(row, outcome="open") for row in entries]
+        return {"schema_version": 1, "observed_at": "2026-11-13T17:00:00+00:00",
+                "cohort_sha256": portfolio.cohort_fingerprint(records),
+                "records": records}
+
+    @staticmethod
+    def accepted_export(report):
+        import verified_external_outcomes as evidence
+        ledger = json.loads((ROOT / "data/verified-external-outcomes/accepted-v1.json").read_text())
+        rows = []
+        for entry in ledger["accepted"]:
+            url = entry["effective_pr_url"]
+            next(row for row in report["records"] if row["url"] == url)["outcome"] = "merged"
+            rows.append({"intervention_id": entry["intervention_id"],
+                         "external_pr_url": url, "merge_commit_sha": entry["merge_commit_sha"],
+                         "native_receipt": entry["native_receipt"],
+                         "decision": "ACCEPTED_MERGED_CHANGE_ONLY",
+                         "acceptance_basis": "DETERMINISTIC_VERIFIED_MERGE",
+                         "benefit_claim": "NOT_MEASURED"})
+        return {"schema_version": 1, "source": "opensiro/upstream",
+                "metric_status": "UPSTREAM_ACCEPTED_SOURCE_ONLY",
+                "observed_at": report["observed_at"],
+                "source_sha256": evidence.digest_sources(),
+                "portfolio_cohort_sha256": report["cohort_sha256"],
+                "accepted_count": len(rows), "accepted": rows,
+                "organization_metric_claimed": False}
+
+    def test_joined_view_preserves_distinct_external_and_accepted_counts(self):
+        report = self.full_portfolio_report()
+        view = portfolio.joined_view(report)
+        self.assertEqual(view["summary"]["unique_prs"], 41)
+        self.assertEqual(view["summary"]["watched_prs"], 34)
+        self.assertIsNone(view["summary"]["accepted_changes"])
+        self.assertEqual({r["verified_outcome"] for r in view["records"]}, {"NOT_LIVE_CHECKED"})
+        self.assertIn("not live-checked", portfolio.render_joined(view))
+        friday = next(row for row in view["records"]
+                      if row["url"] == "https://github.com/splashxmoon/friday/pull/23")
+        self.assertEqual(friday["assessment_origin"], ["ASSESSMENT_DERIVED_HYPOTHESIS"])
+        self.assertEqual(friday["functional_effects"][0]["measurement_level"],
+                         "NATIVE_TOOL_BEHAVIOR")
+        self.assertEqual(friday["functional_effects"][0]["product_benefit"], "NOT_MEASURED")
+        for r in view["records"]:
+            self.assertNotEqual(r["product_benefit"], "MEASURED")
+        self.assertEqual(len({r["url"] for r in view["records"]}), 41)
+
+        accepted = self.accepted_export(report)
+        verified = portfolio.joined_view(report, accepted)
+        self.assertEqual(verified["summary"]["accepted_changes"], 2)
+        self.assertEqual(sum(r["verified_outcome"] == "ACCEPTED_MERGED_CHANGE_ONLY"
+                             for r in verified["records"]), 2)
+        self.assertIn("Accepted source-verified changes:** 2", portfolio.render_joined(verified))
+        self.assertTrue(all(r["product_benefit"] == "NOT_MEASURED"
+                            for r in verified["records"]
+                            if r["verified_outcome"] == "ACCEPTED_MERGED_CHANGE_ONLY"))
+        self.assertEqual(len({r["url"] for r in verified["records"]}), 41)
+
+    def test_joined_view_rejects_stale_tampered_duplicate_or_unverified_acceptance(self):
+        report = self.full_portfolio_report()
+        accepted = self.accepted_export(report)
+        for tamper in (lambda x: x.update(source_sha256="0" * 64),
+                       lambda x: x.update(portfolio_cohort_sha256="0" * 64),
+                       lambda x: x.update(observed_at="2020-01-01T00:00:00+00:00"),
+                       lambda x: x.update(accepted_count=3),
+                       lambda x: x["accepted"][0].update(benefit_claim="DEPLOYED"),
+                       lambda x: x["accepted"].append(copy.deepcopy(x["accepted"][0])),
+                       lambda x: x.update(organization_metric_claimed=True)):
+            altered = copy.deepcopy(accepted)
+            tamper(altered)
+            with self.subTest(tamper=tamper):
+                with self.assertRaises(ValueError):
+                    portfolio.joined_view(report, altered)
+        wrong_state = copy.deepcopy(report)
+        next(r for r in wrong_state["records"]
+             if r["url"] == accepted["accepted"][0]["external_pr_url"])["outcome"] = "open"
+        with self.assertRaisesRegex(ValueError, "contradicts"):
+            portfolio.joined_view(wrong_state, accepted)
+
+    def test_new_reviewed_publication_receipt_is_discovered_without_watchlist_change(self):
+        url = "https://github.com/example-co/new-harness/pull/7"
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "2026-11-13.json"
+            case = {"id": "new-harness-test", "repository": "example-co/new-harness",
+                    "public_fork": "opensiro-contributions/new-harness",
+                    "pr_url": url, "head_sha": "a" * 40, "pr_commits": 1}
+            packet = {"schema_version": 1, "observed_at": "2026-11-13",
+                      "authenticated_actor": "xLagerFeuer", "cases": [case]}
+            path.write_text(json.dumps(packet))
+            with patch.object(portfolio, "PUBLICATION_READBACKS", Path(directory)):
+                cohort = portfolio.cohort()
+                self.assertEqual(len(cohort), 42)
+                self.assertEqual(next(r["groups"] for r in cohort if r["url"] == url),
+                                 ["published"])
+                self.assertEqual(sum("watchlist" in r["groups"] for r in cohort), 34)
+                case["repository"] = "different/co"
+                path.write_text(json.dumps(packet))
+                with self.assertRaisesRegex(ValueError, "mismatch"):
+                    portfolio.cohort()
+
     def test_frozen_source_union_exact_size_and_identity(self):
         entries = portfolio.cohort()
         self.assertEqual(len(entries), 41)

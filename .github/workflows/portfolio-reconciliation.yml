@@ -10,6 +10,9 @@ on:
       - 'data/upstream-fit-snapshot.json'
       - 'registry.yaml'
       - 'scripts/portfolio_reconcile.py'
+      - 'scripts/harness_status.py'
+      - 'data/functional-effects.json'
+      - 'data/external-pr-publication-readbacks/**'
       - 'tests/test_portfolio_reconcile.py'
       - '.github/workflows/portfolio-reconciliation.yml'
 

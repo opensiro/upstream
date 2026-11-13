@@ -7,12 +7,12 @@
 | I want to… | Go to |
 | --- | --- |
 | Understand the broader OpenSiro project | [Visual VSM map](https://opensiro.com/vsm.html) |
-| See contributions and what happened to them | [Public portfolio](https://opensiro.com/upstream-portfolio.html) · [Verified merged changes](https://opensiro.com/vsm-index.html#upstream-verified) · [GitHub dashboard](DASHBOARD.md) · [Harness status](HARNESS_STATUS.md) |
+| See contributions and what happened to them | [Unified PR + verified-outcome report](https://github.com/opensiro/upstream/actions/workflows/verified-external-outcomes.yml) (latest successful `observe` summary/artifact) · [Public portfolio](https://opensiro.com/upstream-portfolio.html) · [Verified merged changes](https://opensiro.com/vsm-index.html#upstream-verified) · [Historical dashboard](DASHBOARD.md) · [Harness status](HARNESS_STATUS.md) |
 | Inspect actual third-party PRs | [Citadel #366](https://github.com/SethGammon/Citadel/pull/366) · [Agent Fleet #43](https://github.com/chankov/agent-fleet/pull/43) · [PR observation and verification rules](docs/VERIFIED_EXTERNAL_OUTCOMES.md) |
 | Review source-backed evidence | [Casebook](cases/README.md) · [Native test pilots](pilots/README.md) |
 | Contribute or maintain this project | [CONTRIBUTING.md](CONTRIBUTING.md) · [UPSTREAMING.md](UPSTREAMING.md) |
 
-The [dashboard](DASHBOARD.md) and [portfolio](https://opensiro.com/upstream-portfolio.html) are projections, not authority for a third-party PR's live state. Consult the exact GitHub PR for current disposition. Our [verified-outcomes process](docs/VERIFIED_EXTERNAL_OUTCOMES.md) distinguishes machine evidence candidates from accepted outcomes; the [Organization collector contract](https://github.com/opensiro/vsm-oss-organization/pull/322) now accepts *only* live-verified merged-change evidence. It does **not** claim deployed benefit or productivity; missing observations remain unclaimed.
+The [dashboard](DASHBOARD.md) is a frozen eight-case historical projection; the [portfolio](https://opensiro.com/upstream-portfolio.html) and [daily unified report](docs/VERIFIED_EXTERNAL_OUTCOMES.md#one-joined-read-only-pr-view) are projections, not authority for a third-party PR's live state. Consult the exact GitHub PR for current disposition. Our [verified-outcomes process](docs/VERIFIED_EXTERNAL_OUTCOMES.md) distinguishes machine evidence candidates from accepted outcomes; the [Organization collector contract](https://github.com/opensiro/vsm-oss-organization/pull/322) now accepts *only* live-verified merged-change evidence. It does **not** claim deployed benefit or productivity; missing observations remain unclaimed.
 
 ## I'm AI
 

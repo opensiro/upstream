@@ -6,6 +6,43 @@ The metric contract is owned by
 and [`docs/METRICS.md`](https://github.com/opensiro/vsm-oss-organization/blob/main/docs/METRICS.md).
 `Product-native fit` remains **deprecated**; no fit judgment is generated here.
 
+## One joined read-only PR view
+
+For the owner, the daily [verified-outcome workflow](../.github/workflows/verified-external-outcomes.yml)
+now also runs the existing `portfolio_reconcile.py` **after** independently
+accepting verified external merges. Its **same-run** GitHub Actions summary and
+90-day artifact `upstream-joined-portfolio.json` join each exact external PR
+URL to its publication/casebook/registry identity, available assessment origin,
+exactly source-linked native before/after evidence, live PR disposition,
+and source-verified accepted merged-change classification. One PR URL is one
+row; one original/replacement pair can still represent just one intervention.
+
+The joined JSON and Markdown are **derived reports**, not a new editable registry,
+metric, database, approval gate or evidence owner. Source records and current
+external GitHub PRs remain authoritative. Later successfully published PRs
+recorded in the already existing dated `data/external-pr-publication-readbacks/`
+are automatically included in the **daily** observation even without manual
+addition to the reviewed hourly `data/pr-maintenance/targets.json`. The hourly
+watcher/inbox stays bounded until its own safe checkpoint migration. A draft or
+unpublished batch packet is never auto-counted as a public PR.
+
+```bash
+# One source-linked PR report from a current live GitHub observation, without claiming verified outcome counts:
+python3 scripts/portfolio_reconcile.py --report --joined
+# The existing workflow supplies its *separately and live-revalidated* accepted export:
+python3 scripts/portfolio_reconcile.py --report --joined \
+  --accepted-json upstream-accepted-outcomes.json \
+  --joined-json upstream-joined-portfolio.json
+```
+
+Without the accepted export, the joined report displays `NOT_LIVE_CHECKED`
+and no verified count, **not zero**. A merged PR without a verified acceptance
+stays `NOT_ACCEPTED`, which is not an assessment of its value. The functional
+effects remain native-test results only; even accepted merged changes have
+`benefit_claim=NOT_MEASURED`. Stale source digests, mismatched cohort identity,
+conflicting merge states, non-immutable accepted native receipts and attempts to
+claim Organization metric status all fail closed.
+
 ## What constitutes an outcome
 
 The source-defined gate is: **confirmed first-party external disposition +
