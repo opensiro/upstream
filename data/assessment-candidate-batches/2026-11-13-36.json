@@ -1,0 +1,267 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-13-36",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "8f9dcce56564cbea84bb114456e4d3f6c0083bbb",
+  "frozen_at": "2026-11-13",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Explicit upstream upgrade batch 10. Clean canonical Index @ 8f9dcce56564cbea84bb114456e4d3f6c0083bbb, Upstream preselection main d71a326ebc9dc757b054778480f06db4fdfb6ef0; authenticated GitHub read-only discovery showed 103 eligible prior to manually excluding Nano-Collective/nanocoder, occupied by open draft Upstream #123. Selected next ten distinct included S1=A/S2=C sources, including DrSeedon/orchestra in place of NanoCoder. Ten prospective minor feature questions immutably preregistered in 37c68f8aed48226990cd50c1913f35f03d8b236d BEFORE original source/policy/issue inspections. Fresh current default SHAs and root licenses inspected. Screening outcome: 6 CLOSED_NO_CHANGE, 4 BLOCKED_EVIDENCE, zero confirmed new feature/bug-fix patches, zero native RED/GREEN, zero third-party PRs or VSM regrades. Non-atomic source preview only; controller NO_ACTIONABLE_CANDIDATE.",
+  "candidates": [
+    {
+      "id": "soduwork-runner-wait-explain",
+      "assessment_path": "assessments/so/soduwork.md",
+      "source": "mdiri-ai/SoduWork",
+      "review_ref": "97b9c2118a966869a862ef3aa3181ccb77c3dd3b",
+      "reviewed_at": "2026-11-11",
+      "function": "S2",
+      "finding": "Could a read-only task-board capacity-wait explanation distinguish Runner busy deferral from failed execution?",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/8f9dcce56564cbea84bb114456e4d3f6c0083bbb/assessments/so/soduwork.md",
+        "https://github.com/opensiro/upstream/commit/37c68f8aed48226990cd50c1913f35f03d8b236d",
+        "https://github.com/mdiri-ai/SoduWork/blob/83f270677b046b50dc488d7c905ddab800927713/hub-backend/app/services/workflow_engine.py",
+        "https://github.com/mdiri-ai/SoduWork/blob/83f270677b046b50dc488d7c905ddab800927713/LICENSE"
+      ],
+      "screening_result": "Live MIT source uses _RunnerCapacityBusy, RUNNER_AT_CAPACITY and persisted _requeue_capacity_wait retryAt with explicit retry timing. A new task-board explanation has neither independently verified missing first-party UI scenario nor maintainer request, counterfactual or native matched test. No feature admitted.",
+      "external_action": "NOT_EXECUTED",
+      "blocker": "Operator demand and first-party missing workflow not independently established; no executable before/after or native CI."
+    },
+    {
+      "id": "pythinker-tower-preview",
+      "assessment_path": "assessments/py/pythinker-code.md",
+      "source": "PyModel/pythinker-code",
+      "review_ref": "5c5a2053116c1e18c7e1e22710d846fc27945f08",
+      "reviewed_at": "2026-10-15",
+      "function": "S2",
+      "finding": "Would a no-worker Tower scope-and-branch conflict preview improve the pre-spawn planning workflow?",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/8f9dcce56564cbea84bb114456e4d3f6c0083bbb/assessments/py/pythinker-code.md",
+        "https://github.com/opensiro/upstream/commit/37c68f8aed48226990cd50c1913f35f03d8b236d",
+        "https://github.com/PyModel/pythinker-code/blob/21e9d44fdaaca8c4f9214e5cc65f6a470cde9150/packages/agent-core-v2/src/features/tower/protocol/store.ts",
+        "https://github.com/PyModel/pythinker-code/blob/21e9d44fdaaca8c4f9214e5cc65f6a470cde9150/LICENSE"
+      ],
+      "screening_result": "MIT first-party TowerStore.plan already checks mission scope overlaps, dependency serialization, branch ownership and validation errors with actionable suggestions. No independent additional preview need beyond current plan diagnostics; no new feature or repair established.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "wrongstack-integration-preview",
+      "assessment_path": "assessments/wr/wrongstack.md",
+      "source": "WrongStack/WrongStack",
+      "review_ref": "42d410f938ba644e70771e200f39903117507a72",
+      "reviewed_at": "2026-10-14",
+      "function": "S2",
+      "finding": "Could a read-only pre-integration path-conflict preview improve present Director worktree integration?",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/8f9dcce56564cbea84bb114456e4d3f6c0083bbb/assessments/wr/wrongstack.md",
+        "https://github.com/opensiro/upstream/commit/37c68f8aed48226990cd50c1913f35f03d8b236d",
+        "https://github.com/WrongStack/WrongStack/blob/626bd1be1886caa1ad3fda31bcda52fe4ce3cc0f/apps/desktop-v2/src/worktree-model.ts",
+        "https://github.com/WrongStack/WrongStack/blob/626bd1be1886caa1ad3fda31bcda52fe4ce3cc0f/LICENSE"
+      ],
+      "screening_result": "The current MIT main tree no longer has the assessed packages/core/src/worktree/worktree-manager.ts integration path; current desktop-v2 worktree views/models exist, but equivalent active Director integration path and missing native preview were not established in this bounded source inspection. Do not transplant a patch from obsolete structure.",
+      "external_action": "NOT_EXECUTED",
+      "blocker": "Assessment-to-current-source mechanism drift; current user workflow, baseline and native tests unverified."
+    },
+    {
+      "id": "zero-handoff-preview",
+      "assessment_path": "assessments/ze/zero.md",
+      "source": "Gitlawb/zero",
+      "review_ref": "99721c762f37cd43ac511007a5f51d1846df959e",
+      "reviewed_at": "2026-10-13",
+      "function": "S2",
+      "finding": "Could a read-only pre-handoff eligibility snapshot reveal a blocked successor before swarm_handoff?",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/8f9dcce56564cbea84bb114456e4d3f6c0083bbb/assessments/ze/zero.md",
+        "https://github.com/opensiro/upstream/commit/37c68f8aed48226990cd50c1913f35f03d8b236d",
+        "https://github.com/Gitlawb/zero/blob/426867ddd4c7a2e07376ab0113de169c418538ab/internal/swarm/tools.go",
+        "https://github.com/Gitlawb/zero/blob/426867ddd4c7a2e07376ab0113de169c418538ab/LICENSE"
+      ],
+      "screening_result": "MIT first-party swarm_status already offers per-task one-shot state snapshots; swarm_handoff in lifecycle.go checks terminal state, reserves successor and enforces source-stop before successor launch with explicit failure paths. No distinct missing operator workflow or independent improvement demonstrated.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "tianshu-claim-preview",
+      "assessment_path": "assessments/ti/tianshu-harness.md",
+      "source": "huiliyi37/Tianshu-harness",
+      "review_ref": "6dbf1e0482cf5338b7587d029cbfadc3306b05f5",
+      "reviewed_at": "2026-10-13",
+      "function": "S2",
+      "finding": "Would an opt-in, read-only pre-dispatch claim-conflict preview improve multi-wave worker rescoping?",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/8f9dcce56564cbea84bb114456e4d3f6c0083bbb/assessments/ti/tianshu-harness.md",
+        "https://github.com/opensiro/upstream/commit/37c68f8aed48226990cd50c1913f35f03d8b236d",
+        "https://github.com/huiliyi37/Tianshu-harness/blob/2d0b22e0b3554686e1e4131f8bdc568ef768e060/src/agent/coordinator.ts",
+        "https://github.com/huiliyi37/Tianshu-harness/blob/2d0b22e0b3554686e1e4131f8bdc568ef768e060/LICENSE",
+        "https://github.com/huiliyi37/Tianshu-harness/issues/562"
+      ],
+      "screening_result": "Apache-2.0 native runDelegationWithGlobalGateImpl already detects cross-wave in-flight path conflicts and returns blocked risk artifacts naming files. A separate preview has no independently established incremental need or matched baseline. First-party /team parsing issue #562 was discovered during source inspection: it is an issue-origin BUG_FIX possibility, not a preregistered derived finding; no native reproduction or fix was attempted.",
+      "external_action": "NOT_EXECUTED",
+      "blocker": "No independently needed preview; issue #562 has no verified RED/GREEN or scoped fix in this batch."
+    },
+    {
+      "id": "whycodes-claim-health",
+      "assessment_path": "assessments/wh/whycodes.md",
+      "source": "whycorporation/whycodes",
+      "review_ref": "ef5126824739673d93815b29456ba3e5bdddf87c",
+      "reviewed_at": "2026-10-13",
+      "function": "S2",
+      "finding": "Would a read-only swarm contested-path health summary improve current conflict recovery?",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/8f9dcce56564cbea84bb114456e4d3f6c0083bbb/assessments/wh/whycodes.md",
+        "https://github.com/opensiro/upstream/commit/37c68f8aed48226990cd50c1913f35f03d8b236d",
+        "https://github.com/whycorporation/whycodes/blob/4befdb039616be88f87d556b4e6bb911d6cf5e20/crates/core/src/file_claims.rs",
+        "https://github.com/whycorporation/whycodes/blob/4befdb039616be88f87d556b4e6bb911d6cf5e20/LICENSE"
+      ],
+      "screening_result": "MIT source already defines FileClaimRegistry, structured ClaimResult::Conflict and FileConflictEvent listener for TUI/logs, alongside worktree isolation. No first-party supported scenario where a second summary has distinct product benefit was found; no patch justified.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "bareagent-task-claim-summary",
+      "assessment_path": "assessments/ba/bareagent.md",
+      "source": "525300887039/BareAgent",
+      "review_ref": "1dfd1057d372e872f54c0a666f375dce2bc11a26",
+      "reviewed_at": "2026-10-12",
+      "function": "S2",
+      "finding": "Could a read-only task-claim contention summary help operators rebalance active teammates?",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/8f9dcce56564cbea84bb114456e4d3f6c0083bbb/assessments/ba/bareagent.md",
+        "https://github.com/opensiro/upstream/commit/37c68f8aed48226990cd50c1913f35f03d8b236d",
+        "https://github.com/525300887039/BareAgent/blob/1dfd1057d372e872f54c0a666f375dce2bc11a26/src/bareagent/planning/tasks.py",
+        "https://github.com/525300887039/BareAgent/blob/1dfd1057d372e872f54c0a666f375dce2bc11a26/LICENSE"
+      ],
+      "screening_result": "MIT current source already exposes task listing/status filtering and an expected_status compare-and-update error identifying the real conflicting state. Added operator-facing aggregate has no independently evidenced native need. No root CONTRIBUTING.md was present in the checked current tree; absence is not blanket clearance.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "cao-worktree-warning",
+      "assessment_path": "assessments/cl/cli-agent-orchestrator.md",
+      "source": "awslabs/cli-agent-orchestrator",
+      "review_ref": "ffa9fc742c7d47ce038d3d951ccc5527ba0c0218",
+      "reviewed_at": "2026-10-12",
+      "function": "S2",
+      "finding": "Would a pre-assignment collision warning for use_worktree=false be a safe native supervisor upgrade?",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/8f9dcce56564cbea84bb114456e4d3f6c0083bbb/assessments/cl/cli-agent-orchestrator.md",
+        "https://github.com/opensiro/upstream/commit/37c68f8aed48226990cd50c1913f35f03d8b236d",
+        "https://github.com/awslabs/cli-agent-orchestrator/blob/367f53f3e2ba9d64dd276b9ab438a4e384072611/src/cli_agent_orchestrator/services/worktree_service.py",
+        "https://github.com/awslabs/cli-agent-orchestrator/blob/367f53f3e2ba9d64dd276b9ab438a4e384072611/LICENSE",
+        "https://github.com/awslabs/cli-agent-orchestrator/issues/1305"
+      ],
+      "screening_result": "Apache-2.0 first-party worktree_service already documents use_worktree=True per terminal and the shared-checkout hazards. Whether a warning provides material additional UX benefit or follows current target policy remains unproven; native before/after not run. Separate first-party issue #1305 describes concurrent POST /sessions race, an issue-derived fallback, not a pre-source S2 finding.",
+      "external_action": "NOT_EXECUTED",
+      "blocker": "No confirmed warning need or reproducible native acceptance; issue #1305 needs separate first-party reproduction and origin accounting."
+    },
+    {
+      "id": "lean-coder-claim-expiry",
+      "assessment_path": "assessments/le/lean-coder.md",
+      "source": "codemonkeying/lean-coder",
+      "review_ref": "f143f85344c0b0e5b3dcb68b5a1f884ac1c5ec63",
+      "reviewed_at": "2026-10-12",
+      "function": "S2",
+      "finding": "Could read-only stale-claim diagnostics improve worker board behavior?",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PENDING",
+        "counterfactual": "FAIL",
+        "scope": "FAIL"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/8f9dcce56564cbea84bb114456e4d3f6c0083bbb/assessments/le/lean-coder.md",
+        "https://github.com/opensiro/upstream/commit/37c68f8aed48226990cd50c1913f35f03d8b236d",
+        "https://github.com/codemonkeying/lean-coder/blob/69b4e773147c6ac2bd04010c980c7985eeba3783/LICENSE",
+        "https://github.com/codemonkeying/lean-coder/blob/69b4e773147c6ac2bd04010c980c7985eeba3783/LICENSE"
+      ],
+      "screening_result": "HARD LICENSE STOP: current first-party root LICENSE is all-rights-reserved, explicitly grants no permission to copy or modify and prohibits derivative/distribution without prior written permission, despite public GitHub visibility and NOASSERTION SPDX. No external contribution, fork patch, native execution or legal rights are inferred. Prospective feature not admitted.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "orchestra-allocation-preview",
+      "assessment_path": "assessments/or/orchestra.md",
+      "source": "DrSeedon/orchestra",
+      "review_ref": "72d48a93210c3cf12da91f7e693a4a6aae0e40f2",
+      "reviewed_at": "2026-10-12",
+      "function": "S2",
+      "finding": "Would a user-facing pre-spawn scope collision report improve first-party worktree allocation?",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/8f9dcce56564cbea84bb114456e4d3f6c0083bbb/assessments/or/orchestra.md",
+        "https://github.com/opensiro/upstream/commit/37c68f8aed48226990cd50c1913f35f03d8b236d",
+        "https://github.com/DrSeedon/orchestra/blob/39291749361832c45e5bc423b16e028fa3fe56ea/app/manager.py",
+        "https://github.com/DrSeedon/orchestra/blob/39291749361832c45e5bc423b16e028fa3fe56ea/LICENSE"
+      ],
+      "screening_result": "AGPL-3.0 first-party manager already invokes preflight_worktree_layout before worker startup; current workspace service has conflict and layout validation. No additional independently needed user scenario or counterfactual improvement was demonstrated; no native tests run.",
+      "external_action": "NOT_EXECUTED"
+    }
+  ]
+}
