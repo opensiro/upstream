@@ -1,7 +1,7 @@
 # Bounded organization-specific CLA template execution
 
 **Authority source:** [Organization S5 #323](https://github.com/opensiro/vsm-oss-organization/issues/323) and [CLA delegation contract](https://github.com/opensiro/vsm-oss-organization/blob/main/contracts/s5/cla-template-delegation.md).
-**Implementation owner:** [Upstream #274](https://github.com/opensiro/upstream/issues/274). **Current transport:** read-only, deny-by-default registry and static preflight only. No automatic legal agreement acceptance is implemented by this document.
+**Implementation owner:** [Upstream #274](https://github.com/opensiro/upstream/issues/274). **Current transport:** read-only, deny-by-default registry, cryptographic intent preflight and local SQLite attempt journal. No working client-identity binding, legally authorized executor, or automatic CLA agreement acceptance is implemented.
 
 ## Principle
 
@@ -60,6 +60,12 @@ Even when the cryptographic check succeeds, it returns `VERIFIED_RECEIPT_NON_EXE
 [Historical Revka v1.0 source packet](../data/cla-chat-packets/2026-11-13-revka-v1.json) captures a reproducible digest and the prepared fork-local commit **without storing chat messages or pretending that the operator's earlier in-chat decision is a signed receipt**. It is a historical observation and cannot be replayed as current legal authorization.
 
 **Current platform blocker:** there is no independently verifiable provider signature or identity-linked chat receipt from the ChatGPT client in this workflow. Consequently both CLA execution and original Revka PR submission remain blocked. The owner should not need to repeat approval in a GitHub issue as a workaround; exposing a genuine first-party attestation API would be separate platform/integration work.
+
+## Crash-uncertain single-attempt journal (offline-only)
+
+The [atomic nonce and dispatch journal](CLA_ATTEMPT_JOURNAL.md), [source](../scripts/cla_attempt_journal.py) and [tests](../tests/test_cla_attempt_journal.py) provide local **at-most-one-attempt bookkeeping** for a future independently authorized executor. SQLite `BEGIN IMMEDIATE` ensures concurrent reservation of the same issuer/nonce cannot succeed twice; the first dispatch intent is irreversible, and a timeout remains ambiguous pending independently verified target readback. A recorded PR URL is **not** target confirmation or CLA acceptance.
+
+This is deliberately **not** an execution privilege. It cannot provide a valid human identity binding, enroll exact CLA terms, consume a real provider attestation, check live target terms, call the GitHub API or submit a PR. Its records carry only non-executable state; the current Revka template and public external contribution remain blocked by the missing provider-signed identity channel and unfinished required native CI.
 
 ## Initial candidate cases (inactive)
 
