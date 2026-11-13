@@ -9,8 +9,12 @@ and [`docs/METRICS.md`](https://github.com/opensiro/vsm-oss-organization/blob/ma
 ## One joined read-only PR view
 
 For the owner, the daily [verified-outcome workflow](../.github/workflows/verified-external-outcomes.yml)
-now also runs the existing `portfolio_reconcile.py` **after** independently
-accepting verified external merges. Its **same-run** GitHub Actions summary and
+runs the existing `portfolio_reconcile.py` **after** independently accepting
+verified external merges. It also runs when its **own workflow YAML changes on
+`main`**, providing a source-API and joined-artifact smoke test without waiting
+for the next scheduled run. Other `main` pushes do not cause an additional
+observer run; daily/manual schedules remain intact. Check the first post-merge
+`main` run and artifact before claiming operational activation. Its **same-run** GitHub Actions summary and
 90-day artifact `upstream-joined-portfolio.json` join each exact external PR
 URL to its publication/casebook/registry identity, available assessment origin,
 exactly source-linked native before/after evidence, live PR disposition,

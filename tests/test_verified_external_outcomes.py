@@ -84,6 +84,15 @@ def improved_api(item, pr=None, run=None):
 
 
 class VerifiedExternalOutcomeTests(unittest.TestCase):
+    def test_main_postmerge_workflow_change_runs_live_observe(self):
+        workflow = (ROOT / '.github/workflows/verified-external-outcomes.yml').read_text(
+            encoding='utf-8')
+        self.assertIn('  push:\n    branches: [main]\n    paths:\n'
+                      "      - '.github/workflows/verified-external-outcomes.yml'", workflow)
+        self.assertIn("github.event_name == 'push'", workflow)
+        self.assertIn('upstream-joined-portfolio.json', workflow)
+        self.assertIn('scripts/accepted_external_outcomes.py', workflow)
+
     def test_owner_ledgers_cover_exact_portfolio_with_one_replacement_chain(self):
         items, blocked = outcomes.cohort()
         self.assertEqual((len(items), sum(len(x["pr_urls"]) for x in items), blocked),

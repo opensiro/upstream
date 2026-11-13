@@ -4,6 +4,12 @@ on:
   schedule:
     - cron: '17 5 * * *'
   workflow_dispatch:
+  # Confirm the new live report on main when its own workflow contract changes.
+  # Intentionally narrow: routine daily sensing remains schedule-owned.
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/verified-external-outcomes.yml'
   pull_request:
     paths:
       - 'data/corrective-publication/**'
@@ -53,7 +59,7 @@ jobs:
 
   observe:
     needs: validate
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'push'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
