@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "batch_id": "assessment-upstream-2026-11-13-34",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "85ae995fc2551ac0a076609bce0300d075cac2d5",
+  "frozen_at": "2026-11-13",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Five Index-first prospective assessment-derived S2 questions selected by live read-only discovery from Upstream main@c0b3b31bea4b7e39980dfa08a7a36c40c601ea3f after 33 merged cohorts. NanoCoder excluded from selection as occupied by active internal Draft PR #123 though absent merged registry; next five identities selected in reviewed-date order. Pre-source checkpoint 3f8674f published before current original source/policy/issue/PR inspection. The preview is not an atomic source reservation.",
+  "candidates": [
+    {
+      "id": "bough-queued-cancelled-child-recovery",
+      "assessment_path": "assessments/bo/bough.md",
+      "source": "andreylukin/bough",
+      "review_ref": "18d07fe115e6ca872273d40d7cedc0881af4561e",
+      "reviewed_at": "2026-10-21",
+      "function": "S2",
+      "finding": "Can a cancelled or failed queued Bough background child leave a stale FIFO slot and block a later eligible sibling after capacity becomes free?",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/bo/bough.md",
+        "https://github.com/opensiro/upstream/commit/3f8674fdffe0ae7f9191a329959ea92fb2839338"
+      ],
+      "screening_result": "Only an index-first prospective falsifiable hypothesis; current original source, license, native-fitness, public overlap and executable tests not yet inspected.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "rune-prerequisite-cancel-dependency-closure",
+      "assessment_path": "assessments/ru/rune.md",
+      "source": "khang859/rune",
+      "review_ref": "afefbad9f8f4a7818a6defc4165f4a0c6aeacdad",
+      "reviewed_at": "2026-10-21",
+      "function": "S2",
+      "finding": "Can Rune leave a waiting dependent task permanently pending after a prerequisite child is cancelled rather than completing with an attributable dependency failure?",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ru/rune.md",
+        "https://github.com/opensiro/upstream/commit/3f8674fdffe0ae7f9191a329959ea92fb2839338"
+      ],
+      "screening_result": "Only an index-first prospective falsifiable hypothesis; current original source, license, native-fitness, public overlap and executable tests not yet inspected.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "git-meta-harness-glob-overlap",
+      "assessment_path": "assessments/gi/git-meta-harness.md",
+      "source": "brenonaraujo/git-meta-harness",
+      "review_ref": "167b13c66993fa0a5216e4be2fc9bf911cd02cf8",
+      "reviewed_at": "2026-10-18",
+      "function": "S2",
+      "finding": "Does the first-party Sensor 10 builder path-scope check miss a nested literal path overlapping a wildcard directory scope and allow conflicting writers?",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/gi/git-meta-harness.md",
+        "https://github.com/opensiro/upstream/commit/3f8674fdffe0ae7f9191a329959ea92fb2839338"
+      ],
+      "screening_result": "Only an index-first prospective falsifiable hypothesis; current original source, license, native-fitness, public overlap and executable tests not yet inspected.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "rust-harness-shadow-mode-no-deferral",
+      "assessment_path": "assessments/ru/rust-harness.md",
+      "source": "majiayu000/harness",
+      "review_ref": "7f75dee2cb2eaf7195c9b8938ac76db691f1d157",
+      "reviewed_at": "2026-10-18",
+      "function": "S2",
+      "finding": "Could Rust Harness shadow-only runtime profile fairness evaluation improperly execute Enforce-style command deferral while alternative claimable work is present?",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ru/rust-harness.md",
+        "https://github.com/opensiro/upstream/commit/3f8674fdffe0ae7f9191a329959ea92fb2839338"
+      ],
+      "screening_result": "Only an index-first prospective falsifiable hypothesis; current original source, license, native-fitness, public overlap and executable tests not yet inspected.",
+      "external_action": "NOT_EXECUTED"
+    },
+    {
+      "id": "ursa-symposium-duplicate-member-workspace",
+      "assessment_path": "assessments/ur/ursa.md",
+      "source": "lanl/ursa",
+      "review_ref": "470b841d83e88457d5677fc824aea32e2d5a5e22",
+      "reviewed_at": "2026-10-17",
+      "function": "S2",
+      "finding": "Can two distinct Symposium researchers configured with the same member name receive one shared default output workspace and overwrite sibling artifacts?",
+      "stage": "SCREENING",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PENDING",
+        "counterfactual": "PENDING",
+        "scope": "PENDING"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/85ae995fc2551ac0a076609bce0300d075cac2d5/assessments/ur/ursa.md",
+        "https://github.com/opensiro/upstream/commit/3f8674fdffe0ae7f9191a329959ea92fb2839338"
+      ],
+      "screening_result": "Only an index-first prospective falsifiable hypothesis; current original source, license, native-fitness, public overlap and executable tests not yet inspected.",
+      "external_action": "NOT_EXECUTED"
+    }
+  ]
+}
