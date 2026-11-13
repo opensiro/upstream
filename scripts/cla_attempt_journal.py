@@ -15,7 +15,7 @@ import sqlite3
 HEX40 = re.compile(r"[0-9a-f]{40}\Z")
 HEX64 = re.compile(r"[0-9a-f]{64}\Z")
 NONCE = re.compile(r"[A-Za-z0-9_.:-]{16,255}\Z")
-TARGET = re.compile(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+\Z")
+TARGET = re.compile(r"[A-Za-z0-9][A-Za-z0-9-]*/[A-Za-z0-9_.-]+\Z")
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS cla_attempts (
