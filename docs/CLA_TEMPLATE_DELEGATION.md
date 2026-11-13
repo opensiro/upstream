@@ -23,6 +23,14 @@ Do not store privileged credentials, confidential employment details or personal
 
 The included `scripts/cla_template_gate.py` is a **static policy preflight**. It can block unenrolled, wrong-repository, wrong-actor, stale-digest or incomplete approvals. Even when all static fields match, it returns `REQUIRES_INDEPENDENT_LIVE_ATTESTATION_CHECK`, **never permission to sign**. A separate implementation must verify genuine signer authorization, current counterparty terms, target-native contributor requirements, transport credentials and external reply, before any write. No code in this PR performs external `agree` comments, CLA acceptance or PR creation.
 
+## Revka first-party terms observation (inactive, 2026-11-13)
+
+The present [Revka CLA v1.0](https://github.com/KumihoIO/Revka/blob/a1acd826502e12a6c2f3d147e488a7d2982c480b/docs/contributing/cla.md) was fetched verbatim through authenticated GitHub read-only access at source `KumihoIO/Revka@a1acd826502e12a6c2f3d147e488a7d2982c480b`. Its **raw UTF-8 file bytes** (4,055 bytes) had SHA-256 `c6f2f0061d44875d6043530ba2ce0b93a77327dca5672a92787f84afb20de623` on 2026-11-13. This is a **source-content observation**, not consent, signed terms, legal advice, or a reusable credential.
+
+Registry fields `observed_source_ref` and `observed_terms_sha256` are **informational only**. They never substitute for the enrolment-only `terms_sha256`, `signer_capacity`, `signer_approval_ref`, literal `exact_action`, expiry or independent live signatory verification. The Revka template remains `PENDING_EXACT_TERMS_APPROVAL`, the enrolment `terms_sha256` remains `null`, and the executor flag remains `false`.
+
+Opening a PR to `KumihoIO/Revka` already constitutes contributor-person assent under section 9 of the observed first-party CLA; it must not be triggered merely by technical readiness or a generic request to continue. Recheck the current original-repository terms, the human's actual individual/corporate capacity, and exact personally approved rights before any external publication. The [fork-local Revka #1](https://github.com/opensiro-contributions/Revka/pull/1) is not a CLA acceptance to the original project.
+
 ## Initial candidate cases (inactive)
 
 - [Revka CLA](https://github.com/KumihoIO/Revka/blob/main/docs/contributing/cla.md): PR submission itself indicates individual CLA assent; must verify current terms and contributor's legal rights before a PR which triggers assent.
