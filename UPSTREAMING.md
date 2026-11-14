@@ -2,7 +2,7 @@
 
 **Owner:** `opensiro/upstream`, the admitted OpenSiro Upstream Contributions S1 domain. **Authority:** [Organization bootstrap](https://github.com/opensiro/vsm-oss-organization/blob/main/START_HERE.md) and [S1 domain contracts](https://github.com/opensiro/vsm-oss-organization/blob/main/contracts/s1/domain-contracts.md). This file describes local storage, life cycles and evidence; it creates no new S5 delegation or external publication right.
 
-**Protocol version:** [SemVer `0.7.0`](VERSION) · [changes](CHANGELOG.md) · [bump rules](VERSIONING.md). This records procedure history; exact current policies/permissions still govern every action.
+**Protocol version:** [SemVer `0.8.0`](VERSION) · [changes](CHANGELOG.md) · [bump rules](VERSIONING.md). This records procedure history; exact current policies/permissions still govern every action.
 
 ## Responsibilities
 
