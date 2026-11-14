@@ -44,5 +44,27 @@ class ContributionProtocolSemverTests(unittest.TestCase):
         self.assertIn("does not extend", text)
 
 
+    def test_080_opportunity_depth_release_is_traceable_and_compatibly_scoped(self):
+        """A new upgrade-mode obligation must remain tied to one SemVer release."""
+        version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
+        if parts(version) < (0, 8, 0):
+            self.skipTest("pre-0.8.0 historical protocol snapshot")
+        package = (ROOT / "changes" / "v0.8.0.md").read_text(encoding="utf-8")
+        contract = (ROOT / "docs" / "ASSESSMENT_CANDIDATE_BATCHES.md").read_text(encoding="utf-8")
+        for name in ("README.md", "UPSTREAMING.md"):
+            with self.subTest(entry=name):
+                self.assertIn(f"SemVer `{version}`", (ROOT / name).read_text(encoding="utf-8"))
+        for phrase in ("MINOR", "four", "source-first", "pre-source",
+                       "batch 39", "## Boundary and compatibility"):
+            with self.subTest(package=phrase):
+                self.assertIn(phrase.lower(), package.lower())
+        for phrase in ("SCREENING_COMPLETE", "OPPORTUNITY_RESEARCH_PENDING",
+                       "OPPORTUNITY_DECIDED", "six-function",
+                       "need=PENDING", "counterfactual=PENDING",
+                       "a separate runner", "four gates",
+                       "no new manifest enum"):
+            with self.subTest(contract=phrase):
+                self.assertIn(phrase.lower(), contract.lower())
+
 if __name__ == "__main__":
     unittest.main()
