@@ -1,0 +1,40 @@
+{
+  "schema": "opensiro.upstream.batch40.srchd-research-sdk-native.v1",
+  "pin": "dust-tt/srchd@4b5ffb44bdc6bb1d2181d746ec951dd30f89ed08",
+  "sdk": "@mendable/firecrawl@4.35.0",
+  "npm_integrity": "sha512-M9WjKxn3ZGguBze4k6uUbFSwaWHM+IraaU2kE6hbPlKwwJ8rq/s7OFrPmfw0N7fTCtQEr7W6xOnhE84b18EtgA==",
+  "npm_sha512_verified": true,
+  "sdk_source_segment_sha256": "88c5ed5d6d52c563248435227c50600ecc51494c67d5bbf79c5dc6fe35cf2400",
+  "runner": "Node (vm executing verbatim SDK ResearchClient class) with fake isolated HTTP transport",
+  "test_status": 0,
+  "control_cases": [
+    {
+      "case": "paper search",
+      "status": "PASS",
+      "path": "/v2/search/research/papers?query=tau+aggregation+in+Parkinson+disease&k=5&authors=A.+Smith&authors=B.+Doe&from=2020-01-01&origin=js-sdk%404.35.0",
+      "primaryId": "pmid:12345678",
+      "hasDirectUrl": false
+    },
+    {
+      "case": "invalid query/k fail before HTTP",
+      "status": "PASS"
+    },
+    {
+      "case": "paper detail",
+      "status": "PASS",
+      "path": "/v2/search/research/papers/pmid%3A12345678?query=treatment+passage&k=2&origin=js-sdk%404.35.0"
+    },
+    {
+      "case": "related citation search",
+      "status": "PASS",
+      "path": "/v2/search/research/papers/pmid%3A12345678/similar?intent=related+biomarkers&k=3&origin=js-sdk%404.35.0"
+    }
+  ],
+  "web_contract_mismatch": "PaperResult has primaryId (e.g. pmid:), does not require a URL; cannot pass directly to srchd WebClient search output which requires a link.",
+  "scope": "No live Firecrawl API call, provider keys, latency, coverage or quality. Synthetic server response verifies route encoding and input validation only. Research papers != patents.",
+  "need": "PENDING",
+  "mechanism": "PASS",
+  "counterfactual": "PENDING",
+  "scope_gate": "PENDING",
+  "external_patch_admitted": false
+}
