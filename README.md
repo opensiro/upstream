@@ -2,6 +2,8 @@
 
 **OpenSiro's public record of improvements to other open-source projects.** We trace a contribution from a reproducible problem and source-native fix through its external pull request, maintainer feedback and independently verified outcome. A prepared patch is not a merged contribution, and a merged PR is not automatically a demonstrated product benefit.
 
+**Contribution protocol:** [SemVer `0.7.0`](VERSION) · [numbered changes](CHANGELOG.md) · [versioning policy](VERSIONING.md). Versions track the contribution *procedure*, not Profile/Skills methodology or individual PR outcomes.
+
 ## I'm human
 
 | I want to… | Go to |
