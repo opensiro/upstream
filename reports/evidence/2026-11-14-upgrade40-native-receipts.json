@@ -1,0 +1,354 @@
+{
+  "schema": "opensiro.upstream.batch40.experimental-revisit-receipts.v1",
+  "date": "2026-11-14",
+  "previous_batch_sha": "8a5ebb36058140e2b84ae4fb1b0751c9b0be7d89",
+  "note": "Only bounded native executions, not independent before/after proof. Error exits are preserved; initial dependency errors were later recovered when specified.",
+  "executions": [
+    {
+      "receipt": "ai-scientist-existing-audit-schema.json",
+      "sha256": "038ede929e37d94edf9239144b010aa4c3162fc5cd772a3c9157d349c8df71a4",
+      "name": "ai-scientist-existing-audit-schema",
+      "pin": "df8313889a004f8a44a472e19a833cd547bb828a",
+      "command": "python3 -c <receipt source native_falsifiers.py:ai-scientist-existing-audit-schema>",
+      "status": null,
+      "exit_code": 0,
+      "seconds": 0.45,
+      "exception": null,
+      "output_tail": "",
+      "stdout": "PASS: machine-readable per-claim schema is defined; named audit JSON staged and consumed; need for separate export not demonstrated\n",
+      "stderr": ""
+    },
+    {
+      "receipt": "ai-scientist-qualification-retry.json",
+      "sha256": "503d80f445ffbf8d53748123f6d722591ac138dba439f852f90473bd87d8db8d",
+      "name": "ai-scientist-qualification",
+      "pin": "df8313889a004f8a44a472e19a833cd547bb828a",
+      "command": "python3 -m pytest -q -p no:cacheprovider tests/task_drafting/test_task_qualification.py",
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 7,
+      "exception": null,
+      "output_tail": "..............                                                           [100%]\n14 passed in 4.82s\n"
+    },
+    {
+      "receipt": "ai-scientist-qualification.json",
+      "sha256": "171b9d53a1f23009ed43a18b4edc16ac09144305d03308f9d651c536f2d8334b",
+      "name": "ai-scientist-qualification",
+      "pin": "df8313889a004f8a44a472e19a833cd547bb828a",
+      "command": "python3 -m pytest -q -o cache_dir=/tmp/batch40-pytest-ai-scientist-qualification tests/task_drafting/test_task_qualification.py",
+      "status": "TEST_FAILED_OR_ENV_BLOCKED",
+      "exit_code": 3,
+      "seconds": 2.11,
+      "exception": null,
+      "output_tail": "space/users/lagerf3u3r/batch40-20261114/.deps/_pytest/main.py\", line 329, in wrap_session\nINTERNALERROR>     config._do_configure()\nINTERNALERROR>   File \"/workspace/users/lagerf3u3r/batch40-20261114/.deps/_pytest/config/__init__.py\", line 1370, in _do_configure\nINTERNALERROR>     self.hook.pytest_configure.call_historic(kwargs=dict(config=self))\nINTERNALERROR>   File \"/workspace/users/lagerf3u3r/batch40-20261114/.deps/pluggy/_caller.py\", line 222, in call_historic\nINTERNALERROR>     res = self._hookexec(self.name, self._hookimpls.copy(), kwargs, False)\nINTERNALERROR>           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nINTERNALERROR>   File \"/workspace/users/lagerf3u3r/batch40-20261114/.deps/pluggy/_manager.py\", line 183, in _hookexec\nINTERNALERROR>     return self._inner_hookexec(hook_name, methods, kwargs, firstresult)\nINTERNALERROR>            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nINTERNALERROR>   File \"/workspace/users/lagerf3u3r/batch40-20261114/.deps/pluggy/_execution.py\", line 195, in _multicall\nINTERNALERROR>     raise exception\nINTERNALERROR>   File \"/workspace/users/lagerf3u3r/batch40-20261114/.deps/pluggy/_execution.py\", line 147, in _multicall\nINTERNALERROR>     res = hook_impl.function(*args)\nINTERNALERROR>           ^^^^^^^^^^^^^^^^^^^^^^^^^\nINTERNALERROR>   File \"/workspace/users/lagerf3u3r/batch40-20261114/sources/SakanaAI__AI-Scientist-v3/tests/conftest.py\", line 37, in pytest_configure\nINTERNALERROR>     run = make_numbered_dir_with_cleanup(\nINTERNALERROR>           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nINTERNALERROR> TypeError: make_numbered_dir_with_cleanup() missing 1 required keyword-only argument: 'register'\n"
+    },
+    {
+      "receipt": "akmatori-go-test.json",
+      "sha256": "a0eca983c59a17e6f059cfd960e719125f2ca4f9192e1a7228e611b5900508e6",
+      "name": "akmatori-go-test",
+      "pin": null,
+      "command": [
+        "go",
+        "test",
+        "./internal/services/..."
+      ],
+      "status": null,
+      "exit_code": null,
+      "seconds": null,
+      "exception": "FileNotFoundError: [Errno 2] No such file or directory: 'go'",
+      "output_tail": ""
+    },
+    {
+      "receipt": "go-harness-go-test.json",
+      "sha256": "e88298cd747330ba9ca8b6f3f9a8c12292ef9762545f7c55f128aa2e721fc4a5",
+      "name": "go-harness-go-test",
+      "pin": null,
+      "command": [
+        "go",
+        "test",
+        "./agent/..."
+      ],
+      "status": null,
+      "exit_code": null,
+      "seconds": null,
+      "exception": "FileNotFoundError: [Errno 2] No such file or directory: 'go'",
+      "output_tail": ""
+    },
+    {
+      "receipt": "hexashell-runtime-after-cv2.json",
+      "sha256": "6f5d5e791f6381b1814e40332cd181cc4c15131d9f067f94058b42bdd40085b1",
+      "name": "hexashell-runtime-after-cv2",
+      "pin": "e0190ddb757955131578e9f9071f4ee8e7113f7a",
+      "command": [
+        "python3",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/test_runtime.py"
+      ],
+      "status": null,
+      "exit_code": 1,
+      "seconds": 4.06,
+      "exception": null,
+      "output_tail": "port fakes\n    \n        class DoneOnTheWayHome(fakes.FakeTable):\n            \"\"\"Succeeds once the right arm, having gone out, is nearly back at its start.\"\"\"\n    \n            def apply(self, action):\n                super().apply(action)\n                out = float(np.max(np.abs(self.q[\"right\"])))\n                self.away = getattr(self, \"away\", False) or out > 0.4\n                self.success = self.success or (self.away and out < 0.2)\n    \n        table = DoneOnTheWayHome([fakes.Box(\"red block\", (0.05, -0.05, 0.79), (0.05, 0.05, 0.05))])\n        cell = \"print(robot.goto('right', (0.15, -0.15, 0.95), pitch=90))\\nrobot.home()\\nprint('after')\"\n        folder, verdict, seen = _run_scripted([[fakes.python_call(cell)]], table=table)\n>       assert verdict[\"success\"], verdict\nE       AssertionError: {'progress': 0.0, 'step': 0, 'step_limit': 400, 'success': False, ...}\nE       assert False\n\ntests/test_runtime.py:384: AssertionError\n=========================== short test summary info ============================\nFAILED tests/test_runtime.py::test_conversation_window - ModuleNotFoundError:...\nFAILED tests/test_runtime.py::test_conversation_window_bytes - ModuleNotFound...\nFAILED tests/test_runtime.py::test_dropped_pictures_clear_later_thinking - Mo...\nFAILED tests/test_runtime.py::test_history_reasoning - IndexError: list index...\nFAILED tests/test_runtime.py::test_scripted_episode - AssertionError: {'card'...\nFAILED tests/test_runtime.py::test_script_mode - AssertionError: {'card': {},...\nFAILED tests/test_runtime.py::test_step_limit_ends_episode - AssertionError: ...\nFAILED tests/test_runtime.py::test_episode_end_names_the_call_it_ended_in - A...\n8 failed, 7 passed in 2.45s\n\n"
+    },
+    {
+      "receipt": "hexashell-runtime-offline-scripted.json",
+      "sha256": "e93cce331156fde6988ac3530d6f6b0e5eb72acbc1ef3441da32b7d8c7dc8c7c",
+      "name": "hexashell-runtime-offline-scripted",
+      "pin": "e0190ddb757955131578e9f9071f4ee8e7113f7a",
+      "command": "OPENAI_API_KEY=<dummy> python3 -m pytest -q -p no:cacheprovider tests/test_runtime.py",
+      "status": null,
+      "exit_code": 1,
+      "seconds": 4.02,
+      "exception": null,
+      "output_tail": "h printed nothing, and three analyses took them\n        for successes at the lift before.  Now the message names the call and how far into it the episode\n        ended, and the events have a verdict event.\"\"\"\n        import re\n    \n        import fakes\n    \n        class DoneOnTheWayHome(fakes.FakeTable):\n            \"\"\"Succeeds once the right arm, having gone out, is nearly back at its start.\"\"\"\n    \n            def apply(self, action):\n                super().apply(action)\n                out = float(np.max(np.abs(self.q[\"right\"])))\n                self.away = getattr(self, \"away\", False) or out > 0.4\n                self.success = self.success or (self.away and out < 0.2)\n    \n        table = DoneOnTheWayHome([fakes.Box(\"red block\", (0.05, -0.05, 0.79), (0.05, 0.05, 0.05))])\n        cell = \"print(robot.goto('right', (0.15, -0.15, 0.95), pitch=90))\\nrobot.home()\\nprint('after')\"\n        folder, verdict, seen = _run_scripted([[fakes.python_call(cell)]], table=table)\n>       assert verdict[\"success\"], verdict\nE       AssertionError: {'progress': 0.0, 'step': 0, 'step_limit': 400, 'success': False, ...}\nE       assert False\n\ntests/test_runtime.py:384: AssertionError\n=========================== short test summary info ============================\nFAILED tests/test_runtime.py::test_history_reasoning - IndexError: list index...\nFAILED tests/test_runtime.py::test_scripted_episode - AssertionError: {'card'...\nFAILED tests/test_runtime.py::test_script_mode - AssertionError: {'card': {},...\nFAILED tests/test_runtime.py::test_step_limit_ends_episode - AssertionError: ...\nFAILED tests/test_runtime.py::test_episode_end_names_the_call_it_ended_in - A...\n5 failed, 10 passed in 2.59s\n\n"
+    },
+    {
+      "receipt": "hexashell-runtime-retry.json",
+      "sha256": "97369178209ab0b93c5ab868cadb865ddafad1d7d173339631e69ca355ba8fbe",
+      "name": "hexashell-runtime",
+      "pin": "e0190ddb757955131578e9f9071f4ee8e7113f7a",
+      "command": "python3 -m pytest -q -p no:cacheprovider tests/test_runtime.py",
+      "status": "FAILED_OR_ENV",
+      "exit_code": 2,
+      "seconds": 5,
+      "exception": null,
+      "output_tail": "\n==================================== ERRORS ====================================\n____________________ ERROR collecting tests/test_runtime.py ____________________\nImportError while importing test module '/workspace/users/lagerf3u3r/batch40-20261114/sources/HexaFuture__HexaShell/tests/test_runtime.py'.\nHint: make sure your test modules/packages have valid Python names.\nTraceback:\n/usr/lib/python3.12/importlib/__init__.py:90: in import_module\n    return _bootstrap._gcd_import(name[level:], package, level)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\ntests/test_runtime.py:23: in <module>\n    from hexashell.runtime import card, conversation, episode  # noqa: E402\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nhexashell/runtime/conversation.py:24: in <module>\n    from ..vision.overlay import jpeg\nhexashell/vision/overlay.py:12: in <module>\n    import cv2\nE   ModuleNotFoundError: No module named 'cv2'\n=========================== short test summary info ============================\nERROR tests/test_runtime.py\n!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\n1 error in 2.17s\n"
+    },
+    {
+      "receipt": "hexashell-runtime.json",
+      "sha256": "a43112074e1d55b4f67bdb1f293037121d52a7dc3022a38dc2c2cee73119650e",
+      "name": "hexashell-runtime",
+      "pin": "e0190ddb757955131578e9f9071f4ee8e7113f7a",
+      "command": "python3 -m pytest -q -o cache_dir=/tmp/batch40-pytest-hexashell-runtime tests/test_runtime.py",
+      "status": "TEST_FAILED_OR_ENV_BLOCKED",
+      "exit_code": 2,
+      "seconds": 2.43,
+      "exception": null,
+      "output_tail": "oop scopes are: \"function\", \"class\", \"module\", \"package\", \"session\". Set it to \"fixture-scope\" to keep the current behavior.\n\n  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))\n\n==================================== ERRORS ====================================\n____________________ ERROR collecting tests/test_runtime.py ____________________\nImportError while importing test module '/workspace/users/lagerf3u3r/batch40-20261114/sources/HexaFuture__HexaShell/tests/test_runtime.py'.\nHint: make sure your test modules/packages have valid Python names.\nTraceback:\n/usr/lib/python3.12/importlib/__init__.py:90: in import_module\n    return _bootstrap._gcd_import(name[level:], package, level)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\ntests/test_runtime.py:17: in <module>\n    import numpy as np\nE   ModuleNotFoundError: No module named 'numpy'\n=============================== warnings summary ===============================\n../../../../../../opt/venv/lib/python3.12/site-packages/anyio/pytest_plugin.py:14\n  /opt/venv/lib/python3.12/site-packages/anyio/pytest_plugin.py:14: PytestRemovedIn10Warning: _pytest.python.CallSpec2 has been renamed to CallSpec.\n  The CallSpec2 alias will be removed in pytest 10.\n  Update imports to use CallSpec instead.\n  See https://docs.pytest.org/en/stable/deprecations.html#callspec2-renamed\n    from _pytest.python import CallSpec2\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n=========================== short test summary info ============================\nERROR tests/test_runtime.py\n!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\n1 warning, 1 error in 0.73s\n"
+    },
+    {
+      "receipt": "open-sdk-agent-retry.json",
+      "sha256": "0fc550543391b68c0954f356c0d91864ea88d434d8b0d0bd3ae6a30cce3ac5aa",
+      "name": "open-sdk-agent",
+      "pin": "ab068156bf7db79cd23a883e8264a12803e23966",
+      "command": "python3 -m pytest -q -p no:cacheprovider tests/test_agent.py",
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 16.6,
+      "exception": null,
+      "output_tail": "...............                                                          [100%]\n15 passed in 8.64s\n"
+    },
+    {
+      "receipt": "open-sdk-agent.json",
+      "sha256": "a38c5dd37503d539add5fc9aa850ee1afedc9dd07e641d40ca40051c05013f01",
+      "name": "open-sdk-agent",
+      "pin": "ab068156bf7db79cd23a883e8264a12803e23966",
+      "command": "python3 -m pytest -q -o cache_dir=/tmp/batch40-pytest-open-sdk-agent tests/test_agent.py",
+      "status": "TEST_FAILED_OR_ENV_BLOCKED",
+      "exit_code": 2,
+      "seconds": 1.95,
+      "exception": null,
+      "output_tail": "===================== ERRORS ====================================\n_____________________ ERROR collecting tests/test_agent.py _____________________\nImportError while importing test module '/workspace/users/lagerf3u3r/batch40-20261114/sources/codeany-ai__open-agent-sdk-python/tests/test_agent.py'.\nHint: make sure your test modules/packages have valid Python names.\nTraceback:\n/usr/lib/python3.12/importlib/__init__.py:90: in import_module\n    return _bootstrap._gcd_import(name[level:], package, level)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\ntests/test_agent.py:6: in <module>\n    from open_agent_sdk.agent import Agent, create_agent\nsrc/open_agent_sdk/__init__.py:10: in <module>\n    from open_agent_sdk.agent import Agent, create_agent, query\nsrc/open_agent_sdk/agent.py:10: in <module>\n    import anthropic\nE   ModuleNotFoundError: No module named 'anthropic'\n=============================== warnings summary ===============================\n../../../../../../opt/venv/lib/python3.12/site-packages/anyio/pytest_plugin.py:14\n  /opt/venv/lib/python3.12/site-packages/anyio/pytest_plugin.py:14: PytestRemovedIn10Warning: _pytest.python.CallSpec2 has been renamed to CallSpec.\n  The CallSpec2 alias will be removed in pytest 10.\n  Update imports to use CallSpec instead.\n  See https://docs.pytest.org/en/stable/deprecations.html#callspec2-renamed\n    from _pytest.python import CallSpec2\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n=========================== short test summary info ============================\nERROR tests/test_agent.py\n!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\n1 warning, 1 error in 0.31s\n"
+    },
+    {
+      "receipt": "open-sdk-engine-retry.json",
+      "sha256": "3edbf1b71ef8cb7e7cc73e42d2a274d1d141e0ad31a3df1c6d7ba131bbe346cf",
+      "name": "open-sdk-engine",
+      "pin": "ab068156bf7db79cd23a883e8264a12803e23966",
+      "command": "python3 -m pytest -q -p no:cacheprovider tests/test_engine.py",
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 17,
+      "exception": null,
+      "output_tail": ".......                                                                  [100%]\n7 passed in 8.96s\n"
+    },
+    {
+      "receipt": "open-sdk-engine.json",
+      "sha256": "cac475e42241ad8cf25b66cefd3d067b0bb37175fa2a09267f9382784129fe6a",
+      "name": "open-sdk-engine",
+      "pin": "ab068156bf7db79cd23a883e8264a12803e23966",
+      "command": "python3 -m pytest -q -o cache_dir=/tmp/batch40-pytest-open-sdk-engine tests/test_engine.py",
+      "status": "TEST_FAILED_OR_ENV_BLOCKED",
+      "exit_code": 2,
+      "seconds": 3.66,
+      "exception": null,
+      "output_tail": "====== ERRORS ====================================\n____________________ ERROR collecting tests/test_engine.py _____________________\nImportError while importing test module '/workspace/users/lagerf3u3r/batch40-20261114/sources/codeany-ai__open-agent-sdk-python/tests/test_engine.py'.\nHint: make sure your test modules/packages have valid Python names.\nTraceback:\n/usr/lib/python3.12/importlib/__init__.py:90: in import_module\n    return _bootstrap._gcd_import(name[level:], package, level)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\ntests/test_engine.py:6: in <module>\n    from open_agent_sdk.engine import QueryEngine, QueryEngineConfig\nsrc/open_agent_sdk/__init__.py:10: in <module>\n    from open_agent_sdk.agent import Agent, create_agent, query\nsrc/open_agent_sdk/agent.py:10: in <module>\n    import anthropic\nE   ModuleNotFoundError: No module named 'anthropic'\n=============================== warnings summary ===============================\n../../../../../../opt/venv/lib/python3.12/site-packages/anyio/pytest_plugin.py:14\n  /opt/venv/lib/python3.12/site-packages/anyio/pytest_plugin.py:14: PytestRemovedIn10Warning: _pytest.python.CallSpec2 has been renamed to CallSpec.\n  The CallSpec2 alias will be removed in pytest 10.\n  Update imports to use CallSpec instead.\n  See https://docs.pytest.org/en/stable/deprecations.html#callspec2-renamed\n    from _pytest.python import CallSpec2\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n=========================== short test summary info ============================\nERROR tests/test_engine.py\n!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\n1 warning, 1 error in 0.74s\n"
+    },
+    {
+      "receipt": "open-sdk-existing-mailbox.json",
+      "sha256": "b4941cf624dc7e2bc735abd670ffcb4da228474c22f2d1da26d79ed7bb11bc72",
+      "name": "open-sdk-existing-mailbox",
+      "pin": "ab068156bf7db79cd23a883e8264a12803e23966",
+      "command": "python3 -c <receipt source native_falsifiers.py:open-sdk-existing-mailbox>",
+      "status": null,
+      "exit_code": 0,
+      "seconds": 4.72,
+      "exception": null,
+      "output_tail": "",
+      "stdout": "PASS: current first-party tool sends and receives; no added mailbox needed\n",
+      "stderr": ""
+    },
+    {
+      "receipt": "sailry-rust-test.json",
+      "sha256": "35388346635925b69fde595b6bcc64ec427bbf75f677b1c3689f8aeb8d77212c",
+      "name": "sailry-rust-test",
+      "pin": null,
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "node-runtime"
+      ],
+      "status": null,
+      "exit_code": null,
+      "seconds": null,
+      "exception": "FileNotFoundError: [Errno 2] No such file or directory: 'cargo'",
+      "output_tail": ""
+    },
+    {
+      "receipt": "sapper-cross-process-fact.json",
+      "sha256": "6a26bcca56187c77416689ead3990edfe98866f03ce61510085088e3e2a604b7",
+      "name": "sapper-cross-process-fact",
+      "pin": "7b75e6f1f5d5b4ae0c55878b0dd0994d9b08f1fb",
+      "command": null,
+      "status": "PASS",
+      "exit_code": null,
+      "seconds": null,
+      "exception": null,
+      "output_tail": "",
+      "steps": [
+        {
+          "command": [
+            "python3",
+            "/workspace/users/lagerf3u3r/batch40-20261114/sapper-readonly/sapper.py",
+            "--store",
+            "<temp>",
+            "init",
+            "--goal",
+            "Read-only graph fixture"
+          ],
+          "exit_code": 0,
+          "stdout": "initialized fact graph at /tmp/batch40-sapper-88dzrtpf\ngoal: Read-only graph fixture\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "python3",
+            "/workspace/users/lagerf3u3r/batch40-20261114/sapper-readonly/sapper.py",
+            "--store",
+            "<temp>",
+            "fact",
+            "Local verification fact",
+            "--kind",
+            "note",
+            "--json"
+          ],
+          "exit_code": 0,
+          "stdout": "f001\n{\"id\": \"f001\", \"title\": null, \"description\": \"Local verification fact\", \"doc\": null, \"kind\": \"note\", \"data\": null, \"created_at\": \"2026-11-14T14:54:58Z\", \"creator\": \"user\", \"source_intent\": null}\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "python3",
+            "/workspace/users/lagerf3u3r/batch40-20261114/sapper-readonly/sapper.py",
+            "--store",
+            "<temp>",
+            "graph",
+            "--format",
+            "json"
+          ],
+          "exit_code": 0,
+          "stdout": "{\n  \"project\": {\n    \"id\": \"proj\",\n    \"origin\": \"\",\n    \"goal\": \"Read-only graph fixture\",\n    \"status\": \"active\",\n    \"created_at\": \"2026-11-14T14:54:58Z\",\n    \"counters\": {\n      \"fact\": 1,\n      \"intent\": 0,\n      \"hint\": 0,\n      \"run\": 0\n    }\n  },\n  \"facts\": [\n    {\n      \"id\": \"f001\",\n      \"title\": null,\n      \"description\": \"Local verification fact\",\n      \"doc\": null,\n      \"kind\": \"note\",\n      \"data\": null,\n      \"created_at\": \"2026-11-14T14:54:58Z\",\n      \"creator\": \"user\",\n      \"source_intent\": null\n    },\n    {\n      \"id\": \"goal\",\n      \"description\": \"Read-only graph fixture\",\n      \"created_at\": \"2026-11-14T14:54:58Z\",\n      \"creator\": \"system\",\n      \"source_intent\": null\n    }\n  ],\n  \"intents\": [],\n  \"open_intents\": [],\n  \"done_intents\": [],\n  \"hints\": [],\n  \"fact_ids\": [\n    \"f001\",\n    \"goal\"\n  ]\n}\n",
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "receipt": "sapper-native-cli.json",
+      "sha256": "d4e61e9e225c17d37dcd6cfb42d706e7e60946e2f59a2aa43c146d787f9b631f",
+      "name": "sapper-native-cli",
+      "pin": null,
+      "command": [
+        "python3",
+        "lib/sapper.py",
+        "--help"
+      ],
+      "status": null,
+      "exit_code": 2,
+      "seconds": null,
+      "exception": null,
+      "output_tail": "",
+      "stdout": "",
+      "stderr": "python3: can't open file '/workspace/users/lagerf3u3r/batch40-20261114/sources/N1nEmAn__sapper-v2/lib/sapper.py': [Errno 2] No such file or directory\n"
+    },
+    {
+      "receipt": "slack-partial-diff-boundary.json",
+      "sha256": "0e3c37b0a9086465e6b44f841b4c6b81d54ed4fc3d5cf4b8a4c2b47b8046034a",
+      "name": "slack-partial-diff-boundary",
+      "pin": "16bb262715b7bacb64c7466cf106063c2fdf6c93",
+      "command": "python3 -c <receipt source native_falsifiers.py:slack-partial-diff-boundary>",
+      "status": null,
+      "exit_code": 0,
+      "seconds": 0.81,
+      "exception": null,
+      "output_tail": "",
+      "stdout": "PASS: API accepts supplied partial diff and yields APPROVE when fake model has no findings; real workflow fetches actual GitHub diff and checks SHA; NOT a reproduced incomplete upstream review\n",
+      "stderr": ""
+    },
+    {
+      "receipt": "slack-reviewer-retry.json",
+      "sha256": "34f55dea6b034c678748fc28a4e201572ec08d84bfa8ca4d0b9f990e15cbbb1e",
+      "name": "slack-reviewer",
+      "pin": "16bb262715b7bacb64c7466cf106063c2fdf6c93",
+      "command": "python3 -m pytest -q -p no:cacheprovider tests/unit/coding/test_reviewer.py",
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 22.2,
+      "exception": null,
+      "output_tail": "........                                                                 [100%]\n8 passed in 0.34s\n"
+    },
+    {
+      "receipt": "slack-reviewer.json",
+      "sha256": "f737419a08af477d348c43ea5da0bf0aadcd74e9d217f5b4e919aec1b4304a68",
+      "name": "slack-reviewer",
+      "pin": "16bb262715b7bacb64c7466cf106063c2fdf6c93",
+      "command": "python3 -m pytest -q -o cache_dir=/tmp/batch40-pytest-slack-reviewer tests/unit/coding/test_reviewer.py",
+      "status": "TEST_FAILED_OR_ENV_BLOCKED",
+      "exit_code": 4,
+      "seconds": 3.59,
+      "exception": null,
+      "output_tail": "ImportError while loading conftest '/workspace/users/lagerf3u3r/batch40-20261114/sources/sakomws__slack-agent-runtime/tests/conftest.py'.\ntests/conftest.py:6: in <module>\n    from slack_agent_runtime.inference.client import InferenceResult, InferenceUsage\nsrc/slack_agent_runtime/inference/client.py:12: in <module>\n    from slack_agent_runtime.inference.telemetry import InferenceTelemetry, get_telemetry\nsrc/slack_agent_runtime/inference/telemetry.py:16: in <module>\n    from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import OTLPMetricExporter\nE   ModuleNotFoundError: No module named 'opentelemetry.exporter'\n"
+    },
+    {
+      "receipt": "srchd-npm-test.json",
+      "sha256": "54e89239b30e753d04edbe563e1a3725ef7c26b3ab72e8e8eb568e2e43d1d06c",
+      "name": "srchd-npm-test",
+      "pin": null,
+      "command": [
+        "npm",
+        "test"
+      ],
+      "status": null,
+      "exit_code": null,
+      "seconds": null,
+      "exception": "FileNotFoundError: [Errno 2] No such file or directory: 'npm'",
+      "output_tail": ""
+    },
+    {
+      "receipt": "witty-permissions.json",
+      "sha256": "7060eff7a625c0189b0774d6264671eb79f2cf7f770f100c339e62122e30fb76",
+      "name": "witty-permissions",
+      "pin": "555b3c060de633c4cd98b21ba56c84d7487be527",
+      "command": "python3 -m pytest -q -o cache_dir=/tmp/batch40-pytest-witty-permissions tests/test_harness_permissions.py",
+      "status": "TEST_FAILED_OR_ENV_BLOCKED",
+      "exit_code": 3,
+      "seconds": 3.67,
+      "exception": null,
+      "output_tail": "    importlib.import_module(module_name)\nINTERNALERROR>   File \"/usr/lib/python3.12/importlib/__init__.py\", line 90, in import_module\nINTERNALERROR>     return _bootstrap._gcd_import(name[level:], package, level)\nINTERNALERROR>            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nINTERNALERROR>   File \"<frozen importlib._bootstrap>\", line 1387, in _gcd_import\nINTERNALERROR>   File \"<frozen importlib._bootstrap>\", line 1360, in _find_and_load\nINTERNALERROR>   File \"<frozen importlib._bootstrap>\", line 1331, in _find_and_load_unlocked\nINTERNALERROR>   File \"<frozen importlib._bootstrap>\", line 935, in _load_unlocked\nINTERNALERROR>   File \"/workspace/users/lagerf3u3r/batch40-20261114/.deps/_pytest/assertion/rewrite.py\", line 185, in exec_module\nINTERNALERROR>     exec(co, module.__dict__)\nINTERNALERROR>   File \"/workspace/users/lagerf3u3r/batch40-20261114/sources/WittyRyuji__WittyCode/tests/test_harness_permissions.py\", line 12, in <module>\nINTERNALERROR>     from desktop.core.harness import fs_tools\nINTERNALERROR>   File \"/workspace/users/lagerf3u3r/batch40-20261114/sources/WittyRyuji__WittyCode/desktop/__init__.py\", line 3, in <module>\nINTERNALERROR>     from desktop import _pyguard  # noqa: F401  (must stay first: aborts unless Python 3.11.x)\nINTERNALERROR>     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nINTERNALERROR>   File \"/workspace/users/lagerf3u3r/batch40-20261114/sources/WittyRyuji__WittyCode/desktop/_pyguard.py\", line 12, in <module>\nINTERNALERROR>     raise SystemExit(\nINTERNALERROR> SystemExit: WittyCode requires Python 3.11.x, but this interpreter is 3.12.3. Recreate the venv with: py -3.11 -m venv .venv\nmainloop: caught unexpected SystemExit!\n\n1 warning in 0.77s\n"
+    }
+  ]
+}
