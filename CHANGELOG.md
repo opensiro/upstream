@@ -8,7 +8,7 @@ This history covers **protocol-relevant** changes, not every merged PR, new scre
 
 ## [0.8.0](changes/v0.8.0.md) — Deeper native opportunity investigation and honest research completion
 
-**Prospective protocol change:** 2026-11-14, based on [batch 39 root-cause review #301](https://github.com/opensiro/upstream/pull/301) (separate diagnostic PR, not presumed merged). The historical pre-change baseline is [`7a6abb1c5e`](https://github.com/opensiro/upstream/commit/7a6abb1c5e466e9b1fff7d210c7ee7f704a2b79e); the 0.8.0 version itself takes effect only on the actual integration commit.
+**Prospective protocol change:** 2026-11-14, based on [batch 39 root-cause review #301](https://github.com/opensiro/upstream/pull/301) (merged). The historical pre-change baseline is [`d785b2a5a1`](https://github.com/opensiro/upstream/commit/d785b2a5a16668fa2444208080af8db4798453df); the 0.8.0 version itself takes effect only on the actual integration commit.
 
 - **Select opportunities rather than just recent Index assessments:** prioritize independently verified first-party feature demand and target-native workflows when available; preserve transparent source-first versus strictly preregistered Index-first chronology and disclose recency-only fallback.
 - **Require distinguishing six-function source findings:** a repeated generic source-probe note is insufficient for deep opportunity coverage. Report an observed existing feature, a concrete missing workflow or a specific untested/out-of-scope native boundary for each function, without demanding six native tests per source.
