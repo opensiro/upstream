@@ -112,5 +112,14 @@
     "No actual user time, review quality, adoption or S3/S4 autonomy uplift measured",
     "Prototype generated under original source test package, not an external product PR",
     "Initial local experimental fixture included accidental backticks in a regex and did not pass positive control; corrected before final repeated validations"
-  ]
+  ],
+  "race_check": {
+    "source_pin": "7afba4fb5919f30233fc859be3626bcfdaedbdb7",
+    "command": "go test -race ./internal/handlers -run ^TestBatch40CapabilityFirstChangeRunResearchControls$ -count=1 -timeout=85s",
+    "exit_code": 0,
+    "elapsed_seconds": 9.25,
+    "stdout": "ok  \tgithub.com/akmatori/akmatori/internal/handlers\t2.634s\n",
+    "stderr": "",
+    "interpretation": "No Go data race detected for the bounded test; not an assertion of cross-process idempotence or correctness of all Akmatori."
+  }
 }
