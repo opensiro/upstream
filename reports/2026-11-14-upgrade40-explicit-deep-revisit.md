@@ -1,5 +1,8 @@
 # Upstream upgrade batch 40 — explicit deep revisit of batch 39
 
+**Further locked-SDK follow-up:** [source-verified Firecrawl 1.21.1 versus 4.35.0 TypeScript compatibility and Sailry exact Rust blocker](2026-11-14-upgrade40-locked-sdk-source-native-followup.md). This adds an independently reproducible SDK *type contract* matrix, not a live provider comparison or product patch. No gate promoted to four PASS; **OPPORTUNITY_RESEARCH_PENDING**.
+
+
 **Native-depth continuation (2026-11-14):** [executed Go / TypeScript / workflow / qualification follow-up](2026-11-14-upgrade40-native-depth-followup.md) and [five source-pinned new receipts](evidence/2026-11-14-upgrade40-native-depth-followup.json). The original Go/Node toolchain blockers below describe the **initial** run; verified user-space Go, Zig cc and Node 22 recovered them for targeted tests afterward. This does **not** close the remaining product/independent-validation gates. **OPPORTUNITY_RESEARCH_PENDING** remains the governing disposition.
 
 **Protocol:** contribution SemVer v0.8.0 (already on Upstream main); **lane:** EXPLICIT_REVISIT / previously frozen Index-first sources, not new source-disjoint discovery; **owner:** [Upstream #56](https://github.com/opensiro/upstream/issues/56). Date: 2026-11-14 UTC. **Outcome:** source-coverage decisions recorded; **OPPORTUNITY_RESEARCH_PENDING**, **NO_ADMITTED_PATCH**. This is not a completed product-opportunity search.
