@@ -67,6 +67,33 @@ The three investigations below were performed after the original five native-dep
 
 The [machine record](evidence/2026-11-14-upgrade40-native-depth-continuation.json) includes six original/full/filtered/targeted execution receipts and three replay sources. All source-pinned original test results remain intact; no source re-reservation, native patch, upstream publication or independent before/after product benefit is claimed.
 
+## Further bounded follow-up — existing mitigations, schema contract, and real GitHub 406
+
+Four additional retained receipts and three source programs are in [falsifiers round 3](evidence/2026-11-14-upgrade40-falsifiers-round3.json). The initial six chronological [continuation receipts](evidence/2026-11-14-upgrade40-native-depth-continuation.json) are **not** overwritten. Each version of the original Go-agent research test remains available in repository history; [the original one-test source](repro/2026-11-14-upgrade40-go-agent-store-retry_test.go) remains byte-identical to the initial receipt.
+
+### Go-agent-harness — negative control against changing SDK core
+
+The [new file-backed ledger fixture](repro/2026-11-14-upgrade40-go-agent-file-ledger_test.go) runs **two first-party Go tests** against the exact pinned core in a disposable checkout:
+
+1. **Failing case reproduced:** tool executes a side effect, the `SessionStore.Append` for assistant/tool outcome is made to fail, the client independently retries with the same call ID, and the side-effect count becomes **2**.
+2. **Existing API mitigation reproduced:** an application-owned completed-effect marker is written to a *separate filesystem file* as part of the simulated tool execution. After a new engine instance is created, the shipped `Hooks.BeforeTool` reads that file, denies the identical call ID, and the side-effect count stays **1**.
+
+Both tests **PASS**. This is strictly a local disk-backed *stand-in for an application-controlled external effect registry*, not an atomic payment transaction or a proven exactly-once guarantee across concurrent processes. It shows the SDK already exposes a mitigation hook, rather than a conclusively missing core primitive. The code's current documented restart history is preserved; **need=PENDING / mechanism=PASS / counterfactual=PASS (technical) / scope=PENDING**. Admission is **not** allowed without a concrete consumer contract specifying caller-supplied stable idempotency keys, how durable effects are recorded atomically, timeout/ambiguous-result semantics, and acceptance tests.
+
+### Sailry — machine contract does not carry file ownership
+
+The [source-pinned `spawn_agent` schema probe](repro/2026-11-14-upgrade40-sailry-spawn-schema-probe.py) reads the exact `json!` parameter contract from `crates/node-runtime/src/agent/delegation/tools.rs` and the mode instructions from `crates/node-runtime/src/agent/prompt/modes.rs`. It verifies the required field is **`task`** and allowed properties are **`background, role, session, task, title, worktree`**. There is no machine-readable `owned_files`, `write_paths` or similar field. The prompt explicitly instructs the coordinator to allocate *disjoint file ownership*; the tool also offers a `worktree` selector and describes separate worktrees for concurrent edits.
+
+This proves a **documentation-vs-typed-input boundary**, not a proven collision or unsafe runtime. The native Rust 1.98.0 `cargo test --locked -p sailry-node-runtime` attempt was **TIMEOUT after 185.03 seconds** before test execution, downloading workspace Git dependencies (`gpui-fast`, `wezterm`, `zlib`). The source-schema check is **not a native Rust test**. **need=PENDING; mechanism=PASS (current description and worktree); counterfactual=PENDING (no actual colliding child fixture); scope=PENDING**. Next independent test must spawn two children with overlapping versus disjoint requested ownership under the same worktree, and a separate-worktree positive control, capturing actual write conflicts, not merely parsing task text.
+
+### Slack reviewer — real public GitHub API error is fail-closed
+
+The [live public REST control](repro/2026-11-14-upgrade40-public-github-diff-status-probe.py), with the same `Accept: application/vnd.github.diff` media type as the pinned `gh api` workflow, returned **HTTP 406** for [apache/hbase#7722](https://github.com/apache/hbase/pull/7722), an oversized changed-files PR; the error reports `diff too_large` and **300-file limit**. A normal [opensiro/upstream#303](https://github.com/opensiro/upstream/pull/303) returned **HTTP 200** with a diff. The pinned workflow fetches the diff with `gh api` before it constructs the reviewer context; a nonzero 406 causes the action step to fail rather than giving the model a smaller successful diff. [GitHub's documented diff limits](https://github.com/github/docs/blob/main/content/repositories/creating-and-managing-repositories/repository-limits.md) support this behavior.
+
+Therefore the earlier **synthetically injected 200-with-missing-file** unit probe remains a valid conditional guard test, **not a reproduced real-world GitHub diff truncation**. **need=PENDING; mechanism=PASS; counterfactual=PENDING (normal HTTP 200 missing-file example absent); scope=PENDING**. Do not cite the 300-file limit as proof of a missing completeness check in production: the current workflow already fails closed on that class. An enhancement is only admissible upon actual successful-but-incomplete delivery, an explicit maintainer contract for fail-closed file inventory, or a documented security policy change.
+
+All new probes and receipts are read-only with respect to third-party repos. **No external product PR**, no Index grade changes, no historical batch 39 mutation, no four-PASS upgrade; the master disposition remains **OPPORTUNITY_RESEARCH_PENDING**.
+
 ## Net gate movement and open decisions
 
 **What is now established:** a native Go/SQLite counterexample to treating reuse as corroboration; a pinned TypeScript selector-absence control; a pinned workflow metadata-completeness boundary under injected input; and an AI qualification receipt contract that lacks cross-run score comparison. These are more discriminating than the initial batch 39 screening and its generic `PENDING` dispositions.
