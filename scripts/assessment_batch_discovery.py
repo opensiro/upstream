@@ -15,7 +15,7 @@ import re
 import subprocess
 import sys
 from pathlib import Path
-from urllib.parse import quote
+from urllib.parse import quote, urlsplit
 
 from assessment_candidate_batches import BatchError, _frontmatter, _git
 from assessment_batch_conflict_preflight import (
@@ -27,6 +27,46 @@ from assessment_batch_conflict_preflight import (
 HEX40 = re.compile(r"[0-9a-f]{40}\Z")
 DATE = re.compile(r"\d{4}-\d{2}-\d{2}\Z")
 REGISTRY = "data/contribution-workspaces/registry.json"
+
+# Optional human-curated first-party leads alter selection priority, not
+# truth of the lead, native fit, or the candidate's assessment-derived origin.
+LEAD_KINDS = {"ISSUE": "issues", "PR": "pull", "DISCUSSION": "discussions"}
+
+
+def read_priority_evidence(path):
+    """Validate a read-only lead list; never fetch or treat it as verified."""
+    if path is None:
+        return []
+    try:
+        data = json.loads(Path(path).read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, ValueError) as exc:
+        raise BatchError(f"BLOCKED_PRIORITY_EVIDENCE: unreadable JSON: {exc}") from exc
+    if not isinstance(data, dict) or set(data) != {"schema_version", "leads"} or data["schema_version"] != 1:
+        raise BatchError("BLOCKED_PRIORITY_EVIDENCE: expected schema_version 1 and leads")
+    leads = data["leads"]
+    if not isinstance(leads, list) or not leads or len(leads) > 100:
+        raise BatchError("BLOCKED_PRIORITY_EVIDENCE: require 1–100 source-first leads")
+    seen = set()
+    for lead in leads:
+        if not isinstance(lead, dict) or set(lead) != {"source", "kind", "url", "rationale"}:
+            raise BatchError("BLOCKED_PRIORITY_EVIDENCE: each lead needs source/kind/url/rationale")
+        source, kind, url, rationale = (lead[k] for k in ("source", "kind", "url", "rationale"))
+        if not isinstance(source, str) or not NAME_PATTERN.fullmatch(source) or normalize(source) in seen:
+            raise BatchError("BLOCKED_PRIORITY_EVIDENCE: invalid or duplicate source")
+        seen.add(normalize(source))
+        if kind not in LEAD_KINDS or not isinstance(url, str):
+            raise BatchError("BLOCKED_PRIORITY_EVIDENCE: unsupported first-party lead")
+        parsed = urlsplit(url)
+        parts = parsed.path.strip("/").split("/")
+        if (parsed.scheme != "https" or parsed.netloc != "github.com"
+                or parsed.query or parsed.fragment or parsed.username or parsed.password
+                or len(parts) != 4 or normalize("/".join(parts[:2])) != normalize(source)
+                or parts[2] != LEAD_KINDS[kind] or not re.fullmatch(r"[0-9]{1,12}", parts[3])
+                or int(parts[3]) < 1):
+            raise BatchError("BLOCKED_PRIORITY_EVIDENCE: URL must be a source-owned GitHub issue/PR/discussion")
+        if not isinstance(rationale, str) or len(rationale.strip()) < 20 or len(rationale) > 1000:
+            raise BatchError("BLOCKED_PRIORITY_EVIDENCE: provide a specific short rationale")
+    return leads
 
 
 def remote_inventory(reader, index_sha):
@@ -157,18 +197,39 @@ def index_candidates(index_root, index_sha, *, schema_version=2):
     return rows
 
 
-def discover(index_root, index_sha, reader, count=5, *, schema_version=2):
+def discover(index_root, index_sha, reader, count=5, *, schema_version=2, priority_evidence=None):
     if not 5 <= count <= 10:
         raise BatchError("Discovery requires a complete 5–10-row cohort")
     # Local Index check before remote scan; remote GitHub separately attests
     # Index ancestry and stable canonical main visibility.
     rows = index_candidates(index_root, index_sha, schema_version=schema_version)
+    leads = read_priority_evidence(priority_evidence)
+    if leads and schema_version != 2:
+        raise BatchError("BLOCKED_PRIORITY_EVIDENCE: lead-first selection is v2 only")
     live = remote_inventory(reader, index_sha)
     eligible = [row for row in rows if normalize(row["source"]) not in live["reserved"]]
-    selected = eligible[:count]
+    candidates = {normalize(row["source"]): row for row in eligible}
+    ranked = []
+    for lead in leads:
+        key = normalize(lead["source"])
+        if key not in candidates:
+            raise BatchError("BLOCKED_PRIORITY_EVIDENCE: lead absent from unreserved included Index")
+        ranked.append({**candidates.pop(key),
+                       "selection_origin_hint": "SOURCE_FIRST",
+                       "lead_kind": lead["kind"], "lead_url": lead["url"],
+                       "lead_rationale": lead["rationale"],
+                       "strict_derived_origin_eligible": False,
+                       "lead_verified": False})
+    # The remaining Index-first candidates retain their historical recency
+    # order, without fictional lead signals or a manufactured benefit score.
+    ranked.extend(row for row in eligible if normalize(row["source"]) in candidates)
+    selected = ranked[:count]
     status = "PROPOSED_ONLY" if len(selected) == count else "NO_ELIGIBLE_ASSESSMENT_CANDIDATE"
     return {"status": status, "schema_version": schema_version,
             "function_assignment_required": schema_version == 2,
+            "selection_policy": ("first_party_leads_then_index_recency" if leads
+                                 else "index_recency"),
+            "unverified_priority_lead_count": len(leads),
             "index_sha": index_sha,
             "index_main_sha": live["index_main_sha"], "upstream_main_sha": live["main_sha"],
             "required_count": count, "selected": selected if len(selected) == count else [],
@@ -180,9 +241,12 @@ def discover(index_root, index_sha, reader, count=5, *, schema_version=2):
             "active_pr_manifest_count": live["active_pr_manifest_count"],
             "remote_visibility_checked": True, "admission_attested": False,
             "external_writes_authorized": False,
-            "limitation": ("Read-only selection, not atomic; v2 function must be justified "
-                           "against the pinned Index before freezing; rerun admission gate "
-                           "before work/merge" if schema_version == 2 else
+            "limitation": ("Read-only selection, not atomic; lead URLs/rationales have NOT "
+                           "been independently verified. Source-first leads cannot count as "
+                           "strict assessment-derived discoveries. Independently inspect "
+                           "the source and native fit; v2 functions require pinned Index "
+                           "justification; rerun admission gate before work/merge"
+                           if schema_version == 2 else
                            "Read-only legacy v1 selection, not atomic; rerun admission "
                            "gate before work/merge")}
 
@@ -195,11 +259,15 @@ def main(argv=None):
     parser.add_argument("--schema-version", type=int, choices=(1, 2), default=2,
                         help="2: VSM-wide prospective upgrade intake (default); "
                              "1: reproduce historical S1=A/S2=C selection")
+    parser.add_argument("--priority-evidence", type=Path,
+                        help="Optional JSON with source-owned issue/PR/discussion leads; "
+                             "ordered source-first priority, NOT strict derived-origin proof")
     args = parser.parse_args(argv)
     try:
         report = discover(args.index_root, args.index_sha,
                           GithubReader(os.environ.get("GITHUB_TOKEN")), args.count,
-                          schema_version=args.schema_version)
+                          schema_version=args.schema_version,
+                          priority_evidence=args.priority_evidence)
     except (BatchError, OSError, UnicodeError, ValueError) as exc:
         parser.exit(2, f"DISCOVERY_BLOCKED: {exc}\n")
     print(json.dumps(report, indent=2, sort_keys=True))

@@ -67,6 +67,14 @@ A **repair** baseline must show the pinned native code failing an expected contr
 
 Preserve `ASSESSMENT_DERIVED` only for specifically preregistered Index-first hypotheses, whether capability or repair. A valid later issue/code-driven bug fix stays `ASSESSMENT_INFORMED` (or `GENERAL_UPSTREAM` when unlinked): it may still be published via its proper authorized lane but is not a strict-derived discovery. Track technical effect, user benefit (measured/unmeasured) and external PR disposition using **existing** evidence/outcome vocabulary, without claiming their equivalence or adding a new scorecard.
 
+## Discovery exploration is not native-fit admission
+
+The upgrade-batch [two-lane opportunity protocol](ASSESSMENT_CANDIDATE_BATCHES.md#opportunity-first-intake-and-validation-prospective-cohorts) separates **cheap first-party investigation** from **permission to implement and claim benefit**. Use Index-first preregistration for possible strict `ASSESSMENT_DERIVED` hypotheses; a first-party issue/PR/workflow lead selected before that preregistration is transparently source-first and cannot be promoted to derived origin. Both lanes still review six VSM functions and gather real source-native observations; the resulting technical work can be useful without qualifying as a derived discovery.
+
+During exploration, `need=PENDING` or unknown maintainer demand is not proof of `need=FAIL` and not `need=PASS`. Research current existing product workflows, actual source code paths and tests, user-facing contracts, maintainer plans and possible deterministic counterexamples; record what was checked for each function. **No patch, external fork or benefit claim follows from this permission to investigate.** First establish original licensing and contributor policy. Before derivative implementation/technical admission, require all four independent fit gates to be `PASS`, the relevant rights/maintainer design process, and the existing independent deterministic native-runner controls for new strict-derived cases. A source-only feasibility note is not an independently executed result.
+
+In particular, `NO_SUPPORTED_HYPOTHESIS` at the pre-source checkpoint means no prospective prediction *from the Index alone*; it does not mean source inspection found no possible improvement. A final `CLOSED_NO_CHANGE` must cite what existing capability, duplicate, scope incompatibility or falsification was actually observed. Otherwise preserve `BLOCKED_EVIDENCE` with a specific next check. The six-function count proves coverage **only when paired with six post-source scoped probes**, not completeness of the opportunity space. Keep all previous frozen cohorts unchanged.
+
 ## Classification: origin strength is not implementation status
 
 | Class | Required explanatory evidence | May be counted as evidence of the assessment-derived discovery path? |

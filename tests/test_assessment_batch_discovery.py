@@ -152,6 +152,61 @@ class DiscoveryTests(unittest.TestCase):
         self.assertIn("Org/Repo10", [row["source"] for row in selected])
         self.assertTrue(all("function" not in row for row in selected))
 
+    def test_source_first_lead_priority_discloses_origin_and_does_not_self_verify(self):
+        lead = {"source": "org/REPO10", "kind": "ISSUE",
+                "url": "https://github.com/Org/Repo10/issues/42",
+                "rationale": "Maintainer requests deterministic test for recovery path"}
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "leads.json"
+            path.write_text(json.dumps({"schema_version": 1, "leads": [lead]}))
+            report = mod.discover(self.index, self.sha,
+                                  FakeReader(self.sha, registry=[]), count=5,
+                                  priority_evidence=path)
+        self.assertEqual(report["selection_policy"], "first_party_leads_then_index_recency")
+        self.assertEqual(report["unverified_priority_lead_count"], 1)
+        selected = report["selected"]
+        self.assertEqual(selected[0]["source"], "Org/Repo10")
+        self.assertEqual(selected[0]["lead_url"], lead["url"])
+        self.assertEqual(selected[0]["selection_origin_hint"], "SOURCE_FIRST")
+        self.assertFalse(selected[0]["strict_derived_origin_eligible"])
+        self.assertFalse(selected[0]["lead_verified"])
+        self.assertEqual([r["source"] for r in selected[1:]],
+                         [f"Org/Repo{i:02d}" for i in range(1, 5)])
+        self.assertTrue(all("lead_url" not in row for row in selected[1:]))
+        self.assertIn("NOT", report["limitation"])
+
+    def test_lead_fail_closed_for_reserved_source_unrelated_links_and_v1(self):
+        lead = {"source": "Org/Repo03", "kind": "ISSUE",
+                "url": "https://github.com/Org/Repo03/issues/9",
+                "rationale": "Maintainer requests native test improvements"}
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "leads.json"
+            def run(value, *, version=2, reader=None):
+                path.write_text(json.dumps({"schema_version": 1, "leads": [value]}))
+                return mod.discover(self.index, self.sha,
+                                    reader or FakeReader(self.sha, registry=[]),
+                                    priority_evidence=path, schema_version=version)
+            with self.assertRaisesRegex(mod.BatchError, "unreserved included"):
+                run(lead, reader=FakeReader(self.sha))
+            with self.assertRaisesRegex(mod.BatchError, "v2 only"):
+                run({**lead, "source": "Org/Repo04",
+                     "url": "https://github.com/Org/Repo04/issues/9"}, version=1)
+            for url in ("https://github.com/other/repo/issues/9",
+                        "http://github.com/Org/Repo03/issues/9",
+                        "https://github.com/Org/Repo03/issues/9?closed=1",
+                        "https://github.com/Org/Repo03/pull/1",
+                        "https://github.com/Org/Repo03/issues/../../1",
+                        "https://github.com/Org/Repo03/issues/x"):
+                with self.assertRaisesRegex(mod.BatchError, "URL must"):
+                    run({**lead, "url": url})
+            with self.assertRaisesRegex(mod.BatchError, "short rationale"):
+                run({**lead, "rationale": "yes"})
+            path.write_text(json.dumps({"schema_version": 1, "leads": [lead, lead]}))
+            with self.assertRaisesRegex(mod.BatchError, "duplicate source"):
+                mod.discover(self.index, self.sha,
+                             FakeReader(self.sha, registry=[]),
+                             priority_evidence=path)
+
     def test_explicit_v1_preserves_historical_a_c_s2_discovery(self):
         reader = FakeReader(self.sha, registry=[])
         report = mod.discover(self.index, self.sha, reader, schema_version=1)
