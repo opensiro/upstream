@@ -3,6 +3,8 @@ package agent_test
 import (
 	"context"
 	"errors"
+	"os"
+	"path/filepath"
 	"strings"
 	"sync/atomic"
 	"testing"
@@ -95,15 +97,18 @@ func TestBatch40ExistingBeforeToolHookCanSuppressRecordedDuplicate(t *testing.T)
 	}
 
 	var effects atomic.Int32
-	completed := make(map[string]bool)
+	ledgerPath := filepath.Join(t.TempDir(), "completed-effect-id.txt")
 	reg := agent.NewToolRegistry()
 	err = reg.Register(&agent.Tool{
 		Name: "charge_once", Parameters: llm.Schema{"type": "object"},
 		Execute: func(_ context.Context, _ *agent.ToolContext, _ map[string]any) (*agent.ToolResult, error) {
 			effects.Add(1)
-			// Simulate an external ledger that atomically persists the effect
-			// and its caller-supplied idempotency key before returning.
-			completed["caller-durable-transaction-id"] = true
+			// Simulated third-party effect registry is stored outside the agent
+			// session. It survives constructing a new agent engine; the
+			// fixture does not simulate atomicity of a remote payment.
+			if err := os.WriteFile(ledgerPath, []byte("caller-durable-transaction-id"), 0o600); err != nil {
+				return nil, err
+			}
 			return &agent.ToolResult{Data: "recorded"}, nil
 		},
 	})
@@ -123,8 +128,9 @@ func TestBatch40ExistingBeforeToolHookCanSuppressRecordedDuplicate(t *testing.T)
 	if err == nil || !strings.Contains(err.Error(), "injected result persistence failure") {
 		t.Fatalf("first attempt must fail after side effect, got %v", err)
 	}
-	if effects.Load() != 1 || !completed["caller-durable-transaction-id"] {
-		t.Fatal("expected one completed externally recorded operation")
+	saved, err := os.ReadFile(ledgerPath)
+	if err != nil || string(saved) != "caller-durable-transaction-id" || effects.Load() != 1 {
+		t.Fatalf("expected one completed externally recorded operation: %q, %v", saved, err)
 	}
 
 	rejected := false
@@ -132,9 +138,13 @@ func TestBatch40ExistingBeforeToolHookCanSuppressRecordedDuplicate(t *testing.T)
 		Provider: provider(),
 		Hooks: agent.Hooks{
 			BeforeTool: func(_ context.Context, _ agent.HookContext, c llm.ToolCall) (agent.ToolDecision, error) {
-				if completed[c.ID] {
+				saved, err := os.ReadFile(ledgerPath)
+				if err == nil && string(saved) == c.ID {
 					rejected = true
 					return agent.ToolDecision{Deny: true, Reason: "external durable effect already recorded"}, nil
+				}
+				if err != nil && !errors.Is(err, os.ErrNotExist) {
+					return agent.ToolDecision{}, err
 				}
 				return agent.ToolDecision{}, nil
 			},
