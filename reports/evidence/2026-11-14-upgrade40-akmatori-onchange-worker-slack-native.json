@@ -10,7 +10,7 @@
   "latest_observed_main_pin": "7afba4fb5919f30233fc859be3626bcfdaedbdb7",
   "original_source_checkout_clean": true,
   "experimental_patch": "reports/repro/2026-11-14-upgrade40-akmatori-onchange-worker-integration-seam.patch",
-  "experimental_patch_sha256": "3dd8fa469bfec37d26be490d0de46dc0ceb203c29777a0dfd02ef629df4de1fb",
+  "experimental_patch_sha256": "58cc400fe5407bc8d22d9154a9437cbfec905ccc4a5281ede54d6453cb86cb19",
   "experimental_test": "reports/repro/2026-11-14-upgrade40-akmatori-onchange-worker-native_test.go",
   "experimental_test_sha256": "527f88095bb5b3791e5afd6de1318c3df927be7ddb99c497902ff1a08320f973",
   "runtime": "Go original handlers, GORM SQLite, real localhost gorilla WebSocket, local httptest Slack API, mocked worker output, no live AI provider or real Slack workspace",
@@ -102,5 +102,7 @@
       "stdout_tail": "ok  \tgithub.com/akmatori/akmatori/internal/handlers\t3.038s\n",
       "stderr_tail": ""
     }
-  ]
+  ],
+  "patch_apply_command": "git apply --unidiff-zero reports/repro/2026-11-14-upgrade40-akmatori-onchange-worker-integration-seam.patch (in a disposable pinned Akmatori checkout)",
+  "patch_apply_checked_frozen_and_current_main": true
 }
