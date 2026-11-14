@@ -117,5 +117,18 @@
         "tail": "info: syncing channel updates for 1.98.0-x86_64-unknown-linux-gnu\ninfo: latest update on 2026-08-20 for version 1.98.0 (88d9e12ae 2026-08-18)\ninfo: downloading 2 components\n    Updating git repository `https://github.com/dux-web/gpui-fast`\n    Updating git repository `https://github.com/sailry/wezterm.git`\n    Updating git submodule `https://github.com/madler/zlib.git`\n"
       }
     }
-  ]
+  ],
+  "additional_native_attempt": {
+    "name": "sailry-native-cargo-second-dependency-attempt",
+    "source": "sailry/sailry-harness",
+    "pin": "eaad1b7f18e448c8c4e9e9286e19560c8a351ae1",
+    "command": "cargo test --locked -p sailry-node-runtime --test agent delegation -- --nocapture",
+    "rustc": "1.98.0",
+    "state": "TERMINATED_BEFORE_TEST_EXECUTION",
+    "observed_elapsed": "at least 11 minutes (process elapsed 11:01 observed), not exact",
+    "diagnostics": "Fetched multiple pinned workspace Git repositories and submodules incl. gpui-fast, wezterm, quickjs-ng and sailry/sqlx; no Rust tests started. CARGO_HOME/git grew to approximately 1.6 GiB.",
+    "reason": "Full workspace dependency closure not feasible within bounded run; stop after prolonged dependency acquisition rather than treating as product test failure.",
+    "outcome": "PENDING native two-child overlap/disjoint fixture; source-only spawn schema proof remains bounded.",
+    "no_product_code_modified": true
+  }
 }
