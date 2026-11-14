@@ -1,0 +1,38 @@
+diff --git a/lib/agents-view.ts b/lib/agents-view.ts
+index f54c65c..f228a51 100644
+--- a/lib/agents-view.ts
++++ b/lib/agents-view.ts
+@@ -698,7 +698,8 @@ export class AgentsView {
+ 		}
+ 		const task = entry.task;
+ 		const glyph = theme.fg(GLYPH_ROLE[task.status] ?? ROLE.META, GLYPH[task.status] ?? "?");
+-		const name = paintHoverable(theme, `Subagent ${task.agent}`, hovered, selected ? ROLE.SELECTED : ROLE.NAME_IDLE);
++		const label = task.label?.trim();
++		const name = paintHoverable(theme, `Subagent ${task.agent}${label ? ` · ${label}` : ""}`, hovered, selected ? ROLE.SELECTED : ROLE.NAME_IDLE);
+ 		const time = task.startedAt === null ? "" : theme.fg(ROLE.META, formatElapsed((task.endedAt ?? this.deps.now()) - task.startedAt));
+ 		return `${marker} ${theme.fg(ROLE.META, "└")} ${glyph} ${name}  ${time}`;
+ 	}
+diff --git a/tests/agents-view.test.ts b/tests/agents-view.test.ts
+index 826be9c..b39fefd 100644
+--- a/tests/agents-view.test.ts
++++ b/tests/agents-view.test.ts
+@@ -726,3 +726,19 @@ test("AgentsView rejects cached-height pointer input before the live resize rend
+ 	assert.match(stripAnsi(view.render(80)[2] ?? ""), /l0/, "the live wheel scrolls past the semantic block label after the new frame");
+ 	view.dispose();
+ });
++
++// Source-first Gentle Shell #3259: bounded product-native comparator.
++test("Agents rows distinguish same-agent tasks by labels and omit an empty label", () => {
++  const { store, view } = harness(10);
++  store.add(task("a3259", { agent: "explore", label: "T3 alpha", createdAt: 1100 }));
++  store.add(task("b3259", { agent: "explore", label: "T4 beta", createdAt: 1000 }));
++  store.add(task("c3259", { agent: "plain", label: "", createdAt: 900 }));
++  const lines = view.render(120).map(stripAnsi);
++  assert.ok(lines.some((line) => line.includes("Subagent explore · T3 alpha")), lines.join("\n"));
++  assert.ok(lines.some((line) => line.includes("Subagent explore · T4 beta")), lines.join("\n"));
++  assert.ok(lines.some((line) => line.includes("Subagent plain")), lines.join("\n"));
++  assert.ok(!lines.some((line) => line.includes("Subagent plain ·")), lines.join("\n"));
++  for (const width of [12, 24, 40, 120])
++    for (const line of view.render(width)) assert.ok(visibleWidth(line) <= width);
++  view.dispose();
++});
