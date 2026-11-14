@@ -17,6 +17,8 @@ contributions and existing casebook remain valid separate work; they must
 [Organization #274](https://github.com/opensiro/vsm-oss-organization/issues/274)
 has admitted Upstream as the bounded fourth operational S1 domain; that decision does not prove this specific assessment-derived experiment or activate additional external rights.
 
+**Separate research proposal:** [VSM-guided autonomous harness capability evolution](VSM_GUIDED_AUTONOMOUS_IMPROVEMENT_STUDY.md) compares the *OpenSiro improvement organization's* decision/feedback closure with an ordinary agent contribution pipeline. It is non-executable; its prospective organizational-autonomy trial is **not authorized** by this technical S1/native-testing contract.
+
 ## Read-only first quality-census launch (2026-11-13)
 
 The source-owning [hypothesis quality census](../scripts/assessment_hypothesis_quality.py)
