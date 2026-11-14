@@ -1,0 +1,29 @@
+--- a/internal/handlers/slack.go
++++ b/internal/handlers/slack.go
+@@ -30,8 +30,11 @@
+ 	// Both are optional — when either is unset, thread-reply feedback
+ 	// classification is silently skipped.
+ 	memoryManager      services.MemoryManager
+ 	feedbackClassifier *services.FeedbackClassifier
++
++	// BATCH40 EXPERIMENTAL TEST SEAM ONLY: not a proposed upstream API.
++	batch40ResearchChangeHook func(*database.Event, *slackevents.MessageEvent, *database.Channel, string, string)
+ 
+ 	// Listener channel support. Keyed by the provider-side channel ID
+ 	// (Slack channel ID today). Populated from the channels table where
+ 	// can_listen=true; the legacy slack_channel AlertSourceInstance path is
+--- a/internal/handlers/slack_processor.go
++++ b/internal/handlers/slack_processor.go
+@@ -494,8 +494,12 @@
+ 			RawPayload:  normalized.RawPayload,
+ 		}, verdict)
+ 		normalized.EventUUID = ev.UUID
+ 		if ev.Kind != database.EventKindAlert {
++			// BATCH40 EXPERIMENTAL TEST SEAM, NOT SHIPPED.
++			if ev.Kind == database.EventKindChange && h.batch40ResearchChangeHook != nil {
++				h.batch40ResearchChangeHook(ev, event, channel, messageText, threadTS)
++			}
+ 			slog.Info("listener message is not an alert; stored as event, no investigation",
+ 				"channel", event.Channel, "kind", ev.Kind, "event_uuid", ev.UUID)
+ 			return
+ 		}
