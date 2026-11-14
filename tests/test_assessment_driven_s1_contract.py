@@ -103,17 +103,17 @@ class AssessmentDrivenS1ContractTests(unittest.TestCase):
             "Control Plane command: `upstream upgrade batch`",
             "Both batch commands search",
             "five",
-            "no row is a pre-approved patch",
+            "No row is a pre-approved patch",
             "ASSESSMENT_INFORMED",
             "ASSESSMENT_DERIVED",
-            "before** fresh upstream code/issue inspection",
-            "distinct deterministic CI/runner",
+            "before** fresh target code/issues",
+            "distinct deterministic runner",
             "BLOCKED_INDEPENDENT_EXECUTION",
             "not** create a new scheduler",
             "no separate active `batch upgrade` command",
         ):
             with self.subTest(phrase=phrase):
-                self.assertIn(phrase, batches)
+                self.assertIn(phrase.lower(), batches.lower())
 
 
     def test_upgrade_batch_covers_all_six_functions_before_focus_selection(self):
@@ -122,18 +122,20 @@ class AssessmentDrivenS1ContractTests(unittest.TestCase):
         for phrase in (
             "S1, S2, S3, S3*, S4 and S5",
             "ten distinct repositories and sixty function-level review dispositions",
-            "Before fresh first-party source, issue or contributor-policy inspection",
+            "before** fresh first-party source, issue or contributor-policy inspection",
             "six-row coverage matrix per source",
             "NO_SUPPORTED_HYPOTHESIS",
             "Do not select one preferred function before reviewing the other five",
-            "After the six-function checkpoint",
+            "After the lane-appropriate six-function checkpoint",
             "single function field",
             "A repository is not fully screened until all six dispositions are recorded",
-            "batches 1–37 remain historical and unchanged",
+            "batches 1–38 remain historical and unchanged",
+            "six scoped function probes",
+            "with post-source probe evidence",
         ):
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase.lower(), section.lower())
-        self.assertIn("ten repositories × six function-level review dispositions", self.readme)
+        self.assertIn("ten repositories × six evidence-backed function dispositions", self.readme)
 
 
 if __name__ == "__main__":
