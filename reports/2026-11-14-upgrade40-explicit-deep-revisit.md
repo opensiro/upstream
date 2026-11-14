@@ -1,5 +1,8 @@
 # Upstream upgrade batch 40 — explicit deep revisit of batch 39
 
+**Further source-native functional depth (round 5):** [Firecrawl scientific-paper API contract and Akmatori independent-incident/contradiction test](2026-11-14-upgrade40-functional-evidence-round5.md), each with executable code and a recorded result. The results identify existing mechanisms and missing product decisions, not an admitted new feature. **OPPORTUNITY_RESEARCH_PENDING** remains in effect.
+
+
 **Further locked-SDK follow-up:** [source-verified Firecrawl 1.21.1 versus 4.35.0 TypeScript compatibility and Sailry exact Rust blocker](2026-11-14-upgrade40-locked-sdk-source-native-followup.md). This adds an independently reproducible SDK *type contract* matrix, not a live provider comparison or product patch. No gate promoted to four PASS; **OPPORTUNITY_RESEARCH_PENDING**.
 
 
