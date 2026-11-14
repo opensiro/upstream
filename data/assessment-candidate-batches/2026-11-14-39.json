@@ -1,0 +1,272 @@
+{
+  "schema_version": 2,
+  "batch_id": "assessment-upstream-2026-11-14-39",
+  "owner_issue": "https://github.com/opensiro/upstream/issues/56",
+  "index_sha": "ce58f2172bcccbf96fc0248db8886a8847ae4f24",
+  "frozen_at": "2026-11-14",
+  "state": "FROZEN_SCREENING",
+  "selection_note": "Ten distinct included schema-v2 Index-first sources chosen at SHA ce58f2172bcccbf96fc0248db8886a8847ae4f24 from authenticated discovery on 2026-11-14: 814 eligible, 289 reserved, 38 merged manifests, 14 open PRs. All 60 Index rows committed as immutable preregistration 8cb7941 before original-source inspection. Current original LICENSE and HEAD verified, 60 first-party source paths read after checkpoint. All primary hypotheses evaluated by four native-fit gates; nine blocked, one redundant. Source-first AI Scientist issue #5 distinct from derived preregistration. No native benefit or external write claimed; see HYPOTHESES and SUMMARY.",
+  "candidates": [
+    {
+      "id": "akmatori-upgrade39-feature-probe",
+      "assessment_path": "assessments/ak/akmatori.md",
+      "source": "akmatori/akmatori",
+      "review_ref": "be62d926fe6d92dceb5cf12e9a95cb587433cdf1",
+      "reviewed_at": "2026-11-14",
+      "function": "S3*",
+      "finding": "Prospective S3* incident-memory evidence provenance view. Bounded original-source finding: Extraction already uses evidence grades and incident IDs; issue #67 instead requests cross-incident corroboration and later outcome verification. 2026-11-14-39-HYPOTHESES.md and -SUMMARY.md record all six function probes.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/ce58f2172bcccbf96fc0248db8886a8847ae4f24/assessments/ak/akmatori.md",
+        "https://github.com/opensiro/upstream/commit/8cb7941163276283bf8fca046f67d0f8d679a17e",
+        "https://github.com/akmatori/akmatori/blob/be62d926fe6d92dceb5cf12e9a95cb587433cdf1/internal/services/incident_memory_extraction_prompt.go",
+        "https://github.com/akmatori/akmatori/blob/be62d926fe6d92dceb5cf12e9a95cb587433cdf1/LICENSE",
+        "https://github.com/akmatori/akmatori/issues/67"
+      ],
+      "external_action": "NOT_EXECUTED",
+      "screening_result": "Original akmatori/akmatori@be62d926fe6d92dceb5cf12e9a95cb587433cdf1, Apache-2.0, current index review be62d926fe6d92dceb5cf12e9a95cb587433cdf1; Extraction already uses evidence grades and incident IDs; issue #67 instead requests cross-incident corroboration and later outcome verification. No native proof or external patch.",
+      "blocker": "Reproduce an operator-visible memory with missing original incident/source evidence, then specify the proposed view and acceptance behavior."
+    },
+    {
+      "id": "ai-scientist-v3-upgrade39-feature-probe",
+      "assessment_path": "assessments/ai/ai-scientist-v3.md",
+      "source": "SakanaAI/AI-Scientist-v3",
+      "review_ref": "df8313889a004f8a44a472e19a833cd547bb828a",
+      "reviewed_at": "2026-11-14",
+      "function": "S3*",
+      "finding": "Prospective S3* machine-readable per-claim manuscript audit export. Bounded original-source finding: The original paper audit defines AuditFinding and its own feedback path; independent first-party issue #5 reports evaluator nondeterminism at qualification, a different source-first bug-fix lead. 2026-11-14-39-HYPOTHESES.md and -SUMMARY.md record all six function probes.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/ce58f2172bcccbf96fc0248db8886a8847ae4f24/assessments/ai/ai-scientist-v3.md",
+        "https://github.com/opensiro/upstream/commit/8cb7941163276283bf8fca046f67d0f8d679a17e",
+        "https://github.com/SakanaAI/AI-Scientist-v3/blob/df8313889a004f8a44a472e19a833cd547bb828a/src/scripts/paper.sh",
+        "https://github.com/SakanaAI/AI-Scientist-v3/blob/df8313889a004f8a44a472e19a833cd547bb828a/LICENSE",
+        "https://github.com/SakanaAI/AI-Scientist-v3/issues/5"
+      ],
+      "external_action": "NOT_EXECUTED",
+      "screening_result": "Original SakanaAI/AI-Scientist-v3@df8313889a004f8a44a472e19a833cd547bb828a, Apache-2.0, current index review df8313889a004f8a44a472e19a833cd547bb828a; The original paper audit defines AuditFinding and its own feedback path; independent first-party issue #5 reports evaluator nondeterminism at qualification, a different source-first bug-fix lead. No native proof or external patch.",
+      "blocker": "First test the existing per-claim audit payload; separately repeat identical-input baseline evaluation for issue #5 after restoring native test dependencies."
+    },
+    {
+      "id": "sapper-v2-upgrade39-feature-probe",
+      "assessment_path": "assessments/sa/sapper-v2.md",
+      "source": "N1nEmAn/sapper-v2",
+      "review_ref": "7b75e6f1f5d5b4ae0c55878b0dd0994d9b08f1fb",
+      "reviewed_at": "2026-11-13",
+      "function": "S3*",
+      "finding": "Prospective S3* durable independent-verifier fact receipt. Bounded original-source finding: The shipped verify path returns a typed VERIFIED/FAILED verdict; the board-to-worker persistence and attribution gap is not yet reproduced. 2026-11-14-39-HYPOTHESES.md and -SUMMARY.md record all six function probes.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/ce58f2172bcccbf96fc0248db8886a8847ae4f24/assessments/sa/sapper-v2.md",
+        "https://github.com/opensiro/upstream/commit/8cb7941163276283bf8fca046f67d0f8d679a17e",
+        "https://github.com/N1nEmAn/sapper-v2/blob/7b75e6f1f5d5b4ae0c55878b0dd0994d9b08f1fb/lib/sapper.py",
+        "https://github.com/N1nEmAn/sapper-v2/blob/7b75e6f1f5d5b4ae0c55878b0dd0994d9b08f1fb/LICENSE"
+      ],
+      "external_action": "NOT_EXECUTED",
+      "screening_result": "Original N1nEmAn/sapper-v2@7b75e6f1f5d5b4ae0c55878b0dd0994d9b08f1fb, MIT, current index review 7b75e6f1f5d5b4ae0c55878b0dd0994d9b08f1fb; The shipped verify path returns a typed VERIFIED/FAILED verdict; the board-to-worker persistence and attribution gap is not yet reproduced. No native proof or external patch.",
+      "blocker": "Verify and reject one fact, then query from a different worker and compare existing durable status to requested receipt."
+    },
+    {
+      "id": "sailry-harness-upgrade39-feature-probe",
+      "assessment_path": "assessments/sa/sailry.md",
+      "source": "sailry/sailry-harness",
+      "review_ref": "eaad1b7f18e448c8c4e9e9286e19560c8a351ae1",
+      "reviewed_at": "2026-11-11",
+      "function": "S2",
+      "finding": "Prospective S2 pre-fanout conflicting file-scope preview. Bounded original-source finding: Flagship mode explicitly delegates disjoint write scopes and parent-controlled integration; runtime collision checks have not been disproved. 2026-11-14-39-HYPOTHESES.md and -SUMMARY.md record all six function probes.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/ce58f2172bcccbf96fc0248db8886a8847ae4f24/assessments/sa/sailry.md",
+        "https://github.com/opensiro/upstream/commit/8cb7941163276283bf8fca046f67d0f8d679a17e",
+        "https://github.com/sailry/sailry-harness/blob/eaad1b7f18e448c8c4e9e9286e19560c8a351ae1/crates/node-runtime/src/agent/prompt/modes.rs",
+        "https://github.com/sailry/sailry-harness/blob/eaad1b7f18e448c8c4e9e9286e19560c8a351ae1/LICENSE"
+      ],
+      "external_action": "NOT_EXECUTED",
+      "screening_result": "Original sailry/sailry-harness@eaad1b7f18e448c8c4e9e9286e19560c8a351ae1, Apache-2.0, current index review eaad1b7f18e448c8c4e9e9286e19560c8a351ae1; Flagship mode explicitly delegates disjoint write scopes and parent-controlled integration; runtime collision checks have not been disproved. No native proof or external patch.",
+      "blocker": "Execute actual child spawn on two overlapping files and on disjoint files with native tests, then identify a missing preflight warning."
+    },
+    {
+      "id": "slack-agent-runtime-upgrade39-feature-probe",
+      "assessment_path": "assessments/sl/slack-agent-runtime.md",
+      "source": "sakomws/slack-agent-runtime",
+      "review_ref": "16bb262715b7bacb64c7466cf106063c2fdf6c93",
+      "reviewed_at": "2026-11-11",
+      "function": "S3*",
+      "finding": "Prospective S3* independent PR reviewer changed-file coverage receipt. Bounded original-source finding: Reviewer accepts a diff, bounds diff size, and emits structured findings, but does not fetch the complete PR file inventory itself. 2026-11-14-39-HYPOTHESES.md and -SUMMARY.md record all six function probes.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/ce58f2172bcccbf96fc0248db8886a8847ae4f24/assessments/sl/slack-agent-runtime.md",
+        "https://github.com/opensiro/upstream/commit/8cb7941163276283bf8fca046f67d0f8d679a17e",
+        "https://github.com/sakomws/slack-agent-runtime/blob/16bb262715b7bacb64c7466cf106063c2fdf6c93/src/slack_agent_runtime/coding/reviewer.py",
+        "https://github.com/sakomws/slack-agent-runtime/blob/16bb262715b7bacb64c7466cf106063c2fdf6c93/LICENSE"
+      ],
+      "external_action": "NOT_EXECUTED",
+      "screening_result": "Original sakomws/slack-agent-runtime@16bb262715b7bacb64c7466cf106063c2fdf6c93, MIT, current index review 16bb262715b7bacb64c7466cf106063c2fdf6c93; Reviewer accepts a diff, bounds diff size, and emits structured findings, but does not fetch the complete PR file inventory itself. No native proof or external patch.",
+      "blocker": "Give reviewer a deliberately incomplete diff through its native caller; confirm missing-file coverage is not already surfaced."
+    },
+    {
+      "id": "go-agent-harness-upgrade39-feature-probe",
+      "assessment_path": "assessments/go/go-agent-harness.md",
+      "source": "shalyhinpavel/go-agent-harness",
+      "review_ref": "362eef286581c67c8d384369d03873aad0807843",
+      "reviewed_at": "2026-11-11",
+      "function": "S1",
+      "finding": "Prospective S1 exactly-once interrupted tool-effect receipt. Bounded original-source finding: A native per-session JSONL trace already includes tool_result; a persistent trace is not an independently tested exactly-once recovery contract. 2026-11-14-39-HYPOTHESES.md and -SUMMARY.md record all six function probes.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/ce58f2172bcccbf96fc0248db8886a8847ae4f24/assessments/go/go-agent-harness.md",
+        "https://github.com/opensiro/upstream/commit/8cb7941163276283bf8fca046f67d0f8d679a17e",
+        "https://github.com/shalyhinpavel/go-agent-harness/blob/63a2a15315c3a52964bcbc8b15d48f97f49f5a21/agent/engine.go",
+        "https://github.com/shalyhinpavel/go-agent-harness/blob/63a2a15315c3a52964bcbc8b15d48f97f49f5a21/LICENSE"
+      ],
+      "external_action": "NOT_EXECUTED",
+      "screening_result": "Original shalyhinpavel/go-agent-harness@63a2a15315c3a52964bcbc8b15d48f97f49f5a21, MIT, current index review 362eef286581c67c8d384369d03873aad0807843; A native per-session JSONL trace already includes tool_result; a persistent trace is not an independently tested exactly-once recovery contract. No native proof or external patch.",
+      "blocker": "Interrupt after one actual tool side effect but before the next model turn; compare resumed session with recorded tool_result."
+    },
+    {
+      "id": "wittycode-upgrade39-feature-probe",
+      "assessment_path": "assessments/wi/wittycode.md",
+      "source": "WittyRyuji/WittyCode",
+      "review_ref": "67af7d8fb0851cd4623c7b94993deddcb766ec1f",
+      "reviewed_at": "2026-11-11",
+      "function": "S1",
+      "finding": "Prospective S1 resolved filesystem write-target preview. Bounded original-source finding: Existing first-party permission code resolves touched paths and protected locations; user-visible preview is not verified from a UI test. 2026-11-14-39-HYPOTHESES.md and -SUMMARY.md record all six function probes.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/ce58f2172bcccbf96fc0248db8886a8847ae4f24/assessments/wi/wittycode.md",
+        "https://github.com/opensiro/upstream/commit/8cb7941163276283bf8fca046f67d0f8d679a17e",
+        "https://github.com/WittyRyuji/WittyCode/blob/555b3c060de633c4cd98b21ba56c84d7487be527/desktop/core/harness/loop.py",
+        "https://github.com/WittyRyuji/WittyCode/blob/555b3c060de633c4cd98b21ba56c84d7487be527/LICENSE"
+      ],
+      "external_action": "NOT_EXECUTED",
+      "screening_result": "Original WittyRyuji/WittyCode@555b3c060de633c4cd98b21ba56c84d7487be527, Apache-2.0, current index review 67af7d8fb0851cd4623c7b94993deddcb766ec1f; Existing first-party permission code resolves touched paths and protected locations; user-visible preview is not verified from a UI test. No native proof or external patch.",
+      "blocker": "Run the permission-dialog test for a symlinked write target and check the displayed canonical path before authorizing."
+    },
+    {
+      "id": "open-agent-sdk-python-upgrade39-feature-probe",
+      "assessment_path": "assessments/op/open-agent-sdk-python.md",
+      "source": "codeany-ai/open-agent-sdk-python",
+      "review_ref": "ab068156bf7db79cd23a883e8264a12803e23966",
+      "reviewed_at": "2026-11-10",
+      "function": "S2",
+      "finding": "Prospective S2 opt-in two-agent mailbox receive acknowledgement. Bounded original-source finding: The SDK loops one model/tool session; two-agent receiver and acknowledgement behavior is not part of the inspected standard distribution. 2026-11-14-39-HYPOTHESES.md and -SUMMARY.md record all six function probes.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/ce58f2172bcccbf96fc0248db8886a8847ae4f24/assessments/op/open-agent-sdk-python.md",
+        "https://github.com/opensiro/upstream/commit/8cb7941163276283bf8fca046f67d0f8d679a17e",
+        "https://github.com/codeany-ai/open-agent-sdk-python/blob/ab068156bf7db79cd23a883e8264a12803e23966/src/open_agent_sdk/engine.py",
+        "https://github.com/codeany-ai/open-agent-sdk-python/blob/ab068156bf7db79cd23a883e8264a12803e23966/LICENSE"
+      ],
+      "external_action": "NOT_EXECUTED",
+      "screening_result": "Original codeany-ai/open-agent-sdk-python@ab068156bf7db79cd23a883e8264a12803e23966, MIT, current index review ab068156bf7db79cd23a883e8264a12803e23966; The SDK loops one model/tool session; two-agent receiver and acknowledgement behavior is not part of the inspected standard distribution. No native proof or external patch.",
+      "blocker": "Compose two SDK agents using supported APIs, test send/receive/ack, then establish maintainers' desired contract."
+    },
+    {
+      "id": "srchd-upgrade39-feature-probe",
+      "assessment_path": "assessments/sr/srchd.md",
+      "source": "dust-tt/srchd",
+      "review_ref": "4b5ffb44bdc6bb1d2181d746ec951dd30f89ed08",
+      "reviewed_at": "2026-11-10",
+      "function": "S4",
+      "finding": "Prospective S4 operator-controlled opt-in system-prompt self-edit. Bounded original-source finding: An S4 self-edit constructor exists and calls agent.evolve; the ordinary CLI does not visibly mount it and a supported operator need is unverified. 2026-11-14-39-HYPOTHESES.md and -SUMMARY.md record all six function probes.",
+      "stage": "BLOCKED_EVIDENCE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "PENDING",
+        "mechanism": "PASS",
+        "counterfactual": "PENDING",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/ce58f2172bcccbf96fc0248db8886a8847ae4f24/assessments/sr/srchd.md",
+        "https://github.com/opensiro/upstream/commit/8cb7941163276283bf8fca046f67d0f8d679a17e",
+        "https://github.com/dust-tt/srchd/blob/4b5ffb44bdc6bb1d2181d746ec951dd30f89ed08/src/tools/system_prompt_self_edit.ts",
+        "https://github.com/dust-tt/srchd/blob/4b5ffb44bdc6bb1d2181d746ec951dd30f89ed08/LICENSE"
+      ],
+      "external_action": "NOT_EXECUTED",
+      "screening_result": "Original dust-tt/srchd@4b5ffb44bdc6bb1d2181d746ec951dd30f89ed08, MIT, current index review 4b5ffb44bdc6bb1d2181d746ec951dd30f89ed08; An S4 self-edit constructor exists and calls agent.evolve; the ordinary CLI does not visibly mount it and a supported operator need is unverified. No native proof or external patch.",
+      "blocker": "Obtain an approved first-party opt-in interface, run two native ticks and test inspect/revert before publishing self-edit capabilities."
+    },
+    {
+      "id": "hexashell-upgrade39-feature-probe",
+      "assessment_path": "assessments/he/hexashell.md",
+      "source": "HexaFuture/HexaShell",
+      "review_ref": "e0190ddb757955131578e9f9071f4ee8e7113f7a",
+      "reviewed_at": "2026-11-10",
+      "function": "S1",
+      "finding": "Prospective S1 offline per-episode tool/sensor trace export. Bounded original-source finding: Episode._cell already writes code, tool output/error, robot calls and steps to Records; wrap-up writes transcript.json and result.json. Proposed read-only trace export duplicates shipped artifacts. 2026-11-14-39-HYPOTHESES.md and -SUMMARY.md record all six function probes.",
+      "stage": "CLOSED_NO_CHANGE",
+      "origin": "INSUFFICIENT",
+      "fit": {
+        "need": "FAIL",
+        "mechanism": "PASS",
+        "counterfactual": "FAIL",
+        "scope": "PASS"
+      },
+      "evidence": [
+        "https://github.com/opensiro/vsm-harness-index/blob/ce58f2172bcccbf96fc0248db8886a8847ae4f24/assessments/he/hexashell.md",
+        "https://github.com/opensiro/upstream/commit/8cb7941163276283bf8fca046f67d0f8d679a17e",
+        "https://github.com/HexaFuture/HexaShell/blob/e0190ddb757955131578e9f9071f4ee8e7113f7a/hexashell/runtime/episode.py",
+        "https://github.com/HexaFuture/HexaShell/blob/e0190ddb757955131578e9f9071f4ee8e7113f7a/LICENSE"
+      ],
+      "external_action": "NOT_EXECUTED",
+      "screening_result": "Original HexaFuture/HexaShell@e0190ddb757955131578e9f9071f4ee8e7113f7a, Apache-2.0, current index review e0190ddb757955131578e9f9071f4ee8e7113f7a; Episode._cell already writes code, tool output/error, robot calls and steps to Records; wrap-up writes transcript.json and result.json. Proposed read-only trace export duplicates shipped artifacts. No native proof or external patch."
+    }
+  ]
+}
