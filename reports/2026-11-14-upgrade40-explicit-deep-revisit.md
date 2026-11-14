@@ -1,5 +1,8 @@
 # Upstream upgrade batch 40 — explicit deep revisit of batch 39
 
+**New verified functional need from original cohort:** [Akmatori #79 (opt-in Slack change-triggered pre-merge review) and #48 (VictoriaLogs investigation access)](2026-11-14-upgrade40-akmatori-change-and-victorialogs-opportunities.md). Both are source-first user-reported features, not newly attributable to VSM. #79 native negative and naïve-reuse tests PASS on *both frozen and live default SHA*, with 10 reruns per state; the default behavior remains missing and the source preserves explicit opt-in boundaries. **OPPORTUNITY_RESEARCH_PENDING** until full four gates and native before/after.
+
+
 **Go-agent concurrent-effect continuation:** [two-agent native controls for non-atomic replay, atomic claim, crash-window loss, model-ID drift and stable caller business identity](2026-11-14-upgrade40-go-agent-concurrent-boundaries.md). Technical observations do not establish a missing SDK primitive or all-four-PASS product gain; **OPPORTUNITY_RESEARCH_PENDING**.
 
 
