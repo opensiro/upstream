@@ -1,5 +1,8 @@
 # Upstream upgrade batch 40 — explicit deep revisit of batch 39
 
+**Go-agent concurrent-effect continuation:** [two-agent native controls for non-atomic replay, atomic claim, crash-window loss, model-ID drift and stable caller business identity](2026-11-14-upgrade40-go-agent-concurrent-boundaries.md). Technical observations do not establish a missing SDK primitive or all-four-PASS product gain; **OPPORTUNITY_RESEARCH_PENDING**.
+
+
 **Further source-native functional depth (round 5):** [Firecrawl scientific-paper API contract and Akmatori independent-incident/contradiction test](2026-11-14-upgrade40-functional-evidence-round5.md), each with executable code and a recorded result. The results identify existing mechanisms and missing product decisions, not an admitted new feature. **OPPORTUNITY_RESEARCH_PENDING** remains in effect.
 
 
