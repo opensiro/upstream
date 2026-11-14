@@ -1,5 +1,8 @@
 # Upstream upgrade batch 40 — explicit deep revisit of batch 39
 
+**Prospective Upstream Protocol v0.9.0 capability-first continuation:** [Akmatori #79 native original-vs-prototype test, one new non-incident request-run record, nine opt-in/negative guards, dual pinned Go test receipts and -race](2026-11-14-upgrade40-v090-akmatori79-capability-readback.md). This adds a bounded source-first `MINOR_FEATURE` hypothesis and technical user-task proxy **without altering the historical v0.8.0 execution record**. No real worker dispatch or actual Slack review was implemented; `scope=PENDING`, not admitted or published externally. **OPPORTUNITY_RESEARCH_PENDING**.
+
+
 **New verified functional need from original cohort:** [Akmatori #79 (opt-in Slack change-triggered pre-merge review) and #48 (VictoriaLogs investigation access)](2026-11-14-upgrade40-akmatori-change-and-victorialogs-opportunities.md). Both are source-first user-reported features, not newly attributable to VSM. #79 native negative and naïve-reuse tests PASS on *both frozen and live default SHA*, with 10 reruns per state; the default behavior remains missing and the source preserves explicit opt-in boundaries. **OPPORTUNITY_RESEARCH_PENDING** until full four gates and native before/after.
 
 
