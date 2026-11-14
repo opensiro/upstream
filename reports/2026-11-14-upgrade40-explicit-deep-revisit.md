@@ -196,6 +196,10 @@ Tests were run against original pinned source code on the external CLI execution
 | Sailry | `cargo test -p node-runtime` | Attempt blocked: `cargo` binary unavailable | Does not validate file overlap behavior |
 | srchd | `npm test` | Attempt blocked: `npm` unavailable; full source checkout timed out, exact pinned files retrieved via GitHub | No provider comparison or executed TypeScript fixture |
 
+### Alternative native runner inventory (fail-closed)
+
+The verified fallback SSH VM was checked read-only for toolchains on 2026-11-14. It has `git`, `python3` and `docker` but **no `go`, `cargo`, `rustc`, `node`, `npm` or `python3.11` executables on PATH**. Its root filesystem is **95% used (about 6 GiB available)**. Consequently this fallback cannot directly execute Akmatori/Go-agent Rust/Node or WittyCode's version-pinned tests; no images were pulled, no private checkouts accessed and no source files mutated. The attempted first-party tests above remain explicit runner blocks, not product failures.
+
 ### Research completion and next independent falsifiers
 
 **SCREENING_COMPLETE** means all six function-level dispositions from the frozen original source anchors were explicitly re-evaluated above (including their old owners/boundaries), *not* that all 60 were freshly integration-tested. Two original full worktree checkouts and several target native runtimes were unavailable; their limitations are marked. **OPPORTUNITY_RESEARCH_PENDING** means potential improvements remain: notably Akmatori issue #67 outcome-aware corroboration; srchd #204 provider selection and owner coordination; reviewer file-inventory completeness; WittyCode symlink consent UI; Sailry overlap; Sapper verified receipt. No exhaustive zero-opportunity claim.
