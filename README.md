@@ -2,7 +2,7 @@
 
 **OpenSiro's public record of improvements to other open-source projects.** We trace a contribution from a reproducible problem and source-native fix through its external pull request, maintainer feedback and independently verified outcome. A prepared patch is not a merged contribution, and a merged PR is not automatically a demonstrated product benefit.
 
-**Contribution protocol:** [SemVer `0.8.0`](VERSION) · [numbered changes](CHANGELOG.md) · [versioning policy](VERSIONING.md). Versions track the contribution *procedure*, not Profile/Skills methodology or individual PR outcomes.
+**Contribution protocol:** [SemVer `0.9.0`](VERSION) · [numbered changes](CHANGELOG.md) · [versioning policy](VERSIONING.md). Versions track the contribution *procedure*, not Profile/Skills methodology or individual PR outcomes.
 
 ## I'm human
 
@@ -24,7 +24,7 @@ For the common operations:
 
 | Work | Procedure |
 | --- | --- |
-| Screen five sources and select a testable improvement | [Assessment candidate batches](docs/ASSESSMENT_CANDIDATE_BATCHES.md) |
+| Investigate a **new useful native capability** | [Capability-first research](docs/CAPABILITY_FIRST_RESEARCH.md) · [Assessment candidate batches](docs/ASSESSMENT_CANDIDATE_BATCHES.md) |
 | Prepare source code, native tests, and the fork-local PR | [Working-fork pipeline](docs/CONTINUOUS_WORKING_FORK_PIPELINE.md) |
 | Publish a qualifying external PR | [Standing publication policy](docs/STANDING_EXTERNAL_PR_PUBLICATION.md) |
 | Observe feedback, states, and outcomes | [PR maintenance](docs/PR_MAINTENANCE.md) · [Verified outcomes](docs/VERIFIED_EXTERNAL_OUTCOMES.md) |
@@ -36,7 +36,7 @@ An **Index assessment** can lead to the strict [assessment-derived S1 test](docs
 
 Effective [standing preparation](docs/STANDING_PREPARATION_AUTONOMY.md) and [publication](docs/STANDING_EXTERNAL_PR_PUBLICATION.md) mandates remove repetitive owner prompts for qualifying operations. They do **not** supply missing host credentials, waive source-native CI, target contribution policies, legal attestations or third-party merge authority. Check current policies and permissions before writing. [Executor gate #6](https://github.com/opensiro/upstream/issues/6).
 
-For new `upstream upgrade batch` research under **protocol v0.8.0**, a six-function source screen is not a concluded product-opportunity investigation: use discriminating post-source evidence and resolve the strongest `need=PENDING` / `counterfactual=PENDING` native falsifier when feasible, or preserve an exact tested/blocker follow-up. Distinguish `SCREENING_COMPLETE` from `OPPORTUNITY_RESEARCH_PENDING` in prose; the four native-fit admission gates and all external rights remain unchanged. See [batch 39 diagnosis](https://github.com/opensiro/upstream/pull/301) and [procedure](docs/ASSESSMENT_CANDIDATE_BATCHES.md#post-batch-39-opportunity-depth-and-closure-contribution-protocol-v080).
+For new `upstream upgrade batch` research under **protocol v0.9.0**, first specify a new operator task, output and bounded benefit ([capability-first contract](docs/CAPABILITY_FIRST_RESEARCH.md)), keeping reliability repairs distinct. The earlier v0.8.0 six-function depth requirement remains: a six-function source screen is not a concluded product-opportunity investigation: use discriminating post-source evidence and resolve the strongest `need=PENDING` / `counterfactual=PENDING` native falsifier when feasible, or preserve an exact tested/blocker follow-up. Distinguish `SCREENING_COMPLETE` from `OPPORTUNITY_RESEARCH_PENDING` in prose; the four native-fit admission gates and all external rights remain unchanged. See [batch 39 diagnosis](https://github.com/opensiro/upstream/pull/301) and [procedure](docs/ASSESSMENT_CANDIDATE_BATCHES.md#post-batch-39-opportunity-depth-and-closure-contribution-protocol-v080).
 
 For `upstream upgrade batch`, [every selected repository needs an S1/S2/S3/S3*/S4/S5 scan **and six concrete post-source scoped probes**, not merely a filled preregistration matrix](docs/ASSESSMENT_CANDIDATE_BATCHES.md#opportunity-first-intake-and-validation-prospective-cohorts). The command can prioritize source-owned maintainer/issue leads over latest Index review (disclosed as source-first / not strict-derived), or preregister an independent Index-first hypothesis before fresh source inspection. Exploratory need remains pending until tested; **four native-fit PASS gates and independent validation** still precede any accepted improvement claim. New capabilities have priority, supported repairs remain useful; an explicit batch of ten means **ten repositories × six evidence-backed function dispositions**, not a patch quota.
 

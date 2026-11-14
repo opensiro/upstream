@@ -59,6 +59,12 @@ The **technical validation gate is complete** when an independently executed, pi
 
 This rule **does not** convert the observed scripted delta into measured deployed adoption, user productivity, security assurance, VSM autonomy/grade change, or upstream maintainer acceptance. Record these as unmeasured/unestablished unless independently evidenced. Delivery permissions, separately authorized external publication and maintainer review are separate gates, never additional LLM testing gates. If wider model-agent research is proposed in the future, it is **outside this experiment** and requires a distinct explicit operator decision.
 
+## Capability-first research choice — prospective v0.9.0
+
+For `upstream upgrade batch` and authorized revisits, first state a **new operator task, observable native output and independently testable benefit** using [capability-first research](CAPABILITY_FIRST_RESEARCH.md). An ordinary reliability fix can be useful without adding new functionality: report `BUG_FIX` separately from `MINOR_FEATURE`/`MAJOR_FEATURE`. A synthetic error, missing symbol or VSM grade is not user demand. Prefer one decisive native capability comparison or maintainer design answer to repeated bug/SDK probes; unresolved value/contract stays `OPPORTUNITY_RESEARCH_PENDING`, with exact owner and next check.
+
+Preserve strict `ASSESSMENT_DERIVED` Index-first chronology, source-first attribution, the four native fit gates, source-native real dependency semantics, independently matched deterministic runner and no-live-LLM/user-trial scope. This does not change the technical right to work on a qualified repair or grant publication authority.
+
 ## Upgrade findings: features preferred, fixes still useful
 
 The single [`upstream upgrade batch` command](ASSESSMENT_CANDIDATE_BATCHES.md#control-plane-command-upstream-upgrade-batch) uses **new `MINOR_FEATURE` / `MAJOR_FEATURE` capabilities as its first search priority, `BUG_FIX` as fallback** when no independently supported capability fits the target source. These are **ordinary engineering descriptions**, not new origin classes, evidence verdicts or counters. All S1–S5 functional observations can motivate a hypothesis, including accepted Index assessments with human-owned S1 under new (prospective) schema-v2 intake. Do not infer a defect or new permission from a VSM autonomy label.

@@ -1,10 +1,19 @@
 # Upstream contribution protocol — SemVer change packages
 
-**Current version:** [`0.8.0`](VERSION) · [Versioning policy](VERSIONING.md)
+**Current version:** [`0.9.0`](VERSION) · [Versioning policy](VERSIONING.md)
 
 This history covers **protocol-relevant** changes, not every merged PR, new screening row, generated view, external PR or fix. Each package links the actual historical main-branch checkpoint and the PRs that changed how contributions are selected, validated, prepared, authorized or published.
 
 **Historical integrity:** Versions `0.1.0` through `0.6.0`, including `0.5.1`, were **assigned retrospectively on 2026-11-14**. Their dated Git commits are real snapshots, **not evidence that releases or SemVer tags existed on those dates**. The first newly recorded version is `0.7.0` at the versioning integration commit; its last pre-versioning protocol checkpoint is PR #298. Retrospective tags, if published, identify historical snapshots without rewriting them. No frozen pilot or batch provenance is backfilled.
+
+## [0.9.0](changes/v0.9.0.md) — Capability-first research and separate reliability fallbacks
+
+**Prospective MINOR, 2026-11-14.** Pre-change [v0.8.0 main checkpoint](https://github.com/opensiro/upstream/commit/38f515a1ce567dd6fd1210162df0f5d69b891a57). Release tag v0.9.0 belongs on the validated merge commit.
+
+- Require the **new operator task, result, original alternative, evidence of demand (or honest uncertainty), native value proxy and control** before extended upgrade-mode technical falsifiers ([contract](docs/CAPABILITY_FIRST_RESEARCH.md)).
+- Keep feature candidates distinct from ordinary reliability/`BUG_FIX` fallbacks and existing/duplicate capabilities. A technical regression is not automatically a new user ability.
+- Prioritize one decisive original-vs-new native capability comparison or maintainer design answer; unresolved product value remains `OPPORTUNITY_RESEARCH_PENDING` with owner and next check.
+- Preserve six-function coverage, Index-first/source-first chronology, four native-fit PASS, independent runner, original legal rights and external publication boundary. No new queue, manifest enum, score, retrospective batch rewrite or VSM grade change.
 
 ## [0.8.0](changes/v0.8.0.md) — Deeper native opportunity investigation and honest research completion
 

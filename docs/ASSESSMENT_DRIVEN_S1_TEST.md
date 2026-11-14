@@ -65,7 +65,7 @@ The existing [HarnessDesk #1772](../pilots/harnessdesk-1772/ASSESSMENT_LINKAGE_2
 pilot is `ASSESSMENT_INFORMED`. A new Index-first functional-gap experiment
 is tracked in [Upstream #56](https://github.com/opensiro/upstream/issues/56).
 
-The [upgrade-batch selection contract](ASSESSMENT_CANDIDATE_BATCHES.md#control-plane-command-upstream-upgrade-batch) now **prefers independently needed minor/major native capabilities** across S1–S5, while accepting a well-substantiated **bug-fix fallback** when no suitable feature exists. The existing `ASSESSMENT_DERIVED` / `ASSESSMENT_INFORMED` distinction, four native-fit gates, separate runner and actual product-effect verdicts remain authoritative; this is not a new S1 test, command or metric. For new Index cohorts with non-A S1, use the prospective v2 manifest without changing frozen v1 assessments.
+The [upgrade-batch selection contract](ASSESSMENT_CANDIDATE_BATCHES.md#control-plane-command-upstream-upgrade-batch) now **prefers independently needed minor/major native capabilities** across S1–S5, while accepting a well-substantiated **bug-fix fallback** when no suitable feature exists. Under [capability-first research v0.9.0](CAPABILITY_FIRST_RESEARCH.md), a **new user task and measurable native result** must be articulated before extending reliability research. A demonstrated repair does not alone complete a VSM-derived new-capability cycle. The existing `ASSESSMENT_DERIVED` / `ASSESSMENT_INFORMED` distinction, four native-fit gates, separate runner and actual product-effect verdicts remain authoritative; this is not a new S1 test, command or metric. For new Index cohorts with non-A S1, use the prospective v2 manifest without changing frozen v1 assessments.
 
 ## Ordered assessment-to-contribution intake
 
