@@ -61,8 +61,8 @@ class ContributionProtocolSemverTests(unittest.TestCase):
         for phrase in ("SCREENING_COMPLETE", "OPPORTUNITY_RESEARCH_PENDING",
                        "OPPORTUNITY_DECIDED", "six-function",
                        "need=PENDING", "counterfactual=PENDING",
-                       "a separate runner", "four gates",
-                       "no new manifest enum"):
+                       "a permitted separate runner", "four gates",
+                       "not new manifest enum values"):
             with self.subTest(contract=phrase):
                 self.assertIn(phrase.lower(), contract.lower())
 
