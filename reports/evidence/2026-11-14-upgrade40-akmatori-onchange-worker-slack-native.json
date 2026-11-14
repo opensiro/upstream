@@ -1,0 +1,106 @@
+{
+  "schema": "opensiro.upstream.batch40.v090.akmatori79.native_worker_slack.v1",
+  "date_utc": "2026-11-14",
+  "protocol": "0.9.0",
+  "batch": "40 explicit revisit, frozen batch 39 cohort unchanged",
+  "research_pr": "https://github.com/opensiro/upstream/pull/303",
+  "issue": "https://github.com/akmatori/akmatori/issues/79",
+  "target": "akmatori/akmatori",
+  "frozen_pin": "be62d926fe6d92dceb5cf12e9a95cb587433cdf1",
+  "latest_observed_main_pin": "7afba4fb5919f30233fc859be3626bcfdaedbdb7",
+  "original_source_checkout_clean": true,
+  "experimental_patch": "reports/repro/2026-11-14-upgrade40-akmatori-onchange-worker-integration-seam.patch",
+  "experimental_patch_sha256": "3dd8fa469bfec37d26be490d0de46dc0ceb203c29777a0dfd02ef629df4de1fb",
+  "experimental_test": "reports/repro/2026-11-14-upgrade40-akmatori-onchange-worker-native_test.go",
+  "experimental_test_sha256": "527f88095bb5b3791e5afd6de1318c3df927be7ddb99c497902ff1a08320f973",
+  "runtime": "Go original handlers, GORM SQLite, real localhost gorilla WebSocket, local httptest Slack API, mocked worker output, no live AI provider or real Slack workspace",
+  "new_task": "opt-in premerge read-only review from an original change-announcement Slack message, no @mention/polling/incident",
+  "source_native_observed": {
+    "original_store": "one classified and persisted change event, zero AgentRun, zero Slack reply (prior native baseline)",
+    "experimental_run": "one change Event, one classifier call, one WS new_incident request with request scope and empty tool allowlist, one completed AgentRun, one Slack chat.postMessage in same thread, zero incidents",
+    "redelivery": "second Event row may be written; source-key unique claim prevents second worker dispatch and Slack post",
+    "two_connection_claim": "two independent SQLite connections race unique claim; exactly one can acquire",
+    "crash_control": "claim persisted before work, simulated process failure leaves zero agent runs and retry blocked; at-most-once not durable guaranteed delivery"
+  },
+  "evidence_class": "SOURCE_FIRST feature hypothesis, not strict ASSESSMENT_DERIVED",
+  "admission": {
+    "need": "PASS: target first-party issue #79",
+    "mechanism": "PASS: native handler+WS worker protocol+agent run+Slack mock endpoint via experimental test seam",
+    "counterfactual": "PASS only scripted native delivery proxy with deterministic fake worker; real AI review output quality and real Slack delivery untested",
+    "scope": "PENDING: maintainer contract, first-party config and permissions, atomic durable outbox/recovery, skills/tool policy, production integration",
+    "four_full_PASS": false
+  },
+  "limitations": [
+    "Test-only hook inserted in disposable source tree; no channel.on_change persistence/API/frontend or real production wiring",
+    "Fake worker returns a constant seeded review response, not a model-generated review",
+    "Slack API is a local httptest endpoint, not the real Slack platform",
+    "No external PR or target code publication",
+    "Source-key claim prevents duplicate dispatch but can lose work on failure after reservation; retry/outbox/lease needed",
+    "A repeated source message may still yield another classified Event row; ingress dedup not established",
+    "Same-process independent SQLite connections are not independent OS processes",
+    "No observed user adoption, production task quality, human feedback or VSM autonomy uplift",
+    "No external approval/CLA/merge authority inferred"
+  ],
+  "receipts": [
+    {
+      "source_lane": "frozen",
+      "pin": "be62d926fe6d92dceb5cf12e9a95cb587433cdf1",
+      "mode": "verbose",
+      "command": "go test ./internal/handlers -run ^TestBatch40(NativeChangeWorkerToSlackThread|ClaimAtomicIndependentConnections|NativeAtMostOnceClaimCanStrandUndispatchedChange)$ -count=1 -v -timeout=100s",
+      "exit_code": 0,
+      "elapsed_seconds": 6.3,
+      "stdout_tail": "=== RUN   TestBatch40NativeChangeWorkerToSlackThread\n2026/11/14 20:34:34 INFO agent worker connected remote_addr=127.0.0.1:47102\n2026/11/14 20:34:34 INFO processing listener channel message user=U_REVIEWER channel=C_CHANGES\n2026/11/14 20:34:34 INFO using event.Text fallback channel=C_CHANGES ts=1707000055.001100\n\n2026/11/14 20:34:34 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-native-memory/internal/database/db.go:1680 \u001b[35;1mrecord not found\n\u001b[0m\u001b[33m[0.240ms] \u001b[34;1m[rows:0]\u001b[0m SELECT * FROM `general_settings` ORDER BY `general_settings`.`id` LIMIT 1\n\n2026/11/14 20:34:34 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-native-memory/internal/database/db.go:1656 \u001b[35;1mrecord not found\n\u001b[0m\u001b[33m[0.305ms] \u001b[34;1m[rows:0]\u001b[0m SELECT * FROM `proxy_settings` ORDER BY `proxy_settings`.`id` LIMIT 1\n2026/11/14 20:34:34 INFO received message from worker type=agent_completed incident_id=efd51429-0147-469c-9eb8-fefd531d27a7\n2026/11/14 20:34:34 INFO incident completed incident_id=efd51429-0147-469c-9eb8-fefd531d27a7 session_id=research-verified-fake-worker tokens_used=42 execution_time_ms=0\n2026/11/14 20:34:34 INFO stored run result run=2f217528-2cab-46c6-93a7-17fde93fb494 failed=false\n2026/11/14 20:34:34 INFO listener message is not an alert; stored as event, no investigation channel=C_CHANGES kind=change event_uuid=efd51429-0147-469c-9eb8-fefd531d27a7\n\n2026/11/14 20:34:34 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-native-memory/internal/services/skill_connected_tools.go:124 \u001b[35;1mno such table: tool_instances\n\u001b[0m\u001b[33m[1.540ms] \u001b[34;1m[rows:0]\u001b[0m SELECT * FROM `tool_instances` WHERE enabled = true ORDER BY id ASC\n2026/11/14 20:34:34 WARN failed to regenerate connected-tools SKILL.md err=\"list tool instances: no such table: tool_instances\"\n2026/11/14 20:34:34 INFO processing listener channel message user=U_REVIEWER channel=C_CHANGES\n2026/11/14 20:34:34 INFO using event.Text fallback channel=C_CHANGES ts=1707000055.001100\n2026/11/14 20:34:34 INFO listener message is not an alert; stored as event, no investigation channel=C_CHANGES kind=change event_uuid=e03f11d9-1152-40ab-bf86-7213529ebe7f\n    batch40_onchange_worker_test.go:243: native WS frame=new_incident run=2f217528-2cab-46c6-93a7-17fde93fb494 enabled_skills=0 tool_allowlist=0\n    batch40_onchange_worker_test.go:244: actual first-party finishSlackMessage posted=1 thread=1707000055.001100; events_first=1 classifier_first=1; runs=1 incidents=0\n2026/11/14 20:34:34 INFO agent worker disconnected\n--- PASS: TestBatch40NativeChangeWorkerToSlackThread (0.50s)\n=== RUN   TestBatch40ClaimAtomicIndependentConnections\n    batch40_onchange_worker_test.go:295: independent two-connection, same source-message claim: one accepted; DB is not a work-delivery transaction\n--- PASS: TestBatch40ClaimAtomicIndependentConnections (0.03s)\n=== RUN   TestBatch40NativeAtMostOnceClaimCanStrandUndispatchedChange\n    batch40_onchange_worker_test.go:338: crash-gap negative control: durable claim=1, retry admitted=0, agent_runs=0; requires lease/outbox recovery before publication\n--- PASS: TestBatch40NativeAtMostOnceClaimCanStrandUndispatchedChange (0.05s)\nPASS\nok  \tgithub.com/akmatori/akmatori/internal/handlers\t0.624s\n",
+      "stderr_tail": ""
+    },
+    {
+      "source_lane": "frozen",
+      "pin": "be62d926fe6d92dceb5cf12e9a95cb587433cdf1",
+      "mode": "twenty",
+      "command": "go test ./internal/handlers -run ^TestBatch40(NativeChangeWorkerToSlackThread|ClaimAtomicIndependentConnections|NativeAtMostOnceClaimCanStrandUndispatchedChange)$ -count=20 -timeout=100s",
+      "exit_code": 0,
+      "elapsed_seconds": 9.35,
+      "stdout_tail": "ok  \tgithub.com/akmatori/akmatori/internal/handlers\t3.760s\n",
+      "stderr_tail": ""
+    },
+    {
+      "source_lane": "frozen",
+      "pin": "be62d926fe6d92dceb5cf12e9a95cb587433cdf1",
+      "mode": "race_twice",
+      "command": "go test ./internal/handlers -run ^TestBatch40(NativeChangeWorkerToSlackThread|ClaimAtomicIndependentConnections|NativeAtMostOnceClaimCanStrandUndispatchedChange)$ -race -count=2 -timeout=100s",
+      "exit_code": 0,
+      "elapsed_seconds": 8.46,
+      "stdout_tail": "ok  \tgithub.com/akmatori/akmatori/internal/handlers\t2.271s\n",
+      "stderr_tail": ""
+    },
+    {
+      "source_lane": "current_main",
+      "pin": "7afba4fb5919f30233fc859be3626bcfdaedbdb7",
+      "mode": "verbose",
+      "command": "go test ./internal/handlers -run ^TestBatch40(NativeChangeWorkerToSlackThread|ClaimAtomicIndependentConnections|NativeAtMostOnceClaimCanStrandUndispatchedChange)$ -count=1 -v -timeout=100s",
+      "exit_code": 0,
+      "elapsed_seconds": 5.76,
+      "stdout_tail": "=== RUN   TestBatch40NativeChangeWorkerToSlackThread\n2026/11/14 20:34:58 INFO agent worker connected remote_addr=127.0.0.1:38704\n2026/11/14 20:34:58 INFO processing listener channel message user=U_REVIEWER channel=C_CHANGES\n2026/11/14 20:34:58 INFO using event.Text fallback channel=C_CHANGES ts=1707000055.001100\n\n2026/11/14 20:34:58 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-current-main/internal/database/db.go:1680 \u001b[35;1mrecord not found\n\u001b[0m\u001b[33m[0.211ms] \u001b[34;1m[rows:0]\u001b[0m SELECT * FROM `general_settings` ORDER BY `general_settings`.`id` LIMIT 1\n\n2026/11/14 20:34:58 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-current-main/internal/database/db.go:1656 \u001b[35;1mrecord not found\n\u001b[0m\u001b[33m[1.107ms] \u001b[34;1m[rows:0]\u001b[0m SELECT * FROM `proxy_settings` ORDER BY `proxy_settings`.`id` LIMIT 1\n2026/11/14 20:34:58 INFO received message from worker type=agent_completed incident_id=35f617e3-cb12-4455-b312-272e2027b2d0\n2026/11/14 20:34:58 INFO incident completed incident_id=35f617e3-cb12-4455-b312-272e2027b2d0 session_id=research-verified-fake-worker tokens_used=42 execution_time_ms=0\n2026/11/14 20:34:58 INFO stored run result run=4e8d5f7c-3131-4eea-b4cd-d1729e637950 failed=false\n\n2026/11/14 20:34:58 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-current-main/internal/services/skill_connected_tools.go:124 \u001b[35;1mno such table: tool_instances\n\u001b[0m\u001b[33m[0.425ms] \u001b[34;1m[rows:0]\u001b[0m SELECT * FROM `tool_instances` WHERE enabled = true ORDER BY id ASC\n2026/11/14 20:34:58 INFO listener message is not an alert; stored as event, no investigation channel=C_CHANGES kind=change event_uuid=35f617e3-cb12-4455-b312-272e2027b2d0\n2026/11/14 20:34:58 INFO processing listener channel message user=U_REVIEWER channel=C_CHANGES\n2026/11/14 20:34:58 WARN failed to regenerate connected-tools SKILL.md err=\"list tool instances: no such table: tool_instances\"\n2026/11/14 20:34:58 INFO using event.Text fallback channel=C_CHANGES ts=1707000055.001100\n2026/11/14 20:34:58 INFO listener message is not an alert; stored as event, no investigation channel=C_CHANGES kind=change event_uuid=3c6f8625-c024-4f2e-8480-c861a7c88fcf\n    batch40_onchange_worker_test.go:243: native WS frame=new_incident run=4e8d5f7c-3131-4eea-b4cd-d1729e637950 enabled_skills=0 tool_allowlist=0\n    batch40_onchange_worker_test.go:244: actual first-party finishSlackMessage posted=1 thread=1707000055.001100; events_first=1 classifier_first=1; runs=1 incidents=0\n2026/11/14 20:34:58 INFO agent worker disconnected\n--- PASS: TestBatch40NativeChangeWorkerToSlackThread (0.09s)\n=== RUN   TestBatch40ClaimAtomicIndependentConnections\n    batch40_onchange_worker_test.go:295: independent two-connection, same source-message claim: one accepted; DB is not a work-delivery transaction\n--- PASS: TestBatch40ClaimAtomicIndependentConnections (0.03s)\n=== RUN   TestBatch40NativeAtMostOnceClaimCanStrandUndispatchedChange\n    batch40_onchange_worker_test.go:338: crash-gap negative control: durable claim=1, retry admitted=0, agent_runs=0; requires lease/outbox recovery before publication\n--- PASS: TestBatch40NativeAtMostOnceClaimCanStrandUndispatchedChange (0.05s)\nPASS\nok  \tgithub.com/akmatori/akmatori/internal/handlers\t0.225s\n",
+      "stderr_tail": ""
+    },
+    {
+      "source_lane": "current_main",
+      "pin": "7afba4fb5919f30233fc859be3626bcfdaedbdb7",
+      "mode": "twenty",
+      "command": "go test ./internal/handlers -run ^TestBatch40(NativeChangeWorkerToSlackThread|ClaimAtomicIndependentConnections|NativeAtMostOnceClaimCanStrandUndispatchedChange)$ -count=20 -timeout=100s",
+      "exit_code": 0,
+      "elapsed_seconds": 11.83,
+      "stdout_tail": "ok  \tgithub.com/akmatori/akmatori/internal/handlers\t4.591s\n",
+      "stderr_tail": ""
+    },
+    {
+      "source_lane": "current_main",
+      "pin": "7afba4fb5919f30233fc859be3626bcfdaedbdb7",
+      "mode": "race_twice",
+      "command": "go test ./internal/handlers -run ^TestBatch40(NativeChangeWorkerToSlackThread|ClaimAtomicIndependentConnections|NativeAtMostOnceClaimCanStrandUndispatchedChange)$ -race -count=2 -timeout=100s",
+      "exit_code": 0,
+      "elapsed_seconds": 12.57,
+      "stdout_tail": "ok  \tgithub.com/akmatori/akmatori/internal/handlers\t3.038s\n",
+      "stderr_tail": ""
+    }
+  ]
+}
