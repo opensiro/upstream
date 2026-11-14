@@ -62,7 +62,7 @@ class ContributionProtocolSemverTests(unittest.TestCase):
                        "OPPORTUNITY_DECIDED", "six-function",
                        "need=PENDING", "counterfactual=PENDING",
                        "a permitted separate runner", "four gates",
-                       "not new manifest enum values"):
+                       "not batch manifest enum values"):
             with self.subTest(contract=phrase):
                 self.assertIn(phrase.lower(), contract.lower())
 
