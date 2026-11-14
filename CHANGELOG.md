@@ -1,10 +1,20 @@
 # Upstream contribution protocol — SemVer change packages
 
-**Current version:** [`0.7.0`](VERSION) · [Versioning policy](VERSIONING.md)
+**Current version:** [`0.8.0`](VERSION) · [Versioning policy](VERSIONING.md)
 
 This history covers **protocol-relevant** changes, not every merged PR, new screening row, generated view, external PR or fix. Each package links the actual historical main-branch checkpoint and the PRs that changed how contributions are selected, validated, prepared, authorized or published.
 
 **Historical integrity:** Versions `0.1.0` through `0.6.0`, including `0.5.1`, were **assigned retrospectively on 2026-11-14**. Their dated Git commits are real snapshots, **not evidence that releases or SemVer tags existed on those dates**. The first newly recorded version is `0.7.0` at the versioning integration commit; its last pre-versioning protocol checkpoint is PR #298. Retrospective tags, if published, identify historical snapshots without rewriting them. No frozen pilot or batch provenance is backfilled.
+
+## [0.8.0](changes/v0.8.0.md) — Deeper native opportunity investigation and honest research completion
+
+**Prospective protocol change:** 2026-11-14, based on [batch 39 root-cause review #301](https://github.com/opensiro/upstream/pull/301) (separate diagnostic PR, not presumed merged). The historical pre-change baseline is [`7a6abb1c5e`](https://github.com/opensiro/upstream/commit/7a6abb1c5e466e9b1fff7d210c7ee7f704a2b79e); the 0.8.0 version itself takes effect only on the actual integration commit.
+
+- **Select opportunities rather than just recent Index assessments:** prioritize independently verified first-party feature demand and target-native workflows when available; preserve transparent source-first versus strictly preregistered Index-first chronology and disclose recency-only fallback.
+- **Require distinguishing six-function source findings:** a repeated generic source-probe note is insufficient for deep opportunity coverage. Report an observed existing feature, a concrete missing workflow or a specific untested/out-of-scope native boundary for each function, without demanding six native tests per source.
+- **Make the strongest pending hypothesis actionable:** investigate its product-native falsifier in a permitted runner when feasible; otherwise record the exact tried step or inability to execute, owner and next evidence step. `need=PENDING` / `counterfactual=PENDING` is not a verified product deficit or proof of no valuable opportunity.
+- **Separate `SCREENING_COMPLETE` from `OPPORTUNITY_RESEARCH_PENDING` / `OPPORTUNITY_DECIDED`** in prose. Revisit genuinely promising blocked work through the existing source owner rather than endlessly scheduling new recency-only batches. These are not new manifest enums, a permission grant or a patch quota.
+- Preserve immutable batch 39 and earlier evidence, four native-fit PASS admission gates, license/maintainer/CLA/DCO boundaries, source-native independent before/after validation, and existing command/API compatibility.
 
 ## [0.7.0](changes/v0.7.0.md) — Post-source probes and falsified-dependency safeguards
 
