@@ -1,5 +1,7 @@
 # KnowWork — assessment-derived S2 improvement handoff
 
+**POST-PUBLICATION CORRECTION (2026-11-14): `need=FAIL`; original PR CLOSED_UNMERGED; no validated improvement.** The original [KnowWork #4](https://github.com/knowflow-ai/KnowWork/pull/4) was closed after its maintainer identified an impossible SDK error in the synthetic test. The actual docker-py 7.2.0 `APIClient.start()` returns without error for HTTP 304, whereas 409 and 500 raise `APIError`. The test injects `APIError(304)` through FakeDocker, so its real RED→GREEN proves **only the artificial branch**, not a product defect. The archived `ASSESSMENT_DERIVED` label denotes *hypothesis selection chronology*, not a successful derived intervention. **Do not reapply or republish this fix on the disproven premise.** See [independent SDK reproduction and full correction](CORRECTION_2026-11-14.md). Original plans, patches and measured mock test results below remain historical, not current publication instructions.
+
 **Status:** `AWAITING_EXTERNAL` — implementation/test artifacts prepared internally; **no external PR, external fork mutation, or maintainer publication has been authorized by this batch**.
 
 - Source: `knowflow-ai/KnowWork` Apache-2.0, [pinned baseline `033b492`](https://github.com/knowflow-ai/KnowWork/tree/033b49240ec49c7b8d3b43f1783b9b4d89425b5e). The canonical [Index assessment](https://github.com/opensiro/vsm-harness-index/blob/da98a140b1c6541f639c1dc4094bf2aeaacdb08d/assessments/kn/knowwork.md) records S2=C.
