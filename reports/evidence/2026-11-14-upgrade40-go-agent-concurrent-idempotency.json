@@ -1,0 +1,53 @@
+{
+  "schema": "opensiro.upstream.batch40.native-concurrent-idempotency.v1",
+  "date_utc": "2026-11-14",
+  "protocol_semver": "0.8.0",
+  "source": "shalyhinpavel/go-agent-harness",
+  "source_pin": "63a2a15315c3a52964bcbc8b15d48f97f49f5a21",
+  "original_source_modified": false,
+  "classification": "source-first functional revisit; no strict assessment-derived attribution",
+  "fixture_path": "reports/repro/2026-11-14-upgrade40-go-agent-concurrent-identity_test.go",
+  "fixture_sha256": "b17cf6d79399168e73566c884f9c770ea60514f379d07160663d0113a591986a",
+  "runner": "Go 1.27.4, native first-party AgentEngine, mock LLM, file SessionStore, disposable checkout, two concurrent engines",
+  "passes_per_scenario": 21,
+  "repeat_runs": 20,
+  "verbose_first_attempt": "=== RUN   TestBatch40ConcurrentCheckThenAllowPermitsDuplicateEffect\n    batch40_concurrent_claim_test.go:94: control: two distinct engines with identical caller ID both executed after a synchronized missing-ledger read; effects=2\n--- PASS: TestBatch40ConcurrentCheckThenAllowPermitsDuplicateEffect (0.00s)\n=== RUN   TestBatch40AtomicPreclaimCanSuppressConcurrentDuplicate\n    batch40_concurrent_claim_test.go:121: control: application-owned OS atomic create in BeforeTool suppresses the second concurrent call; NOT a durable transactional exactly-once guarantee on crashes\n--- PASS: TestBatch40AtomicPreclaimCanSuppressConcurrentDuplicate (0.00s)\n=== RUN   TestBatch40PreclaimCrashWindowSuppressesNecessaryRetry\n    batch40_concurrent_claim_test.go:146: negative: persisted claim with missing effect suppresses both retries; correctness needs an external transactional operation contract\n--- PASS: TestBatch40PreclaimCrashWindowSuppressesNecessaryRetry (0.00s)\n=== RUN   TestBatch40ModelCallIDDriftAndStableCallerBusinessKey\n=== RUN   TestBatch40ModelCallIDDriftAndStableCallerBusinessKey/model_call_id_only_dedup_fails_on_replay\n2026/11/14 17:42:11 ERROR session store write failed session=same-session err=\"agent: save messages of session \\\"same-session\\\": injected result persistence failure\"\n    batch40_concurrent_claim_test.go:230: source-native model IDs differed between attempts; caller business key stable; consumer hook use_caller_key=false side_effects=2\n=== RUN   TestBatch40ModelCallIDDriftAndStableCallerBusinessKey/caller_business_key_hook_survives_model_id_drift\n2026/11/14 17:42:11 ERROR session store write failed session=same-session err=\"agent: save messages of session \\\"same-session\\\": injected result persistence failure\"\n    batch40_concurrent_claim_test.go:230: source-native model IDs differed between attempts; caller business key stable; consumer hook use_caller_key=true side_effects=1\n--- PASS: TestBatch40ModelCallIDDriftAndStableCallerBusinessKey (0.01s)\n    --- PASS: TestBatch40ModelCallIDDriftAndStableCallerBusinessKey/model_call_id_only_dedup_fails_on_replay (0.00s)\n    --- PASS: TestBatch40ModelCallIDDriftAndStableCallerBusinessKey/caller_business_key_hook_survives_model_id_drift (0.00s)\nPASS\nok  \tgithub.com/shalyhinpavel/go-agent-harness/agent\t0.017s\n",
+  "repeat_20_output": "ok  \tgithub.com/shalyhinpavel/go-agent-harness/agent\t0.251s\n",
+  "scenarios": [
+    {
+      "name": "concurrent check before completion file, synchronized initial miss, both then record effect",
+      "observed_side_effects": 2
+    },
+    {
+      "name": "atomic OS O_EXCL preclaim in existing BeforeTool hook",
+      "observed_side_effects": 1
+    },
+    {
+      "name": "simulate crash after durable preclaim before effect; retries blocked",
+      "observed_side_effects": 0
+    },
+    {
+      "name": "post-effect persistence failure then model ToolCall.ID changes, dedupe by model ID",
+      "observed_side_effects": 2
+    },
+    {
+      "name": "same replay with stable authenticated caller business_id in ChatRequest.CustomData",
+      "observed_side_effects": 1
+    }
+  ],
+  "gates": {
+    "need": "PENDING",
+    "mechanism": "PASS",
+    "counterfactual": "PASS for technical synthetic fixtures only",
+    "scope": "PENDING"
+  },
+  "limitations": [
+    "Two in-process Go engines, not an externally distributed service",
+    "Synthetic effect and file ledger, no atomic external transaction",
+    "LLM ToolCall.ID is fixture-controlled and can change on retry; caller must provide stable business identity",
+    "O_EXCL is an at-most-once reservation, not exactly-once under crash; can also lead to zero performed",
+    "The SDK already includes BeforeTool and CustomData; no demonstrated missing core mechanism",
+    "No maintainer-approved exactly-once consumer requirement or independent product improvement"
+  ],
+  "patch_admitted": false
+}
