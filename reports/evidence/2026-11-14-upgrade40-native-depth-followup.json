@@ -1,0 +1,182 @@
+{
+  "format": "opensiro.upstream.batch40.native-depth-followup.v1",
+  "date_utc": "2026-11-14",
+  "protocol_semver": "0.8.0",
+  "owner_pr": "https://github.com/opensiro/upstream/pull/303",
+  "prior_batch_frozen_ref": "8a5ebb36058140e2b84ae4fb1b0751c9b0be7d89",
+  "classification": "explicit revisit / source-first findings kept distinct",
+  "independent_before_after_validation": false,
+  "patch_admitted": false,
+  "notes": [
+    "Go tests run with official Go 1.27.4 verified archive + Zig cc 0.14.1 in isolated user-space runner. Executed by assistant: not independent S3* validation.",
+    "Original Akmatori source untouched; exploratory Go test uses temporary source copy.",
+    "srchd first-party TS module runs with mocked external dependencies; no actual Linkup or Firecrawl remote request.",
+    "Slack original workflow Python block executed; incomplete diff manually injected; no live GitHub HTTP 200 truncated-diff counterexample.",
+    "AI-Scientist qualification outputs use mocked prepare path; no real stochastic evaluator or model execution.",
+    "No external upstream commits, repo forks, PRs, identity attestations or CLA/DCO actions."
+  ],
+  "scripts": [
+    {
+      "file": "2026-11-14-upgrade40-slack-workflow-context-check.py",
+      "sha256": "f87dac03920b754a720b952d30f863a2c20190f14448ee15aa4ad99026f982e4",
+      "bytes": 2947
+    },
+    {
+      "file": "2026-11-14-upgrade40-srchd-provider-selection-check.py",
+      "sha256": "2cb21176263ffdaef99865118d22f92e381b47f64dcf751e1901f248ea96f0ed",
+      "bytes": 5226
+    },
+    {
+      "file": "2026-11-14-upgrade40-ai-qualification-score-check.py",
+      "sha256": "8e542cccbcc489511f7f7d5f3bc30c12374fd5cdfdf0fc2ff984d3d656ca522f",
+      "bytes": 3452
+    },
+    {
+      "file": "2026-11-14-upgrade40-akmatori-memory-revisit_test.go",
+      "sha256": "1a39e439fdf14f0ac0f50cdf56c91ee540718197addb50f3352154e6ad88117b",
+      "bytes": 3081
+    }
+  ],
+  "executions": [
+    {
+      "file": "akmatori-first-party-memory-native-suite.json",
+      "sha256": "dd2b0779e5aabc57931c05b69217962c5e25062f18a88fd98a456c75e1bbbf68",
+      "data": {
+        "name": "akmatori-first-party-memory-native-suite",
+        "source": "akmatori/akmatori",
+        "pin": "be62d926fe6d92dceb5cf12e9a95cb587433cdf1",
+        "runner": "Go 1.27.4, Zig cc 0.14.1, sqlite CGO",
+        "command": "go test ./internal/services -run ^Test(Memory|RecordCitedMemories|FinishRun_RecordsCitedMemories|ManifestRank) -count=1 -timeout=180s",
+        "exit_code": 0,
+        "duration_s": 3.5,
+        "stdout": "ok  \tgithub.com/akmatori/akmatori/internal/services\t0.357s\n",
+        "stderr": ""
+      }
+    },
+    {
+      "file": "akmatori-native-cross-incident-use-vs-corroboration.json",
+      "sha256": "d1fd7f3055dcc31eb5815af04ab0aa2bedfbaf2558432a90fe799f88a017d809",
+      "data": {
+        "name": "akmatori-native-cross-incident-use-vs-corroboration",
+        "source": "akmatori/akmatori",
+        "source_pin": "be62d926fe6d92dceb5cf12e9a95cb587433cdf1",
+        "original_source_modified": false,
+        "test_file_sha256": "1a39e439fdf14f0ac0f50cdf56c91ee540718197addb50f3352154e6ad88117b",
+        "runner": "Go 1.27.4 CGO via Zig cc 0.14.1, read-only detached copy",
+        "command": "go test ./internal/services -run ^TestBatch40CitedUsageIsNotCrossIncidentCorroboration$ -count=1 -v -timeout=60s",
+        "exit_code": 0,
+        "seconds": 18.01,
+        "stdout": "=== RUN   TestBatch40CitedUsageIsNotCrossIncidentCorroboration\n--- PASS: TestBatch40CitedUsageIsNotCrossIncidentCorroboration (0.01s)\nPASS\nok  \tgithub.com/akmatori/akmatori/internal/services\t0.038s\n",
+        "stderr": ""
+      }
+    },
+    {
+      "file": "slack-workflow-metadata-counterfactual.json",
+      "sha256": "c06f03ce64b799401ded2eccfc3674721e9a7a42287d644942305ed15ffdaf33",
+      "data": {
+        "name": "slack-pinned-native-workflow-fetch-payload",
+        "source": "sakomws/slack-agent-runtime",
+        "pin": "16bb262715b7bacb64c7466cf106063c2fdf6c93",
+        "workflow_path": ".github/workflows/pr-review-reusable.yml",
+        "script_sha256": "607ea89455703121b114deb354690d40500549d932597a1e390fb686667a6d37",
+        "assumption": "GitHub returns synthetic partial diff; NOT proof GitHub API truncates in live use.",
+        "results": [
+          {
+            "scenario": "complete",
+            "metadata_changed_files": 2,
+            "diff_files": 2,
+            "expected_head_valid": true,
+            "exit_code": 0,
+            "context_written": true,
+            "stderr": ""
+          },
+          {
+            "scenario": "incomplete",
+            "metadata_changed_files": 2,
+            "diff_files": 1,
+            "expected_head_valid": true,
+            "exit_code": 0,
+            "context_written": true,
+            "stderr": ""
+          },
+          {
+            "scenario": "head_changed",
+            "metadata_changed_files": 2,
+            "diff_files": 2,
+            "expected_head_valid": false,
+            "exit_code": 1,
+            "context_written": false,
+            "stderr": "pull request head changed before review"
+          }
+        ],
+        "finding": "Pinned workflow accepts incomplete diff whose two-file PR metadata says changed_files=2 and validates HEAD; it has no changed-file inventory comparison. Complete control passes, stale SHA fails."
+      }
+    },
+    {
+      "file": "srchd-native-provider-selection-falsifier.json",
+      "sha256": "747a87498f178737b29db189e109e399cda5eac9b073242f562a8f0dd64daedf",
+      "data": {
+        "name": "srchd-original-web-provider-selection-falsifier",
+        "source": "dust-tt/srchd",
+        "pin": "4b5ffb44bdc6bb1d2181d746ec951dd30f89ed08",
+        "pinned_source_sha256": "a32d3c9f3b297f90fc8bd0b3ffb146089088cfd3c9773fca7be4b6bbad35f705",
+        "technique": "Execute exact pinned TypeScript src/tools/web.ts under Node 22 with mocks only for network/client imports and McpServer; no modification to target source",
+        "command": "node --experimental-loader resolve-loader.mjs --experimental-strip-types scenario.mjs (generated offline stubs)",
+        "exit_code": 0,
+        "seconds": 0.5,
+        "results": [
+          {
+            "provider": "default",
+            "firecrawl_instantiated": 1,
+            "search_works": true,
+            "fetch_works": true
+          },
+          {
+            "provider": "linkup",
+            "firecrawl_instantiated": 1,
+            "search_works": true,
+            "fetch_works": true
+          }
+        ],
+        "stderr": "(node:3210645) ExperimentalWarning: `--experimental-loader` may be removed in the future; instead use `register()`:\n--import 'data:text/javascript,import { register } from \"node:module\"; import { pathToFileURL } from \"node:url\"; register(\"/tmp/srchd-b40-native-pj7xwlht/resolve-loader.mjs\", pathToFileURL(\"./\"));'\n(Use `node --trace-warnings ...` to show where the warning was created)\n",
+        "limitation": "External provider HTTP not exercised; no comparative benefit or target maintainer acceptance inferred from this probe."
+      }
+    },
+    {
+      "file": "ai-scientist-qualification-mock-nondeterministic-scores.json",
+      "sha256": "59acdc66680beb0feba93bee0048147779e5a1714496c6c883ae36d35b313169",
+      "data": {
+        "name": "ai-scientist-qualification-mock-nondeterministic-scores",
+        "source": "SakanaAI/AI-Scientist-v3",
+        "source_pin": "df8313889a004f8a44a472e19a833cd547bb828a",
+        "program_sha256": "8e542cccbcc489511f7f7d5f3bc30c12374fd5cdfdf0fc2ff984d3d656ca522f",
+        "result": "PASS (negative control: same evaluator-tree digest, two mocked score manifests, both accepted by original qualification)",
+        "calls": [
+          {
+            "score": 0.41,
+            "draft_smoke": false,
+            "evaluator_tree_sha256": "2ad8aab2054f032d581f933b849be0e8045fc195b5ae25e33fe217ed6b596034"
+          },
+          {
+            "score": 0.62,
+            "draft_smoke": false,
+            "evaluator_tree_sha256": "2ad8aab2054f032d581f933b849be0e8045fc195b5ae25e33fe217ed6b596034"
+          }
+        ],
+        "receipts": [
+          {
+            "status": "pass",
+            "receipt_score": 0.41,
+            "evaluator_tree_sha256": "2ad8aab2054f032d581f933b849be0e8045fc195b5ae25e33fe217ed6b596034"
+          },
+          {
+            "status": "pass",
+            "receipt_score": 0.62,
+            "evaluator_tree_sha256": "2ad8aab2054f032d581f933b849be0e8045fc195b5ae25e33fe217ed6b596034"
+          }
+        ],
+        "limitation": "Two separate qualification invocations and explicitly injected mock scores; not a native real-model or real container baseline reproducibility test. Does not establish four PASS or authorize fix."
+      }
+    }
+  ]
+}
