@@ -1,0 +1,63 @@
+{
+  "schema": "opensiro.upstream.batch40.go-agent-cross-process-native.v1",
+  "date_utc": "2026-11-14",
+  "protocol_semver": "0.8.0",
+  "source": "shalyhinpavel/go-agent-harness",
+  "pin": "63a2a15315c3a52964bcbc8b15d48f97f49f5a21",
+  "frozen_batch39_ref": "8a5ebb36058140e2b84ae4fb1b0751c9b0be7d89",
+  "original_source_modified": false,
+  "source_origin": "explicit revisit: source-first native Go first-party SDK; no VSM causal attribution",
+  "test_file": "reports/repro/2026-11-14-upgrade40-go-agent-cross-process_test.go",
+  "test_sha256": "a4f80cd1e0d76d5959f6d10707867f653e9cd13befa17085bda57c8b1cccdd4f",
+  "native_runner": "Go 1.27.4 CGO Zig cc 0.14.1; two independent os/exec subprocesses running first-party AgentEngine with same caller business identity and separate sessions",
+  "runs": [
+    {
+      "command": "go test ./agent -run ^TestBatch40TwoProcesses(NonAtomicLedgerDuplicates|AtomicConsumerClaimSuppresses|PreclaimedButNotExecuted)$ -count=1 -v -timeout=65s",
+      "exit_code": 0,
+      "elapsed_seconds": 2.55,
+      "stdout": "=== RUN   TestBatch40TwoProcessesNonAtomicLedgerDuplicates\n    batch40_cross_process_test.go:166: two real OS subprocesses using pinned AgentEngine and same caller business identity: mode=non-atomic preclaim=false effects=2\n--- PASS: TestBatch40TwoProcessesNonAtomicLedgerDuplicates (0.02s)\n=== RUN   TestBatch40TwoProcessesAtomicConsumerClaimSuppresses\n    batch40_cross_process_test.go:169: two real OS subprocesses using pinned AgentEngine and same caller business identity: mode=atomic preclaim=false effects=1\n--- PASS: TestBatch40TwoProcessesAtomicConsumerClaimSuppresses (0.01s)\n=== RUN   TestBatch40TwoProcessesPreclaimedButNotExecuted\n    batch40_cross_process_test.go:172: two real OS subprocesses using pinned AgentEngine and same caller business identity: mode=atomic preclaim=true effects=0\n--- PASS: TestBatch40TwoProcessesPreclaimedButNotExecuted (0.01s)\nPASS\nok  \tgithub.com/shalyhinpavel/go-agent-harness/agent\t0.065s\n",
+      "stderr": ""
+    },
+    {
+      "command": "go test ./agent -run ^TestBatch40TwoProcesses(NonAtomicLedgerDuplicates|AtomicConsumerClaimSuppresses|PreclaimedButNotExecuted)$ -count=20 -timeout=90s",
+      "exit_code": 0,
+      "elapsed_seconds": 3.62,
+      "stdout": "ok  \tgithub.com/shalyhinpavel/go-agent-harness/agent\t2.075s\n",
+      "stderr": ""
+    },
+    {
+      "command": "go test ./agent -run ^TestBatch40TwoProcesses(NonAtomicLedgerDuplicates|AtomicConsumerClaimSuppresses|PreclaimedButNotExecuted)$ -race -count=2 -timeout=90s",
+      "exit_code": 0,
+      "elapsed_seconds": 12.38,
+      "stdout": "ok  \tgithub.com/shalyhinpavel/go-agent-harness/agent\t7.420s\n",
+      "stderr": ""
+    }
+  ],
+  "scenario_results": [
+    {
+      "scenario": "two OS processes non-atomic read-then-effect, deterministically synchronized missing-ledger read",
+      "effect_count": 2
+    },
+    {
+      "scenario": "two OS processes application-owned O_EXCL local filesystem claim",
+      "effect_count": 1
+    },
+    {
+      "scenario": "persisted claim but no effect due to simulated crash, two retry processes",
+      "effect_count": 0
+    }
+  ],
+  "limits": [
+    "Synthetic local append-to-file side effects, no real external provider or transactional remote service",
+    "O_EXCL on one local filesystem, no distributed lock/cluster leader, no crash-safe completed outcome protocol",
+    "Each subprocess uses SDK own mock model; actual concurrency is OS processes not a deployed multi-host app",
+    "No externally reported need or maintainer accepted ownership; no four-PASS admission or product patch"
+  ],
+  "gate": {
+    "need": "PENDING",
+    "mechanism": "PASS",
+    "counterfactual": "PASS technical only; PENDING product",
+    "scope": "PENDING"
+  },
+  "patch_admitted": false
+}
