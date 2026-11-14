@@ -350,5 +350,25 @@
       "exception": null,
       "output_tail": "    importlib.import_module(module_name)\nINTERNALERROR>   File \"/usr/lib/python3.12/importlib/__init__.py\", line 90, in import_module\nINTERNALERROR>     return _bootstrap._gcd_import(name[level:], package, level)\nINTERNALERROR>            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nINTERNALERROR>   File \"<frozen importlib._bootstrap>\", line 1387, in _gcd_import\nINTERNALERROR>   File \"<frozen importlib._bootstrap>\", line 1360, in _find_and_load\nINTERNALERROR>   File \"<frozen importlib._bootstrap>\", line 1331, in _find_and_load_unlocked\nINTERNALERROR>   File \"<frozen importlib._bootstrap>\", line 935, in _load_unlocked\nINTERNALERROR>   File \"/workspace/users/lagerf3u3r/batch40-20261114/.deps/_pytest/assertion/rewrite.py\", line 185, in exec_module\nINTERNALERROR>     exec(co, module.__dict__)\nINTERNALERROR>   File \"/workspace/users/lagerf3u3r/batch40-20261114/sources/WittyRyuji__WittyCode/tests/test_harness_permissions.py\", line 12, in <module>\nINTERNALERROR>     from desktop.core.harness import fs_tools\nINTERNALERROR>   File \"/workspace/users/lagerf3u3r/batch40-20261114/sources/WittyRyuji__WittyCode/desktop/__init__.py\", line 3, in <module>\nINTERNALERROR>     from desktop import _pyguard  # noqa: F401  (must stay first: aborts unless Python 3.11.x)\nINTERNALERROR>     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nINTERNALERROR>   File \"/workspace/users/lagerf3u3r/batch40-20261114/sources/WittyRyuji__WittyCode/desktop/_pyguard.py\", line 12, in <module>\nINTERNALERROR>     raise SystemExit(\nINTERNALERROR> SystemExit: WittyCode requires Python 3.11.x, but this interpreter is 3.12.3. Recreate the venv with: py -3.11 -m venv .venv\nmainloop: caught unexpected SystemExit!\n\n1 warning in 0.77s\n"
     }
-  ]
+  ],
+  "fallback_runner": {
+    "location": "registered SSH VM; no private source read",
+    "observed_utc_date": "2026-11-14",
+    "probe": "read-only command -v check for git/go/cargo/rustc/node/npm/python3.11/python3/docker and df -h /tmp",
+    "present": [
+      "git",
+      "python3",
+      "docker"
+    ],
+    "missing": [
+      "go",
+      "cargo",
+      "rustc",
+      "node",
+      "npm",
+      "python3.11"
+    ],
+    "disk_filled": "95% (6.0 GiB available)",
+    "action": "No compiler installations, Docker image pulls or private checkout inspection; runner blockers retained."
+  }
 }
