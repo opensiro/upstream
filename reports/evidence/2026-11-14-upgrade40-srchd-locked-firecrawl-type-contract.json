@@ -1,0 +1,43 @@
+{
+  "schema": "opensiro.upstream.batch40.srchd-sdk-compat.v1",
+  "batch": "40",
+  "semver": "0.8.0",
+  "frozen_batch39_ref": "8a5ebb36058140e2b84ae4fb1b0751c9b0be7d89",
+  "source": "Tketa/srchd original author PR #203 branch",
+  "source_ref": "9f183fde801a21ca925b13c7a5e2149d86093654",
+  "source_file": "src/tools/web-providers.ts",
+  "source_sha256": "825db8374276f561c1f5f361dc907770c2ae6cbba011e581cc720f14678f2fda",
+  "target_source_ref": "dust-tt/srchd@4b5ffb44bdc6bb1d2181d746ec951dd30f89ed08",
+  "target_package_lock": "@mendable/firecrawl@4.35.0",
+  "compiler": "TypeScript 5.9.3",
+  "typescript_integrity": "sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==",
+  "sdk_integrities": {
+    "1.21.1": "sha512-xg/PL+72+q+PIkCrUPqu7WNI3wHEr+QAXISVbXYpJIJXEzumpJQLFroa67GpaH79q7IKb6yqHoXZKeuDaQX5sw==",
+    "4.35.0": "sha512-M9WjKxn3ZGguBze4k6uUbFSwaWHM+IraaU2kE6hbPlKwwJ8rq/s7OFrPmfw0N7fTCtQEr7W6xOnhE84b18EtgA=="
+  },
+  "sdk_has_scrapeUrl_compat_alias": true,
+  "sdk_has_research_searchPapers": true,
+  "compilation": {
+    "1.21.1": {
+      "exit_code": 2,
+      "error_codes": [
+        "TS2322"
+      ],
+      "diagnostics": "src/web-providers.ts(48,11): error TS2322: Type '{ title: string; url: string | undefined; description: string; }[]' is not assignable to type 'SearchResult[]'.\n  Type '{ title: string; url: string | undefined; description: string; }' is not assignable to type 'SearchResult'.\n    Types of property 'url' are incompatible.\n      Type 'string | undefined' is not assignable to type 'string'.\n        Type 'undefined' is not assignable to type 'string'."
+    },
+    "4.35.0": {
+      "exit_code": 2,
+      "error_codes": [
+        "TS2339",
+        "TS2339",
+        "TS2339",
+        "TS2339",
+        "TS7006",
+        "TS2339"
+      ],
+      "diagnostics": "src/web-providers.ts(37,20): error TS2339: Property 'success' does not exist on type 'Document'.\nsrc/web-providers.ts(40,48): error TS2339: Property 'error' does not exist on type 'Document'.\nsrc/web-providers.ts(45,20): error TS2339: Property 'success' does not exist on type 'SearchData'.\nsrc/web-providers.ts(48,29): error TS2339: Property 'data' does not exist on type 'SearchData'.\nsrc/web-providers.ts(48,39): error TS7006: Parameter 'r' implicitly has an 'any' type.\nsrc/web-providers.ts(55,48): error TS2339: Property 'error' does not exist on type 'SearchData'."
+    }
+  },
+  "scope": "Source-native TypeScript type check of exact first-party contributor code against verified published SDK declarations with a separately declared Linkup stub. It does NOT execute Firecrawl or Linkup HTTP; no deployed effect or independently measured product gain.",
+  "disposition": "Author's existing proposal is not drop-in compatible with target lockfile; do not duplicate their PR or claim an admitted intervention."
+}
