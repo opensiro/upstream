@@ -55,3 +55,20 @@ In the previous concurrent test, two separate engine instances raced. The *origi
 All three original SDK paths **PASS** the [native receipt](evidence/2026-11-14-upgrade40-go-agent-same-turn-parallel-race.json): one verbose trial, **50 repeat trials**, and **3 trials under Go `-race`** (no race detected). Two processes/hosts are not covered by `MaxParallelTools=1` on one engine. Conversely, `MaxParallelTools=1` is already supported and **serializes all tools, including unrelated read-only operations**, so setting it globally incurs avoidable performance/parallelism tradeoffs. The `O_EXCL` claim remains an *application-owned* best-effort at-most-once reservation and does not establish crash-safe exactly-once execution.
 
 **Clarification of product admission:** this is a meaningful *behavioral* boundary with reproducible controls, **not** proof of a missing SDK bug or that any maintainer wants native transactional semantics. The valid design space is an embedding-owned effect key and idempotent external effect API. `need=PENDING; mechanism=PASS; counterfactual=PASS for synthetic mechanism only, PENDING for product uplift; scope=PENDING`. **NO_ADMITTED_PATCH** remains unchanged.
+
+
+## Further source-native OS-process reproduction
+
+The previous multi-engine test exercised two goroutines in a single process. The [new independently spawned process test](repro/2026-11-14-upgrade40-go-agent-cross-process_test.go) invokes the Go test binary in **two different OS processes**, each executing the **pinned first-party `AgentEngine`** and its `BeforeTool` callback with separate sessions and one shared, embedding-supplied business ID. A synchronization barrier ensures both processes have read an absent completion marker before either performs the **synthetic** file-append effect. This is closer to real deployment concurrency than the in-process test; it is *still not* a multi-node production service.
+
+| Controlled interprocess schedule | Actual completed local effects |
+| --- | ---: |
+| Two processes, non-atomic check-then-execute, both observed absent marker | **2** |
+| Two processes, `O_CREATE\|O_EXCL` claim for the same business ID | **1** |
+| Two processes retry after a simulated crash that persisted a claim **before** the effect | **0** |
+
+All three controls passed in a verbose first run, **20 repeated full suites**, and **2 runs with Go `-race`**; the first-party Go code remained unchanged. See [exact execution receipt](evidence/2026-11-14-upgrade40-go-agent-cross-process-native.json), including original pinned source, SHA-256 of the research test, commands and output. `-race` did not report a Go data race but cannot establish external atomicity. The serial-in-one-engine `MaxParallelTools=1` control from the preceding section does **not** coordinate these processes.
+
+**What the test does not show:** no real remote payment, no distributed filesystem or network partition, no service that atomically commits an effect with its idempotency record, no crash-after-effect-before-response recovery and no maintainer/user requirement promising exactly-once behavior. The original SDK has the hook/context needed for the caller-side control; the remaining meaningful work is defining the *external effect owner's transaction and reconciliation contract*, not adding an unjustified generic SDK lock.
+
+**Admission remains:** `need=PENDING`; `mechanism=PASS`; `counterfactual=PASS` for a carefully bounded technical synthetic baseline, **PENDING for product benefit**; `scope=PENDING`. `NO_ADMITTED_PATCH / OPPORTUNITY_RESEARCH_PENDING`, no external PR, no scope/grade promotion. A follow-up would have to establish real effect-owner demand and evaluate a transactional replay contract with ambiguous commit/ack outcomes.
