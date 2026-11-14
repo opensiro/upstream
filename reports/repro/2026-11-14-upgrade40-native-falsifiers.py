@@ -1,6 +1,6 @@
 from pathlib import Path
 import subprocess,os,json,time,hashlib
-root=Path('batch40-20261114').resolve();out=root/'receipts';out.mkdir(exist_ok=True)
+root=Path(os.environ.get('OPENSIRO_BATCH40_ROOT', 'batch40-20261114')).resolve();out=root/'receipts';out.mkdir(parents=True, exist_ok=True)
 checks={
 'open-sdk-existing-mailbox':('codeany-ai__open-agent-sdk-python',r'''import asyncio
 from open_agent_sdk.tools.send_message import SendMessageTool
