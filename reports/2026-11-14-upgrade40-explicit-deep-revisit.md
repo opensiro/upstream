@@ -1,5 +1,7 @@
 # Upstream upgrade batch 40 — explicit deep revisit of batch 39
 
+**Further prospective v0.9.0 native transport readback:** [Akmatori #79 worker → Slack mock thread with source-key claim and crash-gap failure](2026-11-14-upgrade40-v090-akmatori79-native-worker-delivery.md). Both original source pins: three native tests × 20 repetitions, Go `-race` × 2; current pin full handler package PASS. A new read-only review *transport* is demonstrated with a fake worker and Slack endpoint; **the actual product feature is not implemented**, and a durable claim/outbox recovery contract is still missing. Historical v0.8.0 batch provenance remains unchanged; overall **`scope=PENDING / NO_ADMITTED_PATCH`**.
+
 **Prospective Upstream Protocol v0.9.0 capability-first continuation:** [Akmatori #79 native original-vs-prototype test, one new non-incident request-run record, nine opt-in/negative guards, dual pinned Go test receipts and -race](2026-11-14-upgrade40-v090-akmatori79-capability-readback.md). This adds a bounded source-first `MINOR_FEATURE` hypothesis and technical user-task proxy **without altering the historical v0.8.0 execution record**. No real worker dispatch or actual Slack review was implemented; `scope=PENDING`, not admitted or published externally. **OPPORTUNITY_RESEARCH_PENDING**.
 
 
