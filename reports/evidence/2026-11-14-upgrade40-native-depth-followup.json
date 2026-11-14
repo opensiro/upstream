@@ -33,8 +33,8 @@
     },
     {
       "file": "2026-11-14-upgrade40-akmatori-memory-revisit_test.go",
-      "sha256": "1a39e439fdf14f0ac0f50cdf56c91ee540718197addb50f3352154e6ad88117b",
-      "bytes": 3081
+      "sha256": "805904c9ad86bd71da24fbc28f31eca58b4f05b9c5475383b505733ddfae6088",
+      "bytes": 2849
     }
   ],
   "executions": [
@@ -55,18 +55,18 @@
     },
     {
       "file": "akmatori-native-cross-incident-use-vs-corroboration.json",
-      "sha256": "d1fd7f3055dcc31eb5815af04ab0aa2bedfbaf2558432a90fe799f88a017d809",
+      "sha256": "bb616cede48773219138028f3c92d75881c465200872674b6cc19a9db787e46e",
       "data": {
         "name": "akmatori-native-cross-incident-use-vs-corroboration",
         "source": "akmatori/akmatori",
         "source_pin": "be62d926fe6d92dceb5cf12e9a95cb587433cdf1",
         "original_source_modified": false,
-        "test_file_sha256": "1a39e439fdf14f0ac0f50cdf56c91ee540718197addb50f3352154e6ad88117b",
+        "test_file_sha256": "805904c9ad86bd71da24fbc28f31eca58b4f05b9c5475383b505733ddfae6088",
         "runner": "Go 1.27.4 CGO via Zig cc 0.14.1, read-only detached copy",
         "command": "go test ./internal/services -run ^TestBatch40CitedUsageIsNotCrossIncidentCorroboration$ -count=1 -v -timeout=60s",
         "exit_code": 0,
-        "seconds": 18.01,
-        "stdout": "=== RUN   TestBatch40CitedUsageIsNotCrossIncidentCorroboration\n--- PASS: TestBatch40CitedUsageIsNotCrossIncidentCorroboration (0.01s)\nPASS\nok  \tgithub.com/akmatori/akmatori/internal/services\t0.038s\n",
+        "seconds": 27.15,
+        "stdout": "=== RUN   TestBatch40CitedUsageIsNotCrossIncidentCorroboration\n--- PASS: TestBatch40CitedUsageIsNotCrossIncidentCorroboration (0.02s)\nPASS\nok  \tgithub.com/akmatori/akmatori/internal/services\t0.052s\n",
         "stderr": ""
       }
     },
