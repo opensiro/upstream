@@ -40,3 +40,18 @@ A useful future integration contract would be: **S1 request provenance/identity*
 Next decisive test: identify an actual user-managed tool integration and execute simultaneous **separate-process** retries against a genuinely idempotent operation endpoint (or a local transactional stand-in with commit/ack failure injection), including a forced **crash between reserve and effect**. Compare duplicate count, lost count and indeterminate outcomes with the same business keys and replay schedule. Only admission-gate evidence and independent native before/after justify a product PR. No external PR, no third-party patch, and no source modifications were made.
 
 **Status:** `SCREENING_COMPLETE / OPPORTUNITY_RESEARCH_PENDING / NO_ADMITTED_PATCH`. Previous batch 39 freeze, candidate ownership and upstream protocol v0.8.0 are unchanged.
+
+
+## Further native control: two tool calls inside one model turn
+
+In the previous concurrent test, two separate engine instances raced. The *original SDK itself* also intentionally uses [`executeToolsParallel` in `agent/loop.go`](https://github.com/shalyhinpavel/go-agent-harness/blob/63a2a15315c3a52964bcbc8b15d48f97f49f5a21/agent/loop.go), with `MaxParallelTools` controlling fan-out. The [additional source-native test](repro/2026-11-14-upgrade40-go-agent-same-turn-parallel_test.go) issues **two different model ToolCall IDs for one caller-owned business operation within a single MockTurn**, passing a shared authenticated `business_id` through the original `ChatRequest.CustomData` / `HookContext.CustomData` path.
+
+| Same-turn scenario | Synthetic effects |
+| --- | ---: |
+| `MaxParallelTools=8`, two hooks concurrently observe absent completed-effect marker, then both tools execute | **2** |
+| `MaxParallelTools=1`, identical completed-effect hook, each call serially sees the preceding completion | **1** |
+| `MaxParallelTools=8`, consumer-owned `O_EXCL` reservation within `BeforeTool` | **1** |
+
+All three original SDK paths **PASS** the [native receipt](evidence/2026-11-14-upgrade40-go-agent-same-turn-parallel-race.json): one verbose trial, **50 repeat trials**, and **3 trials under Go `-race`** (no race detected). Two processes/hosts are not covered by `MaxParallelTools=1` on one engine. Conversely, `MaxParallelTools=1` is already supported and **serializes all tools, including unrelated read-only operations**, so setting it globally incurs avoidable performance/parallelism tradeoffs. The `O_EXCL` claim remains an *application-owned* best-effort at-most-once reservation and does not establish crash-safe exactly-once execution.
+
+**Clarification of product admission:** this is a meaningful *behavioral* boundary with reproducible controls, **not** proof of a missing SDK bug or that any maintainer wants native transactional semantics. The valid design space is an embedding-owned effect key and idempotent external effect API. `need=PENDING; mechanism=PASS; counterfactual=PASS for synthetic mechanism only, PENDING for product uplift; scope=PENDING`. **NO_ADMITTED_PATCH** remains unchanged.
