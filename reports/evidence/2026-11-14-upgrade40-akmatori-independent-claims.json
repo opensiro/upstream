@@ -1,0 +1,22 @@
+{
+  "schema": "opensiro.upstream.batch40.akmatori-incident-corroboration-v1",
+  "source": "akmatori/akmatori",
+  "pin": "be62d926fe6d92dceb5cf12e9a95cb587433cdf1",
+  "original_checkout_unmodified": true,
+  "runner": "verified Go 1.27.4 Zig cc 0.14.1 with native SQLite CGO",
+  "command": "go test ./internal/services -run ^Test(Batch40IndependentIncidentClaimsAndContradictionRemainSeparate|Batch40CitedUsageIsNotCrossIncidentCorroboration)$ -count=1 -v -timeout=90s",
+  "test_file": "reports/repro/2026-11-14-upgrade40-akmatori-independent-claims_test.go",
+  "test_sha256": "6c011f83fcedc92bab281699cb9186594d4d08ee58a9fbf6829852f4f289cae1",
+  "exit_code": 0,
+  "elapsed_seconds": 3.62,
+  "stdout": "=== RUN   TestBatch40IndependentIncidentClaimsAndContradictionRemainSeparate\n    batch40_incident_claims_test.go:69: separate_claims=4 operator_confirmed=1 agent_unverified=3 rerun_same_incident_updates_in_place=true contradictory_claim_is_not_cross_checked=true\n--- PASS: TestBatch40IndependentIncidentClaimsAndContradictionRemainSeparate (0.02s)\n=== RUN   TestBatch40CitedUsageIsNotCrossIncidentCorroboration\n--- PASS: TestBatch40CitedUsageIsNotCrossIncidentCorroboration (0.01s)\nPASS\nok  \tgithub.com/akmatori/akmatori/internal/services\t0.054s\n",
+  "stderr": "",
+  "evidence": "Same cause across two source incidents remains separate unverified memories; a contradiction from a third also remains separate; one same-incident rerun updates; operator-confirmed memory cannot be overwritten; existing memory-use counter is not corroboration.",
+  "limitation": "Research-only direct native function calls with SQLite; no live incident-extractor LLM or external corroboration semantics; absence of cross-incident comparison is intentional in issue #67.",
+  "gate": {
+    "need": "PASS for later corroboration issue #67",
+    "mechanism": "PASS",
+    "counterfactual": "PENDING product uplift",
+    "scope": "PENDING maintainer ownership and semantic matching"
+  }
+}

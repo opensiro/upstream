@@ -1,0 +1,180 @@
+{
+  "schema": "opensiro.upstream.batch40.native-depth-continuation.v1",
+  "date_utc": "2026-11-14",
+  "protocol": "0.8.0",
+  "original_batch_frozen_sha": "8a5ebb36058140e2b84ae4fb1b0751c9b0be7d89",
+  "source_lineage": "Explicit revisit of same frozen ten, no new discovery reservation",
+  "producer": "agent-controlled experimental runner: not independent verifier",
+  "product_patch_admitted": false,
+  "repro_scripts": [
+    {
+      "file": "2026-11-14-upgrade40-go-agent-store-retry_test.go",
+      "sha256": "876bae44539e1cf1b4954d4051de698f4bc40a5f7b5f6d5915de826cbe73a6fa",
+      "bytes": 3167
+    },
+    {
+      "file": "2026-11-14-upgrade40-witty-canonical-path-probe.py",
+      "sha256": "cff407bc1708aaef4e5e9d58f8c669f8fd6491d3b56640def3c036e353f136ec",
+      "bytes": 2191
+    },
+    {
+      "file": "2026-11-14-upgrade40-sapper-graph-validation-probe.py",
+      "sha256": "9e8afc64350ff75bcaca2eac62a9bb06dcc99ceab0d6a25fd2cce69358adcf78",
+      "bytes": 1809
+    }
+  ],
+  "executions": [
+    {
+      "file": "go-agent-original-persistence-tests.json",
+      "sha256": "a5440f957a3879bc0821a28b733f08ce85c75c4614893f7ba57e3ab56ce68cab",
+      "data": {
+        "name": "go-agent-original-persistence-tests",
+        "source": "shalyhinpavel/go-agent-harness",
+        "pin": "63a2a15315c3a52964bcbc8b15d48f97f49f5a21",
+        "command": "go test ./agent -run ^(TestSessionManager_DanglingToolCallIsDroppedOnReload|TestEngine_StoreWriteFailureEndsTheTurnWithAnError|TestStreamChat_ToolLoop)$ -count=1 -v -timeout=60s",
+        "exit_code": 0,
+        "seconds": 4.1,
+        "stdout": "=== RUN   TestSessionManager_DanglingToolCallIsDroppedOnReload\n--- PASS: TestSessionManager_DanglingToolCallIsDroppedOnReload (0.00s)\n=== RUN   TestEngine_StoreWriteFailureEndsTheTurnWithAnError\n2026/11/14 16:01:32 ERROR session store write failed session=s err=\"agent: save messages of session \\\"s\\\": disk full\"\n--- PASS: TestEngine_StoreWriteFailureEndsTheTurnWithAnError (0.00s)\n=== RUN   TestStreamChat_ToolLoop\n--- PASS: TestStreamChat_ToolLoop (0.00s)\nPASS\nok  \tgithub.com/shalyhinpavel/go-agent-harness/agent\t0.018s\n",
+        "stderr": ""
+      }
+    },
+    {
+      "file": "go-agent-side-effect-post-store-failure-retry.json",
+      "sha256": "6d37bc288ea71542a433fbf81672b50dcd67ec303f4b067b157b409b7fdee379",
+      "data": {
+        "name": "go-agent-side-effect-post-store-failure-retry",
+        "source": "shalyhinpavel/go-agent-harness",
+        "pin": "63a2a15315c3a52964bcbc8b15d48f97f49f5a21",
+        "original_source_modified": false,
+        "test_sha256": "876bae44539e1cf1b4954d4051de698f4bc40a5f7b5f6d5915de826cbe73a6fa",
+        "source_test_path": "agent/batch40_replay_test.go in disposable pinned copy",
+        "command": "go test ./agent -run ^TestBatch40PostToolStoreFailureCanRepeatSideEffectOnClientRetry$ -count=1 -v -timeout=60s",
+        "exit_code": 0,
+        "seconds": 1.59,
+        "stdout": "=== RUN   TestBatch40PostToolStoreFailureCanRepeatSideEffectOnClientRetry\n2026/11/14 16:08:55 ERROR session store write failed session=s err=\"agent: save messages of session \\\"s\\\": injected result persistence failure\"\n--- PASS: TestBatch40PostToolStoreFailureCanRepeatSideEffectOnClientRetry (0.02s)\nPASS\nok  \tgithub.com/shalyhinpavel/go-agent-harness/agent\t0.032s\n",
+        "stderr": "",
+        "interpretation": "Controlled store error after tool execution but before assistant+tool result persistence; client retries same instruction and same tool id, operation count increments twice. Exactly-once is not claimed to be the SDK contract."
+      }
+    },
+    {
+      "file": "wittycode-first-party-permissions-python311.json",
+      "sha256": "5fa42c4d895f1e7ae3d3116014963f363cf43f013b1c645e46cc58faadc18348",
+      "data": {
+        "name": "wittycode-first-party-permissions-python311",
+        "pin": "99412",
+        "sha": "555b3c060de633c4cd98b21ba56c84d7487be527",
+        "python": "Python 3.11.18",
+        "command": "/workspace/users/lagerf3u3r/batch40-20261114/.toolchains/python/cpython-3.11.18-linux-x86_64-gnu/bin/python3.11 -m pytest -q -p no:cacheprovider tests/test_harness_permissions.py",
+        "exit_code": 1,
+        "seconds": 10.43,
+        "stdout": ".................s........................................s............. [ 33%]\n........................................................................ [ 66%]\n..............................................................F......... [100%]\n=================================== FAILURES ===================================\n_______________ test_arguments_pointing_outside_the_project_ask ________________\n\nctx = ToolContext(project=PosixPath('/tmp/pytest-of-appuser/pytest-27/test_arguments_pointing_outsid0/proj'), abort=<threadi...l', protected=(), readable=(), writes=<desktop.core.harness.tools.CommitGuard object at 0x7b11c68ac2c0>, read_files={})\nproject = PosixPath('/tmp/pytest-of-appuser/pytest-27/test_arguments_pointing_outsid0/proj')\noutside = PosixPath('/tmp/pytest-of-appuser/pytest-27/test_arguments_pointing_outsid0/other')\n\n    def test_arguments_pointing_outside_the_project_ask(ctx, project, outside):\n        inside = project / \"a.txt\"\n        assert is_readonly_command(f\"cat {inside}\", project, project)\n        assert is_readonly_command(f\"cat '{inside}'\", project, project)\n        for command in (\n            f\"cat {outside / 'x.txt'}\",\n            f'cat \"{outside / \"x.txt\"}\"',\n            \"cat ../other/x.txt\",\n            \"cat ..\\\\other\\\\x.txt\",\n            \"cat src/../../other/x.txt\",\n            \"cat C:\\\\Windows\\\\win.ini\",\n            \"cat C:win.ini\",\n            \"cat ~/.ssh/id_rsa\",\n            \"cat ~\",\n            \"ls /\",\n            \"ls \\\\\",\n            \"ls /Windows\",\n            \"Get-Content \\\\\\\\server\\\\share\\\\f.txt\",\n            \"dir C:\\\\\",\n            \"Get-ChildItem -Path:C:\\\\Windows\",\n            \"rg foo --ignore-file=C:\\\\x\",\n            \"git diff --no-index C:\\\\a C:\\\\b\",\n            \"git log -- ../x\",\n            f\"findstr /f:{outside / 'x.txt'} foo\",\n        ):\n>           assert not is_readonly_command(command, project, project), command\nE           AssertionError: cat ..\\other\\x.txt\nE           assert not True\nE            +  where True = is_readonly_command('cat ..\\\\other\\\\x.txt', PosixPath('/tmp/pytest-of-appuser/pytest-27/test_arguments_pointing_outsid0/proj'), PosixPath('/tmp/pytest-of-appuser/pytest-27/test_arguments_pointing_outsid0/proj'))\n\ntests/test_harness_permissions.py:518: AssertionError\n=========================== short test summary info ============================\nSKIPPED [1] tests/test_harness_permissions.py:167: Windows path semantics\nSKIPPED [1] tests/test_harness_permissions.py:247: Windows path semantics\nFAILED tests/test_harness_permissions.py::test_arguments_pointing_outside_the_project_ask\n1 failed, 213 passed, 2 skipped in 4.31s\n",
+        "stderr": "\n=== FAILED tests/test_harness_permissions.py::test_arguments_pointing_outside_the_project_ask (call) ===\nctx = ToolContext(project=PosixPath('/tmp/pytest-of-appuser/pytest-27/test_arguments_pointing_outsid0/proj'), abort=<threadi...l', protected=(), readable=(), writes=<desktop.core.harness.tools.CommitGuard object at 0x7b11c68ac2c0>, read_files={})\nproject = PosixPath('/tmp/pytest-of-appuser/pytest-27/test_arguments_pointing_outsid0/proj')\noutside = PosixPath('/tmp/pytest-of-appuser/pytest-27/test_arguments_pointing_outsid0/other')\n\n    def test_arguments_pointing_outside_the_project_ask(ctx, project, outside):\n        inside = project / \"a.txt\"\n        assert is_readonly_command(f\"cat {inside}\", project, project)\n        assert is_readonly_command(f\"cat '{inside}'\", project, project)\n        for command in (\n            f\"cat {outside / 'x.txt'}\",\n            f'cat \"{outside / \"x.txt\"}\"',\n            \"cat ../other/x.txt\",\n            \"cat ..\\\\other\\\\x.txt\",\n            \"cat src/../../other/x.txt\",\n            \"cat C:\\\\Windows\\\\win.ini\",\n            \"cat C:win.ini\",\n            \"cat ~/.ssh/id_rsa\",\n            \"cat ~\",\n            \"ls /\",\n            \"ls \\\\\",\n            \"ls /Windows\",\n            \"Get-Content \\\\\\\\server\\\\share\\\\f.txt\",\n            \"dir C:\\\\\",\n            \"Get-ChildItem -Path:C:\\\\Windows\",\n            \"rg foo --ignore-file=C:\\\\x\",\n            \"git diff --no-index C:\\\\a C:\\\\b\",\n            \"git log -- ../x\",\n            f\"findstr /f:{outside / 'x.txt'} foo\",\n        ):\n>           assert not is_readonly_command(command, project, project), command\nE           AssertionError: cat ..\\other\\x.txt\nE           assert not True\nE            +  where True = is_readonly_command('cat ..\\\\other\\\\x.txt', PosixPath('/tmp/pytest-of-appuser/pytest-27/test_arguments_pointing_outsid0/proj'), PosixPath('/tmp/pytest-of-appuser/pytest-27/test_arguments_pointing_outsid0/proj'))\n\ntests/test_harness_permissions.py:518: AssertionError\n"
+      }
+    },
+    {
+      "file": "wittycode-first-party-permissions-platform-filter.json",
+      "sha256": "2736cb787ef64fdad47f56614e175110c7088406f7b7cb76f34fea99484b8a74",
+      "data": {
+        "name": "wittycode-first-party-permissions-platform-filter",
+        "source": "WittyRyuji/WittyCode",
+        "pin": "555b3c060de633c4cd98b21ba56c84d7487be527",
+        "python": "3.11.18",
+        "host_platform": "Linux",
+        "command": "/workspace/users/lagerf3u3r/batch40-20261114/.toolchains/python/cpython-3.11.18-linux-x86_64-gnu/bin/python3.11 -m pytest -q -p no:cacheprovider tests/test_harness_permissions.py -k not test_arguments_pointing_outside_the_project_ask",
+        "exit_code": 0,
+        "seconds": 3.89,
+        "stdout": ".................s........................................s............. [ 33%]\n........................................................................ [ 66%]\n.......................................................................  [100%]\n=========================== short test summary info ============================\nSKIPPED [1] tests/test_harness_permissions.py:167: Windows path semantics\nSKIPPED [1] tests/test_harness_permissions.py:247: Windows path semantics\n213 passed, 2 skipped, 1 deselected in 2.34s\n",
+        "stderr": "",
+        "reason": "Exclude exactly one cross-platform Windows-path assertion that fails on this Linux native host; original full run has 213 pass, 1 fail, 2 skip. Do not claim Windows UI verified."
+      }
+    },
+    {
+      "file": "wittycode-canonical-symlink-approval-view.json",
+      "sha256": "bbed41a889d6bdc232a897cecb2e5e1de1e56fb3d1a07d206f2b8476cd6ffd8d",
+      "data": {
+        "name": "wittycode-canonical-symlink-approval-view",
+        "source": "WittyRyuji/WittyCode",
+        "pin": "555b3c060de633c4cd98b21ba56c84d7487be527",
+        "python": "3.11.18",
+        "platform": "linux",
+        "result": "PASS: approval-card action_view resolves both inside and outside symlink target paths, and outside edit is not auto-allowed",
+        "cases": [
+          {
+            "alias": "alias-in.txt",
+            "expected_canonical_path": "/tmp/witty-b40-s93q04qz/project/inside.txt",
+            "view_path": "/tmp/witty-b40-s93q04qz/project/inside.txt",
+            "decision": "allow",
+            "ui_title": "编辑文件 inside.txt"
+          },
+          {
+            "alias": "alias-out.txt",
+            "expected_canonical_path": "/tmp/witty-b40-s93q04qz/outside/external.txt",
+            "view_path": "/tmp/witty-b40-s93q04qz/outside/external.txt",
+            "decision": "ask",
+            "ui_title": "编辑文件 external.txt"
+          }
+        ],
+        "limitation": "Only portable fs_tools path and approval-card code on Linux; not a GUI browser or Windows junction test; does not prove platform-specific UI rendering."
+      }
+    },
+    {
+      "file": "sapper-native-graph-validate-vs-truth.json",
+      "sha256": "d6c5d0c4d65dd83c5f1b95bba0e043ae32dea1e385724cf3bfe25ed463740e84",
+      "data": {
+        "name": "sapper-native-graph-validate-vs-truth",
+        "pin": "7b75e6f1f5d5b4ae0c55878b0dd0994d9b08f1fb",
+        "cli_sha256": "24663ab6810e21926fb6f99e153a8e02ce2866c9bd36f0fa78c9407619872895",
+        "scenario": "store an explicitly untested claim as a note using original CLI, validate native graph schema, inspect JSON result",
+        "status": "PASS: validate returns zero although semantic fact truth is unassessed",
+        "scope": "expected command contract; NOT a validation defect without product need for automatic source corroboration",
+        "commands": [
+          {
+            "args": [
+              "init",
+              "--goal",
+              "No live network or target systems"
+            ],
+            "exit_code": 0,
+            "stdout": "initialized fact graph at /tmp/sapper-b40-_d8j2r75\ngoal: No live network or target systems\n",
+            "stderr": ""
+          },
+          {
+            "args": [
+              "fact",
+              "Claim intentionally untested: X caused Y",
+              "--kind",
+              "note",
+              "--json"
+            ],
+            "exit_code": 0,
+            "stdout": "f001\n{\"id\": \"f001\", \"title\": null, \"description\": \"Claim intentionally untested: X caused Y\", \"doc\": null, \"kind\": \"note\", \"data\": null, \"created_at\": \"2026-11-14T16:09:57Z\", \"creator\": \"user\", \"source_intent\": null}\n",
+            "stderr": ""
+          },
+          {
+            "args": [
+              "validate"
+            ],
+            "exit_code": 0,
+            "stdout": "graph valid: /tmp/sapper-b40-_d8j2r75\n",
+            "stderr": ""
+          },
+          {
+            "args": [
+              "graph",
+              "--format",
+              "json"
+            ],
+            "exit_code": 0,
+            "stdout": "{\n  \"project\": {\n    \"id\": \"proj\",\n    \"origin\": \"\",\n    \"goal\": \"No live network or target systems\",\n    \"status\": \"active\",\n    \"created_at\": \"2026-11-14T16:09:57Z\",\n    \"counters\": {\n      \"fact\": 1,\n      \"intent\": 0,\n      \"hint\": 0,\n      \"run\": 0\n    }\n  },\n  \"facts\": [\n    {\n      \"id\": \"f001\",\n      \"title\": null,\n      \"description\": \"Claim intentionally untested: X caused Y\",\n      \"doc\": null,\n      \"kind\": \"note\",\n      \"data\": null,\n      \"created_at\": \"2026-11-14T16:09:57Z\",\n      \"creator\": \"user\",\n      \"source_intent\": null\n    },\n    {\n      \"id\": \"goal\",\n      \"description\": \"No live network or target systems\",\n      \"created_at\": \"2026-11-14T16:09:57Z\",\n      \"creator\": \"system\",\n      \"source_intent\": null\n    }\n  ],\n  \"intents\": [],\n  \"open_intents\": [],\n  \"done_intents\": [],\n  \"hints\": [],\n  \"fact_ids\": [\n    \"f001\",\n    \"goal\"\n  ]\n}\n",
+            "stderr": ""
+          }
+        ]
+      }
+    }
+  ],
+  "caveats": [
+    "Exactly-once not promised by Go agent SDK; conditionally demonstrated duplicate on caller retry after injective failure.",
+    "Sapper validate performs graph structural verification; source contract does not say automatic semantic truth checks.",
+    "WittyCode is Windows desktop but runner Linux; one Windows-shaped path test failed in full 216-case suite and cannot independently establish actual Windows behavior."
+  ]
+}

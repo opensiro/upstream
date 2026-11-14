@@ -1,0 +1,13 @@
+--- a/internal/handlers/slack.go
++++ b/internal/handlers/slack.go
+@@ -33,0 +34,3 @@
++
++	// BATCH40 EXPERIMENTAL TEST SEAM ONLY: not a proposed upstream API.
++	batch40ResearchChangeHook func(*database.Event, *slackevents.MessageEvent, *database.Channel, string, string)
+--- a/internal/handlers/slack_processor.go
++++ b/internal/handlers/slack_processor.go
+@@ -497,0 +498,4 @@
++			// BATCH40 EXPERIMENTAL TEST SEAM, NOT SHIPPED.
++			if ev.Kind == database.EventKindChange && h.batch40ResearchChangeHook != nil {
++				h.batch40ResearchChangeHook(ev, event, channel, messageText, threadTS)
++			}

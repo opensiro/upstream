@@ -1,0 +1,112 @@
+{
+  "schema": "opensiro.upstream.batch40.v090.akmatori79.durable-outbox-research.v1",
+  "protocol": "0.9.0",
+  "date_utc": "2026-11-14",
+  "original_source": "akmatori/akmatori",
+  "upstream_issue": "https://github.com/akmatori/akmatori/issues/79",
+  "research_parent": "https://github.com/opensiro/upstream/pull/303",
+  "source_origin": "SOURCE_FIRST feature hypothesis, not ASSESSMENT_DERIVED",
+  "frozen_source_sha": "be62d926fe6d92dceb5cf12e9a95cb587433cdf1",
+  "observed_main_sha": "7afba4fb5919f30233fc859be3626bcfdaedbdb7",
+  "fixture_path": "reports/repro/2026-11-14-upgrade40-akmatori-durable-outbox-native_test.go",
+  "fixture_sha256": "51413a798772ad3d105f96aa7b820882eb677fd99ed0090a3c10c1199fc14517",
+  "research_only": true,
+  "third_party_source_changed": false,
+  "outbox_integrated_into_real_handler": false,
+  "result_boundaries": {
+    "positive": "Transactional Event+intent durable admission; reopening file-backed DB; retry lease after pre-send crash; expired stale owner cannot advance; native PrepareRequestScope/BeginRun + DB completion yields one finished request; two independent GORM connections contend on one lease",
+    "negative": "Submitted to worker without acknowledged receipt is ambiguous; already-accepted Slack message without durable post receipt is ambiguous. Both states suppress unsafe blind replay but can remain unresolved.",
+    "unsupported": "No real worker or Slack ACK in this fixture; database SQL prototype only, SQLite rather than target production PostgreSQL; no live model; no real Slack review result; no source-native channel settings/API integration",
+    "risk": "Current EventService.Record persists its Event independently. Source-hook outbox insertion is NOT atomic with it without changing first-party integration. A crash between original Event and outbox will still lose this job; do not call scope=PASS.",
+    "autonomy": "No measured VSM control outcome, grade change, or independent S3/S4 autonomous improvement demonstrated."
+  },
+  "fit_gate": {
+    "need": "PASS: actual Akmatori #79 first-party user demand",
+    "mechanism": "PASS: bounded source-native SQLite/first-party request APIs",
+    "counterfactual": "PASS only for scripted recovery pre-dispatch, PENDING real provider/worker and Slack response effect",
+    "scope": "PENDING: production transactional integration, worker ACK/reconciliation, Slack post reconciliation, authorization schema and maintainer design",
+    "four_full_pass": false
+  },
+  "tests": [
+    "TestBatch40DurableOutboxAtomicEventAdmissionAndRollback",
+    "TestBatch40DurableOutboxLeaseExpiryRecoversLostDispatch",
+    "TestBatch40DurableOutboxConcurrentLeaseFencing",
+    "TestBatch40DurableOutboxSlackPostAmbiguityFailsClosed",
+    "TestBatch40DurableOutboxSubmittedWithoutAckRequiresReconciliation"
+  ],
+  "executions": [
+    {
+      "lane": "frozen",
+      "source_sha": "be62d926fe6d92dceb5cf12e9a95cb587433cdf1",
+      "mode": "verbose",
+      "command": "go test ./internal/handlers -run ^TestBatch40DurableOutbox -count=1 -v -timeout=90s",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 6.34,
+      "stdout_tail": "=== RUN   TestBatch40DurableOutboxAtomicEventAdmissionAndRollback\n    batch40_onchange_durable_outbox_test.go:161: atomic initial Event+Outbox transaction: rollback=0/0; durable commit=1/1; duplicate delivery=2 Events / 1 job\n--- PASS: TestBatch40DurableOutboxAtomicEventAdmissionAndRollback (0.03s)\n=== RUN   TestBatch40DurableOutboxLeaseExpiryRecoversLostDispatch\n\n2026/11/14 21:34:08 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-native-memory/internal/database/db.go:1680 \u001b[35;1mno such table: general_settings\n\u001b[0m\u001b[33m[0.369ms] \u001b[34;1m[rows:0]\u001b[0m SELECT * FROM `general_settings` ORDER BY `general_settings`.`id` LIMIT 1\n    batch40_onchange_durable_outbox_test.go:253: crash before dispatch: first claimant dead, pre-expiry retry denied, post-expiry recovered by new owner; stale owner fenced; one completed first-party request run\n--- PASS: TestBatch40DurableOutboxLeaseExpiryRecoversLostDispatch (0.06s)\n=== RUN   TestBatch40DurableOutboxConcurrentLeaseFencing\n    batch40_onchange_durable_outbox_test.go:309: two independent DB connections: one unique conditional lease claim, one rejected\n--- PASS: TestBatch40DurableOutboxConcurrentLeaseFencing (0.06s)\n=== RUN   TestBatch40DurableOutboxSlackPostAmbiguityFailsClosed\n    batch40_onchange_durable_outbox_test.go:353: post-accepted-before-ACK crash remains ambiguous; blocked automatic repost, requires Slack receipt reconciliation/owner policy\n--- PASS: TestBatch40DurableOutboxSlackPostAmbiguityFailsClosed (0.07s)\n=== RUN   TestBatch40DurableOutboxSubmittedWithoutAckRequiresReconciliation\n    batch40_onchange_durable_outbox_test.go:404: worker-submitted-without-ACK is not safely replayable or safely discardable; requires stable run ID and worker receipt reconciliation\n--- PASS: TestBatch40DurableOutboxSubmittedWithoutAckRequiresReconciliation (0.06s)\nPASS\nok  \tgithub.com/akmatori/akmatori/internal/handlers\t0.309s\n",
+      "stderr_tail": ""
+    },
+    {
+      "lane": "frozen",
+      "source_sha": "be62d926fe6d92dceb5cf12e9a95cb587433cdf1",
+      "mode": "repeat20",
+      "command": "go test ./internal/handlers -run ^TestBatch40DurableOutbox -count=20 -timeout=90s",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 9.51,
+      "stdout_tail": "ok  \tgithub.com/akmatori/akmatori/internal/handlers\t3.700s\n",
+      "stderr_tail": ""
+    },
+    {
+      "lane": "frozen",
+      "source_sha": "be62d926fe6d92dceb5cf12e9a95cb587433cdf1",
+      "mode": "race2",
+      "command": "go test ./internal/handlers -run ^TestBatch40DurableOutbox -race -count=2 -timeout=90s",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 7.29,
+      "stdout_tail": "ok  \tgithub.com/akmatori/akmatori/internal/handlers\t2.133s\n",
+      "stderr_tail": ""
+    },
+    {
+      "lane": "observed_main",
+      "source_sha": "7afba4fb5919f30233fc859be3626bcfdaedbdb7",
+      "mode": "verbose",
+      "command": "go test ./internal/handlers -run ^TestBatch40DurableOutbox -count=1 -v -timeout=90s",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 5.29,
+      "stdout_tail": "=== RUN   TestBatch40DurableOutboxAtomicEventAdmissionAndRollback\n    batch40_onchange_durable_outbox_test.go:161: atomic initial Event+Outbox transaction: rollback=0/0; durable commit=1/1; duplicate delivery=2 Events / 1 job\n--- PASS: TestBatch40DurableOutboxAtomicEventAdmissionAndRollback (0.04s)\n=== RUN   TestBatch40DurableOutboxLeaseExpiryRecoversLostDispatch\n\n2026/11/14 21:34:31 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-current-main/internal/database/db.go:1680 \u001b[35;1mno such table: general_settings\n\u001b[0m\u001b[33m[0.263ms] \u001b[34;1m[rows:0]\u001b[0m SELECT * FROM `general_settings` ORDER BY `general_settings`.`id` LIMIT 1\n    batch40_onchange_durable_outbox_test.go:253: crash before dispatch: first claimant dead, pre-expiry retry denied, post-expiry recovered by new owner; stale owner fenced; one completed first-party request run\n--- PASS: TestBatch40DurableOutboxLeaseExpiryRecoversLostDispatch (0.08s)\n=== RUN   TestBatch40DurableOutboxConcurrentLeaseFencing\n    batch40_onchange_durable_outbox_test.go:309: two independent DB connections: one unique conditional lease claim, one rejected\n--- PASS: TestBatch40DurableOutboxConcurrentLeaseFencing (0.02s)\n=== RUN   TestBatch40DurableOutboxSlackPostAmbiguityFailsClosed\n    batch40_onchange_durable_outbox_test.go:353: post-accepted-before-ACK crash remains ambiguous; blocked automatic repost, requires Slack receipt reconciliation/owner policy\n--- PASS: TestBatch40DurableOutboxSlackPostAmbiguityFailsClosed (0.02s)\n=== RUN   TestBatch40DurableOutboxSubmittedWithoutAckRequiresReconciliation\n    batch40_onchange_durable_outbox_test.go:404: worker-submitted-without-ACK is not safely replayable or safely discardable; requires stable run ID and worker receipt reconciliation\n--- PASS: TestBatch40DurableOutboxSubmittedWithoutAckRequiresReconciliation (0.03s)\nPASS\nok  \tgithub.com/akmatori/akmatori/internal/handlers\t0.225s\n",
+      "stderr_tail": ""
+    },
+    {
+      "lane": "observed_main",
+      "source_sha": "7afba4fb5919f30233fc859be3626bcfdaedbdb7",
+      "mode": "repeat20",
+      "command": "go test ./internal/handlers -run ^TestBatch40DurableOutbox -count=20 -timeout=90s",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 9.1,
+      "stdout_tail": "ok  \tgithub.com/akmatori/akmatori/internal/handlers\t4.283s\n",
+      "stderr_tail": ""
+    },
+    {
+      "lane": "observed_main",
+      "source_sha": "7afba4fb5919f30233fc859be3626bcfdaedbdb7",
+      "mode": "race2",
+      "command": "go test ./internal/handlers -run ^TestBatch40DurableOutbox -race -count=2 -timeout=90s",
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 7.38,
+      "stdout_tail": "ok  \tgithub.com/akmatori/akmatori/internal/handlers\t1.836s\n",
+      "stderr_tail": ""
+    }
+  ],
+  "whole_handler_package": {
+    "command": "go test ./internal/handlers -count=1 -timeout=160s",
+    "source_sha": "7afba4fb5919f30233fc859be3626bcfdaedbdb7",
+    "exit_code": 0,
+    "stdout_tail": "ok  \tgithub.com/akmatori/akmatori/internal/handlers\t9.038s\n",
+    "elapsed_seconds": 14.75
+  }
+}

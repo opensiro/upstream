@@ -1,0 +1,134 @@
+{
+  "schema": "opensiro.upstream.batch40.falsifiers-round3.v1",
+  "date": "2026-11-14",
+  "protocol_semver": "0.8.0",
+  "source_selection": "explicit revisit only, batch 39 frozen 8a5ebb36058140e2b84ae4fb1b0751c9b0be7d89",
+  "status": "OPPORTUNITY_RESEARCH_PENDING",
+  "new_external_patch": false,
+  "independent_before_after_product_validation": false,
+  "script_sources": [
+    {
+      "path": "reports/repro/2026-11-14-upgrade40-go-agent-file-ledger_test.go",
+      "bytes": 6261,
+      "sha256": "a901c5b076a22050329a0a0611f56e3515646d023fa8033f447893e4a9dd4747"
+    },
+    {
+      "path": "reports/repro/2026-11-14-upgrade40-sailry-spawn-schema-probe.py",
+      "bytes": 2550,
+      "sha256": "d09586099ece1c84a899fd47d0d11ea77f121fb07c22c362d055770077c0cf22"
+    },
+    {
+      "path": "reports/repro/2026-11-14-upgrade40-public-github-diff-status-probe.py",
+      "bytes": 2101,
+      "sha256": "9313dfe9f37405a03296dab828bc49c5c484f91482871eb4679bcf60430f2326"
+    }
+  ],
+  "receipts": [
+    {
+      "file": "go-agent-external-file-ledger-negative-and-hook-control.json",
+      "sha256": "dd7488167f6c905de78b34d001b346c1b80c00ec8c6b624c0153fb6c43672e1f",
+      "data": {
+        "name": "go-agent-external-file-ledger-negative-and-hook-control",
+        "source": "shalyhinpavel/go-agent-harness",
+        "pin": "63a2a15315c3a52964bcbc8b15d48f97f49f5a21",
+        "original_source_modified": false,
+        "repro_file": "reports/repro/2026-11-14-upgrade40-go-agent-store-retry_test.go",
+        "repro_sha256": "a901c5b076a22050329a0a0611f56e3515646d023fa8033f447893e4a9dd4747",
+        "runner": "Go 1.27.4; first-party SDK in isolated copy; temp file-backed effect ledger",
+        "command": "go test ./agent -run ^TestBatch40(PostToolStoreFailureCanRepeatSideEffectOnClientRetry|ExistingBeforeToolHookCanSuppressRecordedDuplicate)$ -count=1 -v -timeout=65s",
+        "exit_code": 0,
+        "seconds": 1.94,
+        "stdout": "=== RUN   TestBatch40PostToolStoreFailureCanRepeatSideEffectOnClientRetry\n2026/11/14 16:28:52 ERROR session store write failed session=s err=\"agent: save messages of session \\\"s\\\": injected result persistence failure\"\n--- PASS: TestBatch40PostToolStoreFailureCanRepeatSideEffectOnClientRetry (0.01s)\n=== RUN   TestBatch40ExistingBeforeToolHookCanSuppressRecordedDuplicate\n2026/11/14 16:28:52 ERROR session store write failed session=s err=\"agent: save messages of session \\\"s\\\": injected result persistence failure\"\n--- PASS: TestBatch40ExistingBeforeToolHookCanSuppressRecordedDuplicate (0.01s)\nPASS\nok  \tgithub.com/shalyhinpavel/go-agent-harness/agent\t0.048s\n",
+        "stderr": "",
+        "controls": "Two source-native Go tests: baseline repeats side effect after store failure; an application-owned file ledger checked through existing Hooks.BeforeTool rejects retry with same caller key",
+        "limits": "Ledger is local file and before-tool lookup in a single Go test process; not a real external transactional API, not concurrent across processes, no exactly-once guarantee for an external payment."
+      }
+    },
+    {
+      "file": "sailry-spawn-machine-readable-owned-file-absence.json",
+      "sha256": "b712cab56409fea3bfaead80dfc251863c6a3762e218078807f7b8bce88724d9",
+      "data": {
+        "name": "sailry-spawn-machine-readable-owned-file-absence",
+        "source": "sailry/sailry-harness",
+        "pin": "eaad1b7f18e448c8c4e9e9286e19560c8a351ae1",
+        "method": "exact pinned Rust source json! macro extraction + JSON schema validation, no Rust execution",
+        "source_sha256": {
+          "crates/node-runtime/src/agent/delegation/tools.rs": "0498c8c28939db1e8d45933ba41dea8ebed86b5377696d64cc16fb1a594a16a5",
+          "crates/node-runtime/src/agent/prompt/modes.rs": "d11752f6dda4ad17b7de6b48598d3d562b97399a9c1e9d7f28c2b9a4ede76086"
+        },
+        "schema_required": [
+          "task"
+        ],
+        "schema_properties": [
+          "background",
+          "role",
+          "session",
+          "task",
+          "title",
+          "worktree"
+        ],
+        "has_owned_files_field": false,
+        "free_text_disjoint_instruction": true,
+        "worktree_selector_present": true,
+        "source_finding": "No machine-readable per-child owned-file scope in spawn_agent arguments; prompt explicitly asks disjoint ownership, worktree may isolate. This alone does not prove a runtime collision.",
+        "native_status": "BLOCKED: cargo test --locked waited on gpui-fast and wezterm git dependencies and timed out; original failure receipt retained."
+      }
+    },
+    {
+      "file": "github-public-diff-size-failclosed-boundary.json",
+      "sha256": "6da9e384e204de6092524b07e285d75c674f16e2548bc49e4abec1db4bc88252",
+      "data": {
+        "name": "github-public-diff-size-failclosed-boundary",
+        "result": "PASS: upstream public big PR gives HTTP 406, ordinary PR HTTP 200",
+        "source": "GitHub public REST diff endpoints under official diff media type",
+        "observed_utc_date": "2026-11-14",
+        "method": "HTTP read-only GET with Accept application/vnd.github.diff; no user credentials",
+        "cases": [
+          {
+            "repo": "apache/hbase",
+            "pr": 7722,
+            "category": "large",
+            "status": 406,
+            "content_type": "application/json; charset=utf-8",
+            "sample": "{\"message\":\"Sorry, the diff exceeded the maximum number of files (300). Consider using 'List pull requests files' API or locally cloning the repository instead.\",\"errors\":[{\"resource\":\"PullRequest\",\"field\":\"diff\",\"code\":\"too_large\"}],\"documentation_url\":\"https://docs.github.com/rest/pulls/pulls#list-pull-requests-files\",\"status\""
+          },
+          {
+            "repo": "opensiro/upstream",
+            "pr": 303,
+            "category": "normal",
+            "status": 200,
+            "content_type": "application/vnd.github.diff; charset=utf-8",
+            "sample": "diff --git a/reports/2026-11-14-upgrade40-explicit-deep-revisit.md b/reports/2026-11-14-upgrade40-explicit-deep-revisit.md\nnew file mode 100644\nindex 00000000..ec0b7716\n--- /dev/null\n+++ b/reports/2026-11-14-upgrade40-explicit-deep-revisit.md\n@@ -0,0 +1,211 @@\n+# Upstream upgrade batch 40 — explicit deep revisit of batch 39\n+\n+*"
+          }
+        ],
+        "limitation": "Not a production execution of pinned slack-agent-runtime workflow; confirms GitHub oversized diff HTTP error rather than silent success for chosen public control. Does not cover all small/partial successful diffs."
+      }
+    },
+    {
+      "file": "sailry-native-prompt-mode-contract-attempt.json",
+      "sha256": "2fa43df8df0c0f8873421ddd8585db39e2e78c14dd608960f755ec2f42446015",
+      "data": {
+        "name": "sailry-native-prompt-mode-contract-attempt",
+        "pin": "eaad1b7f18e448c8c4e9e9286e19560c8a351ae1",
+        "rust_toolchain": "1.98.0",
+        "command": "cargo test --locked -p sailry-node-runtime --lib agent::prompt::modes::tests::preserves_captured_instructions -- --exact",
+        "status": "TIMEOUT",
+        "seconds": 185.03,
+        "tail": "info: syncing channel updates for 1.98.0-x86_64-unknown-linux-gnu\ninfo: latest update on 2026-08-20 for version 1.98.0 (88d9e12ae 2026-08-18)\ninfo: downloading 2 components\n    Updating git repository `https://github.com/dux-web/gpui-fast`\n    Updating git repository `https://github.com/sailry/wezterm.git`\n    Updating git submodule `https://github.com/madler/zlib.git`\n"
+      }
+    }
+  ],
+  "additional_native_attempt": {
+    "name": "sailry-native-cargo-second-dependency-attempt",
+    "source": "sailry/sailry-harness",
+    "pin": "eaad1b7f18e448c8c4e9e9286e19560c8a351ae1",
+    "command": "cargo test --locked -p sailry-node-runtime --test agent delegation -- --nocapture",
+    "rustc": "1.98.0",
+    "state": "TERMINATED_BEFORE_TEST_EXECUTION",
+    "observed_elapsed": "at least 11 minutes (process elapsed 11:01 observed), not exact",
+    "diagnostics": "Fetched multiple pinned workspace Git repositories and submodules incl. gpui-fast, wezterm, quickjs-ng and sailry/sqlx; no Rust tests started. CARGO_HOME/git grew to approximately 1.6 GiB.",
+    "reason": "Full workspace dependency closure not feasible within bounded run; stop after prolonged dependency acquisition rather than treating as product test failure.",
+    "outcome": "PENDING native two-child overlap/disjoint fixture; source-only spawn schema proof remains bounded.",
+    "no_product_code_modified": true
+  }
+}

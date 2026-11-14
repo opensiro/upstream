@@ -1,0 +1,74 @@
+{
+  "schema": "opensiro.upstream.batch40.akmatori-change-event-review-native.v1",
+  "date_utc": "2026-11-14",
+  "protocol": "0.8.0",
+  "source": "akmatori/akmatori",
+  "issue": "https://github.com/akmatori/akmatori/issues/79",
+  "source_cohort": "EXPLICIT_REVISIT same batch39 ten",
+  "frozen_source_pin": "be62d926fe6d92dceb5cf12e9a95cb587433cdf1",
+  "current_default_branch_pin": "7afba4fb5919f30233fc859be3626bcfdaedbdb7",
+  "fixture_path": "reports/repro/2026-11-14-upgrade40-akmatori-change-listener_test.go",
+  "fixture_sha256": "f48f60cb1af412015dcf627b900e677211db4ad662b0fd3ed8dfba03d4dfb3ab",
+  "runner": "Go 1.27.4/Zig cc 0.14.1; actual first-party SlackHandler + LLM classifier fake + GORM SQLite + fake Slack HTTP API; original source pinned and live main archive in scratch",
+  "runs": [
+    {
+      "label": "frozen_batch39_source",
+      "source_pin": "be62d926fe6d92dceb5cf12e9a95cb587433cdf1",
+      "executions": [
+        {
+          "command": "go test ./internal/handlers -run ^TestBatch40(ListenerChangeAnnouncementStoresOnly|NaiveMentionReuseAfterChangeCreatesDuplicateEvent)$ -count=1 -v -timeout=70s",
+          "exit_code": 0,
+          "elapsed_seconds": 16.42,
+          "stdout": "=== RUN   TestBatch40ListenerChangeAnnouncementStoresOnly\n2026/11/14 18:14:33 INFO processing listener channel message user=U_ENGINEER channel=C_CHANGES\n2026/11/14 18:14:33 INFO using event.Text fallback channel=C_CHANGES ts=1707000033.001100\n\n2026/11/14 18:14:33 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-native-memory/internal/database/db.go:1680 \u001b[35;1mrecord not found\n\u001b[0m\u001b[33m[0.210ms] \u001b[34;1m[rows:0]\u001b[0m SELECT * FROM `general_settings` ORDER BY `general_settings`.`id` LIMIT 1\n2026/11/14 18:14:33 INFO listener message is not an alert; stored as event, no investigation channel=C_CHANGES kind=change event_uuid=e8b21f72-c51f-4cb1-942e-9dac9d8489c0\n    batch40_change_listener_test.go:56: source-native listener change: recorded=1 classified=change runs=0 incidents=0\n--- PASS: TestBatch40ListenerChangeAnnouncementStoresOnly (0.05s)\n=== RUN   TestBatch40NaiveMentionReuseAfterChangeCreatesDuplicateEvent\n2026/11/14 18:14:33 INFO processing listener channel message user=U_ENGINEER channel=C_CHANGES\n2026/11/14 18:14:33 INFO using event.Text fallback channel=C_CHANGES ts=1707000033.001100\n\n2026/11/14 18:14:33 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-native-memory/internal/database/db.go:1680 \u001b[35;1mrecord not found\n\u001b[0m\u001b[33m[0.353ms] \u001b[34;1m[rows:0]\u001b[0m SELECT * FROM `general_settings` ORDER BY `general_settings`.`id` LIMIT 1\n2026/11/14 18:14:33 INFO listener message is not an alert; stored as event, no investigation channel=C_CHANGES kind=change event_uuid=a69093f5-8798-4c4f-b7ab-3d5e7100b7c4\n\n2026/11/14 18:14:33 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-native-memory/internal/handlers/slack_thread.go:41 \u001b[35;1mrecord not found\n\u001b[0m\u001b[33m[0.152ms] \u001b[34;1m[rows:0]\u001b[0m SELECT `scope_uuid` FROM `agent_runs` WHERE slack_thread_ts = \"1707000033.001100\" AND (incident_uuid IS NULL OR incident_uuid = '') AND scope_uuid <> '' ORDER BY id DESC,`agent_runs`.`id` LIMIT 1\n\n2026/11/14 18:14:33 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-native-memory/internal/handlers/slack_thread.go:60 \u001b[35;1mrecord not found\n\u001b[0m\u001b[33m[0.062ms] \u001b[34;1m[rows:0]\u001b[0m SELECT uuid, title FROM `incidents` WHERE slack_message_ts = \"1707000033.001100\" ORDER BY `incidents`.`id` LIMIT 1\n    batch40_change_listener_test.go:109: naive reuse causes 2 classifications and 2 stored event sources, still 0 agent runs; a preclassified event-to-request route is necessary\n--- PASS: TestBatch40NaiveMentionReuseAfterChangeCreatesDuplicateEvent (0.03s)\nPASS\nok  \tgithub.com/akmatori/akmatori/internal/handlers\t0.122s\n",
+          "stderr": ""
+        },
+        {
+          "command": "go test ./internal/handlers -run ^TestBatch40(ListenerChangeAnnouncementStoresOnly|NaiveMentionReuseAfterChangeCreatesDuplicateEvent)$ -count=10 -timeout=70s",
+          "exit_code": 0,
+          "elapsed_seconds": 4.8,
+          "stdout": "ok  \tgithub.com/akmatori/akmatori/internal/handlers\t0.570s\n",
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "label": "current_main",
+      "source_pin": "7afba4fb5919f30233fc859be3626bcfdaedbdb7",
+      "executions": [
+        {
+          "command": "go test ./internal/handlers -run ^TestBatch40(ListenerChangeAnnouncementStoresOnly|NaiveMentionReuseAfterChangeCreatesDuplicateEvent)$ -count=1 -v -timeout=70s",
+          "exit_code": 0,
+          "elapsed_seconds": 4.51,
+          "stdout": "=== RUN   TestBatch40ListenerChangeAnnouncementStoresOnly\n2026/11/14 18:14:42 INFO processing listener channel message user=U_ENGINEER channel=C_CHANGES\n2026/11/14 18:14:42 INFO using event.Text fallback channel=C_CHANGES ts=1707000033.001100\n\n2026/11/14 18:14:42 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-current-main/internal/database/db.go:1680 \u001b[35;1mrecord not found\n\u001b[0m\u001b[33m[0.719ms] \u001b[34;1m[rows:0]\u001b[0m SELECT * FROM `general_settings` ORDER BY `general_settings`.`id` LIMIT 1\n2026/11/14 18:14:42 INFO listener message is not an alert; stored as event, no investigation channel=C_CHANGES kind=change event_uuid=d97b3a36-8e54-4ef1-b7c5-c8c33db9589b\n    batch40_change_listener_test.go:56: source-native listener change: recorded=1 classified=change runs=0 incidents=0\n--- PASS: TestBatch40ListenerChangeAnnouncementStoresOnly (0.09s)\n=== RUN   TestBatch40NaiveMentionReuseAfterChangeCreatesDuplicateEvent\n2026/11/14 18:14:42 INFO processing listener channel message user=U_ENGINEER channel=C_CHANGES\n2026/11/14 18:14:42 INFO using event.Text fallback channel=C_CHANGES ts=1707000033.001100\n\n2026/11/14 18:14:42 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-current-main/internal/database/db.go:1680 \u001b[35;1mrecord not found\n\u001b[0m\u001b[33m[0.581ms] \u001b[34;1m[rows:0]\u001b[0m SELECT * FROM `general_settings` ORDER BY `general_settings`.`id` LIMIT 1\n2026/11/14 18:14:42 INFO listener message is not an alert; stored as event, no investigation channel=C_CHANGES kind=change event_uuid=f377f637-4bab-4ac7-8bb3-8f5ecc903091\n\n2026/11/14 18:14:42 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-current-main/internal/handlers/slack_thread.go:41 \u001b[35;1mrecord not found\n\u001b[0m\u001b[33m[0.090ms] \u001b[34;1m[rows:0]\u001b[0m SELECT `scope_uuid` FROM `agent_runs` WHERE slack_thread_ts = \"1707000033.001100\" AND (incident_uuid IS NULL OR incident_uuid = '') AND scope_uuid <> '' ORDER BY id DESC,`agent_runs`.`id` LIMIT 1\n\n2026/11/14 18:14:42 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-current-main/internal/handlers/slack_thread.go:60 \u001b[35;1mrecord not found\n\u001b[0m\u001b[33m[0.114ms] \u001b[34;1m[rows:0]\u001b[0m SELECT uuid, title FROM `incidents` WHERE slack_message_ts = \"1707000033.001100\" ORDER BY `incidents`.`id` LIMIT 1\n    batch40_change_listener_test.go:109: naive reuse causes 2 classifications and 2 stored event sources, still 0 agent runs; a preclassified event-to-request route is necessary\n--- PASS: TestBatch40NaiveMentionReuseAfterChangeCreatesDuplicateEvent (0.05s)\nPASS\nok  \tgithub.com/akmatori/akmatori/internal/handlers\t0.199s\n",
+          "stderr": ""
+        },
+        {
+          "command": "go test ./internal/handlers -run ^TestBatch40(ListenerChangeAnnouncementStoresOnly|NaiveMentionReuseAfterChangeCreatesDuplicateEvent)$ -count=10 -timeout=70s",
+          "exit_code": 0,
+          "elapsed_seconds": 4.56,
+          "stdout": "ok  \tgithub.com/akmatori/akmatori/internal/handlers\t0.797s\n",
+          "stderr": ""
+        }
+      ]
+    }
+  ],
+  "observations": [
+    "on_change not present in Channel current schema; classified change event is stored but no agent run or incident is created",
+    "attempt to reuse processMessage mention route after pre-classified listener change reclassifies and creates a second source event; it still starts no run when classifier returns change",
+    "separate no-reclassification path is required if opt-in channel on_change=run is added",
+    "original defaults and existing alert incident handling must remain unchanged"
+  ],
+  "limitations": [
+    "No positive integrated feature patch or live agent worker execution",
+    "LLM/Slack HTTP are deterministic fixtures, not production Slack app",
+    "No native full before/after improvement or independent review",
+    "Feature may require per-channel settings, migration, API/UI, request worker refactor and event/run replay dedup"
+  ],
+  "gates": {
+    "need": "PASS: explicit issue #79",
+    "mechanism": "PASS: event+request-work source paths exist",
+    "counterfactual": "PASS for current absence + bad reuse; PENDING integrated before/after benefit",
+    "scope": "PENDING: exact routing/permissions/idempotency and operator settings"
+  },
+  "patch_admitted": false
+}

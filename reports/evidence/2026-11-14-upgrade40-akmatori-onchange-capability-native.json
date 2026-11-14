@@ -1,0 +1,125 @@
+{
+  "schema": "opensiro.upstream.batch40.v090.akmatori79.capability-native.v1",
+  "date": "2026-11-14",
+  "protocol_main": "0.9.0",
+  "lane": "EXPLICIT_REVISIT original frozen batch39 sources; no new cohort",
+  "source": "akmatori/akmatori",
+  "issue": "https://github.com/akmatori/akmatori/issues/79",
+  "frozen_pin": "be62d926fe6d92dceb5cf12e9a95cb587433cdf1",
+  "current_main_pin": "7afba4fb5919f30233fc859be3626bcfdaedbdb7",
+  "source_original_clean": true,
+  "research_fixture": "reports/repro/2026-11-14-upgrade40-akmatori-onchange-capability_test.go",
+  "fixture_sha256": "527a72e014adc4f613daada40ebbe47340654249051e1586b2a25c768fd4b9ef",
+  "scope": "research-only handler package test with adapter, not original source patch; no worker dispatched or real Slack post",
+  "contract": {
+    "new_user_task": "opt-in pre-merge review triggered from classified Slack change post without mention or cron",
+    "trigger": "Slack listener classified once as change, on_change=run, allowed skill and channel, optional regex match",
+    "source_native_action": "create an AgentRun row using first-party database.BeginAgentRun, retain Event/Scope UUID and Slack thread, simulate finished work via database.FinishAgentRun",
+    "observable_output": "existing lookupSlackThread finds request run/response in same thread; no Incident created",
+    "baseline": "store event, zero AgentRun rows",
+    "benefit_proxy": "0 to 1 request run record; one event and one classifier pass preserved, zero incident rows",
+    "negative_controls": "store default, info class, disabled channel, nonlisten, nonpost, filter miss, invalid regex, unauthorized skill, sequential replay"
+  },
+  "scenarios": [
+    {
+      "id": "default_store_compatibility",
+      "expected_run_rows": 0
+    },
+    {
+      "id": "explicit_opt_in_run",
+      "expected_run_rows": 1
+    },
+    {
+      "id": "info_remains_store_only",
+      "expected_run_rows": 0
+    },
+    {
+      "id": "disabled_channel",
+      "expected_run_rows": 0
+    },
+    {
+      "id": "non_listening_channel",
+      "expected_run_rows": 0
+    },
+    {
+      "id": "cannot_reply_to_thread",
+      "expected_run_rows": 0
+    },
+    {
+      "id": "filter_miss",
+      "expected_run_rows": 0
+    },
+    {
+      "id": "invalid_filter_fails_closed",
+      "expected_run_rows": 0
+    },
+    {
+      "id": "unsupported_skill_fails_closed",
+      "expected_run_rows": 0
+    }
+  ],
+  "execution_receipts": [
+    {
+      "source": "frozen",
+      "pin": "be62d926fe6d92dceb5cf12e9a95cb587433cdf1",
+      "cmd": "go test ./internal/handlers -run ^TestBatch40CapabilityFirstChangeRunResearchControls$ -count=1 -v -timeout=80s",
+      "exit": 0,
+      "elapsed_s": 4.92,
+      "stdout": "=== RUN   TestBatch40CapabilityFirstChangeRunResearchControls\n=== RUN   TestBatch40CapabilityFirstChangeRunResearchControls/default_store_compatibility\n2026/11/14 19:53:25 INFO processing listener channel message user=U_ENGINEER channel=C_CHANGES\n2026/11/14 19:53:25 INFO using event.Text fallback channel=C_CHANGES ts=1707000042.000100\n\n2026/11/14 19:53:25 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-native-memory/internal/database/db.go:1680 \u001b[35;1mrecord not found\n\u001b[0m\u001b[33m[0.189ms] \u001b[34;1m[rows:0]\u001b[0m SELECT * FROM `general_settings` ORDER BY `general_settings`.`id` LIMIT 1\n2026/11/14 19:53:25 INFO listener message is not an alert; stored as event, no investigation channel=C_CHANGES kind=change event_uuid=0bf2d09e-352c-4645-b712-e3c12f1811e4\n    batch40_change_capability_test.go:166: mode=store original_event=0bf2d09e-352c-4645-b712-e3c12f1811e4 original_kind=change classifier_calls=1 agent_run_rows=0 incidents=0\n=== RUN   TestBatch40CapabilityFirstChangeRunResearchControls/explicit_opt_in_run\n2026/11/14 19:53:25 INFO processing listener channel message user=U_ENGINEER channel=C_CHANGES\n2026/11/14 19:53:25 INFO using event.Text fallback channel=C_CHANGES ts=1707000042.000100\n\n2026/11/14 19:53:25 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-native-memory/internal/database/db.go:1680 \u001b[35;1mrecord not found\n\u001b[0m\u001b[33m[0.156ms] \u001b[34;1m[rows:0]\u001b[0m SELECT * FROM `general_settings` ORDER BY `general_settings`.`id` LIMIT 1\n2026/11/14 19:53:25 INFO listener message is not an alert; stored as event, no investigation channel=C_CHANGES kind=change event_uuid=963d000c-cf17-4696-9dc8-fbcee6ab1525\n    batch40_change_capability_test.go:166: mode=run original_event=963d000c-cf17-4696-9dc8-fbcee6ab1525 original_kind=change classifier_calls=1 agent_run_rows=1 incidents=0\n=== RUN   TestBatch40CapabilityFirstChangeRunResearchControls/info_remains_store_only\n2026/11/14 19:53:25 INFO processing listener channel message user=U_ENGINEER channel=C_CHANGES\n2026/11/14 19:53:25 INFO using event.Text fallback channel=C_CHANGES ts=1707000042.000100\n\n2026/11/14 19:53:25 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-native-memory/internal/database/db.go:1680 \u001b[35;1mrecord not found\n\u001b[0m\u001b[33m[0.178ms] \u001b[34;1m[rows:0]\u001b[0m SELECT * FROM `general_settings` ORDER BY `general_settings`.`id` LIMIT 1\n2026/11/14 19:53:25 INFO listener message is not an alert; stored as event, no investigation channel=C_CHANGES kind=info event_uuid=84f1119f-290a-41d8-a121-495ebe299da9\n    batch40_change_capability_test.go:166: mode=run original_event=84f1119f-290a-41d8-a121-495ebe299da9 original_kind=info classifier_calls=1 agent_run_rows=0 incidents=0\n=== RUN   TestBatch40CapabilityFirstChangeRunResearchControls/disabled_channel\n2026/11/14 19:53:25 INFO processing listener channel message user=U_ENGINEER channel=C_CHANGES\n2026/11/14 19:53:25 INFO using event.Text fallback channel=C_CHANGES ts=1707000042.000100\n\n2026/11/14 19:53:25 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-native-memory/internal/database/db.go:1680 \u001b[35;1mrecord not found\n\u001b[0m\u001b[33m[0.350ms] \u001b[34;1m[rows:0]\u001b[0m SELECT * FROM `general_settings` ORDER BY `general_settings`.`id` LIMIT 1\n2026/11/14 19:53:25 INFO listener message is not an alert; stored as event, no investigation channel=C_CHANGES kind=change event_uuid=c2b5b8cb-31be-4789-af35-408a149beed5\n    batch40_change_capability_test.go:166: mode=run original_event=c2b5b8cb-31be-4789-af35-408a149beed5 original_kind=change classifier_calls=1 agent_run_rows=0 incidents=0\n=== RUN   TestBatch40CapabilityFirstChangeRunResearchControls/non_listening_channel\n2026/11/14 19:53:25 INFO processing listener channel message user=U_ENGINEER channel=C_CHANGES\n2026/11/14 19:53:25 INFO using event.Text fallback channel=C_CHANGES ts=1707000042.000100\n\n2026/11/14 19:53:25 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-native-memory/internal/database/db.go:1680 \u001b[35;1mrecord not found\n\u001b[0m\u001b[33m[3.421ms] \u001b[34;1m[rows:0]\u001b[0m SELECT * FROM `general_settings` ORDER BY `general_settings`.`id` LIMIT 1\n2026/11/14 19:53:25 INFO listener message is not an alert; stored as event, no investigation channel=C_CHANGES kind=change event_uuid=a8b74801-69bd-4dbf-9b63-196bd8420b76\n    batch40_change_capability_test.go:166: mode=run original_event=a8b74801-69bd-4dbf-9b63-196bd8420b76 original_kind=change classifier_calls=1 agent_run_rows=0 incidents=0\n=== RUN   TestBatch40CapabilityFirstChangeRunResearchControls/cannot_reply_to_thread\n2026/11/14 19:53:25 INFO processing listener channel message user=U_ENGINEER channel=C_CHANGES\n2026/11/14 19:53:25 INFO using event.Text fallback channel=C_CHANGES ts=1707000042.000100\n\n2026/11/14 19:53:25 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-native-memory/internal/database/db.go:1680 \u001b[35;1mrecord not found\n\u001b[0m\u001b[33m[0.254ms] \u001b[34;1m[rows:0]\u001b[0m SELECT * FROM `general_settings` ORDER BY `general_settings`.`id` LIMIT 1\n2026/11/14 19:53:25 INFO listener message is not an alert; stored as event, no investigation channel=C_CHANGES kind=change event_uuid=54e6222e-edb2-48bf-af53-ee02d89fff24\n    batch40_change_capability_test.go:166: mode=run original_event=54e6222e-edb2-48bf-af53-ee02d89fff24 original_kind=change classifier_calls=1 agent_run_rows=0 incidents=0\n=== RUN   TestBatch40CapabilityFirstChangeRunResearchControls/filter_miss\n2026/11/14 19:53:25 INFO processing listener channel message user=U_ENGINEER channel=C_CHANGES\n2026/11/14 19:53:25 INFO using event.Text fallback channel=C_CHANGES ts=1707000042.000100\n\n2026/11/14 19:53:25 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-native-memory/internal/database/db.go:1680 \u001b[35;1mrecord not found\n\u001b[0m\u001b[33m[0.315ms] \u001b[34;1m[rows:0]\u001b[0m SELECT * FROM `general_settings` ORDER BY `general_settings`.`id` LIMIT 1\n2026/11/14 19:53:25 INFO listener message is not an alert; stored as event, no investigation channel=C_CHANGES kind=change event_uuid=38ec58ac-24b4-4bd6-bf44-d7122a90eaca\n    batch40_change_capability_test.go:166: mode=run original_event=38ec58ac-24b4-4bd6-bf44-d7122a90eaca original_kind=change classifier_calls=1 agent_run_rows=0 incidents=0\n=== RUN   TestBatch40CapabilityFirstChangeRunResearchControls/invalid_filter_fails_closed\n2026/11/14 19:53:25 INFO processing listener channel message user=U_ENGINEER channel=C_CHANGES\n2026/11/14 19:53:25 INFO using event.Text fallback channel=C_CHANGES ts=1707000042.000100\n\n2026/11/14 19:53:25 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-native-memory/internal/database/db.go:1680 \u001b[35;1mrecord not found\n\u001b[0m\u001b[33m[0.197ms] \u001b[34;1m[rows:0]\u001b[0m SELECT * FROM `general_settings` ORDER BY `general_settings`.`id` LIMIT 1\n2026/11/14 19:53:25 INFO listener message is not an alert; stored as event, no investigation channel=C_CHANGES kind=change event_uuid=c1a2c9ea-5484-4c49-9115-a3d6c771eb31\n    batch40_change_capability_test.go:166: mode=run original_event=c1a2c9ea-5484-4c49-9115-a3d6c771eb31 original_kind=change classifier_calls=1 agent_run_rows=0 incidents=0\n=== RUN   TestBatch40CapabilityFirstChangeRunResearchControls/unsupported_skill_fails_closed\n2026/11/14 19:53:25 INFO processing listener channel message user=U_ENGINEER channel=C_CHANGES\n2026/11/14 19:53:25 INFO using event.Text fallback channel=C_CHANGES ts=1707000042.000100\n\n2026/11/14 19:53:25 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-native-memory/internal/database/db.go:1680 \u001b[35;1mrecord not found\n\u001b[0m\u001b[33m[0.255ms] \u001b[34;1m[rows:0]\u001b[0m SELECT * FROM `general_settings` ORDER BY `general_settings`.`id` LIMIT 1\n2026/11/14 19:53:25 INFO listener message is not an alert; stored as event, no investigation channel=C_CHANGES kind=change event_uuid=b125bc68-ce35-4a0d-b791-f609c3d227c0\n    batch40_change_capability_test.go:166: mode=run original_event=b125bc68-ce35-4a0d-b791-f609c3d227c0 original_kind=change classifier_calls=1 agent_run_rows=0 incidents=0\n--- PASS: TestBatch40CapabilityFirstChangeRunResearchControls (0.52s)\n    --- PASS: TestBatch40CapabilityFirstChangeRunResearchControls/default_store_compatibility (0.07s)\n    --- PASS: TestBatch40CapabilityFirstChangeRunResearchControls/explicit_opt_in_run (0.05s)\n    --- PASS: TestBatch40CapabilityFirstChangeRunResearchControls/info_remains_store_only (0.06s)\n    --- PASS: TestBatch40CapabilityFirstChangeRunResearchControls/disabled_channel (0.04s)\n    --- PASS: TestBatch40CapabilityFirstChangeRunResearchControls/non_listening_channel (0.05s)\n    --- PASS: TestBatch40CapabilityFirstChangeRunResearchControls/cannot_reply_to_thread (0.05s)\n    --- PASS: TestBatch40CapabilityFirstChangeRunResearchControls/filter_miss (0.05s)\n    --- PASS: TestBatch40CapabilityFirstChangeRunResearchControls/invalid_filter_fails_closed (0.05s)\n    --- PASS: TestBatch40CapabilityFirstChangeRunResearchControls/unsupported_skill_fails_closed (0.08s)\nPASS\nok  \tgithub.com/akmatori/akmatori/internal/handlers\t0.582s\n",
+      "stderr": ""
+    },
+    {
+      "source": "frozen",
+      "pin": "be62d926fe6d92dceb5cf12e9a95cb587433cdf1",
+      "cmd": "go test ./internal/handlers -run ^TestBatch40CapabilityFirstChangeRunResearchControls$ -count=10 -timeout=80s",
+      "exit": 0,
+      "elapsed_s": 7.29,
+      "stdout": "ok  \tgithub.com/akmatori/akmatori/internal/handlers\t2.758s\n",
+      "stderr": ""
+    },
+    {
+      "source": "current_main",
+      "pin": "7afba4fb5919f30233fc859be3626bcfdaedbdb7",
+      "cmd": "go test ./internal/handlers -run ^TestBatch40CapabilityFirstChangeRunResearchControls$ -count=1 -v -timeout=80s",
+      "exit": 0,
+      "elapsed_s": 5.32,
+      "stdout": "=== RUN   TestBatch40CapabilityFirstChangeRunResearchControls\n=== RUN   TestBatch40CapabilityFirstChangeRunResearchControls/default_store_compatibility\n2026/11/14 19:53:38 INFO processing listener channel message user=U_ENGINEER channel=C_CHANGES\n2026/11/14 19:53:38 INFO using event.Text fallback channel=C_CHANGES ts=1707000042.000100\n\n2026/11/14 19:53:38 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-current-main/internal/database/db.go:1680 \u001b[35;1mrecord not found\n\u001b[0m\u001b[33m[0.309ms] \u001b[34;1m[rows:0]\u001b[0m SELECT * FROM `general_settings` ORDER BY `general_settings`.`id` LIMIT 1\n2026/11/14 19:53:38 INFO listener message is not an alert; stored as event, no investigation channel=C_CHANGES kind=change event_uuid=a5dcf701-9460-4119-b70c-3ad9d6e77290\n    batch40_change_capability_test.go:166: mode=store original_event=a5dcf701-9460-4119-b70c-3ad9d6e77290 original_kind=change classifier_calls=1 agent_run_rows=0 incidents=0\n=== RUN   TestBatch40CapabilityFirstChangeRunResearchControls/explicit_opt_in_run\n2026/11/14 19:53:38 INFO processing listener channel message user=U_ENGINEER channel=C_CHANGES\n2026/11/14 19:53:38 INFO using event.Text fallback channel=C_CHANGES ts=1707000042.000100\n\n2026/11/14 19:53:38 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-current-main/internal/database/db.go:1680 \u001b[35;1mrecord not found\n\u001b[0m\u001b[33m[1.508ms] \u001b[34;1m[rows:0]\u001b[0m SELECT * FROM `general_settings` ORDER BY `general_settings`.`id` LIMIT 1\n2026/11/14 19:53:38 INFO listener message is not an alert; stored as event, no investigation channel=C_CHANGES kind=change event_uuid=b9cdac1b-7a3d-4c17-9525-2f959b6faa06\n    batch40_change_capability_test.go:166: mode=run original_event=b9cdac1b-7a3d-4c17-9525-2f959b6faa06 original_kind=change classifier_calls=1 agent_run_rows=1 incidents=0\n=== RUN   TestBatch40CapabilityFirstChangeRunResearchControls/info_remains_store_only\n2026/11/14 19:53:38 INFO processing listener channel message user=U_ENGINEER channel=C_CHANGES\n2026/11/14 19:53:38 INFO using event.Text fallback channel=C_CHANGES ts=1707000042.000100\n\n2026/11/14 19:53:38 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-current-main/internal/database/db.go:1680 \u001b[35;1mrecord not found\n\u001b[0m\u001b[33m[1.263ms] \u001b[34;1m[rows:0]\u001b[0m SELECT * FROM `general_settings` ORDER BY `general_settings`.`id` LIMIT 1\n2026/11/14 19:53:38 INFO listener message is not an alert; stored as event, no investigation channel=C_CHANGES kind=info event_uuid=2f000ab5-7694-431e-9ae8-5a1e0519b2ca\n    batch40_change_capability_test.go:166: mode=run original_event=2f000ab5-7694-431e-9ae8-5a1e0519b2ca original_kind=info classifier_calls=1 agent_run_rows=0 incidents=0\n=== RUN   TestBatch40CapabilityFirstChangeRunResearchControls/disabled_channel\n2026/11/14 19:53:38 INFO processing listener channel message user=U_ENGINEER channel=C_CHANGES\n2026/11/14 19:53:38 INFO using event.Text fallback channel=C_CHANGES ts=1707000042.000100\n\n2026/11/14 19:53:38 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-current-main/internal/database/db.go:1680 \u001b[35;1mrecord not found\n\u001b[0m\u001b[33m[0.089ms] \u001b[34;1m[rows:0]\u001b[0m SELECT * FROM `general_settings` ORDER BY `general_settings`.`id` LIMIT 1\n2026/11/14 19:53:38 INFO listener message is not an alert; stored as event, no investigation channel=C_CHANGES kind=change event_uuid=48e04bca-508c-4299-be61-58ff36147525\n    batch40_change_capability_test.go:166: mode=run original_event=48e04bca-508c-4299-be61-58ff36147525 original_kind=change classifier_calls=1 agent_run_rows=0 incidents=0\n=== RUN   TestBatch40CapabilityFirstChangeRunResearchControls/non_listening_channel\n2026/11/14 19:53:38 INFO processing listener channel message user=U_ENGINEER channel=C_CHANGES\n2026/11/14 19:53:38 INFO using event.Text fallback channel=C_CHANGES ts=1707000042.000100\n\n2026/11/14 19:53:38 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-current-main/internal/database/db.go:1680 \u001b[35;1mrecord not found\n\u001b[0m\u001b[33m[0.716ms] \u001b[34;1m[rows:0]\u001b[0m SELECT * FROM `general_settings` ORDER BY `general_settings`.`id` LIMIT 1\n2026/11/14 19:53:38 INFO listener message is not an alert; stored as event, no investigation channel=C_CHANGES kind=change event_uuid=5fa72eee-0f34-4c1d-992a-9c1a1d46eafc\n    batch40_change_capability_test.go:166: mode=run original_event=5fa72eee-0f34-4c1d-992a-9c1a1d46eafc original_kind=change classifier_calls=1 agent_run_rows=0 incidents=0\n=== RUN   TestBatch40CapabilityFirstChangeRunResearchControls/cannot_reply_to_thread\n2026/11/14 19:53:38 INFO processing listener channel message user=U_ENGINEER channel=C_CHANGES\n2026/11/14 19:53:38 INFO using event.Text fallback channel=C_CHANGES ts=1707000042.000100\n\n2026/11/14 19:53:38 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-current-main/internal/database/db.go:1680 \u001b[35;1mrecord not found\n\u001b[0m\u001b[33m[0.150ms] \u001b[34;1m[rows:0]\u001b[0m SELECT * FROM `general_settings` ORDER BY `general_settings`.`id` LIMIT 1\n2026/11/14 19:53:38 INFO listener message is not an alert; stored as event, no investigation channel=C_CHANGES kind=change event_uuid=363cfaa1-51e9-4645-90f6-d233e76ca788\n    batch40_change_capability_test.go:166: mode=run original_event=363cfaa1-51e9-4645-90f6-d233e76ca788 original_kind=change classifier_calls=1 agent_run_rows=0 incidents=0\n=== RUN   TestBatch40CapabilityFirstChangeRunResearchControls/filter_miss\n2026/11/14 19:53:38 INFO processing listener channel message user=U_ENGINEER channel=C_CHANGES\n2026/11/14 19:53:38 INFO using event.Text fallback channel=C_CHANGES ts=1707000042.000100\n\n2026/11/14 19:53:38 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-current-main/internal/database/db.go:1680 \u001b[35;1mrecord not found\n\u001b[0m\u001b[33m[0.179ms] \u001b[34;1m[rows:0]\u001b[0m SELECT * FROM `general_settings` ORDER BY `general_settings`.`id` LIMIT 1\n2026/11/14 19:53:38 INFO listener message is not an alert; stored as event, no investigation channel=C_CHANGES kind=change event_uuid=e2316491-ebe7-452c-84e1-dad24f3fe2e7\n    batch40_change_capability_test.go:166: mode=run original_event=e2316491-ebe7-452c-84e1-dad24f3fe2e7 original_kind=change classifier_calls=1 agent_run_rows=0 incidents=0\n=== RUN   TestBatch40CapabilityFirstChangeRunResearchControls/invalid_filter_fails_closed\n2026/11/14 19:53:38 INFO processing listener channel message user=U_ENGINEER channel=C_CHANGES\n2026/11/14 19:53:38 INFO using event.Text fallback channel=C_CHANGES ts=1707000042.000100\n\n2026/11/14 19:53:38 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-current-main/internal/database/db.go:1680 \u001b[35;1mrecord not found\n\u001b[0m\u001b[33m[0.196ms] \u001b[34;1m[rows:0]\u001b[0m SELECT * FROM `general_settings` ORDER BY `general_settings`.`id` LIMIT 1\n2026/11/14 19:53:38 INFO listener message is not an alert; stored as event, no investigation channel=C_CHANGES kind=change event_uuid=0c867519-bdf3-4eb7-af8d-8512ecb68574\n    batch40_change_capability_test.go:166: mode=run original_event=0c867519-bdf3-4eb7-af8d-8512ecb68574 original_kind=change classifier_calls=1 agent_run_rows=0 incidents=0\n=== RUN   TestBatch40CapabilityFirstChangeRunResearchControls/unsupported_skill_fails_closed\n2026/11/14 19:53:38 INFO processing listener channel message user=U_ENGINEER channel=C_CHANGES\n2026/11/14 19:53:38 INFO using event.Text fallback channel=C_CHANGES ts=1707000042.000100\n\n2026/11/14 19:53:38 \u001b[31;1m/workspace/users/lagerf3u3r/batch40-20261114/scratch/akmatori-current-main/internal/database/db.go:1680 \u001b[35;1mrecord not found\n\u001b[0m\u001b[33m[0.997ms] \u001b[34;1m[rows:0]\u001b[0m SELECT * FROM `general_settings` ORDER BY `general_settings`.`id` LIMIT 1\n2026/11/14 19:53:38 INFO listener message is not an alert; stored as event, no investigation channel=C_CHANGES kind=change event_uuid=260adea3-1da7-4d4f-b196-387fe0dc7c0c\n    batch40_change_capability_test.go:166: mode=run original_event=260adea3-1da7-4d4f-b196-387fe0dc7c0c original_kind=change classifier_calls=1 agent_run_rows=0 incidents=0\n--- PASS: TestBatch40CapabilityFirstChangeRunResearchControls (0.29s)\n    --- PASS: TestBatch40CapabilityFirstChangeRunResearchControls/default_store_compatibility (0.04s)\n    --- PASS: TestBatch40CapabilityFirstChangeRunResearchControls/explicit_opt_in_run (0.05s)\n    --- PASS: TestBatch40CapabilityFirstChangeRunResearchControls/info_remains_store_only (0.03s)\n    --- PASS: TestBatch40CapabilityFirstChangeRunResearchControls/disabled_channel (0.02s)\n    --- PASS: TestBatch40CapabilityFirstChangeRunResearchControls/non_listening_channel (0.02s)\n    --- PASS: TestBatch40CapabilityFirstChangeRunResearchControls/cannot_reply_to_thread (0.02s)\n    --- PASS: TestBatch40CapabilityFirstChangeRunResearchControls/filter_miss (0.04s)\n    --- PASS: TestBatch40CapabilityFirstChangeRunResearchControls/invalid_filter_fails_closed (0.04s)\n    --- PASS: TestBatch40CapabilityFirstChangeRunResearchControls/unsupported_skill_fails_closed (0.03s)\nPASS\nok  \tgithub.com/akmatori/akmatori/internal/handlers\t0.314s\n",
+      "stderr": ""
+    },
+    {
+      "source": "current_main",
+      "pin": "7afba4fb5919f30233fc859be3626bcfdaedbdb7",
+      "cmd": "go test ./internal/handlers -run ^TestBatch40CapabilityFirstChangeRunResearchControls$ -count=10 -timeout=80s",
+      "exit": 0,
+      "elapsed_s": 6.77,
+      "stdout": "ok  \tgithub.com/akmatori/akmatori/internal/handlers\t2.674s\n",
+      "stderr": ""
+    }
+  ],
+  "admission": {
+    "need": "PASS: first-party issue request #79",
+    "mechanism": "PASS for synthetic handoff via original DB Event/AgentRun/Thread APIs",
+    "counterfactual": "PASS for bounded native record and readback proxy; actual worker and final Slack post PENDING",
+    "scope": "PENDING: maintainer review and atomic dispatch, channel config, tool/skill auth, worker thread response"
+  },
+  "gates_four_PASS": false,
+  "external_implementation_admitted": false,
+  "limitations": [
+    "Research adapter does not hook into original SlackHandler code, no real on_change setting or DB migration in repository",
+    "The original handler is invoked directly in test (does not exercise listener channel enabled/permission loader for each negative policy)",
+    "No agent worker or LLM review generated: response is an injected research fixture for database/lookup proof",
+    "Sequential duplicate suppression in research adapter is not atomic across threads/processes; no durable exact-once claim",
+    "No actual user time, review quality, adoption or S3/S4 autonomy uplift measured",
+    "Prototype generated under original source test package, not an external product PR",
+    "Initial local experimental fixture included accidental backticks in a regex and did not pass positive control; corrected before final repeated validations"
+  ],
+  "race_check": {
+    "source_pin": "7afba4fb5919f30233fc859be3626bcfdaedbdb7",
+    "command": "go test -race ./internal/handlers -run ^TestBatch40CapabilityFirstChangeRunResearchControls$ -count=1 -timeout=85s",
+    "exit_code": 0,
+    "elapsed_seconds": 9.25,
+    "stdout": "ok  \tgithub.com/akmatori/akmatori/internal/handlers\t2.634s\n",
+    "stderr": "",
+    "interpretation": "No Go data race detected for the bounded test; not an assertion of cross-process idempotence or correctness of all Akmatori."
+  }
+}

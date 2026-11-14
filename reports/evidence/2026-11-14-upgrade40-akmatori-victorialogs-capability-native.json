@@ -1,0 +1,112 @@
+{
+  "schema": "opensiro.upstream.batch40.v090.akmatori48.logs_source_native.v1",
+  "date_utc": "2026-11-14",
+  "protocol": "0.9.0",
+  "origin": "SOURCE_FIRST, not strict ASSESSMENT_DERIVED",
+  "parent": "https://github.com/opensiro/upstream/pull/303",
+  "issue": "https://github.com/akmatori/akmatori/issues/48",
+  "frozen_source_pin": "be62d926fe6d92dceb5cf12e9a95cb587433cdf1",
+  "current_main_observed_pin": "7afba4fb5919f30233fc859be3626bcfdaedbdb7",
+  "original_source_checkout_clean": true,
+  "research_fixture": "reports/repro/2026-11-14-upgrade40-akmatori-victorialogs-capability-native_test.go",
+  "research_fixture_sha256": "4b76adc8f014c278c84de3a047ea9d32fdb0f4b38cdeb7ea84a71fb564567704",
+  "native_tests": [
+    "TestBatch40VictoriaLogsNewTriageWorkflowAndOriginalBoundary",
+    "TestBatch40VictoriaLogsQuerySafetyAndBounds",
+    "TestBatch40VictoriaLogsAuthModesAndHTTPFailure"
+  ],
+  "first_party_boundary": "Existing original VictoriaMetrics InstantQuery returns PromQL vector and APIRequest rejects /select/logsql/query; no registered victoria_logs connector in observed source pins.",
+  "new_user_workflow": "Offline user systemd crash-loop diagnosis via LogsQL NDJSON rows, which first-party metrics-only API cannot return",
+  "scope": "Research-only Go test function with mocked VictoriaLogs HTTP server; no production LogsQL tool implementation, registry entry, settings resolution, real VictoriaLogs host, full HTTP API, or production SRE outcome",
+  "controls": "6-hour window max, limit <=200, <=128KiB bounded NDJSON, invalid format/HTTP rejection, URL restrictions, three auth paths and missing-credential fail-closed",
+  "unimplemented": "hits/field_names/field_values/stats_query endpoints, authenticated production credentials handling, permission review and bounded real native LogsQL API check, complete maintainer contract",
+  "fit": {
+    "need": "PASS original first-party issue #48",
+    "mechanism": "PASS for original metrics-only path and scoped experimental LogsQL query/NDJSON parser",
+    "counterfactual": "PASS for bounded synthetic metric-vs-journal-information workflow, not production root cause",
+    "scope": "PENDING production native tool type/settings/API+auth/limits and maintainer design",
+    "four_full_pass": false
+  },
+  "executions": [
+    {
+      "lane": "frozen",
+      "source_sha": "be62d926fe6d92dceb5cf12e9a95cb587433cdf1",
+      "mode": "verbose",
+      "command": "go test ./internal/tools/victoriametrics -run ^TestBatch40VictoriaLogs -count=1 -v -timeout=90s",
+      "exit_code": 0,
+      "elapsed_seconds": 6.62,
+      "stdout_tail": "=== RUN   TestBatch40VictoriaLogsNewTriageWorkflowAndOriginalBoundary\n    batch40_victorialogs_capability_test.go:179: first-party PromQL job-health vector returned; LogsQL endpoint refused by original API; source-native research adapter returned 2 journal rows exposing a crash loop\n--- PASS: TestBatch40VictoriaLogsNewTriageWorkflowAndOriginalBoundary (0.01s)\n=== RUN   TestBatch40VictoriaLogsQuerySafetyAndBounds\n=== RUN   TestBatch40VictoriaLogsQuerySafetyAndBounds/invalid_range\n=== RUN   TestBatch40VictoriaLogsQuerySafetyAndBounds/unbounded_window\n=== RUN   TestBatch40VictoriaLogsQuerySafetyAndBounds/invalid_timestamp\n=== RUN   TestBatch40VictoriaLogsQuerySafetyAndBounds/invalid_limit\n=== RUN   TestBatch40VictoriaLogsQuerySafetyAndBounds/missing_auth\n=== RUN   TestBatch40VictoriaLogsQuerySafetyAndBounds/missing_query\n=== RUN   TestBatch40VictoriaLogsQuerySafetyAndBounds/dangerous_base_path\n=== RUN   TestBatch40VictoriaLogsQuerySafetyAndBounds/bad_ndjson\n=== RUN   TestBatch40VictoriaLogsQuerySafetyAndBounds/too_large\n=== RUN   TestBatch40VictoriaLogsQuerySafetyAndBounds/exceeds_line_limit\n=== NAME  TestBatch40VictoriaLogsQuerySafetyAndBounds\n    batch40_victorialogs_capability_test.go:230: bounded LogsQL controls: rejected invalid time, >6h, missing credentials, nonallowed URL, oversized output, invalid NDJSON, over-limit rows\n--- PASS: TestBatch40VictoriaLogsQuerySafetyAndBounds (0.01s)\n    --- PASS: TestBatch40VictoriaLogsQuerySafetyAndBounds/invalid_range (0.00s)\n    --- PASS: TestBatch40VictoriaLogsQuerySafetyAndBounds/unbounded_window (0.00s)\n    --- PASS: TestBatch40VictoriaLogsQuerySafetyAndBounds/invalid_timestamp (0.00s)\n    --- PASS: TestBatch40VictoriaLogsQuerySafetyAndBounds/invalid_limit (0.00s)\n    --- PASS: TestBatch40VictoriaLogsQuerySafetyAndBounds/missing_auth (0.00s)\n    --- PASS: TestBatch40VictoriaLogsQuerySafetyAndBounds/missing_query (0.00s)\n    --- PASS: TestBatch40VictoriaLogsQuerySafetyAndBounds/dangerous_base_path (0.00s)\n    --- PASS: TestBatch40VictoriaLogsQuerySafetyAndBounds/bad_ndjson (0.00s)\n    --- PASS: TestBatch40VictoriaLogsQuerySafetyAndBounds/too_large (0.01s)\n    --- PASS: TestBatch40VictoriaLogsQuerySafetyAndBounds/exceeds_line_limit (0.00s)\n=== RUN   TestBatch40VictoriaLogsAuthModesAndHTTPFailure\n=== RUN   TestBatch40VictoriaLogsAuthModesAndHTTPFailure/none\n=== RUN   TestBatch40VictoriaLogsAuthModesAndHTTPFailure/basic\n=== RUN   TestBatch40VictoriaLogsAuthModesAndHTTPFailure/custom_header\n=== NAME  TestBatch40VictoriaLogsAuthModesAndHTTPFailure\n    batch40_victorialogs_capability_test.go:274: three bounded offline auth modes validated; non-success HTTP status was not parsed as log evidence\n--- PASS: TestBatch40VictoriaLogsAuthModesAndHTTPFailure (0.01s)\n    --- PASS: TestBatch40VictoriaLogsAuthModesAndHTTPFailure/none (0.00s)\n    --- PASS: TestBatch40VictoriaLogsAuthModesAndHTTPFailure/basic (0.00s)\n    --- PASS: TestBatch40VictoriaLogsAuthModesAndHTTPFailure/custom_header (0.00s)\nPASS\nok  \tgithub.com/akmatori/mcp-gateway/internal/tools/victoriametrics\t0.063s\n",
+      "stderr_tail": ""
+    },
+    {
+      "lane": "frozen",
+      "source_sha": "be62d926fe6d92dceb5cf12e9a95cb587433cdf1",
+      "mode": "repeat20",
+      "command": "go test ./internal/tools/victoriametrics -run ^TestBatch40VictoriaLogs -count=20 -timeout=90s",
+      "exit_code": 0,
+      "elapsed_seconds": 5.4,
+      "stdout_tail": "ok  \tgithub.com/akmatori/mcp-gateway/internal/tools/victoriametrics\t0.568s\n",
+      "stderr_tail": ""
+    },
+    {
+      "lane": "frozen",
+      "source_sha": "be62d926fe6d92dceb5cf12e9a95cb587433cdf1",
+      "mode": "race2",
+      "command": "go test ./internal/tools/victoriametrics -run ^TestBatch40VictoriaLogs -race -count=2 -timeout=95s",
+      "exit_code": 0,
+      "elapsed_seconds": 13.86,
+      "stdout_tail": "ok  \tgithub.com/akmatori/mcp-gateway/internal/tools/victoriametrics\t1.138s\n",
+      "stderr_tail": ""
+    },
+    {
+      "lane": "frozen",
+      "source_sha": "be62d926fe6d92dceb5cf12e9a95cb587433cdf1",
+      "mode": "full_metrics_package",
+      "command": "go test ./internal/tools/victoriametrics -count=1 -timeout=150s",
+      "exit_code": 0,
+      "elapsed_seconds": 3.35,
+      "stdout_tail": "ok  \tgithub.com/akmatori/mcp-gateway/internal/tools/victoriametrics\t0.155s\n",
+      "stderr_tail": ""
+    },
+    {
+      "lane": "observed_main",
+      "source_sha": "7afba4fb5919f30233fc859be3626bcfdaedbdb7",
+      "mode": "verbose",
+      "command": "go test ./internal/tools/victoriametrics -run ^TestBatch40VictoriaLogs -count=1 -v -timeout=90s",
+      "exit_code": 0,
+      "elapsed_seconds": 3.58,
+      "stdout_tail": "=== RUN   TestBatch40VictoriaLogsNewTriageWorkflowAndOriginalBoundary\n    batch40_victorialogs_capability_test.go:179: first-party PromQL job-health vector returned; LogsQL endpoint refused by original API; source-native research adapter returned 2 journal rows exposing a crash loop\n--- PASS: TestBatch40VictoriaLogsNewTriageWorkflowAndOriginalBoundary (0.01s)\n=== RUN   TestBatch40VictoriaLogsQuerySafetyAndBounds\n=== RUN   TestBatch40VictoriaLogsQuerySafetyAndBounds/invalid_range\n=== RUN   TestBatch40VictoriaLogsQuerySafetyAndBounds/unbounded_window\n=== RUN   TestBatch40VictoriaLogsQuerySafetyAndBounds/invalid_timestamp\n=== RUN   TestBatch40VictoriaLogsQuerySafetyAndBounds/invalid_limit\n=== RUN   TestBatch40VictoriaLogsQuerySafetyAndBounds/missing_auth\n=== RUN   TestBatch40VictoriaLogsQuerySafetyAndBounds/missing_query\n=== RUN   TestBatch40VictoriaLogsQuerySafetyAndBounds/dangerous_base_path\n=== RUN   TestBatch40VictoriaLogsQuerySafetyAndBounds/bad_ndjson\n=== RUN   TestBatch40VictoriaLogsQuerySafetyAndBounds/too_large\n=== RUN   TestBatch40VictoriaLogsQuerySafetyAndBounds/exceeds_line_limit\n=== NAME  TestBatch40VictoriaLogsQuerySafetyAndBounds\n    batch40_victorialogs_capability_test.go:230: bounded LogsQL controls: rejected invalid time, >6h, missing credentials, nonallowed URL, oversized output, invalid NDJSON, over-limit rows\n--- PASS: TestBatch40VictoriaLogsQuerySafetyAndBounds (0.01s)\n    --- PASS: TestBatch40VictoriaLogsQuerySafetyAndBounds/invalid_range (0.00s)\n    --- PASS: TestBatch40VictoriaLogsQuerySafetyAndBounds/unbounded_window (0.00s)\n    --- PASS: TestBatch40VictoriaLogsQuerySafetyAndBounds/invalid_timestamp (0.00s)\n    --- PASS: TestBatch40VictoriaLogsQuerySafetyAndBounds/invalid_limit (0.00s)\n    --- PASS: TestBatch40VictoriaLogsQuerySafetyAndBounds/missing_auth (0.00s)\n    --- PASS: TestBatch40VictoriaLogsQuerySafetyAndBounds/missing_query (0.00s)\n    --- PASS: TestBatch40VictoriaLogsQuerySafetyAndBounds/dangerous_base_path (0.00s)\n    --- PASS: TestBatch40VictoriaLogsQuerySafetyAndBounds/bad_ndjson (0.00s)\n    --- PASS: TestBatch40VictoriaLogsQuerySafetyAndBounds/too_large (0.00s)\n    --- PASS: TestBatch40VictoriaLogsQuerySafetyAndBounds/exceeds_line_limit (0.00s)\n=== RUN   TestBatch40VictoriaLogsAuthModesAndHTTPFailure\n=== RUN   TestBatch40VictoriaLogsAuthModesAndHTTPFailure/none\n=== RUN   TestBatch40VictoriaLogsAuthModesAndHTTPFailure/basic\n=== RUN   TestBatch40VictoriaLogsAuthModesAndHTTPFailure/custom_header\n=== NAME  TestBatch40VictoriaLogsAuthModesAndHTTPFailure\n    batch40_victorialogs_capability_test.go:274: three bounded offline auth modes validated; non-success HTTP status was not parsed as log evidence\n--- PASS: TestBatch40VictoriaLogsAuthModesAndHTTPFailure (0.00s)\n    --- PASS: TestBatch40VictoriaLogsAuthModesAndHTTPFailure/none (0.00s)\n    --- PASS: TestBatch40VictoriaLogsAuthModesAndHTTPFailure/basic (0.00s)\n    --- PASS: TestBatch40VictoriaLogsAuthModesAndHTTPFailure/custom_header (0.00s)\nPASS\nok  \tgithub.com/akmatori/mcp-gateway/internal/tools/victoriametrics\t0.053s\n",
+      "stderr_tail": ""
+    },
+    {
+      "lane": "observed_main",
+      "source_sha": "7afba4fb5919f30233fc859be3626bcfdaedbdb7",
+      "mode": "repeat20",
+      "command": "go test ./internal/tools/victoriametrics -run ^TestBatch40VictoriaLogs -count=20 -timeout=90s",
+      "exit_code": 0,
+      "elapsed_seconds": 3.09,
+      "stdout_tail": "ok  \tgithub.com/akmatori/mcp-gateway/internal/tools/victoriametrics\t0.379s\n",
+      "stderr_tail": ""
+    },
+    {
+      "lane": "observed_main",
+      "source_sha": "7afba4fb5919f30233fc859be3626bcfdaedbdb7",
+      "mode": "race2",
+      "command": "go test ./internal/tools/victoriametrics -run ^TestBatch40VictoriaLogs -race -count=2 -timeout=95s",
+      "exit_code": 0,
+      "elapsed_seconds": 6.08,
+      "stdout_tail": "ok  \tgithub.com/akmatori/mcp-gateway/internal/tools/victoriametrics\t1.163s\n",
+      "stderr_tail": ""
+    },
+    {
+      "lane": "observed_main",
+      "source_sha": "7afba4fb5919f30233fc859be3626bcfdaedbdb7",
+      "mode": "full_metrics_package",
+      "command": "go test ./internal/tools/victoriametrics -count=1 -timeout=150s",
+      "exit_code": 0,
+      "elapsed_seconds": 3.79,
+      "stdout_tail": "ok  \tgithub.com/akmatori/mcp-gateway/internal/tools/victoriametrics\t0.165s\n",
+      "stderr_tail": ""
+    }
+  ]
+}

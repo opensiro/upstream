@@ -1,0 +1,70 @@
+{
+  "schema": "opensiro.upstream.batch40.go-agent-same-turn-concurrency.v1",
+  "date_utc": "2026-11-14",
+  "protocol_semver": "0.8.0",
+  "source": "shalyhinpavel/go-agent-harness",
+  "source_pin": "63a2a15315c3a52964bcbc8b15d48f97f49f5a21",
+  "original_source_modified": false,
+  "source_functions": [
+    "agent/loop.go:executeToolsParallel",
+    "agent/types.go:Hooks.BeforeTool",
+    "agent/types.go:ChatRequest.CustomData"
+  ],
+  "source_pinned_research_test": "reports/repro/2026-11-14-upgrade40-go-agent-same-turn-parallel_test.go",
+  "test_sha256": "5a3ae857e0921838a2360d7f4f544a6491fd581e6b332a1251ca06d26e9788a1",
+  "runner": "Go 1.27.4 Zig cc 0.14.1 for -race, original first-party AgentEngine, two ToolCalls emitted in one MockTurn, same caller business ID",
+  "executions": [
+    {
+      "cmd": "go test ./agent -run ^TestBatch40SameTurnParallelToolBoundaryAndControls$ -count=1 -v -timeout=40s",
+      "exit": 0,
+      "elapsed": 1.44,
+      "stdout": "=== RUN   TestBatch40SameTurnParallelToolBoundaryAndControls\n=== RUN   TestBatch40SameTurnParallelToolBoundaryAndControls/parallel_check_then_act_duplicates\n    batch40_same_turn_test.go:119: native executeToolsParallel: MaxParallelTools=8 atomic_claim=false same_business_operation=true independent_model_call_ids=2 effects=2\n=== RUN   TestBatch40SameTurnParallelToolBoundaryAndControls/serial_MaxParallelTools_one_suppresses_with_completed_ledger\n    batch40_same_turn_test.go:119: native executeToolsParallel: MaxParallelTools=1 atomic_claim=false same_business_operation=true independent_model_call_ids=2 effects=1\n=== RUN   TestBatch40SameTurnParallelToolBoundaryAndControls/parallel_atomic_consumer_claim_suppresses\n    batch40_same_turn_test.go:119: native executeToolsParallel: MaxParallelTools=8 atomic_claim=true same_business_operation=true independent_model_call_ids=2 effects=1\n--- PASS: TestBatch40SameTurnParallelToolBoundaryAndControls (0.02s)\n    --- PASS: TestBatch40SameTurnParallelToolBoundaryAndControls/parallel_check_then_act_duplicates (0.01s)\n    --- PASS: TestBatch40SameTurnParallelToolBoundaryAndControls/serial_MaxParallelTools_one_suppresses_with_completed_ledger (0.00s)\n    --- PASS: TestBatch40SameTurnParallelToolBoundaryAndControls/parallel_atomic_consumer_claim_suppresses (0.01s)\nPASS\nok  \tgithub.com/shalyhinpavel/go-agent-harness/agent\t0.038s\n",
+      "stderr": ""
+    },
+    {
+      "cmd": "go test ./agent -run ^TestBatch40SameTurnParallelToolBoundaryAndControls$ -count=50 -timeout=55s",
+      "exit": 0,
+      "elapsed": 2.0,
+      "stdout": "ok  \tgithub.com/shalyhinpavel/go-agent-harness/agent\t0.234s\n",
+      "stderr": ""
+    },
+    {
+      "cmd": "go test -race ./agent -run ^TestBatch40SameTurnParallelToolBoundaryAndControls$ -count=3 -timeout=55s",
+      "exit": 0,
+      "elapsed": 3.28,
+      "stdout": "ok  \tgithub.com/shalyhinpavel/go-agent-harness/agent\t1.105s\n",
+      "stderr": ""
+    }
+  ],
+  "scenarios": [
+    {
+      "case": "same_turn_parallel_default_style_with_nonatomic_hook",
+      "max_parallel_tools": 8,
+      "effects": 2
+    },
+    {
+      "case": "same_turn_MaxParallelTools_1_with_same_hook",
+      "max_parallel_tools": 1,
+      "effects": 1
+    },
+    {
+      "case": "same_turn_parallel_atomic_consumer_claim",
+      "max_parallel_tools": 8,
+      "effects": 1
+    }
+  ],
+  "limits": [
+    "The SDK supports parallel execution intentionally; repeated effect in the fixture is not proof of a defect in SDK promised semantics.",
+    "Two tool calls use different model-generated IDs but same synthetic business ID supplied by the authenticated embedding.",
+    "MaxParallelTools=1 only serializes within one AgentEngine and loses throughput; does not serialize across engines, processes or external API instances.",
+    "O_EXCL claim is neither an atomic external effect nor exactly-once across a crash.",
+    "No production target user-reported duplicate effect; no independently evaluated product improvement, no external PR."
+  ],
+  "gate": {
+    "need": "PENDING",
+    "mechanism": "PASS",
+    "counterfactual": "PASS synthetic native controls only",
+    "scope": "PENDING"
+  },
+  "admitted_patch": false
+}
