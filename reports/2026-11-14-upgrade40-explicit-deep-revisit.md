@@ -176,6 +176,10 @@ Original selected function: **S1**; prior gate need=FAIL, mechanism=PASS, counte
 | **S4** | [skills/README.md#L6](https://github.com/HexaFuture/HexaShell/blob/e0190ddb757955131578e9f9071f4ee8e7113f7a/skills/README.md#L6) | EXISTING_CAPABILITY — skills/README documents offline skill transfer; no established need for an automatic runtime S4 policy. |
 | **S5** | [README.md#L54](https://github.com/HexaFuture/HexaShell/blob/e0190ddb757955131578e9f9071f4ee8e7113f7a/README.md#L54) | OUT_OF_SCOPE — benchmark specification and robot safety remain with operators/developers; no direct request for new S5 authority. |
 
+### Replay the bounded Python falsifiers
+
+The attached [probe script](../reports/repro/2026-11-14-upgrade40-native-falsifiers.py) is standard-library orchestration of the *original source modules*. Prepare a **local** directory containing `sources/codeany-ai__open-agent-sdk-python`, `sources/sakomws__slack-agent-runtime`, and `sources/SakanaAI__AI-Scientist-v3` at the exact commits above; install pinned target Python dependencies (for these original checkouts pytest 8.4.2 was used) into optional `.deps` and `.deps8` next to `sources`. Run `OPENSIRO_BATCH40_ROOT=/absolute/path/to/workspace python3 reports/repro/2026-11-14-upgrade40-native-falsifiers.py` from Upstream's root. The script records `receipts/*.json` beside the source worktrees. These are exploratory offline **baselines**; mock reviewer responses do not measure actual GitHub changed-file inventory and must not be represented as independent before/after validation.
+
 ## Executed native receipts and negative controls
 
 Tests were run against original pinned source code on the external CLI execution host, with Python 3.12.3 and separately installed pytest 8.4.2; running original tests on pinned worktrees is **baseline-only**. No patch was introduced, no matched before/after effect measured, and no independent maintainer-accepted outcome was claimed. The compact machine-readable execution evidence and the three precise probe programs are attached alongside this report.
