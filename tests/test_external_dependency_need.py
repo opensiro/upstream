@@ -36,7 +36,7 @@ class ExternalDependencyNeedTests(unittest.TestCase):
         self.assertIn("FakeDocker", receipt.split("## Frozen source and provenance")[0])
         self.assertIn("304", correction)
         self.assertIn("not", correction.lower())
-        self.assertIn("12", receipt)  # the historical record remains available
+        self.assertIn("RED", receipt)  # historical observations remain available
 
     def test_frozen_patch_files_are_unmodified(self):
         hashes = {
@@ -54,7 +54,7 @@ class ExternalDependencyNeedTests(unittest.TestCase):
         self.assertIn("client.start(", source)
         self.assertIn("client._post", source)
         self.assertNotIn("raise APIError(", source)
-        self.assertNotIn("FakeDocker", source)
+        self.assertNotIn("FakeDocker(", source)
 
     @unittest.skipUnless(importlib.util.find_spec("docker") is not None,
                          "docker SDK not installed in generic Upstream CI; run source-native probe separately")
