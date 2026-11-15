@@ -38,7 +38,7 @@ Three JSON objects below specify the planned fork-local storage contract; they a
   "original_repository": "original-owner/harness",
   "working_fork": "opensiro-contributions/harness",
   "attention": "WATCHING",
-  "owner_control": "ALLOW",
+  "owner_control": "PAUSE",
   "last_event_id": "2026-11-15T170000Z--event-001",
   "updated_at": "2026-11-15T17:00:00Z"
 }
