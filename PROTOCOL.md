@@ -1,42 +1,44 @@
-# Upstream contribution protocol — v0.12.0
+# Upstream contribution protocol — v0.13.0
 
-[Home](README.md) · [Architecture](docs/ARCHITECTURE.md) · [Evidence](docs/EVIDENCE.md) · [Migration](docs/MIGRATION.md)
+[Home](README.md) · [Fork-local records](docs/FORK_METADATA.md) · [Architecture](docs/ARCHITECTURE.md) · [Historical migration #2](https://github.com/opensiro/upstream/issues/2)
 
-**One concrete opportunity, one durable issue; many sessions as needed.** This is an operating protocol for the existing [Upstream Contributions S1](https://github.com/opensiro/vsm-oss-organization/blob/main/contracts/s1/domain-contracts.md#upstream-contributions-domain), not a separate VSM organization, scheduler or autonomous runtime.
+**One harness may have many independent improvements. The detailed operational state belongs to its verified working fork, not a pile of permanent Upstream issues.** No fixed maintenance TTL is imposed. Upstream is an existing S1 domain of OpenSiro VSM OSS, not a second organizational control plane.
 
-## The unit of work
+## Ownership and work unit
 
-A contribution case identifies one independently useful new user/operator action (or independently confirmed repair) in one original upstream source. It is owned by **one Upstream GitHub issue**. A repository can have distinct opportunities, but repeating a source probe, revisiting a past batch or changing SemVer does **not** create another case. A 40-minute chat is a work interval, not a completion criterion.
+Before a real fork exists, Upstream may own one **minimal intake issue** containing a real source identity, open decision and evidence links; source-proven negative findings need no invented fork or patch. Once a correct [opensiro-contributions](https://github.com/opensiro-contributions) fork is verified, use `.opensiro/` on its independent `opensiro/meta` branch as the **canonical local state and attributed decision/event history** for all that harness's contributions. One `contributions/<stable-id>.json` = one independently scoped useful improvement/repair, not an issue, chat session, old batch, external PR or mandatory new issue. An Upstream issue may remain as a link/operator task, never an authoritative duplicate mutable ledger.
 
-Each case keeps these answers readable: **what user task improves; what source evidence supports it; which exact fork/commit/test demonstrates it; and what action/decision happens next**. It may remain research-only or end as evidence-backed no-change.
+Read [docs/FORK_METADATA.md](docs/FORK_METADATA.md) for the initial JSON contract and authority/branch rules. The original GitHub repository alone owns the actual external PR's open/merge/closure/reviews. Upstream only shows source-linked dated projections.
 
 ## Research and qualification
 
-1. Verify original repository, exact source revision, legal and contributor boundaries, existing behavior, competing PRs and existing Upstream cases (including [upstream-old](https://github.com/opensiro/upstream-old)).
-2. First ask **who needs what NEW task/output and why** (or what existing behavior is demonstrably broken). Propose a bounded benefit proxy, original alternative and negative/compatibility control. A broken retry or compatibility fix is a repair, not automatically a feature.
-3. Record chronology honestly: **ASSESSMENT_DERIVED** needs a dated, pinned Index-first prediction **before** fresh original-source investigation; **ASSESSMENT_INFORMED** is a supported but non-causal Index link; **GENERAL_UPSTREAM** is an ordinary source-first opportunity; **INSUFFICIENT** means the attribution is not established. A VSM ownership grade never proves product need.
-4. Check native fit: **need, mechanism, counterfactual and scope** must each be supported before accepting a derivative implementation. Pending evidence stays pending; never make mock-only failures count as observed product defects. Relevant S1–S5 functions may inform the reasoning, but six independent tests per case are not an output quota.
+1. Verify original repository identity and exact source revision, license, contributor rules, existing behavior, competing PRs, and prior source links including [upstream-old](https://github.com/opensiro/upstream-old).
+2. Ask **who needs what NEW task/output and why**, or which existing behavior is demonstrably broken. Propose a bounded benefit proxy and original alternative. A retry fix remains a repair unless a new feature is independently supported.
+3. Respect provenance order: `ASSESSMENT_DERIVED` requires an earlier dated and pinned Index-first prediction; `ASSESSMENT_INFORMED`, `GENERAL_UPSTREAM` and `INSUFFICIENT` must not be misrepresented as causal VSM improvements.
+4. Check native **need, mechanism, counterfactual and scope**. Unsupported claims remain pending. No mandatory six-function S1–S5 scan or per-session batch.
 
 ## Implement and validate
 
-Check the actual original repository, fork parent, license, branch SHA, writer rights and overlapping PRs **before expanding into target code**. Use a bounded disposable experiment only to answer a specific missing question. Real implementation and target native CI belong in the correctly parented **[opensiro-contributions/<target>](https://github.com/opensiro-contributions)** fork, not in this repository.
+Inspect original source, actual fork `parent.full_name`, default branch, license/CLA/DCO, branch SHA, contributor rights and overlapping PRs before source changes. The fork has **separate work branches for product code and `opensiro/meta` for OpenSiro-only evidence and events**; never include `.opensiro/` in the original project's PR diff. Don't edit upstream README or CI for OpenSiro metadata. The metadata branch itself must be protected against lost updates through optimistic HEAD checks and one-writer-per-fork coordination.
 
-For a new feature, compare source-pinned original behavior to an actually new user action/output; for a repair, reproduce a reachable original failure. Run independent, original-project native before/after tests and a negative/compatibility control as appropriate. Link exact source/working SHA, commands, results and limitations from the same Upstream issue. When no trusted authenticated executor exists, report the exact blocker, not a fake branch or CI receipt.
+Demonstrate feature behavior in the original native stack with source-pinned baseline/after evidence and appropriate negative/compatibility control; for a repair, reproduce a real reachable original failure. Record exact fork/source SHA, test commands, result and limitations as links; large raw logs stay in their original technical owner, never copied to Upstream. If a fork cannot be verified, preserve a minimal blocker at intake; do not pretend a branch or passing CI exists.
 
-## Deliver, observe, close
+## Deliver, observe, choose attention
 
-Use the target project's contributor requirements, PR template, licensing, CLA/DCO terms, exact verified diff and appropriate AI disclosure. External maintainer decisions remain external. Return review feedback and working-branch revisions to the **same case**; do not start another batch or issue just because a reviewer requested changes.
+Use the original PR template, policy and AI disclosure. Before outreach follow [External-publication consent](#external-publication-consent). A specific original/replacement PR chain maps to the **same contribution ID**. Source-owned external status is one of `OPEN`, `MERGED`, `CLOSED_UNMERGED`, `UNKNOWN`, with separate draft/review/CI qualifiers. Never interpret closed-unmerged as disproved usefulness or merged as measured deployed benefit.
 
-Record actual first-party disposition: prepared, proposed, merged, closed-unmerged, waiting, unverifiable, unsupported or source-proven no change. Distinguish native test success, external PR merge, deployment, adoption and measured user benefit. An external PR count or green CI alone is not an outcome metric.
+Maintain the independent fork **attention** setting `ACTIVE`, `WATCHING`, `DORMANT`, `ARCHIVED`. These are elective, reversible choices about whether to perform engineering or scheduled observation; not a maintenance commitment or TTL. State/decision changes and human `PAUSE`, `STOP`, `RESUME` are attributed **significant** events in the fork metadata. A cooperating executor must re-read owner control and effective authority before every new effectful step. Writing STOP does not cancel already-running processes.
 
-At meaningful transitions, use the existing [Organization reporting contract](https://github.com/opensiro/vsm-oss-organization/blob/main/docs/AUTONOMOUS_WORK_REPORTING.md): **DONE / NOW / BLOCKED / NEXT / NEED YOU**. Update the owning issue. The sole shared selection scheduler is [Organization TODO.md](https://github.com/opensiro/vsm-oss-organization/blob/main/TODO.md); no Upstream clone, extra agent scheduler, S2–S5 or VSM grading machinery is created.
+At meaningful transitions report existing Organization **DONE / NOW / BLOCKED / NEXT / NEED YOU**. The owner controls cross-repository selection from [Organization TODO.md](https://github.com/opensiro/vsm-oss-organization/blob/main/TODO.md). Upstream is a **rebuildable aggregate** from fork metadata at verified SHA and current first-party external PR reads, not another event store, task scheduler or second VSM. When no data or live readback is available, report **UNKNOWN**, not success/zero.
 
 ## External-publication consent
 
-The active restriction recorded in [upstream-old](https://github.com/opensiro/upstream-old/blob/main/docs/EXTERNAL_PUBLIC_COMMUNICATION_GATE.md) remains in effect: **before every third-party public issue/comment/reply/PR/review/design question or public fork-local proposal**, show the owner the exact external destination, specific action, complete final text and verified branch/diff when applicable, then obtain **explicit current-conversation approval for that action**. Materially different text, target or diff needs fresh approval. General `continue` instructions, prior broad mandates and passing tests are not permission.
+The [historical effective restriction](https://github.com/opensiro/upstream-old/blob/main/docs/EXTERNAL_PUBLIC_COMMUNICATION_GATE.md) still applies: **before every public third-party issue/comment/reply/PR/review/design question or public fork-local proposal**, present exact destination, specific action, final public text and verified code diff as applicable and obtain explicit current-conversation consent. Significant content or destination changes need renewed consent. General permission to continue, internal documentation approval, a metadata event or passing tests is not consent.
 
-Internal OpenSiro documentation/issue/PR work, read-only research and already independently authorized working branch preparation have separate rights. All external actions additionally require effective target/license/CLA/DCO/provider permissions. On missing approval or rights, record the blocker and **do not post publicly**.
+Internal OpenSiro research/doc/issues/PRs and independently authorized working branch preparation follow their own grants. Third-party external actions also require legal/CLA/DCO/provider permissions and actual executor rights. Record missing permission as blocked; do not post.
 
-## Historic protocol continuity
+## Migration and metrics
 
-The prior contribution protocol reached **v0.11.0** in [upstream-old](https://github.com/opensiro/upstream-old). v0.12.0 changes the durable work unit from a frozen batch/revisit to a contribution issue, while retaining capability-first research, source-native evidence, early fork verification and exact external-consent requirements. It neither moves the old Git history nor upgrades frozen claims retroactively. [Migration](docs/MIGRATION.md).
+The predecessor protocol through v0.11.0 and frozen original historical sources live in [upstream-old](https://github.com/opensiro/upstream-old). v0.12.0 case-first Upstream issues remain valid historical coordination records; **v0.13.0 moves detailed ownership to fork-local metadata**, and [migration #2](https://github.com/opensiro/upstream/issues/2) covers reviewed per-fork parallel extraction and status progress. Do not rewrite historical evidence or assume a fork exists.
+
+The current Organization `verified_external_outcomes` accepted-merge export remains **unclaimed** for the new source until separate verified semantic/collector cutover. PR state is descriptive public telemetry, not a proof of independent usefulness. Protocol SemVer is not a deployment or autonomy grade.
