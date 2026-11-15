@@ -1,11 +1,11 @@
-name: Improvement opportunity
-description: One original-source product improvement, not a batch or chat iteration.
-title: "[Improvement] "
+name: Pre-fork improvement intake
+description: Minimal research/decision intake only when no verified working fork metadata exists.
+title: "[Intake] "
 body:
   - type: markdown
     attributes:
       value: |
-        A case can span many sessions and end in a tested no-change. Check existing issues and [upstream-old](https://github.com/opensiro/upstream-old) before opening a duplicate.
+        If a matching working fork is verified, keep its detailed improvement record in `.opensiro/contributions/` on separate `opensiro/meta` branch, not a new Upstream issue. Use a minimal intake only before a real matching fork exists. Check [upstream-old](https://github.com/opensiro/upstream-old) before repeating research.
   - type: input
     id: original_source
     attributes:
@@ -38,8 +38,8 @@ body:
   - type: textarea
     id: links
     attributes:
-      label: Verified working fork, branch and external PR (if existing)
-      description: Do not invent forks, PR numbers or native test successes.
+      label: Potential working fork and external PR (if existing)
+      description: Do not invent forks, PR numbers or native test successes; once fork verified, detailed history moves to its metadata branch.
     validations:
       required: false
   - type: textarea
