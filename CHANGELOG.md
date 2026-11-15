@@ -1,6 +1,10 @@
 # Upstream contribution-protocol changelog
 
-**Current protocol:** [v0.12.0](VERSION) · [Versioning](VERSIONING.md) · [Migration](docs/MIGRATION.md).
+**Current protocol:** [v0.13.0](VERSION) · [Versioning](VERSIONING.md) · [Migration](docs/MIGRATION.md).
+
+## [0.13.0](changes/v0.13.0.md) — Fork-local metadata and aggregate-only Upstream
+
+**Prospective MINOR, 2026-11-15.** Approved source-of-truth switch: detailed per-harness attention, contribution records and attributable events live in `.opensiro/` on a verified target fork's separate `opensiro/meta` branch. Upstream aggregates rather than mirroring logs or requiring one issue per contribution. No mandatory maintenance TTL, and external PR status still comes from the original GitHub source. [Fork metadata](docs/FORK_METADATA.md) · [parallel legacy migration #2](https://github.com/opensiro/upstream/issues/2). Normative docs only; physical migration, validator and live observer remain unfinished.
 
 ## [0.12.0](changes/v0.12.0.md) — One improvement, one durable case
 
