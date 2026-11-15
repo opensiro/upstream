@@ -63,8 +63,8 @@ def api(repo, suffix):
     return f"/repos/{repo}" + ("/" + suffix if suffix else "")
 
 
-def read_file(client, repo, path):
-    result = client.get(api(repo, "contents/" + path) + "?ref=opensiro%2Fmeta")
+def read_file(client, repo, path, ref_sha):
+    result = client.get(api(repo, "contents/" + path) + "?ref=" + ref_sha)
     if not isinstance(result, dict) or result.get("type") != "file":
         raise ValueError(f"{repo}/{path}: not a GitHub file")
     if result.get("encoding") != "base64":
@@ -204,12 +204,12 @@ def aggregate(client, org=ORGANIZATION, requested=None, only_active=False,
             sha = (ref.get("object") or {}).get("sha")
             if not isinstance(sha, str) or not re.fullmatch(r"[a-f0-9]{40}", sha):
                 raise ValueError("invalid meta branch SHA")
-            state, blob_sha = read_file(client, repo, ".opensiro/state.json")
+            state, blob_sha = read_file(client, repo, ".opensiro/state.json", sha)
             check_state(state, repo, parent)
             if only_active and state["attention"] != "ACTIVE":
                 coverage["filtered_by_attention"] += 1
                 continue
-            entries = client.get(api(repo, "contents/.opensiro/contributions") + "?ref=opensiro%2Fmeta")
+            entries = client.get(api(repo, "contents/.opensiro/contributions") + "?ref=" + sha)
             if not isinstance(entries, list) or len(entries) >= 1000:
                 raise ValueError("missing, malformed or truncated contribution listing")
             paths = sorted(entry["path"] for entry in entries
@@ -219,7 +219,7 @@ def aggregate(client, org=ORGANIZATION, requested=None, only_active=False,
                 raise ValueError("unexpected entry in contributions directory")
             contributions = []
             for path in paths:
-                item, item_sha = read_file(client, repo, path)
+                item, item_sha = read_file(client, repo, path, sha)
                 links = check_contribution(item, path, parent)
                 key = (parent.lower(), item["id"])
                 if key in seen_improvements:
@@ -262,6 +262,10 @@ def aggregate(client, org=ORGANIZATION, requested=None, only_active=False,
         "attention": attention,
         "work_states": work_states,
     }
+    coverage["pr_readback"] = ("NOT_REQUESTED" if not live_prs else
+                               "PARTIAL" if pr_states["UNKNOWN"] else "COMPLETE")
+    coverage["scan_complete"] = (coverage["errors"] == 0 and
+                                 (not live_prs or pr_states["UNKNOWN"] == 0))
     report["coverage"]["portfolio_complete"] = False  # historical eligibility is not known from GitHub alone
     return report
 
