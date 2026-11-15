@@ -60,7 +60,7 @@ class GitHub:
 def api(repo, suffix):
     if not REPOSITORY.fullmatch(repo):
         raise ValueError(f"invalid repository identity: {repo!r}")
-    return f"/repos/{repo}/{suffix}"
+    return f"/repos/{repo}" + ("/" + suffix if suffix else "")
 
 
 def read_file(client, repo, path):
