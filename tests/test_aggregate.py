@@ -14,6 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from aggregate import APIError, aggregate, csv_output, markdown, pr_observation, transitions  # noqa: E402
 
 TIME = "2026-11-16T00:00:00Z"
+META_SHA = "b" * 40
 
 
 def file_blob(value, sha="a" * 40):
@@ -42,7 +43,7 @@ class FakeGitHub:
         root = f"/repos/{fork}"
         self.routes[root] = {"fork": True, "parent": {"full_name": original}}
         self.routes[root + "/git/ref/heads/opensiro/meta"] = {"object": {"sha": "b" * 40}}
-        self.routes[root + "/contents/.opensiro/state.json?ref=opensiro%2Fmeta"] = file_blob(
+        self.routes[root + "/contents/.opensiro/state.json?ref=" + META_SHA] = file_blob(
             {"schema_version": 1, "original_repository": original,
              "working_fork": fork, "attention": attention, "owner_control": control,
              "last_event_id": None})
@@ -50,10 +51,10 @@ class FakeGitHub:
         for identifier in identifiers:
             path = f".opensiro/contributions/{identifier}.json"
             entries.append({"type": "file", "name": identifier + ".json", "path": path})
-            self.routes[root + "/contents/" + path + "?ref=opensiro%2Fmeta"] = file_blob(
+            self.routes[root + "/contents/" + path + "?ref=" + META_SHA] = file_blob(
                 {"schema_version": 1, "id": identifier, "original_repository": original,
                  "work_state": "DELIVERED", "external_prs": list(prs), "title": "Fix"})
-        self.routes[root + "/contents/.opensiro/contributions?ref=opensiro%2Fmeta"] = entries
+        self.routes[root + "/contents/.opensiro/contributions?ref=" + META_SHA] = entries
         for pr in prs:
             match = pr.split("/")
             self.routes[f"/repos/{match[3]}/{match[4]}/pulls/{match[6]}"] = {
@@ -94,6 +95,8 @@ class AggregatorTests(unittest.TestCase):
         self.assertEqual(report["summary"]["pr_statuses"]["UNKNOWN"], 1)
         pr = report["forks"][0]["contributions"][0]["external_prs"][0]
         self.assertEqual(pr["reason"], "GITHUB_HTTP_403")
+        self.assertEqual(report["coverage"]["pr_readback"], "PARTIAL")
+        self.assertFalse(report["coverage"]["scan_complete"])
         self.assertEqual(pr["status"], "UNKNOWN")
 
     def test_wrong_original_pr_is_unknown_and_not_fetched(self):
@@ -131,10 +134,10 @@ class AggregatorTests(unittest.TestCase):
 
     def test_unexpected_record_failure_is_not_silent(self):
         client = FakeGitHub().add()
-        entry = client.routes["/repos/opensiro-contributions/Citadel/contents/.opensiro/contributions/citadel-claims.json?ref=opensiro%2Fmeta"]
+        entry = client.routes["/repos/opensiro-contributions/Citadel/contents/.opensiro/contributions/citadel-claims.json?ref=" + META_SHA]
         item = json.loads(base64.b64decode(entry["content"]))
         item["work_state"] = "AUTOMATICALLY_ADOPTED"
-        client.routes["/repos/opensiro-contributions/Citadel/contents/.opensiro/contributions/citadel-claims.json?ref=opensiro%2Fmeta"] = file_blob(item)
+        client.routes["/repos/opensiro-contributions/Citadel/contents/.opensiro/contributions/citadel-claims.json?ref=" + META_SHA] = file_blob(item)
         report = aggregate(client, requested=["opensiro-contributions/Citadel"], observed_at=TIME)
         self.assertEqual(report["coverage"]["errors"], 1)
         self.assertEqual(report["summary"]["forks_with_metadata"], 0)
@@ -153,6 +156,7 @@ class AggregatorTests(unittest.TestCase):
                            live_prs=False, observed_at=TIME)
         self.assertEqual(report["summary"]["pr_statuses"]["UNKNOWN"], 1)
         self.assertNotIn("/repos/SethGammon/Citadel/pulls/366", client.seen)
+        self.assertEqual(report["coverage"]["pr_readback"], "NOT_REQUESTED")
 
     def test_compare_reports_lifecycle_transition_only_when_known(self):
         client = FakeGitHub().add()
