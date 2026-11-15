@@ -33,6 +33,32 @@ Fork-level attention: `ACTIVE` / `WATCHING` / `DORMANT` / `ARCHIVED`. These desc
 
 **PR status** is a separate, source-owned observation: `OPEN` (including draft as a qualifier), `MERGED`, `CLOSED_UNMERGED` or `UNKNOWN`. Green tests, a merge or an accepted PR do not alone prove deployed user value. We presently prioritize this simple public PR lifecycle telemetry; no public usefulness score has been established.
 
+## Read-only portfolio aggregation
+
+A **one-shot, read-only** standard-library Python tool now derives a source-linked view from verified `opensiro-contributions/*` forks' `opensiro/meta` branches. It reads `.opensiro/state.json`, `.opensiro/contributions/*.json`, and the **original external repositories' live PR APIs**. Nothing is written back to forks, original PRs or Upstream; no scheduled sync, background service, extra ledger or mandatory maintenance TTL.
+
+```bash
+# Read two already verified pilot forks
+python3 scripts/aggregate.py --format markdown \\
+  --repo opensiro-contributions/Citadel \\
+  --repo opensiro-contributions/agent-fleet
+
+# Entire accessible public organization (can require authenticated API quota)
+GH_TOKEN=... python3 scripts/aggregate.py --format json > snapshot.json
+
+# On-demand state changes between two independently captured observations
+python3 scripts/aggregate.py --format markdown --compare snapshot.json
+
+# Alternative read-only views
+python3 scripts/aggregate.py --format csv
+python3 scripts/aggregate.py --only-active --format markdown
+python3 scripts/aggregate.py --no-prs --format json
+```
+
+`--format` is `json`, `markdown` or `csv`. `--repo` may be repeated to limit API reads; `--only-active` filters out WATCHING/DORMANT/ARCHIVED, **not** the current GitHub status of their PRs. The CLI reads an optional `GH_TOKEN` or `GITHUB_TOKEN` environment variable (never embeds it in output). A first-party external PR with `state=closed` and non-null `merged_at` is `MERGED`; closed without `merged_at` is `CLOSED_UNMERGED`; open (including draft) is `OPEN`; lookup failures and unverified links are `UNKNOWN`. The JSON output includes an observation timestamp and exact fork meta HEAD/blob SHAs. `--compare` reports known PR-status transitions relative to an earlier saved JSON report; it does not create an ongoing change log.
+
+**Coverage caveat:** this is a **partial, metadata-backed portfolio projection**, not a reconstruction of the entire `upstream-old` portfolio. A source project without `opensiro/meta` is counted as missing metadata, **not** as having no contributions; historical inventory completion and deployed usefulness are not claimed. GitHub API failures remain explicit warnings, and incomplete scans exit nonzero. A merged PR alone is not a verified benefit or the Organization's `verified_external_outcomes` KPI.
+
 ## For operators and agents
 
 Start from [Organization START_HERE](https://github.com/opensiro/vsm-oss-organization/blob/main/START_HERE.md) → [ECOSYSTEM](https://github.com/opensiro/vsm-oss-organization/blob/main/docs/ECOSYSTEM.md) → [AGENTS.md](AGENTS.md), the original source and the verified fork meta branch. Use [Organization TODO.md](https://github.com/opensiro/vsm-oss-organization/blob/main/TODO.md) for shared selection; never create a second scheduler. `upstream discover` / `upstream continue <source or contribution>` / `upstream status` are **conversational routes**, not installed commands or an autonomous service.
@@ -43,4 +69,4 @@ Start from [Organization START_HERE](https://github.com/opensiro/vsm-oss-organiz
 
 Previous batches, issues, original evidence, registries, watcher scripts and protocol through v0.11.0 belong to [opensiro/upstream-old](https://github.com/opensiro/upstream-old). [Migration guide](docs/MIGRATION.md) · [migration programme #2](https://github.com/opensiro/upstream/issues/2).
 
-**Not yet migrated:** real fork-local `.opensiro/` records, validated aggregate/PR observer, historical accepted-export producers and website sync. Current Organization `verified_external_outcomes` is **unclaimed for this new source**, not zero. No migration percentage or live PR inventory is claimed merely because v0.13.0 docs exist. Old and new evidence must not be silently mixed.
+**Current coverage:** two verified fork-local `.opensiro/` pilot records (Citadel, agent-fleet) and the on-demand read-only aggregation script above. The remaining historical portfolio, live outcome exporter and website sync are **not yet migrated**. Current Organization `verified_external_outcomes` is **unclaimed for this new source**, not zero. No migration percentage or live PR inventory is claimed merely because v0.13.0 docs exist. Old and new evidence must not be silently mixed.
