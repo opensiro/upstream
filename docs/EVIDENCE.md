@@ -2,7 +2,7 @@
 
 [← Home](../README.md) · [Case protocol](../PROTOCOL.md) · [Architecture](ARCHITECTURE.md)
 
-An Upstream case is valuable when it investigates a real, source-backed improvement. Keep different evidence levels separate:
+An Upstream contribution is valuable when it investigates a real, source-backed improvement. Keep different evidence levels separate:
 
 | Evidence | Proves | Does not prove |
 | --- | --- | --- |
@@ -24,6 +24,6 @@ Real code/tests and detailed OpenSiro history belong in the target fork, with `.
 
 The currently written Organization KPI for Upstream S1 is **`verified_external_outcomes`**, under [Organization METRICS.md](https://github.com/opensiro/vsm-oss-organization/blob/main/docs/METRICS.md) and [metrics.yaml](https://github.com/opensiro/vsm-oss-organization/blob/main/metrics.yaml). It requires fresh independently revalidated accepted **merged changes**, with source identity, evidence and cohort digests. It is **not** the number of external PRs, a PR acceptance rate, number of batches, tests run or proof of deployed benefit.
 
-**Migration status:** verified-outcome producer and its receipts still reside in [upstream-old's accepted outcome pipeline](https://github.com/opensiro/upstream-old/blob/main/docs/VERIFIED_EXTERNAL_OUTCOMES.md). This new Upstream has **no live accepted-export implementation** at v0.12.0 bootstrap. The Organization must not pretend new `registry.yaml` or other source paths exist, nor reinterpret unavailable output as zero. Historical data remains historical; a fresh source contract and live revalidation must be implemented and checked before claiming new-repository KPI values. Do not double-count original/replacement PR chains. [Cutover details](MIGRATION.md).
+**Migration status:** verified-outcome producer and its receipts still reside in [upstream-old's accepted outcome pipeline](https://github.com/opensiro/upstream-old/blob/main/docs/VERIFIED_EXTERNAL_OUTCOMES.md). This new Upstream has **no live accepted-export implementation** as of the v0.13.0 documentation cutover. The Organization must not pretend new `registry.yaml` or other source paths exist, nor reinterpret unavailable output as zero. Historical data remains historical; a fresh source contract and live revalidation must be implemented and checked before claiming new-repository KPI values. Do not double-count original/replacement PR chains. [Cutover details](MIGRATION.md).
 
 A verified GitHub merge proves that merge; a product benefit requires separate source-native behavioral evidence. SemVer documents protocol obligations, not an independently proven effect.
