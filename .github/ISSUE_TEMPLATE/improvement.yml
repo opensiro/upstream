@@ -1,0 +1,51 @@
+name: Improvement opportunity
+description: One original-source product improvement, not a batch or chat iteration.
+title: "[Improvement] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A case can span many sessions and end in a tested no-change. Check existing issues and [upstream-old](https://github.com/opensiro/upstream-old) before opening a duplicate.
+  - type: input
+    id: original_source
+    attributes:
+      label: Original target repository
+      description: The real OWNER/REPO, not its opensiro-contributions fork.
+      placeholder: owner/repo
+    validations:
+      required: true
+  - type: textarea
+    id: need
+    attributes:
+      label: Useful product task or repair
+      description: Who needs which observable action/output? Mark unverified predictions.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Source evidence and optional VSM provenance
+      description: Source issue/code, pinned SHA, existing alternative, any Index-first dated checkpoint, and uncertainty.
+    validations:
+      required: false
+  - type: textarea
+    id: test
+    attributes:
+      label: Next native counterfactual or design question
+      description: Smallest decisive baseline/negative control or first-party decision still needed.
+    validations:
+      required: false
+  - type: textarea
+    id: links
+    attributes:
+      label: Verified working fork, branch and external PR (if existing)
+      description: Do not invent forks, PR numbers or native test successes.
+    validations:
+      required: false
+  - type: textarea
+    id: next
+    attributes:
+      label: NEXT — one concrete action and owner
+      description: What should the next session do with this same issue?
+    validations:
+      required: true
