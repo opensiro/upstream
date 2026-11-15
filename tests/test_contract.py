@@ -1,0 +1,38 @@
+"""Source-only Upstream architecture tests: no GitHub write, network or VSM grading."""
+from pathlib import Path
+from tempfile import TemporaryDirectory
+import sys
+import unittest
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+from validate_contract import check_contract, REQUIRED  # noqa: E402
+
+
+class ContractTests(unittest.TestCase):
+    def test_repository_contract(self):
+        self.assertEqual(check_contract(ROOT), [])
+
+    def test_invalid_semver_is_rejected(self):
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            for filename in REQUIRED:
+                file = root / filename
+                file.parent.mkdir(parents=True, exist_ok=True)
+                file.write_text("", encoding="utf-8")
+            (root / "VERSION").write_text("0.12\n", encoding="utf-8")
+            self.assertTrue(any("invalid SemVer" in x for x in check_contract(root)))
+
+    def test_missing_change_package_is_rejected(self):
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            for filename in REQUIRED:
+                file = root / filename
+                file.parent.mkdir(parents=True, exist_ok=True)
+                file.write_text("", encoding="utf-8")
+            (root / "VERSION").write_text("0.12.0\n", encoding="utf-8")
+            self.assertTrue(any("missing changes/" in x for x in check_contract(root)))
+
+
+if __name__ == "__main__":
+    unittest.main()
