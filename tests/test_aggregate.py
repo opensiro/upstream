@@ -39,10 +39,10 @@ class FakeGitHub:
             attention="DORMANT", control="PAUSE", identifiers=("citadel-claims",),
             prs=("https://github.com/SethGammon/Citadel/pull/366",),
             merged_at="2026-10-25T21:26:14Z", pr_state="closed"):
-        root = f"/repos/{fork}/"
+        root = f"/repos/{fork}"
         self.routes[root] = {"fork": True, "parent": {"full_name": original}}
-        self.routes[root + "git/ref/heads/opensiro/meta"] = {"object": {"sha": "b" * 40}}
-        self.routes[root + "contents/.opensiro/state.json?ref=opensiro%2Fmeta"] = file_blob(
+        self.routes[root + "/git/ref/heads/opensiro/meta"] = {"object": {"sha": "b" * 40}}
+        self.routes[root + "/contents/.opensiro/state.json?ref=opensiro%2Fmeta"] = file_blob(
             {"schema_version": 1, "original_repository": original,
              "working_fork": fork, "attention": attention, "owner_control": control,
              "last_event_id": None})
@@ -50,10 +50,10 @@ class FakeGitHub:
         for identifier in identifiers:
             path = f".opensiro/contributions/{identifier}.json"
             entries.append({"type": "file", "name": identifier + ".json", "path": path})
-            self.routes[root + "contents/" + path + "?ref=opensiro%2Fmeta"] = file_blob(
+            self.routes[root + "/contents/" + path + "?ref=opensiro%2Fmeta"] = file_blob(
                 {"schema_version": 1, "id": identifier, "original_repository": original,
                  "work_state": "DELIVERED", "external_prs": list(prs), "title": "Fix"})
-        self.routes[root + "contents/.opensiro/contributions?ref=opensiro%2Fmeta"] = entries
+        self.routes[root + "/contents/.opensiro/contributions?ref=opensiro%2Fmeta"] = entries
         for pr in prs:
             match = pr.split("/")
             self.routes[f"/repos/{match[3]}/{match[4]}/pulls/{match[6]}"] = {
@@ -94,7 +94,7 @@ class AggregatorTests(unittest.TestCase):
         self.assertEqual(report["summary"]["pr_statuses"]["UNKNOWN"], 1)
         pr = report["forks"][0]["contributions"][0]["external_prs"][0]
         self.assertEqual(pr["reason"], "GITHUB_HTTP_403")
-        self.assertNotIn("MERGED", report["summary"]["pr_statuses"].keys() - {"MERGED"})
+        self.assertEqual(pr["status"], "UNKNOWN")
 
     def test_wrong_original_pr_is_unknown_and_not_fetched(self):
         client = FakeGitHub().add(prs=("https://github.com/other/repo/pull/77",))
@@ -114,7 +114,7 @@ class AggregatorTests(unittest.TestCase):
 
     def test_no_meta_is_missing_not_migrated(self):
         client = FakeGitHub()
-        client.routes["/repos/opensiro-contributions/NoMeta/"] = {
+        client.routes["/repos/opensiro-contributions/NoMeta"] = {
             "fork": True, "parent": {"full_name": "original/NoMeta"}}
         report = aggregate(client, requested=["opensiro-contributions/NoMeta"], observed_at=TIME)
         self.assertEqual(report["coverage"]["missing_meta"], 1)
@@ -123,7 +123,7 @@ class AggregatorTests(unittest.TestCase):
 
     def test_mismatched_parent_does_not_contribute(self):
         client = FakeGitHub().add()
-        client.routes["/repos/opensiro-contributions/Citadel/"]["parent"]["full_name"] = "other/Citadel"
+        client.routes["/repos/opensiro-contributions/Citadel"]["parent"]["full_name"] = "other/Citadel"
         report = aggregate(client, requested=["opensiro-contributions/Citadel"], observed_at=TIME)
         self.assertEqual(report["coverage"]["errors"], 1)
         self.assertFalse(report["coverage"]["scan_complete"])
