@@ -36,7 +36,7 @@ def check_contract(root=ROOT):
         "docs/ARCHITECTURE.md": ("TODO.md", "upstream-old", "opensiro-contributions", "verified_external_outcomes"),
         "docs/MIGRATION.md": ("upstream-old/issues/56", "0.11.0", "opensiro/meta", "issues/2"),
         "docs/FORK_METADATA.md": (".opensiro/state.json", ".opensiro/contributions/", ".opensiro/events/", "opensiro/meta", "DORMANT", "PAUSE", "STOP", "RESUME", "issues/2"),
-        "PROTOCOL.md": ("External-publication consent", "need", "mechanism", "counterfactual", "scope", "opensiro/meta", "no fixed maintenance TTL"),
+        "PROTOCOL.md": ("External-publication consent", "need", "mechanism", "counterfactual", "scope", "opensiro/meta", "No fixed maintenance TTL"),
         "CHANGELOG.md": (package, "upstream-old"),
     }
     for filename, anchors in key_anchors.items():
