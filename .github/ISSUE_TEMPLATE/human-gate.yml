@@ -1,0 +1,73 @@
+name: "Human gate — license, formalities & availability"
+description: "One concrete OpenSiro operator decision about rights or access. Not a batch report, upgrade queue, or source-owned PR."
+title: "[Human gate] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use only when a genuine human decision is required **after read-only source/license/policy preflight**.
+        Search existing [Human gate] issues and the matching fork's `.opensiro/` first.
+        Reuse an existing issue for the same decision and owner; do not make an issue per batch, probe or project automatically.
+        Do not attach secrets, private policy, third-party code, or implied legal approval.
+        This internal intake does NOT authorize source modification, a third-party question, CLA/DCO assent,
+        publishing an external PR, or overriding the fork's PAUSE/STOP.
+  - type: input
+    id: original_repository
+    attributes:
+      label: Original repository
+      description: "Full original OWNER/REPO, not the OpenSiro fork."
+      placeholder: "owner/repo"
+    validations:
+      required: true
+  - type: dropdown
+    id: gate_type
+    attributes:
+      label: Human decision category
+      options:
+        - "License grant / scope / compatibility"
+        - "CLA / DCO / personal assent"
+        - "Contributor policy / assignment / external permission"
+        - "Source / fork / runner access or availability"
+        - "Other formalities requiring an operator decision"
+    validations:
+      required: true
+  - type: input
+    id: source_revision
+    attributes:
+      label: Observed source SHA and date (or UNKNOWN)
+      placeholder: "40-char SHA — 2026-MM-DD; or UNKNOWN and reason"
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: First-party evidence and previous case link
+      description: "Public license/policy links, exact first-party restrictions, read-only preflight result, prior human-gate/fork-local case. Include uncertainties; no private text."
+    validations:
+      required: true
+  - type: textarea
+    id: decision
+    attributes:
+      label: Exact decision reserved for the human
+      description: "What must be decided and by whom? Specify the scope, not an implied broad approval."
+    validations:
+      required: true
+  - type: dropdown
+    id: safe_stage
+    attributes:
+      label: Current maximum safe stage
+      options:
+        - "Read-only research only"
+        - "Hold before derivative implementation"
+        - "Hold before fork / branch write"
+        - "Hold before third-party public communication"
+        - "Hold before separate CLA / DCO step"
+    validations:
+      required: true
+  - type: textarea
+    id: next
+    attributes:
+      label: Next action and human owner
+      description: "No action by an autonomous executor until the exact issue is resolved through valid authority and current source readback."
+    validations:
+      required: true
