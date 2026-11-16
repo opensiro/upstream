@@ -2,6 +2,12 @@
 
 **Current protocol:** [v0.16.0](VERSION) · [Versioning](VERSIONING.md) · [Migration](docs/MIGRATION.md).
 
+**Release status:** a protocol version merged to `main` is **not** automatically a published GitHub Release. Check [published Releases](https://github.com/opensiro/upstream/releases). At the 2026-11-16 review, v0.13.0 was the latest published release, and the [v0.16.0 consolidated candidate](docs/RELEASE_CANDIDATE_v0.16.0.md) awaits final owner approval. Individual v0.14–v0.16 history entries below remain valid intermediate main snapshots, not claims of three separate GitHub Releases.
+
+## Unreleased
+
+Future compatible operating-rule changes may accumulate here under review, with no automatic SemVer bump for every individual PR. A coherent owner-approved bundle receives one final version/change package and one verified release, following [VERSIONING.md](VERSIONING.md). **No further changes are claimed by this empty staging section.**
+
 ## [0.16.0](changes/v0.16.0.md) — License/formalities-first admission, deferred human availability decisions
 
 **Prospective MINOR, 2026-11-16.** Before contributor-popularity ranking, run the existing read-only source-pinned license, CLA/DCO and contributor-formality preflight. Distinguish screenable **read-only** research from unresolved rights/access and insufficient evidence, without auto-granting a license or claiming that GitHub access is cleared. New separate internal **Human gate — license, formalities & availability** issue form records only genuine deduplicated human decisions; chat batches still create no issues/PRs by default. [Protocol](PROTOCOL.md#license-and-formalities-first--human-gate-category).
