@@ -77,6 +77,27 @@ class FunctionScopedUpgradeContractTests(unittest.TestCase):
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase.lower(), self.section.lower())
 
+    def test_target_function_lock_does_not_block_native_cross_function_closure(self):
+        section = self.section
+        for phrase in (
+            "claimed capability delta",
+            "supporting implementation and verification",
+            "only when causally necessary",
+            "existing S3 constraints",
+            "changed S1 task execution",
+            "evidence of S5 closure",
+            "not S3/S1 upgrades",
+            "unauthorized S5 decisions",
+            "supporting evidence, not an expanded improvement target",
+        ):
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase.lower(), section.lower())
+        review = (ROOT / "docs/UPGRADE_PR_REVIEW.md").read_text(encoding="utf-8")
+        self.assertIn("without asserting an S3 or S1 feature", review)
+        agent = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+        self.assertIn("Lock the qualifying capability to the requested function", agent)
+        self.assertIn("Function-scope verification boundary (unreleased)", (ROOT / "CHANGELOG.md").read_text(encoding="utf-8"))
+
     def test_unverified_ownership_and_native_runner_are_not_false_no_change(self):
         for phrase in (
             "NO_QUALIFIED_IMPROVEMENT",
