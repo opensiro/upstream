@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="827" height="240" viewBox="0 0 827 240" role="img" aria-label="OpenSiro external pull request activity heatmap">
+<style>text{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif;fill:#24292f} .muted{font-size:11px;fill:#57606a} .date{font-size:10px;fill:#57606a}</style>
+<rect width="100%" height="100%" fill="#ffffff"/>
+<defs><pattern id="days" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="translate(57 92)"><rect width="11" height="11" rx="2" fill="#ebedf0"/></pattern></defs>
+<rect x="57" y="92" width="742" height="98" fill="url(#days)"/>
+<text x="16" y="24" font-size="16" font-weight="600">External PR activity · OpenSiro</text>
+<text x="16" y="42" class="muted">UTC · observed 2026-11-16T12:00:00Z · 60 verified metadata forks · 61 improvements</text>
+<text x="16.0" y="64" font-size="13" font-weight="600">42</text>
+<text x="16.0" y="78" class="date">Published</text>
+<text x="177.8" y="64" font-size="13" font-weight="600">11</text>
+<text x="177.8" y="78" class="date">Merged</text>
+<text x="339.6" y="64" font-size="13" font-weight="600">24</text>
+<text x="339.6" y="78" class="date">Open</text>
+<text x="501.4" y="64" font-size="13" font-weight="600">7</text>
+<text x="501.4" y="78" class="date">Closed unmerged</text>
+<text x="663.2" y="64" font-size="13" font-weight="600">0</text>
+<text x="663.2" y="78" class="date">Closed w/ APPROVED review</text>
+<text x="16" y="115" class="date">Mon</text>
+<text x="16" y="143" class="date">Wed</text>
+<text x="16" y="171" class="date">Fri</text>
+<text x="57" y="88" class="date">Nov</text>
+<text x="99" y="88" class="date">Dec</text>
+<text x="155" y="88" class="date">Jan</text>
+<text x="211" y="88" class="date">Feb</text>
+<text x="267" y="88" class="date">Mar</text>
+<text x="337" y="88" class="date">Apr</text>
+<text x="393" y="88" class="date">May</text>
+<text x="463" y="88" class="date">Jun</text>
+<text x="519" y="88" class="date">Jul</text>
+<text x="575" y="88" class="date">Aug</text>
+<text x="645" y="88" class="date">Sep</text>
+<rect x="673" y="134" width="11" height="11" rx="2" fill="#40c463"><title>2026-09-23: 2 events (published 2, merged 0, closed unmerged 0)</title></rect>
+<rect x="687" y="106" width="11" height="11" rx="2" fill="#30a14e"><title>2026-09-28: 5 events (published 3, merged 0, closed unmerged 2)</title></rect>
+<rect x="687" y="134" width="11" height="11" rx="2" fill="#9be9a8"><title>2026-09-30: 1 events (published 0, merged 1, closed unmerged 0)</title></rect>
+<text x="701" y="88" class="date">Oct</text>
+<rect x="701" y="148" width="11" height="11" rx="2" fill="#40c463"><title>2026-10-08: 2 events (published 1, merged 1, closed unmerged 0)</title></rect>
+<rect x="715" y="92" width="11" height="11" rx="2" fill="#40c463"><title>2026-10-11: 2 events (published 1, merged 0, closed unmerged 1)</title></rect>
+<rect x="715" y="106" width="11" height="11" rx="2" fill="#9be9a8"><title>2026-10-12: 1 events (published 1, merged 0, closed unmerged 0)</title></rect>
+<rect x="729" y="106" width="11" height="11" rx="2" fill="#40c463"><title>2026-10-19: 3 events (published 1, merged 2, closed unmerged 0)</title></rect>
+<rect x="729" y="162" width="11" height="11" rx="2" fill="#216e39"><title>2026-10-23: 7 events (published 7, merged 0, closed unmerged 0)</title></rect>
+<rect x="729" y="176" width="11" height="11" rx="2" fill="#216e39"><title>2026-10-24: 10 events (published 8, merged 1, closed unmerged 1)</title></rect>
+<rect x="743" y="92" width="11" height="11" rx="2" fill="#9be9a8"><title>2026-10-25: 1 events (published 0, merged 1, closed unmerged 0)</title></rect>
+<rect x="743" y="148" width="11" height="11" rx="2" fill="#9be9a8"><title>2026-10-29: 1 events (published 0, merged 1, closed unmerged 0)</title></rect>
+<rect x="743" y="162" width="11" height="11" rx="2" fill="#9be9a8"><title>2026-10-30: 1 events (published 0, merged 1, closed unmerged 0)</title></rect>
+<text x="757" y="88" class="date">Nov</text>
+<rect x="757" y="148" width="11" height="11" rx="2" fill="#9be9a8"><title>2026-11-05: 1 events (published 0, merged 1, closed unmerged 0)</title></rect>
+<rect x="771" y="120" width="11" height="11" rx="2" fill="#216e39"><title>2026-11-10: 9 events (published 7, merged 2, closed unmerged 0)</title></rect>
+<rect x="771" y="134" width="11" height="11" rx="2" fill="#216e39"><title>2026-11-11: 7 events (published 7, merged 0, closed unmerged 0)</title></rect>
+<rect x="771" y="148" width="11" height="11" rx="2" fill="#40c463"><title>2026-11-12: 3 events (published 2, merged 0, closed unmerged 1)</title></rect>
+<rect x="771" y="162" width="11" height="11" rx="2" fill="#40c463"><title>2026-11-13: 3 events (published 2, merged 0, closed unmerged 1)</title></rect>
+<rect x="771" y="176" width="11" height="11" rx="2" fill="#9be9a8"><title>2026-11-14: 1 events (published 0, merged 0, closed unmerged 1)</title></rect>
+<text x="16" y="210" class="muted">Each square = published, merged or closed-unmerged PR events on that UTC day; review approval is a subset, not an event.</text>
+<text x="16" y="228" class="muted">Bounded to metadata-linked PRs, not all historical research or deployed benefit. On-demand snapshot, not live.</text>
+</svg>
