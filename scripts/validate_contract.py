@@ -32,11 +32,11 @@ def check_contract(root=ROOT):
         if file.is_file() and version not in file.read_text(encoding="utf-8"):
             errors.append(f"{filename}: missing current version {version}")
     key_anchors = {
-        "README.md": ("docs/ARCHITECTURE.md", "upstream-old", "opensiro-contributions", "vsm-oss-organization"),
+        "README.md": ("docs/ARCHITECTURE.md", "upstream-old", "opensiro-contributions", "vsm-oss-organization", "upstream upgrade batch 10", "upstream batch [N]"),
         "docs/ARCHITECTURE.md": ("TODO.md", "upstream-old", "opensiro-contributions", "verified_external_outcomes"),
         "docs/MIGRATION.md": ("upstream-old/issues/56", "0.11.0", "opensiro/meta", "issues/2"),
         "docs/FORK_METADATA.md": (".opensiro/state.json", ".opensiro/contributions/", ".opensiro/events/", "opensiro/meta", "DORMANT", "PAUSE", "STOP", "RESUME", "issues/2"),
-        "PROTOCOL.md": ("External-publication consent", "need", "mechanism", "counterfactual", "scope", "opensiro/meta", "No fixed maintenance TTL"),
+        "PROTOCOL.md": ("External-publication consent", "need", "mechanism", "counterfactual", "scope", "opensiro/meta", "No fixed maintenance TTL", "Capability-first", "upstream upgrade batch N", "REPAIR_ONLY", "ASSESSMENT_DERIVED"),
         "CHANGELOG.md": (package, "upstream-old"),
     }
     for filename, anchors in key_anchors.items():

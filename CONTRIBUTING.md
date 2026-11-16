@@ -1,16 +1,16 @@
 # Contribute to Upstream
 
-**One opportunity → one issue → reproducible source work → honest outcome.**
+**One independent improvement → one stable fork-local record → source-native evidence → honest outcome.** Before a verified fork exists, a minimal intake issue may be used; do not create one per batch, candidate or PR.
 
-Start with [the protocol](PROTOCOL.md). [Create an improvement issue](https://github.com/opensiro/upstream/issues/new/choose) for an observable new user/operator task or independently proven repair, not for a new batch. Check existing issues and [upstream-old](https://github.com/opensiro/upstream-old) first to avoid duplicate research.
+Start with [the current protocol](PROTOCOL.md), including the [capability-first upgrade mode](PROTOCOL.md#capability-first-upstream-upgrade-new-work-not-historical-batching). `upstream upgrade` starts from a **new useful actor/task/output**, original-source alternative and independently testable benefit; fixes remain distinct `REPAIR_ONLY` results. Reuse verified fork `.opensiro/` records, original issues and [upstream-old](https://github.com/opensiro/upstream-old) evidence. [Create a minimal intake issue](https://github.com/opensiro/upstream/issues/new/choose) only when there is no matching verified fork and a real source-backed question or blocker needs an owner.
 
 Include the real original `OWNER/REPO`, current upstream source/issue link, desired task/output, current behavior/alternative, exact known uncertainties, and the **smallest next native experiment or maintainer decision**. It is fine if evidence is pending; label predictions as predictions. A low VSM assessment grade does not prove a needed feature.
 
-Once qualified, work inside the verified correctly parented [opensiro-contributions](https://github.com/opensiro-contributions) fork; link exact source branch and native test receipts in the same Upstream issue. Follow the target's CLA/DCO, license, PR template and disclosure rules. **No third-party outward public communication or public fork-local PR** without an explicit current-conversation owner confirmation of its exact destination, action and full final content/diff. [Gate](PROTOCOL.md#external-publication-consent).
+Only once native need / mechanism / counterfactual / scope and exact current authority are confirmed may new effectful work begin. `DORMANT / PAUSE` does not authorize RESUME or new code changes. Once qualified and authorized, work inside the verified correctly parented [opensiro-contributions](https://github.com/opensiro-contributions) fork; link exact source branch and native test receipts in the same Upstream issue. Follow the target's CLA/DCO, license, PR template and disclosure rules. **No third-party outward public communication or public fork-local PR** without an explicit current-conversation owner confirmation of its exact destination, action and full final content/diff. [Gate](PROTOCOL.md#external-publication-consent).
 
 ### Carry the issue across sessions
 
-After a meaningful execution step, update the **same** issue or supply the matching short [Organization report](https://github.com/opensiro/vsm-oss-organization/blob/main/docs/AUTONOMOUS_WORK_REPORTING.md):
+After a meaningful execution step, update the **existing fork-local contribution** and attributable significant event where authorized, or the minimal pre-fork issue when one exists. Supply the matching short [Organization report](https://github.com/opensiro/vsm-oss-organization/blob/main/docs/AUTONOMOUS_WORK_REPORTING.md):
 
 ```text
 DONE: observed result and exact evidence URL/commit
