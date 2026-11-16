@@ -219,7 +219,7 @@ class ContractTests(unittest.TestCase):
         ):
             self.assertIn(marker, section)
         self.assertIn("ensure the fork's `opensiro/meta`", protocol)
-        self.assertIn("A confirmed missing fork `opensiro/meta`", readme)
+        self.assertIn("If the branch is confirmed absent", readme)
         self.assertIn("Required `.opensiro/` provisioning", agents)
         self.assertIn("Materialize on demand during an authorized Upgrade", metadata)
         self.assertIn("Verified permission to write fork metadata?", architecture)
