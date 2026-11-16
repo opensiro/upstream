@@ -20,11 +20,11 @@ If the bootstrap resolves Upstream work here, [`AGENTS.md`](AGENTS.md), [`PROTOC
 
 Upstream is the **operational S1 domain** of [OpenSiro VSM OSS](https://github.com/opensiro/vsm-oss-organization). It coordinates source-backed contributions to external AI harnesses without implementing a second VSM organization.
 
-**Protocol:** [v0.13.0](VERSION) · [How work proceeds](PROTOCOL.md) · [Fork metadata](docs/FORK_METADATA.md) · [Architecture](docs/ARCHITECTURE.md) · [History](CHANGELOG.md) · [Releases](https://github.com/opensiro/upstream/releases)
+**Protocol:** [v0.14.0](VERSION) · [How work proceeds](PROTOCOL.md) · [Fork metadata](docs/FORK_METADATA.md) · [Architecture](docs/ARCHITECTURE.md) · [History](CHANGELOG.md) · [Releases](https://github.com/opensiro/upstream/releases)
 
 ## Releases
 
-[GitHub Releases](https://github.com/opensiro/upstream/releases) publish tagged snapshots of the **Upstream contribution protocol**, not releases of third-party harnesses. The current protocol is [v0.13.0](VERSION); see its [change package](changes/v0.13.0.md), [changelog](CHANGELOG.md), and [versioning rules](VERSIONING.md). A release does **not** certify completion of historical migration, deployed value, external PR acceptance, or VSM autonomy.
+[GitHub Releases](https://github.com/opensiro/upstream/releases) publish tagged snapshots of the **Upstream contribution protocol**, not releases of third-party harnesses. The current protocol is [v0.14.0](VERSION); see its [change package](changes/v0.14.0.md), [changelog](CHANGELOG.md), and [versioning rules](VERSIONING.md). A release does **not** certify completion of historical migration, deployed value, external PR acceptance, or VSM autonomy.
 
 The new repository started its own history with v0.12.0. The predecessor's v0.1.0–v0.11.0 history stays with [upstream-old](https://github.com/opensiro/upstream-old/blob/main/CHANGELOG.md); no tags or GitHub Releases are implied for that old history.
 
@@ -62,6 +62,19 @@ Fork-level attention: `ACTIVE` / `WATCHING` / `DORMANT` / `ARCHIVED`. These desc
 As of **2026-11-16 12:00 UTC**, the **42 distinct original-repository PRs** linked from 61 migrated improvement records: **11 merged**, **24 open**, **7 closed without merge**, of which **0** have an explicit GitHub `APPROVED` review. These categories are **source-observed PR lifecycle facts**, not independent-improvement counts or deployed-benefit claims.
 
 [Full dated statistics, coverage and on-demand refresh instructions](docs/ACTIVITY.md). The calendar reflects original PR events, not metadata backfill commits; the SVG is a static, manually refreshable view, **not a live counter**.
+
+## Capability-first upstream upgrade
+
+`upstream upgrade` is a **conversation route for discovering a genuinely new harness capability** — a user/operator trigger, action/decision and observable output, not merely a repair with a VSM label. Use existing `.opensiro/` history, the read-only aggregate, current original GitHub issues/PRs and independently testable native counterfactuals before proposing implementation.
+
+| Route | Meaning |
+| --- | --- |
+| `upstream upgrade` | Deeply investigate **one** promising new-capability question; no new batch |
+| `upstream upgrade OWNER/REPO` or `upstream upgrade <contribution-id>` | Inspect/continue a specific original harness or stable contribution record |
+| `upstream upgrade batch 10` | **Ten distinct original harnesses**, S1/S2/S3/S3*/S4/S5 source-backed dispositions each, focused native tests only where needed; **not** ten PRs, fixes or a new frozen cohort |
+| `upstream batch [N]` | Separate technical/repair screening mode; it is not an alias for `upgrade` |
+
+All modes are **operator phrases, not executable CLI commands**. Functional opportunity, VSM/Index chronology, need/mechanism/counterfactual/scope, original-work alternative and native benefit must be distinguished. `DORMANT / PAUSE` allows no automatic engineering restart, and outward public third-party communication still requires exact current-conversation owner approval. [v0.14.0 upgrade procedure](PROTOCOL.md#capability-first-upstream-upgrade-new-work-not-historical-batching).
 
 ## Read-only portfolio aggregation
 
