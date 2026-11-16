@@ -16,3 +16,9 @@ For every normative protocol change: update `VERSION`, `CHANGELOG.md` and one ne
 An immutable Git tag `vX.Y.Z` may be created on the validated integration commit when an authorized tagging method is available. Do not claim a tag or release exists without verifying it. A `VERSION` file alone does not prove what a runner read, which external PR was merged or whether a human granted exact publication consent.
 
 **Permissions are independent:** changes to SemVer cannot grant S5 delegation, target-code write rights, CLA/DCO assent, external PR approval or maintainer acceptance.
+
+## GitHub Releases
+
+When an authorized release is published, it must refer to a validated integration commit on this repository's default branch. Its immutable `vX.Y.Z` tag must match `VERSION`, `CHANGELOG.md`, and the corresponding `changes/vX.Y.Z.md` package at that commit. Release notes must describe the **protocol change** and explicitly disclose unfinished implementation, migration or outcome verification when applicable.
+
+A GitHub Release is a distribution/navigation point for an already reviewed protocol state, **not** another SemVer increment or an authorization grant. Do not backfill a predecessor tag, release date, test claim, or commit into this repository's fresh history. If tagging or publication is unavailable, report it as pending rather than implying that a GitHub Release exists.
