@@ -110,6 +110,17 @@ class UpgradePrLinkTests(unittest.TestCase):
         self.assertTrue(any("Assessed source revision" in e for e in errors))
         self.assertTrue(any("VSM assessment" in e for e in errors))
 
+    def test_approved_looking_draft_without_fork_links_is_still_blocked(self):
+        body = example_body("NOT_CREATED — awaiting exact fork-local PR consent")
+        for label in ("Working fork", "Implementation branch", "Implementation commit",
+                      "Fork-local review PR", "Fork-local metadata record"):
+            body = "\\n".join(
+                line for line in body.splitlines()
+                if not line.startswith(f"**{label}:**")
+            ) + "\\n"
+        self.assertGreaterEqual(len(validate_pr_links(body, "preview")), 5)
+        self.assertGreaterEqual(len(validate_pr_links(body, "new")), 5)
+
     def test_generic_ai_assistance_is_not_valid_disclosure(self):
         errors = validate_pr_links("## AI assistance\nAI helped write code.\n", "new")
         self.assertTrue(any("disclosure marker missing" in e for e in errors))

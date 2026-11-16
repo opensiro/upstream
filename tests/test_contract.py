@@ -12,6 +12,18 @@ from validate_contract import check_contract, REQUIRED  # noqa: E402
 
 
 class ContractTests(unittest.TestCase):
+    def test_resumption_reconstructs_context_with_five_links_and_stop_precedence(self):
+        protocol = (ROOT / "PROTOCOL.md").read_text(encoding="utf-8")
+        instructions = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+        review = (ROOT / "docs/UPGRADE_PR_REVIEW.md").read_text(encoding="utf-8")
+        self.assertIn("Resumable Upgrade link and context checkpoint", protocol)
+        self.assertIn("upgrade_handoff.py", protocol)
+        self.assertIn("upgrade_handoff.py", instructions)
+        self.assertIn("--stage preview", review)
+        self.assertIn("--stage new", review)
+        self.assertIn("STOP precedence", review)
+        self.assertTrue((ROOT / "scripts/upgrade_handoff.py").is_file())
+
     def test_repository_contract(self):
         self.assertEqual(check_contract(ROOT), [])
 
