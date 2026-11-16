@@ -17,6 +17,8 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import quote
 from urllib.request import Request, urlopen
 
+from contribution_classification import classification, UNCLASSIFIED_LEGACY, ORIGIN_TYPES
+
 ORGANIZATION = "opensiro-contributions"
 REF = "opensiro/meta"
 ATTENTION = {"ACTIVE", "WATCHING", "DORMANT", "ARCHIVED"}
@@ -88,7 +90,7 @@ def check_state(item, repo, original):
 def check_contribution(item, path, original):
     filename = path.rsplit("/", 1)[-1]
     ident = item.get("id")
-    if item.get("schema_version") != 1 or not isinstance(ident, str) or not ID.fullmatch(ident):
+    if item.get("schema_version") not in (1, 2) or not isinstance(ident, str) or not ID.fullmatch(ident):
         raise ValueError("invalid contribution schema or id")
     if filename != ident + ".json" or item.get("original_repository", "").lower() != original.lower():
         raise ValueError("contribution filename/source mismatch")
@@ -99,6 +101,7 @@ def check_contribution(item, path, original):
         raise ValueError("external_prs must be a list of strings")
     if len(set(links)) != len(links):
         raise ValueError("duplicate external PR URL in improvement")
+    classification(item)  # v2 must classify; legacy v1 omissions remain visible as unknown
     return links
 
 
@@ -232,6 +235,7 @@ def aggregate(client, org=ORGANIZATION, requested=None, only_active=False,
                     prs.append(pr_cache[link])
                 contributions.append({"id": item["id"], "title": item.get("title", ""),
                                       "work_state": item["work_state"],
+                                      "contribution_type": classification(item),
                                       "next_action": item.get("next_action", ""),
                                       "source_revision": item.get("source_revision"),
                                       "record_sha": item_sha,
@@ -251,6 +255,11 @@ def aggregate(client, org=ORGANIZATION, requested=None, only_active=False,
         attention[fork["attention"]] += 1
         for record in fork["contributions"]:
             work_states[record["work_state"]] += 1
+    type_counts = {s: 0 for s in (*ORIGIN_TYPES, UNCLASSIFIED_LEGACY)}
+    for fork in report["forks"]:
+        for record in fork["contributions"]:
+            type_counts[record["contribution_type"]] += 1
+    coverage["unclassified_legacy"] = type_counts[UNCLASSIFIED_LEGACY]
     pr_states = {s: 0 for s in PR_STATES}
     for entry in pr_cache.values():
         pr_states[entry["status"]] += 1
@@ -261,6 +270,7 @@ def aggregate(client, org=ORGANIZATION, requested=None, only_active=False,
         "pr_statuses": pr_states,
         "attention": attention,
         "work_states": work_states,
+        "contribution_types": type_counts,
     }
     coverage["pr_readback"] = ("NOT_REQUESTED" if not live_prs else
                                "PARTIAL" if pr_states["UNKNOWN"] else "COMPLETE")
@@ -297,9 +307,10 @@ def markdown(report):
              f"Unique linked external PRs: **{s['linked_unique_external_prs']}**; " +
              ", ".join(f"{k}: {v}" for k, v in s["pr_statuses"].items()) + ".",
              f"Discovery: {c['repositories_discovered']} repositories; {c['missing_meta']} verified forks without meta; {c['errors']} errors.",
+             f"Unclassified legacy provenance: **{c['unclassified_legacy']}** (not VSM-derived by inference).",
              "**Historical inventory completeness: UNKNOWN.** This is not an outcome/usefulness measure.", "",
-             "| Original | Fork | Attention / control | Improvement | Work state | External PR | Live PR status |",
-             "| --- | --- | --- | --- | --- | --- | --- |"]
+             "| Original | Fork | Attention / control | Improvement | Origin | Work state | External PR | Live PR status |",
+             "| --- | --- | --- | --- | --- | --- | --- | --- |"]
     safe = lambda v: str(v).replace("|", "\\|").replace("\n", " ")
     for fork in report["forks"]:
         for record in fork["contributions"]:
@@ -308,7 +319,7 @@ def markdown(report):
                 lines.append("| " + " | ".join(map(safe, [
                     fork["original_repository"], fork["working_fork"],
                     fork["attention"] + " / " + fork["owner_control"], record["id"],
-                    record["work_state"], pr["url"], pr["status"]
+                    record["contribution_type"], record["work_state"], pr["url"], pr["status"]
                 ])) + " |")
     if report.get("pr_transitions"):
         lines.extend(["", "PR status changes since previous JSON:", ""])
@@ -325,13 +336,13 @@ def csv_output(report):
     writer = csv.writer(buffer)
     writer.writerow(["original_repository", "working_fork", "meta_head_sha",
                      "attention", "owner_control", "contribution_id",
-                     "work_state", "external_pr_url", "external_pr_status", "pr_observed_at"])
+                     "contribution_type", "work_state", "external_pr_url", "external_pr_status", "pr_observed_at"])
     for fork in report["forks"]:
         for record in fork["contributions"]:
             for pr in (record["external_prs"] or [{"url": "", "status": "", "observed_at": ""}]):
                 writer.writerow([fork["original_repository"], fork["working_fork"], fork["meta_head_sha"],
                                  fork["attention"], fork["owner_control"], record["id"],
-                                 record["work_state"], pr["url"], pr["status"], pr["observed_at"]])
+                                 record["contribution_type"], record["work_state"], pr["url"], pr["status"], pr["observed_at"]])
     return buffer.getvalue()
 
 
