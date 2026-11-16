@@ -1,6 +1,10 @@
 # Upstream contribution-protocol changelog
 
-**Current protocol:** [v0.13.0](VERSION) · [Versioning](VERSIONING.md) · [Migration](docs/MIGRATION.md).
+**Current protocol:** [v0.14.0](VERSION) · [Versioning](VERSIONING.md) · [Migration](docs/MIGRATION.md).
+
+## [0.14.0](changes/v0.14.0.md) — Capability-first upstream upgrade
+
+**Prospective MINOR, 2026-11-16.** `upstream upgrade` now selects demonstrable new harness user/operator capabilities, not frozen batches or bug-fix quotas. `upstream upgrade batch N` explicitly covers N distinct original repositories with S1/S2/S3/S3*/S4/S5 source-backed dispositions; native investigations concentrate on credible functional needs instead of six forced product experiments. `upstream batch [N]` remains a distinct technical/repair route. Historical Index-first chronology, live original PR readbacks, fork-local `PAUSE`/`STOP`, external communication consent and source-native benefit controls remain in force. [Procedure](PROTOCOL.md#capability-first-upstream-upgrade-new-work-not-historical-batching).
 
 ## [0.13.0](changes/v0.13.0.md) — Fork-local metadata and aggregate-only Upstream
 
