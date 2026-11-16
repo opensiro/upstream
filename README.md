@@ -61,7 +61,7 @@ Fork-level attention: `ACTIVE` / `WATCHING` / `DORMANT` / `ARCHIVED`. These desc
 
 As of **2026-11-16 12:00 UTC**, the **42 distinct original-repository PRs** linked from 61 migrated improvement records: **11 merged**, **24 open**, **7 closed without merge**, of which **0** have an explicit GitHub `APPROVED` review. These categories are **source-observed PR lifecycle facts**, not independent-improvement counts or deployed-benefit claims.
 
-[Full dated statistics, coverage and on-demand refresh instructions](docs/ACTIVITY.md). The calendar reflects original PR events, not metadata backfill commits; the SVG is a static, manually refreshable view, **not a live counter**.
+[Full dated statistics, day-by-day counts, coverage and on-demand refresh instructions](docs/ACTIVITY.md). Each square contains **three independently shaded stripes**: **green** published, **blue** merged, **amber** closed without merge; a **purple dot** marks a closed PR with a GitHub `APPROVED` review (currently 0). The SVG uses original event dates rather than metadata backfill commits and is a static, manually refreshable view, **not a live counter**.
 
 ## Capability-first upstream upgrade
 

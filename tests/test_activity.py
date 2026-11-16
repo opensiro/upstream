@@ -62,9 +62,62 @@ class ActivityTests(unittest.TestCase):
         self.assertEqual(len(report["events"]), 5)
         output = svg(report, weeks=8)
         self.assertIn("2026-10-24: 3 events", output)
+        self.assertIn('data-date="2026-10-24" data-published="3"', output)
         self.assertIn("Closed w/ APPROVED review", output)
+        self.assertIn('data-approved-closed="1"', output)
+        self.assertEqual(output.count('fill="#8250df" stroke="#ffffff"'), 1)
         self.assertIn("**3**", markdown(report))
         self.assertTrue(all(path.startswith("/repos/") for path in client.seen))
+
+    def test_compound_cell_counts_each_type_and_approval_only_on_closed_day(self):
+        client = (FakeGitHub()
+                  .add(1, state="closed", created="2026-10-24T09:00:00Z",
+                       merged="2026-10-24T21:00:00Z",
+                       closed="2026-10-24T21:00:00Z")
+                  .add(2, state="closed", created="2026-10-24T10:00:00Z",
+                       closed="2026-10-24T22:00:00Z", reviews=[
+                           {"user": {"login": "maintainer"}, "state": "APPROVED",
+                            "submitted_at": "2026-10-24T12:00:00Z"}])
+                  .add(3, created="2026-10-24T11:00:00Z"))
+        report = collect(client, snapshot([BASE+"1", BASE+"2", BASE+"3"]), observed_at=TIME)
+        output = svg(report, weeks=8)
+        # Exactly one daily square containing three independently colored stripes.
+        self.assertEqual(output.count('<g data-date="2026-10-24"'), 1)
+        self.assertIn('data-published="3" data-merged="1" data-closed="1" data-approved-closed="1"', output)
+        self.assertIn("published 3, merged 1, closed unmerged 1, of closed with APPROVED review 1", output)
+        self.assertIn('fill="#40c463"', output)  # three publications
+        self.assertIn('fill="#c7dfff"', output)  # one merge
+        self.assertIn('fill="#ffe1a6"', output)  # one unmerged closure
+        self.assertEqual(output.count('fill="#8250df" stroke="#ffffff"'), 1)
+        self.assertEqual(len(report["events"]), 5)  # approval is NOT an extra event
+
+    def test_approved_closure_on_later_date_attaches_to_later_square(self):
+        client = FakeGitHub().add(
+            1, state="closed", created="2026-10-24T12:00:00Z",
+            closed="2026-10-26T12:00:00Z", reviews=[
+                {"user": {"login": "maintainer"}, "state": "APPROVED",
+                 "submitted_at": "2026-10-25T10:00:00Z"}])
+        report = collect(client, snapshot([BASE+"1"]), observed_at=TIME)
+        output = svg(report, weeks=8)
+        self.assertIn('data-date="2026-10-24" data-published="1" data-merged="0" data-closed="0" data-approved-closed="0"', output)
+        self.assertIn('data-date="2026-10-26" data-published="0" data-merged="0" data-closed="1" data-approved-closed="1"', output)
+        self.assertEqual(output.count('fill="#8250df" stroke="#ffffff"'), 1)
+
+    def test_inconsistent_event_approval_or_count_refuses_render(self):
+        client = FakeGitHub().add(1, state="closed", closed="2026-10-26T01:00:00Z", reviews=[
+            {"user": {"login": "maintainer"}, "state": "APPROVED",
+             "submitted_at": "2026-10-25T01:00:00Z"}])
+        report = collect(client, snapshot([BASE+"1"]), observed_at=TIME)
+        report["events"][0]["approved"] = False  # sorted order can differ; find closure exactly
+        for event in report["events"]:
+            if event["type"] == "closed_unmerged":
+                event["approved"] = False
+        with self.assertRaises(ValueError):
+            svg(report)
+        report = collect(client, snapshot([BASE+"1"]), observed_at=TIME)
+        report["events"].pop()
+        with self.assertRaises(ValueError):
+            svg(report)
 
     def test_closed_without_review_not_approved(self):
         client = FakeGitHub().add(1, state="closed", closed="2026-10-26T01:00:00Z")
