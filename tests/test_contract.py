@@ -50,6 +50,24 @@ class ContractTests(unittest.TestCase):
         self.assertIn("not executable CLI commands", readme)
         self.assertTrue((ROOT / "changes/v0.14.0.md").is_file())
 
+    def test_upgrade_popularity_and_chat_only_batch_policy(self):
+        protocol = (ROOT / "PROTOCOL.md").read_text(encoding="utf-8")
+        agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
+        self.assertEqual(version, "0.15.0")
+        self.assertIn("unique GitHub contributors", protocol)
+        self.assertIn("1× to 2×", protocol)
+        self.assertIn("uniform", protocol)
+        self.assertIn("chat-level research/reporting sessions", protocol)
+        self.assertIn("not an issue, PR", protocol)
+        self.assertIn("chat-only hypothesis cannot alone prove", protocol)
+        self.assertIn("PAUSE", protocol)
+        self.assertIn("native CI placement", protocol)
+        self.assertIn("chat-scoped reports only", agents)
+        self.assertIn("Batches live in the chat", readme)
+        self.assertIn("v0.15.0", (ROOT / "CHANGELOG.md").read_text(encoding="utf-8"))
+
     def test_invalid_semver_is_rejected(self):
         with TemporaryDirectory() as tmp:
             root = Path(tmp)

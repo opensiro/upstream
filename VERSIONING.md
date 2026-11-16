@@ -2,11 +2,11 @@
 
 The new [opensiro/upstream](https://github.com/opensiro/upstream) versions its **operating procedure**, not the target project's release, VSM Profile, Skills Methodology, Index assessment, legal mandate, evidence schema or autonomous permission. The active version is [VERSION](VERSION) with [CHANGELOG.md](CHANGELOG.md) and [changes/](changes/) packages.
 
-**Continuity:** [upstream-old CHANGELOG](https://github.com/opensiro/upstream-old/blob/main/CHANGELOG.md) owns historical **v0.1.0–v0.11.0** packages and their real commits. The new repository **prospectively continued at v0.12.0 and is now at v0.14.0**, with a fresh Git history (not cloned commits or retroactive tags). [Migration notes](docs/MIGRATION.md).
+**Continuity:** [upstream-old CHANGELOG](https://github.com/opensiro/upstream-old/blob/main/CHANGELOG.md) owns historical **v0.1.0–v0.11.0** packages and their real commits. The new repository **prospectively continued at v0.12.0 and is now at v0.15.0**, with a fresh Git history (not cloned commits or retroactive tags). [Migration notes](docs/MIGRATION.md).
 
 ## Experimental 0.x rules
 
-- **MINOR** (`0.y.0`): change independently required admission, native evidence, source-fork preparation, external publication, stage or operator workflow. v0.12.0 changed frozen batches to contribution cases; v0.13.0 moves their detailed operational state/history to fork-local metadata, with Upstream as a derived aggregate; v0.14.0 formalizes capability-first `upstream upgrade` and legacy-compatible N-source breadth without frozen batch artifacts.
+- **MINOR** (`0.y.0`): change independently required admission, native evidence, source-fork preparation, external publication, stage or operator workflow. v0.12.0 changed frozen batches to contribution cases; v0.13.0 moves their detailed operational state/history to fork-local metadata, with Upstream as a derived aggregate; v0.14.0 formalizes capability-first `upstream upgrade` and legacy-compatible N-source breadth without frozen batch artifacts; v0.15.0 adds popularity-first source selection and chat-only batch reporting while reusing existing native evidence systems.
 - **PATCH** (`0.y.z`): fix an implementation or documentation mismatch without imposing a newly intended obligation.
 - **MAJOR**: reserve `1.0.0` for an expressly stabilized protocol. Once 1.x, incompatible changes require a major bump.
 - New issues, PRs, source observations, native tests, sessions, dashboard outputs, forks and editorial corrections **do not themselves require a version bump**.

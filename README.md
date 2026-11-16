@@ -20,11 +20,11 @@ If the bootstrap resolves Upstream work here, [`AGENTS.md`](AGENTS.md), [`PROTOC
 
 Upstream is the **operational S1 domain** of [OpenSiro VSM OSS](https://github.com/opensiro/vsm-oss-organization). It coordinates source-backed contributions to external AI harnesses without implementing a second VSM organization.
 
-**Protocol:** [v0.14.0](VERSION) · [How work proceeds](PROTOCOL.md) · [Fork metadata](docs/FORK_METADATA.md) · [Architecture](docs/ARCHITECTURE.md) · [History](CHANGELOG.md) · [Releases](https://github.com/opensiro/upstream/releases)
+**Protocol:** [v0.15.0](VERSION) · [How work proceeds](PROTOCOL.md) · [Fork metadata](docs/FORK_METADATA.md) · [Architecture](docs/ARCHITECTURE.md) · [History](CHANGELOG.md) · [Releases](https://github.com/opensiro/upstream/releases)
 
 ## Releases
 
-[GitHub Releases](https://github.com/opensiro/upstream/releases) publish tagged snapshots of the **Upstream contribution protocol**, not releases of third-party harnesses. The current protocol is [v0.14.0](VERSION); see its [change package](changes/v0.14.0.md), [changelog](CHANGELOG.md), and [versioning rules](VERSIONING.md). A release does **not** certify completion of historical migration, deployed value, external PR acceptance, or VSM autonomy.
+[GitHub Releases](https://github.com/opensiro/upstream/releases) publish tagged snapshots of the **Upstream contribution protocol**, not releases of third-party harnesses. The current protocol is [v0.15.0](VERSION); see its [change package](changes/v0.15.0.md), [changelog](CHANGELOG.md), and [versioning rules](VERSIONING.md). A release does **not** certify completion of historical migration, deployed value, external PR acceptance, or VSM autonomy.
 
 The new repository started its own history with v0.12.0. The predecessor's v0.1.0–v0.11.0 history stays with [upstream-old](https://github.com/opensiro/upstream-old/blob/main/CHANGELOG.md); no tags or GitHub Releases are implied for that old history.
 
@@ -75,6 +75,12 @@ As of **2026-11-16 12:00 UTC**, the **42 distinct original-repository PRs** link
 | `upstream batch [N]` | Separate technical/repair screening mode; it is not an alias for `upgrade` |
 
 All modes are **operator phrases, not executable CLI commands**. Functional opportunity, VSM/Index chronology, need/mechanism/counterfactual/scope, original-work alternative and native benefit must be distinguished. `DORMANT / PAUSE` allows no automatic engineering restart, and outward public third-party communication still requires exact current-conversation owner approval. [v0.14.0 upgrade procedure](PROTOCOL.md#capability-first-upstream-upgrade-new-work-not-historical-batching).
+
+### Popularity priority and batch reporting
+
+For unassigned `upstream upgrade`, inspect **popular original projects first**, primarily by public unique contributor count (stars as an explicitly labeled fallback). Give each eligible project an initial research turn before returning to an already studied one; later attention may grow modestly **linearly with popularity** (1×–2× ranked preference), or use `uniform` rotation on request. Count OpenSiro's actual **independent contribution IDs**, not the number of external replacement PRs, to show prior attention. Neither popularity nor a selected batch creates a quota of patches.
+
+**Batches live in the chat:** `upstream upgrade batch 10` and `upstream batch 10` return source-linked per-project tables and a compact summary in the conversation. Do not create a batch issue, PR, frozen manifest, branch or scheduler just to report research. Reuse existing fork-local `.opensiro/` records and historical native tests. An authorized real improvement may separately update its existing contribution record; `PAUSE` still prevents effectful work. [Protocol](PROTOCOL.md#chat-native-batches-no-per-batch-github-artifacts).
 
 ## Read-only portfolio aggregation
 
