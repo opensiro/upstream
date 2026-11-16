@@ -55,6 +55,14 @@ Fork-level attention: `ACTIVE` / `WATCHING` / `DORMANT` / `ARCHIVED`. These desc
 
 **PR status** is a separate, source-owned observation: `OPEN` (including draft as a qualifier), `MERGED`, `CLOSED_UNMERGED` or `UNKNOWN`. Green tests, a merge or an accepted PR do not alone prove deployed user value. We presently prioritize this simple public PR lifecycle telemetry; no public usefulness score has been established.
 
+## External PR activity (dated snapshot)
+
+![External PR activity calendar](docs/activity.svg)
+
+As of **2026-11-16 12:00 UTC**, the **42 distinct original-repository PRs** linked from 61 migrated improvement records: **11 merged**, **24 open**, **7 closed without merge**, of which **0** have an explicit GitHub `APPROVED` review. These categories are **source-observed PR lifecycle facts**, not independent-improvement counts or deployed-benefit claims.
+
+[Full dated statistics, coverage and on-demand refresh instructions](docs/ACTIVITY.md). The calendar reflects original PR events, not metadata backfill commits; the SVG is a static, manually refreshable view, **not a live counter**.
+
 ## Read-only portfolio aggregation
 
 A **one-shot, read-only** standard-library Python tool now derives a source-linked view from verified `opensiro-contributions/*` forks' `opensiro/meta` branches. It reads `.opensiro/state.json`, `.opensiro/contributions/*.json`, and the **original external repositories' live PR APIs**. Nothing is written back to forks, original PRs or Upstream; no scheduled sync, background service, extra ledger or mandatory maintenance TTL.
@@ -91,4 +99,4 @@ Start from [Organization START_HERE](https://github.com/opensiro/vsm-oss-organiz
 
 Previous batches, issues, original evidence, registries, watcher scripts and protocol through v0.11.0 belong to [opensiro/upstream-old](https://github.com/opensiro/upstream-old). [Migration guide](docs/MIGRATION.md) · [migration programme #2](https://github.com/opensiro/upstream/issues/2).
 
-**Current coverage:** two verified fork-local `.opensiro/` pilot records (Citadel, agent-fleet) and the on-demand read-only aggregation script above. The remaining historical portfolio, live outcome exporter and website sync are **not yet migrated**. Current Organization `verified_external_outcomes` is **unclaimed for this new source**, not zero. No migration percentage or live PR inventory is claimed merely because v0.13.0 docs exist. Old and new evidence must not be silently mixed.
+**Migration status (2026-11-16):** the bounded one-time historical backfill is [closed with a source-linked reconciliation](https://github.com/opensiro/upstream/issues/2): 60 verified fork-local metadata destinations, 61 distinct contribution records, and explicit security/unmapped/skipped exceptions. This does **not** assert exhaustive migration of research-only history. The live outcome exporter and website sync are **not migrated**. Current Organization `verified_external_outcomes` is **unclaimed for this new source**, not zero. No migration percentage or live PR inventory is claimed merely because v0.13.0 docs exist. Old and new evidence must not be silently mixed.
