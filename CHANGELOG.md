@@ -6,7 +6,9 @@
 
 ## Unreleased
 
-**End-to-end `upstream upgrade` completion (unreleased):** a single-source Upgrade now continues from license/source preflight and capability falsification to authorized fork-native code, independent tests and a complete **human-approval-ready external PR package**, without stopping after research or requesting repeated `continue`. Falsified candidates lead to another eligible source within scope; real legal/CLA/DCO, owner `PAUSE`/`STOP`, missing executor and failed native evidence remain fail-closed. **No third-party PR (including draft) or public fork-local proposal is posted without exact current-conversation approval**. Batch research is still chat-scoped; no autonomous background runner is claimed.
+**End-to-end `upstream upgrade` completion (unreleased):** Candidate-local blocks (e.g., personal CLA, missing metadata branch or PAUSE) no longer suffice to stop an unrestricted command: independently eligible alternatives must be considered and the entire-run terminal reason must state coverage, native-test receipts and why further safe work was impossible. Research/screening alone is not a completed Upgrade.
+
+**End-to-end execution contract:** a single-source Upgrade now continues from license/source preflight and capability falsification to authorized fork-native code, independent tests and a complete **human-approval-ready external PR package**, without stopping after research or requesting repeated `continue`. Falsified candidates lead to another eligible source within scope; real legal/CLA/DCO, owner `PAUSE`/`STOP`, missing executor and failed native evidence remain fail-closed. **No third-party PR (including draft) or public fork-local proposal is posted without exact current-conversation approval**. Batch research is still chat-scoped; no autonomous background runner is claimed.
 
 Compatible operating-rule changes accumulate here under review without an automatic SemVer bump for every PR. A coherent owner-approved bundle receives one final version/change package and one verified release, following [VERSIONING.md](VERSIONING.md).
 
