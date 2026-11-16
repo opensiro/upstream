@@ -178,6 +178,48 @@ class ContractTests(unittest.TestCase):
         self.assertIn("NOT A PUBLISHED RELEASE", candidate)
         self.assertIn("Owner agrees", candidate)
 
+    def test_upgrade_provisions_missing_fork_meta_under_actual_authority(self):
+        protocol = (ROOT / "PROTOCOL.md").read_text(encoding="utf-8")
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+        metadata = (ROOT / "docs/FORK_METADATA.md").read_text(encoding="utf-8")
+        architecture = (ROOT / "docs/ARCHITECTURE.md").read_text(
+            encoding="utf-8"
+        )
+        changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+        section = protocol.split(
+            "### Upgrade metadata materialization — missing `opensiro/meta`", 1
+        )[1].split("### License and formalities first", 1)[0]
+        for marker in (
+            "Mandatory for full-cycle",
+            "refs/heads/opensiro/meta",
+            "pinned current fork default-branch commit",
+            "fork=true",
+            "parent.full_name",
+            "independently authorize",
+            "confirmed missing",
+            ".opensiro/state.json",
+            ".opensiro/contributions/<stable-id>.json",
+            "PAUSE",
+            "STOP",
+            "ALLOW",
+            "ACTIVE",
+            "optimistic compare-and-swap",
+            "Read back and require coverage",
+            "read-only aggregator",
+            "Backfill an already published PR without creating another",
+            "META_PROVISIONING_BLOCKED",
+            "batch N",
+        ):
+            self.assertIn(marker, section)
+        self.assertIn("ensure the fork's `opensiro/meta`", protocol)
+        self.assertIn("A confirmed missing fork `opensiro/meta`", readme)
+        self.assertIn("Required `.opensiro/` provisioning", agents)
+        self.assertIn("Materialize on demand during an authorized Upgrade", metadata)
+        self.assertIn("Verified permission to write fork metadata?", architecture)
+        self.assertIn("Upgrade metadata on demand (unreleased)", changelog)
+        self.assertEqual((ROOT / "VERSION").read_text().strip(), "0.16.0")
+
     def test_invalid_semver_is_rejected(self):
         with TemporaryDirectory() as tmp:
             root = Path(tmp)
