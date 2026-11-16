@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "issue_url": "https://github.com/get-bb/bb/issues/5952",
+  "anchor_comment_url": "https://github.com/get-bb/bb/issues/5952#issuecomment-6919385474",
+  "expected_decisions": [
+    "Does the get-bb maintainer accept a scoped worktree archive-safety feature?",
+    "Is xLagerFeuer admitted as an approved contributor under get-bb policy?"
+  ],
+  "relevant_labels": [
+    "enhancement",
+    "threads",
+    "workspaces"
+  ],
+  "baseline": {
+    "state": "open",
+    "labels": [
+      "enhancement",
+      "threads",
+      "workspaces"
+    ],
+    "last_comment_id": 6919385474,
+    "observed_at": "2026-11-16T15:48:20Z"
+  },
+  "last_alert_fingerprint": null
+}
