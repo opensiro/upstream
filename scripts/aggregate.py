@@ -96,6 +96,9 @@ def check_contribution(item, path, original):
         raise ValueError("contribution filename/source mismatch")
     if item.get("work_state") not in STAGES:
         raise ValueError("invalid work_state")
+    if item.get("issue_watch") is not None:
+        from issue_watch import validate_watch
+        validate_watch(item["issue_watch"], original)
     links = item.get("external_prs")
     if not isinstance(links, list) or not all(isinstance(x, str) for x in links):
         raise ValueError("external_prs must be a list of strings")
@@ -239,6 +242,12 @@ def aggregate(client, org=ORGANIZATION, requested=None, only_active=False,
                                       "next_action": item.get("next_action", ""),
                                       "source_revision": item.get("source_revision"),
                                       "record_sha": item_sha,
+                                      "issue_watch": ({
+                                          "issue_url": item["issue_watch"]["issue_url"],
+                                          "status": item["issue_watch"].get("last_observation", {}).get("status", "AWAITING_MAINTAINER_DECISION"),
+                                          "observed_at": item["issue_watch"].get("last_observation", {}).get("checked_at", item["issue_watch"]["baseline"]["observed_at"]),
+                                          "baseline": item["issue_watch"]["baseline"]
+                                      } if item.get("issue_watch") else None),
                                       "external_prs": prs})
             report["forks"].append({"working_fork": repo, "original_repository": parent,
                                     "meta_head_sha": sha, "state_blob_sha": blob_sha,
@@ -260,12 +269,15 @@ def aggregate(client, org=ORGANIZATION, requested=None, only_active=False,
         for record in fork["contributions"]:
             type_counts[record["contribution_type"]] += 1
     coverage["unclassified_legacy"] = type_counts[UNCLASSIFIED_LEGACY]
+    issue_watches = sum(1 for f in report["forks"] for r in f["contributions"]
+                        if r.get("issue_watch") is not None)
     pr_states = {s: 0 for s in PR_STATES}
     for entry in pr_cache.values():
         pr_states[entry["status"]] += 1
     report["summary"] = {
         "forks_with_metadata": len(report["forks"]),
         "independent_contributions": sum(len(f["contributions"]) for f in report["forks"]),
+        "linked_issue_watches": issue_watches,
         "linked_unique_external_prs": len(pr_cache),
         "pr_statuses": pr_states,
         "attention": attention,
@@ -321,6 +333,26 @@ def markdown(report):
                     fork["attention"] + " / " + fork["owner_control"], record["id"],
                     record["contribution_type"], record["work_state"], pr["url"], pr["status"]
                 ])) + " |")
+    watches = [(fork, record) for fork in report["forks"] for record in fork["contributions"]
+               if record.get("issue_watch") is not None]
+    if watches:
+        lines.extend(["", "## External issue decision watching (fork-local observations, not PR outcomes)", "",
+                      "| Fork / contribution | Original issue | Last source-backed status | Last persisted observation | Age at aggregation |",
+                      "| --- | --- | --- | --- | --- |"])
+        for fork, record in watches:
+            watch = record["issue_watch"]
+            at = watch["observed_at"]
+            try:
+                observed = datetime.fromisoformat(at.replace("Z", "+00:00"))
+                now = datetime.fromisoformat(report["generated_at"].replace("Z", "+00:00"))
+                age = max(0, int((now - observed).total_seconds() // 3600))
+                age_text = f"{age}h (persisted; not live)"
+            except (ValueError, TypeError):
+                age_text = "UNKNOWN"
+            lines.append("| " + " | ".join(map(safe, [
+                fork["working_fork"] + " / " + record["id"],
+                watch["issue_url"], watch["status"], at, age_text
+            ])) + " |")
     if report.get("pr_transitions"):
         lines.extend(["", "PR status changes since previous JSON:", ""])
         for item in report["pr_transitions"]:

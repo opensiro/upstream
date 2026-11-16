@@ -10,6 +10,8 @@ Before a real fork exists, Upstream may own one **minimal intake issue** contain
 
 Read [docs/FORK_METADATA.md](docs/FORK_METADATA.md) for the initial JSON contract and authority/branch rules. The original GitHub repository alone owns the actual external PR's open/merge/closure/reviews. Upstream only shows source-linked dated projections.
 
+**External maintainer issue watching:** when an upstream product or PR-admission decision is awaiting source review and no external PR exists, use [fork-local, source-linked `issue_watch`](docs/ISSUE_WATCHING.md) in the *existing* stable contribution, not a new issue/PR ledger or invented `work_state`. Observe original issues/comments/labels with bounded readback and durable cursor-based dedup; never infer publication consent. The watcher is on-demand by default and scheduled only by an explicit opt-in variable and fork-scoped credential. It cannot auto-publish third-party PRs.
+
 ## Research and qualification
 
 1. **Before popularity ranking or deep research**, pin the original source identity/revision and perform the read-only [license-and-formalities preflight](#license-and-formalities-first--human-gate-category). Then check existing behavior, competing PRs and prior evidence links including [upstream-old](https://github.com/opensiro/upstream-old); legal/authority uncertainty is not permission.

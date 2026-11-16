@@ -57,6 +57,8 @@ Fork-level attention: `ACTIVE` / `WATCHING` / `DORMANT` / `ARCHIVED`. These desc
 
 **PR status** is a separate, source-owned observation: `OPEN` (including draft as a qualifier), `MERGED`, `CLOSED_UNMERGED` or `UNKNOWN`. Green tests, a merge or an accepted PR do not alone prove deployed user value. We presently prioritize this simple public PR lifecycle telemetry; no public usefulness score has been established.
 
+**Source-linked issue decision watch:** [issue #22](https://github.com/opensiro/upstream/issues/22) is implemented as optional [fork-local `issue_watch` metadata and a guarded read-only/writable observer](docs/ISSUE_WATCHING.md). It tracks changes in original issue comments/labels/state independently of external PR outcomes; a confirmed change can be committed only with an explicitly authorized fork-scoped token and a non-force CAS. GitHub Actions scheduling is **disabled until an operator opt-in**; no issue watch automatically creates external PRs or proves VSM causality.
+
 ## External PR activity (dated snapshot)
 
 ![External PR activity calendar](docs/activity.svg)

@@ -99,6 +99,8 @@ For assessment-related types include `assessment_pin: {"url": "<immutable Index 
 
 `id` is stable and namespace-safe across frozen batches, historical registry and original/replacement PRs. Do not make one contribution per PR, or one per work session. A contribution can have zero, one or many external PR URLs, including replacements; original and replacement remain one intervention. `work_state` is OpenSiro workflow (e.g. `RESEARCH`, `BUILD`, `READY`, `DELIVERED`, `MAINTENANCE`, `CLOSED_NO_CHANGE`, `CLOSED`, `BLOCKED`), **not** automatic adoption or usefulness. Keep original Index/assessment pins, provenance and precise technical evidence as links to their actual owning sources. The illustrative identifier and source URL above do not attest that those records have migrated.
 
+**Optional source issue watch:** an existing contribution may add the validated `issue_watch` descriptor, anchored to an original issue and an original comment with a source-backed cursor. See [Issue watching](ISSUE_WATCHING.md). Watch observations and decision signals remain separate from `external_prs` and all outcome counts. A new confirmed change adds an attributed append-only event and advances the watch baseline using non-force CAS only when fork owner control permits; no watch automatically posts an external PR.
+
 ### `.opensiro/events/<unique-event-id>.json` — immutable transaction
 
 ```json

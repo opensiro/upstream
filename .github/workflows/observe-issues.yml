@@ -1,0 +1,89 @@
+name: Observe external issue decisions (opt-in)
+
+on:
+  schedule:
+    - cron: "31 */6 * * *"
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: "Persist source-backed alerts in owning fork (requires opt-in and scoped secret)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: upstream-external-issue-watch
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    if: github.event_name == 'workflow_dispatch' || vars.UPSTREAM_ISSUE_WATCH_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify source-native protocol and watcher tests
+        run: |
+          python3 scripts/validate_contract.py
+          python3 -m unittest discover -s tests -v
+      - name: Discover source-linked watches
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          python3 scripts/aggregate.py --no-prs --format json > "$RUNNER_TEMP/issue-watch-portfolio.json"
+      - name: Observe decisions; optionally persist via fork-local CAS
+        env:
+          READ_TOKEN: ${{ github.token }}
+          WRITE_TOKEN: ${{ secrets.OPENSIRO_FORK_WATCH_TOKEN }}
+          ENABLED: ${{ vars.UPSTREAM_ISSUE_WATCH_ENABLED }}
+          EVENT: ${{ github.event_name }}
+          APPLY_INPUT: ${{ inputs.apply }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$EVENT" = "schedule" || "$APPLY_INPUT" = "true" ]]; then
+            if [[ "$ENABLED" != "true" || -z "$WRITE_TOKEN" ]]; then
+              echo "::error::Enable UPSTREAM_ISSUE_WATCH_ENABLED=true and configure a scoped fork-write secret"
+              exit 1
+            fi
+            GH_TOKEN="$WRITE_TOKEN" python3 scripts/issue_watch_batch.py \
+              --portfolio "$RUNNER_TEMP/issue-watch-portfolio.json" \
+              --output "$RUNNER_TEMP/issue-watch-results.json" --apply --allow-fork-write
+          else
+            GH_TOKEN="$READ_TOKEN" python3 scripts/issue_watch_batch.py \
+              --portfolio "$RUNNER_TEMP/issue-watch-portfolio.json" \
+              --output "$RUNNER_TEMP/issue-watch-results.json"
+          fi
+      - name: Operator summary (source links, no outbound PRs)
+        if: always()
+        shell: bash
+        run: |
+          python3 - "$RUNNER_TEMP/issue-watch-results.json" >> "$GITHUB_STEP_SUMMARY" <<'PY_REPORT'
+          import json,sys
+          from pathlib import Path
+          p=Path(sys.argv[1])
+          print("## External issue decision watch")
+          if not p.exists():
+              print("Observation unavailable or failed; no notification claimed.")
+          else:
+              data=json.loads(p.read_text())
+              print(f"Checked {data['checked']}; unknown {data['failures']}; persisted {data['persisted_alerts']}; previews {data['preview_changes']}.")
+              for item in data["observations"]:
+                  links=item.get("source_links") or [item.get("issue_url","")]
+                  print(f"- {item['fork']} / {item['contribution']}: {item['status']}; " +
+                        ("persisted" if item.get("applied") else "read-only") +
+                        "; " + ", ".join(links))
+          PY_REPORT
+      - name: Preserve read-only observations as run artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue-watch-observations
+          path: |
+            ${{ runner.temp }}/issue-watch-portfolio.json
+            ${{ runner.temp }}/issue-watch-results.json
+          if-no-files-found: warn
+          retention-days: 30
