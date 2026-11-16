@@ -55,7 +55,7 @@ class ContractTests(unittest.TestCase):
         agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
-        self.assertEqual(version, "0.15.0")
+        self.assertEqual(version, "0.16.0")
         self.assertIn("unique GitHub contributors", protocol)
         self.assertIn("1× to 2×", protocol)
         self.assertIn("uniform", protocol)
@@ -67,6 +67,34 @@ class ContractTests(unittest.TestCase):
         self.assertIn("chat-scoped reports only", agents)
         self.assertIn("Batches live in the chat", readme)
         self.assertIn("v0.15.0", (ROOT / "CHANGELOG.md").read_text(encoding="utf-8"))
+
+    def test_formalities_first_precedes_popularity_and_routes_human_decisions(self):
+        protocol = (ROOT / "PROTOCOL.md").read_text(encoding="utf-8")
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+        change = (ROOT / "changes/v0.16.0.md").read_text(encoding="utf-8")
+        form = (ROOT / ".github/ISSUE_TEMPLATE/human-gate.yml").read_text(
+            encoding="utf-8"
+        )
+        self.assertLess(protocol.index("### License and formalities first"),
+                        protocol.index("### Default popularity priority"))
+        self.assertIn("LICENSE_REVIEW_REQUIRED", protocol)
+        self.assertIn("SCREENABLE_READ_ONLY", protocol)
+        self.assertIn("HUMAN_GATE_PENDING", protocol)
+        self.assertIn("INSUFFICIENT_EVIDENCE", protocol)
+        self.assertIn("before", change.lower())
+        self.assertIn("read-only", protocol)
+        self.assertIn("availability/access decision", protocol)
+        self.assertIn("not per batch", protocol)
+        self.assertIn("human-gate.yml", readme)
+        self.assertIn("human-gate.yml", agents)
+        self.assertIn("Human gate", form)
+        self.assertIn('title: "[Human gate] "', form)
+        for field in ("original_repository", "gate_type", "source_revision",
+                      "evidence", "decision", "safe_stage", "next"):
+            self.assertIn("id: " + field, form)
+        self.assertIn("Source / fork / runner access or availability", form)
+        self.assertIn("No action by an autonomous executor", form)
 
     def test_invalid_semver_is_rejected(self):
         with TemporaryDirectory() as tmp:

@@ -20,11 +20,11 @@ If the bootstrap resolves Upstream work here, [`AGENTS.md`](AGENTS.md), [`PROTOC
 
 Upstream is the **operational S1 domain** of [OpenSiro VSM OSS](https://github.com/opensiro/vsm-oss-organization). It coordinates source-backed contributions to external AI harnesses without implementing a second VSM organization.
 
-**Protocol:** [v0.15.0](VERSION) · [How work proceeds](PROTOCOL.md) · [Fork metadata](docs/FORK_METADATA.md) · [Architecture](docs/ARCHITECTURE.md) · [History](CHANGELOG.md) · [Releases](https://github.com/opensiro/upstream/releases)
+**Protocol:** [v0.16.0](VERSION) · [How work proceeds](PROTOCOL.md) · [Fork metadata](docs/FORK_METADATA.md) · [Architecture](docs/ARCHITECTURE.md) · [History](CHANGELOG.md) · [Releases](https://github.com/opensiro/upstream/releases)
 
 ## Releases
 
-[GitHub Releases](https://github.com/opensiro/upstream/releases) publish tagged snapshots of the **Upstream contribution protocol**, not releases of third-party harnesses. The current protocol is [v0.15.0](VERSION); see its [change package](changes/v0.15.0.md), [changelog](CHANGELOG.md), and [versioning rules](VERSIONING.md). A release does **not** certify completion of historical migration, deployed value, external PR acceptance, or VSM autonomy.
+[GitHub Releases](https://github.com/opensiro/upstream/releases) publish tagged snapshots of the **Upstream contribution protocol**, not releases of third-party harnesses. The current protocol is [v0.16.0](VERSION); see its [change package](changes/v0.16.0.md), [changelog](CHANGELOG.md), and [versioning rules](VERSIONING.md). A release does **not** certify completion of historical migration, deployed value, external PR acceptance, or VSM autonomy.
 
 The new repository started its own history with v0.12.0. The predecessor's v0.1.0–v0.11.0 history stays with [upstream-old](https://github.com/opensiro/upstream-old/blob/main/CHANGELOG.md); no tags or GitHub Releases are implied for that old history.
 
@@ -75,6 +75,12 @@ As of **2026-11-16 12:00 UTC**, the **42 distinct original-repository PRs** link
 | `upstream batch [N]` | Separate technical/repair screening mode; it is not an alias for `upgrade` |
 
 All modes are **operator phrases, not executable CLI commands**. Functional opportunity, VSM/Index chronology, need/mechanism/counterfactual/scope, original-work alternative and native benefit must be distinguished. `DORMANT / PAUSE` allows no automatic engineering restart, and outward public third-party communication still requires exact current-conversation owner approval. [v0.14.0 upgrade procedure](PROTOCOL.md#capability-first-upstream-upgrade-new-work-not-historical-batching).
+
+### License-first selection and a separate human gate
+
+**Formalities before popularity:** for each new original-source candidate, first read the pinned source and actual license grant/text, contributor policy, CLA/DCO, issue/assignment requirements and available public access evidence. Reuse [the existing read-only historical preflight](https://github.com/opensiro/upstream-old/blob/main/docs/CANDIDATE_INTAKE_PREFLIGHT.md) rather than inventing a new runner. Only then rank sources screenable for **read-only** research by contributors; a license badge or a readable repository is not authorization to modify or publish. A named source bypasses popularity ranking, **not** this first screen.
+
+**Availability and rights requiring a person** are deferred to a distinct [Human gate — license, formalities & availability issue form](https://github.com/opensiro/upstream/issues/new?template=human-gate.yml), with first-party evidence and the exact requested decision. Search and reuse an existing matching request; create an internal issue **only for a real decision that must be tracked**, not for each batch or candidate. Read-only research may proceed where lawful and feasible, but no code/fork/external PR write is implied. Unknown evidence stays `INSUFFICIENT_EVIDENCE`, and `DORMANT / PAUSE` remains effective. [Full preflight order](PROTOCOL.md#license-and-formalities-first--human-gate-category).
 
 ### Popularity priority and batch reporting
 
