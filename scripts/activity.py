@@ -14,7 +14,23 @@ from pathlib import Path
 
 from aggregate import APIError, GitHub, PR_LINK, api
 
-COLORS = ("#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39")
+BASE_CELL = "#eaeef2"
+# Separate intensity scales: an empty stripe is gray, positive activity is typed.
+BAND_COLORS = {
+    "published": (BASE_CELL, "#9be9a8", "#40c463", "#30a14e", "#216e39"),
+    "merged": (BASE_CELL, "#c7dfff", "#8ab4f8", "#1f6feb", "#054da7"),
+    "closed_unmerged": (BASE_CELL, "#ffe1a6", "#f2b84b", "#d29922", "#895700"),
+}
+APPROVAL_COLOR = "#8250df"
+
+
+def band_color(kind, count):
+    """Independent four-level color scale, never mix unlike event types."""
+    if count < 0:
+        raise ValueError("negative event count")
+    if count == 0:
+        return BASE_CELL
+    return BAND_COLORS[kind][1 if count == 1 else 2 if count <= 3 else 3 if count <= 6 else 4]
 
 
 def parse_timestamp(value, label):
@@ -121,12 +137,14 @@ def collect(client, snapshot, observed_at=None):
                 status = "CLOSED_UNMERGED"
                 if not closed or closed > now:
                     raise ValueError("closed PR has no valid closed_at")
-                events.append({"date": closed.date().isoformat(), "type": "closed_unmerged", "url": url})
+                # Add the closure event only after the original GitHub review readback.
             else:
                 raise ValueError("unrecognized original PR status")
             approved_closed = False
             if status == "CLOSED_UNMERGED":
                 approved_closed = review_approval(client, original, number, closed)
+                events.append({"date": closed.date().isoformat(), "type": "closed_unmerged",
+                               "approved": approved_closed, "url": url})
             events.append({"date": created.date().isoformat(), "type": "published", "url": url})
             statuses[status] += 1
             records.append({"url": url, "status": status, "published_at": created.isoformat(),
@@ -169,6 +187,17 @@ def check_complete(report):
         raise ValueError("non-partitioned PR status counts")
     if summary["closed_with_approval_review"] > summary["closed_unmerged"]:
         raise ValueError("approval subset greater than closed count")
+    events = report.get("events", [])
+    kinds = Counter(e.get("type") for e in events)
+    for kind, total in (("published", summary["published"]),
+                        ("merged", summary["merged"]),
+                        ("closed_unmerged", summary["closed_unmerged"])):
+        if kinds[kind] != total:
+            raise ValueError(f"{kind} event count does not match source PR totals")
+    approved_events = sum(bool(e.get("approved")) for e in events
+                          if e.get("type") == "closed_unmerged")
+    if approved_events != summary["closed_with_approval_review"]:
+        raise ValueError("approved closure markers do not match review-derived count")
 
 
 def svg(report, weeks=53):
@@ -176,18 +205,23 @@ def svg(report, weeks=53):
     if not isinstance(weeks, int) or not (4 <= weeks <= 54):
         raise ValueError("weeks must be between 4 and 54")
     end = parse_timestamp(report["observed_at"], "observed_at").date()
-    # GitHub-like weeks run Sunday -> Saturday; the rightmost column contains today.
+    # GitHub-like Sunday-Saturday weeks; rightmost column holds observation day.
     first = end - timedelta(days=7 * (weeks - 1) + ((end.weekday() + 1) % 7))
-    count = Counter(x["date"] for x in report["events"])
-    kinds = {d: Counter(e["type"] for e in report["events"] if e["date"] == d) for d in count}
-    x0, y0, step, size = 57, 92, 14, 11
-    width = x0 + weeks * step + 28
-    height = 240
+    kinds_by_day = {}
+    approvals_by_day = Counter()
+    for event in report["events"]:
+        day = event["date"]
+        kinds_by_day.setdefault(day, Counter())[event["type"]] += 1
+        if event["type"] == "closed_unmerged" and event.get("approved"):
+            approvals_by_day[day] += 1
+    x0, y0, step, size = 57, 100, 18, 15
+    width = x0 + weeks * step + 30
+    height = 304
     summary = report["summary"]
-    text = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" role="img" aria-label="OpenSiro external pull request activity heatmap">',
-            '<style>text{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif;fill:#24292f} .muted{font-size:11px;fill:#57606a} .big{font-size:21px;font-weight:600} .date{font-size:10px;fill:#57606a}</style>',
+    text = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" role="img" aria-label="OpenSiro external pull request activity calendar: green published, blue merged, amber closed unmerged, purple dot approved review">',
+            '<style>text{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif;fill:#24292f} .muted{font-size:11px;fill:#57606a} .date{font-size:10px;fill:#57606a}</style>',
             '<rect width="100%" height="100%" fill="#ffffff"/>',
-            f'<defs><pattern id="days" width="{step}" height="{step}" patternUnits="userSpaceOnUse" patternTransform="translate({x0} {y0})"><rect width="{size}" height="{size}" rx="2" fill="{COLORS[0]}"/></pattern></defs>',
+            f'<defs><pattern id="days" width="{step}" height="{step}" patternUnits="userSpaceOnUse" patternTransform="translate({x0} {y0})"><rect width="{size}" height="{size}" rx="2" fill="{BASE_CELL}"/></pattern></defs>',
             f'<rect x="{x0}" y="{y0}" width="{weeks*step}" height="{7*step}" fill="url(#days)"/>',
             '<text x="16" y="24" font-size="16" font-weight="600">External PR activity · OpenSiro</text>',
             f'<text x="16" y="42" class="muted">UTC · observed {escape(report["observed_at"])} · {report["metadata_forks"]} verified metadata forks · {report["independent_contributions"]} improvements</text>']
@@ -199,30 +233,53 @@ def svg(report, weeks=53):
         text.append(f'<text x="{x:.1f}" y="64" font-size="13" font-weight="600">{value}</text>')
         text.append(f'<text x="{x:.1f}" y="78" class="date">{escape(title)}</text>')
     for weekday, lbl in ((1, "Mon"), (3, "Wed"), (5, "Fri")):
-        text.append(f'<text x="16" y="{y0+weekday*step+9}" class="date">{lbl}</text>')
+        text.append(f'<text x="16" y="{y0 + weekday*step + 11}" class="date">{lbl}</text>')
     last_month = None
     for w in range(weeks):
         sunday = first + timedelta(days=7*w)
         if sunday.month != last_month and sunday <= end:
-            text.append(f'<text x="{x0 + w*step}" y="88" class="date">{sunday.strftime("%b")}</text>')
+            text.append(f'<text x="{x0 + w*step}" y="{y0-4}" class="date">{sunday.strftime("%b")}</text>')
             last_month = sunday.month
-        for day in range(7):
-            d = sunday + timedelta(days=day)
-            x = x0 + w*step
-            y = y0 + day*step
-            if d > end:
+        for weekday in range(7):
+            day = sunday + timedelta(days=weekday)
+            if day > end:
                 continue
-            n = count.get(d.isoformat(), 0)
-            if n == 0:
+            key = day.isoformat()
+            counts = kinds_by_day.get(key)
+            if not counts:
                 continue
-            fill = COLORS[1 if n == 1 else 2 if n <= 3 else 3 if n <= 6 else 4]
-            category = kinds.get(d.isoformat(), {})
-            hint = f'{d.isoformat()}: {n} events (published {category.get("published",0)}, merged {category.get("merged",0)}, closed unmerged {category.get("closed_unmerged",0)})'
-            text.append(f'<rect x="{x}" y="{y}" width="{size}" height="{size}" rx="2" fill="{fill}"><title>{escape(hint)}</title></rect>')
-    text.extend(['<text x="16" y="210" class="muted">Each square = published, merged or closed-unmerged PR events on that UTC day; review approval is a subset, not an event.</text>',
-                 '<text x="16" y="228" class="muted">Bounded to metadata-linked PRs, not all historical research or deployed benefit. On-demand snapshot, not live.</text>', '</svg>'])
+            published, merged, closed = (counts["published"], counts["merged"],
+                                         counts["closed_unmerged"])
+            total = published + merged + closed
+            if not total:
+                continue
+            approved = approvals_by_day[key]
+            if approved > closed:
+                raise ValueError(f"{key}: approved closures exceed closures")
+            x, y = x0 + w*step, y0 + weekday*step
+            hint = (f"{key}: {total} events (published {published}, merged {merged}, "
+                    f"closed unmerged {closed}, of closed with APPROVED review {approved})")
+            text.append(f'<g data-date="{key}" data-published="{published}" data-merged="{merged}" data-closed="{closed}" data-approved-closed="{approved}">')
+            text.append(f'<title>{escape(hint)}</title>')
+            text.append(f'<rect x="{x}" y="{y}" width="{size}" height="{size}" rx="2" fill="{BASE_CELL}"/>')
+            for kind, dy in (("published", 1), ("merged", 5.5), ("closed_unmerged", 10)):
+                color = band_color(kind, counts[kind])
+                text.append(f'<rect x="{x+1}" y="{y+dy}" width="{size-2}" height="3.5" rx="1" fill="{color}"/>')
+            if approved:
+                # Approval is a marker on the closed-unmerged stripe, not a fourth event.
+                text.append(f'<circle cx="{x+size-2.5}" cy="{y+size-2.5}" r="2.6" fill="{APPROVAL_COLOR}" stroke="#ffffff" stroke-width=".7"/>')
+            text.append('</g>')
+    legend = [("published", "Published"), ("merged", "Merged"), ("closed_unmerged", "Closed unmerged")]
+    for i, (kind, label) in enumerate(legend):
+        x = 57 + (0 if i == 0 else 146 if i == 1 else 263)
+        text.append(f'<rect x="{x}" y="240" width="16" height="9" rx="2" fill="{band_color(kind, 4)}"/>')
+        text.append(f'<text x="{x+22}" y="248" class="muted">{label}</text>')
+    text.append(f'<circle cx="487" cy="244.5" r="4.5" fill="{APPROVAL_COLOR}"/>')
+    text.append('<text x="500" y="248" class="muted">Closed w/ APPROVED review</text>')
+    text.extend(['<text x="16" y="274" class="muted">Each day is one square: separate stripe intensities represent counts; hover for exact values. Approval is a subset of closed, not another event.</text>',
+                 '<text x="16" y="291" class="muted">Bounded to metadata-linked PRs, not all research or deployed benefit. On-demand snapshot, not live.</text>',
+                 '</svg>'])
     return "\n".join(text) + "\n"
-
 
 def markdown(report):
     check_complete(report)
