@@ -5,6 +5,8 @@
 **Release status:** a protocol version merged to `main` is **not** automatically a published GitHub Release. Check [published Releases](https://github.com/opensiro/upstream/releases). At the 2026-11-16 review, v0.13.0 was the latest published release, and the [v0.16.0 consolidated candidate](docs/RELEASE_CANDIDATE_v0.16.0.md) awaits final owner approval. Individual v0.14–v0.16 history entries below remain valid intermediate main snapshots, not claims of three separate GitHub Releases.
 
 ## Unreleased
+**Resumable Upgrade context handoff (unreleased):** Source-first five-link handoff generation from the existing fork-local schema v2 contribution, pinned metadata/product refs and current owner controls. A forgotten link or lost chat context cannot silently inherit publication approval; explicitly record a later publication STOP, run current-body preview/new structural link checks and preserve the true NOT_CREATED fork-review state. Offline generator and regressions do not create third-party PRs or provide independent GitHub readback/authorization.
+
 
 **Material capability-delta gate before Upgrade coding (unreleased):** Require a source-backed actor/task/outcome, pinned baseline and best workaround, end-to-end measurable new result, VSM mechanism and explicit materiality disposition before qualifying or implementing a feature. Passing native tests, new knobs or VSM relevance alone do not justify public Upgrade PR proposals; failed/uncertain hypotheses remain within the same selected harness. Clarify that `VSM derived & informed only` is a strict filter over existing origin types, not a new enum or causal shortcut.
 
