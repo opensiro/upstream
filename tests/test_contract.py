@@ -32,6 +32,24 @@ class ContractTests(unittest.TestCase):
         self.assertIn("DORMANT", content)
         self.assertIn("opensiro/meta", content)
 
+    def test_capability_upgrade_route_preserves_source_evidence_and_authority(self):
+        protocol = (ROOT / "PROTOCOL.md").read_text(encoding="utf-8")
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+        self.assertIn("upstream upgrade batch N", protocol)
+        self.assertIn("N distinct original harnesses", protocol)
+        self.assertIn("S1/S2/S3/S3*/S4/S5", protocol)
+        self.assertIn("REPAIR_ONLY", protocol)
+        self.assertIn("ASSESSMENT_DERIVED", protocol)
+        self.assertIn("exact current-conversation consent", protocol)
+        self.assertIn("DORMANT", protocol)
+        self.assertIn("PAUSE", protocol)
+        self.assertIn("STOP", protocol)
+        self.assertIn("upstream batch [N]", agents)
+        self.assertIn("upstream upgrade batch 10", readme)
+        self.assertIn("not executable CLI commands", readme)
+        self.assertTrue((ROOT / "changes/v0.14.0.md").is_file())
+
     def test_invalid_semver_is_rejected(self):
         with TemporaryDirectory() as tmp:
             root = Path(tmp)
