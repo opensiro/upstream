@@ -50,65 +50,71 @@ class ContractTests(unittest.TestCase):
         self.assertIn("not executable CLI commands", readme)
         self.assertTrue((ROOT / "changes/v0.14.0.md").is_file())
 
-    def test_single_upgrade_targets_implemented_pr_ready_handoff(self):
+    def test_single_upgrade_one_source_fork_local_pr_and_publication_boundary(self):
         protocol = (ROOT / "PROTOCOL.md").read_text(encoding="utf-8")
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
         changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+        handoff = (ROOT / "docs/UPGRADE_PR_REVIEW.md").read_text(encoding="utf-8")
         section = protocol.split(
             "### End-to-end single-source Upgrade — finish at human PR approval", 1
         )[1].split("### License and formalities first", 1)[0]
         for expected in (
+            "exactly ONE original harness",
+            "Do not switch to a different original harness",
+            "other opportunities inside that same source",
+            "without intermediate continuation prompts",
             "READY_FOR_HUMAN_PR_APPROVAL",
             "NOT PUBLISHED",
-            "without intermediate continuation prompts",
-            "next independently screenable candidate",
-            "original destination",
-            "baseline",
-            "counterfactual",
-            "native",
-            "diff",
-            "CLA/DCO",
-            "PAUSE",
-            "STOP",
             "NO_QUALIFIED_IMPROVEMENT",
             "BLOCKED_WITH_HANDOFF",
             "EVIDENCE_INSUFFICIENT",
+            "CLA/DCO",
+            "PAUSE/STOP",
+            "original destination/action",
+            "fork-local PR",
+            "opensiro-contributions/<fork>",
+            "exact proposed fork-local destination",
+            "AWAITING_FORK_LOCAL_PR_APPROVAL",
             "current-conversation owner approval",
-            "No original-repository PR or draft PR is posted",
-            "chat-only research/screening",
+            "No cross-harness fallback",
         ):
             self.assertIn(expected, section)
-        self.assertIn("Stay inside the named original source", protocol)
-        self.assertIn("for human approval", readme)
-        self.assertIn("Do not stop after investigation", agents)
-        self.assertIn("human-approval-ready", changelog)
+        self.assertIn("Stay inside the named original source", section)
+        self.assertIn("one-harness, end-to-end engineering route", readme)
+        self.assertIn("never switch to another original", agents)
+        self.assertIn("review PR in the matching", changelog)
+        self.assertIn("Never merge", handoff)
+        self.assertIn("public fork-local PR", handoff)
+        self.assertIn("browser-use/browser-harness PR #1034", handoff)
         self.assertEqual((ROOT / "VERSION").read_text(encoding="utf-8").strip(), "0.16.0")
 
-    def test_upgrade_candidate_local_gates_do_not_terminate_full_cycle(self):
-        protocol = (ROOT / "PROTOCOL.md").read_text(encoding="utf-8")
-        readme = (ROOT / "README.md").read_text(encoding="utf-8")
-        agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
-        changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
-        for marker in (
-            "means the entire engineering cycle",
-            "Execution-ready selection, not research-only ranking",
-            "Single-candidate vs whole-command stop conditions",
-            "Minimum final evidence for a non-ready result",
-            "next independently screenable candidate",
-            "all actually discovered eligible alternatives",
-            "CLA/DCO",
-            "not to every independent source",
-            "SCREENING_COMPLETE",
-            "IMPLEMENTATION_VALIDATED",
-            "READY_FOR_HUMAN_PR_APPROVAL",
-            "current-conversation owner approval",
+    def test_review_gated_ai_disclosure_keeps_verified_assessment_provenance(self):
+        handoff = (ROOT / "docs/UPGRADE_PR_REVIEW.md").read_text(encoding="utf-8")
+        for phrase in (
+            "opensiro-ai-assessment-disclosure:review-gated",
+            "Original source request",
+            "Improvement origin",
+            "VSM assessment (when verified)",
+            "ASSESSMENT_INDEX_SHA",
+            "ASSESSMENT_PATH",
+            "Assessment date",
+            "reviewed_at",
+            "Assessed source revision",
+            "40-character review_ref",
+            "Assessment relationship",
+            "Native validation",
+            "Human/publication status",
+            "GENERAL_UPSTREAM",
+            "ASSESSMENT_DERIVED",
+            "current-conversation",
+            "historical v3",
+            "2026-09-18",
+            "afbcc381b963040c19627d788e40c7e7663171ee",
         ):
-            self.assertIn(marker, protocol)
-        self.assertIn("FULL CYCLE", readme)
-        self.assertIn("not automatically a whole-command STOP", agents)
-        self.assertIn("Candidate-local blocks", changelog)
-        self.assertIn("No original-repository PR or draft PR is posted", protocol)
+            self.assertIn(phrase, handoff)
+        self.assertNotIn("without a separate human approval of this PR", handoff)
+        self.assertIn("does not edit that external PR", handoff)
 
     def test_upgrade_popularity_and_chat_only_batch_policy(self):
         protocol = (ROOT / "PROTOCOL.md").read_text(encoding="utf-8")
@@ -177,48 +183,6 @@ class ContractTests(unittest.TestCase):
         self.assertIn("11 merged / 24 open / 7 closed without merge", candidate)
         self.assertIn("NOT A PUBLISHED RELEASE", candidate)
         self.assertIn("Owner agrees", candidate)
-
-    def test_upgrade_provisions_missing_fork_meta_under_actual_authority(self):
-        protocol = (ROOT / "PROTOCOL.md").read_text(encoding="utf-8")
-        readme = (ROOT / "README.md").read_text(encoding="utf-8")
-        agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
-        metadata = (ROOT / "docs/FORK_METADATA.md").read_text(encoding="utf-8")
-        architecture = (ROOT / "docs/ARCHITECTURE.md").read_text(
-            encoding="utf-8"
-        )
-        changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
-        section = protocol.split(
-            "### Upgrade metadata materialization — missing `opensiro/meta`", 1
-        )[1].split("### License and formalities first", 1)[0]
-        for marker in (
-            "Mandatory for full-cycle",
-            "refs/heads/opensiro/meta",
-            "pinned current fork default-branch commit",
-            "fork=true",
-            "parent.full_name",
-            "independently authorize",
-            "verified 404 for the branch",
-            ".opensiro/state.json",
-            ".opensiro/contributions/<stable-id>.json",
-            "PAUSE",
-            "STOP",
-            "ALLOW",
-            "ACTIVE",
-            "optimistic compare-and-swap",
-            "Read back and require coverage",
-            "read-only aggregator",
-            "Backfill an already published PR without creating another",
-            "META_PROVISIONING_BLOCKED",
-            "batch N",
-        ):
-            self.assertIn(marker, section)
-        self.assertIn("ensure the fork's `opensiro/meta`", protocol)
-        self.assertIn("A confirmed missing fork `opensiro/meta`", readme)
-        self.assertIn("Required `.opensiro/` provisioning", agents)
-        self.assertIn("Materialize on demand during an authorized Upgrade", metadata)
-        self.assertIn("Verified permission to write fork metadata?", architecture)
-        self.assertIn("Upgrade metadata on demand (unreleased)", changelog)
-        self.assertEqual((ROOT / "VERSION").read_text().strip(), "0.16.0")
 
     def test_invalid_semver_is_rejected(self):
         with TemporaryDirectory() as tmp:
