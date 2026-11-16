@@ -37,6 +37,8 @@ class ContractTests(unittest.TestCase):
         protocol = (ROOT / "PROTOCOL.md").read_text(encoding="utf-8")
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+        self.assertIn("contribution_type", agents)
+        self.assertIn("schema_version 2", agents)
         self.assertIn("upstream upgrade batch N", protocol)
         self.assertIn("N distinct original harnesses", protocol)
         self.assertIn("S1/S2/S3/S3*/S4/S5", protocol)

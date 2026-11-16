@@ -11,6 +11,8 @@ from pathlib import Path
 import re
 from urllib.parse import urlsplit
 
+from contribution_classification import ORIGIN_TYPES
+
 LABELS = (
     "Working fork",
     "Implementation branch",
@@ -74,6 +76,12 @@ def validate_pr_links(body: str, stage: str = "new") -> list[str]:
     for label in REQUIRED_DISCLOSURE_FIELDS:
         if field(body, label) is None:
             errors.append(f"{label}: required disclosure field missing")
+
+    origin = field(body, "Improvement origin")
+    if origin is not None:
+        match = re.fullmatch(r"([A-Z_]+)\s+—\s+(.+)", origin)
+        if not match or match.group(1) not in ORIGIN_TYPES or len(match.group(2).strip()) < 12:
+            errors.append("Improvement origin: expected canonical type and a source-backed explanation")
 
     fork_url = linked_url(body, "Working fork", errors)
     fork = None

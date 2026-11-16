@@ -54,6 +54,19 @@ class UpgradePrLinkTests(unittest.TestCase):
     def test_new_pr_requires_all_same_fork_links_and_assessment_provenance(self):
         self.assertEqual(validate_pr_links(example_body(), stage="new"), [])
 
+    def test_origin_type_requires_canonical_value_and_source_explanation(self):
+        invalid = example_body().replace(
+            "**Improvement origin:** GENERAL_UPSTREAM — original source request.",
+            "**Improvement origin:** VSM_DERIVED — guessed from Index."
+        )
+        self.assertTrue(any("Improvement origin" in e for e in validate_pr_links(invalid, "new")))
+        missing_reason = example_body().replace(
+            "**Improvement origin:** GENERAL_UPSTREAM — original source request.",
+            "**Improvement origin:** ASSESSMENT_DERIVED — unknown"
+        )
+        self.assertTrue(any("Improvement origin" in e for e in validate_pr_links(missing_reason, "new")))
+        self.assertEqual(validate_pr_links(example_body(), "new"), [])
+
     def test_missing_review_link_blocks_new_external_publication(self):
         body = example_body("NOT_CREATED — awaiting exact fork-local PR consent")
         self.assertEqual(validate_pr_links(body, stage="preview"), [])
