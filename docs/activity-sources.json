@@ -1,0 +1,1158 @@
+{
+  "schema_version": 1,
+  "source": "opensiro/upstream read-only portfolio projection",
+  "upstream_revision": "28076520f3b9668b20f51fdde25e53dab793ab64",
+  "aggregate_observed_at": "2026-11-16T15:44:26.820035Z",
+  "external_pr_observed_at": "2026-11-16T15:47:58.245297Z",
+  "semantic_fingerprint": "4ac7d9039c138acb538cf5905936c9d58439f8e27f701ecbbc730f39ff230948",
+  "coverage": {
+    "repositories_discovered": 182,
+    "verified_forks": 180,
+    "missing_meta": 117,
+    "included_forks": 63,
+    "filtered_by_attention": 0,
+    "skipped_nonfork": 2,
+    "errors": 0,
+    "scan_complete": true,
+    "unclassified_legacy": 62,
+    "pr_readback": "NOT_REQUESTED",
+    "portfolio_complete": false
+  },
+  "summary": {
+    "published": 43,
+    "merged": 11,
+    "open": 25,
+    "closed_unmerged": 7,
+    "closed_with_approval_review": 0,
+    "unknown": 0
+  },
+  "fork_sources": [
+    {
+      "working_fork": "opensiro-contributions/BESSER-Agentic-Framework",
+      "original_repository": "BESSER-PEARL/BESSER-Agentic-Framework",
+      "meta_head_sha": "b622508acd146c450f849c56cb81063fbea29b37",
+      "state_blob_sha": "e75d768a8ab37ef1be989fe6ef5cfc3055b8dfeb",
+      "contribution_records": [
+        {
+          "id": "besser-state-transition-validation",
+          "record_sha": "c89e51335f4c9e1436a5d3aebf29157af3004050"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/Citadel",
+      "original_repository": "SethGammon/Citadel",
+      "meta_head_sha": "f901eec84994bfd902c9253413474262ad996bd0",
+      "state_blob_sha": "aa5ee90cf8f254b959f96cfd3e886a4e513015b6",
+      "contribution_records": [
+        {
+          "id": "citadel-native-claim-exclusivity",
+          "record_sha": "9fa4bf6bff1c50392dffed53f6282f100b783758"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/Clouds-Coder",
+      "original_repository": "FonaTech/Clouds-Coder",
+      "meta_head_sha": "7c8c997527f0b212073ffac1fdc85ec9e78b00b4",
+      "state_blob_sha": "e06ccacab2bc6fcaeb3448c591f3739a698e812c",
+      "contribution_records": [
+        {
+          "id": "clouds-coder-frozen-revision-retry-guard",
+          "record_sha": "e27e86a1e5f718fd82c96c7c4f4540090653292e"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/DiscoveryRSI",
+      "original_repository": "Gen-Verse/DiscoveryRSI",
+      "meta_head_sha": "d77f9dfa412c8c67f58c2521570230f128e1dd93",
+      "state_blob_sha": "6213920c294157fc8d0b975ec5aabd75ba1eaaa0",
+      "contribution_records": [
+        {
+          "id": "discoveryrsi-campaign-history-integrity",
+          "record_sha": "4a6b2ed4f01d13f0afbe2e6fa6ef999eee653d99"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/ForgeDock",
+      "original_repository": "RapierCraftStudios/ForgeDock",
+      "meta_head_sha": "d9dad70cb0709baa08f8c8906a024c53de40cd0b",
+      "state_blob_sha": "1b66c464cc29932bf249808f4bd37e03c36a909e",
+      "contribution_records": [
+        {
+          "id": "forgedock-issue-stage-reconciliation",
+          "record_sha": "5ac756e29b09c6d0219cc71e330f6340364a915d"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/HarnessDesk",
+      "original_repository": "HarnessDesk/HarnessDesk",
+      "meta_head_sha": "b55bff7baa292ecf9b8adf2a0a76794319ee2cd9",
+      "state_blob_sha": "9acda1eb54634617ddb72b2dfb736b35c9794536",
+      "contribution_records": [
+        {
+          "id": "harnessdesk-1772-tool-gateway-ownership",
+          "record_sha": "4a94cad9219c637dfbccc684b88c6b78619b2341"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/Honey-I-Shrunk-the-Harness",
+      "original_repository": "ayandexyz/Honey-I-Shrunk-the-Harness",
+      "meta_head_sha": "9e647df9f30cbe98982398be34faf7e8416978dd",
+      "state_blob_sha": "3cbedccc7e469df40c7e2bc4608a5c3a37b2bde5",
+      "contribution_records": [
+        {
+          "id": "histh-readonly-delegate-tool-batch",
+          "record_sha": "2199a061c745b3fcc4182f9e2df8c20f71515b1d"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/KnowWork",
+      "original_repository": "knowflow-ai/KnowWork",
+      "meta_head_sha": "00eda09e218dc919b953e6d4ccf030fd54d79875",
+      "state_blob_sha": "bb02b76857703f18b6328129e2a9014dd61df08b",
+      "contribution_records": [
+        {
+          "id": "knowwork-sandbox-multiprocess-ownership",
+          "record_sha": "9412982b5be6615c1199eec145b1f658d012e67c"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/NovaCode",
+      "original_repository": "gczhuang-cmd/NovaCode",
+      "meta_head_sha": "037cf201f0666dd5cb287ce0ccb625f013ece7b3",
+      "state_blob_sha": "aa1982e65d686249493611ab8744c19ebe4c8fa7",
+      "contribution_records": [
+        {
+          "id": "novacode-worktree-cwd-escape",
+          "record_sha": "cb1a0fee0acd2de7eff33aea82d3eb87f57c9ad2"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/Oblivion-agent",
+      "original_repository": "Rohith-s-hub/Oblivion-agent",
+      "meta_head_sha": "423a1d22fdeec369e768c00812bcb348357e2681",
+      "state_blob_sha": "aa9cfed11ac920741beab24c07a6d0855c550c9e",
+      "contribution_records": [
+        {
+          "id": "oblivion-agent-tool-loop",
+          "record_sha": "ef869b8f4850d2bfbf317e0d6bab765b2432b1e0"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/OniRoute_SwarmAgents",
+      "original_repository": "AniruddhaDas1/OniRoute_SwarmAgents",
+      "meta_head_sha": "f0281d3f32212b915a490be0bbe31ffd2bba3b47",
+      "state_blob_sha": "2c43f4a303e47900d19e5989ef38ead6778ebfb8",
+      "contribution_records": [
+        {
+          "id": "oniroute-validation-boundary",
+          "record_sha": "bfd2ee9fc20eb7b6fbb6dba4482b57da72e84685"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/OpenOrbit",
+      "original_repository": "maneja81/OpenOrbit",
+      "meta_head_sha": "2b8ce64a4a394ad7119dd78d84040cecc0f7f35e",
+      "state_blob_sha": "2115eb15d05d9649b0461f5323b811a4b3e9dd8b",
+      "contribution_records": [
+        {
+          "id": "openorbit-approval-boundary-validation",
+          "record_sha": "27158146ef22599598732f8eddf71a34ae21fd34"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/Raven",
+      "original_repository": "EverMind-AI/Raven",
+      "meta_head_sha": "f9c8ed36a7f97d60c548ddd0f0ced468af0663ea",
+      "state_blob_sha": "06085a39cd38f88448020cd7b2238d5e2bb1fab9",
+      "contribution_records": [
+        {
+          "id": "raven-stale-edit-ledger",
+          "record_sha": "1f212262106d46cbd8c4e3fa8ff293e16ac8692a"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/Recuris",
+      "original_repository": "Gen-Verse/Recuris",
+      "meta_head_sha": "86519c4ec850e8c3bace0fb0c68a61c7cef27d5d",
+      "state_blob_sha": "2b7c2c6b01097a8e84d9c666c5ac055a1957e301",
+      "contribution_records": [
+        {
+          "id": "recuris-metaagent-gate-schema",
+          "record_sha": "2f6956ae10ddb793e0d578182378c1c27db2e4bc"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/Revka",
+      "original_repository": "KumihoIO/Revka",
+      "meta_head_sha": "b6338a4dd51166a73617541925fc833e063e5ca9",
+      "state_blob_sha": "fc5206879d9d532bf1494cf599b35bffc7656c59",
+      "contribution_records": [
+        {
+          "id": "revka-workflow-validation-contract",
+          "record_sha": "19d983d9c88b9fa90c36ab18cae7680b7c2736de"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/Spartan",
+      "original_repository": "CorticalComputer/Spartan",
+      "meta_head_sha": "28743d3a6b06368e708f2dd6885aee90a4f44103",
+      "state_blob_sha": "4bf1a0f3b82a28f45b0a30692244fcbfab36cdcc",
+      "contribution_records": [
+        {
+          "id": "spartan-persistence-recovery-contract",
+          "record_sha": "c004ffac3c50b1dcff5d23bdedf356d4d76a6313"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/Wee-Orchestrator",
+      "original_repository": "leprachuan/Wee-Orchestrator",
+      "meta_head_sha": "8656d1143900ae6604384c2b11bde1b004c7be5d",
+      "state_blob_sha": "389af8cc84e65bc9cb88885e7d656195ec8ddd16",
+      "contribution_records": [
+        {
+          "id": "wee-delegation-cancel-cleanup",
+          "record_sha": "0a0bd0117fc4ff9fa8b48fdb083f910b7e05054f"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/activegraph",
+      "original_repository": "yoheinakajima/activegraph",
+      "meta_head_sha": "1f7a8a6b6bc23932026a342a3771f1b42a4ac65c",
+      "state_blob_sha": "d1c0cb8ceffe4e575e1d0ec85549989cd2f07f0c",
+      "contribution_records": [
+        {
+          "id": "activegraph-event-patch-invariants",
+          "record_sha": "b48fcf248b4335c370f7c9813955ea2fbbf6ef64"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/agent-code",
+      "original_repository": "avala-ai/agent-code",
+      "meta_head_sha": "9bc7e3d3c8454587b264ed49e672fab5f7749e2f",
+      "state_blob_sha": "532d63eb764f4c1ba848841d0a2ef3dced918cb1",
+      "contribution_records": [
+        {
+          "id": "agent-code-reviewer",
+          "record_sha": "1e69c907e16f46a3cc4cc1eb6cc5184686c56e80"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/agent-fleet",
+      "original_repository": "chankov/agent-fleet",
+      "meta_head_sha": "62679883f30dc50194bcf47144ae96a5da710d45",
+      "state_blob_sha": "f89f28a728f12b39ba8d0b98a21a3d88644ab704",
+      "contribution_records": [
+        {
+          "id": "agent-fleet-native-lease-contract",
+          "record_sha": "c2aaebc49c04f70ad6807fe4b42e90e746299535"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/agent-harness",
+      "original_repository": "Phoenixrr2113/agent-harness",
+      "meta_head_sha": "e32e2ec22555e0fc6e6227006432943c5b154575",
+      "state_blob_sha": "ca03c9853973c06e956decb2d3153db311245291",
+      "contribution_records": [
+        {
+          "id": "phoenix-agent-harness-budget-admission",
+          "record_sha": "486515fbb7f3b7c043b29a24c6026f21436f9d7d"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/agent-loop",
+      "original_repository": "Onipounds/agent-loop",
+      "meta_head_sha": "4758f73661bec28c4607f058976306912c983d75",
+      "state_blob_sha": "8cc6dc3b71dc1d0a0f8283d91a67d891b903da6f",
+      "contribution_records": [
+        {
+          "id": "agent-loop-numeric-verifier-grounding",
+          "record_sha": "6b2c23bb79044537f5147d2282ca6b977308581e"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/agentUniverse",
+      "original_repository": "agentuniverse-ai/agentUniverse",
+      "meta_head_sha": "1c59062ccdc2cccffb40f362567a9801230b4ad5",
+      "state_blob_sha": "44738fe8f3ba8a46dd690e2874e4ac434184e73f",
+      "contribution_records": [
+        {
+          "id": "agentuniverse-is-unresolved-supervision-halt",
+          "record_sha": "f001cecef534a971cc9b45204b74c5886a3b98bc"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/agentflow",
+      "original_repository": "agentenv/agentflow",
+      "meta_head_sha": "68e84c28a92f27ac7f557befceae494b85551eb1",
+      "state_blob_sha": "a8d1fe3261b2b0d6b4c98c361150c73d444f35f5",
+      "contribution_records": [
+        {
+          "id": "agentflow-s4-failed-optimization-rollback",
+          "record_sha": "d1a4c0f965729b5d090f893aab9e469ab8e6694d"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/ai-native-developer-experience",
+      "original_repository": "jpantsjoha/ai-native-developer-experience",
+      "meta_head_sha": "b200c7559b9f2ebd6f975f3f73959a0c97d40dab",
+      "state_blob_sha": "0e9f3da6fbd0dda4609eeadb1b9c3fbfc3c18d3e",
+      "contribution_records": [
+        {
+          "id": "join-the-team-bootstrap-validation",
+          "record_sha": "24c7f37582cb0f81ab599a2431043fcf521a7360"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/babyai",
+      "original_repository": "mila-iqia/babyai",
+      "meta_head_sha": "44a3e6b15a3db2367fc926a8877bfc33857a3c4b",
+      "state_blob_sha": "1ee3ba38892bd14d72db58b30ea8f569f7383333",
+      "contribution_records": [
+        {
+          "id": "babyai-task-evaluation-input-contract",
+          "record_sha": "297eeb6f5e8811c7f962ccb4d01bac95e26e2a6d"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/bb",
+      "original_repository": "get-bb/bb",
+      "meta_head_sha": "58e850fe50b5a99bb410452267ad4a3e43ad8651",
+      "state_blob_sha": "b1fcd335512570e884eb686fbf7355b0471973be",
+      "contribution_records": [
+        {
+          "id": "getbb-worktree-archive-safety-20261116",
+          "record_sha": "6f250127c05f4dffec9aaa2ac8752a3c7a4ebc0a"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/browser-harness",
+      "original_repository": "browser-use/browser-harness",
+      "meta_head_sha": "f9a4578aa57331292a2053827ec2d42bc592c0a5",
+      "state_blob_sha": "f7f7d096b6a573aaf163fd8b945b64a735c9358c",
+      "contribution_records": [
+        {
+          "id": "browser-harness-exact-target-daemon-preflight",
+          "record_sha": "1b2812a73396bd3b7f6b6e153ff26143b8279ef9"
+        },
+        {
+          "id": "browser-harness-fail-closed-tab-reconnection",
+          "record_sha": "c31b2e8c1795c31d44e5e22d9a94528acf40c306"
+        },
+        {
+          "id": "browser-harness-s1-learned-regulator-reuse",
+          "record_sha": "9454322007e7e6bf3afbe0a2470e8769a7d5edd0"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/code-act",
+      "original_repository": "xingyaoww/code-act",
+      "meta_head_sha": "2e08c822f376e8533ad679e6ae0b6879ddb50f70",
+      "state_blob_sha": "0e4a80806796fba7d167b4b9981a070d6df59043",
+      "contribution_records": [
+        {
+          "id": "codeact-same-session-first-kernel-race",
+          "record_sha": "6a7307382c9e62262fa85e56524afbe111ed9e6f"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/cognee-community",
+      "original_repository": "topoteretes/cognee-community",
+      "meta_head_sha": "9d8a354d2adb4459394f113a488db776cf55b3bd",
+      "state_blob_sha": "ef587912ea64017281c607fbd57bb259f442c9e9",
+      "contribution_records": [
+        {
+          "id": "cognee-vsm-index-source-connector",
+          "record_sha": "fef6ac8e353aea0046a37db9fcbab4ff817a04e5"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/crewdeck",
+      "original_repository": "mnbresearch/crewdeck",
+      "meta_head_sha": "c56ccbc9912da25981fd642444063383344ffc54",
+      "state_blob_sha": "63c2ea20e7e619fccc019641b9146d52b9a5846f",
+      "contribution_records": [
+        {
+          "id": "crewdeck-s2-manual-claim-admission",
+          "record_sha": "661d8a257690c7aaceaeaa07a8e828720eb838a4"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/cubeloop",
+      "original_repository": "cubeplexai/cubeloop",
+      "meta_head_sha": "3bbc5ebf3697995fe49afef6fd4e9d187bd9be2e",
+      "state_blob_sha": "01a67d7342fb86210fa13895f31258ec11bae3d4",
+      "contribution_records": [
+        {
+          "id": "cubeloop-checkpointer-session-integrity",
+          "record_sha": "7dfcaa5caf5f42d19aa00ac88b2528f2ce1cf4a2"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/dark-factory",
+      "original_repository": "ruslantrachuk/dark-factory",
+      "meta_head_sha": "6f7313d983772f6a1a378374d5b1e503080c8d6a",
+      "state_blob_sha": "145526240ef0c6fc325e7d0ed9b5f668be2c7674",
+      "contribution_records": [
+        {
+          "id": "dark-factory-s2-wave-disjointness",
+          "record_sha": "a6b61013ddd6d7455b29c5744324f5e96e0cce2e"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/dsh-harness-one",
+      "original_repository": "chumingjun/dsh-harness-one",
+      "meta_head_sha": "7745da4eadf5dcaf96424f567e78495a63dff03b",
+      "state_blob_sha": "fc5aff9941acf5f882cde3f73964e866a7e96ea0",
+      "contribution_records": [
+        {
+          "id": "dsh-harness-one-workflow-state",
+          "record_sha": "eb2adf1a35519d5b8cb49ba8495207093273c729"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/durable-agent-runtime",
+      "original_repository": "murilo-bassan/durable-agent-runtime",
+      "meta_head_sha": "b30dad2a79383336bb37c129bc04ac9825fa0c6b",
+      "state_blob_sha": "de07220a60b95ce472228a62db6f47aac56c3ce6",
+      "contribution_records": [
+        {
+          "id": "runloop-reservation-recovery-and-settlement",
+          "record_sha": "ef7bae85077c8d84ad9c466f2061b4fc2cc1218d"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/evidence-gated-scientific-agent",
+      "original_repository": "kstawiski/evidence-gated-scientific-agent",
+      "meta_head_sha": "061fc8dd5c19f26eedd85ee33449ee4cf454022c",
+      "state_blob_sha": "2c48c6fc280092706993c9a668dd82de02f0090f",
+      "contribution_records": [
+        {
+          "id": "evidence-bench-native-evidence-admission",
+          "record_sha": "4e27f1af9f4633bcb15b101cf3971bab790c8905"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/evidenceloom",
+      "original_repository": "simonguo/evidenceloom",
+      "meta_head_sha": "949b5d4c80e0d5699743fed24f3c6fb0f0d9bc7f",
+      "state_blob_sha": "0ba35edddecea4b91a224103c890dda0c7746f63",
+      "contribution_records": [
+        {
+          "id": "evidenceloom-numeric-evidence-validation",
+          "record_sha": "cddbe8de5126e2e378ee92c45b6788bc6bb4bcf7"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/fara",
+      "original_repository": "microsoft/fara",
+      "meta_head_sha": "004f71d3cdb6e8e4f6645bff92d6539a74095ad7",
+      "state_blob_sha": "09bab2633d8669d2ae23d449eea95d9b0c775d44",
+      "contribution_records": [
+        {
+          "id": "fara-native-checkpoint-integrity",
+          "record_sha": "ef3efc8c9f92b31e62fe6fef54df3de5b29b47aa"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/friday",
+      "original_repository": "splashxmoon/friday",
+      "meta_head_sha": "78e8aee612a352cbb6a5fa8b2cca8e72db0b0764",
+      "state_blob_sha": "ed11d9176944f9f7dc2e70ca45f5d32f4cf7f89d",
+      "contribution_records": [
+        {
+          "id": "friday-equivalent-file-claim-alias",
+          "record_sha": "1beae2041c17e6093054304eb3a2d89f194ddf43"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/harness2",
+      "original_repository": "google-research/harness2",
+      "meta_head_sha": "6690d7d01d2cff732ce977823a9b8e79e5e7521e",
+      "state_blob_sha": "1a2ce7515246f29fb6a360619f92c0f041a90179",
+      "contribution_records": [
+        {
+          "id": "harness2-library-persistence-contract",
+          "record_sha": "cc720f6195eb90b72fb798e1f1aa67b4bcf8e4ab"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/henrik-me--agent-harness",
+      "original_repository": "henrik-me/agent-harness",
+      "meta_head_sha": "f78b85f3dab1f22e3d9f1486dc75b942b7612370",
+      "state_blob_sha": "80bff338944f07da134c946331f370a3638f5f5d",
+      "contribution_records": [
+        {
+          "id": "henrik-agent-harness-workboard-claim-guards",
+          "record_sha": "e59f512b69f5a13935a5e2fff5fd6d70fe94599b"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/henterprise",
+      "original_repository": "humbertobellor/henterprise",
+      "meta_head_sha": "99d4ff66dc63a00cfc6c9fbf03917408b96cadde",
+      "state_blob_sha": "53c9ada6b319b11a52b6b5a4e6613e2a1f9bf14f",
+      "contribution_records": [
+        {
+          "id": "henterprise-delegated-coordination-review",
+          "record_sha": "f60d00fc05a8b465da52bc091d1ac3b92ad27084"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/kit",
+      "original_repository": "speakeasy-api/kit",
+      "meta_head_sha": "f9d3b9d26a1dac82aa7372f2ce88d22c868f6cb2",
+      "state_blob_sha": "9553a0128738b3cd1ff8209a7dc6c0f24857db53",
+      "contribution_records": [
+        {
+          "id": "kit-partial-subagent-config",
+          "record_sha": "9c233c4777b8efd968c25b3df68d50e1499faffd"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/kram",
+      "original_repository": "codexmark/kram",
+      "meta_head_sha": "8e11ee6ae98764be48a0092fc2212a3feb49017e",
+      "state_blob_sha": "e6d2cfc2a82c63743f581139f8a43e95756d92e3",
+      "contribution_records": [
+        {
+          "id": "kram-s2-native-edit-atomicity",
+          "record_sha": "2c4025f14a9f3c35da265b205330d1326c52b11b"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/lacp",
+      "original_repository": "0xNyk/lacp",
+      "meta_head_sha": "1338f4186cb71407bfb6955aaea5c6c59f972c1c",
+      "state_blob_sha": "192357eb48e3a1cb8aafbc618b58f4a0cae2c844",
+      "contribution_records": [
+        {
+          "id": "lacp-nested-path-reservation-alias",
+          "record_sha": "b444f75b990e2af99236b22bca5eb1402061f380"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/maref",
+      "original_repository": "maref-org/maref",
+      "meta_head_sha": "a560d8712122e9c6ac1d091cf0088e54d5423b7f",
+      "state_blob_sha": "8e7a59ab9f7e7b7f084e7abea717576fdf6c5ebf",
+      "contribution_records": [
+        {
+          "id": "maref-run-state-boundary",
+          "record_sha": "4ba3fdb1334b87d4ba96115c4dba50cd5b2c73e9"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/marveen",
+      "original_repository": "Szotasz/marveen",
+      "meta_head_sha": "998547f24b6e04efc0b79803b6dbaab56fe3acd4",
+      "state_blob_sha": "05d66f262191141365018b55935329ef737ca6d4",
+      "contribution_records": [
+        {
+          "id": "marveen-owner-gated-skill-adaptation",
+          "record_sha": "a54beaf5ecd6fbb58782c23f001e44ff6298953d"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/matterloop",
+      "original_repository": "huleidada/matterloop",
+      "meta_head_sha": "6799ab091f8f995f85e3af22adeb6afaed316384",
+      "state_blob_sha": "c44744d9a6140e73323a8d66eb9c2158b6cbb086",
+      "contribution_records": [
+        {
+          "id": "matterloop-taskgraph-checkpoint-recovery",
+          "record_sha": "9e808bec38c94afa4b2be8227f56d0749d6b9258"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/oh-my-agent",
+      "original_repository": "first-fluke/oh-my-agent",
+      "meta_head_sha": "13b274f4b722836dd92c691505019896be5868cb",
+      "state_blob_sha": "fc7b664a096142273433e032acfe2f277d5b3f36",
+      "contribution_records": [
+        {
+          "id": "oh-my-agent-governance-policy-owner",
+          "record_sha": "8a78ad91a927f9036a846d9d38ff345cb2e0f8e6"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/oh-my-hermes",
+      "original_repository": "witt3rd/oh-my-hermes",
+      "meta_head_sha": "aa3e65ead508f721ac6eddabf2ce37c27840ae14",
+      "state_blob_sha": "d9cb1de7cdb9551e065df1889d7e0aa8a50924e2",
+      "contribution_records": [
+        {
+          "id": "oh-my-hermes-crossprocess-lock",
+          "record_sha": "b4f5b342604f188a550d98762583e8d64aba162d"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/openclaw",
+      "original_repository": "openclaw/openclaw",
+      "meta_head_sha": "34b8bb6e14c8b6046c47c30ae72b4d2a9e371482",
+      "state_blob_sha": "3b6c7528130972692719fb4de51740438343757c",
+      "contribution_records": [
+        {
+          "id": "openclaw-embedded-mcp-tool-approvals",
+          "record_sha": "d9d44cf91c5dc47cc7ae5b63372754385a88a3a5"
+        },
+        {
+          "id": "openclaw-fallback-model-thinking-defaults",
+          "record_sha": "adbe3886b0f2f5226a8d6e9188538b1a3d385f16"
+        },
+        {
+          "id": "openclaw-workboard-atomic-recheck-197312",
+          "record_sha": "4e7939679c89b60766e03d8a4f42a8e774ecaccb"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/phax",
+      "original_repository": "lbdremy/phax",
+      "meta_head_sha": "d76dc84d0938ea1f49bdf830e6925ab60707c00f",
+      "state_blob_sha": "39cbdf768a7949fb939a09d0ba4c4be426db05ab",
+      "contribution_records": [
+        {
+          "id": "phax-cross-run-overlap-reconciliation",
+          "record_sha": "b1e80349b5266dbad0554e5d48dc276052fc4efb"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/pi-loop-studio-orchestra",
+      "original_repository": "LEO001020/pi-loop-studio-orchestra",
+      "meta_head_sha": "070bdffc937d4496887c0be7886e5e19066dd3d0",
+      "state_blob_sha": "d97508b821f8b24a494f740b048c0d8f6b576daa",
+      "contribution_records": [
+        {
+          "id": "pi-loop-worktree-publication-integrity",
+          "record_sha": "675f1b6254f00a04e244fc2630f59799286bc09a"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/politik",
+      "original_repository": "cordfuse/politik",
+      "meta_head_sha": "8dbf8dd46fc9d52c7f9f5e4f8744aeb0e82a7c31",
+      "state_blob_sha": "710f685282245e9a71dd4f7449f3a622b732d31b",
+      "contribution_records": [
+        {
+          "id": "politik-transaction-denial-return",
+          "record_sha": "5d6e802c1670372dcd745af0ad36bfc5672e2d74"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/reef",
+      "original_repository": "Coral-Bricks-AI/reef",
+      "meta_head_sha": "1050b7e69e7754f7db1985cae98559ceb7a3a8df",
+      "state_blob_sha": "4801f110b7c8da276a2db691e79761c8a8ff7358",
+      "contribution_records": [
+        {
+          "id": "reef-polyp-experiment-queue-contract",
+          "record_sha": "f2228bee34470c7ece9be901c178f54a240f0557"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/reins",
+      "original_repository": "shamspias/reins",
+      "meta_head_sha": "5003ac0ff8cbeb832bc7ffbbf6ef1d29fb12695d",
+      "state_blob_sha": "bdea44787ef98cb15b8b33634be695467b5d250c",
+      "contribution_records": [
+        {
+          "id": "reins-policy-decision-contract",
+          "record_sha": "3b4b8ce0507d3fd3a27eeac57bdb8c83bf145660"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/scion",
+      "original_repository": "GoogleCloudPlatform/scion",
+      "meta_head_sha": "23240199d1225393da777a755c9a164e32634613",
+      "state_blob_sha": "fe294a9fcc2e4e538e4b5623954b37093d65e315",
+      "contribution_records": [
+        {
+          "id": "scion-independent-review-platform-skill",
+          "record_sha": "4329eeab9f768e3a27f9a8afe70cc5eb220a3874"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/shep",
+      "original_repository": "shep-ai/shep",
+      "meta_head_sha": "36feeca339db899dba152687da0af19cf1b491aa",
+      "state_blob_sha": "f43fbf163c302159d53a8dfbd0fe7c7c8a0f1986",
+      "contribution_records": [
+        {
+          "id": "shep-esm-feature-worker-startup",
+          "record_sha": "0c8bb1e8778383b579918bfc65c204c196bd0f30"
+        },
+        {
+          "id": "shep-feature-workcell-coordination",
+          "record_sha": "0054c3197be80f505a623efdb54cfbaff77a51a2"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/starnet",
+      "original_repository": "androoAGI/starnet",
+      "meta_head_sha": "2c3efabd621341be0334baf8ab4e58287940cfda",
+      "state_blob_sha": "76f8879079ffb156d0bb55480b6aac6f920b6fc3",
+      "contribution_records": [
+        {
+          "id": "starnet-live-station-status-tool",
+          "record_sha": "5ae6e00f64e23d4b783a2cf1761f8646930c6d28"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/talktorana--agent-harness",
+      "original_repository": "talktorana/agent-harness",
+      "meta_head_sha": "e9bae8d9affc2cf978c257cb1dd9679e46f7c010",
+      "state_blob_sha": "7902476de1cdb951f1e0c976066beefb54f9d7cd",
+      "contribution_records": [
+        {
+          "id": "talktorana-memory-concurrent-save",
+          "record_sha": "804081f8df942885baae0e514bedd781eed66f7d"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/voly",
+      "original_repository": "voly-codes/voly",
+      "meta_head_sha": "30ae67e553cc1f01769a08079165277373fb763a",
+      "state_blob_sha": "c1c072d9e6a1ed2cd934e16fc4688fe0fcd52458",
+      "contribution_records": [
+        {
+          "id": "voly-unlocked-fallback-lock-error",
+          "record_sha": "d087e0393500e61fd4dec21035328879f03863d0"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/wanman",
+      "original_repository": "chekusu/wanman",
+      "meta_head_sha": "818c4b26d29a39ebffe4de9150186c08cc2a2b6e",
+      "state_blob_sha": "c4f0aaaadd54bab0cbfc95fd547a9849b3df2676",
+      "contribution_records": [
+        {
+          "id": "wanman-task-admission-race",
+          "record_sha": "dd69e58be37b77bdb914bd06638757eb55a4dcc3"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/yoagent",
+      "original_repository": "yologdev/yoagent",
+      "meta_head_sha": "1b997da27548ccd4df3109d707e0ac351f4bf5ed",
+      "state_blob_sha": "b46cb7ba5f685a9bbe45ded37642774a6539b48a",
+      "contribution_records": [
+        {
+          "id": "yoagent-file-alias-lock",
+          "record_sha": "8f866f401e36ddc340ad92911139e7fd413a9278"
+        }
+      ]
+    }
+  ],
+  "external_pr_readbacks": [
+    {
+      "url": "https://github.com/0xNyk/lacp/pull/128",
+      "status": "OPEN",
+      "published_at": "2026-11-10T17:30:53+00:00",
+      "merged_at": null,
+      "closed_at": null,
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/androoAGI/starnet/pull/56",
+      "status": "CLOSED_UNMERGED",
+      "published_at": "2026-09-28T21:15:15+00:00",
+      "merged_at": null,
+      "closed_at": "2026-10-24T15:33:07+00:00",
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/BESSER-PEARL/BESSER-Agentic-Framework/pull/205",
+      "status": "OPEN",
+      "published_at": "2026-10-24T17:45:09+00:00",
+      "merged_at": null,
+      "closed_at": null,
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/browser-use/browser-harness/pull/1034",
+      "status": "OPEN",
+      "published_at": "2026-11-16T13:03:48+00:00",
+      "merged_at": null,
+      "closed_at": null,
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/chankov/agent-fleet/pull/43",
+      "status": "MERGED",
+      "published_at": "2026-10-24T12:33:07+00:00",
+      "merged_at": "2026-10-24T20:47:51+00:00",
+      "closed_at": "2026-10-24T20:47:51+00:00",
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/chekusu/wanman/pull/38",
+      "status": "OPEN",
+      "published_at": "2026-11-10T17:30:18+00:00",
+      "merged_at": null,
+      "closed_at": null,
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/chumingjun/dsh-harness-one/pull/173",
+      "status": "MERGED",
+      "published_at": "2026-10-24T16:25:52+00:00",
+      "merged_at": "2026-10-29T08:17:44+00:00",
+      "closed_at": "2026-10-29T08:17:44+00:00",
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/Coral-Bricks-AI/reef/pull/19",
+      "status": "OPEN",
+      "published_at": "2026-10-24T17:28:03+00:00",
+      "merged_at": null,
+      "closed_at": null,
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/cordfuse/politik/pull/33",
+      "status": "MERGED",
+      "published_at": "2026-10-23T01:18:42+00:00",
+      "merged_at": "2026-11-05T19:01:23+00:00",
+      "closed_at": "2026-11-05T19:01:23+00:00",
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/CorticalComputer/Spartan/pull/1",
+      "status": "OPEN",
+      "published_at": "2026-10-24T17:37:13+00:00",
+      "merged_at": null,
+      "closed_at": null,
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/first-fluke/oh-my-agent/pull/819",
+      "status": "CLOSED_UNMERGED",
+      "published_at": "2026-09-28T16:40:33+00:00",
+      "merged_at": null,
+      "closed_at": "2026-09-28T18:29:00+00:00",
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/FonaTech/Clouds-Coder/pull/50",
+      "status": "OPEN",
+      "published_at": "2026-11-11T20:23:46+00:00",
+      "merged_at": null,
+      "closed_at": null,
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/gczhuang-cmd/NovaCode/pull/1",
+      "status": "OPEN",
+      "published_at": "2026-11-10T16:35:02+00:00",
+      "merged_at": null,
+      "closed_at": null,
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/Gen-Verse/DiscoveryRSI/pull/2",
+      "status": "MERGED",
+      "published_at": "2026-10-23T01:25:19+00:00",
+      "merged_at": "2026-10-30T06:10:37+00:00",
+      "closed_at": "2026-10-30T06:10:37+00:00",
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/Gen-Verse/Recuris/pull/2",
+      "status": "OPEN",
+      "published_at": "2026-10-23T01:33:30+00:00",
+      "merged_at": null,
+      "closed_at": null,
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/GoogleCloudPlatform/scion/pull/2047",
+      "status": "CLOSED_UNMERGED",
+      "published_at": "2026-09-28T18:37:22+00:00",
+      "merged_at": null,
+      "closed_at": "2026-09-28T23:13:22+00:00",
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/huleidada/matterloop/pull/11",
+      "status": "OPEN",
+      "published_at": "2026-10-23T01:28:57+00:00",
+      "merged_at": null,
+      "closed_at": null,
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/humbertobellor/henterprise/pull/1",
+      "status": "CLOSED_UNMERGED",
+      "published_at": "2026-09-23T18:06:24+00:00",
+      "merged_at": null,
+      "closed_at": "2026-10-11T21:10:27+00:00",
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/humbertobellor/henterprise/pull/3",
+      "status": "MERGED",
+      "published_at": "2026-10-08T05:55:42+00:00",
+      "merged_at": "2026-10-08T05:58:08+00:00",
+      "closed_at": "2026-10-08T05:58:08+00:00",
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/knowflow-ai/KnowWork/pull/4",
+      "status": "CLOSED_UNMERGED",
+      "published_at": "2026-11-11T15:03:26+00:00",
+      "merged_at": null,
+      "closed_at": "2026-11-14T10:08:43+00:00",
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/kstawiski/evidence-gated-scientific-agent/pull/9",
+      "status": "OPEN",
+      "published_at": "2026-11-12T00:11:59+00:00",
+      "merged_at": null,
+      "closed_at": null,
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/KumihoIO/Revka/pull/576",
+      "status": "OPEN",
+      "published_at": "2026-11-13T19:39:08+00:00",
+      "merged_at": null,
+      "closed_at": null,
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/lbdremy/phax/pull/205",
+      "status": "CLOSED_UNMERGED",
+      "published_at": "2026-11-11T21:26:50+00:00",
+      "merged_at": null,
+      "closed_at": "2026-11-13T13:50:32+00:00",
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/LEO001020/pi-loop-studio-orchestra/pull/1",
+      "status": "OPEN",
+      "published_at": "2026-10-23T01:37:23+00:00",
+      "merged_at": null,
+      "closed_at": null,
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/microsoft/fara/pull/96",
+      "status": "OPEN",
+      "published_at": "2026-11-11T23:58:47+00:00",
+      "merged_at": null,
+      "closed_at": null,
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/mila-iqia/babyai/pull/128",
+      "status": "OPEN",
+      "published_at": "2026-10-24T17:51:02+00:00",
+      "merged_at": null,
+      "closed_at": null,
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/mnbresearch/crewdeck/pull/1",
+      "status": "OPEN",
+      "published_at": "2026-11-10T16:34:11+00:00",
+      "merged_at": null,
+      "closed_at": null,
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/murilo-bassan/durable-agent-runtime/pull/1",
+      "status": "OPEN",
+      "published_at": "2026-11-11T18:36:26+00:00",
+      "merged_at": null,
+      "closed_at": null,
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/Onipounds/agent-loop/pull/1",
+      "status": "OPEN",
+      "published_at": "2026-10-23T01:22:48+00:00",
+      "merged_at": null,
+      "closed_at": null,
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/Phoenixrr2113/agent-harness/pull/1",
+      "status": "OPEN",
+      "published_at": "2026-10-24T18:18:10+00:00",
+      "merged_at": null,
+      "closed_at": null,
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/Rohith-s-hub/Oblivion-agent/pull/1",
+      "status": "OPEN",
+      "published_at": "2026-10-23T01:10:37+00:00",
+      "merged_at": null,
+      "closed_at": null,
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/ruslantrachuk/dark-factory/pull/106",
+      "status": "MERGED",
+      "published_at": "2026-11-10T16:34:46+00:00",
+      "merged_at": "2026-11-10T16:44:55+00:00",
+      "closed_at": "2026-11-10T16:44:55+00:00",
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/SethGammon/Citadel/pull/366",
+      "status": "MERGED",
+      "published_at": "2026-10-24T12:31:34+00:00",
+      "merged_at": "2026-10-25T21:26:14+00:00",
+      "closed_at": "2026-10-25T21:26:14+00:00",
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/shep-ai/shep/pull/933",
+      "status": "MERGED",
+      "published_at": "2026-10-11T14:40:29+00:00",
+      "merged_at": "2026-10-19T19:24:33+00:00",
+      "closed_at": "2026-10-19T19:24:33+00:00",
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/shep-ai/shep/pull/934",
+      "status": "MERGED",
+      "published_at": "2026-10-12T15:32:46+00:00",
+      "merged_at": "2026-10-19T19:24:22+00:00",
+      "closed_at": "2026-10-19T19:24:22+00:00",
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/splashxmoon/friday/pull/23",
+      "status": "MERGED",
+      "published_at": "2026-11-10T17:30:59+00:00",
+      "merged_at": "2026-11-10T17:47:58+00:00",
+      "closed_at": "2026-11-10T17:47:58+00:00",
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/Szotasz/marveen/pull/1516",
+      "status": "MERGED",
+      "published_at": "2026-09-23T19:49:12+00:00",
+      "merged_at": "2026-09-30T07:41:53+00:00",
+      "closed_at": "2026-09-30T07:41:53+00:00",
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/talktorana/agent-harness/pull/1",
+      "status": "OPEN",
+      "published_at": "2026-11-10T16:34:29+00:00",
+      "merged_at": null,
+      "closed_at": null,
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/topoteretes/cognee-community/pull/434",
+      "status": "OPEN",
+      "published_at": "2026-10-19T22:58:19+00:00",
+      "merged_at": null,
+      "closed_at": null,
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/voly-codes/voly/pull/20",
+      "status": "OPEN",
+      "published_at": "2026-11-13T16:21:59+00:00",
+      "merged_at": null,
+      "closed_at": null,
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/witt3rd/oh-my-hermes/pull/28",
+      "status": "OPEN",
+      "published_at": "2026-11-12T18:44:10+00:00",
+      "merged_at": null,
+      "closed_at": null,
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/xingyaoww/code-act/pull/26",
+      "status": "OPEN",
+      "published_at": "2026-11-11T19:23:07+00:00",
+      "merged_at": null,
+      "closed_at": null,
+      "closed_with_approval_review": false
+    },
+    {
+      "url": "https://github.com/yologdev/yoagent/pull/450",
+      "status": "CLOSED_UNMERGED",
+      "published_at": "2026-11-11T20:35:04+00:00",
+      "merged_at": null,
+      "closed_at": "2026-11-12T15:22:05+00:00",
+      "closed_with_approval_review": false
+    }
+  ],
+  "artifact_sha256": {
+    "docs/activity.svg": "e49dde7de371086e1c08e264649d94152a68561d8894177e7714414bfb1287d7",
+    "docs/ACTIVITY.md": "613e380541ad57e9a79f1fe4db54d4c75696bb3f81684dcb996140b4c00bcee2"
+  },
+  "interpretation": "Metadata-linked PR activity, not historical completeness or verified deployed benefit"
+}

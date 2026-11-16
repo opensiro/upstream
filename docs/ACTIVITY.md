@@ -1,26 +1,24 @@
-# OpenSiro — external PR activity
+# OpenSiro external PR activity
 
-![GitHub-style activity calendar](activity.svg)
+Observed **2026-11-16T15:47:58.245297Z** (UTC). This is a **dated** first-party GitHub readback of PR URLs linked from verified fork-local metadata; not all historical research, not a live service or a benefit KPI.
 
-**Snapshot:** 2026-11-16 12:00 UTC. **Scope:** the 60 verified `opensiro-contributions` fork-local metadata branches and their 61 independently identified improvements. First-party live PR status and review reads were checked for all 42 distinct linked original-repository PR URLs. This is a **dated, bounded view**, not a live GitHub widget or all historical OpenSiro research.
+![External PR activity](activity.svg)
 
-| External PR lifecycle | Count | Interpretation |
-| --- | ---: | --- |
-| **Published** | **42** | Distinct externally opened PR URLs linked by `.opensiro/contributions/*.json` |
-| **Merged** | **11** | Original GitHub PR has a non-null `merged_at` |
-| **Open** | **24** | Original GitHub PR remains open |
-| **Closed without merge** | **7** | Closed PR with no `merged_at`; rejection, withdrawal, replacement and other reasons are not conflated |
-| **Of those 7, with an APPROVED review** | **0** | Subset of closed-unmerged, using original GitHub review objects, not an extra PR-status bucket |
+| PR state / metric | Count |
+| --- | ---: |
+| Published (distinct linked original PR URLs) | **43** |
+| Merged | **11** |
+| Open | **25** |
+| Closed without merge | **7** |
+| Of closed-unmerged: an APPROVED review found | **0** |
 
-**These values are PR counts, not independent-improvement counts.** For example, Henterprise original/replacement PR #1 and #3 are two published PRs for one improvement. Shep #933 and #934 represent two independent improvements. An accepted merge is *not* evidence of deployed product benefit. A review marked `APPROVED` is also not a merge or proof of adoption.
+Coverage: **63** source-verified forks, **68** improvement records, **43** distinct external PR URLs; the first-party PR readback was complete at observation time.
 
-## Reading one square
+**Interpretation:** MERGED is GitHub's actual merged_at, while CLOSED_UNMERGED has no merge. Review APPROVED means an explicit GitHub review object (latest non-comment review per reviewer before close), **not** a merge, maintainer's verbal endorsement, or deployed value. The approved-closed value is **within**, not additional to, closed-unmerged. Replacement PR chains (e.g., Henterprise #1/#3) can create multiple published PRs but still belong to one improvement; all PR URLs are counted once.
 
-A square is one **UTC calendar day**, split into **three horizontal stripes**: **green** = PR published, **blue** = PR merged, **amber** = PR closed without merge. Each stripe becomes darker independently as its event count grows. Gray stripes mean zero for that category. This is not a blended score.
+**Reading one square:** three independent horizontal stripes: green = published, blue = merged, amber = closed without merge. Darker stripe means more events of **that type**, not a combined score. A purple dot marks a closed-unmerged PR whose latest eligible GitHub review was `APPROVED`; it is a subset of closed-unmerged, not an extra event. If none were approved in this snapshot, no purple dots appear. The per-day tooltip is embedded in the SVG; the breakdown table below remains readable when a Markdown renderer does not expose SVG tooltips.
 
-A **purple dot** appears on the closure day if any PR closed without merge has an explicit current `APPROVED` GitHub review. The approved count is a **subset of closed-unmerged**, not an extra event or a claim of deployed value. The current source-backed snapshot has **zero approved closures**, so no purple dots appear on historical squares yet. The SVG contains a detailed title for each date, but GitHub Markdown image renderers may not expose that tooltip; the audit table below preserves exact counts.
-
-On **2026-10-24**, for example, a single square has **8 published**, **1 merged**, **1 closed unmerged**, **0 with APPROVED review**. Those are independent intensities on the same day; no event is moved to the metadata migration date.
+Events use their original UTC publication, merge or closure dates, not metadata migration dates. Source owners remain original GitHub repositories; this file is a disposable derived snapshot. This derived view is refreshed from verified fork metadata and original GitHub PR facts; it is not a migration ledger or automatic external PR observer.
 
 ## Daily event counts (UTC)
 
@@ -44,17 +42,4 @@ On **2026-10-24**, for example, a single square has **8 published**, **1 merged*
 | 2026-11-12 | 2 | 0 | 1 | 0 |
 | 2026-11-13 | 2 | 0 | 1 | 0 |
 | 2026-11-14 | 0 | 0 | 1 | 0 |
-
-## Refresh on demand — no background services
-
-The existing read-only `scripts/aggregate.py` is the source for verified fork metadata, while the new one-shot `scripts/activity.py` independently reads each linked original PR and relevant review API, deduplicates URLs, validates source identity, and renders the dated SVG/report:
-
-```bash
-GH_TOKEN=... python3 scripts/aggregate.py --no-prs --format json > /tmp/opensiro-portfolio.json
-GH_TOKEN=... python3 scripts/activity.py --input /tmp/opensiro-portfolio.json \
-  --svg docs/activity.svg --markdown docs/ACTIVITY.md
-```
-
-The second command **fails closed** if the input scan is partial/attention-filtered or if any original PR/review cannot be read. It does not quietly count API failures as zeros or update the chart with an incomplete total. The render is a static generated artifact: commit the refreshed files manually if desired. There is no cron, Action, daemon, second mutable ledger, web sync, migration restart or extra Organization KPI.
-
-**Coverage limitations:** Only PR URLs actually linked from currently valid public `.opensiro/` metadata are included. The older historical registry, blocked/unmapped work, research-only prototypes, unlinked external PRs and ongoing PR lifecycle beyond the observation timestamp are not automatically counted. For reconciliation and provenance see [closed one-time migration issue #2](https://github.com/opensiro/upstream/issues/2) and [fork metadata contract](FORK_METADATA.md).
+| 2026-11-16 | 1 | 0 | 0 | 0 |
