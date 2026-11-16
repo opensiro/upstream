@@ -1,6 +1,10 @@
 # Upstream contribution-protocol changelog
 
-**Current protocol:** [v0.14.0](VERSION) · [Versioning](VERSIONING.md) · [Migration](docs/MIGRATION.md).
+**Current protocol:** [v0.15.0](VERSION) · [Versioning](VERSIONING.md) · [Migration](docs/MIGRATION.md).
+
+## [0.15.0](changes/v0.15.0.md) — Popularity-first selection and chat-only batch reporting
+
+**Prospective MINOR, 2026-11-16.** Default selections favor original harnesses with more unique GitHub contributors (stars only as a labeled fallback). Initial research coverage is breadth-first, then additional opportunities can receive a modest linear 1×–2× popularity preference or remain uniformly distributed on operator request; no contribution/PR quota. `upstream batch N` and `upstream upgrade batch N` produce **chat reports** without new per-batch issues, PRs, frozen manifests or schedulers. Reuse historical v0.8/v0.9 capability-first native testing, v0.11 fork handoff and independent CI receipts, respecting owner controls and exact external publication consent. [Protocol](PROTOCOL.md#default-popularity-priority--no-contribution-quota).
 
 ## [0.14.0](changes/v0.14.0.md) — Capability-first upstream upgrade
 
