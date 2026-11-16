@@ -4,6 +4,13 @@ on:
   schedule:
     - cron: "17 */6 * * *"
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/refresh-activity.yml'
+      - 'scripts/refresh_dashboard.py'
+      - 'scripts/activity.py'
+      - 'scripts/aggregate.py'
 
 # Source metadata and external PR reads are read-only. The only writes are to
 # a review branch/PR in opensiro/upstream, never to forks or original projects.
