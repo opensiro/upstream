@@ -1,6 +1,10 @@
 # Upstream contribution-protocol changelog
 
-**Current protocol:** [v0.15.0](VERSION) · [Versioning](VERSIONING.md) · [Migration](docs/MIGRATION.md).
+**Current protocol:** [v0.16.0](VERSION) · [Versioning](VERSIONING.md) · [Migration](docs/MIGRATION.md).
+
+## [0.16.0](changes/v0.16.0.md) — License/formalities-first admission, deferred human availability decisions
+
+**Prospective MINOR, 2026-11-16.** Before contributor-popularity ranking, run the existing read-only source-pinned license, CLA/DCO and contributor-formality preflight. Distinguish screenable **read-only** research from unresolved rights/access and insufficient evidence, without auto-granting a license or claiming that GitHub access is cleared. New separate internal **Human gate — license, formalities & availability** issue form records only genuine deduplicated human decisions; chat batches still create no issues/PRs by default. [Protocol](PROTOCOL.md#license-and-formalities-first--human-gate-category).
 
 ## [0.15.0](changes/v0.15.0.md) — Popularity-first selection and chat-only batch reporting
 
