@@ -75,3 +75,21 @@ A scheduled or manually requested write refuses missing switch/secret, partial p
 ## First registration
 
 The existing [OpenClaw fork-local contribution](https://github.com/opensiro-contributions/openclaw/blob/opensiro/meta/.opensiro/contributions/openclaw-fallback-model-thinking-defaults.json) retains `BUILD` and whole-fork `ACTIVE`; its original [issue #147509](https://github.com/openclaw/openclaw/issues/147509) and [authorized request comment](https://github.com/openclaw/openclaw/issues/147509#issuecomment-6919296247) are the sole tracked sources. The [fork-local review PR #1](https://github.com/opensiro-contributions/openclaw/pull/1) is NOT an external original-repo PR. This watched intervention is classified `GENERAL_UPSTREAM`, with Index provenance merely contextual.
+
+
+## bb source issue #5952: read-only watch while owner PAUSE
+
+The [get-bb/bb#5952](https://github.com/get-bb/bb/issues/5952) discussion is linked to the verified [bb contribution](https://github.com/opensiro-contributions/bb/blob/opensiro/meta/.opensiro/contributions/getbb-worktree-archive-safety-20261116.json) and [Upstream human gate #16](https://github.com/opensiro/upstream/issues/16). The source-linked OpenSiro [decision question](https://github.com/get-bb/bb/issues/5952#issuecomment-6919385474) is already published. The fork is **WATCHING / PAUSE**, and has deliberately **not** been granted a new implementation or metadata-write RESUME.
+
+To observe this one case without modifying its immutable owner controls or adding a second contribution, use the reviewed, source-pinned [read-only descriptor](issue-watch-bb-readonly.json):
+
+```bash
+python3 scripts/issue_watch.py \
+  --fork opensiro-contributions/bb \
+  --contribution getbb-worktree-archive-safety-20261116 \
+  --read-only-descriptor docs/issue-watch-bb-readonly.json
+```
+
+This validates the actual fork, original parent, existing contribution identity and exact issue/anchor before reading GitHub. The descriptor is a **static read-only bootstrap**, not new central mutable state and not an alert checkpoint. If the original source changes, read-only results may repeat on later runs until a permitted fork-local event checkpoint is created under fresh owner authorization; do not claim durable dedup for bb while PAUSE. Passing `--apply` alongside `--read-only-descriptor` is prohibited.
+
+The scheduled `observe-issues.yml` now performs **read-only** observations for registered watches (including OpenClaw) and this paused bb case without needing any fork-write secret. A manual **write** still requires `apply=true`, `UPSTREAM_ISSUE_WATCH_ENABLED=true` and `OPENSIRO_FORK_WATCH_TOKEN`, and can never write to bb under PAUSE. GitHub Action logs/artifacts are not direct personal notifications. A new schedule must be **verified as actually enabled/executed on default branch** before reported as running. Existing optional ChatGPT notifications remain separate and are not native Upstream checkpoints.

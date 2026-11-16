@@ -103,6 +103,20 @@ def load_target(client, fork, ident):
             "state": state, "record": record, "path": path}
 
 
+def readonly_descriptor_target(target, descriptor):
+    """Transient source-verified watch for a paused fork; no metadata mutation.
+
+    The descriptor is a read-only bootstrap observation, not a second ledger.
+    Its use never constitutes RESUME, nor an authorized event write.
+    """
+    if target["record"].get("issue_watch") is not None:
+        raise ValueError("registered fork-local issue watch must not be overridden")
+    validate_watch(descriptor, target["original"])
+    view = copy.deepcopy(target)
+    view["record"]["issue_watch"] = copy.deepcopy(descriptor)
+    return view
+
+
 def read_issue(client, original, issue_number, anchor_id):
     path = api(original, "issues/" + str(issue_number))
     issue = client.get(path)
@@ -322,13 +336,20 @@ def main(argv=None):
     parser.add_argument("--allow-fork-write", action="store_true", help="Explicitly authorize bounded fork metadata write")
     parser.add_argument("--actor", default="OpenSiro GitHub Actions issue-watch")
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--read-only-descriptor", type=Path,
+                        help="Transient source-verified watch for PAUSE fork; never modifies metadata")
     args = parser.parse_args(argv)
     token = os.getenv("GH_TOKEN") or os.getenv("GITHUB_TOKEN")
     client = GitHubWriter(token, args.fork) if args.apply and args.allow_fork_write else GitHub(token)
+    if args.apply and args.read_only_descriptor is not None:
+        parser.error("--read-only-descriptor forbids --apply and all fork metadata writes")
     if args.apply and not args.allow_fork_write:
         parser.error("--apply requires --allow-fork-write; no implicit effectful autonomy")
     try:
         target = load_target(client, args.fork, args.contribution)
+        if args.read_only_descriptor is not None:
+            descriptor = json.loads(args.read_only_descriptor.read_text(encoding="utf-8"))
+            target = readonly_descriptor_target(target, descriptor)
         observation = observe(client, target)
         if args.apply and observation["alert"] and observation["status"] != "UNKNOWN":
             result = apply_change(client, target, observation, actor=args.actor)

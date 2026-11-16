@@ -5,6 +5,8 @@
 **Release status:** a protocol version merged to `main` is **not** automatically a published GitHub Release. Check [published Releases](https://github.com/opensiro/upstream/releases). At the 2026-11-16 review, v0.13.0 was the latest published release, and the [v0.16.0 consolidated candidate](docs/RELEASE_CANDIDATE_v0.16.0.md) awaits final owner approval. Individual v0.14–v0.16 history entries below remain valid intermediate main snapshots, not claims of three separate GitHub Releases.
 
 ## Unreleased
+**bb PAUSE-safe issue-watch route (unreleased):** Add a validated transient read-only descriptor for the get-bb/bb archive-safety maintainer decision, without modifying paused fork metadata or creating a second ledger. Enable scheduled read-only observations for bb plus registered Upstream issue watches, retaining separate exact owner gates and fork-scoped opt-in credentials for any metadata-event writes. No personal notification delivery or automatic external PR.
+
 **Resumable Upgrade context handoff (unreleased):** Source-first five-link handoff generation from the existing fork-local schema v2 contribution, pinned metadata/product refs and current owner controls. A forgotten link or lost chat context cannot silently inherit publication approval; explicitly record a later publication STOP, run current-body preview/new structural link checks and preserve the true NOT_CREATED fork-review state. Offline generator and regressions do not create third-party PRs or provide independent GitHub readback/authorization.
 
 

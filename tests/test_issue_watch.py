@@ -9,7 +9,8 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 from aggregate import APIError, aggregate
-from issue_watch import (validate_watch, load_target, observe, apply_change, GitHubWriter)
+from issue_watch import (validate_watch, load_target, observe, apply_change, GitHubWriter,
+                         readonly_descriptor_target)
 
 FORK = "opensiro-contributions/openclaw"
 ORIGINAL = "openclaw/openclaw"
@@ -257,3 +258,47 @@ class IssueWatchTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class PausedBBReadOnlyTests(unittest.TestCase):
+    def bb_case(self):
+        path = ROOT / "docs" / "issue-watch-bb-readonly.json"
+        descriptor = json.loads(path.read_text())
+        target = {"fork": "opensiro-contributions/bb",
+                  "id": "getbb-worktree-archive-safety-20261116",
+                  "original": "get-bb/bb",
+                  "state": {"owner_control": "PAUSE", "attention": "WATCHING"},
+                  "record": {"id": "getbb-worktree-archive-safety-20261116",
+                             "work_state": "BLOCKED", "original_repository": "get-bb/bb"}}
+        return target, descriptor
+
+    def test_paused_bb_can_be_observed_without_changing_original_metadata(self):
+        target, descriptor = self.bb_case()
+        preview = readonly_descriptor_target(target, descriptor)
+        self.assertEqual(preview["record"]["issue_watch"], descriptor)
+        self.assertEqual(preview["state"]["owner_control"], "PAUSE")
+        self.assertEqual(preview["record"]["work_state"], "BLOCKED")
+        self.assertNotIn("issue_watch", target["record"])
+        self.assertIsNot(preview["record"], target["record"])
+        self.assertEqual(validate_watch(descriptor, "get-bb/bb"),
+                         ("get-bb/bb", 5952, 6919385474))
+
+    def test_wrong_source_descriptor_fails_closed(self):
+        target, descriptor = self.bb_case()
+        descriptor["issue_url"] = ISSUE
+        with self.assertRaises(ValueError):
+            readonly_descriptor_target(target, descriptor)
+
+    def test_cannot_override_existing_registered_watch(self):
+        target, descriptor = self.bb_case()
+        target["record"]["issue_watch"] = descriptor
+        with self.assertRaisesRegex(ValueError, "must not be overridden"):
+            readonly_descriptor_target(target, descriptor)
+
+    def test_workflow_uses_read_only_schedule_and_requires_optin_for_write(self):
+        content=(ROOT/".github/workflows/observe-issues.yml").read_text()
+        self.assertIn("if [[ \"$APPLY_INPUT\" = \"true\" ]]", content)
+        self.assertIn("--read-only-descriptor docs/issue-watch-bb-readonly.json", content)
+        self.assertNotIn('if [[ "$EVENT" = "schedule" ||', content)
+        self.assertIn("vars.UPSTREAM_ISSUE_WATCH_ENABLED", content)
+        self.assertIn("OPENSIRO_FORK_WATCH_TOKEN", content)
