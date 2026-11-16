@@ -294,7 +294,21 @@ def markdown(report):
              f"| Of closed-unmerged: an APPROVED review found | **{s['closed_with_approval_review']}** |", "",
              f"Coverage: **{report['metadata_forks']}** source-verified forks, **{report['independent_contributions']}** improvement records, **{report['total_linked_prs']}** distinct external PR URLs; the first-party PR readback was complete at observation time.", "",
              "**Interpretation:** MERGED is GitHub's actual merged_at, while CLOSED_UNMERGED has no merge. Review APPROVED means an explicit GitHub review object (latest non-comment review per reviewer before close), **not** a merge, maintainer's verbal endorsement, or deployed value. The approved-closed value is **within**, not additional to, closed-unmerged. Replacement PR chains (e.g., Henterprise #1/#3) can create multiple published PRs but still belong to one improvement; all PR URLs are counted once.", "",
-             "The graph counts PR lifecycle events on their original UTC dates: publication, merge and closure without merge. It does not date all historical work by the metadata migration day. Source owners remain original GitHub repositories; this file is a disposable derived snapshot. Regenerate with scripts/aggregate.py + scripts/activity.py; do not schedule a migration observer to update it.", ""]
+             "**Reading one square:** three independent horizontal stripes: green = published, blue = merged, amber = closed without merge. Darker stripe means more events of **that type**, not a combined score. A purple dot marks a closed-unmerged PR whose latest eligible GitHub review was `APPROVED`; it is a subset of closed-unmerged, not an extra event. If none were approved in this snapshot, no purple dots appear. The per-day tooltip is embedded in the SVG; the breakdown table below remains readable when a Markdown renderer does not expose SVG tooltips.", "",
+             "Events use their original UTC publication, merge or closure dates, not metadata migration dates. Source owners remain original GitHub repositories; this file is a disposable derived snapshot. Regenerate with scripts/aggregate.py + scripts/activity.py; do not schedule a migration observer to update it.", ""]
+    per_day = {}
+    for event in report["events"]:
+        values = per_day.setdefault(event["date"], Counter())
+        values[event["type"]] += 1
+        if event["type"] == "closed_unmerged" and event.get("approved"):
+            values["approved_closed"] += 1
+    lines.extend(["## Daily event counts (UTC)", "",
+                  "| Date | Published | Merged | Closed unmerged | With APPROVED review |",
+                  "| --- | ---: | ---: | ---: | ---: |"])
+    for day, counts in sorted(per_day.items()):
+        lines.append(f'| {day} | {counts["published"]} | {counts["merged"]} | '
+                     f'{counts["closed_unmerged"]} | {counts["approved_closed"]} |')
+    lines.append("")
     return "\n".join(lines)
 
 
