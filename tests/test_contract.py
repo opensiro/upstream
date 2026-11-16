@@ -95,7 +95,7 @@ class ContractTests(unittest.TestCase):
             "Execution-ready selection, not research-only ranking",
             "Single-candidate vs whole-command stop conditions",
             "Minimum final evidence for a non-ready result",
-            "next independent screenable candidate",
+            "next independently screenable candidate",
             "all actually discovered eligible alternatives",
             "CLA/DCO",
             "not to every independent source",
