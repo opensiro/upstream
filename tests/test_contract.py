@@ -85,6 +85,31 @@ class ContractTests(unittest.TestCase):
         self.assertIn("human-approval-ready", changelog)
         self.assertEqual((ROOT / "VERSION").read_text(encoding="utf-8").strip(), "0.16.0")
 
+    def test_upgrade_candidate_local_gates_do_not_terminate_full_cycle(self):
+        protocol = (ROOT / "PROTOCOL.md").read_text(encoding="utf-8")
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+        changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+        for marker in (
+            "means the entire engineering cycle",
+            "Execution-ready selection, not research-only ranking",
+            "Single-candidate vs whole-command stop conditions",
+            "Minimum final evidence for a non-ready result",
+            "next independently screenable candidate",
+            "all actually discovered eligible alternatives",
+            "CLA/DCO",
+            "not to every independent source",
+            "SCREENING_COMPLETE",
+            "IMPLEMENTATION_VALIDATED",
+            "READY_FOR_HUMAN_PR_APPROVAL",
+            "current-conversation owner approval",
+        ):
+            self.assertIn(marker, protocol)
+        self.assertIn("FULL CYCLE", readme)
+        self.assertIn("not automatically a whole-command STOP", agents)
+        self.assertIn("Candidate-local blocks", changelog)
+        self.assertIn("No original-repository PR or draft PR is posted", protocol)
+
     def test_upgrade_popularity_and_chat_only_batch_policy(self):
         protocol = (ROOT / "PROTOCOL.md").read_text(encoding="utf-8")
         agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
