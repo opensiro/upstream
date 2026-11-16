@@ -50,6 +50,41 @@ class ContractTests(unittest.TestCase):
         self.assertIn("not executable CLI commands", readme)
         self.assertTrue((ROOT / "changes/v0.14.0.md").is_file())
 
+    def test_single_upgrade_targets_implemented_pr_ready_handoff(self):
+        protocol = (ROOT / "PROTOCOL.md").read_text(encoding="utf-8")
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+        changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+        section = protocol.split(
+            "### End-to-end single-source Upgrade — finish at human PR approval", 1
+        )[1].split("### License and formalities first", 1)[0]
+        for expected in (
+            "READY_FOR_HUMAN_PR_APPROVAL",
+            "NOT PUBLISHED",
+            "without intermediate continuation prompts",
+            "next independently screenable candidate",
+            "original destination",
+            "baseline",
+            "counterfactual",
+            "native",
+            "diff",
+            "CLA/DCO",
+            "PAUSE",
+            "STOP",
+            "NO_QUALIFIED_IMPROVEMENT",
+            "BLOCKED_WITH_HANDOFF",
+            "EVIDENCE_INSUFFICIENT",
+            "current-conversation owner approval",
+            "No original-repository PR or draft PR is posted",
+            "chat-only research/screening",
+        ):
+            self.assertIn(expected, section)
+        self.assertIn("Stay inside the named original source", protocol)
+        self.assertIn("human PR approval", readme)
+        self.assertIn("Do not stop after investigation", agents)
+        self.assertIn("human-approval-ready", changelog)
+        self.assertEqual((ROOT / "VERSION").read_text(encoding="utf-8").strip(), "0.16.0")
+
     def test_upgrade_popularity_and_chat_only_batch_policy(self):
         protocol = (ROOT / "PROTOCOL.md").read_text(encoding="utf-8")
         agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
