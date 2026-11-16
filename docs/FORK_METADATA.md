@@ -37,7 +37,7 @@ A verified matching fork can exist **without** `opensiro/meta`; the [full-cycle 
 
 Keep all of this `.opensiro/` data **off** default/product/external PR branches. A previously published PR with missing metadata is handled by source-linked **reconciliation**, never by opening a duplicate PR or attributing the metadata creation date as the original implementation date. This procedure does not override third-party publication consent or fork PAUSE/STOP.
 
-## Minimal proposed v1 contract
+## Fork-local record contract (state/events v1; new contributions v2)
 
 Three JSON objects below specify the planned fork-local storage contract; they are **examples, not receipts for files already written**. A strict validator and live exporter remain tracked implementation work in [migration #2](https://github.com/opensiro/upstream/issues/2). Do not claim that non-existent metadata is live.
 
@@ -63,11 +63,14 @@ Three JSON objects below specify the planned fork-local storage contract; they a
 
 ```json
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "id": "legacy-assessment-2026-11-09-16-dougong",
   "original_repository": "original-owner/harness",
   "legacy_sources": ["https://github.com/opensiro/upstream-old/issues/56"],
   "title": "Concrete user-visible improvement",
+  "contribution_type": "GENERAL_UPSTREAM",
+  "classification_rationale": "This source-native issue documents the need; no earlier Index-first prediction is established.",
+  "classification_evidence": ["https://github.com/original-owner/harness/issues/1"],
   "work_state": "RESEARCH",
   "next_action": "Verify the real source-native need",
   "source_revision": null,
@@ -77,6 +80,22 @@ Three JSON objects below specify the planned fork-local storage contract; they a
   "last_event_id": "2026-11-15T170000Z--event-001"
 }
 ```
+
+
+#### Mandatory contribution origin (new records, schema v2)
+
+Every newly created or materially reclassified `.opensiro/contributions/<id>.json` MUST set `schema_version: 2`, `contribution_type`, `classification_rationale` and `classification_evidence`; run `python3 scripts/contribution_classification.py <file>` from the current Upstream repository BEFORE committing to `opensiro/meta`. The classification is about **how the improvement was discovered**, not whether it is a feature, repair, merged PR or deployed benefit. Use exactly one of the protocol's existing categories:
+
+| Type | Evidence gate |
+| --- | --- |
+| `ASSESSMENT_DERIVED` | An earlier, dated **immutable Index assessment pin** plus an independently dated, pinned pre-implementation hypothesis/prediction receipt; chronological causal claim must be supported. Often called “VSM-derived” informally, but that is **not a second canonical enum**. |
+| `ASSESSMENT_INFORMED` | An exact pinned Index assessment, assessed source SHA and review date, used as context; no claim of an independent prior prediction. |
+| `GENERAL_UPSTREAM` | Original-repository issue/PR and concrete source-native need; an assessment may be linked as context but causal derivation is **not** asserted. |
+| `INSUFFICIENT` | Explicit explanation of unavailable provenance; no invented Index-first chronology or automatic upgrade to a stronger type. |
+
+For assessment-related types include `assessment_pin: {"url": "<immutable Index blob URL>", "reviewed_at": "YYYY-MM-DD", "assessed_source_revision": "<40-hex SHA>"}`; `ASSESSMENT_DERIVED` additionally requires a pinned `prior_prediction_url`, `prior_prediction_date` and `implementation_started_at` (prediction strictly earlier). The validator checks structure; **an operator must still review first-party chronology and meaning**. Do not claim that passing structural validation independently proves causation.
+
+**Legacy compatibility:** the historical imported `schema_version: 1` records may lack classification. Aggregators **must show** `UNCLASSIFIED_LEGACY` and a count; this label is a read-only reporting sentinel, **not an allowed choice for new writes**. Do not silently assign `ASSESSMENT_DERIVED` or `GENERAL_UPSTREAM` to unreviewed legacy evidence. Reclassification requires actual source review, a schema v2 update and an append-only correction event. Existing v1 records must not prevent unrelated read-only aggregation or dashboard updates. No retroactive claim that all historical records were classified.
 
 `id` is stable and namespace-safe across frozen batches, historical registry and original/replacement PRs. Do not make one contribution per PR, or one per work session. A contribution can have zero, one or many external PR URLs, including replacements; original and replacement remain one intervention. `work_state` is OpenSiro workflow (e.g. `RESEARCH`, `BUILD`, `READY`, `DELIVERED`, `MAINTENANCE`, `CLOSED_NO_CHANGE`, `CLOSED`, `BLOCKED`), **not** automatic adoption or usefulness. Keep original Index/assessment pins, provenance and precise technical evidence as links to their actual owning sources. The illustrative identifier and source URL above do not attest that those records have migrated.
 

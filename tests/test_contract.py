@@ -21,7 +21,8 @@ class ContractTests(unittest.TestCase):
         self.assertEqual(len(samples), 3)
         state, contribution, event = samples
         self.assertEqual(state["schema_version"], 1)
-        self.assertEqual(contribution["schema_version"], 1)
+        self.assertEqual(contribution["schema_version"], 2)
+        self.assertEqual(contribution["contribution_type"], "GENERAL_UPSTREAM")
         self.assertEqual(event["schema_version"], 1)
         self.assertEqual(state["working_fork"].split("/")[0], "opensiro-contributions")
         self.assertEqual(contribution["original_repository"], state["original_repository"])

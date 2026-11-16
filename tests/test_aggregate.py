@@ -70,6 +70,8 @@ class AggregatorTests(unittest.TestCase):
         self.assertEqual(result["summary"]["forks_with_metadata"], 1)
         self.assertEqual(result["summary"]["independent_contributions"], 1)
         self.assertEqual(result["summary"]["pr_statuses"]["MERGED"], 1)
+        self.assertEqual(result["summary"]["contribution_types"]["UNCLASSIFIED_LEGACY"], 1)
+        self.assertEqual(result["forks"][0]["contributions"][0]["contribution_type"], "UNCLASSIFIED_LEGACY")
         self.assertEqual(result["forks"][0]["meta_head_sha"], "b" * 40)
         self.assertEqual(result["forks"][0]["attention"], "DORMANT")
         self.assertFalse(result["historical_inventory_complete"])
@@ -78,7 +80,27 @@ class AggregatorTests(unittest.TestCase):
         self.assertTrue(all(not path.startswith(("/write", "/post")) for path in client.seen))
         self.assertIn("MERGED", markdown(result))
         rows = list(csv.reader(io.StringIO(csv_output(result))))
-        self.assertEqual(rows[1][8], "MERGED")
+        self.assertEqual(rows[1][9], "MERGED")
+
+    def test_schema_v2_origin_propagates_without_legacy_guess(self):
+        client = FakeGitHub().add()
+        path = "/repos/opensiro-contributions/Citadel/contents/.opensiro/contributions/citadel-claims.json?ref=" + META_SHA
+        record = json.loads(base64.b64decode(client.routes[path]["content"]))
+        record.update({
+            "schema_version": 2, "contribution_type": "GENERAL_UPSTREAM",
+            "classification_rationale": "A first-party source issue identified a need; no prior Index-first prediction was established.",
+            "classification_evidence": ["https://github.com/SethGammon/Citadel/issues/1"],
+        })
+        client.routes[path] = file_blob(record)
+        report = aggregate(client, requested=["opensiro-contributions/Citadel"], observed_at=TIME)
+        self.assertEqual(report["coverage"]["errors"], 0)
+        self.assertEqual(report["coverage"]["unclassified_legacy"], 0)
+        self.assertEqual(report["summary"]["contribution_types"]["GENERAL_UPSTREAM"], 1)
+        self.assertEqual(report["forks"][0]["contributions"][0]["contribution_type"], "GENERAL_UPSTREAM")
+        self.assertIn("GENERAL_UPSTREAM", markdown(report))
+        rows = list(csv.reader(io.StringIO(csv_output(report))))
+        self.assertEqual(rows[0][6], "contribution_type")
+        self.assertEqual(rows[1][6], "GENERAL_UPSTREAM")
 
     def test_closed_unmerged_and_open_are_distinct(self):
         client = FakeGitHub().add(merged_at=None)
