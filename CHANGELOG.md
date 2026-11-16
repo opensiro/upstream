@@ -7,6 +7,7 @@
 ## Unreleased
 **bb PAUSE-safe issue-watch route (unreleased):** Add a validated transient read-only descriptor for the get-bb/bb archive-safety maintainer decision, without modifying paused fork metadata or creating a second ledger. Enable scheduled read-only observations for bb plus registered Upstream issue watches, retaining separate exact owner gates and fork-scoped opt-in credentials for any metadata-event writes. No personal notification delivery or automatic external PR.
 
+**Dashboard generated-data delivery and public issue watch:** CI publishes validated `docs/activity.*` and `docs/ACTIVITY.md` directly to `main` using a non-force, file-scoped commit instead of recurring PRs. External issue checks run every six hours with a public read-only token and produce no false durable alerts; optional fork-local event/cursor writes continue to require explicit manual opt-in and fork-scoped credentials. No third-party PR publication authority is added.
 **Resumable Upgrade context handoff (unreleased):** Source-first five-link handoff generation from the existing fork-local schema v2 contribution, pinned metadata/product refs and current owner controls. A forgotten link or lost chat context cannot silently inherit publication approval; explicitly record a later publication STOP, run current-body preview/new structural link checks and preserve the true NOT_CREATED fork-review state. Offline generator and regressions do not create third-party PRs or provide independent GitHub readback/authorization.
 
 

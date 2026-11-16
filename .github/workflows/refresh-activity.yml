@@ -12,11 +12,10 @@ on:
       - 'scripts/activity.py'
       - 'scripts/aggregate.py'
 
-# Source metadata and external PR reads are read-only. The only writes are to
-# a review branch/PR in opensiro/upstream, never to forks or original projects.
+# Only the three derived dashboard files may be written to Upstream main.
+# Original repositories and fork-local metadata are read-only.
 permissions:
   contents: write
-  pull-requests: write
 
 concurrency:
   group: upstream-activity-dashboard-refresh
@@ -60,28 +59,6 @@ jobs:
             exit 1
           fi
 
-      - name: Reuse an already-open bot PR as the comparison baseline
-        id: pending
-        env:
-          GH_TOKEN: ${{ github.token }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          branch="automation/activity-dashboard-refresh"
-          pending="$(gh pr list --repo "$GITHUB_REPOSITORY" --base main --head "$branch" \
-            --state open --json number --jq 'length')"
-          echo "exists=$pending" >> "$GITHUB_OUTPUT"
-          if [ "$pending" -gt 1 ]; then
-            echo "::error::Multiple open dashboard refresh PRs; refusing ambiguous update"
-            exit 1
-          fi
-          if [ "$pending" -eq 1 ]; then
-            git fetch --no-tags origin "$branch:refs/remotes/origin/$branch"
-            git restore --source="refs/remotes/origin/$branch" --staged --worktree -- \
-              docs/activity.svg docs/ACTIVITY.md docs/activity-sources.json
-            echo "Comparing against the already-pending dashboard snapshot"
-          fi
-
       - name: Refresh only on source-backed lifecycle changes
         env:
           GH_TOKEN: ${{ github.token }}
@@ -105,60 +82,20 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
-      # Updating an already-open PR's review branch is allowed even when the
-      # repository disallows GITHUB_TOKEN creation of *new* pull requests.
-      # Compare against the fetched remote snapshot, not main, to avoid
-      # timestamp-only churn and preserve human review on the same PR.
-      - name: Update existing review PR branch (never main)
-        if: steps.pending.outputs.exists == '1'
+      # Native tests, scan completeness and original-repository readbacks have
+      # passed. Push a derived-data-only commit without new PR permissions.
+      # Normal non-force Git push rejects concurrent main updates and rulesets.
+      - name: Publish verified snapshot directly to main
         shell: bash
         run: |
           set -euo pipefail
-          branch="automation/activity-dashboard-refresh"
-          old="$(git rev-parse "refs/remotes/origin/$branch")"
-          if git diff --quiet "$old" -- docs/activity.svg docs/ACTIVITY.md docs/activity-sources.json; then
-            echo "Source facts unchanged relative to existing review PR; no commit or push"
+          test "$GITHUB_REF" = "refs/heads/main"
+          test "$(git rev-parse HEAD)" = "$(git ls-remote origin refs/heads/main | cut -f1)"
+          git add -- docs/ACTIVITY.md docs/activity.svg docs/activity-sources.json
+          if git diff --cached --quiet; then
+            echo "Dashboard source facts unchanged; no commit"
             exit 0
           fi
-          git add -- docs/activity.svg docs/ACTIVITY.md docs/activity-sources.json
-          git -c user.name='github-actions[bot]' \
-              -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
-              commit -m "docs(activity): refresh verified external PR activity"
-          git push --force-with-lease="refs/heads/$branch:$old" \
-              origin "HEAD:refs/heads/$branch"
-          echo "Updated existing dashboard review PR branch from pinned base"
-
-      # A repository setting still controls *new* PR creation; do not bypass
-      # that owner gate with alternate credentials or direct commits to main.
-      # GITHUB_TOKEN-created PRs do not retrigger PR CI; unit/contract checks
-      # have already run in this workflow.
-      - name: Create a new review PR only if none is open (never auto-merge)
-        if: steps.pending.outputs.exists == '0'
-        uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676 # v7
-        with:
-          token: ${{ github.token }}
-          base: main
-          branch: automation/activity-dashboard-refresh
-          delete-branch: true
-          add-paths: |
-            docs/activity.svg
-            docs/ACTIVITY.md
-            docs/activity-sources.json
-          commit-message: "docs(activity): refresh external PR lifecycle dashboard"
-          title: "docs(activity): refresh source-verified external PR dashboard"
-          body: |
-            Automated **review-only** update from verified fork-local `.opensiro`
-            records and first-party original-repository GitHub PR/review APIs.
-
-            - Source SHA, readback timestamps, coverage and checksums are in
-              `docs/activity-sources.json`.
-            - GitHub API failures, malformed or attention-filtered scans, and
-              partial PR/review reads fail closed, without a dashboard commit.
-            - No commit is made for a timestamp-only refresh; changed records
-              or original PR lifecycle facts update this same PR branch.
-            - This is bounded PR lifecycle activity, **not** an Organization
-              `verified_external_outcomes` claim or deployed-benefit metric.
-            - Workflow run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-
-            Human review/merge required. No source forks or external PRs modified.
-          draft: false
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m "docs(activity): publish verified snapshot"
+          git push origin HEAD:refs/heads/main
+          echo "Verified derived snapshot published to main (no PR)"

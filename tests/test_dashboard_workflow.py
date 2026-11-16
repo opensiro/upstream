@@ -15,14 +15,17 @@ def git(where, *args, check=True):
 
 
 class DashboardWorkflowTests(unittest.TestCase):
-    def test_one_workflow_can_reuse_existing_review_pr_without_create_permission(self):
+    def test_dashboard_is_only_source_verified_files_nonforce_commit(self):
         text = WORKFLOW.read_text(encoding="utf-8")
-        self.assertIn("id: pending", text)
-        self.assertIn("if: steps.pending.outputs.exists == '1'", text)
-        self.assertIn("if: steps.pending.outputs.exists == '0'", text)
-        self.assertIn("--force-with-lease=", text)
-        self.assertIn("git diff --quiet", text)
-        self.assertNotIn("git push origin HEAD:main", text)
+        self.assertIn("contents: write", text)
+        self.assertNotIn("pull-requests: write", text)
+        self.assertIn("git add -- docs/ACTIVITY.md docs/activity.svg docs/activity-sources.json", text)
+        self.assertIn("git diff --cached --quiet", text)
+        self.assertIn("git push origin HEAD:refs/heads/main", text)
+        self.assertIn("git ls-remote origin refs/heads/main", text)
+        self.assertNotIn("create-pull-request", text)
+        self.assertNotIn("git push --force", text)
+        self.assertNotIn("git add -A", text)
 
     def test_git_diff_detects_real_change_not_restored_review_branch(self):
         with tempfile.TemporaryDirectory() as name:
