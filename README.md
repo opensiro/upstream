@@ -2,9 +2,31 @@
 
 **Find useful improvements. Keep the working history with the harness. View the portfolio in one place.**
 
+## I'm human
+
+- **I don't understand any of this:** [Show me the visual map](https://opensiro.com/vsm.html) — a direct, illustrated introduction to the VSM approach.
+- **Web overview:** [opensiro.com](https://opensiro.com)
+- **How do I contribute?** [Contribute to OpenSiro with AI](https://github.com/opensiro/vsm-oss-organization/blob/main/CONTRIBUTE_WITH_AI.md)
+- **Contribution protocol:** [How Upstream works](PROTOCOL.md)
+- **Published versions:** [GitHub Releases](https://github.com/opensiro/upstream/releases)
+
+You can follow a real improvement from source-backed investigation to an external PR and its observed status without learning the internal OpenSiro control structure. The contribution guide provides a copy-paste route for working with an AI agent.
+
+## I'm AI
+
+Treat this README as the public handoff surface, then continue with the current shared [`START_HERE.md`](https://github.com/opensiro/vsm-oss-organization/blob/main/START_HERE.md). For already tracked work use shared [`TODO.md`](https://github.com/opensiro/vsm-oss-organization/blob/main/TODO.md); for new, unclassified, cross-repository or authority-sensitive work use [`CONTRIBUTOR_START.md`](https://github.com/opensiro/vsm-oss-organization/blob/main/CONTRIBUTOR_START.md).
+
+If the bootstrap resolves Upstream work here, [`AGENTS.md`](AGENTS.md), [`PROTOCOL.md`](PROTOCOL.md), and [`docs/FORK_METADATA.md`](docs/FORK_METADATA.md) govern local contribution workflow. Verified fork-local `.opensiro/` records, original third-party sources, and external PR facts remain authoritative in their respective owners. External-publication consent is required for each specific third-party action; this README grants no additional permission.
+
 Upstream is the **operational S1 domain** of [OpenSiro VSM OSS](https://github.com/opensiro/vsm-oss-organization). It coordinates source-backed contributions to external AI harnesses without implementing a second VSM organization.
 
-**Protocol:** [v0.13.0](VERSION) · [How work proceeds](PROTOCOL.md) · [Fork metadata](docs/FORK_METADATA.md) · [Architecture](docs/ARCHITECTURE.md) · [History](CHANGELOG.md)
+**Protocol:** [v0.13.0](VERSION) · [How work proceeds](PROTOCOL.md) · [Fork metadata](docs/FORK_METADATA.md) · [Architecture](docs/ARCHITECTURE.md) · [History](CHANGELOG.md) · [Releases](https://github.com/opensiro/upstream/releases)
+
+## Releases
+
+[GitHub Releases](https://github.com/opensiro/upstream/releases) publish tagged snapshots of the **Upstream contribution protocol**, not releases of third-party harnesses. The current protocol is [v0.13.0](VERSION); see its [change package](changes/v0.13.0.md), [changelog](CHANGELOG.md), and [versioning rules](VERSIONING.md). A release does **not** certify completion of historical migration, deployed value, external PR acceptance, or VSM autonomy.
+
+The new repository started its own history with v0.12.0. The predecessor's v0.1.0–v0.11.0 history stays with [upstream-old](https://github.com/opensiro/upstream-old/blob/main/CHANGELOG.md); no tags or GitHub Releases are implied for that old history.
 
 ## How it works
 
