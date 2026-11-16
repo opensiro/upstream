@@ -197,7 +197,7 @@ class ContractTests(unittest.TestCase):
             "fork=true",
             "parent.full_name",
             "independently authorize",
-            "confirmed missing",
+            "verified 404 for the branch",
             ".opensiro/state.json",
             ".opensiro/contributions/<stable-id>.json",
             "PAUSE",
