@@ -6,6 +6,8 @@
 
 ## Unreleased
 
+**Material capability-delta gate before Upgrade coding (unreleased):** Require a source-backed actor/task/outcome, pinned baseline and best workaround, end-to-end measurable new result, VSM mechanism and explicit materiality disposition before qualifying or implementing a feature. Passing native tests, new knobs or VSM relevance alone do not justify public Upgrade PR proposals; failed/uncertain hypotheses remain within the same selected harness. Clarify that `VSM derived & informed only` is a strict filter over existing origin types, not a new enum or causal shortcut.
+
 **Dashboard PR reuse under restricted Actions permissions (unreleased):** Reuse an existing review PR by comparing and updating only its dedicated branch with a branch-SHA lease, without a repeated PR-creation API request. A new PR still respects the repository setting and fails closed if Actions creation is disabled; incomplete aggregate scans now print actionable warnings instead of an opaque exit code.
 
 **Mandatory contribution origin classification (unreleased):** Newly authored fork-local improvements use contribution schema v2 with a source-backed `contribution_type`, rationale and links. Preserve the existing `ASSESSMENT_DERIVED` / `ASSESSMENT_INFORMED` / `GENERAL_UPSTREAM` / `INSUFFICIENT` taxonomy; assessment-derived claims require pinned Index-first chronology. Read historical v1 records as explicitly `UNCLASSIFIED_LEGACY` instead of inventing causal attributions. Add validation and regression coverage without breaking the existing Upstream dashboard.
