@@ -3,6 +3,13 @@ name: Observe external issue decisions (scheduled read-only)
 on:
   schedule:
     - cron: "31 */6 * * *"
+  # Exercise the real public read-only API path when watcher code changes.
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/observe-issues.yml'
+      - 'scripts/issue_watch.py'
+      - 'scripts/issue_watch_batch.py'
   workflow_dispatch:
     inputs:
       apply:
@@ -19,7 +26,6 @@ concurrency:
 
 jobs:
   watch:
-    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
