@@ -80,7 +80,7 @@ class ContractTests(unittest.TestCase):
         ):
             self.assertIn(expected, section)
         self.assertIn("Stay inside the named original source", protocol)
-        self.assertIn("human PR approval", readme)
+        self.assertIn("for human approval", readme)
         self.assertIn("Do not stop after investigation", agents)
         self.assertIn("human-approval-ready", changelog)
         self.assertEqual((ROOT / "VERSION").read_text(encoding="utf-8").strip(), "0.16.0")
