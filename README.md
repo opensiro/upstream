@@ -26,6 +26,8 @@ Upstream is the **operational S1 domain** of [OpenSiro VSM OSS](https://github.c
 
 [GitHub Releases](https://github.com/opensiro/upstream/releases) publish tagged snapshots of the **Upstream contribution protocol**, not releases of third-party harnesses. The current protocol is [v0.16.0](VERSION); see its [change package](changes/v0.16.0.md), [changelog](CHANGELOG.md), and [versioning rules](VERSIONING.md). A release does **not** certify completion of historical migration, deployed value, external PR acceptance, or VSM autonomy.
 
+**Release cadence:** protocol changes can accumulate in the [Unreleased changelog](CHANGELOG.md#unreleased) without a new SemVer number for each PR. Only after the owner agrees a complete bundle do we finalize the numbered change package and publish one tag/Release at a verified commit. A `VERSION` on `main` may be newer than the latest **published** Release. For the current combined set, review the [v0.16.0 release candidate](docs/RELEASE_CANDIDATE_v0.16.0.md), which covers the upgrade rules and activity updates since the published v0.13.0 baseline; it is **not yet an approved or published release**.
+
 The new repository started its own history with v0.12.0. The predecessor's v0.1.0–v0.11.0 history stays with [upstream-old](https://github.com/opensiro/upstream-old/blob/main/CHANGELOG.md); no tags or GitHub Releases are implied for that old history.
 
 ## How it works
