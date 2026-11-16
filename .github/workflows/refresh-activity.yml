@@ -1,0 +1,119 @@
+name: Refresh Upstream external PR dashboard
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/refresh-activity.yml'
+      - 'scripts/refresh_dashboard.py'
+      - 'scripts/activity.py'
+      - 'scripts/aggregate.py'
+
+# Source metadata and external PR reads are read-only. The only writes are to
+# a review branch/PR in opensiro/upstream, never to forks or original projects.
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: upstream-activity-dashboard-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Test Upstream protocol, aggregate and activity code
+        run: |
+          python3 scripts/validate_contract.py
+          python3 -m unittest discover -s tests -v
+
+      - name: Read verified fork-local metadata at exact refs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          python3 scripts/aggregate.py --no-prs --format json > "$RUNNER_TEMP/opensiro-portfolio.json"
+
+      - name: Reuse an already-open bot PR as the comparison baseline
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          branch="automation/activity-dashboard-refresh"
+          pending="$(gh pr list --repo "$GITHUB_REPOSITORY" --base main --head "$branch" \
+            --state open --json number --jq 'length')"
+          if [ "$pending" -gt 1 ]; then
+            echo "::error::Multiple open dashboard refresh PRs; refusing ambiguous update"
+            exit 1
+          fi
+          if [ "$pending" -eq 1 ]; then
+            git fetch --no-tags origin "$branch:refs/remotes/origin/$branch"
+            git restore --source="refs/remotes/origin/$branch" --staged --worktree -- \
+              docs/activity.svg docs/ACTIVITY.md docs/activity-sources.json
+            echo "Comparing against the already-pending dashboard snapshot"
+          fi
+
+      - name: Refresh only on source-backed lifecycle changes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          python3 scripts/refresh_dashboard.py \
+            --input "$RUNNER_TEMP/opensiro-portfolio.json" \
+            --svg docs/activity.svg \
+            --markdown docs/ACTIVITY.md \
+            --sources docs/activity-sources.json \
+            --upstream-revision "$(git rev-parse HEAD)" \
+            --audit-output "$RUNNER_TEMP/activity-observation.json"
+
+      - name: Upload exact source/provenance receipts for this run
+        uses: actions/upload-artifact@v4
+        with:
+          name: upstream-activity-observation
+          path: |
+            ${{ runner.temp }}/opensiro-portfolio.json
+            ${{ runner.temp }}/activity-observation.json
+          if-no-files-found: error
+          retention-days: 30
+
+      # Requires repository Settings > Actions > General to allow Actions to
+      # create PRs. If not allowed, the job fails; it never pushes to main.
+      # GITHUB_TOKEN-created PRs do not trigger another pull_request CI run;
+      # this same workflow runs all unit/contract checks before publication.
+      - name: Create or update review PR (never auto-merge)
+        uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676 # v7
+        with:
+          token: ${{ github.token }}
+          base: main
+          branch: automation/activity-dashboard-refresh
+          delete-branch: true
+          add-paths: |
+            docs/activity.svg
+            docs/ACTIVITY.md
+            docs/activity-sources.json
+          commit-message: "docs(activity): refresh external PR lifecycle dashboard"
+          title: "docs(activity): refresh source-verified external PR dashboard"
+          body: |
+            Automated **review-only** update from verified fork-local `.opensiro`
+            records and first-party original-repository GitHub PR/review APIs.
+
+            - Source SHA, readback timestamps, coverage and checksums are in
+              `docs/activity-sources.json`.
+            - GitHub API failures, malformed or attention-filtered scans, and
+              partial PR/review reads fail closed, without a dashboard commit.
+            - No commit is made for a timestamp-only refresh; changed records
+              or original PR lifecycle facts update this same PR branch.
+            - This is bounded PR lifecycle activity, **not** an Organization
+              `verified_external_outcomes` claim or deployed-benefit metric.
+            - Workflow run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+            Human review/merge required. No source forks or external PRs modified.
+          draft: false

@@ -277,7 +277,7 @@ def svg(report, weeks=53):
     text.append(f'<circle cx="487" cy="244.5" r="4.5" fill="{APPROVAL_COLOR}"/>')
     text.append('<text x="500" y="248" class="muted">Closed w/ APPROVED review</text>')
     text.extend(['<text x="16" y="274" class="muted">Each day is one square: separate stripe intensities represent counts; hover for exact values. Approval is a subset of closed, not another event.</text>',
-                 '<text x="16" y="291" class="muted">Bounded to metadata-linked PRs, not all research or deployed benefit. On-demand snapshot, not live.</text>',
+                 '<text x="16" y="291" class="muted">Bounded to metadata-linked PRs, not all research or deployed benefit. Dated snapshot, not live.</text>',
                  '</svg>'])
     return "\n".join(text) + "\n"
 
@@ -285,7 +285,7 @@ def markdown(report):
     check_complete(report)
     s = report["summary"]
     lines = ["# OpenSiro external PR activity", "",
-             f"Observed **{report['observed_at']}** (UTC). This is an **on-demand, dated** first-party GitHub readback of PR URLs linked from verified fork-local metadata; not all historical research, not a live service or a benefit KPI.", "",
+             f"Observed **{report['observed_at']}** (UTC). This is a **dated** first-party GitHub readback of PR URLs linked from verified fork-local metadata; not all historical research, not a live service or a benefit KPI.", "",
              "![External PR activity](activity.svg)", "", "| PR state / metric | Count |", "| --- | ---: |",
              f"| Published (distinct linked original PR URLs) | **{s['published']}** |",
              f"| Merged | **{s['merged']}** |",
@@ -295,7 +295,7 @@ def markdown(report):
              f"Coverage: **{report['metadata_forks']}** source-verified forks, **{report['independent_contributions']}** improvement records, **{report['total_linked_prs']}** distinct external PR URLs; the first-party PR readback was complete at observation time.", "",
              "**Interpretation:** MERGED is GitHub's actual merged_at, while CLOSED_UNMERGED has no merge. Review APPROVED means an explicit GitHub review object (latest non-comment review per reviewer before close), **not** a merge, maintainer's verbal endorsement, or deployed value. The approved-closed value is **within**, not additional to, closed-unmerged. Replacement PR chains (e.g., Henterprise #1/#3) can create multiple published PRs but still belong to one improvement; all PR URLs are counted once.", "",
              "**Reading one square:** three independent horizontal stripes: green = published, blue = merged, amber = closed without merge. Darker stripe means more events of **that type**, not a combined score. A purple dot marks a closed-unmerged PR whose latest eligible GitHub review was `APPROVED`; it is a subset of closed-unmerged, not an extra event. If none were approved in this snapshot, no purple dots appear. The per-day tooltip is embedded in the SVG; the breakdown table below remains readable when a Markdown renderer does not expose SVG tooltips.", "",
-             "Events use their original UTC publication, merge or closure dates, not metadata migration dates. Source owners remain original GitHub repositories; this file is a disposable derived snapshot. Regenerate with scripts/aggregate.py + scripts/activity.py; do not schedule a migration observer to update it.", ""]
+             "Events use their original UTC publication, merge or closure dates, not metadata migration dates. Source owners remain original GitHub repositories; this file is a disposable derived snapshot. This derived view is refreshed from verified fork metadata and original GitHub PR facts; it is not a migration ledger or automatic external PR observer.", ""]
     per_day = {}
     for event in report["events"]:
         values = per_day.setdefault(event["date"], Counter())
