@@ -14,7 +14,36 @@
 
 **These values are PR counts, not independent-improvement counts.** For example, Henterprise original/replacement PR #1 and #3 are two published PRs for one improvement. Shep #933 and #934 represent two independent improvements. An accepted merge is *not* evidence of deployed product benefit. A review marked `APPROVED` is also not a merge or proof of adoption.
 
-The GitHub-like squares represent the number of lifecycle events on each original **UTC day**: PR opened, PR merged, or PR closed without merge. The review approval subset does **not** add another event to a day. The migration date is **not** substituted for historical event dates.
+## Reading one square
+
+A square is one **UTC calendar day**, split into **three horizontal stripes**: **green** = PR published, **blue** = PR merged, **amber** = PR closed without merge. Each stripe becomes darker independently as its event count grows. Gray stripes mean zero for that category. This is not a blended score.
+
+A **purple dot** appears on the closure day if any PR closed without merge has an explicit current `APPROVED` GitHub review. The approved count is a **subset of closed-unmerged**, not an extra event or a claim of deployed value. The current source-backed snapshot has **zero approved closures**, so no purple dots appear on historical squares yet. The SVG contains a detailed title for each date, but GitHub Markdown image renderers may not expose that tooltip; the audit table below preserves exact counts.
+
+On **2026-10-24**, for example, a single square has **8 published**, **1 merged**, **1 closed unmerged**, **0 with APPROVED review**. Those are independent intensities on the same day; no event is moved to the metadata migration date.
+
+## Daily event counts (UTC)
+
+| Date | Published | Merged | Closed unmerged | With APPROVED review |
+| --- | ---: | ---: | ---: | ---: |
+| 2026-09-23 | 2 | 0 | 0 | 0 |
+| 2026-09-28 | 3 | 0 | 2 | 0 |
+| 2026-09-30 | 0 | 1 | 0 | 0 |
+| 2026-10-08 | 1 | 1 | 0 | 0 |
+| 2026-10-11 | 1 | 0 | 1 | 0 |
+| 2026-10-12 | 1 | 0 | 0 | 0 |
+| 2026-10-19 | 1 | 2 | 0 | 0 |
+| 2026-10-23 | 7 | 0 | 0 | 0 |
+| 2026-10-24 | 8 | 1 | 1 | 0 |
+| 2026-10-25 | 0 | 1 | 0 | 0 |
+| 2026-10-29 | 0 | 1 | 0 | 0 |
+| 2026-10-30 | 0 | 1 | 0 | 0 |
+| 2026-11-05 | 0 | 1 | 0 | 0 |
+| 2026-11-10 | 7 | 2 | 0 | 0 |
+| 2026-11-11 | 7 | 0 | 0 | 0 |
+| 2026-11-12 | 2 | 0 | 1 | 0 |
+| 2026-11-13 | 2 | 0 | 1 | 0 |
+| 2026-11-14 | 0 | 0 | 1 | 0 |
 
 ## Refresh on demand — no background services
 
