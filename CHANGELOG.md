@@ -6,7 +6,9 @@
 
 ## Unreleased
 
-Future compatible operating-rule changes may accumulate here under review, with no automatic SemVer bump for every individual PR. A coherent owner-approved bundle receives one final version/change package and one verified release, following [VERSIONING.md](VERSIONING.md). **No further changes are claimed by this empty staging section.**
+**End-to-end `upstream upgrade` completion (unreleased):** a single-source Upgrade now continues from license/source preflight and capability falsification to authorized fork-native code, independent tests and a complete **human-approval-ready external PR package**, without stopping after research or requesting repeated `continue`. Falsified candidates lead to another eligible source within scope; real legal/CLA/DCO, owner `PAUSE`/`STOP`, missing executor and failed native evidence remain fail-closed. **No third-party PR (including draft) or public fork-local proposal is posted without exact current-conversation approval**. Batch research is still chat-scoped; no autonomous background runner is claimed.
+
+Compatible operating-rule changes accumulate here under review without an automatic SemVer bump for every PR. A coherent owner-approved bundle receives one final version/change package and one verified release, following [VERSIONING.md](VERSIONING.md).
 
 ## [0.16.0](changes/v0.16.0.md) — License/formalities-first admission, deferred human availability decisions
 

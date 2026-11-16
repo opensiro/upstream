@@ -67,14 +67,16 @@ As of **2026-11-16 12:00 UTC**, the **42 distinct original-repository PRs** link
 
 ## Capability-first upstream upgrade
 
-`upstream upgrade` is a **conversation route for discovering a genuinely new harness capability** — a user/operator trigger, action/decision and observable output, not merely a repair with a VSM label. Use existing `.opensiro/` history, the read-only aggregate, current original GitHub issues/PRs and independently testable native counterfactuals before proposing implementation.
+`upstream upgrade` is an **end-to-end conversational execution route**, not just research: discover and falsify a genuine new harness user/operator capability, **implement it on a permitted verified fork, run source-native tests, and assemble a complete external PR for human approval without publishing it**. Do not stop after finding a hypothesis or request repeated `continue` messages while all remaining steps are permitted. A falsified candidate leads to the next safely eligible opportunity in scope; actual rights, `PAUSE`/`STOP`, CLA/DCO, unavailable execution tools and failed evidence are legitimate blockers. This route is **not** a background executor or a promise that every opportunity yields a PR.
 
 | Route | Meaning |
 | --- | --- |
-| `upstream upgrade` | Deeply investigate **one** promising new-capability question; no new batch |
-| `upstream upgrade OWNER/REPO` or `upstream upgrade <contribution-id>` | Inspect/continue a specific original harness or stable contribution record |
+| `upstream upgrade` | **Research → implement → native tests → exact external PR package for human approval**; no third-party publication |
+| `upstream upgrade OWNER/REPO` or `upstream upgrade <contribution-id>` | Same end-to-end route for the named source/independent improvement |
 | `upstream upgrade batch 10` | **Ten distinct original harnesses**, S1/S2/S3/S3*/S4/S5 source-backed dispositions each, focused native tests only where needed; **not** ten PRs, fixes or a new frozen cohort |
 | `upstream batch [N]` | Separate technical/repair screening mode; it is not an alias for `upgrade` |
+
+**Single-upgrade finish:** show the exact original repo/base, fork product branch/head SHA, verified diff, native tests and caveats, template-compliant PR title/body, AI disclosure and rights/CLA/DCO limits, ending at `READY_FOR_HUMAN_PR_APPROVAL — NOT PUBLISHED` only when the actual code and checks are ready; otherwise state the exact blocker. Batch modes stay chat-scoped screening. [Full handoff contract](PROTOCOL.md#end-to-end-single-source-upgrade--finish-at-human-pr-approval).
 
 All modes are **operator phrases, not executable CLI commands**. Functional opportunity, VSM/Index chronology, need/mechanism/counterfactual/scope, original-work alternative and native benefit must be distinguished. `DORMANT / PAUSE` allows no automatic engineering restart, and outward public third-party communication still requires exact current-conversation owner approval. [v0.14.0 upgrade procedure](PROTOCOL.md#capability-first-upstream-upgrade-new-work-not-historical-batching).
 
