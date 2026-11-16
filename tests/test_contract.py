@@ -55,7 +55,7 @@ class ContractTests(unittest.TestCase):
         agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
-        self.assertEqual(version, "0.16.0")
+        self.assertIn(f"v{version}", (ROOT / "CHANGELOG.md").read_text(encoding="utf-8"))
         self.assertIn("unique GitHub contributors", protocol)
         self.assertIn("1× to 2×", protocol)
         self.assertIn("uniform", protocol)
@@ -95,6 +95,28 @@ class ContractTests(unittest.TestCase):
             self.assertIn("id: " + field, form)
         self.assertIn("Source / fork / runner access or availability", form)
         self.assertIn("No action by an autonomous executor", form)
+
+    def test_release_bundle_is_agreement_first_not_per_change(self):
+        versioning = (ROOT / "VERSIONING.md").read_text(encoding="utf-8")
+        changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+        candidate = (ROOT / "docs/RELEASE_CANDIDATE_v0.16.0.md").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("## Agreement-first version and release workflow", versioning)
+        self.assertIn("## Unreleased", changelog)
+        self.assertIn("without an automatic bump", versioning)
+        self.assertIn("owner's agreement", versioning)
+        self.assertIn("A `VERSION` on `main` may be newer", readme)
+        self.assertIn("do **not** bump `VERSION`", agents)
+        self.assertIn("v0.13.0", candidate)
+        self.assertIn("v0.16.0", candidate)
+        for number in (6, 7, 8, 9, 10):
+            self.assertIn(f"PR #{number}", candidate)
+        self.assertIn("11 merged / 24 open / 7 closed without merge", candidate)
+        self.assertIn("NOT A PUBLISHED RELEASE", candidate)
+        self.assertIn("Owner agrees", candidate)
 
     def test_invalid_semver_is_rejected(self):
         with TemporaryDirectory() as tmp:
