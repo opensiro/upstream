@@ -26,6 +26,17 @@ opensiro/upstream
 
 **Branch boundary.** Add `.opensiro/` only on the dedicated `opensiro/meta` branch, **never** on the original project's default branch, product/feature branch or an external third-party PR diff. First verify `fork=true`, actual `parent.full_name`, default branch, meta branch HEAD, rights and relevant contributor policy. Do not rewrite the original README or its CI. Do not force-push the meta branch or merge it into a product branch. If the source already uses `.opensiro/` or a branch collision exists, stop and resolve explicitly before writing.
 
+## Materialize on demand during an authorized Upgrade
+
+A verified matching fork can exist **without** `opensiro/meta`; the [full-cycle Upgrade protocol](../PROTOCOL.md#upgrade-metadata-materialization--missing-opensirometa) now treats this as a **provisioning step**, not an automatic reason to abandon an otherwise qualified opportunity. A chat-only `batch N` does not initialize metadata.
+
+1. Confirm original `OWNER/REPO`, source SHA, the `opensiro-contributions` fork's `fork=true` and exact `parent.full_name`, and first-party license/contributor rights. Verify actual fork-write authority and any prior human `PAUSE/STOP` decision. A missing metadata ref is *not* proof of `ALLOW`; a 403/429/unknown ref is **not** a confirmed missing branch.
+2. If the metadata ref is definitely absent and creation is authorized, create **only** `refs/heads/opensiro/meta` from a pinned existing fork default HEAD (never rewrite the default branch). Commit `.opensiro/state.json` and one `.opensiro/contributions/<stable-id>.json` describing the real source-pinned intervention, and an append-only event only where a genuine attributable checkpoint/decision exists. Initialize `PAUSE/DORMANT` unless `ALLOW/ACTIVE` is supported by a real current owner grant; never infer permissions or fabricate events. A PAUSE bootstrap does not grant RESUME.
+3. If metadata already exists or another actor concurrently creates it, **read and reconcile** with its actual HEAD and existing stable IDs; never force-push, reset controls or replace another intervention's evidence. Separate original/replacement PR URLs may belong to one contribution.
+4. Independently read back the new ref plus `state.json` and contribution at the exact meta commit, then check the fork-specific [read-only aggregate](../scripts/aggregate.py) and any already published original PR's live status. A failed scan or missing record remains `UNKNOWN`, not zero/success. The branch/record must exist and be verified before reporting a full-cycle Upgrade as approval-ready.
+
+Keep all of this `.opensiro/` data **off** default/product/external PR branches. A previously published PR with missing metadata is handled by source-linked **reconciliation**, never by opening a duplicate PR or attributing the metadata creation date as the original implementation date. This procedure does not override third-party publication consent or fork PAUSE/STOP.
+
 ## Minimal proposed v1 contract
 
 Three JSON objects below specify the planned fork-local storage contract; they are **examples, not receipts for files already written**. A strict validator and live exporter remain tracked implementation work in [migration #2](https://github.com/opensiro/upstream/issues/2). Do not claim that non-existent metadata is live.

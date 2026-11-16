@@ -10,8 +10,14 @@ Upstream is **one operational S1 domain inside OpenSiro VSM OSS**, not a second 
 flowchart TD
     A["Find useful opportunity"] --> B{"Verified matching fork exists?"}
     B -->|No| I["Small Upstream intake pointer / no-change result"]
-    B -->|Yes| C["Fork opensiro/meta: .opensiro state, contributions, events"]
-    I -->|Fork verified later| C
+    B -->|Yes| M{"opensiro/meta exists and is readable?"}
+    M -->|Yes| C["Fork opensiro/meta: .opensiro state, contributions, events"]
+    M -->|Confirmed missing| P{"Verified permission to write fork metadata?"}
+    M -->|Unavailable or invalid| W["Unknown/blocked — fail closed"]
+    P -->|Yes| N["Initialize opensiro/meta and stable contribution; read back"]
+    P -->|No| W
+    N --> C
+    I -->|Fork verified later| M
     C --> D["Implement and native-test in fork product branch"]
     D --> E{"Approval for exact external communication?"}
     E -->|No| W["Record blocked / owner may intervene"]
@@ -26,6 +32,8 @@ flowchart TD
     G -.-> Z
     H -.-> Z
 ```
+
+On a full-cycle Upgrade, a verified existing fork with a **confirmed missing** `opensiro/meta` is not automatically rejected: under independent legal, provider and owner authorization it receives the minimal `.opensiro/` state and stable improvement record on a **new dedicated metadata branch**, then exact-SHA readback plus aggregate verification. An existing branch is reused, an unreadable/colliding branch fails closed, and a paused/stopped source is never automatically resumed. A chat-level batch does not make this write. [Detailed procedure](../PROTOCOL.md#upgrade-metadata-materialization--missing-opensirometa).
 
 The owner can `PAUSE`, `STOP`, `RESUME` or change attention at the fork-local control point; a real executor must check control before new effectful actions. The GitHub change alone does not cancel an already running process. Attention is discretionary **with no mandatory maintenance TTL**.
 
