@@ -116,6 +116,33 @@ class ContractTests(unittest.TestCase):
         self.assertNotIn("without a separate human approval of this PR", handoff)
         self.assertIn("does not edit that external PR", handoff)
 
+    def test_upgrade_pr_disclosure_links_are_mandatory_not_examples(self):
+        protocol = (ROOT / "PROTOCOL.md").read_text(encoding="utf-8")
+        review = (ROOT / "docs/UPGRADE_PR_REVIEW.md").read_text(encoding="utf-8")
+        agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        for label in (
+            "Working fork",
+            "Implementation branch",
+            "Implementation commit",
+            "Fork-local review PR",
+            "Fork-local metadata record",
+        ):
+            self.assertIn(f"**{label}:**", review)
+        for marker in (
+            "Normative link requirement",
+            "Mandatory link and body preflight",
+            "PR_BLOCKED_NO_WRITE",
+            "NOT_CREATED — awaiting exact fork-local PR consent",
+            "NOT_CREATED — historical PR; no prior fork-local review PR",
+            "validate_upgrade_pr_links.py",
+        ):
+            self.assertIn(marker, review)
+        self.assertIn("Mandatory `opensiro-contributions` links", protocol)
+        self.assertIn("proposed external PR body", readme)
+        self.assertIn("Mandatory Upgrade disclosure/links", agents)
+        self.assertIn("current-conversation", review)
+
     def test_upgrade_popularity_and_chat_only_batch_policy(self):
         protocol = (ROOT / "PROTOCOL.md").read_text(encoding="utf-8")
         agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
