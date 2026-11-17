@@ -56,6 +56,13 @@
 
 **P2 — integration guardrails only.** Any new S3/S4 constructor must respect existing S2 single-owner/blocker semantics, S3* independent review and board S5 reserved decisions; do not require six additional subsystems or force `C → C(P) → A(P)`. The optional parent variants require independent first-party closure and separate Index review after shipping.
 
+### P0 proposed S4 constructor — implementation-ready acceptance conditions
+
+The specific **proposed first-party S4 constructor** is now written as a separate, reviewable [Paperclip S4=C construction and acceptance contract](paperclip-s4-constructor-acceptance-20261117.md). It is a **hypothesis and engineering target**, not a shipped feature or a changed Index grade. The contract pins the accepted evidence, explicit S4 decision/feedback owner, a five-port minimum design and ten falsifiable acceptance scenarios (`AC-01`–`AC-10`).
+
+**Required minimum before calling a future implementation a candidate `C`:** a source-attributed external/future model-change signal → durable comparison of `hold` versus `candidate` against actual current S3 capability → first-party **S4-specific** decision port into which a developer can compose an autonomous evaluator/agent with bounded authority → authorized **future-run-only** configuration/capability revision → receipt from subsequent actual agent operation returning success or denial into S3. Include a working actor-composition example, unauthorized/unknown-compatibility/rollback negative tests, first-party reachability and existing-simpler-native comparison. A release notification, model catalog, optional generic plugin hook or human-only approval **fails** the autonomous constructor witness.
+
+**Grade gate:** `C` requires subsequent first-party shipping and an independent source-pinned Index assessment under Skills; `P` remains a valid human-only S4 possibility if separately established. `C(P)` requires two independent mode witnesses and is not the target by default. Existing `S4=—` remains canonical.
 **Preimplementation test of materiality:** for each candidate, state actor, exact currently impossible/awkward task, best native workaround, measurable output, right owner, enforcement, trace of decision to later execution, and overlap. If a shipped path already closes the task, report `NO_USEFUL_CHANGE` for that idea.
 
 ## Implementation options
