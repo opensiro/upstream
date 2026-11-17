@@ -11,6 +11,7 @@ The normative [Profile](https://github.com/opensiro/vsm-harness-profile/blob/mai
 ## Procedure
 
 1. **Source and authority pins:** Named original repository; exact current default HEAD; observation time; legal license/contributor/AI policy and autonomy preflight; accepted Index assessment URL *and file blob SHA*, historical review date/ref; explicitly label pending reassessments as unaccepted. Declare system-in-focus and excluded recursion. If a verified fork is relevant read original parent and `opensiro/meta` owner controls before writes.
+   - **Assessment freshness advisory:** Compute age in calendar days at the observation date from the latest accepted successful Index semantic review (`reviewed_at`, or a later successfully supported `last_checked_at`; do not credit informal source inspection). If older than **30 days**, **recommend an Index-owned, source-pinned re-assessment before relying on the historical vector for architectural conclusions**. Materially changed current behavior can justify the recommendation sooner. Cite the exact canonical assessment, date, current source HEAD and any live reassessment issue/PR. This recommendation is **not** a periodic reassessment mandate, universal Index policy, automated queue write, grade change or roadmap block. If re-assessment is pending or not feasible, continue **plan-only with provisional claims**, old assessment explicitly historical, and source-native evidence controlling current functionality. An open or unmerged proposal is not accepted freshness.
 2. **Native work census:** For relevant S1/S2/S3/S3*/S4/S5, inspect current shipped code; exact original issue and PR state/head/diff and maintainer decision; existing OpenSiro fork work; competing original alternatives. Distinguish `SHIPPED`, `OPEN_PR`, `ISSUE_ONLY`, `EXPERIMENT`, `EXTERNAL_GOVERNANCE` and `UNVERIFIED` as *report labels only*, not stored metadata enums.
 3. **Function-specific residual gap:** Name real actor → trigger → decision/action → observable result; actual disturbance; decisive right and owner; enforcement/transport; feedback into subsequent operation. Write `current main → competing proposal → remaining task`, overlap/alternative, uncertainty. No conclusion from a low Index grade or an issue title alone.
 4. **Composability-first option:** Favor supported first-party, function-specific constructors where maintainers need them; only a shipped/composable closure can establish `C` in a later Index assessment. `C(P)` and `A(P)` are optional, independently demonstrated modes **only for S3/S4/S5**, not a mandated grade progression. `P` alone is a valid intentional goal; S1/S2/S3* have no published parent mode. Always prefer a simpler native design when appropriate.
@@ -24,7 +25,7 @@ A compact, **read-only Markdown report** in chat, or a dated **non-authoritative
 
 | Section | Required contents |
 | --- | --- |
-| Identity | Original and HEAD SHA/date; boundary/recursion; pinned accepted Index assessment SHA, review date/ref and Profile/Skills refs |
+| Identity | Original and HEAD SHA/date; boundary/recursion; pinned accepted Index assessment SHA, review date/ref and Profile/Skills refs; last successful review/check date, age in days and any proposed re-assessment link (provisional when pending) |
 | Permission | License/contributor/CLA/AI policy, allowed paths and any actual fork owner state; no inferred write |
 | Existing work | Original and fork issue/PR URLs, true open/merged status and head/diff evidence, shipped/proposed distinction |
 | VSM witness | Function, disturbance, real decision/feedback owner/right, enabling first-party primitives and return-to-operation |
@@ -33,7 +34,7 @@ A compact, **read-only Markdown report** in chat, or a dated **non-authoritative
 | Cost check | Paired native/VSM-informed task, all-in measures and observed values, else `NOT_MEASURED` |
 | Delivery | `PLAN_ONLY`, `NEEDS_EVIDENCE` or `NO_USEFUL_CHANGE` as narrative outcomes only; external issue marked `DRAFT — NOT PUBLISHED` |
 
-**Fail closed:** unknown source/ref/owner/diff stays unverified. An Issue or open PR does not certify shipped capability, a planned `C` is not an Index `C`, and a maintained project policy is not automatic runtime S5.
+**Fail closed:** unknown source/ref/owner/diff or assessment freshness stays unverified. A >30-day historical assessment prompts a recommended re-review, not a hard stop, automatic Index write, or silent promotion of a pending reassessment. An Issue or open PR does not certify shipped capability, a planned `C` is not an Index `C`, and a maintained project policy is not automatic runtime S5.
 
 ## Optional structural receipt check
 
