@@ -35,6 +35,16 @@ A compact, **read-only Markdown report** in chat, or a dated **non-authoritative
 
 **Fail closed:** unknown source/ref/owner/diff stays unverified. An Issue or open PR does not certify shipped capability, a planned `C` is not an Index `C`, and a maintained project policy is not automatic runtime S5.
 
+## Optional structural receipt check
+
+The source-native receipt stays **read-only documentation**, not a fork-local JSON state or an Index assessment. For a dated Markdown case note, run:
+
+~~~sh
+python3 scripts/validate_capability_roadmap.py docs/examples/browser-harness-roadmap-20261117.md
+~~~
+
+The validator checks presence of pinned SHA/date fields, required receipt sections, an evidence link and explicit non-publication/cost status. **It does not read live GitHub, verify legal permissions, prove VSM function closure or certify lower cost.** Exact current GitHub readback and semantic review remain mandatory before any subsequent action.
+
 ## Ownership and stages
 
 - The roadmap is **not** an Index reassessment, normative Profile patch or second canonical ledger.
