@@ -5,7 +5,7 @@
 
 ## Context
 
-We are developing **OpenSiro**, an open-source effort studying whether reusable organizational specifications and evidence-backed engineering methods make AI agent harnesses easier and less expensive to build, integrate, and maintain.
+We are developing **Opensiro**, an open-source effort studying whether reusable organizational specifications and evidence-backed engineering methods make AI agent harnesses easier and less expensive to build, integrate, and maintain.
 
 Our current reference hypothesis is the **Viable System Model (VSM)**. We are **not** asking this project to adopt VSM, alleging it lacks six subsystems, or claiming proven cost reduction.
 
@@ -17,7 +17,7 @@ Our current reference hypothesis is the **Viable System Model (VSM)**. We are **
 - **Specific remaining integration question:** [actor → trigger → blocked output/decision]
 - **Closest existing project-native solution:** [the simple alternative and any advantages]
 
-An OpenSiro assessment is a dated evidence snapshot, not today's guaranteed capability grade, product-quality or safety rating. Unmerged PRs are proposals, not shipped features.
+An Opensiro assessment is a dated evidence snapshot, not today's guaranteed capability grade, product-quality or safety rating. Unmerged PRs are proposals, not shipped features.
 
 ## Optional incremental approach
 
@@ -43,6 +43,6 @@ Would this help the project? Which existing work, architecture constraints, or m
 
 ## Attribution and AI disclosure
 
-[OpenSiro Upstream](https://github.com/opensiro/upstream) · [Profile](https://github.com/opensiro/vsm-harness-profile) · [Skills](https://github.com/opensiro/vsm-harness-skills) · [Index](https://github.com/opensiro/vsm-harness-index)
+[Opensiro Upstream](https://github.com/opensiro/upstream) · [Profile](https://github.com/opensiro/vsm-harness-profile) · [Skills](https://github.com/opensiro/vsm-harness-skills) · [Index](https://github.com/opensiro/vsm-harness-index)
 
 **AI involvement:** This research proposal and its evidence mapping were prepared with AI assistance. No independent human technical review, proven correctness, maintainer endorsement, verified cost advantage or implementation result is claimed.

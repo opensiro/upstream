@@ -1,4 +1,4 @@
-"""Guardrails for the reusable OpenSiro fork-local roadmap Issue template."""
+"""Guardrails for the reusable Opensiro fork-local roadmap Issue template."""
 
 from pathlib import Path
 import unittest
@@ -11,6 +11,8 @@ class ForkCapabilityRoadmapIssueTemplateTests(unittest.TestCase):
     def test_template_is_generic_and_source_driven(self):
         text = TEMPLATE.read_text(encoding="utf-8")
         self.assertTrue(text.startswith("# [PROJECT]"))
+        self.assertIn("Opensiro", text)
+        self.assertNotIn("OpenSiro", text)
         for part in (
             "## Why this Issue exists",
             "## Source and evidence",
@@ -57,6 +59,9 @@ class ForkCapabilityRoadmapIssueTemplateTests(unittest.TestCase):
             self.assertIn("FORK_CAPABILITY_ROADMAP_ISSUE.md", s)
             self.assertIn("EXTERNAL_ARCHITECTURE_ISSUE.md", s)
         self.assertTrue((ROOT / "templates/EXTERNAL_ARCHITECTURE_ISSUE.md").exists())
+        external = (ROOT / "templates/EXTERNAL_ARCHITECTURE_ISSUE.md").read_text(encoding="utf-8")
+        self.assertIn("Opensiro", external)
+        self.assertNotIn("OpenSiro", external)
 
 
 if __name__ == "__main__":

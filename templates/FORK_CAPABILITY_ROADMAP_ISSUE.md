@@ -7,7 +7,7 @@ This is NOT the external maintainer issue template. -->
 
 ## Why this Issue exists
 
-OpenSiro is testing whether reusable organizational specifications and a VSM-informed methodology can **standardize and reduce the cost of developing AI-agent harnesses**. This is a research hypothesis, **not** a proven cost reduction or a request to implement every VSM function.
+Opensiro is testing whether reusable organizational specifications and a VSM-informed methodology can **standardize and reduce the cost of developing AI-agent harnesses**. This is a research hypothesis, **not** a proven cost reduction or a request to implement every VSM function.
 
 **User outcome we want to improve:** [Who needs to do what, and what currently prevents or complicates it?]
 
@@ -63,6 +63,6 @@ Select **one**, not all three:
 **State:** `PLAN_ONLY` — [`NEEDS_EVIDENCE` / `DECISION_READY` / `NO_USEFUL_CHANGE`] (report labels only, not metadata enums).  
 **Open question:** [What decision or evidence is needed next?]
 
-Store detailed research, roadmap, construction contracts and external-Issue draft under the verified fork's `.opensiro/issues/<case-id>/`. This Issue is for **OpenSiro's fork-local discussion**, not an external request. Before contacting the original repository, dedupe existing original Issues; a new external Issue needs **separate exact approval** and is newly created, **not a cross-owner transfer**. No automatic implementation, product PR, Index regrade or internal Issue closure.
+Store detailed research, roadmap, construction contracts and external-Issue draft under the verified fork's `.opensiro/issues/<case-id>/`. This Issue is for **Opensiro's fork-local discussion**, not an external request. Before contacting the original repository, dedupe existing original Issues; a new external Issue needs **separate exact approval** and is newly created, **not a cross-owner transfer**. No automatic implementation, product PR, Index regrade or internal Issue closure.
 
 **AI disclosure:** Draft and evidence synthesis prepared with AI assistance; no human review, shipped result or measured cost saving is claimed unless independently evidenced.
