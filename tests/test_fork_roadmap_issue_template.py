@@ -63,7 +63,7 @@ class ForkCapabilityRoadmapIssueTemplateTests(unittest.TestCase):
             "mandatory progression",
             "design",  # design and shipment remain distinct
             "not shipping",
-            "later `C`",
+            "separate Index review",
             "NOT_MEASURED",
             "Native alternative",
             "Positive operator scenario",
