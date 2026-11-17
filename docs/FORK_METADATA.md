@@ -12,6 +12,8 @@ opensiro-contributions/<target fork>   [verified parent: original owner/repo]
   └─ refs/heads/opensiro/meta          [OpenSiro-only metadata branch]
        └─ .opensiro/
             ├─ state.json             [one fork identity, attention and owner control]
+            ├─ issues/                [case-level research, specs and issue drafts]
+            │   └─ <case-id>/           [README, roadmap, acceptance contract]
             ├─ contributions/
             │   ├─ <stable-id>.json   [one improvement; links to code/tests/PRs]
             │   └─ ...
@@ -23,6 +25,16 @@ opensiro/upstream
   └─ aggregate view, migration programme, exceptional intake before a fork exists
        └─ links + latest source SHA + first-party PR readback (NOT duplicate logs)
 ```
+
+### Issue-local case worktree and two-Issue publication route
+
+For a verified working fork, authoritative **case-specific research and plan artifacts** belong at `.opensiro/issues/<stable-case-id>/` on the **separate `opensiro/meta` worktree**. Use `README.md` for the identity, pinned refs, actual fork Issue number/URL (only when it exists), native overlap and next action; store `roadmap.md`, `constructor-acceptance.md`, draft external Issue and review receipts as needed. A plan is **not** an independently implemented improvement: never create `.opensiro/contributions/` solely for a case. `.opensiro/state.json` controls and append-only `events/` remain intact.
+
+A *public GitHub Issue* in the working fork is a separate discussion/index object, not synonymous with a file in `.opensiro/issues/`, a fork-local PR, or an original issue. Search for duplicate fork Issues and obtain **exact current-conversation publication approval** of the target, action and full public title/body before opening it. If no such approval exists, metadata-authorized case documents may remain without a GitHub Issue. Keep the internal Issue open until there is an actual independent closure reason.
+
+For an external original Issue, first check for an already-open equivalent original Issue/PR and **link rather than duplicate**. A fresh original Issue requires a **second independent exact publication approval**; write a maintainer-native self-contained proposal and then first-party-read back its actual URL. This is not native cross-owner Issue transfer; do not claim copied comments, numbering, reactions or ownership. Link publication in the fork's issue-local record; cross-reference from the fork Issue when separately permitted. Original GitHub owns its own state.
+
+Upstream stores only the shared protocol, templates, validators and source-linked aggregate—not named-fork roadmap/contract documents once the writable matching fork is verified. Historical committed versions are retained in Git history as provenance. Never put case files on the fork product/default branch or original PR diff, and fail closed for PAUSE/STOP or unknown metadata rights.
 
 **Branch boundary.** Add `.opensiro/` only on the dedicated `opensiro/meta` branch, **never** on the original project's default branch, product/feature branch or an external third-party PR diff. First verify `fork=true`, actual `parent.full_name`, default branch, meta branch HEAD, rights and relevant contributor policy. Do not rewrite the original README or its CI. Do not force-push the meta branch or merge it into a product branch. If the source already uses `.opensiro/` or a branch collision exists, stop and resolve explicitly before writing.
 
@@ -119,9 +131,9 @@ For assessment-related types include `assessment_pin: {"url": "<immutable Index 
 
 Events capture **significant** state changes, research conclusions, native test receipts, external PR readback, owner intervention and recovery, not every shell command or repetitive hourly poll. Unique filenames, immutable content, stable IDs, actor, timestamp, source links and non-overwriting commits enable audit and independent continuation. Previous events must not be edited or deleted; a mistake is corrected by a new event referencing the original. Never fabricate unavailable history. Never store secrets, private messages, unbounded logs, third-party unlicensed content or model chain-of-thought.
 
-## Plan-only capability roadmaps are not new fork records
+## Plan-only capability roadmaps are not new contribution records
 
-[Architecture-first `upstream roadmap OWNER/REPO`](CAPABILITY_ROADMAP.md) may link an accepted historical assessment, original issues/PRs and existing independent fork-local contributions. A **research-only architecture plan** or external issue draft is *not* itself a qualifying improvement, does **not** require a new `.opensiro/contributions/<stable-id>.json` record, and must not add a roadmap-state enum, ledger, owner-control override or metadata branch write. If actual native code is later authorized and independently qualified, reuse the existing schema-v2 **one improvement / one record** procedure on `opensiro/meta` and current source-linked provenance. No plan may silently promote `INSUFFICIENT` to `ASSESSMENT_DERIVED` or claim an external PR has merged based on the plan.
+[Architecture-first `upstream roadmap OWNER/REPO`](CAPABILITY_ROADMAP.md) may link an accepted historical assessment, original issues/PRs and existing independent fork-local contributions. A **research-only architecture plan** or external issue draft is *not* itself a qualifying improvement and does **not** require a new `.opensiro/contributions/<stable-id>.json` record. If its durable storage is requested and current fork meta rights allow, persist it as `.opensiro/issues/<case-id>/` on the matched fork, not in Upstream. Do not add a new roadmap-state enum, ledger, or owner-control override. If actual native code is later authorized and independently qualified, reuse the existing schema-v2 **one improvement / one record** procedure on `opensiro/meta` and current source-linked provenance. No plan may silently promote `INSUFFICIENT` to `ASSESSMENT_DERIVED` or claim an external PR has merged based on the plan.
 
 ## One human-visible case, two independent facts
 
