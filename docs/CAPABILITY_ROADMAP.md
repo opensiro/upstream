@@ -8,6 +8,14 @@ This route tests whether reusable organizational specifications and source-nativ
 
 The normative [Profile](https://github.com/opensiro/vsm-harness-profile/blob/main/PROFILE.md) owns function semantics; [Skills](https://github.com/opensiro/vsm-harness-skills) owns grade/methodology; [Index](https://github.com/opensiro/vsm-harness-index) owns accepted assessments. Upstream does not overwrite their authority.
 
+## Issue-local artifact storage and conditional original Issue
+
+`upstream roadmap` remains `PLAN_ONLY`. An explicitly requested persistent case belongs under the verified fork's `opensiro/meta:.opensiro/issues/<case-id>/` after checking the parent repository, meta HEAD and owner control. Store case-level `roadmap.md`, `constructor-acceptance.md`, external Issue drafts and technical receipts there, **not** in central Upstream. A public fork GitHub Issue for discussing/reviewing that case requires a separate exact approval of its full title/body; a case folder alone is not a GitHub Issue.
+
+Follow the [fork Issue → case evidence → original Issue route](../PROTOCOL.md#fork-github-issue--local-case--external-issue-separate-publication). Before any original Issue, dedupe the live original issue/PR set; link an existing original issue if it covers the outcome. For a new maintainer issue, request a **separate exact publication approval**, create a standalone original-native issue and read back its actual URL; store/cross-link it in the fork case. This is not GitHub native transfer across separate owners, nor automatic closure of the fork Issue. No grade change, product code implementation or public PR is implied by case publication.
+
+**Migrated case exemplars:** [Paperclip S4 roadmap](https://github.com/opensiro-contributions/paperclip/blob/opensiro/meta/.opensiro/issues/model-release-adaptation-20261117/roadmap.md) and [acceptance contract](https://github.com/opensiro-contributions/paperclip/blob/opensiro/meta/.opensiro/issues/model-release-adaptation-20261117/constructor-acceptance.md); [Browser Harness S3 roadmap](https://github.com/opensiro-contributions/browser-harness/blob/opensiro/meta/.opensiro/issues/browser-resource-control-20261117/roadmap.md).
+
 ## Procedure
 
 1. **Source and authority pins:** Named original repository; exact current default HEAD; observation time; legal license/contributor/AI policy and autonomy preflight; accepted Index assessment URL *and file blob SHA*, historical review date/ref; explicitly label pending reassessments as unaccepted. Declare system-in-focus and excluded recursion. If a verified fork is relevant read original parent and `opensiro/meta` owner controls before writes.
@@ -29,7 +37,7 @@ If the native delta or a true S4/S3/etc decision/closure witness is not establis
 
 ## Capability Roadmap Receipt
 
-A compact, **read-only Markdown report** in chat, or a dated **non-authoritative example**. Do not create another issue/PR queue or a fork-local contribution ID just for a proposal. Required evidence sections:
+A compact **plan-only Markdown report** in chat, or a dated **case record in the verified fork's `.opensiro/issues/<case-id>/`** when persistent storage is requested and authorized. Do not create an Upstream queue or an implementation contribution ID merely for the proposal. Required evidence sections:
 
 | Section | Required contents |
 | --- | --- |
@@ -45,14 +53,14 @@ A compact, **read-only Markdown report** in chat, or a dated **non-authoritative
 
 **Fail closed:** unknown source/ref/owner/diff or assessment freshness stays unverified. A >30-day historical assessment prompts a recommended re-review, not a hard stop, automatic Index write, or silent promotion of a pending reassessment. An Issue or open PR does not certify shipped capability, a planned `C` is not an Index `C`, and a maintained project policy is not automatic runtime S5.
 
-For an implementation-oriented `C` target, see the [Paperclip S4=C proposed construction and acceptance contract](examples/paperclip-s4-constructor-acceptance-20261117.md) for a concrete (still plan-only) first-party interface/ownership/feedback design and falsifiable test matrix. The example demonstrates required specificity, not a changed Index grade or a mandatory VSM architecture.
+For an implementation-oriented `C` target, see the [Paperclip S4=C proposed construction and acceptance contract](https://github.com/opensiro-contributions/paperclip/blob/opensiro/meta/.opensiro/issues/model-release-adaptation-20261117/constructor-acceptance.md) for a concrete (still plan-only) first-party interface/ownership/feedback design and falsifiable test matrix. The example demonstrates required specificity, not a changed Index grade or a mandatory VSM architecture.
 
 ## Optional structural receipt check
 
-The source-native receipt stays **read-only documentation**, not a fork-local JSON state or an Index assessment. For a dated Markdown case note, run:
+The source-native receipt remains **PLAN_ONLY evidence in the fork metadata worktree**, not an implementation contribution, a public Issue, a fork-local review PR or Index assessment. For a dated Markdown case note, run:
 
 ~~~sh
-python3 scripts/validate_capability_roadmap.py docs/examples/browser-harness-roadmap-20261117.md
+python3 scripts/validate_capability_roadmap.py /path/to/fork-meta/.opensiro/issues/<case-id>/roadmap.md
 ~~~
 
 The validator checks presence of pinned SHA/date fields, required receipt sections, an evidence link and explicit non-publication/cost status. **It does not read live GitHub, verify legal permissions, prove VSM function closure or certify lower cost.** Exact current GitHub readback and semantic review remain mandatory before any subsequent action.
