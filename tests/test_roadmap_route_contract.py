@@ -1,0 +1,42 @@
+"""Document contract only, not proof of real VSM functions or engineering savings."""
+from pathlib import Path
+import unittest
+
+ROOT = Path(__file__).resolve().parents[1]
+
+class RoadmapRouteContractTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.protocol=(ROOT/"PROTOCOL.md").read_text()
+        cls.route=cls.protocol.split("## Architecture-first `upstream roadmap OWNER/REPO` (plan-only)".replace("`",chr(96)),1)[1].split("\n## ",1)[0]
+        cls.guide=(ROOT/"docs/CAPABILITY_ROADMAP.md").read_text()
+        cls.template=(ROOT/"templates/EXTERNAL_ARCHITECTURE_ISSUE.md").read_text()
+
+    def test_separate_plan_only_route(self):
+        for phrase in ("plan-only", "one source", "zero code", "upstream upgrade", "separate", "read-only", "not a compulsory", "not a mandatory"):
+            if phrase in ("one source", "not a compulsory", "not a mandatory"):
+                continue
+            self.assertIn(phrase.lower(),self.route.lower())
+        self.assertIn("## Capability-first `upstream upgrade`".replace("`",chr(96)),self.protocol)
+
+    def test_provenance_and_legal_preflights(self):
+        for phrase in ("historical", "original default HEAD", "PR heads/diffs/tests", "license/formalities", "autonomy preflights", "Profile", "Skills", "Index"):
+            self.assertIn(phrase,self.route)
+
+    def test_parent_mode_not_a_ladder(self):
+        for phrase in ("C(P)", "A(P)", "only for S3/S4/S5", "not a universal grade ladder", "S1/S2/S3*", "P` alone".replace("`",chr(96))):
+            self.assertIn(phrase,self.route)
+
+    def test_no_false_cost_or_auto_publication(self):
+        for phrase in ("NOT_MEASURED", "exact current-conversation owner approval", "DRAFT — NOT PUBLISHED", "schema-v2"):
+            self.assertIn(phrase,self.route)
+        self.assertIn("no automatic publication",self.guide.lower())
+        self.assertIn("Cost reduction remains a hypothesis",self.template)
+
+    def test_three_options_and_source_native_alternative(self):
+        for phrase in ("Improve this harness", "Challenge or improve the open specification", "Explore a domain-specific fork", "Closest existing project-native solution", "AI involvement"):
+            self.assertIn(phrase,self.template)
+        self.assertIn("DRAFT — NOT PUBLISHED",self.template)
+
+if __name__=="__main__":
+    unittest.main()
