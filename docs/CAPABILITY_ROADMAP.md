@@ -19,6 +19,14 @@ The normative [Profile](https://github.com/opensiro/vsm-harness-profile/blob/mai
 6. **Matched cost experiment:** Predeclare equivalent native vs VSM-informed user tasks and measure total implementation, integration, review/test, maintenance/regression effort and output quality. Report `NOT_MEASURED` until data exist. Never claim proven cheaper or performance superiority from a diagram.
 7. **Handoff:** Produce [Capability Roadmap Receipt](#capability-roadmap-receipt) and optional [external architecture issue](../templates/EXTERNAL_ARCHITECTURE_ISSUE.md) with exact source links; keep `DRAFT — NOT PUBLISHED` until separate current owner consent for the exact destination/full text/diff. Plan-only ends even with zero code, zero PR, or no qualified improvement.
 
+## Explicit implementation follow-up (not part of PLAN_ONLY)
+
+A bare `upstream roadmap OWNER/REPO` request stops at a source-linked proposal without product edits. When the owner **separately requests implementation of this roadmap/constructor contract, including a fork-local review PR**, it activates the already-defined [full-cycle Upgrade handoff](../PROTOCOL.md#roadmap--implementation-handoff-explicit-execution-intent) for that **same original**. The previous roadmap's `PLAN_ONLY` label describes the *past stage*, not a veto on new implementation intent.
+
+A qualified `C` constructor is **not delivered** by the contract, code sample, fake completion tests or a generic plugin extension. Carry the smallest first-party path from disturbance and proposed options through real developer-composed decision owner, enforced authority, next-operation application and observation. Test the original-native capability delta and contract acceptance cases. Stage implementation/test code on the verified `opensiro-contributions` fork's product branch; keep schema-v2 evidence on `opensiro/meta` only. Prepare original-template PR diff and five-link handoff. A public fork-local PR itself still needs **separate exact current-conversation approval of its destination, action, full title/body and diff**; no blanket authorization is inferred from "implement". If that gate remains unapproved, report the tested branch plus `READY_FOR_FORK_LOCAL_PR_APPROVAL — NOT PUBLISHED` rather than falsely marking a PR complete. No external original publication or grade upgrade follows automatically.
+
+If the native delta or a true S4/S3/etc decision/closure witness is not established, say `NO_MATERIAL_DELTA` or `IMPLEMENTATION_BLOCKED` with source-backed reasons, and do not add a fake first-party controller to fill a grade.
+
 ## Capability Roadmap Receipt
 
 A compact, **read-only Markdown report** in chat, or a dated **non-authoritative example**. Do not create another issue/PR queue or a fork-local contribution ID just for a proposal. Required evidence sections:
