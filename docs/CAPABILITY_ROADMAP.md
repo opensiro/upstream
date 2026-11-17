@@ -30,11 +30,14 @@ A compact, **read-only Markdown report** in chat, or a dated **non-authoritative
 | Existing work | Original and fork issue/PR URLs, true open/merged status and head/diff evidence, shipped/proposed distinction |
 | VSM witness | Function, disturbance, real decision/feedback owner/right, enabling first-party primitives and return-to-operation |
 | Proposed capability | Actor/output and native alternative, meaningful constructor path, dependencies and small acceptance cases |
+| Constructor target (when proposing `C`) | Function-specific first-party ports and distribution reachability; what a developer must compose (real autonomous decision actor/authority), option/state lifecycle, controlled return into future operation, negative cases and reproducible end-to-end acceptance. Explicitly distinguish proposed from shipped `C`. |
 | Optional paths | Product-native code, Profile or Skills feedback, permitted domain-specific fork |
 | Cost check | Paired native/VSM-informed task, all-in measures and observed values, else `NOT_MEASURED` |
 | Delivery | `PLAN_ONLY`, `NEEDS_EVIDENCE` or `NO_USEFUL_CHANGE` as narrative outcomes only; external issue marked `DRAFT — NOT PUBLISHED` |
 
 **Fail closed:** unknown source/ref/owner/diff or assessment freshness stays unverified. A >30-day historical assessment prompts a recommended re-review, not a hard stop, automatic Index write, or silent promotion of a pending reassessment. An Issue or open PR does not certify shipped capability, a planned `C` is not an Index `C`, and a maintained project policy is not automatic runtime S5.
+
+For an implementation-oriented `C` target, see the [Paperclip S4=C proposed construction and acceptance contract](examples/paperclip-s4-constructor-acceptance-20261117.md) for a concrete (still plan-only) first-party interface/ownership/feedback design and falsifiable test matrix. The example demonstrates required specificity, not a changed Index grade or a mandatory VSM architecture.
 
 ## Optional structural receipt check
 
