@@ -119,6 +119,10 @@ For assessment-related types include `assessment_pin: {"url": "<immutable Index 
 
 Events capture **significant** state changes, research conclusions, native test receipts, external PR readback, owner intervention and recovery, not every shell command or repetitive hourly poll. Unique filenames, immutable content, stable IDs, actor, timestamp, source links and non-overwriting commits enable audit and independent continuation. Previous events must not be edited or deleted; a mistake is corrected by a new event referencing the original. Never fabricate unavailable history. Never store secrets, private messages, unbounded logs, third-party unlicensed content or model chain-of-thought.
 
+## Plan-only capability roadmaps are not new fork records
+
+[Architecture-first `upstream roadmap OWNER/REPO`](CAPABILITY_ROADMAP.md) may link an accepted historical assessment, original issues/PRs and existing independent fork-local contributions. A **research-only architecture plan** or external issue draft is *not* itself a qualifying improvement, does **not** require a new `.opensiro/contributions/<stable-id>.json` record, and must not add a roadmap-state enum, ledger, owner-control override or metadata branch write. If actual native code is later authorized and independently qualified, reuse the existing schema-v2 **one improvement / one record** procedure on `opensiro/meta` and current source-linked provenance. No plan may silently promote `INSUFFICIENT` to `ASSESSMENT_DERIVED` or claim an external PR has merged based on the plan.
+
 ## One human-visible case, two independent facts
 
 | Question | Truth owner | Example |
