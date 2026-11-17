@@ -1,6 +1,6 @@
 # OpenSiro external PR activity
 
-Observed **2026-11-17T01:55:56.216562Z** (UTC). This is a **dated** first-party GitHub readback of PR URLs linked from verified fork-local metadata; not all historical research, not a live service or a benefit KPI.
+Observed **2026-11-17T16:11:51.558653Z** (UTC). This is a **dated** first-party GitHub readback of PR URLs linked from verified fork-local metadata; not all historical research, not a live service or a benefit KPI.
 
 ![External PR activity](activity.svg)
 
@@ -12,7 +12,7 @@ Observed **2026-11-17T01:55:56.216562Z** (UTC). This is a **dated** first-party 
 | Closed without merge | **7** |
 | Of closed-unmerged: an APPROVED review found | **0** |
 
-Coverage: **64** source-verified forks, **72** improvement records, **43** distinct external PR URLs; the first-party PR readback was complete at observation time.
+Coverage: **64** source-verified forks, **74** improvement records, **43** distinct external PR URLs; the first-party PR readback was complete at observation time.
 
 **Interpretation:** MERGED is GitHub's actual merged_at, while CLOSED_UNMERGED has no merge. Review APPROVED means an explicit GitHub review object (latest non-comment review per reviewer before close), **not** a merge, maintainer's verbal endorsement, or deployed value. The approved-closed value is **within**, not additional to, closed-unmerged. Replacement PR chains (e.g., Henterprise #1/#3) can create multiple published PRs but still belong to one improvement; all PR URLs are counted once.
 

@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "source": "opensiro/upstream read-only portfolio projection",
-  "upstream_revision": "21a8454a317058fe33eab08fe7ee7b784d63e395",
-  "aggregate_observed_at": "2026-11-17T01:52:43.343354Z",
-  "external_pr_observed_at": "2026-11-17T01:55:56.216562Z",
-  "semantic_fingerprint": "4a492f79b4e35c987094580673b2c959218d42218c04314729c4fc715ca0d9bf",
+  "upstream_revision": "2d43cbba2257176a8c0dbf8509a3dd1798360675",
+  "aggregate_observed_at": "2026-11-17T16:08:08.104089Z",
+  "external_pr_observed_at": "2026-11-17T16:11:51.558653Z",
+  "semantic_fingerprint": "b44f4d9b52af0ea196969b5a23f116202b6a5577c110c6785f9786daa0de3d67",
   "coverage": {
     "repositories_discovered": 182,
     "verified_forks": 180,
@@ -670,12 +670,20 @@
     {
       "working_fork": "opensiro-contributions/paperclip",
       "original_repository": "paperclipai/paperclip",
-      "meta_head_sha": "d1d66b9d43c7251a7601f621051a0139eb2c6102",
-      "state_blob_sha": "1e18c1fdc1150d52729f6c3a5094c262debdfa2e",
+      "meta_head_sha": "40092db1fc0f065d2414e9867ec9a4d60345d479",
+      "state_blob_sha": "63693978aafbdc565a58a308044fb612f3e487ee",
       "contribution_records": [
+        {
+          "id": "paperclip-s3-s4-adaptive-resource-feedback",
+          "record_sha": "f5a61f2c6736db273e43c8c741707bb865aaca50"
+        },
         {
           "id": "paperclip-s5-approval-decision-source",
           "record_sha": "f47aec71a8153827d7991f8fd9ad80595d5efc56"
+        },
+        {
+          "id": "paperclip-s5-strategy-approval-authority",
+          "record_sha": "73db3bd444fadbe4e30c4afc1b8dc8a425aa04de"
         }
       ]
     },
@@ -1175,8 +1183,8 @@
     }
   ],
   "artifact_sha256": {
-    "docs/activity.svg": "5c4ee79ae9ff0d5f10db61dbe1f280f2b79272c18225d988aa4502c8046962ad",
-    "docs/ACTIVITY.md": "0efdcac6b68ace41d979e610b44952539ab5ac2beaaeac71e671b409bd4e253f"
+    "docs/activity.svg": "eed66b18618a8b3489e54cbe60a0415a2866c665c031f5ac600a9d741e2a2e52",
+    "docs/ACTIVITY.md": "30e1e5b230a96d112da7698740bb22136ae200bdb0733bc205fba3aa22f8513b"
   },
   "interpretation": "Metadata-linked PR activity, not historical completeness or verified deployed benefit"
 }
