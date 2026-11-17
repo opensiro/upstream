@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
   "source": "opensiro/upstream read-only portfolio projection",
-  "upstream_revision": "28076520f3b9668b20f51fdde25e53dab793ab64",
-  "aggregate_observed_at": "2026-11-16T15:44:26.820035Z",
-  "external_pr_observed_at": "2026-11-16T15:47:58.245297Z",
-  "semantic_fingerprint": "4ac7d9039c138acb538cf5905936c9d58439f8e27f701ecbbc730f39ff230948",
+  "upstream_revision": "21a8454a317058fe33eab08fe7ee7b784d63e395",
+  "aggregate_observed_at": "2026-11-17T01:52:43.343354Z",
+  "external_pr_observed_at": "2026-11-17T01:55:56.216562Z",
+  "semantic_fingerprint": "4a492f79b4e35c987094580673b2c959218d42218c04314729c4fc715ca0d9bf",
   "coverage": {
     "repositories_discovered": 182,
     "verified_forks": 180,
-    "missing_meta": 117,
-    "included_forks": 63,
+    "missing_meta": 116,
+    "included_forks": 64,
     "filtered_by_attention": 0,
     "skipped_nonfork": 2,
     "errors": 0,
@@ -354,8 +354,8 @@
     {
       "working_fork": "opensiro-contributions/browser-harness",
       "original_repository": "browser-use/browser-harness",
-      "meta_head_sha": "f9a4578aa57331292a2053827ec2d42bc592c0a5",
-      "state_blob_sha": "f7f7d096b6a573aaf163fd8b945b64a735c9358c",
+      "meta_head_sha": "3b01dfc8ba63b17154a68619042dd8c7f527f257",
+      "state_blob_sha": "f91664f43c6d5599b3c178058d050bff6cf0de00",
       "contribution_records": [
         {
           "id": "browser-harness-exact-target-daemon-preflight",
@@ -366,8 +366,20 @@
           "record_sha": "c31b2e8c1795c31d44e5e22d9a94528acf40c306"
         },
         {
+          "id": "browser-harness-s1-domain-skill-index-export",
+          "record_sha": "5f4187fe18cdf8ce456244e0df0aedc802dd7766"
+        },
+        {
+          "id": "browser-harness-s1-durable-action-intent",
+          "record_sha": "4b09244d0da69f0fceb45247262012bc2005bcac"
+        },
+        {
           "id": "browser-harness-s1-learned-regulator-reuse",
-          "record_sha": "9454322007e7e6bf3afbe0a2470e8769a7d5edd0"
+          "record_sha": "e13f38bdbf45cd28fbdfd1b0e7ff8cd532ee70e5"
+        },
+        {
+          "id": "browser-harness-s3-owned-scope-priority-admission",
+          "record_sha": "fd5a4ff5f618d2f6aa3fad3924dccd284f5046b7"
         }
       ]
     },
@@ -638,8 +650,8 @@
     {
       "working_fork": "opensiro-contributions/openclaw",
       "original_repository": "openclaw/openclaw",
-      "meta_head_sha": "34b8bb6e14c8b6046c47c30ae72b4d2a9e371482",
-      "state_blob_sha": "3b6c7528130972692719fb4de51740438343757c",
+      "meta_head_sha": "9f6c3d86f9d2c05a5a100b12600a16e1b886d678",
+      "state_blob_sha": "aff47150dbc80fdb22a0c70d7009c1b38786802a",
       "contribution_records": [
         {
           "id": "openclaw-embedded-mcp-tool-approvals",
@@ -651,7 +663,19 @@
         },
         {
           "id": "openclaw-workboard-atomic-recheck-197312",
-          "record_sha": "4e7939679c89b60766e03d8a4f42a8e774ecaccb"
+          "record_sha": "68af696fb6fa945a85c9164de3c29a300686effe"
+        }
+      ]
+    },
+    {
+      "working_fork": "opensiro-contributions/paperclip",
+      "original_repository": "paperclipai/paperclip",
+      "meta_head_sha": "d1d66b9d43c7251a7601f621051a0139eb2c6102",
+      "state_blob_sha": "1e18c1fdc1150d52729f6c3a5094c262debdfa2e",
+      "contribution_records": [
+        {
+          "id": "paperclip-s5-approval-decision-source",
+          "record_sha": "f47aec71a8153827d7991f8fd9ad80595d5efc56"
         }
       ]
     },
@@ -1151,8 +1175,8 @@
     }
   ],
   "artifact_sha256": {
-    "docs/activity.svg": "e49dde7de371086e1c08e264649d94152a68561d8894177e7714414bfb1287d7",
-    "docs/ACTIVITY.md": "613e380541ad57e9a79f1fe4db54d4c75696bb3f81684dcb996140b4c00bcee2"
+    "docs/activity.svg": "5c4ee79ae9ff0d5f10db61dbe1f280f2b79272c18225d988aa4502c8046962ad",
+    "docs/ACTIVITY.md": "0efdcac6b68ace41d979e610b44952539ab5ac2beaaeac71e671b409bd4e253f"
   },
   "interpretation": "Metadata-linked PR activity, not historical completeness or verified deployed benefit"
 }
