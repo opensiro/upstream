@@ -1,6 +1,6 @@
 # Capability Roadmap — architecture-first, plan-only
 
-[Protocol](../PROTOCOL.md#architecture-first-upstream-roadmap-ownerrepo-plan-only) · [issue template](../templates/EXTERNAL_ARCHITECTURE_ISSUE.md)
+[Protocol](../PROTOCOL.md#architecture-first-upstream-roadmap-ownerrepo-plan-only) · [fork-local roadmap Issue template](../templates/FORK_CAPABILITY_ROADMAP_ISSUE.md) · [external architecture Issue template](../templates/EXTERNAL_ARCHITECTURE_ISSUE.md)
 
 ## Purpose
 
@@ -10,7 +10,7 @@ The normative [Profile](https://github.com/opensiro/vsm-harness-profile/blob/mai
 
 ## Issue-local artifact storage and conditional original Issue
 
-`upstream roadmap` remains `PLAN_ONLY`. An explicitly requested persistent case belongs under the verified fork's `opensiro/meta:.opensiro/issues/<case-id>/` after checking the parent repository, meta HEAD and owner control. Store case-level `roadmap.md`, `constructor-acceptance.md`, external Issue drafts and technical receipts there, **not** in central Upstream. A public fork GitHub Issue for discussing/reviewing that case requires a separate exact approval of its full title/body; a case folder alone is not a GitHub Issue.
+`upstream roadmap` remains `PLAN_ONLY`. An explicitly requested persistent case belongs under the verified fork's `opensiro/meta:.opensiro/issues/<case-id>/` after checking the parent repository, meta HEAD and owner control. Store case-level `roadmap.md`, `constructor-acceptance.md`, external Issue drafts and technical receipts there, **not** in central Upstream. For OpenSiro discussion, use the [generic fork roadmap Issue template](../templates/FORK_CAPABILITY_ROADMAP_ISSUE.md), populated with current source-native evidence. A public fork GitHub Issue for discussing/reviewing that case requires a separate exact approval of its full title/body; a case folder alone is not a GitHub Issue. The [external architecture template](../templates/EXTERNAL_ARCHITECTURE_ISSUE.md) is a distinct maintainer-facing artifact and does not become public automatically.
 
 Follow the [fork Issue → case evidence → original Issue route](../PROTOCOL.md#fork-github-issue--local-case--external-issue-separate-publication). Before any original Issue, dedupe the live original issue/PR set; link an existing original issue if it covers the outcome. For a new maintainer issue, request a **separate exact publication approval**, create a standalone original-native issue and read back its actual URL; store/cross-link it in the fork case. This is not GitHub native transfer across separate owners, nor automatic closure of the fork Issue. No grade change, product code implementation or public PR is implied by case publication.
 
