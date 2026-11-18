@@ -2,6 +2,10 @@
 
 **Find useful improvements. Keep the working history with the harness. View the portfolio in one place.**
 
+## Mandatory assessment prerequisite
+
+Every named `upstream roadmap OWNER/REPO`, `upstream upgrade` and original-specific contribution requires a **canonical accepted included** general VSM assessment in the [Index](https://github.com/opensiro/vsm-harness-index) first, matching the original repository and `data/catalog.psv` `review_ref`. A proposed assessment, unmerged PR, predecessor-only vector or missing row means **`ASSESSMENT_REQUIRED / BLOCKED`**: complete the Index assessment/admission path first; no new roadmap verdict, upgrade implementation or public issue. Then re-evaluate against the accepted Index main and preserve all separate public consent gates. [Protocol](PROTOCOL.md#mandatory-accepted-assessment-prerequisite--fail-closed).
+
 ## I'm human
 
 - **I don't understand any of this:** [Show me the visual map](https://opensiro.com/vsm.html) — a direct, illustrated introduction to the VSM approach.
