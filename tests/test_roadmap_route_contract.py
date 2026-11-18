@@ -13,11 +13,28 @@ class RoadmapRouteContractTests(unittest.TestCase):
         cls.template=(ROOT/"templates/EXTERNAL_ARCHITECTURE_ISSUE.md").read_text()
 
     def test_separate_plan_only_route(self):
-        for phrase in ("plan-only", "one source", "zero code", "upstream upgrade", "separate", "read-only", "not a compulsory", "not a mandatory"):
+        for phrase in ("plan-only", "one source", "zero product changes", "upstream upgrade", "separate", "read-only", "not a compulsory", "not a mandatory"):
             if phrase in ("one source", "not a compulsory", "not a mandatory"):
                 continue
             self.assertIn(phrase.lower(),self.route.lower())
         self.assertIn("## Capability-first `upstream upgrade`".replace("`",chr(96)),self.protocol)
+
+    def test_named_roadmap_full_cycle_reaches_fork_issue_gate(self):
+        readme=(ROOT/"README.md").read_text()
+        changelog=(ROOT/"CHANGELOG.md").read_text()
+        for phrase in (
+            "PLAN_ONLY full cycle to a fork-local GitHub Issue",
+            "Durable roadmap capture is the default completion obligation",
+            "READY_FOR_FORK_ISSUE_APPROVAL — NOT PUBLISHED",
+            "verify or provision",
+            "separate exact current-conversation",
+        ):
+            self.assertIn(phrase.lower(), self.route.lower())
+        self.assertIn("complete fork-local Issue cycle by default", self.guide)
+        self.assertIn("plan-only full cycle to a fork-local GitHub Issue", readme)
+        self.assertIn("Roadmap full cycle to fork-local Issue (unreleased)", changelog)
+        self.assertIn("PERSISTENCE_BLOCKED", self.route)
+        self.assertIn("PLAN_ONLY", self.route)
 
     def test_provenance_and_legal_preflights(self):
         for phrase in ("historical", "original default HEAD", "PR heads/diffs/tests", "license/formalities", "autonomy preflights", "Profile", "Skills", "Index"):
