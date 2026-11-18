@@ -33,6 +33,19 @@ class RoadmapRouteContractTests(unittest.TestCase):
         self.assertIn("no automatic publication",self.guide.lower())
         self.assertIn("Cost reduction remains a hypothesis",self.template)
 
+    def test_no_intermediate_roadmap_wait_or_publication_shortcut(self):
+        agents = (ROOT / "AGENTS.md").read_text()
+        self.assertIn("Single-pass roadmap completion; no intermediate operator waiting", self.route)
+        self.assertIn("not user review gates", self.route)
+        self.assertIn("One-pass completion and user attention", self.guide)
+        self.assertIn("not user review gates", self.guide)
+        self.assertIn("no routine intermediate waits or user reviews", agents)
+        for document in (self.route, self.guide, agents):
+            self.assertIn("exact", document.lower())
+            self.assertIn("publication", document.lower())
+        changelog = (ROOT / "CHANGELOG.md").read_text()
+        self.assertLess(changelog.index("## Unreleased"), changelog.index("Roadmap one-pass completion; no intermediate operator waiting"))
+
     def test_three_options_and_source_native_alternative(self):
         for phrase in ("Improve this harness", "Challenge or improve the open specification", "Explore a domain-specific fork", "Closest existing project-native solution", "AI involvement"):
             self.assertIn(phrase,self.template)

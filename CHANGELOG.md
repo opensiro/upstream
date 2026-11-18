@@ -6,6 +6,8 @@
 
 ## Unreleased
 
+**Roadmap one-pass completion; no intermediate operator waiting (unreleased):** A named `upstream roadmap` or follow-up "continue to the end" now explicitly requires all permitted research and the complete Human/AI/receipt/justified issue-draft handoff in one run, without routine interim approval requests. A partial `NEEDS_EVIDENCE`, old Index review or absent matching fork does not excuse unfinished lawful read-only work. The final package records genuinely exhausted evidence gaps, while existing implementation, owner PAUSE/STOP, fork-issue and third-party exact-consent gates remain unchanged. Align Protocol, guide, agent route and structural regression test; no version bump or external post.
+
 **AI acceptance examples explicitly non-prescriptive (unreleased):** Label primary and optional `AC-..` tables as illustrative repository-adaptable examples, not mandatory case IDs, titles, counts, or executable native tests. Require each AI case to be derived from the original repository's pinned behavior and rights; preserve positive/negative/feedback/native-alternative coverage principles, with source-backed reasons where an example does not apply. Add dedicated regression tests and document this boundary in the roadmap guide. No changed Profile/Skills semantics, Paperclip example, grade, implementation or public publication.
 
 
