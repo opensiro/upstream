@@ -44,6 +44,10 @@ Follow the [fork Issue → case evidence → original Issue route](../PROTOCOL.m
 
 **Migrated case exemplars:** [Paperclip S4 roadmap](https://github.com/opensiro-contributions/paperclip/blob/opensiro/meta/.opensiro/issues/model-release-adaptation-20261117/roadmap.md) and [acceptance contract](https://github.com/opensiro-contributions/paperclip/blob/opensiro/meta/.opensiro/issues/model-release-adaptation-20261117/constructor-acceptance.md); [Browser Harness S3 roadmap](https://github.com/opensiro-contributions/browser-harness/blob/opensiro/meta/.opensiro/issues/browser-resource-control-20261117/roadmap.md).
 
+## One-pass completion and user attention
+
+A named roadmap and a follow-up to "continue to the end" require a **single completed research handoff**, not repeated intermediate waiting states. Intermediate findings, `NEEDS_EVIDENCE` during investigation, the >30-day reassessment advisory and draft artifacts are internal checkpoints, **not user review gates**. Carry through all source-native overlap, legal, functional-sufficiency, alternatives, acceptance and cost checks that remain permitted. If the matching fork is absent, complete both Human and AI draft layers and the Capability Roadmap Receipt in chat without claiming fork-local files or public Issues. Only finish with source-linked `DECISION_READY`, genuinely exhausted `NEEDS_EVIDENCE`, or `NO_USEFUL_CHANGE`; identify any real blocker and its exact next decision. No background execution, inferred implementation mandate, external publication, owner-control override or bypass of exact current-conversation consent follows from this no-intermediate-wait rule.
+
 ## Procedure
 
 1. **Source and authority pins:** Named original repository; exact current default HEAD; observation time; legal license/contributor/AI policy and autonomy preflight; accepted Index assessment URL *and file blob SHA*, historical review date/ref; explicitly label pending reassessments as unaccepted. Declare system-in-focus and excluded recursion. If a verified fork is relevant read original parent and `opensiro/meta` owner controls before writes.
