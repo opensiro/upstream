@@ -8,6 +8,9 @@
 
 ## Unreleased
 
+- **Mandatory canonical assessment before Upstream work (unreleased):** An original must have an accepted `included` Index assessment and matching catalog source pin before any named roadmap, upgrade, new original-specific decision or publication. Missing/proposed/predecessor-only cases are `ASSESSMENT_REQUIRED / BLOCKED` until accepted Index admission and readback; intake/assessment preparation remains allowed.
+
+
 **Roadmap terminal decision closure (unreleased):** Require named architecture-first roadmaps to exhaust permitted original source/issue/PR/alternative/owner/feedback checks and finish with one concrete narrative GO / NO_GO / BLOCKED decision (repeated across Human/AI/receipt) and a present do/don't recommendation. An exhausted `NEEDS_EVIDENCE` may remain the honest research disposition, but is not by itself an operator decision: it must close as NO_GO now or a precisely evidenced BLOCKED with a conditional external unlock. Respect source locks, no invented benefit/grade, fork PAUSE/STOP, and exact publication consent. Update templates/agent route and structural tests; no protocol version bump or external post.
 
 
