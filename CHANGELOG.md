@@ -8,6 +8,8 @@
 
 ## Unreleased
 
+**Roadmap full cycle to fork-local Issue (unreleased):** A named `upstream roadmap OWNER/REPO` now targets a source-reconciled, verified matching fork, durable `.opensiro/issues/<case-id>/` Human/AI/receipt case and an actual public fork-local GitHub Issue **only when the complete title/body receives exact current-conversation approval**. Without approval, hand off a stored approval-ready public Issue; missing fork rights, owner PAUSE/STOP or missing metadata writes are explicit blocked outcomes rather than chat-only success. This is still `PLAN_ONLY`: no automatic original-repository contact, product edits, Index regrade or grade-maximizing feature quota.
+
 **Unversioned roadmap artifact filenames (unreleased):** New cases use `issue.md`, `constructor-sufficiency.md`, `roadmap.md` and `README.md`; no copied `-v2` postfix. Preserve historical example links and schema v2 independently of current naming. Align templates, protocol and tests; no release/version bump.
 
 **Roadmap one-pass completion; no intermediate operator waiting (unreleased):** A named `upstream roadmap` or follow-up "continue to the end" now explicitly requires all permitted research and the complete Human/AI/receipt/justified issue-draft handoff in one run, without routine interim approval requests. A partial `NEEDS_EVIDENCE`, old Index review or absent matching fork does not excuse unfinished lawful read-only work. The final package records genuinely exhausted evidence gaps, while existing implementation, owner PAUSE/STOP, fork-issue and third-party exact-consent gates remain unchanged. Align Protocol, guide, agent route and structural regression test; no version bump or external post.
