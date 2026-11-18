@@ -29,7 +29,7 @@ class ForkCapabilityRoadmapIssueTemplateTests(unittest.TestCase):
         self.assertEqual([line for line in text.splitlines() if line.startswith("## ")], headings)
         self.assertNotIn("paperclipai/", text)
         self.assertNotIn("browser-use/", text)
-        self.assertIn("existing original Issues/PRs", text)
+        self.assertIn("Existing original Issues/PRs + live status", text)
         self.assertIn("Best original-native alternative", text)
 
     def test_target_and_priority_invariants(self):
