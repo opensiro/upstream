@@ -8,6 +8,20 @@ This route tests whether reusable organizational specifications and source-nativ
 
 The normative [Profile](https://github.com/opensiro/vsm-harness-profile/blob/main/PROFILE.md) owns function semantics; [Skills](https://github.com/opensiro/vsm-harness-skills) owns grade/methodology; [Index](https://github.com/opensiro/vsm-harness-index) owns accepted assessments. Upstream does not overwrite their authority.
 
+## Two-level case presentation: Human first, AI second
+
+**Reusable artifacts:** [Human Issue template](../templates/FORK_CAPABILITY_ROADMAP_ISSUE.md) and [AI/developer technical contract template](../templates/ROADMAP_AI_CONSTRUCTOR_CONTRACT.md). Fill these with source-native evidence in the same fork-local case folder.
+
+**The human-facing Issue is the entry point**, not the condensed tail of the technical design. Its first substantive content MUST follow this order:
+
+1. **Why Opensiro:** Opensiro tests whether VSM-informed reusable specifications and source-native integrations can **standardize and lower the engineering cost of AI-agent harnesses**. Cost reduction is an unmeasured hypothesis; maintainers are not obliged to adopt VSM.
+2. **Central accepted Index assessment:** a prominent complete **`S1/S2/S3/S3*/S4/S5`** vector and compact **six-function table** showing ownership state, meaning and assessment consequence, linked to the accepted assessment, `review_ref`, date, Profile/Skills versions. This is the **historical starting point** of reasoning, not proposed after-state. Never invent missing states; use explicit `?`/`UNVERIFIED` when absent.
+3. **Human decision:** operator outcome and counterfactual, original-native alternatives/Issues/PRs, prioritized target vs dependencies vs optional work (`P0/P1/P2`), materiality, stop and no-publication gates, direct link to the AI companion.
+
+Keep this a **short human decision surface**. Do not put the full constructor API specification, source map, multi-step implementation recipe or extended test matrix inline. Put these in **one case-local linked AI/developer contract**, preserving the exact same starting assessment/priority claims. That companion MUST own first-party code/pinned refs, current shipped-vs-proposed gap map, five-link function-specific sufficiency as appropriate, authority and ownership, `S3↔S4` interface when relevant, verifiable native tests including negatives, evidence gaps and implementation stop rules. **Two files are two audiences, not two public Issues**. Cross-link both; use the current approved fork issue template as Human reference.
+
+An optional one-sentence status header is metadata, not the beginning of the substantive presentation. Do not lead with a proposed feature, technology name, a raw vector **without first explaining Opensiro**, or a wall of API details before the central assessment.
+
 ## Default target and work priority
 
 **Target-first roadmap:** for relevant VSM functions without a confirmed `C`/`C(P)` or `A`/`A(P)` first-party path, investigate the **minimum source-native set of existing and proposed changes sufficient for a meaningful `C` constructor**. Use accepted Index grades only as dated evidence; inspect current source and resolve `?` before concluding a function is missing. Already-`A`/`A(P)` functions **do not need C engineering work** for this roadmap, even though `A` does not logically imply a reusable `C` interface. Already-`C`/`C(P)` functions also do not need another constructor. Parent-governed `P` is legitimate, and may be retained as the final mode when an autonomous constructor adds no user value or violates reserved authority.
@@ -21,6 +35,8 @@ A plan **MUST show the accepted historical state → observed source-native curr
 `upstream roadmap` remains `PLAN_ONLY`. An explicitly requested persistent case belongs under the verified fork's `opensiro/meta:.opensiro/issues/<case-id>/` after checking the parent repository, meta HEAD and owner control. Store case-level `roadmap.md`, `constructor-acceptance.md`, external Issue drafts and technical receipts there, **not** in central Upstream. For Opensiro discussion, use the [generic fork roadmap Issue template](../templates/FORK_CAPABILITY_ROADMAP_ISSUE.md), populated with current source-native evidence. A public fork GitHub Issue for discussing/reviewing that case requires a separate exact approval of its full title/body; a case folder alone is not a GitHub Issue. The [external architecture template](../templates/EXTERNAL_ARCHITECTURE_ISSUE.md) is a distinct maintainer-facing artifact and does not become public automatically.
 
 Follow the [fork Issue → case evidence → original Issue route](../PROTOCOL.md#fork-github-issue--local-case--external-issue-separate-publication). Before any original Issue, dedupe the live original issue/PR set; link an existing original issue if it covers the outcome. For a new maintainer issue, request a **separate exact publication approval**, create a standalone original-native issue and read back its actual URL; store/cross-link it in the fork case. This is not GitHub native transfer across separate owners, nor automatic closure of the fork Issue. No grade change, product code implementation or public PR is implied by case publication.
+
+**Approved two-level case example:** [Paperclip human Issue v2](https://github.com/opensiro-contributions/paperclip/blob/opensiro/meta/.opensiro/issues/capability-roadmap-issue-pilots-20261118/issue-v2.md) and [AI/developer constructor contract](https://github.com/opensiro-contributions/paperclip/blob/opensiro/meta/.opensiro/issues/capability-roadmap-issue-pilots-20261118/constructor-sufficiency-v2.md), with the accepted Index state as their shared central starting point. These are plan-only fork files, not published GitHub Issues or a current-revision grade.
 
 **Migrated case exemplars:** [Paperclip S4 roadmap](https://github.com/opensiro-contributions/paperclip/blob/opensiro/meta/.opensiro/issues/model-release-adaptation-20261117/roadmap.md) and [acceptance contract](https://github.com/opensiro-contributions/paperclip/blob/opensiro/meta/.opensiro/issues/model-release-adaptation-20261117/constructor-acceptance.md); [Browser Harness S3 roadmap](https://github.com/opensiro-contributions/browser-harness/blob/opensiro/meta/.opensiro/issues/browser-resource-control-20261117/roadmap.md).
 
@@ -50,6 +66,8 @@ A compact **plan-only Markdown report** in chat, or a dated **case record in the
 | Section | Required contents |
 | --- | --- |
 | Identity | Original and HEAD SHA/date; boundary/recursion; pinned accepted Index assessment SHA, review date/ref and Profile/Skills refs; last successful review/check date, age in days and any proposed re-assessment link (provisional when pending) |
+| Human-first presentation | Why Opensiro → complete central accepted six-system VSM baseline (historical grades/meaning/provenance) → prioritized human decision and explicit link to separate AI/developer construction contract; no bulky technical appendix embedded in the Issue |
+| AI companion | Linked case-local source-to-constructor evidence, current shipped/proposed gaps, owner and authority/feedback chain, native acceptance/negative tests; mirrors the human baseline and priorities |
 | Permission | License/contributor/CLA/AI policy, allowed paths and any actual fork owner state; no inferred write |
 | Existing work | Original and fork issue/PR URLs, true open/merged status and head/diff evidence, shipped/proposed distinction |
 | VSM witness | Function, disturbance, real decision/feedback owner/right, enabling first-party primitives and return-to-operation |
