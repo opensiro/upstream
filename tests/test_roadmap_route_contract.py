@@ -46,6 +46,19 @@ class RoadmapRouteContractTests(unittest.TestCase):
         changelog = (ROOT / "CHANGELOG.md").read_text()
         self.assertLess(changelog.index("## Unreleased"), changelog.index("Roadmap one-pass completion; no intermediate operator waiting"))
 
+    def test_explicit_opensiro_persistence_is_not_a_chat_export(self):
+        metadata = (ROOT / "docs/FORK_METADATA.md").read_text()
+        agents = (ROOT / "AGENTS.md").read_text()
+        for phrase in ("Durable roadmap capture", "PERSISTENCE_BLOCKED", "NOT_PERSISTED", "read back", ".opensiro/issues/<case-id>/"):
+            self.assertIn(phrase.lower(), self.route.lower())
+        for phrase in ("Persistence completion gate", "scripts/validate_capability_roadmap.py", "A chat archive alone", "PAUSE/STOP"):
+            self.assertIn(phrase.lower(), self.guide.lower())
+        self.assertIn("Required readback for explicitly retained research cases", metadata)
+        self.assertIn("Roadmap `.opensiro` persistence", agents)
+        for scope in (self.route, self.guide, agents, metadata):
+            self.assertIn("public", scope.lower())
+            self.assertIn("contributions/", scope)
+
     def test_three_options_and_source_native_alternative(self):
         for phrase in ("Improve this harness", "Challenge or improve the open specification", "Explore a domain-specific fork", "Closest existing project-native solution", "AI involvement"):
             self.assertIn(phrase,self.template)
