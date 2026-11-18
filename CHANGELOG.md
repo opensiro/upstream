@@ -6,6 +6,9 @@
 
 ## Unreleased
 
+**AI acceptance examples explicitly non-prescriptive (unreleased):** Label primary and optional `AC-..` tables as illustrative repository-adaptable examples, not mandatory case IDs, titles, counts, or executable native tests. Require each AI case to be derived from the original repository's pinned behavior and rights; preserve positive/negative/feedback/native-alternative coverage principles, with source-backed reasons where an example does not apply. Add dedicated regression tests and document this boundary in the roadmap guide. No changed Profile/Skills semantics, Paperclip example, grade, implementation or public publication.
+
+
 **Paperclip-derived roadmap templates (unreleased):** Align generic Human and AI templates with the reviewable Paperclip v2 two-level pilot: eight Human sections with Why Opensiro and historical six-function Index baseline leading, proposed capabilities, existing work/gap, P0/P1/P2, stop gates, paths, cost and handoff; and an AI companion with an unnumbered function-boundary section plus seven detailed steps (baseline/counterfactual, shipped overlap, first-party construction ports, dependencies, optional independently justified secondary function, tests and falsification/evidence ownership). Keep the Paperclip example and its pinned evidence untouched; explicitly allow no secondary target; protect status/publication, assessment ownership and no automatic C-grade claims. Expand structural tests to prevent template drift.
 
 

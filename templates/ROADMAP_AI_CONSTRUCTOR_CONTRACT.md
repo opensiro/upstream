@@ -110,9 +110,11 @@ different harness without source-specific evidence.
 | **[ActionBridge]** | [Native first-party current or future operation actually changes] | [S2/S3*/S5, parent, stale rights fail closed] | [Exact source and gap] |
 | **[FeedbackReceipt]** | [Persisted true applied/refused effect visible in later work] | [Closure into management; false success not accepted] | [Exact source and gap] |
 
-### Independent optional acceptance matrix — proposed, not run
+### Example optional acceptance scenarios — adapt to repository (not executed)
 
-| Test | Trigger / independently composed actor | Required real first-party outcome | Rejection case |
+**ILLUSTRATIVE ROWS — NOT MANDATORY TEST CASES.** The `AC-OPTIONAL-01…03` IDs, wording, count and outcomes below are *examples of how to write a check*, not tests to copy or execute unchanged. **MUST derive and replace these rows from the secondary function's actually evidenced original-source code, decision owner, supported mode, user counterfactual and authority.** Add, remove, rename or reorder scenarios as required. If there is no independent P2 capability, write `P2: NONE` and **delete this entire table**, rather than filling example rows. Record why a potential negative case is not applicable instead of fabricating one.
+
+| Example only — replace ID and title | Example trigger / actor — replace | Example observable outcome — replace | Example rejection — replace |
 | --- | --- | --- | --- |
 | **AC-OPTIONAL-01** | [Competing organizational choices and lawful alternate agent decision] | [Differing permitted operation and feedback] | [Hardcoded core alone decides] |
 | **AC-OPTIONAL-02** | [Stale rights, owner collision, parent-reserved decision] | [No mutation, concrete denial receipt] | [Bypassed S2/S5/reviewer constraints] |
@@ -120,9 +122,13 @@ different harness without source-specific evidence.
 
 **Secondary readiness:** `NEEDS_EVIDENCE` until own materiality, source-native fit, legitimate actor and actual tests are demonstrated. **No automatic new Index grade** and not a prerequisite for P0.
 
-## 6. [PRIMARY FUNCTION] source-native acceptance matrix (proposed, not run)
+## 6. [PRIMARY FUNCTION] example acceptance scenarios — adapt to repository (not executed)
 
-| Scenario | Trigger / developer-composed decision actor | Required first-party observable result | If absent |
+**ILLUSTRATIVE EXAMPLES — NOT MANDATORY TEST CASES.** **`AC-01…AC-09`, their names, triggers, outcomes, sequence and number are NOT prescribed tests.** The following rows only demonstrate the *format* of a source-native acceptance check. **Before handing a roadmap to implementation, an AI/developer MUST independently replace, remove, rename or add the rows** using the specific original repository's pinned source, supported operating mode, real disturbance/variety, actual developer-composed decision actor and lawful rights, available first-party action/feedback paths, competing shipped alternatives and test infrastructure. **Do not copy an example row verbatim or claim it has passed** unless its exact facts are established and cited for that repository. A missing applicable witness is `NEEDS_EVIDENCE`, not a fictitious passing case.
+
+**Required coverage (principles, not fixed IDs/count):** demonstrate (a) a real positive organizational decision **and observable subsequent operation/feedback**; (b) *alternative lawful decisions where the function actually offers alternatives*; (c) negative/fail-closed authority, invalid, stale, revoked or absent-actor conditions **as applicable to that system and its supported modes**; (d) compatibility, execution failure and truthful feedback where material; and (e) a meaningful comparison with the simplest existing original-native solution. For a non-applicable example, **replace or omit it with a documented repository-specific reason**, not a forced artificial test. Full tests and execution commands must originate from actual native code/test conventions. No universal nine-case checklist exists.
+
+| Example only — replace ID and title | Example trigger / actor — replace | Example observable first-party result — replace | Example negative/stop — replace |
 | --- | --- | --- | --- |
 | **AC-01 Positive closure** | [Real disturbance/external future distinction; bound autonomous agent selects supported option] | [Durable lawful decision and actual later run/task/config effect, returned feedback] | [No C construction witness] |
 | **AC-02 Different lawful choice** | [Same facts, different option or `hold`] | [A different permitted downstream outcome] | [Core is hardcoding decision] |
@@ -134,7 +140,7 @@ different harness without source-specific evidence.
 | **AC-08 Actual feedback, including failure** | [Later operation runs, errors or never applies intended configuration] | [Receipt truthfully reports applied/refused/failed outcome and closes feedback] | [Notification only, no closure] |
 | **AC-09 Original-native comparison** | [Matched original manual/native operator task] | [New developer action not comparably achievable by simpler baseline] | [`NO_USEFUL_CHANGE`] |
 
-**Execution evidence:** `NONE / NOT RUN` until original-native tests and artifacts are attached. The number and cases above are **editable examples**, not a universal mandatory count or a guarantee of shipping. Exact smoke, unit, integration, permission, concurrency and regression commands must be sourced from the original project, never invented.
+**Execution evidence:** `NONE / NOT RUN` until source-native test outputs/artifacts are attached. **All `AC-..` entries above are replaceable examples, not acceptance requirements, a universal test suite, a mandatory case count or proof of shipment.** The **coverage principles** above remain required for the selected function, with explicit source-backed applicability and gaps. Do not turn example labels into implementation tasks. Exact smoke, unit, integration, permission, concurrency and regression commands must be sourced from the original project, never invented.
 
 ## 7. Falsification, exclusions and evidence ownership
 
