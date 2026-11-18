@@ -35,6 +35,11 @@ class RoadmapRouteContractTests(unittest.TestCase):
         self.assertIn("Roadmap full cycle to fork-local Issue (unreleased)", changelog)
         self.assertIn("PERSISTENCE_BLOCKED", self.route)
         self.assertIn("PLAN_ONLY", self.route)
+        agents=(ROOT/"AGENTS.md").read_text()
+        self.assertIn("PLAN_ONLY full cycle to fork-local Issue", agents)
+        self.assertIn("named command default", agents)
+        self.assertIn("READY_FOR_FORK_ISSUE_APPROVAL — NOT PUBLISHED", agents)
+        self.assertIn("separate exact current-conversation owner approval", agents)
 
     def test_provenance_and_legal_preflights(self):
         for phrase in ("historical", "original default HEAD", "PR heads/diffs/tests", "license/formalities", "autonomy preflights", "Profile", "Skills", "Index"):
