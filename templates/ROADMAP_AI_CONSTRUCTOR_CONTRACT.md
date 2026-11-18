@@ -1,4 +1,4 @@
-# [HARNESS] v2 — [primary function] proposed C and [optional other function] developer-composable control contracts
+# [HARNESS] — [primary function] proposed C and [optional other function] developer-composable control contracts
 
 <!--
 Opensiro generic AI/DEVELOPER companion template modeled on the approved
