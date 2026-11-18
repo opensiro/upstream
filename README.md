@@ -67,6 +67,23 @@ As of **2026-11-16 12:00 UTC**, the **42 distinct original-repository PRs** link
 
 [Full dated statistics, day-by-day counts, coverage and on-demand refresh instructions](docs/ACTIVITY.md). Each square contains **three independently shaded stripes**: **green** published, **blue** merged, **amber** closed without merge; a **purple dot** marks a closed PR with a GitHub `APPROVED` review (currently 0). The SVG uses original event dates rather than metadata backfill commits and is a static, manually refreshable view, **not a live counter**.
 
+## Index-first candidate selection for Upstream roadmap
+
+Without `OWNER/REPO`, `upstream roadmap` begins with a **read-only, accepted-Index-first shortlist** and source-native evidence checks, then selects one qualified original and follows the normal named-source plan-only full cycle. It never treats a missing historical VSM grade or an issue title as an implementation requirement. `upstream roadmap select` displays candidate research leads only, without forking or publishing.
+
+```bash
+# Reproducible source-pinned Index leads, legal/source screening, Markdown
+GH_TOKEN=... python3 scripts/roadmap_select.py --focus all --limit 10
+
+# Current-control S3 leads in machine-readable format
+GH_TOKEN=... python3 scripts/roadmap_select.py --focus s3 --format json
+
+# Index-only discovery (explicitly NOT source-verified)
+python3 scripts/roadmap_select.py --no-live --limit 10
+```
+
+The selection script reads only accepted Index rows and samples verified live originals for license, recent open issue titles, original activity, matching fork owner control, and existing Roadmap cases. Its bounded live evidence is an **input for investigation**, not an established useful `C` constructor or permission. Missing CLA/DCO proof, private/unknown licenses and source code/PR overlaps remain explicit follow-up gates. See [protocol](PROTOCOL.md#index-first-upstream-roadmap-selection-unspecified-source-read-only-lead-screen).
+
 ## Architecture-first Upstream roadmap
 
 `upstream roadmap OWNER/REPO` is a **plan-only full cycle to a fork-local GitHub Issue**, with mandatory source analysis and, when effectively authorized, a verified working fork plus `.opensiro` case on `opensiro/meta`. It prepares the complete public fork Issue title/body, then publishes and reads back the Issue **only after exact current-conversation owner approval**; without approval the case is persisted but the GitHub Issue is explicitly **NOT PUBLISHED**. Missing fork/metadata rights or owner PAUSE/STOP must be reported as blocked, not chat-only success. The route maps a pinned general assessment against current original code, issues, PR heads and unresolved user tasks, then proposes the smallest useful **composable-first** improvements. If the last successful Index review is **more than 30 days old**, recommend a source-pinned **re-assessment** before relying on old VSM grades; this is advisory, not a roadmap blocker, and a pending reassessment does not replace accepted evidence. It may finish with a draft architecture issue and **no code changes**. OpenSiro tests whether VSM-informed organizational specification (a hypothesis, not a mandate) can lower harness development/integration/maintenance cost versus simpler native alternatives; **no savings are claimed without measurement**. Maintainers may pursue product-native PRs, challenge/improve Profile or Skills, or try an optional domain-scoped fork.

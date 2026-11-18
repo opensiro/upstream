@@ -8,6 +8,12 @@ This route tests whether reusable organizational specifications and source-nativ
 
 The normative [Profile](https://github.com/opensiro/vsm-harness-profile/blob/main/PROFILE.md) owns function semantics; [Skills](https://github.com/opensiro/vsm-harness-skills) owns grade/methodology; [Index](https://github.com/opensiro/vsm-harness-index) owns accepted assessments. Upstream does not overwrite their authority.
 
+## Selecting the next original from the accepted Index
+
+Use [the read-only Index-first selector](../scripts/roadmap_select.py) for `upstream roadmap` without a named original, or `upstream roadmap select` when only a shortlist is requested. Only accepted included rows from one pinned Index commit are admitted as candidate inputs. Historical `C/A/P/—/?` signals help identify which *question* to ask, never a presumed missing feature; the cheapest source-native response may be to change nothing. The date-scoped original GitHub metadata, license/formality gate, title-level original issue leads, owner `PAUSE/STOP` and existing case folders are shown separately. A source with no relevant recent issue is `NEEDS_EVIDENCE`, not proven unsuitable. Popularity only diversifies the screening sample; it never proves relevance or merits an S3/S4 function.
+
+The operator/agent must read the full original issues, existing PR diffs/test evidence, original README/code and project contribution policy/CLA before choosing one source for the [named plan-only full cycle](#issue-local-artifact-storage-and-conditional-original-issue). Never automatically emit a public fork Issue, original Issue/PR, a grade change, an autonomous worker or a new contribution record from a shortlist. Dedupe the matching fork's `.opensiro/issues/` with [roadmap view](../scripts/roadmap_view.py); existing Plan/PAUSE cases are not hidden. If no candidate qualifies, return the evidence gap instead of switching to unrelated private/uncurated repositories.
+
 ## Two-level case presentation: Human first, AI second
 
 **Reusable artifacts:** [Human Issue template](../templates/FORK_CAPABILITY_ROADMAP_ISSUE.md) and [AI/developer technical contract template](../templates/ROADMAP_AI_CONSTRUCTOR_CONTRACT.md). Fill these with source-native evidence in the same fork-local case folder.
