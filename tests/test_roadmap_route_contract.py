@@ -59,6 +59,12 @@ class RoadmapRouteContractTests(unittest.TestCase):
             self.assertIn("public", scope.lower())
             self.assertIn("contributions/", scope)
 
+    def test_current_case_files_do_not_inherit_versions(self):
+        self.assertIn('Stable case filenames, no version suffix', self.route)
+        for filename in ('issue.md', 'constructor-sufficiency.md', 'roadmap.md'):
+            self.assertIn(filename, self.route)
+        self.assertIn('schema_version: 2', self.route)
+
     def test_three_options_and_source_native_alternative(self):
         for phrase in ("Improve this harness", "Challenge or improve the open specification", "Explore a domain-specific fork", "Closest existing project-native solution", "AI involvement"):
             self.assertIn(phrase,self.template)

@@ -157,7 +157,7 @@ class ForkCapabilityRoadmapIssueTemplateTests(unittest.TestCase):
             self.assertIn(required, protocol)
             self.assertIn(required, roadmap)
         self.assertIn("ROADMAP_AI_CONSTRUCTOR_CONTRACT.md", human)
-        self.assertIn("human issue-v2.md permalink", ai.lower())
+        self.assertIn("human issue.md permalink", ai.lower())
         self.assertIn("same accepted six-system vector", human.lower())
         self.assertIn("MUST match the Human Issue", ai)
         self.assertIn("two layers", protocol.lower())
@@ -169,6 +169,15 @@ class ForkCapabilityRoadmapIssueTemplateTests(unittest.TestCase):
         self.assertIn("No original external", ai)
         self.assertIn("NOT_MEASURED", human)
         self.assertIn("NOT_MEASURED", ai)
+
+    def test_canonical_unversioned_case_names(self):
+        human = TEMPLATE.read_text(encoding='utf-8')
+        ai = AI_TEMPLATE.read_text(encoding='utf-8')
+        roadmap = ROADMAP.read_text(encoding='utf-8')
+        self.assertIn('/constructor-sufficiency.md', human)
+        self.assertIn('human issue.md permalink', ai)
+        self.assertIn('Canonical case filenames', roadmap)
+        self.assertNotIn('/constructor-sufficiency-v2.md', human)
 
     def test_protocol_routes_to_internal_and_external_templates(self):
         for path in (PROTOCOL, ROADMAP):
