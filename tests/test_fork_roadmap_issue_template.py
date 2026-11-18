@@ -90,7 +90,7 @@ class ForkCapabilityRoadmapIssueTemplateTests(unittest.TestCase):
                 "## 3. Proposed minimum [PRIMARY FUNCTION] first-party construction ports",
                 "## 4. Priority and dependency decisions",
                 "## 5. Additional [OPTIONAL FUNCTION] constructor proposal — explicitly requested, or NONE",
-                "## 6. [PRIMARY FUNCTION] source-native acceptance matrix (proposed, not run)",
+                "## 6. [PRIMARY FUNCTION] example acceptance scenarios — adapt to repository (not executed)",
                 "## 7. Falsification, exclusions and evidence ownership",
             ],
         )
@@ -106,6 +106,31 @@ class ForkCapabilityRoadmapIssueTemplateTests(unittest.TestCase):
             "not shipped", "not another public Issue",
         ):
             self.assertIn(phrase.lower(), text.lower())
+
+    def test_acceptance_rows_are_examples_not_prescribed_tests(self):
+        ai = AI_TEMPLATE.read_text(encoding="utf-8")
+        roadmap = ROADMAP.read_text(encoding="utf-8")
+        section6 = ai.split("## 6. [PRIMARY FUNCTION] example acceptance scenarios")[1].split("## 7.")[0]
+        optional = ai.split("### Example optional acceptance scenarios")[1].split("## 6.")[0]
+        for text in (section6, optional):
+            self.assertIn("NOT MANDATORY TEST CASES", text)
+            self.assertIn("replace", text.lower())
+            self.assertIn("repository", text.lower())
+        for required in (
+            "NOT prescribed tests",
+            "MUST independently replace, remove, rename or add",
+            "Required coverage (principles, not fixed IDs/count)",
+            "No universal nine-case checklist exists",
+            "NEEDS_EVIDENCE",
+            "NONE / NOT RUN",
+            "not acceptance requirements",
+        ):
+            self.assertIn(required, section6)
+        self.assertIn("P2: NONE", optional)
+        self.assertIn("delete this entire table", optional)
+        self.assertIn("Acceptance example rule", roadmap)
+        self.assertIn("illustrative placeholders, not mandatory tests", roadmap)
+        self.assertNotIn("MANDATORY AC-01", ai)
 
     def test_optional_second_function_not_mandatory(self):
         human = TEMPLATE.read_text(encoding="utf-8")
