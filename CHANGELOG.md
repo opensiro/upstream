@@ -8,6 +8,9 @@
 
 ## Unreleased
 
+**Roadmap terminal decision closure (unreleased):** Require named architecture-first roadmaps to exhaust permitted original source/issue/PR/alternative/owner/feedback checks and finish with one concrete narrative GO / NO_GO / BLOCKED decision (repeated across Human/AI/receipt) and a present do/don't recommendation. An exhausted `NEEDS_EVIDENCE` may remain the honest research disposition, but is not by itself an operator decision: it must close as NO_GO now or a precisely evidenced BLOCKED with a conditional external unlock. Respect source locks, no invented benefit/grade, fork PAUSE/STOP, and exact publication consent. Update templates/agent route and structural tests; no protocol version bump or external post.
+
+
 **Roadmap full cycle to fork-local Issue (unreleased):** A named `upstream roadmap OWNER/REPO` now targets a source-reconciled, verified matching fork, durable `.opensiro/issues/<case-id>/` Human/AI/receipt case and an actual public fork-local GitHub Issue **only when the complete title/body receives exact current-conversation approval**. Without approval, hand off a stored approval-ready public Issue; missing fork rights, owner PAUSE/STOP or missing metadata writes are explicit blocked outcomes rather than chat-only success. This is still `PLAN_ONLY`: no automatic original-repository contact, product edits, Index regrade or grade-maximizing feature quota.
 
 **Unversioned roadmap artifact filenames (unreleased):** New cases use `issue.md`, `constructor-sufficiency.md`, `roadmap.md` and `README.md`; no copied `-v2` postfix. Preserve historical example links and schema v2 independently of current naming. Align templates, protocol and tests; no release/version bump.
