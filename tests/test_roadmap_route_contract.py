@@ -43,6 +43,8 @@ class RoadmapRouteContractTests(unittest.TestCase):
         for document in (self.route, self.guide, agents):
             self.assertIn("exact", document.lower())
             self.assertIn("publication", document.lower())
+        changelog = (ROOT / "CHANGELOG.md").read_text()
+        self.assertLess(changelog.index("## Unreleased"), changelog.index("Roadmap one-pass completion; no intermediate operator waiting"))
 
     def test_three_options_and_source_native_alternative(self):
         for phrase in ("Improve this harness", "Challenge or improve the open specification", "Explore a domain-specific fork", "Closest existing project-native solution", "AI involvement"):
