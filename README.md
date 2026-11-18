@@ -73,6 +73,35 @@ As of **2026-11-16 12:00 UTC**, the **42 distinct original-repository PRs** link
 
 [Roadmap procedure](docs/CAPABILITY_ROADMAP.md) · [external issue draft](templates/EXTERNAL_ARCHITECTURE_ISSUE.md) · [existing Upgrade](PROTOCOL.md#capability-first-upstream-upgrade-new-work-not-historical-batching). Public third-party communication still needs exact current-conversation approval.
 
+### Read-only roadmap view
+
+The repeatable **`roadmap view`** is a source-dated, read-only GitHub projection of
+`.opensiro/issues/<case-id>/` on verified `opensiro-contributions` forks'
+`opensiro/meta` branches. It is **separate from** the contribution portfolio
+`scripts/aggregate.py`; a research case or historical template pilot is not a
+new intervention, shipped VSM capability or public GitHub Issue.
+
+```bash
+# Scan the accessible public organization: compact Markdown case table
+python3 scripts/roadmap_view.py
+
+# One or several forks, machine-readable evidence with source SHAs
+python3 scripts/roadmap_view.py --format json \
+  --repo opensiro-contributions/browser-harness \
+  --repo opensiro-contributions/jcode
+
+# Optional live original issue/PR state; may require GH_TOKEN/GITHUB_TOKEN quota
+python3 scripts/roadmap_view.py --live-original --show-links
+```
+
+The projection identifies canonical vs historical/partial case formats, recorded
+`NEEDS_EVIDENCE`/`PLAN_ONLY` dispositions, fork owner `PAUSE/STOP`,
+original-source links, missing metadata and scan errors. **Original Issue/PR
+states are `NOT_CHECKED` unless live readback is explicitly requested**;
+failed readback becomes `UNKNOWN` and the scan exits nonzero. This view is
+not a persistent registry, backfill, scheduler, metric or automatic follow-up.
+
+
 ## Capability-first upstream upgrade
 
 `upstream upgrade` is a **one-harness, end-to-end engineering route (FULL CYCLE)**. When no source is specified, run bounded preselection, choose **one** eligible original harness, then lock the entire run to that source. Within that harness, investigate additional real functional hypotheses if early ones fail; **never switch to another original harness in the same invocation**. The goal is real code on a correctly parented `opensiro-contributions` product branch, source-native tests and **a fork-local PR for human review containing the exact prospective external PR**. Creating even that public fork PR requires its own current-conversation approval; without approval, show the exact diff/compare and PR body without claiming a PR exists. An external PR is never posted without separate owner approval. Rights, CLA/DCO, `DORMANT/PAUSE/STOP`, lack of a qualified improvement, and unrun tests remain honest, source-local stop reasons; this is not a background agent or mandatory patch quota.
