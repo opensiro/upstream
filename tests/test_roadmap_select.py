@@ -15,11 +15,11 @@ SHA = "b" * 40
 ORIGINAL = "sample/orchestra"
 FORK = "opensiro-contributions/orchestra"
 WHEN = datetime(2026, 11, 18, tzinfo=timezone.utc)
-TLDR = """# Index accepted rows
-| Harness | Period | S1 | S2 | S3 | S3* | S4 | S5 | Signature |
+RANKINGS = """# Index accepted rows
+| Rank | Harness | Period | Agent-owned | Metasystem A | C | P | ? | Vector |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| <a id="orchestra"></a>[Orchestra](assessments/or/orchestra.md) ([source](https://github.com/sample/orchestra)) | 2026-Q4 | A | C | — | — | — | — | S2 shared multi-agent operations; no S3 constructor proved. |
-| <a id="reviewer"></a>[Reviewer](assessments/re/reviewer.md) ([source](https://github.com/sample/reviewer)) | 2026-Q4 | A | A | A | — | — | P | Distinct current control. |
+| 5 | <a id="orchestra"></a>[Orchestra](assessments/or/orchestra.md) ([source](https://github.com/sample/orchestra)) | 2026-Q4 | 1/6 | 0/5 | 1 | 0 | 0 | `A C — — — —` |
+| 4 | <a id="reviewer"></a>[Reviewer](assessments/re/reviewer.md) ([source](https://github.com/sample/reviewer)) | 2026-Q4 | 3/6 | 2/5 | 0 | 1 | 0 | `A A A — — P` |
 """
 CATALOG = """catalog_position|harness_id|project_name|repository|repository_created_at|source_membership|review_ref|pinned_at
 1|orchestra|Orchestra|https://github.com/sample/orchestra|2026-10-01T00:00:00Z|adapted-source|aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa|2026-11-18
@@ -66,7 +66,7 @@ class SelectionTests(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory()
         d = Path(self.temp.name)
         (d / "data").mkdir()
-        (d / "TLDR.md").write_text(TLDR)
+        (d / "RANKINGS.md").write_text(RANKINGS)
         (d / "data" / "catalog.psv").write_text(CATALOG)
         (d / "data" / "github-stars.json").write_text(json.dumps(STARS))
         self.path = d
@@ -77,7 +77,7 @@ class SelectionTests(unittest.TestCase):
     def load(self):
         return load_index(FakeGitHub(), self.path, SHA)[1]
 
-    def test_only_included_index_tldr_and_exact_pin(self):
+    def test_only_included_index_rankings_and_exact_pin(self):
         records = self.load()
         self.assertEqual(len(records), 2)
         self.assertEqual(records[0]["vector"], ["A", "C", "—", "—", "—", "—"])

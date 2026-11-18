@@ -14,7 +14,7 @@ class RoadmapSelectionContractTests(unittest.TestCase):
         cls.agents = (ROOT / "AGENTS.md").read_text()
 
     def test_index_first_source_boundary(self):
-        for s in ("Index-first", "accepted", "TLDR.md", "catalog",
+        for s in ("Index-first", "accepted", "RANKINGS.md", "catalog",
                   "license", "PAUSE/STOP", "issues", "PR", "one"):
             self.assertIn(s.lower(), self.protocol.lower())
         self.assertIn("scripts/roadmap_select.py", self.protocol)

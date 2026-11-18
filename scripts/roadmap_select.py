@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Rank source-backed *leads* for new OpenSiro roadmaps, not proven upgrades.
 
-Index TLDR+catalog pin is authoritative for admission and historical VSM context.
+Index RANKINGS+catalog pin is authoritative for admission and historical VSM context.
 A bounded second pass checks original GitHub activity, SPDX license, issue titles
 and the exact matching fork. Selection never creates issues, forks, or records.
 """
@@ -23,7 +23,7 @@ from roadmap_view import read_text
 INDEX = "opensiro/vsm-harness-index"
 FORK_ORG = "opensiro-contributions"
 SHA = re.compile(r"^[0-9a-f]{40}$")
-LINK = re.compile(r"^\| <a id=\"([^\"]+)\"></a>\[(.*?)\]\((assessments/[^)]+)\) \(\[source\]\((https://github.com/([^/)]+/[^/)]+))\)\) \| ")
+LINK = re.compile(r"^\| [0-9]+ \| <a id=\"([^\"]+)\"></a>\[(.*?)\]\((assessments/[^)]+)\) \(\[source\]\((https://github.com/([^/)]+/[^/)]+))\)\) \| ")
 PERMISSIVE = {"MIT", "Apache-2.0", "BSD-2-Clause", "BSD-3-Clause", "ISC", "Unlicense", "CC0-1.0"}
 COPYLEFT = {"GPL-2.0", "GPL-3.0", "LGPL-2.1", "LGPL-3.0", "AGPL-3.0", "MPL-2.0", "EPL-2.0"}
 TOPICS = {
@@ -59,21 +59,24 @@ def load_index(client, local_dir=None, index_sha=None):
             raise ValueError("duplicate/invalid Index catalog id")
         catalog[key] = item
     rows, keys = [], set()
-    for line in index_text(client, index_sha, "TLDR.md", local_dir).splitlines():
-        if not line.startswith("| <a id="):
+    for line in index_text(client, index_sha, "RANKINGS.md", local_dir).splitlines():
+        if not line.startswith("| ") or " | <a id=" not in line:
             continue
         match = LINK.match(line)
         if match is None:
-            raise ValueError("Index TLDR included-row format changed")
+            raise ValueError("Index RANKINGS included-row format changed")
         ident, title, path, source, original = match.groups()
-        pieces = line[match.end():].split(" | ", 7)
+        pieces = line[match.end():].split(" | ")
         if len(pieces) < 7:
             raise ValueError("invalid Index autonomy vector row")
-        vector = pieces[1:7]
-        if any(x not in {"A", "A(P)", "C", "C(P)", "P", "—", "?"} for x in vector):
+        vector_match = re.fullmatch(r"`([^`]+)` \|\s*", pieces[-1])
+        if not vector_match:
+            raise ValueError("invalid Index autonomy vector field")
+        vector = vector_match.group(1).split()
+        if len(vector) != 6 or any(x not in {"A", "A(P)", "C", "C(P)", "P", "—", "?"} for x in vector):
             raise ValueError("invalid Index autonomy vector")
         if ident in keys or ident not in catalog or catalog[ident]["repository"].lower() != source.lower():
-            raise ValueError("Index TLDR and catalog identity mismatch: " + ident)
+            raise ValueError("Index RANKINGS and catalog identity mismatch: " + ident)
         if not SHA.fullmatch(catalog[ident]["review_ref"]):
             raise ValueError("invalid historical review_ref")
         keys.add(ident)
@@ -82,7 +85,7 @@ def load_index(client, local_dir=None, index_sha=None):
                      "review_ref": catalog[ident]["review_ref"],
                      "catalog_pin_date": catalog[ident]["pinned_at"]})
     if not rows:
-        raise ValueError("no accepted Index TLDR rows found")
+        raise ValueError("no accepted Index RANKINGS rows found")
     # Historical popularity is a sampling aid only; do not treat it as
     # current GitHub traffic, usefulness or an Index quality rating.
     stars_file = json.loads(index_text(client, index_sha, "data/github-stars.json", local_dir))
@@ -265,7 +268,7 @@ def rank(client, *, focus="all", limit=10, pool=50, probe=20,
     if not 0 < probe <= pool or not 0 < limit <= pool:
         raise ValueError("invalid --probe/--limit/--pool bounds")
     result = {"observed_at": observed.isoformat(), "index_commit": sha,
-              "index_source": "opensiro/vsm-harness-index/TLDR.md + data/catalog.psv",
+              "index_source": "opensiro/vsm-harness-index/RANKINGS.md + data/catalog.psv",
               "accepted_included_rows": len(rows), "candidate_pool_count": len(pool_rows),
               "focus": focus, "live_screening": not no_live,
               "disclaimer": "Research shortlist only: cannot infer useful C from missing grades or keyword-matched issues.",
