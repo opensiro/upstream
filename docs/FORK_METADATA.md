@@ -131,6 +131,10 @@ For assessment-related types include `assessment_pin: {"url": "<immutable Index 
 
 Events capture **significant** state changes, research conclusions, native test receipts, external PR readback, owner intervention and recovery, not every shell command or repetitive hourly poll. Unique filenames, immutable content, stable IDs, actor, timestamp, source links and non-overwriting commits enable audit and independent continuation. Previous events must not be edited or deleted; a mistake is corrected by a new event referencing the original. Never fabricate unavailable history. Never store secrets, private messages, unbounded logs, third-party unlicensed content or model chain-of-thought.
 
+### Stable case filenames
+
+Current case files use `issue.md`, `constructor-sufficiency.md`, `roadmap.md` and `README.md` without a `-v2` or `-vN` suffix. Update links and remove stale current names when owner control permits the scoped write; record revisions with Git and attributed events, not duplicated version files. Historical comparison artifacts and contribution `schema_version: 2` are unchanged.
+
 ### Required readback for explicitly retained research cases
 
 A named roadmap marked by the operator for recording (`зафиксируй`, `в .opensiro`, `persist`) is **not complete as a persisted case** unless the matching fork identity and exact `opensiro/meta` commit have been read back, the case README links to a Human document and a distinct AI/developer contract with reciprocal links, and the source-pinned `roadmap.md` receipt has passed the Upstream structural validator. Check license, effective fork/meta creation rights, current owner PAUSE/STOP and collisions first. A missing fork may be provisioned **only under effective separate authorization**; initialize restrictive owner control unless a genuine owner ALLOW exists. Otherwise retain the research answer but mark `PERSISTENCE_BLOCKED` or `NOT_PERSISTED` and do not claim that a downloadable package or invented fork URL satisfies the request. A plan-only case never creates a `contributions/` record; external/public GitHub Issues, comments and PRs have independent exact consent gates.

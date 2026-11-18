@@ -9,9 +9,9 @@ function targets, five ports, test count, vector, or source conclusions to a
 different harness without source-specific evidence.
 -->
 
-**Canonical storage:** `opensiro-contributions/<fork>@opensiro/meta:.opensiro/issues/<case-id>/`.
+**Canonical storage:** `opensiro-contributions/<fork>@opensiro/meta:.opensiro/issues/<case-id>/constructor-sufficiency.md`.
 
-**Status:** `PLAN_ONLY / [NEEDS_EVIDENCE | DECISION_READY | NO_USEFUL_CHANGE]` · **DRAFT — NOT PUBLISHED**. Proposed construction and acceptance evidence, **not shipped**, not a test run or Index reassessment. **Level 1 / Human decision Issue:** [human issue-v2.md permalink]. The Human Issue carries the purpose, central starting assessment and prioritized decision; this **Level 2** contract carries exact code and proposed implementation/test detail. **The vector, P0/P1/P2 and stop verdict MUST match the Human Issue.**
+**Status:** `PLAN_ONLY / [NEEDS_EVIDENCE | DECISION_READY | NO_USEFUL_CHANGE]` · **DRAFT — NOT PUBLISHED**. Proposed construction and acceptance evidence, **not shipped**, not a test run or Index reassessment. **Level 1 / Human decision Issue:** [human issue.md permalink]. The Human Issue carries the purpose, central starting assessment and prioritized decision; this **Level 2** contract carries exact code and proposed implementation/test detail. **The vector, P0/P1/P2 and stop verdict MUST match the Human Issue.**
 
 ## Functional scope: S2 vs S3 vs S4 vs S5
 

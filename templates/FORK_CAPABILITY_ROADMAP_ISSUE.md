@@ -1,16 +1,17 @@
 # [HARNESS] — [primary VSM capability] construction roadmap + [optional independent extension]
 
 <!--
-Opensiro reusable HUMAN Issue template. Paperclip two-level v2 is the structural
+Opensiro reusable HUMAN Issue template. Paperclip historical two-level pilot is the structural
 reference; replace placeholders with independently verified repository-specific
 facts. Do not retain a fictitious secondary feature, upgrade, PR, or grade.
+Current case filename: issue.md (not issue-v2.md); version history belongs in Git.
 Do not publish as an original maintainer Issue: this is a fork-local case.
 Link the separate AI/developer file; it links back. Public publication needs
 its own exact current-conversation approval.
 -->
 
 **Opensiro pilot · PLAN_ONLY / [NEEDS_EVIDENCE | DECISION_READY | NO_USEFUL_CHANGE] · DRAFT — NOT PUBLISHED**  
-**Two-level package:** this **human decision Issue** + [complete agent/developer contract](https://github.com/opensiro-contributions/[fork]/blob/opensiro/meta/.opensiro/issues/[case-id]/constructor-sufficiency-v2.md), based on [AI/developer template](ROADMAP_AI_CONSTRUCTOR_CONTRACT.md). **Working fork:** [verified `opensiro-contributions/<fork>`] · **Case:** [`.opensiro/issues/<case-id>/` on `opensiro/meta`].
+**Two-level package:** this **human decision Issue** + [complete agent/developer contract](https://github.com/opensiro-contributions/[fork]/blob/opensiro/meta/.opensiro/issues/[case-id]/constructor-sufficiency.md), based on [AI/developer template](ROADMAP_AI_CONSTRUCTOR_CONTRACT.md). **Working fork:** [verified `opensiro-contributions/<fork>`] · **Case:** [`.opensiro/issues/<case-id>/` on `opensiro/meta`].
 
 ## 1. Why Opensiro and central accepted VSM assessment
 
@@ -51,7 +52,7 @@ Opensiro tests whether reusable, Viable System Model (VSM)-informed organization
 | **[optional secondary, or remove]** | [current native capability and competing proposals] | [Distinct user value; not an obligatory other VSM target] |
 | **Authority / audit** | [actual S2/S3*/S5 protective paths; original proposed changes if applicable] | [Enforce existing rights and reviewer independence rather than create another function] |
 
-Original Issues and PRs must be deduplicated with their *current* status. An open/unmerged PR, provider plugin, future roadmap or title alone **is not shipped first-party proof**. Put the full code/issue/PR port-by-port evidence table in the [AI contract](https://github.com/opensiro-contributions/[fork]/blob/opensiro/meta/.opensiro/issues/[case-id]/constructor-sufficiency-v2.md).
+Original Issues and PRs must be deduplicated with their *current* status. An open/unmerged PR, provider plugin, future roadmap or title alone **is not shipped first-party proof**. Put the full code/issue/PR port-by-port evidence table in the [AI contract](https://github.com/opensiro-contributions/[fork]/blob/opensiro/meta/.opensiro/issues/[case-id]/constructor-sufficiency.md).
 
 ## 4. Proposed priority and minimum sufficient result
 
@@ -63,7 +64,7 @@ Original Issues and PRs must be deduplicated with their *current* status. An ope
 
 **Function distinction where relevant:** S2 limits interference between S1 units; S3 regulates **current whole-system resources and commitments**; S4 models **external change and possible futures**, develops alternatives and returns them via a **two-way dialogue with S3**; S5 holds legitimate ultimate policy. A scheduler, isolated web-search summary or router alone does not establish the decision owner or closure.
 
-**C sufficiency contract (required for each qualified C target):** [linked case-local AI/developer evidence contract](https://github.com/opensiro-contributions/[fork]/blob/opensiro/meta/.opensiro/issues/[case-id]/constructor-sufficiency-v2.md), with source-mapped **function-specific** first-party actor, options, authority, durable state, enforced operation, feedback and positive/negative tests. **Sufficiency verdict:** [design covered / `NEEDS_EVIDENCE` / disproved]. Design is **not shipping**, and shipping is not an accepted Index `C` without separate Index review.
+**C sufficiency contract (required for each qualified C target):** [linked case-local AI/developer evidence contract](https://github.com/opensiro-contributions/[fork]/blob/opensiro/meta/.opensiro/issues/[case-id]/constructor-sufficiency.md), with source-mapped **function-specific** first-party actor, options, authority, durable state, enforced operation, feedback and positive/negative tests. **Sufficiency verdict:** [design covered / `NEEDS_EVIDENCE` / disproved]. Design is **not shipping**, and shipping is not an accepted Index `C` without separate Index review.
 
 ## 5. Acceptance / stop gates
 
@@ -89,6 +90,6 @@ Compare **the same authorized user task** in the simplest native baseline and pr
 
 **Decision now:** `PLAN_ONLY / [NEEDS_EVIDENCE | DECISION_READY | NO_USEFUL_CHANGE]`. **Next human decision:** [one concrete evidence audit, separately approved implementation, or explicit stop]. Identify for every port what is **SHIPPED / OPEN_PR / ISSUE_ONLY / truly missing / UNVERIFIED**. Never claim missing capability only from an historical assessment.
 
-**Agent/developer handoff:** [complete case-local AI contract](https://github.com/opensiro-contributions/[fork]/blob/opensiro/meta/.opensiro/issues/[case-id]/constructor-sufficiency-v2.md), with a required backlink and **the same accepted six-system vector and P0/P1/P2**. This is **Opensiro's fork-local discussion surface**, **not an original maintainer request**. Store under `.opensiro/issues/<case-id>/` on `opensiro/meta`. **No public fork Issue**, original external Issue/comment/PR, public fork-local PR, code implementation, authority grant, Index regrade or cost claim is implied. Any public action needs **separate exact current-conversation owner approval** of the destination, action, full title/body and diff where relevant.
+**Agent/developer handoff:** [complete case-local AI contract](https://github.com/opensiro-contributions/[fork]/blob/opensiro/meta/.opensiro/issues/[case-id]/constructor-sufficiency.md), with a required backlink and **the same accepted six-system vector and P0/P1/P2**. This is **Opensiro's fork-local discussion surface**, **not an original maintainer request**. Store under `.opensiro/issues/<case-id>/` on `opensiro/meta`. **No public fork Issue**, original external Issue/comment/PR, public fork-local PR, code implementation, authority grant, Index regrade or cost claim is implied. Any public action needs **separate exact current-conversation owner approval** of the destination, action, full title/body and diff where relevant.
 
 **AI disclosure:** Prepared with AI assistance. No independent human validation, executed native tests or established engineering savings claimed.
