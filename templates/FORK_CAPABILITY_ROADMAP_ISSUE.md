@@ -1,104 +1,88 @@
-# [PROJECT] — capability integration roadmap for [operator outcome]
+# [PROJECT] — capability roadmap for [operator outcome]
 
 <!--
-Opensiro working-fork GitHub Issue template, v2 (source-neutral).
-Replace all bracketed placeholders and remove these instructions before publication.
-For opensiro-contributions/<fork> only, NOT the original maintainer repository.
-Source-native case evidence belongs at opensiro/meta:.opensiro/issues/<case-id>/.
-A public fork GitHub Issue requires its own exact current-conversation approval.
+Opensiro fork-local Human Issue template. Use only in verified opensiro-contributions/<fork>.
+Replace every placeholder before publication. The companion AI contract is a separate FILE,
+not a second public Issue. Public Issue publication requires separate exact approval.
 -->
 
-**Status:** PLAN_ONLY / [NEEDS_EVIDENCE | DECISION_READY | NO_USEFUL_CHANGE]
-**Working fork:** [verified opensiro-contributions/<fork> URL]
-**Case artifacts:** [.opensiro/issues/<case-id>/ on opensiro/meta]
+**Human decision Issue · PLAN_ONLY / [NEEDS_EVIDENCE | DECISION_READY | NO_USEFUL_CHANGE] · DRAFT — NOT PUBLISHED**  
+**Working fork:** [verified opensiro-contributions/<fork> permalink] · **AI/developer contract:** [case-local constructor-acceptance.md permalink, based on [AI/developer template](ROADMAP_AI_CONSTRUCTOR_CONTRACT.md)] · **Case:** [`.opensiro/issues/<case-id>/` on `opensiro/meta`]
 
-## 1. Goal
+## 1. Why Opensiro and central accepted VSM baseline
 
-Opensiro is investigating whether reusable organizational specifications informed by the Viable System Model (VSM) can **standardize and reduce the total cost of developing AI-agent harnesses**. Cost reduction and improved outcomes are hypotheses, not proven results. No project is required to adopt VSM or implement six new subsystems.
+Opensiro tests whether **Viable System Model (VSM)-informed reusable organization specifications and source-native integration can standardize and reduce the total cost of AI-agent harness development**. It organizes existing and proposed Issues/PRs into a method for delivering useful, composable capabilities instead of duplicate ad-hoc engineering. **Cost savings and adoption are hypotheses, not established results**; the original maintainers need not adopt VSM.
 
-**User/operator outcome:** [Name the actor, task and measurable benefit over the simplest project-native alternative.]
+### Accepted Index — central starting point, NOT the proposed after-state
 
-**Roadmap design objective:** for useful VSM functions that lack a **confirmed `C` or `A`** construction/ownership path at the declared boundary, find the **smallest source-native, evidence-backed set of changes sufficient to offer a real `C` constructor**. This is a target for analysis, not a promised implementation or assessment grade. Already-confirmed `A`/`A(P)` functions are **not mandatory `C` targets**; `C`/`C(P)` already meet the constructor objective. A legitimate `P` authority remains legitimate and may be the intentional end state. An unresolved `?` must be investigated before declaring a gap.
+> **HISTORICAL ASSESSMENT:** **`S1=[accepted] · S2=[accepted] · S3=[accepted] · S3*=[accepted] · S4=[accepted] · S5=[accepted]`**  
+> [Exact accepted Index assessment permalink, file SHA, `review_ref`, date, Profile and Skills versions]. **Never manufacture historical grades from target grades.** Missing evidence remains `?` / `UNVERIFIED`.
 
-## 2. Evidence baseline
+| VSM function | Accepted state | What this means for the specific harness |
+| --- | --- | --- |
+| **S1 · Operations** | [actual] | [Operational work and target/exclusion] |
+| **S2 · Coordination** | [actual] | [Inter-S1 interference and closure] |
+| **S3 · Inside-and-now** | [actual] | [Current whole-company resources, commitments, authority] |
+| **S3* · Complementary audit** | [actual] | [Independent access and feedback] |
+| **S4 · Outside-and-then** | [actual] | [External/future alternatives, link to S3] |
+| **S5 · Identity / policy** | [actual] | [Legitimate ultimate authority] |
 
-- **Original repository / current default HEAD:** [owner/repo at immutable commit SHA; observed date].
-- **Accepted Index assessment:** [immutable assessment file/blob SHA, `review_ref`, review date, Profile and Skills versions]. This is a **historical source-relative observation**, never an automatic current grade.
-- **Freshness:** [days since successful Index semantic review; recommend Index-owned re-assessment if over 30 days or current changes materially affect the mapping; otherwise mark provisional unknowns].
-- **Working fork and owner state:** [verified parent, opensiro/meta HEAD, current ACTIVE/PAUSE/STOP and ALLOW control; unknown => no write].
-- **System in focus:** [operating boundary and supported first-party mode; excluded recursion, uninstalled plugins and private services].
-- **License / contributor permissions:** [verified policy links, CLA, AI disclosure, allowed contribution route; note blockers].
+**Interpretation:** `A`, `C`, `P` are ownership arrangements, **not maturity levels**. Already-confirmed `A`/`A(P)` functions are **not mandatory `C` targets**; confirmed `C`/`C(P)` constructors need no duplication. `A` does not logically imply a `C` interface. An unresolved `?` must be investigated before declaring a gap. A legitimate parent `P` may be the final design. **Do not pitch the new feature before explaining this central state.**
 
-## 3. Existing work and remaining gaps
+## 2. Evidence baseline and scope
 
-Map **shipped** code separately from **open/unmerged** PRs, Issues, experiments and external governance. Inspect relevant original source and competing PR heads/diffs; a historical low grade or proposal title does not prove a missing current capability.
+- **Original current default HEAD / observation:** [repo, full SHA, date; source-relative, not an assessment revision].
+- **Accepted Index:** [exact assessment SHA/`review_ref`/`reviewed_at` and Profile/Methodology versions above]. Historical evidence only, not the current HEAD grade. [Recommend Index-owned re-review if over 30 calendar days or materially changed].
+- **System-in-focus:** [one concrete company/runtime, supported distribution, relevant environment and excluded modes/recursion].
+- **Legal and owner:** [license/CLA/contribution/AI disclosure, verified fork parent + `opensiro/meta` ACTIVE/PAUSE/STOP and ALLOW; unknown means no write].
 
-| VSM function / user need | Shipped first-party path and source link | Existing original Issues/PRs and live statuses | Concrete residual operator outcome |
+## 3. Existing work vs user-visible gap
+
+**User/operator counterfactual:** [What actor could do in a supported operating mode with the proposal that they cannot do using the simplest shipped original-native solution?]
+
+| Need / VSM function | Existing shipped first-party behavior | Existing original Issues/PRs + live status | Specific remaining outcome |
 | --- | --- | --- | --- |
-| [Sx / actor → task] | [source and behavior] | [URL, OPEN/MERGED and PR head/diff if applicable] | [gap or already achieved] |
-| [second relevant need, or remove row] | [link] | [link or none found] | [gap / none] |
+| [Sx] | [source permalink and real behavior] | [URL, issue/open/merged PR + head/diff] | [gap or already sufficient] |
+| [other function, or remove] | [source] | [status] | [gap] |
 
-**Best original-native alternative:** [Existing feature or documented manual/small-change workflow; say if it is already sufficient.]
+**Best original-native alternative:** [Simpler feature/manual procedure and why it is or isn't enough]. Never claim a low historical Index state alone establishes a current product gap.
 
-## 4. VSM capability targets and prioritized development plan
+## 4. VSM targets and human priority decision
 
-**Target matrix (required):** list the relevant VSM functions, including **excluded already-autonomous functions** when they matter to the proposal. Do not infer `C` from `A`—the two are distinct ownership arrangements. We only exclude `A` from *mandatory C engineering work*.
+**Target matrix (required):** show every relevant function, including **excluded already-autonomous functions**. The **Human** table is an executive view; complete code/port/test evidence goes in the linked **AI/developer contract**, not in this Issue.
 
-| Function | Accepted historical state | Current first-party evidence / uncertainty | Construction target | Minimum set of source-native changes | Sufficiency / verification status |
-| --- | --- | --- | --- | --- | --- |
-| [Sx without verified C or A] | [— / ? / P] | [actual source evidence] | [`C` when materially useful; otherwise no change with reason] | [existing Issue/PR + exact missing first-party ports and integration] | [NEEDS_EVIDENCE / CONTRACT_READY; never VERIFIED_C merely from a plan] |
-| [Sx already at A / A(P) / C / C(P)] | [actual state] | [actual source evidence] | [No mandatory C target] | [none; constraints/dependencies only if relevant] | [existing assessment remains historical] |
-
-**Prioritization rule (research priority, not an autonomy-grade ladder):**
-- **P0 — useful C sufficiency target(s):** prioritize a *material, verifiable operator outcome* with the smallest defensible missing construction path, strongest reuse of source-native Issues/PRs, and reasonable implementation/integration cost. If no eligible target is justified, say `NEEDS_EVIDENCE` or `NO_USEFUL_CHANGE` instead of fabricating one.
-- **P1 — necessary enabling work:** dependencies, compatible integrations, authority enforcement and tests **required for P0 closure**; some prerequisites execute before the P0 deliverable. Name their issue/PR links and owners. P1 can also identify separately justified native work, but it is not an obligatory extra function target.
-- **P2 — optional improvements:** independent parent modes `C(P)`/`A(P)` (where applicable and separately proven), refinements and cost optimizations. Neither `C → C(P) → A(P)` nor `A → C` is a mandatory progression.
-
-**Ordered integration / dependencies:**
-
-| Priority | User capability / deliverable | Reuse and missing change | Depends on | Decision owner, rights and measurable acceptance |
+| Function | Accepted starting state | Current source witness / uncertainty | Target or justified exclusion | Minimum useful change, evidence gap |
 | --- | --- | --- | --- | --- |
-| P0 | [candidate C construction and user outcome] | [native links + required delta] | [P1 prerequisites / none] | [first-party functional owner + positive and negative closure] |
-| P1 | [required supporting integration] | [code/issues/PRs and gap] | [other constraints] | [compatibility/authority outcome] |
-| P2 (optional) | [additional mode/optimization] | [smallest useful change] | [P0 proof where relevant] | [independent acceptance] |
+| [function with unconfirmed C/A] | [— / ? / P] | [source evidence] | [candidate `C` or explicit no-change] | [reuse existing Issue/PR, truly missing delta] |
+| [already A/A(P)/C/C(P)] | [actual] | [source evidence] | [No mandatory C target] | [none, or separate material user need] |
 
-**C sufficiency contract (required for each proposed C target):** link [case-local constructor-acceptance.md], specifying (1) a real VSM-specific disturbance and operator counterfactual, (2) first-party function-specific input/option/decision and durable state ports **rather than generic hooks**, (3) what a developer independently composes, including an **actual autonomous decision actor** and legitimate rights, (4) enforcement, fail-closed denials and future-operation feedback/closure, (5) supported distribution/mode reachability and (6) native end-to-end positive, negative, unauthorized and compatibility tests. State explicitly which existing PRs/Issues cover each element and which new changes are required.
+- **P0 — useful C sufficiency target(s):** [one material first-party constructor outcome and why the *combined minimal change set* could be sufficient, or `NEEDS_EVIDENCE`/`NO_USEFUL_CHANGE`].
+- **P1 — necessary enabling work:** [actual dependencies in rights, integration, tests; P1 may execute before P0].
+- **P2 — optional improvements:** [independent modes or capabilities with their *own* user need; neither `C → C(P) → A(P)` nor `A → C` is a mandatory progression].
 
-**Sufficiency verdict:** [complete *design* coverage / missing evidence / disproved] with links for every dependency. **Design completeness is not shipping, and shipping is not an accepted Index `C` without separate Index review.** For `P` preserve legitimate parent authority; for `A(P)` exclude mandatory C work but retain constraints. `A`, `C`, `P` are ownership arrangements, not performance or maturity grades.
+**C sufficiency contract (required for each proposed C target):** [direct link to separate first-party AI/developer contract] describing actual developer-composed decisive actor, rights, function-specific options/state, supported distribution and operation/feedback closure, including `S3↔S4` if relevant. Avoid generic hooks/announcement-only evidence. **Sufficiency verdict:** [design-covered / `NEEDS_EVIDENCE` / disproved]; design is **not shipping**, and shipping is not an accepted Index grade without a **separate Index review**.
 
 ## 5. Acceptance, alternatives and stop conditions
 
-| Gate | Evidence required | Negative / stop condition |
+| Gate | Positive evidence | Failure or stopping criterion |
 | --- | --- | --- |
-| Existing-work and material-delta check | Current original HEAD plus exact competing Issue/PR evidence; new user action unavailable or materially better than native baseline | Native workaround or shipped solution already covers it => NO_USEFUL_CHANGE |
-| Positive operator scenario | [actor → stimulus → legitimate autonomous/composed decision → enforced first-party result and next-operation receipt] | A notification/UI mock or standalone generic plugin cannot establish C |
-| Negative/authority case | [non-delegated actor, stale/unknown input, incompatible configuration, unavailable owner => safe denial and observable feedback] | No enforced owner/feedback or bypassable protected decision => NEEDS_EVIDENCE / blocked |
-| Constructor completeness | [ports, actual developer composition, authority, distribution and native tests from case contract] | A proposal/open PR is not shipped C; no automatic Index grade |
-| Native alternative | [paired simple native task and comparable outcome] | Smaller project-native solution wins; do not build solely to fill a VSM grade |
+| **Existing-work delta / Native alternative** | [New operator action vs shipped native route] | Already supported or simpler native solution wins → `NO_USEFUL_CHANGE` |
+| **Positive operator scenario** | [actor → legitimate decision → enforced actual later operation and feedback] | Only generic hook, demo, summary or unexecuted plan |
+| **Negative/authority case** | [non-authorized, incompatible/stale mode refused; parent rights remain reserved] | Bypassable or unobservable decision → `NEEDS_EVIDENCE` |
+| **Constructor/Index boundary** | [first-party real deployment evidence and tests per linked contract] | No automatic grade from Issue, roadmap, open PR or mock |
 
 ## 6. Independent development paths
 
-These are **independent choices**, not three compulsory tasks:
-1. **Harness-native integration:** organize original Issues/PRs; if qualified and separately authorized, implement a narrow tested improvement via `upstream upgrade`.
-2. **Methodology feedback:** bring evidence-backed semantic counterexamples to [VSM Profile](https://github.com/opensiro/vsm-harness-profile) or assessment-method concerns to [VSM Skills](https://github.com/opensiro/vsm-harness-skills).
-3. **Scoped experiment:** compare a legally permitted domain fork with a simpler original-native approach; no maintainer adoption implied.
-
-**Selected research path / next decision:** [choose independent branch(es), state what is blocked].
+**Choose, do not automatically bundle:** (a) bounded original-native implementation, only on separately authorized `upstream upgrade`; (b) evidence-based Profile/Skills methodology feedback; (c) legally permitted experimental domain fork. Existing original Issues should be reused, not duplicated.
 
 ## 7. Value evaluation
 
-**Matched task:** [the same operator input, permitted decisions and outcome with native/manual vs VSM-informed alternative].
-
-**Measures:** end-to-end user result, implementation/integration time, review and negative-case tests, maintenance/regression burden, operational compatibility and failure modes. **Cost status: `NOT_MEASURED`** until independently observed. Never assert guaranteed cost savings from a proposed constructor.
+**Matched native task and proposed task:** [same input, rights, expected user result]. **Measures:** implementation/integration cost, native tests, review, maintenance, outcomes and safety. **Cost status: `NOT_MEASURED`** until actually measured; no guaranteed lower cost.
 
 ## 8. Decision and handoff
 
-**Result:** `PLAN_ONLY / [NEEDS_EVIDENCE | DECISION_READY | NO_USEFUL_CHANGE]` (report disposition only, not fork metadata enums).
+**Result:** `PLAN_ONLY / [NEEDS_EVIDENCE | DECISION_READY | NO_USEFUL_CHANGE]`. **Next human decision:** [one concrete action / insufficient evidence / no useful change]. **AI detail:** [linked case-local contract with exact pins, source/PR map, actual owner, constructor ports and  positive/negative native tests; it links back].
 
-**Priority decision:** [P0 nominated functions, excluded already-A/C functions, prerequisite order and sufficiency gaps].
+This is **Opensiro's fork-local discussion surface**, not an original maintainer request or a second public Issue. Store case evidence in `.opensiro/issues/<case-id>/` on `opensiro/meta`. **No public fork Issue**, original Issue/comment/PR, fork-local PR, code implementation, delegated authority, Index regrade or cost claim is authorized by this draft. **Each public publication requires its own exact current-conversation owner approval** of destination, action, title/body and diff where relevant.
 
-**Next action:** [exact current-source investigation or a separately requested Upgrade]. This Issue is **Opensiro's fork-local discussion surface**, not an original maintainer request. Store detailed evidence, original Issue deduplication, constructor contract and any third-party draft in the verified fork's `.opensiro/issues/<case-id>/` on its separate `opensiro/meta` branch.
-
-No public fork Issue, original Issue/comment/PR, product implementation, fork-local public review PR, delegated authority, automatic Index regrade or implicit cross-owner GitHub Issue transfer is authorized by this draft. **Each public publication requires its own exact current-conversation owner approval.** Existing original Issues must be reused rather than duplicated.
-
-**AI disclosure:** Prepared with AI assistance. No independent human validation, shipped constructor, accepted grade change or measured cost saving is implied.
+**AI disclosure:** Prepared with AI assistance. No independent human validation, native test execution or shipped constructor claimed.
