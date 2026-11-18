@@ -41,6 +41,26 @@ class RoadmapRouteContractTests(unittest.TestCase):
         self.assertIn("READY_FOR_FORK_ISSUE_APPROVAL — NOT PUBLISHED", agents)
         self.assertIn("separate exact current-conversation owner approval", agents)
 
+    def test_selected_roadmap_creates_missing_matching_fork_without_publication(self):
+        metadata = (ROOT / "docs/FORK_METADATA.md").read_text()
+        agents = (ROOT / "AGENTS.md").read_text()
+        for phrase in (
+            "Mandatory missing-fork creation",
+            "2026-11-18",
+            "no separate per-case conversational approval",
+            "read back",
+            "parent.full_name=OWNER/REPO",
+            "PAUSE/DORMANT",
+            "PERSISTENCE_BLOCKED / NOT_PERSISTED",
+            "does not authorize public fork GitHub Issues/PRs",
+        ):
+            self.assertIn(phrase.lower(), self.route.lower())
+        self.assertIn("Missing matching fork — create it during the roadmap", self.guide)
+        self.assertIn("Mandatory creation for selected Upstream Roadmap cases", metadata)
+        self.assertIn("create a missing matching fork as a required selected-roadmap step", agents)
+        self.assertIn("read-only `roadmap select`", self.guide)
+        self.assertIn("publication consent", self.guide)
+
     def test_provenance_and_legal_preflights(self):
         for phrase in ("historical", "original default HEAD", "PR heads/diffs/tests", "license/formalities", "autonomy preflights", "Profile", "Skills", "Index"):
             self.assertIn(phrase,self.route)
