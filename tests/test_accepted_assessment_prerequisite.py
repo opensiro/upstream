@@ -14,7 +14,7 @@ class AcceptedAssessmentPrerequisiteTests(unittest.TestCase):
         for token in ("upstream roadmap", "upstream upgrade", "Index-owned", "Gas Town", "Gas City", "exact current-conversation"):
             self.assertIn(token, protocol)
         self.assertIn("NO_USEFUL_CHANGE", protocol)
-        self.assertIn("canonical Index", protocol)
+        self.assertIn("accepted Index record", protocol)
     def test_dedicated_roadmap_route_is_not_an_exception(self):
         route = (ROOT / "docs/CAPABILITY_ROADMAP.md").read_text()
         self.assertIn("A named original is **not exempt**", route)
