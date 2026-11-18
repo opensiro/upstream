@@ -8,6 +8,8 @@
 
 ## Unreleased
 
+- **Mandatory creation of missing roadmap forks (unreleased, owner direction 2026-11-18):** After accepted Index and original rights/authority checks, a selected `upstream roadmap` must find or create its correctly parented `opensiro-contributions` working fork and initialize `opensiro/meta` with the plan-only Human/AI/receipt case. Mere fork absence is not a stop or another routine consent request. Provider/legal/PAUSE gates, restrictive default control and separate exact public Issue/PR consent remain enforced. No original project or product implementation changes.
+
 - **Mandatory canonical assessment before Upstream work (unreleased):** An original must have an accepted `included` Index assessment and matching catalog source pin before any named roadmap, upgrade, new original-specific decision or publication. Missing/proposed/predecessor-only cases are `ASSESSMENT_REQUIRED / BLOCKED` until accepted Index admission and readback; intake/assessment preparation remains allowed.
 
 
