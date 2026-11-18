@@ -81,7 +81,7 @@ class RoadmapRouteContractTests(unittest.TestCase):
         self.assertIn("Terminal decision closure", self.route)
         self.assertIn("Exhaustion and anti-deferral gate", self.route)
         self.assertIn("Mandatory terminal GO / NO_GO / BLOCKED decision", self.guide)
-        self.assertIn("no routine", self.route.lower())
+        self.assertIn("routine `continue`", self.route)
         self.assertIn("PAUSE/STOP", self.route)
         self.assertIn("PERSISTENCE_BLOCKED", self.route)
         self.assertIn("separate", self.route.lower())
