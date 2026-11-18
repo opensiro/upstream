@@ -1,4 +1,4 @@
-# [HARNESS] — [primary VSM capability] construction roadmap + [optional independent extension] (v2)
+# [HARNESS] — [primary VSM capability] construction roadmap + [optional independent extension]
 
 <!--
 Opensiro reusable HUMAN Issue template. Paperclip two-level v2 is the structural
