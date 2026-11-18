@@ -142,6 +142,9 @@ different harness without source-specific evidence.
 
 **Execution evidence:** `NONE / NOT RUN` until source-native test outputs/artifacts are attached. **All `AC-..` entries above are replaceable examples, not acceptance requirements, a universal test suite, a mandatory case count or proof of shipment.** The **coverage principles** above remain required for the selected function, with explicit source-backed applicability and gaps. Do not turn example labels into implementation tasks. Exact smoke, unit, integration, permission, concurrency and regression commands must be sourced from the original project, never invented.
 
+**Terminal decision contract:** Reconcile every attempted candidate and native alternative with Human `issue.md`, then state exactly one **GO / NO_GO / BLOCKED**. GO requires the complete source-backed minimal vertical slice and positive/negative/compatibility acceptance; NO_GO stops unjustified constructor work now; BLOCKED identifies externally unavailable evidence, failed source attempts and a conditional unlock. When research status is `NEEDS_EVIDENCE`, the **present decision is still NO_GO or BLOCKED**. This paragraph is mandatory in the completed case and its `roadmap.md` receipt; it never authorizes implementation or public publication.
+
+
 ## 7. Falsification, exclusions and evidence ownership
 
 Reject, narrow or record `NEEDS_EVIDENCE` if the original source already closes the outcome, user need or materiality cannot be substantiated, a separate developer actor cannot lawfully own the choice, a supported first-party mode does not expose the port, real return feedback is missing, or original license/formality/maintainer scope blocks the contribution. **`NO_USEFUL_CHANGE` is a valid result.**

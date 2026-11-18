@@ -68,6 +68,28 @@ class RoadmapRouteContractTests(unittest.TestCase):
         changelog = (ROOT / "CHANGELOG.md").read_text()
         self.assertLess(changelog.index("## Unreleased"), changelog.index("Roadmap one-pass completion; no intermediate operator waiting"))
 
+    def test_roadmap_terminal_decision_is_mandatory_not_an_interim_wait(self):
+        agents = (ROOT / "AGENTS.md").read_text()
+        readme = (ROOT / "README.md").read_text()
+        human = (ROOT / "templates/FORK_CAPABILITY_ROADMAP_ISSUE.md").read_text()
+        ai = (ROOT / "templates/ROADMAP_AI_CONSTRUCTOR_CONTRACT.md").read_text()
+        changelog = (ROOT / "CHANGELOG.md").read_text()
+        for source in (self.route, self.guide, agents, readme, human, ai):
+            for decision in ("GO", "NO_GO", "BLOCKED"):
+                self.assertIn(decision, source)
+            self.assertIn("NEEDS_EVIDENCE", source)
+        self.assertIn("Terminal decision closure", self.route)
+        self.assertIn("Exhaustion and anti-deferral gate", self.route)
+        self.assertIn("Mandatory terminal GO / NO_GO / BLOCKED decision", self.guide)
+        self.assertIn("routine `continue`", self.route)
+        self.assertIn("PAUSE/STOP", self.route)
+        self.assertIn("PERSISTENCE_BLOCKED", self.route)
+        self.assertIn("separate", self.route.lower())
+        self.assertIn("Final operator decision (REQUIRED)", human)
+        self.assertIn("Terminal decision contract", ai)
+        self.assertIn("Roadmap terminal decision closure (unreleased)", changelog)
+
+
     def test_explicit_opensiro_persistence_is_not_a_chat_export(self):
         metadata = (ROOT / "docs/FORK_METADATA.md").read_text()
         agents = (ROOT / "AGENTS.md").read_text()
