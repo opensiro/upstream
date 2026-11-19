@@ -216,7 +216,7 @@ class ContractTests(unittest.TestCase):
         self.assertIn("## Unreleased", changelog)
         self.assertIn("without an automatic bump", versioning)
         self.assertIn("owner's agreement", versioning)
-        self.assertIn("A `VERSION` on `main` may be newer", readme)
+        self.assertIn("A `VERSION` on `main` alone does **not** prove", readme)
         self.assertIn("do **not** bump `VERSION`", agents)
         self.assertIn("v0.13.0", candidate)
         self.assertIn("v0.16.0", candidate)
