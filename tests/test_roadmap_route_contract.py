@@ -98,14 +98,14 @@ class RoadmapRouteContractTests(unittest.TestCase):
             for decision in ("GO", "NO_GO", "BLOCKED"):
                 self.assertIn(decision, source)
             self.assertIn("NEEDS_EVIDENCE", source)
-        self.assertIn("Terminal decision closure", self.route)
+        self.assertIn("Proposal-stage decision closure", self.route)
         self.assertIn("Exhaustion and anti-deferral gate", self.route)
-        self.assertIn("Mandatory terminal GO / NO_GO / BLOCKED decision", self.guide)
+        self.assertIn("Mandatory proposal-stage GO / NO_GO / BLOCKED decision", self.guide)
         self.assertIn("routine `continue`", self.route)
         self.assertIn("PAUSE/STOP", self.route)
         self.assertIn("PERSISTENCE_BLOCKED", self.route)
         self.assertIn("separate", self.route.lower())
-        self.assertIn("Final operator decision (REQUIRED)", human)
+        self.assertIn("**Proposal-stage decision:**", human)
         self.assertIn("Terminal decision contract", ai)
         self.assertIn("Roadmap terminal decision closure (included in v0.17.0)", changelog)
 

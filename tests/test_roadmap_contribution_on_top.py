@@ -31,6 +31,75 @@ class ContributionOnTopTests(unittest.TestCase):
         self.assertIn("missing section: Parallel contribution-on-top review",
                       validate(missing_section))
 
+    def test_proposal_gate_accepts_hypothetical_go_without_executed_tests(self):
+        proposal = RECEIPT.replace(
+            "## Function ownership",
+            "- Receipt contract: proposal-gate\n"
+            "- Repository-wide source map: pinned full example/harness source including runtime, API, docs, policies, tests, CI, examples, Issue and PR surfaces\n"
+            "- Priority rationale: selected S3 after all six were screened; parent policy retained at S5\n"
+            "- Accepted VSM vector: S1=A · S2=C · S3=— · S3*=— · S4=— · S5=—\n"
+            "- S1 disposition: native operations already A and no mandatory C target\n"
+            "- S2 disposition: native coordination already C\n"
+            "- S3 disposition: potential S3=C priority; developer-composed manager absent\n"
+            "- S3* disposition: no independent audit path found, deferred for bounded evidence\n"
+            "- S4 disposition: deliberate future adaptation not yet evidenced; UNKNOWN, do not force C\n"
+            "- S5 disposition: parent authority reserved in this synthetic case, no C target\n"
+            "- Target transition: S3=— -> S3=C\n"
+            "- P1 dependencies: authorized resource decision integration and native tests\n"
+            "- P2 optional: NONE\n"
+            "- Proposed C construction: versioned current resources, manager decision, authorized Task dispatch and feedback\n"
+            "- C sufficiency falsifier: manager never chooses or sees subsequent task outcomes\n"
+            "- Scenario basis: HYPOTHETICAL\n"
+            "- Proposal-stage decision: GO\n"
+            "- Research disposition: NEEDS_EVIDENCE\n"
+            "- Proposed validation: compare exact same first-party task to native option with rights negatives\n"
+            "- Validation state: NOT_RUN\n"
+            "- Proposal falsifier: native tool already provides equal operator outcome\n\n"
+            "## Parallel contribution-on-top review\n"
+            "- Evaluation object: optional S3 current-control constructor\n"
+            "- Existing-work overlap: deterministic native task router, no independent manager\n"
+            "- Our on-top contribution: opt-in actor chooses lawful admit or hold\n"
+            "- Incremental benefit: plausible real current commitments management, not measured\n"
+            "- Decision scope: one hypothetical task, not the whole harness\n\n"
+            "## Function ownership",
+        )
+        self.assertEqual(validate(proposal), [])
+        for field in ("Accepted VSM vector", "Target transition", "P1 dependencies",
+                      "P2 optional", "Research disposition",
+                      "Proposed C construction", "C sufficiency falsifier",
+                      "Scenario basis", "Proposal-stage decision", "Proposed validation",
+                      "Validation state", "Proposal falsifier"):
+            broken = proposal.replace("- " + field + ": ", "- Removed-" + field + ": ")
+            self.assertIn("missing field: " + field, validate(broken))
+        for function in ("S1", "S2", "S3", "S3*", "S4", "S5"):
+            broken = proposal.replace("- " + function + " disposition:", "- Deleted-" + function + " disposition:")
+            self.assertIn("missing field: " + function + " disposition", validate(broken))
+        no_c = proposal.replace("Target transition: S3=— -> S3=C",
+                                "Target transition: NO_QUALIFIED_C_TARGET").replace(
+                                    "Proposal-stage decision: GO", "Proposal-stage decision: NO_GO")
+        self.assertEqual(validate(no_c), [])
+        bad_no_c = no_c.replace("Proposal-stage decision: NO_GO", "Proposal-stage decision: GO")
+        self.assertIn("NO_QUALIFIED_C_TARGET requires NO_GO", validate(bad_no_c))
+        self.assertTrue(any("invalid Target transition" in issue for issue in validate(
+            proposal.replace("S3=— -> S3=C", "S3=— -> S4=C"))))
+        self.assertTrue(any("invalid Target transition" in issue for issue in validate(
+            proposal.replace("S3=— -> S3=C", "S3=— -> S3=A"))))
+        self.assertIn("invalid Accepted VSM vector: require six ordered Skills states",
+                      validate(proposal.replace("S1=A · S2=C · S3=— · S3*=— · S4=— · S5=—",
+                                                "S1=P · S2=C · S3=— · S3*=— · S4=— · S5=—")))
+        self.assertIn("Target transition disagrees with accepted historical VSM vector",
+                      validate(proposal.replace("Target transition: S3=— -> S3=C",
+                                                "Target transition: S3=A -> S3=C")))
+        self.assertIn("invalid Research disposition",
+                      validate(proposal.replace("Research disposition: NEEDS_EVIDENCE",
+                                                "Research disposition: UNKNOWN")))
+        self.assertTrue(any("invalid Scenario basis" in issue for issue in validate(proposal.replace("HYPOTHETICAL", "FICTION"))))
+        self.assertIn("invalid Proposal-stage decision", validate(
+            proposal.replace("Proposal-stage decision: GO", "Proposal-stage decision: DONE")))
+        self.assertTrue(any("invalid Validation state" in issue for issue in validate(
+            proposal.replace("Validation state: NOT_RUN", "Validation state: VALIDATED"))))
+        self.assertEqual(validate(RECEIPT), [])  # existing receipts are grandfathered
+
     def test_legacy_receipt_remains_structurally_valid(self):
         self.assertEqual(validate(RECEIPT), [])
         bad_marker = RECEIPT.replace("## Function ownership",

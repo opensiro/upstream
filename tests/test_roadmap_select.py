@@ -94,18 +94,35 @@ class SelectionTests(unittest.TestCase):
             self.load()
 
     def test_hypothesis_not_from_missing_grade_alone(self):
-        self.assertEqual(hypotheses(["A", "—", "—", "—", "—", "—"]), {})
+        self.assertEqual(hypotheses(["A", "—", "—", "—", "—", "—"]), {"s2": 1})
         self.assertIn("s3", hypotheses(["A", "C", "—", "—", "—", "—"]))
         self.assertNotIn("s3", hypotheses(["A", "C", "C", "—", "—", "—"]))
         self.assertIn("s3star", hypotheses(["A", "C", "C", "—", "—", "—"]))
         self.assertIn("s4", hypotheses(["A", "A", "A", "—", "—", "P"]))
 
-    def test_source_shortlist_dedup_and_no_s5_default(self):
+    def test_source_shortlist_covers_s5_and_supports_s1_s2_explicit_focus(self):
         records = self.load()
         picked = shortlist(records, "all", 10)
         self.assertEqual(len(picked), 2)
-        self.assertNotIn("s5", picked[0]["hypotheses"])
+        self.assertIn("s5", next(x for x in picked if x["id"] == "reviewer")["hypotheses"])
+        self.assertTrue(all(x["primary_focus_is_hint_only"] and not x["p0_selected"]
+                            for x in picked))
+        self.assertTrue(all(x["required_repository_wide_screen"] ==
+                            ["S1", "S2", "S3", "S3*", "S4", "S5"] for x in picked))
+        self.assertIn("s2", shortlist([dict(picked[0], vector=["A", "—", "—", "—", "—", "—"])], "s2", 10)[0]["hypotheses"])
+        self.assertEqual(shortlist(records, "s1", 10)[0]["hypotheses"]["s1"], 1)
         self.assertEqual(len(shortlist(records, "s3", 10)), 1)
+
+    def test_explicit_focus_does_not_make_missing_function_automatic_p0(self):
+        records = self.load()
+        s1 = shortlist(records, "s1", 5)
+        self.assertEqual(len(s1), 2)
+        for row in s1:
+            self.assertEqual(row["hypotheses"], {"s1": 1})
+            self.assertFalse(row["p0_selected"])
+        s2 = shortlist(records, "s2", 5)
+        self.assertEqual(len(s2), 0)  # historical S2=C/A in fixture; no gap hypothesis
+        self.assertEqual(hypotheses(["A", "C", "C", "C", "C", "C"]), {})
 
     def test_live_issue_title_is_lead_not_closure(self):
         client = FakeGitHub().add_original()

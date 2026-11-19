@@ -1,107 +1,121 @@
-# [HARNESS] — [primary VSM capability] construction roadmap + [optional independent extension]
+# [HARNESS] — [selected Sx transition or no qualified C target] (Opensiro roadmap)
 
 <!--
-Opensiro reusable HUMAN Issue template. Paperclip historical two-level pilot is the structural
-reference; replace placeholders with independently verified repository-specific
-facts. Do not retain a fictitious secondary feature, upgrade, PR, or grade.
-Current case filename: issue.md (not issue-v2.md); version history belongs in Git.
-Do not publish as an original maintainer Issue: this is a fork-local case.
-Link the separate AI/developer file; it links back. Public publication needs
-its own exact current-conversation approval.
+HUMAN FORK-LOCAL Issue, not an original-maintainer Issue.
+Fill from the single case-local roadmap.md receipt and current pinned sources.
+No invented need, Index regrade, tests, maintainer consent or publication.
+Technical ports and extended tests belong in constructor-sufficiency.md.
+Use stable filenames issue.md / roadmap.md / constructor-sufficiency.md.
 -->
 
-**Opensiro pilot · PLAN_ONLY / [NEEDS_EVIDENCE | DECISION_READY | NO_USEFUL_CHANGE] · DRAFT — NOT PUBLISHED**  
-**Two-level package:** this **human decision Issue** + [complete agent/developer contract](https://github.com/opensiro-contributions/[fork]/blob/opensiro/meta/.opensiro/issues/[case-id]/constructor-sufficiency.md), based on [AI/developer template](ROADMAP_AI_CONSTRUCTOR_CONTRACT.md). **Working fork:** [verified `opensiro-contributions/<fork>`] · **Case:** [`.opensiro/issues/<case-id>/` on `opensiro/meta`].
+**PLAN_ONLY · proposal-stage [GO / NO_GO / BLOCKED] · research [DECISION_READY / NEEDS_EVIDENCE / NO_USEFUL_CHANGE] · DRAFT — NOT PUBLISHED**
+
+**One-sentence proposal:** [Selected function-specific developer-composable C construction, or a justified no-target conclusion].
+
+**Canonical decision receipt:** [roadmap.md](roadmap.md) — **source of truth** for pins, accepted VSM vector, six-function dispositions, selected target, P0/P1/P2, proposal verdict, research status and publication state. Do not independently invent or revise those values here.
+**Technical companion:** [constructor-sufficiency.md](constructor-sufficiency.md) based on [ROADMAP_AI_CONSTRUCTOR_CONTRACT.md](https://github.com/opensiro/upstream/blob/main/templates/ROADMAP_AI_CONSTRUCTOR_CONTRACT.md) — source-native interfaces, Track A/B and future tests, linked back to this Human Issue.
+**Working fork:** `opensiro-contributions/<fork>` · **Case:** `.opensiro/issues/<case-id>/` on `opensiro/meta`.
 
 ## 1. Why Opensiro and central accepted VSM assessment
 
-Opensiro tests whether reusable, Viable System Model (VSM)-informed organizational specifications can **standardize AI-agent harness development and reduce the total cost of implementation, integration and maintenance**. Through source-backed upstream roadmaps, we organize **existing and proposed native features** into a shared methodology, seeking capabilities developers can reuse or compose rather than duplicating ad-hoc solutions. **Cost savings and adoption remain hypotheses, not proven results; maintainers do not have to adopt VSM.**
+Opensiro tests whether reusable VSM-informed organizational descriptions and constructor capabilities can make AI-agent harness engineering more systematic. **This is a research hypothesis, not proven cost reduction, product certification or a requirement that the original project adopt VSM.**
 
 ### Central starting point — accepted Index, not the target
 
-> **STARTING POINT — ACCEPTED INDEX, NOT THE TARGET:**  
-> **`S1=[accepted] · S2=[accepted] · S3=[accepted] · S3*=[accepted] · S4=[accepted] · S5=[accepted]`**  
-> [Accepted Index assessment immutable permalink, file blob SHA, `review_ref`, reviewed date, Profile / Skills versions]. These states are **historical at the assessed source revision**, not an automatic assessment of current HEAD. Never fill an unverified state from the roadmap target; unresolved means `?` or `UNVERIFIED`.
+> **ACCEPTED HISTORICAL INDEX — not current-HEAD grades or proposed after-states**
+>
+> **`S1=[accepted] · S2=[accepted] · S3=[accepted] · S3*=[accepted] · S4=[accepted] · S5=[accepted]`**
+>
+> [Immutable accepted Index permalink, Index commit, assessment blob SHA, `review_ref`, `reviewed_at`, Profile / Skills versions from roadmap.md].
 
-| VSM function | Index | Meaning for this pilot |
-| --- | --- | --- |
-| S1 · Operations | **[actual]** | [Autonomous operational work; constructor target/exclusion] |
-| S2 · Coordination | **[actual]** | [Specific inter-S1 disturbance and coordinating path] |
-| **S3 · Current management** | **[actual]** | [Whole-system current resources/commitments; any independent composability hypothesis] |
-| S3* · Independent review | **[actual]** | [Complementary independent access and correction] |
-| **S4 · Future adaptation** | **[actual]** | [External/future adaptation options and real two-way S3 relationship] |
-| S5 · Identity/policy | **[actual]** | [Legitimate ultimate/parent authority and preserved decisions] |
+**Repository-wide audit:** [Pinned original HEAD and observation date; declared system-in-focus and recursion; current product/runtime, API, configuration/policy, supported optional modes, docs/examples, tests/CI, contributor surfaces and relevant original Issues/PRs reviewed. Distinguish actual deployed behavior from adjacent dogfood or maintainer organization.]
 
-**Pins and boundaries:** original [repo/default branch and immutable HEAD; observation date]; accepted Index [full SHA/date/ref and provenance]; [current source drift, pending Index review if any, age-of-review advisory]; **system-in-focus** [specific first-party supported mode and recursion, excluded plugin/private/maintainer surfaces]; [verified fork parent and `opensiro/meta` owner control]; [license, contributor, AI disclosure and CLA preflight]. A later source revision is **not** a revised Index grade.
+**One combined historical-and-current six-function table (do not repeat this vector in a second table):**
 
-**Interpretation:** `A`, `C`, and `P` are **ownership arrangements**, not a maturity ordering; `A` does not imply a generic reusable `C` constructor. Already-confirmed `A`/`A(P)` and `C`/`C(P)` functions **need no mandatory C engineering**, and legitimate parent `P` authority remains protected. Investigate `?` before claiming a missing path. A separate developer-composability feature may be useful with its own proven operator need but is **not a forced `A → C` or `A(P) → C` progression**.
-
-## 2. Proposed user capabilities and decision
-
-**Primary P0 / [function]:** [Actor, user/operator counterfactual and why the *smallest source-native first-party `C` construction path* is worth testing; stimulus → real selectable options → independent developer-composed autonomous decision → authorized effect → observable later operation/feedback]. No function label or low historical grade proves user value.
-
-**Separate P2 / [optional other function, only if independently justified; otherwise delete this paragraph]:** [New developer/operator capability beyond the already-shipped native owner; own minimum change and value proof]. It must be **independent of P0** and cannot silently turn an already-confirmed `A(P)` into a mandatory `C` engineering target.
-
-**Best native operator alternative:** [Simplest shipped feature, CEO/manager, manual settings or small original-native change; why the same outcome is not already available]. If equally sufficient at lower total cost, prefer `NO_USEFUL_CHANGE`.
-
-## 3. Existing native work vs missing capability
-
-| Topic / VSM function | What exists / relevant original proposals | Concrete residual gap to prove |
-| --- | --- | --- |
-| **[primary function]** | [shipped first-party path and source permalink]; [existing original issue/PR link and live state/head/diff] | [Precise action currently impossible or materially inferior; not only a grade] |
-| **[optional secondary, or remove]** | [current native capability and competing proposals] | [Distinct user value; not an obligatory other VSM target] |
-| **Authority / audit** | [actual S2/S3*/S5 protective paths; original proposed changes if applicable] | [Enforce existing rights and reviewer independence rather than create another function] |
-
-Original Issues and PRs must be deduplicated with their *current* status. An open/unmerged PR, provider plugin, future roadmap or title alone **is not shipped first-party proof**. Put the full code/issue/PR port-by-port evidence table in the [AI contract](https://github.com/opensiro-contributions/[fork]/blob/opensiro/meta/.opensiro/issues/[case-id]/constructor-sufficiency.md).
-
-**Mandatory contribution-on-top comparison — do not let a matching Issue veto an independent proposal:**
-
-| Existing source work / state | Already covered for the same user task | Our reuse/integration/extension proposal | Incremental user outcome and falsification |
+| Function / plain-language role | Historical Index state | Current source-backed owner/closure | Candidate / justified no-target / uncertainty and rank |
 | --- | --- | --- | --- |
-| [Pinned native implementation / original Issue and PR head/status] | [Shipped vs proposed; authority and feedback] | [New first-party on-top change, or source-backed NONE] | [Material delta vs cheapest native path; negative case or NOT_EVIDENCED] |
+| **S1 · Operations** — units doing primary work | [actual] | [pinned code and mode] | [P0 / DEFER / NO_TARGET / UNKNOWN + reason] |
+| **S2 · Coordination** — prevents inter-unit interference | [actual] | [pinned code and mode] | [rank + reason] |
+| **S3 · Current management** — current resources and commitments | [actual] | [pinned code and mode] | [rank + reason] |
+| **S3* · Independent review** — independent corrective evidence | [actual] | [pinned code and mode] | [rank + reason] |
+| **S4 · Future adaptation** — external/future changes | [actual] | [pinned code and mode] | [rank + reason] |
+| **S5 · Identity/policy** — legitimate ultimate authority | [actual] | [pinned code and mode] | [rank + reason] |
 
-**Evaluation object and bounded decision scope:** [One user task and function; a NO_GO applies only to this proposal, not the entire harness]. Track **A: existing work** and track **B: independently generated on-top options** must both be documented before choosing P0. Consider reuse unchanged, integration/extension and a separately justified adjacent capability; note source-backed NOT_APPLICABLE rather than inventing a new controller. Original Issues/PRs own their actual code/review decisions; no automatic right to edit or publish.
+**Interpretation:** `A` = autonomous agent owns closed function; `C` = function-specific first-party construction path for developer-composed autonomous ownership; `P` = supported parent-governed S3/S4/S5 mode; `A(P)`/`C(P)` = independently evidenced additional parent mode; `—` = bounded no material first-party path; `?` = evidence unresolved. These are **ownership categories, not quality ranks**. `A`/`A(P)` and `C`/`C(P)` do not trigger mandatory C work. A `P` parent boundary can be legitimate; investigate `?` rather than guessing.
 
+**Priority rationale:** [Why the selected function outranks alternatives only **after** whole-repository screening: source confidence, complete C-construction feasibility, native reuse, legitimate authority, methodology-test value and expected complexity.]
 
-## 4. Proposed priority and minimum sufficient result
+**Deliberate exclusions / methodology challenge:** [Only source-evidenced deliberate omission, e.g. S4 scope or parent S5; otherwise UNKNOWN. State a boundary/falsifier and any separate Profile/Skills method question. Never invent a local policy system.]
 
-| Priority | User-facing outcome | Conditional minimum complete path |
+**Contributor / maintainer interests (OPTIONAL):** [Attributed evidence for each party, or `NOT_STATED`. Not a GO prerequisite or publication permission.]
+
+## 2. Selected construction hypothesis and operator outcome
+
+**Target transition:** [Sx=[accepted historical state] -> Sx=C, or NO_QUALIFIED_C_TARGET — exact value from roadmap.md]. Do not default to S3 and do not claim a new Index classification.
+
+**Function-specific disturbance:** [Real source-supported or clearly HYPOTHETICAL operating/environmental condition requiring a choice].
+
+**Proposed C capability (P0):** [Developer's new ability to compose a function-specific autonomous decision owner with rightful alternatives, observable first-party operational effect and returned feedback; or why NO_TARGET is justified].
+
+**Best native operator alternative:** [Minimal current native/manual/parent-governed way, source link and what it already covers].
+
+**Expected user benefit:** [OBSERVED evidence or HYPOTHETICAL outcome; no invented demand, test success or savings].
+
+**Architectural sufficiency argument:** [One paragraph on the **complete combined** shipped/reused/proposed path to the selected C, and the single most important missing constraint; or documented no-target rationale]. Detailed code belongs to the AI companion.
+
+## 3. Existing native work versus missing construction
+
+**Track A — native coverage:** [Current shipped code, relevant original Issues and live PR heads/diffs/decisions; mark SHIPPED / OPEN_PR / ISSUE_ONLY / UNVERIFIED].
+**Track B — independent on-top C construction:** [Smallest missing original-native function-specific integration, reuse or extension. An existing Issue/PR is a starting point, not a matching Issue veto.]
+
+| C-sufficiency requirement (function-specific, not a fixed port count) | Already present / proposed in original (A) | What still must be constructed (B) |
 | --- | --- | --- |
-| **P0 — [function]** | [Developer composes legitimate first-party controller for a material outcome] | **[Relevant disturbance/signal → alternatives → owner decision → enforced effect → later operational feedback]** |
-| **P1 — enables P0** | [Integration, authority and distribution reachability] | Reuse [specific shipped components] and add **only** justified missing first-party ports/permissions/tests. P1 may execute before P0 |
-| **P2 — optional** | [Separate material extension or explicit no useful extras] | [Independent case and acceptance, never mandatory `C → C(P) → A(P)` or `A → C`] |
+| [Required decisive decision/feedback path and state] | [source link + status] | [exact source-native delta or NONE] |
+| [Lawful ownership, downstream effect and return] | [source link + status] | [smallest remaining delta or NONE] |
 
-**Function distinction where relevant:** S2 limits interference between S1 units; S3 regulates **current whole-system resources and commitments**; S4 models **external change and possible futures**, develops alternatives and returns them via a **two-way dialogue with S3**; S5 holds legitimate ultimate policy. A scheduler, isolated web-search summary or router alone does not establish the decision owner or closure.
+**Distinctness and falsifier:** [Does Track A already supply the complete scoped C? Can Track B genuinely add a missing link? What evidence would refute the proposed completeness?]
 
-**C sufficiency contract (required for each qualified C target):** [linked case-local AI/developer evidence contract](https://github.com/opensiro-contributions/[fork]/blob/opensiro/meta/.opensiro/issues/[case-id]/constructor-sufficiency.md), with source-mapped **function-specific** first-party actor, options, authority, durable state, enforced operation, feedback and positive/negative tests. **Sufficiency verdict:** [design covered / `NEEDS_EVIDENCE` / disproved]. Design is **not shipping**, and shipping is not an accepted Index `C` without separate Index review.
+## 4. Priorities and minimum sufficient result
 
-## 5. Acceptance / stop gates
+- **P0:** [Exactly the selected function's minimal complete C-construction target, or NO_QUALIFIED_C_TARGET].
+- **P1:** [Indispensable source/authority/integration/test prerequisites, or NONE].
+- **P2:** [Independently justified optional work, or NONE; not a mandated second function or a grade ladder].
 
-| Required evidence | Fail-closed / stop condition |
-| --- | --- |
-| **Primary positive operator scenario:** [developer-composed agent selects real option; supported first-party mode executes it; actual downstream return observable] | Recommendation, alert, generic hook, mock, empty summary or unexecuted proposal only |
-| **Optional secondary (if present):** [separate actual decision and observable effect] | Built-in native owner already provides equally useful result |
-| **Rights, negatives and compatibility:** [reject unauthorized, stale, incompatible or cross-company actions; preserve reviewer and parent rights] | State can be changed without proper authority or feedback |
-| **Materiality and native alternative:** [measurable difference vs cheapest shipped original-native path] | Same useful result without the proposed constructor → `NO_USEFUL_CHANGE` |
-| **Constructor and Index:** [supported distribution and later native tests] | No new Index grade from a draft Issue, open PR or design |
+**Proposed C-sufficiency verdict:** [PROPOSED_C_SUFFICIENT / INCOMPLETE_CHAIN / ALREADY_SHIPPED / UNVERIFIED / NO_QUALIFIED_C_TARGET, reconciled with roadmap.md]. This is an architectural design finding, **not shipping**, not a test pass and not a changed Index grade without **separate Index review**.
 
-**Tests are proposed, not executed** unless actual source-native evidence is linked. Full acceptance matrices live in the AI companion.
+## 5. Proposed acceptance and stop gates
+
+**Future positive test:** [Function-specific owner makes one lawful decision which affects real later operation and returns feedback; details in AI companion].
+
+**Future negative test:** [Missing/revoked owner, parent veto, stale state, ineffective feedback or compatibility boundary where applicable].
+
+**Proposed falsifier:** [Exact result that disproves C construction sufficiency or makes native reuse preferable].
+
+**Validation state:** [NOT_RUN / PARTIAL_WITH_PINNED_EVIDENCE, from roadmap.md]. No artificial number of test cases or mandated five ports.
 
 ## 6. Independent paths
 
-**Original-native research/integration:** reconcile existing Issues/PRs and minimal source delta; separately authorize any `upstream upgrade` implementation. **Methodology feedback** to Profile/Skills requires its own evidenced ambiguity. **Domain fork** is an independent, legally permitted alternative—not an automatic downstream task.
+**Original-native contribution:** [Use existing work first; do not automatically create a competing original Issue].
+**Profile / Skills:** [Separate methodology correction only if real counterexample exists].
+**Domain fork:** [Legally and operationally permitted independent research alternative, or NONE].
 
 ## 7. Cost hypothesis
 
-Compare **the same authorized user task** in the simplest native baseline and proposed VSM-informed mode: real operator outcome, implementation/integration effort, review/native tests, maintenance, safety and possible reduction of duplicate engineering. Evaluate P0 and any P2 **independently**. **Cost status: `NOT_MEASURED`.**
+Estimate matched original-native vs proposed constructor tasks, including engineering, integration, review/test and maintenance effort. **Cost status: `NOT_MEASURED`** until an actual comparison exists.
 
 ## 8. Decision / handoff
 
-**Decision now:** `PLAN_ONLY / [NEEDS_EVIDENCE | DECISION_READY | NO_USEFUL_CHANGE]`. **Next human decision:** [one concrete evidence audit, separately approved implementation, or explicit stop]. Identify for every port what is **SHIPPED / OPEN_PR / ISSUE_ONLY / truly missing / UNVERIFIED**. Never claim missing capability only from an historical assessment.
+**Proposal-stage decision:** [GO / NO_GO / BLOCKED — exact value from roadmap.md]. This field is REQUIRED.
 
-**Final operator decision (REQUIRED):** **GO / NO_GO / BLOCKED** — replace with *exactly one* choice. GO = qualified native integration proposal with matched benefit and authority/acceptance; NO_GO = do not implement speculative work now (cite the native alternative or unproven additional value); BLOCKED = exact externally owned missing evidence, attempts and conditional unlock. A `NEEDS_EVIDENCE` research label must still state **NO_GO now** or a genuinely external **BLOCKED**, not ask for another routine continuation. This is a plan-only decision, not a source change, grade or approval. State what to do now and what **not** to do. The AI companion and receipt must repeat the decision.
+- `GO`: complete, lawful, source-grounded proposed C constructor; **`GO + NEEDS_EVIDENCE` is valid** for unexecuted future tests or unmeasured benefit.
+- `NO_GO`: scoped source-backed C duplicate, incoherent construction or justified no-target after six-function research; not a blanket no-go for the harness.
+- `BLOCKED`: specific indispensable source, accepted assessment, identity or authority fact unavailable after permitted attempts.
 
+**Research disposition:** [DECISION_READY / NEEDS_EVIDENCE / NO_USEFUL_CHANGE — exact value from roadmap.md]. This is separate from proposal verdict.
+**Decision reason / next permitted step:** [One source-grounded paragraph; what to do and not do, evidence owner, any precise consent gate].
 
-**Agent/developer handoff:** [complete case-local AI contract](https://github.com/opensiro-contributions/[fork]/blob/opensiro/meta/.opensiro/issues/[case-id]/constructor-sufficiency.md), with a required backlink and **the same accepted six-system vector and P0/P1/P2**. This is **Opensiro's fork-local discussion surface**, **not an original maintainer request**. Store under `.opensiro/issues/<case-id>/` on `opensiro/meta`. **No public fork Issue**, original external Issue/comment/PR, public fork-local PR, code implementation, authority grant, Index regrade or cost claim is implied. Any public action needs **separate exact current-conversation owner approval** of the destination, action, full title/body and diff where relevant.
+**Agent/developer handoff:** [constructor-sufficiency.md](constructor-sufficiency.md) and [canonical roadmap.md](roadmap.md). Verify the same P0, P1, P2, target and verdict across the three case artifacts **before publishing or claiming completion**.
 
-**AI disclosure:** Prepared with AI assistance. No independent human validation, executed native tests or established engineering savings claimed.
+**Rights and publication:** [Verified original license, CLA/DCO, AI policy, supported operating modes and fork `owner_control`]. **No public fork Issue**, original external Issue/comment/PR, code change, grade change or authority grant is authorized by this draft. `PAUSE/STOP` blocks unauthorized case writes; any outward publication requires **separate exact current-conversation owner approval** for destination, action and complete text.
+
+**AI disclosure:** Prepared with AI assistance; native tests, utility and independent human review are not presumed.

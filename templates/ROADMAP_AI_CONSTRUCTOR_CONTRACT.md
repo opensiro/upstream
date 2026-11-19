@@ -1,165 +1,111 @@
-# [HARNESS] — [primary function] proposed C and [optional other function] developer-composable control contracts
+# [HARNESS] — source-native C-construction technical contract
 
 <!--
-Opensiro generic AI/DEVELOPER companion template modeled on the approved
-Paperclip two-level pilot. This is Level 2 of ONE case, not another public Issue.
-Replace all [placeholders]. Section 5 is OPTIONAL: omit the second feature if no
-independent operator need is evidenced. Do not transfer the exemplar's S3/S4
-function targets, five ports, test count, vector, or source conclusions to a
-different harness without source-specific evidence.
+LEVEL 2: technical companion to ONE fork-local Human issue.md, NOT a second public Issue.
+This is a generic source/evidence contract, not a Paperclip port or nine-test recipe.
+Use only current pinned original first-party code, modes and original Issue/PR heads.
+The canonical case receipt roadmap.md owns all historical Index grades, six-function
+dispositions, priority values, target, proposal/research verdicts and publication status.
+Replace placeholders and add exactly as many native links/tests as the function needs.
 -->
 
 **Canonical storage:** `opensiro-contributions/<fork>@opensiro/meta:.opensiro/issues/<case-id>/constructor-sufficiency.md`.
+**Level 1 / Human decision Issue:** [issue.md](issue.md).
+**Canonical decision receipt:** [roadmap.md](roadmap.md) — exact accepted VSM vector, six-function priorities, `Sx=[historical] -> Sx=C` or `NO_QUALIFIED_C_TARGET`, P0/P1/P2, proposal verdict, research disposition and evidence pins. **Do not reproduce a second six-row assessment table or invent independent statuses in this file.**
+**Stage:** PLAN_ONLY / HYPOTHESIS → PROPOSAL-STAGE → future VALIDATED (separate). **DRAFT — NOT PUBLISHED**; proposed code/tests are NOT_RUN, not shipped, not an Index reassessment.
 
-**Status:** `PLAN_ONLY / [NEEDS_EVIDENCE | DECISION_READY | NO_USEFUL_CHANGE]` · **DRAFT — NOT PUBLISHED**. Proposed construction and acceptance evidence, **not shipped**, not a test run or Index reassessment. **Level 1 / Human decision Issue:** [human issue.md permalink]. The Human Issue carries the purpose, central starting assessment and prioritized decision; this **Level 2** contract carries exact code and proposed implementation/test detail. **The vector, P0/P1/P2 and stop verdict MUST match the Human Issue.**
+## 1. Function-specific construction boundary and methodology checks
 
-## Functional scope: S2 vs S3 vs S4 vs S5
+**Source and mode boundary:** [Full current original HEAD, exact product/runtime entry point, distribution mode, purpose, environment, recursion and excluded adjacent dogfood/test/CI/governance surfaces. Reference pinned evidence and accepted historical Index from roadmap.md, not copied or silently regraded].
 
-| Function | Organizational judgment, not a component name | Concrete observation / interaction for this harness |
-| --- | --- | --- |
-| **S2 · Coordination** | Attenuate destructive interference among operating S1 units without centralized duplicate decisions | [Actual interfering tasks and owned coordination] |
-| **S3 · Inside-and-now control** | Regulate **current whole-system resources, priorities, commitments, budgets and exception interventions**; decide rather than merely enforce a gate | [Real current company disturbance → owner choice → changed ongoing operation] |
-| **S4 · Outside-and-then intelligence** | Interpret **external environment and possible future**, develop adaptation alternatives and maintain **two-way S3↔S4 feedback** | [Externally/future-relevant distinction → options → authorized change in operating capability] |
-| **S5 · Identity / ultimate policy** | Set legitimate overall purpose and reserved policy when S3/S4 tension cannot be resolved below | [Real owner, protected decision, lawful return into work] |
+**Target transition:** [Exact Sx=[historical state] -> Sx=C or NO_QUALIFIED_C_TARGET from roadmap.md]. If no target qualifies, explain source-backed six-function rationale and do NOT invent construction ports.
 
-**Classification safeguards:** an Internet research agent, unstructured summary, release notice, internal task planner, model router or memory write alone is **not S4 closure**. A hard budget or run-admission gate alone is **not S3 decision ownership**. Record **variety** regulated, attenuation/amplification and information transduction where material, without inventing entropy thresholds. All decisions require source-specific actor, authority, enforceable change and feedback in the declared first-party mode.
+**Six-function dependencies (S1/S2/S3/S3*/S4/S5):** [Use the **six dispositions in roadmap.md** to name only concrete interactions/constraints that affect this selected construction: operating units, coordination, management, independent audit, adaptation and identity/parent rights. S1 and S3* are eligible primary targets when justified, not only S2/S3/S4/S5. Do not equate repository co-location with in-boundary ownership].
 
-## 1. Boundary, state, user and developer counterfactual
+**Function witness:** [Identify disturbance/variety actually regulated; legitimate decisive decision/feedback right; who owns it today; what merely transports/enforces; full return-to-later-operation; and the permitted parent/recursion limit].
 
-### Central accepted baseline — original evidence, not a proposed after-state
+**Counterfactual owner test:** [If the proposed developer-composed autonomous decision actor is absent but the runtime transport/enforcement remains, would materially the same organizational choice still be made? What exactly would then be missing for C?].
 
-> **ACCEPTED HISTORICAL INDEX:**  
-> **`S1=[accepted] · S2=[accepted] · S3=[accepted] · S3*=[accepted] · S4=[accepted] · S5=[accepted]`**  
-> [Immutable Index assessment permalink, file blob SHA, reviewed date/`review_ref`, Profile and Skills versions; **identical to Human**]. The current upstream source may have changed; no automatic current grade is inferred.
+**Possible methodological negative control:** [Source-backed deliberate no-target or parent-governed ownership, not inferred intent from missing code. Falsifier for environment/recursion changes and separate Profile/Skills route if warranted].
 
-| Function | Historical accepted owner/closure | Consequence for proposed work |
-| --- | --- | --- |
-| **S1** | [actual state / owner] | [No mandatory C if already A/C] |
-| **S2** | [actual state / owner] | [Preserve S1 interaction rules] |
-| **S3** | [actual state / owner and parent mode if any] | [Current control and legitimate resource rights; an already-A(P) S3 is not a missing function] |
-| **S3*** | [actual state / independent reviewer] | [Preserve independent complementary audit] |
-| **S4** | [actual state / prospective adaptation owner, if established] | [P0 or excluded, depending on evidence] |
-| **S5** | [actual state / ultimate parent or agent] | [Reserved policy and protected authority] |
+**Contributor / maintainer priorities:** [Attributable optional source or `NOT_STATED`. Never infer a feature request, legal permission or new ownership].
 
-- **Original pinned source:** [owner/repo at full default-branch SHA, observation date; distinguish Index-reviewed ref]. **Freshness:** [elapsed days and material delta; >30-day review recommendation per roadmap, not mandatory new grade].
-- **System-in-focus:** [one supported first-party runtime/company, recursion, purpose, external environment, included and excluded distribution/modes; original maintainer governance and uninstalled/private plugins excluded unless expressly in boundary].
-- **Primary P0 user task:** [specific actor wants to perform currently unsupported materially useful action with legitimate authority and observable future/current feedback].
-- **Simplest original-native baseline:** [concrete manual or built-in path solving the same task with comparable inputs and constraints].
-- **Developer composition counterfactual:** [Remove the proposed autonomous decision actor but keep transport and enforcement; if the **same organizational choice** still occurs unaided, the proposed port may not establish `C`. Show the developer-supplied actor, rights and supported wiring].
-- **Optional second operator task, only if evidenced:** [Independently useful constructor along with already-A/P/other state; **not** forced `A(P) → C`].
-- **License, autonomy/owner preflight:** [MIT/other exact license, contributor policy, CLA, AI disclosure, fork `ACTIVE`/`ALLOW` controls, no unauthorized external publication].
-- **Classification:** `A`, `C`, `P` are distinct ownership arrangements, **not maturity levels**; established `A`/`A(P)` or `C`/`C(P)` functions are **not mandatory C targets**; `P` may legitimately remain parent-governed.
+## 2. Source-pinned baseline and parallel native Track A / on-top Track B
 
-## 2. Verified existing baseline versus still-proposed change
+**Original native workflow:** [Real actor → trigger → first-party decision/action → observable outcome; pinned file, docs and supported operating mode].
 
-| First-party element | Pinned shipped source / exact behavior | Original Issues/PRs and reviewed source status | Reuse, gap or uncertainty |
+**Closest existing solution:** [Shipped/manual/parent path for the same task, actual source and limits].
+
+**Relevant original Issues/PRs:** [Exact URLs, state, open PR head/diff, tested scope and owner decision. Distinguish SHIPPED, OPEN_PR, ISSUE_ONLY, EXPERIMENT, EXTERNAL_GOVERNANCE and UNVERIFIED; a title alone is never closure evidence].
+
+| Required C link or real operator outcome | Track A: current shipped/Issue/PR coverage + evidence | Track B: smallest missing native integration or NONE | What would disprove this proposed need? |
 | --- | --- | --- | --- |
-| [Function-specific mechanism] | [Actual file/path at source SHA and behavior] | [Original issue, open/merged PR head/diff, or none] | [Shipped / Open PR / Issue only / Missing / Unverified] |
-| [Current management and authorities] | [Budget/ownership/board/run/service interfaces] | [Current upstream alternatives and decisions] | [Reuse existing owner rights; no automatic extra function] |
-| [Complementary review and feedback] | [Actual source, deployed mode] | [Competing proposal if any] | [Enforcement/return loop gaps] |
+| [Function-specific decision right, not a component name] | [Pinned actual source/state] | [Independent on-top proposal or reuse] | [Existing path already sufficient / no lawful choice] |
+| [Supported enforcement and returned feedback, as applicable] | [Pinned actual source/state] | [Necessary bridge or none] | [Only a notification / wrong boundary] |
+| [Additional source-native link only if evidenced] | [Actual] | [Necessary delta] | [Specific falsifier] |
 
-**Evidence boundary:** tested and released original-native code is different from an unmerged proposal, roadmap, private plugin, generic event hook or external model-provider function. **Confirm source-native overlap on current original HEAD** before declaring anything truly absent. Preserve original project contribution and public-communication restrictions.
+**On-top distinctness:** [Track A may supply some or all C links. Explain smallest missing complete C path after native reuse, or why an existing first-party C makes a new constructor unnecessary. Existing original Issues are starting points, not blanket vetoes; no mandatory feature novelty beyond actual missing C sufficiency].
 
-**Parallel contribution-on-top review (A + B, required before P0):**
+**Source ambiguity / rights blockers:** [Exact fact, attempted readback, evidence owner and allowed unlock. Weak empirical demand is not by itself BLOCKED].
 
-| Verified native work and pinned Issue/PR state (A) | Existing coverage and missing task | Independently proposed reuse/extension/adjacent option (B) | Minimum new first-party change / authority | Incremental outcome and falsifier |
-| --- | --- | --- | --- | --- |
-| [Source ref, state, supported mode; distinguish SHIPPED/OPEN_PR/ISSUE_ONLY] | [Exact current task, owner, rights and observable result] | [Our on-top candidate or source-justified NOT_APPLICABLE] | [Reused interfaces + actual necessary delta, no invented interface] | [Concrete new behavior vs native baseline, or NOT_EVIDENCED] |
+## 3. Minimal complete [selected function] first-party C construction
 
-**Evaluation object:** [Named operator task and VSM function]. **Decision scope:** [GO/NO_GO/BLOCKED only for this contribution, not the whole original harness]. A maintainer Issue for a narrower problem cannot alone disprove an independent, distinguishable user need; conversely, on-top work is rejected if the cheapest native solution already closes the **same** task. Preserve original PR ownership and third-party communication gates.
+**Required property:** a **function-specific first-party construction path** that permits a developer to compose an autonomous decisive owner and legitimately close the target function at the declared supported boundary. Generic hooks, notifications, queues or code samples are not automatically C.
 
+**Physical interface count is NOT prescribed.** The logical obligations may be implemented by one native API, several existing mechanisms and one added port, or more components; propose **only what original source proves necessary**. Do not copy Paperclip's five-port pattern.
 
-**Minimal native alternative:** [cheapest project-native solution, including ordinary manager/CEO/manual workflow]. **Materiality verdict:** [`NEEDS_EVIDENCE` / `NO_USEFUL_CHANGE` / independently supported operator delta]; do not create a controller simply to fill a VSM grade.
-
-## 3. Proposed minimum [PRIMARY FUNCTION] first-party construction ports
-
-**P0 candidate:** [one function and material operator outcome; not an automatic accepted grade]. The five names below are **logical proposed interfaces**; none is assumed to exist and native code can merge ports as long as each observable construction property survives.
-
-| Proposed construction port | Inputs → state/output and user result | Organizational decision owner / hard boundary | Existing first-party reuse vs genuinely missing change |
+| Necessary native component or port (repeat/omit rows as evidence requires) | Existing file/API and evidence | Smallest proposed edit / developer integration | Legitimate owner, effect and return |
 | --- | --- | --- | --- |
-| **A · [DisturbanceSignalSource]** | [Dated, scoped internal disturbance or attributable external/future signal, provenance, trust and freshness] | Sensing/transduction is **not** the decisive decision | [Source SHA, present/missing] |
-| **B · [FunctionOptionCaseStore]** | [Versioned current state plus credible `hold`/alternative options, compatibility, scope, expiry, unknowns] | Only supported and authorized options become actionable | [Source SHA, present/missing] |
-| **C · [FunctionDecisionPort]** | [Developer configures a real autonomous actor choosing among alternatives, with reason, revision and principal] | **Developer-composable function-specific organizational choice**, protected from stale/revoked/cross-company rights | [First-party actor wiring, new interface required?] |
-| **D · [AuthorizedOperationBridge]** | [Valid decision staged/applied via supported real task/run/config interface; immediate vs future-use scope explicitly defined] | Reuse S2/S3/S3*/S5 rights; never acquire parent board power from a prompt | [Native enforcement path, missing action mapping] |
-| **E · [ObservedReturnReceipt]** | [Actual later first-party operation/change and returned outcome/denial/failure, not an unexecuted recommendation] | Owner receives **functional closure**; **S3↔S4** if this is a future-adaptation function | [Native receipt/state linkage and feedback gap] |
+| [Exact current or missing source-native entry point] | [Pinned path + current behavior / NONE] | [Function-specific exposed path or reuse] | [Who decides, which lawful options and how feedback reaches the function] |
+| [Only a second independently necessary link, if applicable] | [Source] | [Source-native delta] | [Actual downstream operation/denial/receipt] |
 
-**Conditional sufficiency:** [Prove that together A+B+C+D+E expose a supported first-party **function-specific developer-composable** pathway, with real available authority, operational effect and feedback. Missing any material link defeats *this proposed construction path*. No hypothetical code or Issue constitutes shipped `C`]. If an already-shipped equivalent solves the task, record `NO_USEFUL_CHANGE`.
+**Architectural C-sufficiency argument:** [Explain which combination of **real shipped/reusable** and **planned first-party** elements would establish the function-specific C path, including inputs/state, discretion, authority, effects, return, supported reachability and compatibility. This is a PROPOSAL, not a shipped witness or promised new Index grade].
 
-**Explicit exclusions:** [No mandatory unrelated S1/S2/S3/S5 conversions; no transfer of parent policy; no expensive live web poller or independent policy engine unless separately needed].
+**Explicit non-goals:** [No unsolicited S4 controller, new S5 policy owner, blanket parent authority, unrelated six-function upgrades or standalone framework if native components suffice].
 
-## 4. Priority and dependency decisions
+**Implementation dependency graph:** [Ordering of truly required P1 evidence/authority/edits → P0 complete constructor → native validation; reference `roadmap.md` for **canonical** P0/P1/P2 values].
 
-- **P0 — [primary function]:** deliver the complete developer-composable capability and outcome, **not** just a new notification, policy or mocked hook.
-- **P1A:** [Evidence, source validation and compatible options. May precede P0].
-- **P1B:** [Developer-composable decision owner, scope, real first-party mode and authority].
-- **P1C:** [Enforced original-native operation, returned receipt and regression tests].
-- **P2 — optional independent change:** [Only a second useful function/parent mode/refinement with its own demand and tests; otherwise mark `NONE` and **do not invent a second target**].
+## 4. Priorities, optional alternative and stopping rules
 
-| Priority | Source-native change or integration | Dependency and authority boundary | Decisive test |
+**P0 and P1:** [Describe executable technical dependencies **for the canonical target/prerequisites in roadmap.md**; do not establish competing P0/P1 statuses here].
+
+**P2:** [`NONE` by default. If and only if the six-function screen justifies an independent optional capability, provide a brief separate function/owner/counterfactual and link its **separate source-native acceptance plan**; do not embed a forced second five-port design or nine-test matrix].
+
+**Alternative path:** [A simpler original-native mechanism, deliberate non-construction, legitimate parent governance or independent Profile/Skills issue. State when this is preferred to a C proposal].
+
+**Stop:** [Equivalent C already shipped; incoherent function owner; indispensable parent prohibition; unsupported boundary; unresolved critical source fact; original maintainer says no; or no qualified function after six-source screening. Do not turn absent cost measurements into a required NO_GO].
+
+## 5. Future source-native acceptance — derive tests, do not copy a matrix
+
+**Native test commands and entry points:** [Commands **actually in the original repository** at pinned ref, or NOT_RUN / RUNNER_UNAVAILABLE with evidence]. Do not invent a runner.
+
+**Positive functional closure:** [A specific test witnessing a lawful organizational choice by a developer-composed owner, first-party effect on subsequent work and observable feedback; for selected function only].
+
+**Independent alternative (where applicable):** [A different lawful choice/outcome that distinguishes the composed owner from hardcoded transport/enforcement; omit with source-based explanation if inapplicable].
+
+**Negative authority and compatibility (where applicable):** [Missing owner, invalid/stale/revoked/parent right, baseline preservation, true failure report or unsupported mode. Use only negatives applicable to the original runtime].
+
+**Matched native alternative:** [Observable original-native task and same inputs; construction benefit/engineering cost remain hypotheses until measured].
+
+| Proposed native case (add as many or few rows as needed) | Real source-supported setup / command | Expected effect and return | Falsifier or stop |
 | --- | --- | --- | --- |
-| P1 | [Exact first-party file/entry point and smallest missing change] | [Existing owner, S3 resource/S5 policy] | [Positive and negative native tests] |
-| **P0** | [Fully connected first-party construction path] | [P1 gates; relevant supported distribution] | [Developer actor choice changes actual eligible later operation] |
-| P2 (optional) | [Independent evidence-backed improvement or none] | [Separate rights / owner] | [Separate user-value proof] |
+| [Case derived from selected function, NOT_RUN] | [Pinned test entry point or proposed test] | [Observe actual decision and feedback] | [Specific failure] |
 
-**Order is not a grade ladder:** `P1` prerequisites can execute before the `P0` goal. An existing `A` does not mean `C`; it is **not required** to be rebuilt as `C`. `C(P)`/`A(P)` modes are optional and separately evidenced when relevant.
+**Example IDs such as AC-01…AC-09, fixed port names or a universal test count are deliberately not supplied.** Coverage principles require only source-applicable cases, with explicit reason when a principle does not apply. Until executed and evidenced, results are **NONE / NOT_RUN** (not passing tests).
 
-## 5. Additional [OPTIONAL FUNCTION] constructor proposal — explicitly requested, or NONE
+## 6. Proposal verdict, falsification, evidence ownership and handoff
 
-**Only populate when the Human Issue independently identifies a material secondary capability (such as a developer-composable current-resource S3 controller alongside historical `S3=A(P)`).** When none exists, write **`P2: NONE — no additional constructor`** here and omit the port and scenario tables. Do not invent another VSM gap from the primary target or classify `A(P)` as deficient.
+**Proposal-stage decision:** [GO / NO_GO / BLOCKED — exact value from roadmap.md]. **Terminal decision contract:** this is a derived display; only the receipt owns the decision.
 
-**Distinct optional operator counterfactual:** [New thing the developer cannot do with the already-shipped autonomous manager/agent and native controls]. **Accepted secondary state:** [actual Index value]. **Purpose:** [which independent current/future organizational disturbance and decisive decision right this optional function addresses].
+**Research disposition:** [DECISION_READY / NEEDS_EVIDENCE / NO_USEFUL_CHANGE — exact value from roadmap.md].
 
-### Proposed new features — minimum [OPTIONAL FUNCTION] construction ports
+**GO + NEEDS_EVIDENCE is valid** when the proposed complete C constructor is architecturally source-grounded, lawful and falsifiable **but experiments, demand or benefit measurements are not yet performed**. `GO` is not an implementation authorization or test pass. `NO_GO` must have scoped architectural or justified no-target reasons. `BLOCKED` requires an indispensable unresolved source/right fact after permitted attempts. Do not automatically turn NEEDS_EVIDENCE into NO_GO or BLOCKED.
 
-| Logical proposed port | Developer-visible result | Enforcement/ownership boundary | Native source reuse + missing implementation |
-| --- | --- | --- | --- |
-| **[PressureSnapshot]** | [Versioned current organizational state or prospective distinction] | [Correct scope and actor] | [Exact source and gap] |
-| **[InterventionOptions]** | [Real alternative actions and allowed constraints] | [No unauthorized options] | [Exact source and gap] |
-| **[DecisionPort]** | [Developer-supplied autonomous actor selects one eligible action] | [One real decisive owner; no conflicting native writers] | [Exact source and gap] |
-| **[ActionBridge]** | [Native first-party current or future operation actually changes] | [S2/S3*/S5, parent, stale rights fail closed] | [Exact source and gap] |
-| **[FeedbackReceipt]** | [Persisted true applied/refused effect visible in later work] | [Closure into management; false success not accepted] | [Exact source and gap] |
+**Primary falsifier:** [Exact existing path, missing discretionary owner, wrong recursion/authority or insufficient return that would defeat this C design]. **Validation state:** [Read NOT_RUN / PARTIAL_WITH_PINNED_EVIDENCE from roadmap.md, no independent claim].
 
-### Example optional acceptance scenarios — adapt to repository (not executed)
+**Ownership of truth:** Profile owns VSM semantics; Skills owns classification method; Index owns accepted assessment and any future grade change; original project owns implementation and maintainer decision; **roadmap.md owns this case's structured research decisions**. Historical grades and current code remain separately pinned.
 
-**ILLUSTRATIVE ROWS — NOT MANDATORY TEST CASES.** The `AC-OPTIONAL-01…03` IDs, wording, count and outcomes below are *examples of how to write a check*, not tests to copy or execute unchanged. **MUST derive and replace these rows from the secondary function's actually evidenced original-source code, decision owner, supported mode, user counterfactual and authority.** Add, remove, rename or reorder scenarios as required. If there is no independent P2 capability, write `P2: NONE` and **delete this entire table**, rather than filling example rows. Record why a potential negative case is not applicable instead of fabricating one.
+**Cost status:** `NOT_MEASURED`. Any cost-reduction claim requires a later matched experiment.
+**Next permitted action:** [Source-backed bounded test or authorization gate, or no change]. **Human backlink:** [issue.md](issue.md); **case receipt:** [roadmap.md](roadmap.md).
 
-| Example only — replace ID and title | Example trigger / actor — replace | Example observable outcome — replace | Example rejection — replace |
-| --- | --- | --- | --- |
-| **AC-OPTIONAL-01** | [Competing organizational choices and lawful alternate agent decision] | [Differing permitted operation and feedback] | [Hardcoded core alone decides] |
-| **AC-OPTIONAL-02** | [Stale rights, owner collision, parent-reserved decision] | [No mutation, concrete denial receipt] | [Bypassed S2/S5/reviewer constraints] |
-| **AC-OPTIONAL-03** | [Matched native baseline] | [Material new developer capability at supported distribution] | [`NO_USEFUL_CHANGE`] |
-
-**Secondary readiness:** `NEEDS_EVIDENCE` until own materiality, source-native fit, legitimate actor and actual tests are demonstrated. **No automatic new Index grade** and not a prerequisite for P0.
-
-## 6. [PRIMARY FUNCTION] example acceptance scenarios — adapt to repository (not executed)
-
-**ILLUSTRATIVE EXAMPLES — NOT MANDATORY TEST CASES.** **`AC-01…AC-09`, their names, triggers, outcomes, sequence and number are NOT prescribed tests.** The following rows only demonstrate the *format* of a source-native acceptance check. **Before handing a roadmap to implementation, an AI/developer MUST independently replace, remove, rename or add the rows** using the specific original repository's pinned source, supported operating mode, real disturbance/variety, actual developer-composed decision actor and lawful rights, available first-party action/feedback paths, competing shipped alternatives and test infrastructure. **Do not copy an example row verbatim or claim it has passed** unless its exact facts are established and cited for that repository. A missing applicable witness is `NEEDS_EVIDENCE`, not a fictitious passing case.
-
-**Required coverage (principles, not fixed IDs/count):** demonstrate (a) a real positive organizational decision **and observable subsequent operation/feedback**; (b) *alternative lawful decisions where the function actually offers alternatives*; (c) negative/fail-closed authority, invalid, stale, revoked or absent-actor conditions **as applicable to that system and its supported modes**; (d) compatibility, execution failure and truthful feedback where material; and (e) a meaningful comparison with the simplest existing original-native solution. For a non-applicable example, **replace or omit it with a documented repository-specific reason**, not a forced artificial test. Full tests and execution commands must originate from actual native code/test conventions. No universal nine-case checklist exists.
-
-| Example only — replace ID and title | Example trigger / actor — replace | Example observable first-party result — replace | Example negative/stop — replace |
-| --- | --- | --- | --- |
-| **AC-01 Positive closure** | [Real disturbance/external future distinction; bound autonomous agent selects supported option] | [Durable lawful decision and actual later run/task/config effect, returned feedback] | [No C construction witness] |
-| **AC-02 Different lawful choice** | [Same facts, different option or `hold`] | [A different permitted downstream outcome] | [Core is hardcoding decision] |
-| **AC-03 Missing actor** | [No developer-composed controller installed] | [No invented autonomous selection; native base owner remains within its rights] | [Generic hook is not `C`] |
-| **AC-04 Parent/reserved authority** | [Attempted S5 board-policy / cross-owner change] | [Existing protected ultimate owner remains decisive] | [Authority bypass] |
-| **AC-05 Cross-company / stale or revoked right** | [Wrong tenant, revoked scope or outdated option revision] | [Fail closed with receipt and no unauthorized effect] | [Safety not demonstrated] |
-| **AC-06 Incompatible or unsupported mode** | [Missing adapter/model/account/first-party deployment prerequisite] | [Expose unknown and refuse action] | [False supported reachability] |
-| **AC-07 Current-operation isolation** | [Action while active work/lease/reviewer exists] | [Preserve existing owner and in-flight work] | [Unsafe operational mutation] |
-| **AC-08 Actual feedback, including failure** | [Later operation runs, errors or never applies intended configuration] | [Receipt truthfully reports applied/refused/failed outcome and closes feedback] | [Notification only, no closure] |
-| **AC-09 Original-native comparison** | [Matched original manual/native operator task] | [New developer action not comparably achievable by simpler baseline] | [`NO_USEFUL_CHANGE`] |
-
-**Execution evidence:** `NONE / NOT RUN` until source-native test outputs/artifacts are attached. **All `AC-..` entries above are replaceable examples, not acceptance requirements, a universal test suite, a mandatory case count or proof of shipment.** The **coverage principles** above remain required for the selected function, with explicit source-backed applicability and gaps. Do not turn example labels into implementation tasks. Exact smoke, unit, integration, permission, concurrency and regression commands must be sourced from the original project, never invented.
-
-**Terminal decision contract:** Reconcile every attempted candidate and native alternative with Human `issue.md`, then state exactly one **GO / NO_GO / BLOCKED**. GO requires the complete source-backed minimal vertical slice and positive/negative/compatibility acceptance; NO_GO stops unjustified constructor work now; BLOCKED identifies externally unavailable evidence, failed source attempts and a conditional unlock. When research status is `NEEDS_EVIDENCE`, the **present decision is still NO_GO or BLOCKED**. This paragraph is mandatory in the completed case and its `roadmap.md` receipt; it never authorizes implementation or public publication.
-
-
-## 7. Falsification, exclusions and evidence ownership
-
-Reject, narrow or record `NEEDS_EVIDENCE` if the original source already closes the outcome, user need or materiality cannot be substantiated, a separate developer actor cannot lawfully own the choice, a supported first-party mode does not expose the port, real return feedback is missing, or original license/formality/maintainer scope blocks the contribution. **`NO_USEFUL_CHANGE` is a valid result.**
-
-**Ownership of truth:** Profile determines S3/S4 meaning; Skills defines assessment and `A`/`C`/`P`; Index owns accepted historical six-function classifications and any future re-review; original repo owns actual implementation. **A roadmap, conceptual five-port model, test description, draft GitHub Issue or unmerged PR cannot create an accepted grade.** Distinguish developer constructibility from already established autonomous operation; do not force `A(P) → C`.
-
-**Source and cost receipt:** [Exact original HEAD and relevant file SHAs, issues/PRs/statuses, assessor Index ref and date, what still needs independent source review]. **Cost status: `NOT_MEASURED`** until matched tasks and engineering effort are measured. **Next decision:** [source-overlap audit / independently approved Upgrade / no useful change]. **Human backlink:** [case-local Human Issue URL]. This stays `PLAN_ONLY`; a later `upstream upgrade` requires its own authorization/rights/native-test/publication gates.
-
-**No original external Issue/comment/PR**, public fork Issue/PR, product code, autonomous authority grant or Index revision has been published by this contract. **AI disclosure:** Prepared with AI assistance; no native test execution, demonstrated savings or independent review is claimed.
+**No original external Issue/comment/PR**, public fork Issue/PR, product code, new authority grant or Index revision is implied by this contract. Publication needs a distinct exact current-conversation approval; `PAUSE/STOP` remains binding. **AI disclosure:** Prepared with AI assistance, without presumed native test execution or independent review.
