@@ -38,6 +38,27 @@ Read [docs/FORK_METADATA.md](docs/FORK_METADATA.md) for the initial JSON contrac
 4. Check native **need, mechanism, counterfactual and scope**. Unsupported claims remain pending. No mandatory six-function S1–S5 scan or per-session batch.
 5. Before implementation, apply the [material capability-delta gate](#material-capability-delta-gate-before-implementation). An Index link, a new configuration flag, a passing unit test or an absence in a VSM function vector is not independently a useful Upgrade.
 
+## Roadmap portfolio statistics / case inventory (read-only; script-first)
+
+**Intent dispatch is mandatory.** When the user asks to *count, summarize, compare or report statistics for existing Upstream roadmap cases*—for example `upstream roadmap stats`, `roadmap view`, `собери статистику по роадмапу`, `сколько форков с roadmap`, coverage, dispositions or status distributions—**first execute** the maintained `scripts/roadmap_view.py` projection, not an ad-hoc GitHub API walk. This reporting intent overrides the bare `upstream roadmap` candidate-selection route. It is not a named-original roadmap, contribution batch, assessment or a new case-creation instruction.
+
+```bash
+# Default: whole accessible public opensiro-contributions scope, incl. DORMANT/PAUSE
+python3 scripts/roadmap_view.py --format json
+
+# Only when current original Issue/PR states are requested (additional API quota)
+python3 scripts/roadmap_view.py --format json --live-original
+
+# Only when a subset is explicitly requested
+python3 scripts/roadmap_view.py --format json --repo opensiro-contributions/EXAMPLE
+```
+
+**Report and validation contract.** State the execution time/`generated_at`, source repository/version or exact script SHA when available, `scope`, `coverage.repositories_discovered`, `verified_forks`, `forks_with_cases`, `cases`, `missing_meta`, `no_issues_directory`, `skipped_nonfork`, `filtered_by_attention`, `errors`, `scan_complete`, `warnings` and `historical_inventory_complete`. Include a per-case breakdown by `kind` (`ROADMAP` vs `HISTORICAL_TEMPLATE_PILOT`), `structure` (`CANONICAL`, `LEGACY_PARTIAL`, `HISTORICAL_PILOT`) and `status`, and state denominators for any percentages. Report `coverage.scan_complete=false` or nonzero exit code as **PARTIAL / INCOMPLETE** with the precise failures; do not silently discard missing forks, inaccessible repos, PAUSE/DORMANT or historical records. `historical_inventory_complete=false` means the scan does **not** establish completeness of all historical roadmap work, even if the accessible scope has no scan errors.
+
+**Truth boundaries.** `status` is a recorded **research disposition**, not the Human/AI terminal GO/NO_GO/BLOCKED decision; count terminal decisions only when explicitly verified in the corresponding case documents. Stored case files are not public GitHub Issues, and original Issue/PR links are `NOT_CHECKED` until `--live-original` succeeds; `UNKNOWN` is not `CLOSED`. A count of organization repositories (or GitHub search results) is not the number of verified forks, fork-local roadmap cases, public Issues, Index assessments, implemented contributions or merged external PRs. `scripts/roadmap_select.py` is for **accepted-Index candidate discovery**; `scripts/aggregate.py` is for **intervention and original PR observations**. Do not substitute either for `roadmap_view.py`.
+
+**Unavailable execution: fail visibly.** If the current runtime cannot execute `roadmap_view.py` with the required live API access, report **`NOT VERIFIED — script not executed`** and the missing runtime/network/credential capability. It is legitimate to include a separately labeled, bounded, source-cited manual observation, but **never** claim it is complete script-generated statistics or silently pivot to repeated GitHub API enumeration. Prefer an already available verifiable output artifact with its own date, scope, and provenance over guessing. Do not create a runner, scheduler, registry, external communication or write to a fork merely to answer a read-only statistics request.
+
 ## Index-first `upstream roadmap` selection (unspecified source; read-only lead screen)
 
 **Source of candidates:** the latest public accepted `opensiro/vsm-harness-index` included assessments, not all GitHub repositories, the unadmitted Index `proposed`/excluded rows, old memory or an arbitrary popular-project list. Run `python3 scripts/roadmap_select.py --format markdown` (machine-readable: `--format json`) to pin an exact Index commit and retrieve accepted Index `RANKINGS.md` plus catalog; keep the historical six-function vector separate from current source. `upstream roadmap select [--focus s3|s3star|s4|s5|all]` is a **read-only ranked research-lead view**, whereas `upstream roadmap OWNER/REPO` continues to name exactly one original.

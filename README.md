@@ -26,6 +26,17 @@ Upstream is the **operational S1 domain** of [OpenSiro VSM OSS](https://github.c
 
 **Protocol:** [v0.16.0](VERSION) · [How work proceeds](PROTOCOL.md) · [Fork metadata](docs/FORK_METADATA.md) · [Architecture](docs/ARCHITECTURE.md) · [History](CHANGELOG.md) · [Releases](https://github.com/opensiro/upstream/releases)
 
+## Command navigation — choose the owning read-only projection first
+
+| User intent / examples | Route and first tool | What it answers |
+| --- | --- | --- |
+| `upstream roadmap stats`, `roadmap statistics`, `собери статистику по роадмапу`, `сколько roadmap-кейсов`, `roadmap view` | **Run `python3 scripts/roadmap_view.py --format json` first** | Observed fork-local case inventory, coverage, structure, dispositions and unknowns |
+| `upstream roadmap select`, ranked unstudied candidates | `python3 scripts/roadmap_select.py --format json` | Accepted-Index-based candidate leads, **not** existing-case counts |
+| Bare `upstream roadmap` or `upstream roadmap OWNER/REPO` | [Roadmap research/full-cycle protocol](PROTOCOL.md#architecture-first-upstream-roadmap-ownerrepo-plan-only) | One original's plan-only research and decision, **not** portfolio statistics |
+| Upstream implemented contributions, external PR lifecycle or intervention portfolio | `python3 scripts/aggregate.py --format json` | Fork-local contribution records and observed external PR status, **not** roadmap case inventory |
+
+**Statistics dispatch rule:** the requested *intent* takes precedence over the phrase `upstream roadmap`; a request for totals, distributions, coverage, case inventory or status breakdown is **`roadmap_view.py` first**, never source selection. Use the default full-organization scope (no `--repo` or `--only-active`) unless the user explicitly narrows it. Report the script output's `generated_at`, `scope`, coverage/errors and warnings, distinguish historical pilots from canonical roadmaps, and mark `scan_complete=false` as **PARTIAL**. `historical_inventory_complete=false` always limits historical claims. A script not run is **NOT VERIFIED**, even if a manual GitHub API count seems plausible. [Normative statistics route](PROTOCOL.md#roadmap-portfolio-statistics--case-inventory-read-only-script-first).
+
 ## Releases
 
 [GitHub Releases](https://github.com/opensiro/upstream/releases) publish tagged snapshots of the **Upstream contribution protocol**, not releases of third-party harnesses. The current protocol is [v0.16.0](VERSION); see its [change package](changes/v0.16.0.md), [changelog](CHANGELOG.md), and [versioning rules](VERSIONING.md). A release does **not** certify completion of historical migration, deployed value, external PR acceptance, or VSM autonomy.
@@ -98,6 +109,16 @@ The selection script reads only accepted Index rows and samples verified live or
 [Roadmap procedure](docs/CAPABILITY_ROADMAP.md) · [external issue draft](templates/EXTERNAL_ARCHITECTURE_ISSUE.md) · [existing Upgrade](PROTOCOL.md#capability-first-upstream-upgrade-new-work-not-historical-batching). Public third-party communication still needs exact current-conversation approval.
 
 ### Read-only roadmap view
+
+**For a portfolio-statistics request, this is the primary executable, not an optional
+alternative to a manual GitHub repository search.** First run the full-org JSON
+view and verify its coverage and warnings before counting statuses. Live original
+Issue/PR verification is a separate opt-in API-expensive pass:
+
+```bash
+python3 scripts/roadmap_view.py --format json
+python3 scripts/roadmap_view.py --format json --live-original
+```
 
 The repeatable **`roadmap view`** is a source-dated, read-only GitHub projection of
 `.opensiro/issues/<case-id>/` on verified `opensiro-contributions` forks'
