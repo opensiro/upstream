@@ -13,6 +13,8 @@ different harness without source-specific evidence.
 
 **Status:** `PLAN_ONLY / [NEEDS_EVIDENCE | DECISION_READY | NO_USEFUL_CHANGE]` · **DRAFT — NOT PUBLISHED**. Proposed construction and acceptance evidence, **not shipped**, not a test run or Index reassessment. **Level 1 / Human decision Issue:** [human issue.md permalink]. The Human Issue carries the purpose, central starting assessment and prioritized decision; this **Level 2** contract carries exact code and proposed implementation/test detail. **The vector, P0/P1/P2 and stop verdict MUST match the Human Issue.**
 
+**Primary construction target:** [`S3=— -> S3=C` or the selected function's actual accepted historical state → proposed C]. The left-hand state is historical Index evidence; current source is separately checked. The right-hand state is a future **C construction design**, NOT an observed grade. **Primary proposal question:** Which verified first-party components and minimum additional ports together permit a developer-composed autonomous actor to close this exact VSM function? An unrelated useful feature is not a substitute.
+
 **Proposal-stage epistemic status (same as Human and receipt):** `GO / NO_GO / BLOCKED` [choose one] · scenario basis `OBSERVED / HYPOTHETICAL` · validation `NOT_RUN / PARTIAL_WITH_PINNED_EVIDENCE`. `GO` approves a **source-informed, differentiated and falsifiable design for further investigation**, not implementation, adoption, demonstrated cost savings or a changed VSM grade. A hypothetical actor/counterfactual is permitted when explicitly labelled and grounded in real first-party interfaces.
 
 **Stage separation:** HYPOTHESIS → PROPOSAL-STAGE GO/NO_GO/BLOCKED → later VALIDATED CAPABILITY (if native tests and real outcomes support it). Missing proof of demand or measured savings is not independently a reason for `NO_GO`. An unverified mandatory rights/source fact can still `BLOCK`. A proposal rejected for overlap/impossibility must cite the specific comparator. All proposed ports and acceptance cases below remain `NOT_RUN` until actual first-party readback.
@@ -47,7 +49,7 @@ different harness without source-specific evidence.
 
 - **Original pinned source:** [owner/repo at full default-branch SHA, observation date; distinguish Index-reviewed ref]. **Freshness:** [elapsed days and material delta; >30-day review recommendation per roadmap, not mandatory new grade].
 - **System-in-focus:** [one supported first-party runtime/company, recursion, purpose, external environment, included and excluded distribution/modes; original maintainer governance and uninstalled/private plugins excluded unless expressly in boundary].
-- **Primary P0 user task:** [plausible or observed original-specific operator scenario; mark HYPOTHETICAL or OBSERVED; meaningful alternative decisions, lawful effect and feedback. A plausible untested scenario can qualify for proposal GO].
+- **Primary P0 C target:** [Repeat exact function state → C transition, and identify a credible OBSERVED or HYPOTHETICAL disturbance; lawful alternative choices; developer-composed autonomous decision actor; legitimate enforced effect; feedback returned to subsequent function decisions. Untested demand does not block a complete C construction proposal].
 - **Simplest original-native baseline:** [concrete manual or built-in path solving the same task with comparable inputs and constraints].
 - **Developer composition counterfactual:** [Remove the proposed autonomous decision actor but keep transport and enforcement; if the **same organizational choice** still occurs unaided, the proposed port may not establish `C`. Show the developer-supplied actor, rights and supported wiring].
 - **Optional second operator task, only if evidenced:** [Independently useful constructor along with already-A/P/other state; **not** forced `A(P) → C`].
@@ -73,11 +75,11 @@ different harness without source-specific evidence.
 **Evaluation object:** [Named operator task and VSM function]. **Decision scope:** [GO/NO_GO/BLOCKED only for this contribution, not the whole original harness]. A maintainer Issue for a narrower problem cannot alone disprove an independent, distinguishable user need; conversely, on-top work is rejected if the cheapest native solution already closes the **same** task. Preserve original PR ownership and third-party communication gates.
 
 
-**Minimal native alternative:** [cheapest project-native solution, including ordinary manager/CEO/manual workflow]. **Proposal distinctness verdict:** [plausibly different from the native alternative / demonstrably redundant / architecture-impossible / blocked by essential fact]; record the falsifying native experiment. `NOT_MEASURED` is not itself grounds for NO_GO; do not create a controller simply to fill a VSM grade.
+**Minimal native alternative:** [cheapest project-native solution, including ordinary manager/CEO/manual workflow]. **C sufficiency verdict:** [source-mapped missing function-specific C links versus native constructor already sufficient / coherent proposed complete C path / impossible / blocked]. Record the decisive C falsifier and native experiment. `NOT_MEASURED` is not itself grounds for NO_GO; do not create a controller simply to fill a VSM grade.
 
 ## 3. Proposed minimum [PRIMARY FUNCTION] first-party construction ports
 
-**P0 candidate:** [one function and material operator outcome; not an automatic accepted grade]. The five names below are **logical proposed interfaces**; none is assumed to exist and native code can merge ports as long as each observable construction property survives.
+**P0 candidate:** [one exact historical function state → proposed `C` transition, with the complete minimal first-party C construction, not a general feature wishlist or automatic accepted grade]. The five names below are **logical proposed interfaces**; none is assumed to exist and native code can merge ports as long as each observable construction property survives.
 
 | Proposed construction port | Inputs → state/output and user result | Organizational decision owner / hard boundary | Existing first-party reuse vs genuinely missing change |
 | --- | --- | --- | --- |

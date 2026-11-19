@@ -20,7 +20,9 @@ class ForkCapabilityRoadmapIssueTemplateTests(unittest.TestCase):
         ai = AI_TEMPLATE.read_text(encoding="utf-8")
         protocol = PROTOCOL.read_text(encoding="utf-8")
         guide = ROADMAP.read_text(encoding="utf-8")
-        for marker in ("One-sentence proposal:", "Opportunity / [function]",
+        for marker in ("Target transition:", "S3=— -> S3=C",
+                       "Primary evaluation object", "Sufficiency verdict",
+                       "One-sentence proposal:", "Opportunity / [function]",
                        "What we propose (P0)", "Why it might help",
                        "Scenario basis", "Hypothesis, not proof",
                        "Proposal-stage final operator decision (REQUIRED)",
@@ -35,6 +37,9 @@ class ForkCapabilityRoadmapIssueTemplateTests(unittest.TestCase):
         self.assertIn("Missing measurement", protocol) if "Missing measurement" in protocol else self.assertIn(
             "Missing benefit measurement", protocol)
         self.assertIn("not required for proposal", protocol)
+        self.assertIn("minimal complete missing set", human.lower())
+        self.assertIn("Proposed C-sufficiency", human)
+        self.assertIn("first-party", human)
         self.assertIn("not a test pass", human)
         self.assertIn("no mandatory C", human)
         self.assertIn("separate Index review", human)

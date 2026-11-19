@@ -6,6 +6,7 @@
 
 ## Unreleased
 
+- **Target-C Roadmap construction clarification (unreleased):** Restore explicit accepted historical `Sx=[state]` → proposed `Sx=C` as the evaluation object; Track A/B identifies reused and missing links in the minimum complete function-specific C chain, not unrelated generic improvements.
 - **Proposal-first Roadmap decision contract (unreleased):** Distinguish source-grounded capability hypothesis, bounded proposal-stage GO/NO_GO/BLOCKED, and later validated/implemented capability. A falsifiable plausible operator scenario may qualify for proposal GO without prior measured utility or tests; preserve native A/B comparison, first-party decision/rights/feedback, Index ownership, and all publication gates. Redesign the Human Issue as a short proposal-first decision surface with AI construction detail separate; add opt-in structural proposal receipt checks without invalidating historical receipts. No automatic version/release or retroactive rerun.
 
 _No additional changes beyond the v0.17.0 release bundle at preparation._

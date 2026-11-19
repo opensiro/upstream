@@ -1,4 +1,4 @@
-# [HARNESS] — [one proposed capability] (Opensiro roadmap)
+# [HARNESS] — [FUNCTION]=[accepted state] → [FUNCTION]=C — [constructor capability] (Opensiro roadmap)
 
 <!--
 Human-facing fork-local proposal Issue, not an original-maintainer Issue.
@@ -11,14 +11,16 @@ Separate exact current-conversation approval is required for public publication.
 
 **PLAN_ONLY · proposal-stage [GO / NO_GO / BLOCKED] · [DECISION_READY / NEEDS_EVIDENCE / NO_USEFUL_CHANGE] · DRAFT — NOT PUBLISHED**
 
-**One-sentence proposal:** [Who could do what that is not equally convenient or capable using the best native alternative? Hypothesis, not a measured result.]
+**Target transition:** [e.g. `S3=— -> S3=C`]. **The left side is the pinned accepted historical Index state; the right side is the proposed future construction goal, not a current classification.**
+
+**One-sentence proposal:** [What is the smallest complete first-party change set needed to make the named VSM function developer-composable as `C`? State the decision owner and return path, not just a generic useful feature.]
 
 **Working fork and case:** [verified opensiro-contributions/<fork>] · [`.opensiro/issues/<case-id>/` on `opensiro/meta`].
 **Technical companion:** [AI/developer construction contract](https://github.com/opensiro-contributions/[fork]/blob/opensiro/meta/.opensiro/issues/[case-id]/constructor-sufficiency.md), based on [ROADMAP_AI_CONSTRUCTOR_CONTRACT.md](ROADMAP_AI_CONSTRUCTOR_CONTRACT.md). These are two layers of **one** case.
 
 ## 1. Why Opensiro and central accepted VSM assessment
 
-Opensiro tests whether reusable, VSM-informed organizational specifications can standardize harness development and reduce implementation, integration, review and maintenance cost. **These are hypotheses, not measured savings or a requirement that maintainers adopt VSM.** This issue proposes a potentially useful first-party capability, not a new Index grade.
+Opensiro tests whether reusable, VSM-informed organizational specifications can standardize harness development and reduce implementation, integration, review and maintenance cost. **These are hypotheses, not measured savings or a requirement that maintainers adopt VSM.** This issue proposes a **specific historical VSM state → target C construction**; it does not assert an achieved Index grade.
 
 ### Central starting point — accepted Index, not the target
 
@@ -41,47 +43,56 @@ Opensiro tests whether reusable, VSM-informed organizational specifications can 
 
 ## 2. Proposed user capabilities and decision
 
-**Opportunity / [function]:** [A credible, original-specific operator scenario, trigger, actor, competing choices, permitted effect and returned feedback. State whether the scenario is OBSERVED in a real source or HYPOTHETICAL. Both may justify a proposal; neither alone proves benefit.]
+**Primary evaluation object — [FUNCTION]=[historical state] → [FUNCTION]=C:** [Repeat the exact target transition. Specify the original system boundary and why the historical grade is not itself a present-day absence claim. Confirm current source capabilities before planning additional work.]
 
-**What we propose (P0):** [Smallest source-native new capability, preferably on top of already shipped code or an existing original Issue/PR. Explain its own user outcome, not merely "fill S3/S4".]
+**VSM-function requirement:** [What must S2/S3/S3*/S4/S5 actually *decide and regulate*? Describe a function-specific disturbance, at least two lawful alternatives, a developer-composed autonomous decision owner, enforceable effect, and feedback returning into the function. For S3, use whole-organization current commitments/resources, not only a scheduler.]
 
-**Why it might help:** [Plausible but unmeasured improvement in coordination, safety, adaptability, developer composition, reliability or cost; identify the user who benefits.]
+**What already exists:** [Native source mechanisms that can form the target C, including shipped code, open Issues/PRs, owners and feedback.]
 
-**Best native operator alternative:** [Existing shipped behavior, manual/configured method, plugin, or maintainer proposal that solves the **same** task; name what it covers and why the proposal would be different. An Issue is not already shipped.]
+**What we propose (P0):** [The *minimal complete missing set* of first-party components/ports/integration so a developer can install a real actor and realize C, rather than an arbitrary useful enhancement. State which components need no changes.]
 
-**Hypothesis, not proof:** [The specific consequence that would justify future work; distinguish plausible mechanism from an observed user need, tested improvement or measured savings.]
+**Opportunity / [function]:** [OBSERVED or HYPOTHETICAL concrete user/operator scenario in which the C actor makes a legitimate choice and affects later work. This motivates the proposal but its measured demand is NOT a prerequisite for proposing C.]
 
-**Optional other function:** [Separate developer-composability hypothesis only if justified; otherwise delete this paragraph and set P2: NONE.]
+**Why it might help:** [Hypothesized development/coordination/management benefit. Do not invent observed demand, test results or commercial ROI.]
+
+**Best native operator alternative:** [Simplest current baseline and any existing original Issue/PR. Explain whether this baseline itself supplies a full constructor C witness or only a useful narrower behavior. A problem being solvable by manual rules does not automatically defeat a C-constructor roadmap.]
+
+**Hypothesis, not proof:** [Why the proposed COMPLETE chain would support C, what could refute the architectural sufficiency, and which test comes later.]
+
+**Optional other function:** [Separate developer-composability for another VSM function, only if separately justified; otherwise delete this paragraph and set P2: NONE. One roadmap has one primary C target.]
 
 ## 3. Existing native work vs missing capability
 
-Research **Track A (existing)** and **Track B (independent on-top proposal)** together before selecting a target. A matching Issue is a design input, **not a matching Issue veto**. Do not duplicate an original maintainer's proposal as if it were new.
+**Track A — existing building blocks (SHIPPED / OPEN_PR / ISSUE_ONLY / UNVERIFIED):** inspect source, live original Issues/PR heads/diffs, supported modes and authority. **Track B — on-top C-construction:** propose missing *function-specific* interfaces, code and integrations on top of Track A. A matching Issue is an input, **not a matching Issue veto**. We do not require a fresh end-user feature when the research target is the still-missing C constructor.
 
-| Source / exact status | Already covered (SHIPPED / OPEN_PR / ISSUE_ONLY / UNVERIFIED) | Our reuse, integration, extension or adjacent proposal | Plausible incremental user outcome and falsifier |
+| C construction link | First-party shipped/Issue/PR coverage and rights (A) | Minimum on-top construction (B) | Proposed C witness / falsifier |
 | --- | --- | --- | --- |
-| [Pinned code / Issue body / PR head + diff + maintainer decision] | [Same task, actual actor, rights and feedback] | [Minimum on-top change or source-backed NONE] | [Distinct hypothetical behavior; what source/test would show it redundant] |
+| Signal and current/future function-specific state | [Pinned source, real decision level and scope] | [Reuse or new sensor/snapshot and trust boundary] | [Correct function-specific disturbance, not generic telemetry] |
+| Lawful alternatives + developer-composed actor | [Actual options, owner rights, installed vs generic hook] | [Missing first-party C port + real autonomous actor wiring] | [Two different lawful decisions possible; core does not hardcode owner choice] |
+| Enforcement and return feedback | [Actual downstream first-party action/receipt] | [Missing operational bridge and response to future decision] | [Real later change/denial and feedback; not a mock recommendation] |
 
-**Evaluation object:** [One bounded scenario and VSM function, not the entire harness]. **Comparison conclusion:** [Plausibly distinct / already covered / architecturally impossible / mandatory source fact unavailable]. A measured incremental result is **not required for proposal-stage GO**; a *reasoned distinctness claim* and falsifier are. The detailed port-by-port source comparison belongs in the AI companion.
+**Evaluation object:** [Named function transition and system-in-focus, not the whole harness]. **Source finding:** [Current source CONFIRMS C already / C chain incomplete / needs authoritative fact]. **Comparison conclusion:** [Minimum missing C ports vs already present first-party mechanisms]. A generic task-board solution or manual user workflow is NOT automatically evidence of S3=C; function ownership and feedback still matter. The detailed code/port analysis belongs to the AI contract.
 
 ## 4. Proposed priority and minimum sufficient result
 
-| Priority | Proposal-stage outcome | Minimum proposed complete path |
+| Priority | Targeted transition outcome | Minimum proposed complete path |
 | --- | --- | --- |
-| **P0 — [function or NONE]** | [Concrete operator capability to investigate] | [Disturbance → actor's lawful selectable options → authorized change → later feedback] |
-| **P1 — prerequisite** | [Source/rights/integration/benchmark work] | [Native entry point and smallest missing tests/ports; may precede P0] |
-| **P2 — optional** | [Independent additional user outcome or NONE] | [Only if separately justified, not a compulsory grade ladder] |
+| **P0 — [FUNCTION] → C** | [First-party supported constructor that lets a developer compose the function-specific autonomous decision actor] | [Function-specific signal/state → lawful alternatives → actor decision → enforced first-party effect → returned feedback] |
+| **P1 — prerequisite** | [Source/rights/integration/test dependencies] | [Exactly which Track A parts can be reused and which Track B ports must be supplied] |
+| **P2 — optional** | [Separate qualified function-specific construction or NONE] | [Not a grade ladder or unrelated generic feature backlog] |
 
-**Sufficiency verdict:** [PROPOSED_CONSTRUCTION / NOT_APPLICABLE / UNVERIFIED]. Document which first-party decision rights and feedback could make a future function-specific `C` constructor feasible. This is a *design claim*, **not shipping**, not a test pass and not a changed Index grade without **separate Index review**. An S2 coordination proposal may be valuable without S3=C.
+**Proposed C-sufficiency verdict:** [PROPOSED_C_SUFFICIENT / INCOMPLETE_CHAIN / ALREADY_SHIPPED / UNVERIFIED]. Show why **the combined minimum set** could establish **`C` for the target function**, with the decisive actor's ownership, supported distribution, lawful operation and actual feedback. Proposal-stage sufficiency is an architectural argument; it is **not shipping**, not a test pass and not a changed Index grade without **separate Index review**. An unrelated S2 improvement is not a substitute for a stated S3=C target.
 
 ## 5. Acceptance / stop gates
 
-| Proposed validation after GO (NOT RUN unless cited) | What would refute the proposal |
+| Proposed C-sufficiency validation after GO (NOT RUN unless cited) | What refutes C sufficiency |
 | --- | --- |
-| [Positive task with actor, eligible choices, first-party effect and actual later feedback] | [Native baseline already achieves the same result with no additional meaningful value] |
-| [Different lawful choice, missing actor, stale state, permissions, compatibility and regression] | [Authority cannot be enforced, feedback cannot return, or no distinct function-specific choice] |
-| [Paired native comparison, measured effort, runtime cost and user outcome] | [No acceptable incremental value after testing] |
+| [Real function-specific disturbance; two lawful alternative choices by developer-composed actor] | [Hardcoded deterministic behavior or generic hook decides instead of the composed actor] |
+| [First-party enforcement changes ongoing operation and sends actual feedback into subsequent function decisions] | [Recommendation-only, mocked effect, no true return/feedback, unsupported mode] |
+| [Missing actor/invalid rights/stale snapshot/parent veto/compatibility cases] | [Unauthorized effects, invented owner, regression of baseline] |
+| [Matched native baseline and future total-cost/user-benefit comparison] | [After implementation, no net advantage; this is a later validation decision, NOT an up-front C design gate] |
 
-**Validation state:** [NOT_RUN / PARTIAL_WITH_PINNED_EVIDENCE]. Tests and savings remain proposed until executed and sourced. Do not fail a proposal *only* because its future experiment has not happened.
+**Validation state:** [NOT_RUN / PARTIAL_WITH_PINNED_EVIDENCE]. The right-hand target is NOT an accepted Index grade until the path has been implemented, verified and reviewed separately by Index. A proposal may receive GO with unmeasured benefits, but NOT with an incomplete or merely generic C design.
 
 ## 6. Independent paths
 
@@ -93,9 +104,9 @@ Estimate [expected integration, test, review and maintenance effort] against the
 
 ## 8. Decision / handoff
 
-**Proposal-stage final operator decision (REQUIRED): `GO / NO_GO / BLOCKED` — choose exactly one.** `GO`: a source-informed, distinctive, feasible and falsifiable proposal worth investigating, even if utility is not proved. `NO_GO`: source-backed duplicate, incoherent/impermissible construction or no intelligible additional operator outcome **after both tracks**. `BLOCKED`: an essential source, identity or authority fact could not be obtained after bounded attempts; name its owner and unlock. Absence of performance measurements alone is **not BLOCKED or NO_GO**.
+**Proposal-stage final operator decision (REQUIRED): `GO / NO_GO / BLOCKED` — choose exactly one.** `GO`: a source-informed, minimal *complete proposed C-construction path* for the declared VSM transition, with actor/rights/real effect/feedback and falsifying tests, even if utility is unmeasured. `NO_GO`: no coherent missing C constructor can be proposed, the function already supplies the same C witness, or a source-backed impossibility/rights violation defeats the target, after both tracks. `BLOCKED`: an essential source, accepted assessment, identity or authority fact cannot be obtained after bounded attempts; name owner and unlock. Absence of performance measurements or proven user demand alone is **not BLOCKED or NO_GO**.
 
-**Proposal decision reason:** [Scenario; what exists; what would be added; why distinct; key uncertainty; one next authorized research/validation action. Say what NOT to implement/publish.] **Decision scope:** [This evaluation object, not all of the harness].
+**Proposal decision reason:** [Historical target transition, current native C-link coverage, minimal missing C construction, sufficiency and falsifier; optional demand hypothesis; one next authorized action. Say what NOT to implement/publish.] **Decision scope:** [This one function transition, not the harness as a whole].
 
 **Research disposition:** [DECISION_READY / NEEDS_EVIDENCE / NO_USEFUL_CHANGE]; this is not the proposal-stage verdict or a VSM state. An open hypothesis can have `GO` plus `NEEDS_EVIDENCE`, provided the next evidence gate is explicit.
 

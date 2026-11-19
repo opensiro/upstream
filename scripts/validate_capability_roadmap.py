@@ -69,10 +69,19 @@ def validate(contents: str) -> list[str]:
             if not value(contents, key):
                 errors.append("missing field: " + key)
         if on_top == "proposal-gate":
-            for key in ("Scenario basis", "Proposal-stage decision",
+            for key in ("Target transition", "Proposed C construction", "C sufficiency falsifier",
+                        "Scenario basis", "Proposal-stage decision",
                         "Proposed validation", "Validation state", "Proposal falsifier"):
                 if not value(contents, key):
                     errors.append("missing field: " + key)
+            transition = value(contents, "Target transition")
+            if transition:
+                match = re.fullmatch(
+                    r"S(1|2|3\*|3|4|5)=(—|\?|A|C|P|A\(P\)|C\(P\))\s*->\s*"
+                    r"S(1|2|3\*|3|4|5)=C", transition
+                )
+                if not match or match.group(1) != match.group(3):
+                    errors.append("invalid Target transition: same VSM function must target C")
             basis = value(contents, "Scenario basis")
             if basis and basis not in ("OBSERVED", "HYPOTHETICAL"):
                 errors.append("invalid Scenario basis: expected OBSERVED or HYPOTHETICAL")

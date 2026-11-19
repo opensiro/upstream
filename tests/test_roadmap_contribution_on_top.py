@@ -35,6 +35,9 @@ class ContributionOnTopTests(unittest.TestCase):
         proposal = RECEIPT.replace(
             "## Function ownership",
             "- Receipt contract: proposal-gate\n"
+            "- Target transition: S3=— -> S3=C\n"
+            "- Proposed C construction: versioned current resources, manager decision, authorized Task dispatch and feedback\n"
+            "- C sufficiency falsifier: manager never chooses or sees subsequent task outcomes\n"
             "- Scenario basis: HYPOTHETICAL\n"
             "- Proposal-stage decision: GO\n"
             "- Proposed validation: compare exact same first-party task to native option with rights negatives\n"
@@ -49,10 +52,15 @@ class ContributionOnTopTests(unittest.TestCase):
             "## Function ownership",
         )
         self.assertEqual(validate(proposal), [])
-        for field in ("Scenario basis", "Proposal-stage decision", "Proposed validation",
+        for field in ("Target transition", "Proposed C construction", "C sufficiency falsifier",
+                      "Scenario basis", "Proposal-stage decision", "Proposed validation",
                       "Validation state", "Proposal falsifier"):
             broken = proposal.replace("- " + field + ": ", "- Removed-" + field + ": ")
             self.assertIn("missing field: " + field, validate(broken))
+        self.assertTrue(any("invalid Target transition" in issue for issue in validate(
+            proposal.replace("S3=— -> S3=C", "S3=— -> S4=C"))))
+        self.assertTrue(any("invalid Target transition" in issue for issue in validate(
+            proposal.replace("S3=— -> S3=C", "S3=— -> S3=A"))))
         self.assertTrue(any("invalid Scenario basis" in issue for issue in validate(proposal.replace("HYPOTHETICAL", "FICTION"))))
         self.assertIn("invalid Proposal-stage decision", validate(
             proposal.replace("Proposal-stage decision: GO", "Proposal-stage decision: DONE")))
