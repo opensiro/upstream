@@ -37,4 +37,13 @@ An autonomous, independently evidenced certify/reject/hold actor with legitimate
 
 **Independent comparison conducted after the source-first decision:** [prior DeepSeek fork case at 37cbf1f](https://github.com/opensiro-contributions/deepseek-harness/blob/37cbf1f044059dfca9e61d0f7c2c8f0ef5222851/.opensiro/issues/independent-goal-verification-20261119/roadmap.md) already said NO_GO for the same goal-verifier proposal. The new v0.18 study reached the same scoped NO_GO independently and adds explicit current source-level pre-commit/notification evidence. This is a genuine rerun and case reconciliation, **not** a newly qualified GO.
 
+## Follow-up original PR availability verification (2026-11-19)
+
+A second, independent readback used both the connected GitHub API and unauthenticated public REST access, not just a keyword search:
+
+- The original repository is reachable and `master` remains readable. Its public [repository metadata](https://api.github.com/repos/deepseek-ai/deepseek-harness) reports `has_issues=false` and `open_issues_count=0`; this is **not** evidence that every historical PR is absent.
+- The public [open pull collection](https://api.github.com/repos/deepseek-ai/deepseek-harness/pulls?state=open&per_page=5), closed pull collection and direct PR `#8736` all returned **HTTP 404**. The PR number appears in the latest merge-commit message, but the GitHub browser URL `/pull/8736` resolves to `/discussions/8736`; no PR review body or diff could be independently authenticated for that number.
+- Repository-scoped GitHub PR searches returned no matches, and `git ls-remote` found no `refs/pull/8736/*` for the known number. Search emptiness is a **bounded observation**, not proof of historical or live PR absence.
+- Therefore **original PR overlap completeness stays UNKNOWN / SOURCE_UNAVAILABLE**, even after retry. No "zero PRs" or deduplication proof follows, and this does **not** create a new S3* GO or implementation mandate. The first-party source-based NO_GO and no-publication conclusions are unchanged.
+
 **Next permitted action:** keep this internal case closed at current proposal stage; revisit only when a reproducible false completion defeats simpler legal verification and an independent actor with evidence/authority/feedback can show material incremental benefit. Original-facing or public working-fork Issues/PRs still need separate exact current-conversation approval.
