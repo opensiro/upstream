@@ -59,7 +59,7 @@ Replace placeholders and add exactly as many native links/tests as the function 
 | [Exact current or missing source-native entry point] | [Pinned path + current behavior / NONE] | [Function-specific exposed path or reuse] | [Who decides, which lawful options and how feedback reaches the function] |
 | [Only a second independently necessary link, if applicable] | [Source] | [Source-native delta] | [Actual downstream operation/denial/receipt] |
 
-**Architectural C-sufficiency argument:** [Explain which combination of **real shipped/reusable** and **planned first-party** elements would establish the function-specific C path, including inputs/state, discretion, authority, effects, return, supported reachability and compatibility. This is a PROPOSAL, not a shipped witness or promised new Index grade].
+**Architectural C-sufficiency argument:** [Explore several ways to build a complete function-specific C capability on top of the existing architecture. Do not stop at the obvious approach or current component boundaries. For the strongest option, explain how it works, what must be built and why existing capabilities are insufficient; challenge your assumptions and alternative explanations. Ground the proposed path in pinned original source and retain the existing function, authority and feedback requirements. This is a PROPOSAL, not a shipped witness or an Index grade].
 
 **Explicit non-goals:** [No unsolicited S4 controller, new S5 policy owner, blanket parent authority, unrelated six-function upgrades or standalone framework if native components suffice].
 
