@@ -60,6 +60,16 @@ def validate(contents: str) -> list[str]:
         actual=value(contents,field)
         if actual and not pattern.fullmatch(actual):
             errors.append("invalid format: "+field)
+    on_top = value(contents, "Receipt contract")
+    if on_top == "contribution-on-top":
+        if not re.search(r"^## Parallel contribution-on-top review\s*$", contents, re.M):
+            errors.append("missing section: Parallel contribution-on-top review")
+        for key in ("Evaluation object", "Existing-work overlap",
+                    "Our on-top contribution", "Incremental benefit", "Decision scope"):
+            if not value(contents, key):
+                errors.append("missing field: " + key)
+    elif on_top is not None:
+        errors.append("unknown Receipt contract: " + on_top)
     idx=value(contents,"Accepted Index assessment")
     if idx and not idx.startswith("https://github.com/opensiro/vsm-harness-index/blob/"):
         errors.append("Index assessment must be pinned to a GitHub blob URL")

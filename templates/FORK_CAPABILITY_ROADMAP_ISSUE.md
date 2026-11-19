@@ -54,6 +54,15 @@ Opensiro tests whether reusable, Viable System Model (VSM)-informed organization
 
 Original Issues and PRs must be deduplicated with their *current* status. An open/unmerged PR, provider plugin, future roadmap or title alone **is not shipped first-party proof**. Put the full code/issue/PR port-by-port evidence table in the [AI contract](https://github.com/opensiro-contributions/[fork]/blob/opensiro/meta/.opensiro/issues/[case-id]/constructor-sufficiency.md).
 
+**Mandatory contribution-on-top comparison — do not let a matching Issue veto an independent proposal:**
+
+| Existing source work / state | Already covered for the same user task | Our reuse/integration/extension proposal | Incremental user outcome and falsification |
+| --- | --- | --- | --- |
+| [Pinned native implementation / original Issue and PR head/status] | [Shipped vs proposed; authority and feedback] | [New first-party on-top change, or source-backed NONE] | [Material delta vs cheapest native path; negative case or NOT_EVIDENCED] |
+
+**Evaluation object and bounded decision scope:** [One user task and function; a NO_GO applies only to this proposal, not the entire harness]. Track **A: existing work** and track **B: independently generated on-top options** must both be documented before choosing P0. Consider reuse unchanged, integration/extension and a separately justified adjacent capability; note source-backed NOT_APPLICABLE rather than inventing a new controller. Original Issues/PRs own their actual code/review decisions; no automatic right to edit or publish.
+
+
 ## 4. Proposed priority and minimum sufficient result
 
 | Priority | User-facing outcome | Conditional minimum complete path |
