@@ -29,6 +29,7 @@ LINK = re.compile(r"^\| [0-9]+ \| <a id=\"([^\"]+)\"></a>\[(.*?)\]\((assessments
 PERMISSIVE = {"MIT", "Apache-2.0", "BSD-2-Clause", "BSD-3-Clause", "ISC", "Unlicense", "CC0-1.0"}
 COPYLEFT = {"GPL-2.0", "GPL-3.0", "LGPL-2.1", "LGPL-3.0", "AGPL-3.0", "MPL-2.0", "EPL-2.0"}
 TOPICS = {
+    "s2": re.compile(r"(?i)\b(?:coordina\w*|shared (?:queue|task|state)|agent (?:collision|conflict|interference)|race condition|reservation|deadlock|oscillat\w*|distributed lock)"),
     "s3": re.compile(r"(?i)\b(?:multi[- ]?agent|subagents?|swarm|shared (?:resource|browser|queue)|work(?:er|load|force)|schedul\w*|priorit\w*|capacity|resource (?:allocation|limit|control|conflict)|ownership|lease|deadlock|concurren\w*|task (?:assign|distribut|priorit)|rate.limit)"),
     "s3star": re.compile(r"(?i)\b(?:independent review|reviewer|auditor?|auditing|verification|verifier|quality gate|output validation|cross.check|review loop|evaluation feedback|corrective review)"),
     "s4": re.compile(r"(?i)\b(?:model (?:release|upgrade|change|version)|future (?:capability|model)|adaptive|adaptation|long.term learning|self.improv|capability evolution|new provider|environment change|upgrade strateg)"),
@@ -103,6 +104,11 @@ def hypotheses(vector):
     if s1 not in ("A", "A(P)", "C", "C(P)"):
         return {}
     result = {}
+    # S1=A alone already owns operations: no forced A->C upgrade by default.
+    # S2 needs multiple actual S1 units/interference, which vector alone cannot
+    # establish; a score of 1 is only a lead for whole-repository investigation.
+    if s2 in ("—", "?", "P"):
+        result["s2"] = 1
     if s2 in ("A", "A(P)", "C", "C(P)") and s3 in ("—", "?", "P"):
         result["s3"] = 4 if s3 == "—" else 3
     if s3 in ("A", "A(P)", "C", "C(P)", "P") and audit in ("—", "?", "P"):
@@ -119,14 +125,24 @@ def shortlist(rows, focus, pool):
     out = []
     for row in rows:
         possibilities = hypotheses(row["vector"])
+        # "all" must not suppress S5 or privilege S3 as a mandatory P0.
+        # These are Index-only research leads; a full six-function census is
+        # required *after* selecting the original and before choosing its P0.
         possible = {k: v for k, v in possibilities.items()
-                    if (focus == "all" and k != "s5") or focus == k}
+                    if focus == "all" or focus == k}
+        if focus == "s1" and row["vector"][0] in ("A", "A(P)"):
+            # Explicit opt-in exploratory A->C investigation is not the same
+            # as claiming S1 lacks operations or requires a constructor.
+            possible["s1"] = 1
         if not possible:
             continue
         candidate = dict(row)
         candidate["hypotheses"] = possible
         candidate["index_fit"] = max(possible.values())
         candidate["primary_focus"] = sorted(possible, key=lambda k: (-possible[k], k))[0]
+        candidate["primary_focus_is_hint_only"] = True
+        candidate["required_repository_wide_screen"] = ["S1", "S2", "S3", "S3*", "S4", "S5"]
+        candidate["p0_selected"] = False
         out.append(candidate)
     # Two independent, bounded intake streams prevent alphabetical sorting or
     # old popularity snapshots from hiding newly admitted Index harnesses.
@@ -153,6 +169,9 @@ def live_screen(client, row, now):
     result = dict(row)
     result["disposition"] = "ELIGIBLE_FOR_RESEARCH"
     result["warnings"] = ["Original issue titles are research leads, not established VSM C needs.",
+                          "All six VSM functions and the whole source repository must be inspected before P0.",
+                          "Intentional non-construction and parent-governed functions may be valid; verify original intent.",
+                          "Contributor/maintainer interest is optional and NOT_STATED unless evidenced.",
                           "CLA/DCO, issue bodies, open PR diff and real task gap need human/agent source review."]
     repo = row["original"]
     src = client.get(api(repo, ""))
@@ -275,7 +294,7 @@ def rank(client, *, focus="all", limit=10, pool=50, probe=20,
               "index_source": "opensiro/vsm-harness-index/RANKINGS.md + data/catalog.psv",
               "accepted_included_rows": len(rows), "candidate_pool_count": len(pool_rows),
               "focus": focus, "live_screening": not no_live,
-              "disclaimer": "Research shortlist only: after VSM leads, review existing native Issues/PRs and independently formulate on-top alternatives in parallel; neither a grade nor overlap decides GO/NO_GO.",
+              "disclaimer": "Index-only research leads, NOT final P0 ranking: inspect the full original repository and all six S1/S2/S3/S3*/S4/S5 functions before choosing any C target. Document justified intentional omissions, parent/recursion boundaries and UNKNOWN; optional contributor or maintainer interest needs evidence. Compare native Track A vs independently proposed C links Track B; neither a grade nor overlap decides GO/NO_GO.",
               "candidates": [], "unknowns": []}
     if no_live:
         for row in pool_rows[:limit]:
@@ -306,8 +325,9 @@ def markdown(report):
     lines = ["# Index-first Upstream roadmap selection (read-only)", "",
              f"Index commit: `{report['index_commit']}` · included: {report['accepted_included_rows']}",
              f"Focus: `{report['focus']}` · live original source checks: {report['live_screening']}",
-             "**Research leads only.** An Index grade gap or issue title is not an established user need; "
-             "review original source/issue bodies/PR diffs and actual formalities before selecting a roadmap.", "",
+             "**Research leads only, not the P0 function priority.** An Index grade gap or issue title is not an established user need. "
+             "Review the whole original repository, all six functions, intentional omissions, contributor/maintainer interests only when evidenced, "
+             "current source/issue bodies/PR diffs and formalities before selecting one target.", "",
              "| Candidate | Potential function(s) | Original issues | License | Existing cases | Disposition |",
              "| --- | --- | --- | --- | --- | --- |"]
     for c in report["candidates"]:
@@ -327,7 +347,7 @@ def markdown(report):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--focus", choices=("all", "s3", "s3star", "s4", "s5"),
+    parser.add_argument("--focus", choices=("all", "s1", "s2", "s3", "s3star", "s4", "s5"),
                         default="all")
     parser.add_argument("--limit", type=int, default=10)
     parser.add_argument("--pool", type=int, default=50)

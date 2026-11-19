@@ -69,13 +69,20 @@ def validate(contents: str) -> list[str]:
             if not value(contents, key):
                 errors.append("missing field: " + key)
         if on_top == "proposal-gate":
-            for key in ("Target transition", "Proposed C construction", "C sufficiency falsifier",
+            for key in ("Repository-wide source map", "Priority rationale",
+                        "Target transition", "Proposed C construction", "C sufficiency falsifier",
                         "Scenario basis", "Proposal-stage decision",
                         "Proposed validation", "Validation state", "Proposal falsifier"):
                 if not value(contents, key):
                     errors.append("missing field: " + key)
+            for fn in ("S1", "S2", "S3", "S3*", "S4", "S5"):
+                if not value(contents, fn + " disposition"):
+                    errors.append("missing field: " + fn + " disposition")
             transition = value(contents, "Target transition")
-            if transition:
+            if transition == "NO_QUALIFIED_C_TARGET":
+                if value(contents, "Proposal-stage decision") != "NO_GO":
+                    errors.append("NO_QUALIFIED_C_TARGET requires NO_GO")
+            elif transition:
                 match = re.fullmatch(
                     r"S(1|2|3\*|3|4|5)=(—|\?|A|C|P|A\(P\)|C\(P\))\s*->\s*"
                     r"S(1|2|3\*|3|4|5)=C", transition

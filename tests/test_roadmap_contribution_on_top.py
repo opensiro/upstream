@@ -35,6 +35,14 @@ class ContributionOnTopTests(unittest.TestCase):
         proposal = RECEIPT.replace(
             "## Function ownership",
             "- Receipt contract: proposal-gate\n"
+            "- Repository-wide source map: pinned full example/harness source including runtime, API, docs, policies, tests, CI, examples, Issue and PR surfaces\n"
+            "- Priority rationale: selected S3 after all six were screened; parent policy retained at S5\n"
+            "- S1 disposition: native operations already A and no mandatory C target\n"
+            "- S2 disposition: native coordination already C\n"
+            "- S3 disposition: potential S3=C priority; developer-composed manager absent\n"
+            "- S3* disposition: no independent audit path found, deferred for bounded evidence\n"
+            "- S4 disposition: deliberate future adaptation not yet evidenced; UNKNOWN, do not force C\n"
+            "- S5 disposition: parent authority reserved in this synthetic case, no C target\n"
             "- Target transition: S3=— -> S3=C\n"
             "- Proposed C construction: versioned current resources, manager decision, authorized Task dispatch and feedback\n"
             "- C sufficiency falsifier: manager never chooses or sees subsequent task outcomes\n"
@@ -57,6 +65,15 @@ class ContributionOnTopTests(unittest.TestCase):
                       "Validation state", "Proposal falsifier"):
             broken = proposal.replace("- " + field + ": ", "- Removed-" + field + ": ")
             self.assertIn("missing field: " + field, validate(broken))
+        for function in ("S1", "S2", "S3", "S3*", "S4", "S5"):
+            broken = proposal.replace("- " + function + " disposition:", "- Deleted-" + function + " disposition:")
+            self.assertIn("missing field: " + function + " disposition", validate(broken))
+        no_c = proposal.replace("Target transition: S3=— -> S3=C",
+                                "Target transition: NO_QUALIFIED_C_TARGET").replace(
+                                    "Proposal-stage decision: GO", "Proposal-stage decision: NO_GO")
+        self.assertEqual(validate(no_c), [])
+        bad_no_c = no_c.replace("Proposal-stage decision: NO_GO", "Proposal-stage decision: GO")
+        self.assertIn("NO_QUALIFIED_C_TARGET requires NO_GO", validate(bad_no_c))
         self.assertTrue(any("invalid Target transition" in issue for issue in validate(
             proposal.replace("S3=— -> S3=C", "S3=— -> S4=C"))))
         self.assertTrue(any("invalid Target transition" in issue for issue in validate(

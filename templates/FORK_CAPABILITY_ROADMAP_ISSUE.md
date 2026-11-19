@@ -11,7 +11,7 @@ Separate exact current-conversation approval is required for public publication.
 
 **PLAN_ONLY · proposal-stage [GO / NO_GO / BLOCKED] · [DECISION_READY / NEEDS_EVIDENCE / NO_USEFUL_CHANGE] · DRAFT — NOT PUBLISHED**
 
-**Target transition:** [e.g. `S3=— -> S3=C`]. **The left side is the pinned accepted historical Index state; the right side is the proposed future construction goal, not a current classification.**
+**Target transition:** [SELECTED AFTER WHOLE-REPO PRIORITIES; example only] [e.g. `S3=— -> S3=C`, `S4=— -> S4=C`, `S3*=— -> S3*=C`, or `NO_QUALIFIED_C_TARGET`]. The left side is the pinned accepted historical Index state; the right side is a *proposed future* construction goal, not a current classification. Do not default to S3; never force a target for an intentionally excluded or parent-owned function.
 
 **One-sentence proposal:** [What is the smallest complete first-party change set needed to make the named VSM function developer-composable as `C`? State the decision owner and return path, not just a generic useful feature.]
 
@@ -41,9 +41,29 @@ Opensiro tests whether reusable, VSM-informed organizational specifications can 
 
 **Sources and rights:** original repository and current full HEAD/date; assessment SHA/`review_ref`/review age and any advisory reassessment; precise system-in-focus and excluded modes; fork parent/`opensiro/meta` owner control; original license, CLA/DCO and AI policy. **Investigate `?`**; a historical `—` is not proof of a present need. `A`, `C` and `P` describe ownership, not quality ranks. **Already-confirmed** `A`/`A(P)` and `C`/`C(P)` require **no mandatory C** engineering; parent authority stays protected.
 
+### Whole-repository six-function coverage and target priority
+
+**Repository-wide audit at [original SHA]:** [First-party supported runtime; docs/architecture; source/API; policies/configuration; optional plugins/examples; tests/CI; contributor/governance docs; relevant original Issues/PR heads. Explicitly separate adjacent repository development, dogfood and evaluation systems from the declared first-party boundary.]
+
+| Function | Accepted historical state | Current source, actor and closure (or UNKNOWN) | C candidate or justified no-target | Priority and reason |
+| --- | --- | --- | --- | --- |
+| S1 | [actual] | [pinned source] | [candidate / already A/C / NO_TARGET / UNKNOWN] | [P0/DEFER/NO_TARGET/UNKNOWN] |
+| S2 | [actual] | [pinned source] | [candidate / already A/C / NO_TARGET / UNKNOWN] | [P0/DEFER/NO_TARGET/UNKNOWN] |
+| S3 | [actual] | [pinned source] | [candidate / already A/C / NO_TARGET / UNKNOWN] | [P0/DEFER/NO_TARGET/UNKNOWN] |
+| S3* | [actual] | [pinned source] | [candidate / already A/C / NO_TARGET / UNKNOWN] | [P0/DEFER/NO_TARGET/UNKNOWN] |
+| S4 | [actual] | [pinned source] | [candidate / intentionally absent with evidence / NO_TARGET / UNKNOWN] | [P0/DEFER/NO_TARGET/UNKNOWN] |
+| S5 | [actual] | [pinned source] | [candidate / parent-governed with evidence / NO_TARGET / UNKNOWN] | [P0/DEFER/NO_TARGET/UNKNOWN] |
+
+**Priority rationale:** [After whole-repo coverage, compare C-construction feasibility, smallest missing first-party link, lawful decision owner, methodology-discriminating value, and expected effort. Select P0 *only now*, not automatically from lowest Index grade. P1 prerequisites; P2 independent optional candidate.]
+
+**Contributor/maintainer interests (OPTIONAL):** [Attributed source for each party's stated interest/constraint, or `NOT_STATED`. Interests affect proposed route or priority only; none are required, inferred, or permission to contact maintainers.]
+
+**Deliberate exclusions and methodology test:** [Is S4 intentionally unnecessary in a predictable environment? Is S5 policy/identity deliberately reserved to parent/human? Cite explicit design evidence if available; if not, `UNKNOWN`. Explain under what change of environment or recursion this no-target position would fail, and whether it should trigger a Profile/Skills clarification rather than a feature request. No compulsory policy engine or S4 controller.]
+
+
 ## 2. Proposed user capabilities and decision
 
-**Primary evaluation object — [FUNCTION]=[historical state] → [FUNCTION]=C:** [Repeat the exact target transition. Specify the original system boundary and why the historical grade is not itself a present-day absence claim. Confirm current source capabilities before planning additional work.]
+**Primary evaluation object (P0 selected after six-function ranking) — [FUNCTION]=[historical state] → [FUNCTION]=C:** [Repeat the exact target transition. Specify the original system boundary and why the historical grade is not itself a present-day absence claim. Confirm current source capabilities before planning additional work.]
 
 **VSM-function requirement:** [What must S2/S3/S3*/S4/S5 actually *decide and regulate*? Describe a function-specific disturbance, at least two lawful alternatives, a developer-composed autonomous decision owner, enforceable effect, and feedback returning into the function. For S3, use whole-organization current commitments/resources, not only a scheduler.]
 
@@ -59,7 +79,7 @@ Opensiro tests whether reusable, VSM-informed organizational specifications can 
 
 **Hypothesis, not proof:** [Why the proposed COMPLETE chain would support C, what could refute the architectural sufficiency, and which test comes later.]
 
-**Optional other function:** [Separate developer-composability for another VSM function, only if separately justified; otherwise delete this paragraph and set P2: NONE. One roadmap has one primary C target.]
+**Optional other function:** [Separate developer-composability for another VSM function, only if separately justified by whole-repo ranking and independent actor/rights/feedback; otherwise delete this paragraph and set P2: NONE. A deliberate NO_TARGET or parent-reserved function is not a compulsory P2.]
 
 ## 3. Existing native work vs missing capability
 
@@ -106,7 +126,7 @@ Estimate [expected integration, test, review and maintenance effort] against the
 
 **Proposal-stage final operator decision (REQUIRED): `GO / NO_GO / BLOCKED` — choose exactly one.** `GO`: a source-informed, minimal *complete proposed C-construction path* for the declared VSM transition, with actor/rights/real effect/feedback and falsifying tests, even if utility is unmeasured. `NO_GO`: no coherent missing C constructor can be proposed, the function already supplies the same C witness, or a source-backed impossibility/rights violation defeats the target, after both tracks. `BLOCKED`: an essential source, accepted assessment, identity or authority fact cannot be obtained after bounded attempts; name owner and unlock. Absence of performance measurements or proven user demand alone is **not BLOCKED or NO_GO**.
 
-**Proposal decision reason:** [Historical target transition, current native C-link coverage, minimal missing C construction, sufficiency and falsifier; optional demand hypothesis; one next authorized action. Say what NOT to implement/publish.] **Decision scope:** [This one function transition, not the harness as a whole].
+**Proposal decision reason:** [Whole-repo six-function ranking, optional explicitly sourced contributor/maintainer interest or NOT_STATED, historical target transition chosen for P0 (or none), native C-link coverage, missing C construction, sufficiency and falsifier, intentional no-target/methodology findings, one next authorized action. Say what NOT to implement/publish.] **Decision scope:** [This one function transition, not the harness as a whole].
 
 **Research disposition:** [DECISION_READY / NEEDS_EVIDENCE / NO_USEFUL_CHANGE]; this is not the proposal-stage verdict or a VSM state. An open hypothesis can have `GO` plus `NEEDS_EVIDENCE`, provided the next evidence gate is explicit.
 

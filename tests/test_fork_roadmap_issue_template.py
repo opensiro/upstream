@@ -44,6 +44,25 @@ class ForkCapabilityRoadmapIssueTemplateTests(unittest.TestCase):
         self.assertIn("no mandatory C", human)
         self.assertIn("separate Index review", human)
 
+    def test_whole_repository_screen_before_p0_and_optional_interests(self):
+        human = TEMPLATE.read_text(encoding="utf-8")
+        ai = AI_TEMPLATE.read_text(encoding="utf-8")
+        protocol = PROTOCOL.read_text(encoding="utf-8")
+        guide = ROADMAP.read_text(encoding="utf-8")
+        self.assertIn("Whole-repository six-function coverage and target priority", human)
+        self.assertLess(human.index("Whole-repository six-function coverage"),
+                        human.index("Primary evaluation object (P0 selected"))
+        for name in ("S1", "S2", "S3", "S3*", "S4", "S5"):
+            self.assertIn("| " + name + " | [actual] | [pinned source]", human)
+        self.assertIn("NOT_STATED", human)
+        self.assertIn("INTENTIONALLY_NOT_PROVIDED", protocol)
+        self.assertIn("whole named original repository", protocol)
+        self.assertIn("all six", guide)
+        self.assertIn("intentional", ai.lower())
+        self.assertIn("parent-governed", ai)
+        self.assertIn("No compulsory policy engine", human)
+        self.assertIn("P0 *only now*", human)
+
     def test_human_outline_matches_paperclip_pilot(self):
         text = TEMPLATE.read_text(encoding="utf-8")
         self.assertTrue(text.startswith("# [HARNESS]"))
