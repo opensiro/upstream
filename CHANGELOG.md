@@ -1,21 +1,27 @@
 # Upstream contribution-protocol changelog
 
-**Current protocol:** [v0.17.0](VERSION) · [Versioning](VERSIONING.md) · [Migration](docs/MIGRATION.md).
+**Current protocol candidate:** [v0.18.0](VERSION) · [Versioning](VERSIONING.md) · [Migration](docs/MIGRATION.md).
 
 **Release authority:** [GitHub Releases](https://github.com/opensiro/upstream/releases) and immutable tags determine which protocol snapshots are published. The v0.17.0 owner-agreed bundle consolidates work since the previously published v0.13.0 baseline. Versions v0.14–v0.16 remain historical integrated main snapshots, not separately published releases.
 
 ## Unreleased
 
+_No additional changes beyond the v0.18.0 candidate at preparation._
+
+## [0.18.0](changes/v0.18.0.md) — Whole-repository six-function C construction and independent reruns
+
+**MINOR release candidate, 2026-11-19.** Scope: merged [PR #60](https://github.com/opensiro/upstream/pull/60) and the source-neutral independent rerun handoff; change package [v0.18.0](changes/v0.18.0.md). **Tag/GitHub Release are not automatically published by this PR**. This material change modifies reviewer obligations and should not be presented as a patch or as a validated implementation on external source.
+
 - **Human/AI/Receipt consistency and function-neutral constructor template:** Human renders one six-function table, AI links the receipt instead of duplicating the Index matrix, physical port and test counts are source-derived rather than Paperclip-specific, and `GO + NEEDS_EVIDENCE` remains valid. Add case-directory consistency check without changing historical receipt semantics.
 
 - **External roadmap Issue as readable VSM methodology:** Require a concrete native proposal plus the complete six-function accepted historical Index mapping, concise plain-language keys and Skills-owned ownership-state glossary, pinned provenance and explicit non-ranking/voluntary-adoption boundaries. External communication still needs independent consent; no publication implied.
 
-- **Whole-repository, interest-neutral C-priority selection (unreleased):** Survey full original source and all six Profile functions before selecting the single highest-priority C-construction transition; do not default to S3 or silently exclude S5. Preserve source-backed deliberate non-construction and parent-governed policy as potential methodology tests; contributor interest is optional, not invented. Align read-only selector, Human/AI templates, protocol and regression tests. No automatic feature/grade, fork writes or public issue.
+- **Whole-repository, interest-neutral C-priority selection:** Survey full original source and all six Profile functions before selecting the single highest-priority C-construction transition; do not default to S3 or silently exclude S5. Preserve source-backed deliberate non-construction and parent-governed policy as potential methodology tests; contributor interest is optional, not invented. Align read-only selector, Human/AI templates, protocol and regression tests. No automatic feature/grade, fork writes or public issue.
 
-- **Target-C Roadmap construction clarification (unreleased):** Restore explicit accepted historical `Sx=[state]` → proposed `Sx=C` as the evaluation object; Track A/B identifies reused and missing links in the minimum complete function-specific C chain, not unrelated generic improvements.
-- **Proposal-first Roadmap decision contract (unreleased):** Distinguish source-grounded capability hypothesis, bounded proposal-stage GO/NO_GO/BLOCKED, and later validated/implemented capability. A falsifiable plausible operator scenario may qualify for proposal GO without prior measured utility or tests; preserve native A/B comparison, first-party decision/rights/feedback, Index ownership, and all publication gates. Redesign the Human Issue as a short proposal-first decision surface with AI construction detail separate; add opt-in structural proposal receipt checks without invalidating historical receipts. No automatic version/release or retroactive rerun.
+- **Target-C Roadmap construction clarification:** Restore explicit accepted historical `Sx=[state]` → proposed `Sx=C` as the evaluation object; Track A/B identifies reused and missing links in the minimum complete function-specific C chain, not unrelated generic improvements.
+- **Proposal-first Roadmap decision contract:** Distinguish source-grounded capability hypothesis, bounded proposal-stage GO/NO_GO/BLOCKED, and later validated/implemented capability. A falsifiable plausible operator scenario may qualify for proposal GO without prior measured utility or tests; preserve native A/B comparison, first-party decision/rights/feedback, Index ownership, and all publication gates. Redesign the Human Issue as a short proposal-first decision surface with AI construction detail separate; add opt-in structural proposal receipt checks without invalidating historical receipts. No automatic version/release or retroactive rerun.
 
-_No additional changes beyond the v0.17.0 release bundle at preparation._
+_The above protocol refinements were accumulated on the v0.17.0 main branch and are now consolidated in this proposed v0.18.0 package._
 
 ## [0.17.0](changes/v0.17.0.md) — Parallel contribution-on-top roadmap and consolidated Upstream workflow
 

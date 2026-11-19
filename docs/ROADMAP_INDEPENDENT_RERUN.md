@@ -1,0 +1,20 @@
+# Independent roadmap re-run — one fresh chat per original
+
+**Purpose:** Independently re-evaluate **one** named original harness under the current merged Upstream protocol. The [cohort issue #58](https://github.com/opensiro/upstream/issues/58) is a **candidate inventory**, not evidence that the original is defective, an old verdict should persist, or public communication is approved.
+
+## Short copy-paste prompt
+
+> **Upstream roadmap independent re-run: OWNER/REPO.** Start fresh from [START_HERE](https://github.com/opensiro/vsm-oss-organization/blob/main/START_HERE.md) → ECOSYSTEM → current Upstream main → accepted pinned Index assessment. **Do not read prior OpenSiro Roadmap verdicts or proposals before making your own decision.** Pin current original HEAD; inspect the whole repository and all **S1/S2/S3/S3*/S4/S5** functions, including legitimate parent ownership and intentional omissions. In parallel examine **Track A** (existing native code, Issues/PR heads, simplest alternative) and independently propose/test **Track B** (minimum original-native on-top `C` construction or `NO_QUALIFIED_C_TARGET`). Finish with one sourced **GO/NO_GO/BLOCKED** and separate **NEEDS_EVIDENCE/DECISION_READY**; then compare with prior cases, report change, and synchronize Human Issue + AI Contract + canonical receipt **only if owner control permits**. No external/public Issue, comment, PR, or product implementation without separate exact approval.
+
+Replace only `OWNER/REPO` with the original repository, **not** `opensiro-contributions/<fork>`.
+
+## Fresh-context execution guardrails
+
+- **Index-first admission:** current included assessment, exact assessment/blob/review pin and Profile/Skills versions; current original source is separately pinned. If absent, fail closed at `ASSESSMENT_REQUIRED / BLOCKED` without creating a new verdict.
+- **Independent first pass:** do not use old OpenSiro `issue.md`, `roadmap.md`, `constructor-sufficiency.md`, prior chat memory or case verdict to select a function, target or outcome. Prior cases are reopened **only after** a source-backed independent decision for an attribution-aware comparison. Do not turn historical `—` into a current deficit.
+- **Whole-repository screen:** cover supported product runtime, APIs, config/policy, first-party plugins/modes, examples/tests/CI, owner boundaries, contributor policy, original Issues/PRs and counterfactuals. Current source and Issue/PR bodies/diffs/status must support dispositions; lack of code alone is not evidence that a capability was deliberately omitted.
+- **One objective:** select a priority eligible `Sx=[accepted historical state] -> Sx=C` **construction hypothesis** only after evaluating six functions; otherwise state `NO_QUALIFIED_C_TARGET` and scoped `NO_GO`. A qualified `GO + NEEDS_EVIDENCE` is permitted for a proposed source-grounded but untested complete C-construction chain; no shipped C or Index-grade change is implied.
+- **Control and publication:** re-read matched fork `.opensiro/state.json`. `PAUSE/STOP` means read-only reporting, no metadata write; `ALLOW` is not external-publication permission. If writing is lawful, preserve case identity and update `issue.md`, `constructor-sufficiency.md`, `roadmap.md` with `python3 scripts/validate_capability_roadmap.py <case-dir>` and remote SHA readback. The fork's public GitHub Issues and the original repository's maintainer communications have **separate exact current-conversation approval gates**.
+- **Cohort reliability:** `scripts/roadmap_view.py --format json` is the canonical broad inventory, but API quota errors cause `scan_complete=false`. Never use a failed scan to assert zero cases, or a previous snapshot as newly verified coverage; report warning/partial independently.
+
+**Minimal report:** `original/HEAD` · `accepted Index pin` · six-function source census · Track A↔Track B and falsifier · `P0/P1/P2` · scoped `GO/NO_GO/BLOCKED` · research/validation status · historic comparison (after independent decision) · `owner_control` and `PERSISTED / READ_ONLY / NOT_PUBLISHED` · exact next permitted action.

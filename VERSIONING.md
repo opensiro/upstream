@@ -4,7 +4,7 @@ The new [opensiro/upstream](https://github.com/opensiro/upstream) versions its *
 
 **Separate versioned main state from a published Release.** `VERSION` describes the currently integrated protocol snapshot in `main`; it does **not** establish a Git tag, GitHub Release or owner sign-off for publishing one. The authoritative release list is [GitHub Releases](https://github.com/opensiro/upstream/releases). Preserve all historical integration commits and change packages when consolidating releases; never rename or delete intermediate versions as if they had not existed.
 
-**Continuity:** [upstream-old CHANGELOG](https://github.com/opensiro/upstream-old/blob/main/CHANGELOG.md) owns historical **v0.1.0–v0.11.0** packages and their real commits. The new repository **prospectively continued at v0.12.0 and is now at v0.17.0**, with a fresh Git history (not cloned commits or retroactive tags). [Migration notes](docs/MIGRATION.md).
+**Continuity:** [upstream-old CHANGELOG](https://github.com/opensiro/upstream-old/blob/main/CHANGELOG.md) owns historical **v0.1.0–v0.11.0** packages and their real commits. The new repository **prospectively continued at v0.12.0, published v0.17.0, and proposes v0.18.0 as the next reviewed minor bundle**, with a fresh Git history (not cloned commits or retroactive tags). [Migration notes](docs/MIGRATION.md).
 
 ## Experimental 0.x rules
 
@@ -27,6 +27,8 @@ Link to upstream-old historical packages instead of rewriting old test or batch 
 An immutable Git tag `vX.Y.Z` may be created on the validated integration commit when an authorized tagging method is available. Do not claim a tag or release exists without verifying it. A `VERSION` file alone does not prove what a runner read, which external PR was merged or whether a human granted exact publication consent.
 
 **Permissions are independent:** changes to SemVer cannot grant S5 delegation, target-code write rights, CLA/DCO assent, external PR approval or maintainer acceptance.
+
+**v0.18.0 minor candidate (2026-11-19):** The owner requested a further patch-or-minor version and delegated the selection of class. The source-first, whole-repository six-function P0 route, source-neutral Human/AI/Receipt contract and independent review cohort change accepted reviewer obligations; therefore **MINOR** is the correct proposed class. This is a **release candidate pending verified final SHA, review and tag/Release publication gate**, not proof a new release was published. Do not count failed quota-limited inventory scans as complete or claim the Paperclip proposed S4 constructor shipped. The existing v0.17.0 tag/Release is unchanged.
 
 ## GitHub Releases
 
