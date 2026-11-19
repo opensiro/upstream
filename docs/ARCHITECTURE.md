@@ -35,7 +35,7 @@ flowchart TD
 
 On a full-cycle Upgrade, a verified existing fork with a **confirmed missing** `opensiro/meta` is not automatically rejected: under independent legal, provider and owner authorization it receives the minimal `.opensiro/` state and stable improvement record on a **new dedicated metadata branch**, then exact-SHA readback plus aggregate verification. An existing branch is reused, an unreadable/colliding branch fails closed, and a paused/stopped source is never automatically resumed. A chat-level batch does not make this write. [Detailed procedure](../PROTOCOL.md#upgrade-metadata-materialization--missing-opensirometa).
 
-The owner can `PAUSE`, `STOP`, `RESUME` or change attention at the fork-local control point; a real executor must check control before new effectful actions. The GitHub change alone does not cancel an already running process. Attention is discretionary **with no mandatory maintenance TTL**.
+The owner can `PAUSE`, `STOP`, `RESUME` or change attention at the fork-local control point; a real executor must check control before new effectful actions. On 2026-11-19 the owner explicitly activated all 23 known [Upstream #58](https://github.com/opensiro/upstream/issues/58) issue-queue forks as `ACTIVE/ALLOW`, replacing the automatic PAUSE/DORMANT treatment for admitted owner-directed roadmap queue work. This is not a waiver of subsequent explicit owner STOP/PAUSE or publication consent. The GitHub change alone does not cancel an already running process. Attention is discretionary **with no mandatory maintenance TTL**.
 
 ## Who owns which fact?
 
