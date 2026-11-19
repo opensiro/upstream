@@ -1,49 +1,45 @@
-# Upstream #58 — DeepSeek Harness independent v0.18.0 rerun (2026-11-19)
+# Upstream #58 — DeepSeek Harness, source-first v0.18 rerun and evidence-driven reconsideration (2026-11-19)
 
-**Link-only, source-pinned internal coordination status.** Canonical Human, AI, and receipt are stored on the verified matching fork's separate opensiro/meta metadata branch; this note does not duplicate the case, change Index evidence, assert external maintainer acceptance, or schedule an implementation.
+**Internal coordination status only.** Original fresh source-first v0.18 assessment reached **NO_GO / NO_USEFUL_CHANGE** for a broad baked-in goal verifier; after its decision, a further public-source check found **original user demand plus a working-repository proof-of-concept requiring a patched GoalService seam**. The same fork case was reconsidered and now records a **narrow scoped GO / NEEDS_EVIDENCE** for an optional, original-native Goal completion pre-commit guard port. This follow-up is **not a second independent fresh-context run**.
 
-| Field | Verified outcome |
+| Field | Current verified scope |
 | --- | --- |
 | Original | [deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness) |
-| Frozen original HEAD | [master@2e39e70496aa02986ca6a820c5d497e816b69d7e](https://github.com/deepseek-ai/deepseek-harness/commit/2e39e70496aa02986ca6a820c5d497e816b69d7e) |
-| Accepted Index | [included assessment](https://github.com/opensiro/vsm-harness-index/blob/c2e43bf4750841277b3e58d8ba80314121734764/assessments/de/deepseek-harness.md), blob 257a55619d474d8a86a49de6dffa93a4426d7b62, historical review ref ddefc45fbc7f8e46dd73185e68295696d1297887, reviewed 2026-09-18, Profile 0.2.2 / Methodology 0.3.1 |
-| Historical accepted six-function vector | S1=A · S2=A · S3=A(P) · S3*=— · S4=— · S5=—; **unchanged** |
-| Owner control | ACTIVE / ALLOW on opensiro/meta under #58 owner decision |
-| Reviewed | **YES**: source-first S1/S2/S3/S3*/S4/S5, original-native Track A versus independent Track B, contribution rights and deduplication |
-| Proposed priority | **NO_QUALIFIED_C_TARGET**; no new first-party C constructor qualifies for P0 |
-| Scoped operator decision | **NO_GO** to an additional first-party independent goal-completion S3* constructor now; **not** a judgment on the whole harness |
-| Research disposition | **NO_USEFUL_CHANGE**, not an Index regrade or proof of inability to support independent review |
-| Evidence mode | Hypothesis tested against source and cheapest counterfactual, **no live task or native test executed** |
-| Validator | **PASS**: Upstream main v0.18.0 scripts/validate_capability_roadmap.py on Human/AI/Receipt case directory |
-| Native tests | **NOT_RUN** |
-| Measured user impact / cost | **NOT_MEASURED** |
-| Fork metadata | **PERSISTED** in atomic [commit 39bc69e4149528ab89deb60a6ed03f81739b0178](https://github.com/opensiro-contributions/deepseek-harness/commit/39bc69e4149528ab89deb60a6ed03f81739b0178); exact remote blob readback **4/4 MATCH**, state readback ACTIVE/ALLOW |
-| Public communications | **NOT_PUBLISHED**: no original Issue, PR, comment or Discussion; no public fork GitHub Issue/PR |
-| Implementation and Index | **NOT_STARTED** and **NOT_MODIFIED**, respectively |
+| Original master pinned | [`2e39e70496aa02986ca6a820c5d497e816b69d7e`](https://github.com/deepseek-ai/deepseek-harness/commit/2e39e70496aa02986ca6a820c5d497e816b69d7e) |
+| Historical included Index | [DeepSeek Harness assessment](https://github.com/opensiro/vsm-harness-index/blob/c2e43bf4750841277b3e58d8ba80314121734764/assessments/de/deepseek-harness.md) · blob `257a55619d474d8a86a49de6dffa93a4426d7b62` · reviewed 2026-09-18 from `ddefc45fbc7f8e46dd73185e68295696d1297887` · Profile 0.2.2 / Methodology 0.3.1 |
+| Historical six-function vector | S1=A · S2=A · S3=A(P) · S3*=— · S4=— · S5=—; **unchanged** |
+| Owner control | ACTIVE / ALLOW on opensiro/meta; fork parent verified |
+| Target proposal | **S3*=— → S3*=C**, opt-in original-native `GoalTransitionGuard`-like port + independent composed reviewer |
+| Proposal-stage decision | **GO** for bounded proof of the minimal port; **not** a code contribution or C-grade claim |
+| Research disposition | **NEEDS_EVIDENCE** · direct original task/replay, port viability, benefit vs plugin must be tested |
+| Original source testing / cost | **NOT_RUN / NOT_MEASURED**; external plugin authors' test results are not OpenSiro test results |
+| Fork Human / AI / Receipt | **PERSISTED** atomically in [metadata commit `d8dca0f239891eacffc02f95556fa461fee0814e`](https://github.com/opensiro-contributions/deepseek-harness/commit/d8dca0f239891eacffc02f95556fa461fee0814e); upstream validator **PASS** on remote readback (structural only) |
+| Historical first-pass outcome | [NO_GO / NO_USEFUL_CHANGE](https://github.com/opensiro-contributions/deepseek-harness/blob/39bc69e4149528ab89deb60a6ed03f81739b0178/.opensiro/issues/independent-goal-verification-20261119/roadmap.md) retained in Git ancestry |
+| External original/public fork publications | **NOT PUBLISHED**; current original policy rejects external PRs |
+| Product / Index change | **NOT STARTED / UNCHANGED** |
 
-## Canonical fork-local links
+## Canonical current fork record
 
-- [Human issue draft](https://github.com/opensiro-contributions/deepseek-harness/blob/39bc69e4149528ab89deb60a6ed03f81739b0178/.opensiro/issues/independent-goal-verification-20261119/issue.md)
-- [AI constructor-sufficiency report](https://github.com/opensiro-contributions/deepseek-harness/blob/39bc69e4149528ab89deb60a6ed03f81739b0178/.opensiro/issues/independent-goal-verification-20261119/constructor-sufficiency.md)
-- [Canonical roadmap receipt](https://github.com/opensiro-contributions/deepseek-harness/blob/39bc69e4149528ab89deb60a6ed03f81739b0178/.opensiro/issues/independent-goal-verification-20261119/roadmap.md)
-- [Case identity / publication boundary](https://github.com/opensiro-contributions/deepseek-harness/blob/39bc69e4149528ab89deb60a6ed03f81739b0178/.opensiro/issues/independent-goal-verification-20261119/README.md)
-- [Cohort Issue #58](https://github.com/opensiro/upstream/issues/58)
+- [Human Issue draft](https://github.com/opensiro-contributions/deepseek-harness/blob/d8dca0f239891eacffc02f95556fa461fee0814e/.opensiro/issues/independent-goal-verification-20261119/issue.md)
+- [AI constructor sufficiency](https://github.com/opensiro-contributions/deepseek-harness/blob/d8dca0f239891eacffc02f95556fa461fee0814e/.opensiro/issues/independent-goal-verification-20261119/constructor-sufficiency.md)
+- [Canonical roadmap receipt](https://github.com/opensiro-contributions/deepseek-harness/blob/d8dca0f239891eacffc02f95556fa461fee0814e/.opensiro/issues/independent-goal-verification-20261119/roadmap.md)
+- [Case README and chronology](https://github.com/opensiro-contributions/deepseek-harness/blob/d8dca0f239891eacffc02f95556fa461fee0814e/.opensiro/issues/independent-goal-verification-20261119/README.md)
+- [Cohort issue #58](https://github.com/opensiro/upstream/issues/58)
 
-## Original-native counterfactual and scoped historical comparison
+## Primary evidence and smallest distinct construction
 
-The [Goal service](https://github.com/deepseek-ai/deepseek-harness/blob/2e39e70496aa02986ca6a820c5d497e816b69d7e/packages/goal/goal/src/index.ts) currently permits caller-authorised complete() to append a goal change before goal/changed notification, and [Goal tools](https://github.com/deepseek-ai/deepseek-harness/blob/2e39e70496aa02986ca6a820c5d497e816b69d7e/packages/goal/tool-goal/src/index.ts) send model-initiated completion there. [Ralph](https://github.com/deepseek-ai/deepseek-harness/blob/2e39e70496aa02986ca6a820c5d497e816b69d7e/packages/experimental/tool-ralph/README.md) explicitly treats completion as worker self-report; [Auto Review](https://github.com/deepseek-ai/deepseek-harness/blob/2e39e70496aa02986ca6a820c5d497e816b69d7e/packages/experimental/auto-review/README.md) gates **pending tool actions**, not final-goal truth. A passive listener is not yet a complete independent audit-to-correction actor.
+**Original native Track A.** [GoalService.complete at pinned HEAD](https://github.com/deepseek-ai/deepseek-harness/blob/2e39e70496aa02986ca6a820c5d497e816b69d7e/packages/goal/goal/src/index.ts) reaches `commitSnapshot` and appends `goal/change` before `goal/changed` is emitted. Goal revision and phase guards exist, but a passive event handler cannot veto already durable completion. Goal tool/round driver allow the model to end goals, Ralph receives worker self-reports, and Auto Review authorises pending tools, not final results. S1, S2 and S3 have meaningful existing owner paths; S4/S5 are not targeted.
 
-An autonomous, independently evidenced certify/reject/hold actor with legitimate protected completion and later feedback is architecturally conceivable, but a real source-backed user problem and required native delta beyond deterministic acceptance tests, parent approval or an opt-in Cordis plugin have **not** been demonstrated. No savings or demand claimed. Current [CONTRIBUTING.md](https://github.com/deepseek-ai/deepseek-harness/blob/2e39e70496aa02986ca6a820c5d497e816b69d7e/CONTRIBUTING.md) declines external PRs; original full open-PR listing API returned HTTP 404, so exhaustive original PR overlap is **UNKNOWN** rather than proven empty.
+**Observed user need.** [Original Discussion #10471](https://github.com/deepseek-ai/deepseek-harness/discussions/10471) reports two model-authorised premature `update_goal complete` actions and repeated creation of new goals for the same work, and specifically proposes a verifier-owned completion decision. This is user testimony, **not an OpenSiro reproduction or original maintainer approval**.
 
-**Independent comparison conducted after the source-first decision:** [prior DeepSeek fork case at 37cbf1f](https://github.com/opensiro-contributions/deepseek-harness/blob/37cbf1f044059dfca9e61d0f7c2c8f0ef5222851/.opensiro/issues/independent-goal-verification-20261119/roadmap.md) already said NO_GO for the same goal-verifier proposal. The new v0.18 study reached the same scoped NO_GO independently and adds explicit current source-level pre-commit/notification evidence. This is a genuine rerun and case reconciliation, **not** a newly qualified GO.
+**Cheaper Track A comparator.** [bpc-oss/dsh-verification](https://github.com/bpc-oss/dsh-verification) claims an evidence/permit-bound opt-in reviewer; it uses a [vendor-patching script](https://github.com/bpc-oss/dsh-verification/blob/main/scripts/patch-vendored-goal.cjs) to add a synchronous pre-commit `GoalTransitionGuard`, and [tests](https://github.com/bpc-oss/dsh-verification/blob/main/packages/dsh-verification/test/seam-e2e.test.ts) describe direct `ctx.goals.complete` rejection without permit, plus permit attribution and no-guard compatibility. The tests are **source-read, not executed**; compatibility with the frozen original HEAD is **UNKNOWN**, and default `advisory` is not enforce.
 
-## Follow-up original PR availability verification (2026-11-19)
+**Minimal Track B.** Investigate a **typed optional GoalService pre-commit guarded completion extension seam**, without duplicating the goal store or bundling a mandatory verifier. A separately configured legitimate reviewer receives evidence independent of worker narration, certifies/rejects/holds, ensures denial precedes durable `complete`, records attributable permit/rejection, and sends actionable feedback to later *authorised* goal work. Parent pause/revocation and replay consistency still control. A native hook alone does **not** satisfy S3*=C.
 
-A second, independent readback used both the connected GitHub API and unauthenticated public REST access, not just a keyword search:
+**Falsifier and next bounded test.** Against original `2e39e70496aa02986ca6a820c5d497e816b69d7e`, compare A0 deterministic tests/human acceptance, A1 vendor-patched external verifier, B1 supported optional port on the same true/false-completion tasks. Test direct-service bypass, stale revision, absent reviewer, post-restart proof, original advisory compatibility and lawful corrective round. If an unpatched supported plugin already covers every completion path or A0/A1 achieves equal outcome at lower cost, revert the optional native-port proposal to **NO_GO**. No benchmark or implementation is claimed.
 
-- The original repository is reachable and `master` remains readable. Its public [repository metadata](https://api.github.com/repos/deepseek-ai/deepseek-harness) reports `has_issues=false` and `open_issues_count=0`; this is **not** evidence that every historical PR is absent.
-- The public [open pull collection](https://api.github.com/repos/deepseek-ai/deepseek-harness/pulls?state=open&per_page=5), closed pull collection and direct PR `#8736` all returned **HTTP 404**. The PR number appears in the latest merge-commit message, but the GitHub browser URL `/pull/8736` resolves to `/discussions/8736`; no PR review body or diff could be independently authenticated for that number.
-- Repository-scoped GitHub PR searches returned no matches, and `git ls-remote` found no `refs/pull/8736/*` for the known number. Search emptiness is a **bounded observation**, not proof of historical or live PR absence.
-- Therefore **original PR overlap completeness stays UNKNOWN / SOURCE_UNAVAILABLE**, even after retry. No "zero PRs" or deduplication proof follows, and this does **not** create a new S3* GO or implementation mandate. The first-party source-based NO_GO and no-publication conclusions are unchanged.
+## Original Issues, PRs and publication policy — resolved API interpretation
 
-**Next permitted action:** keep this internal case closed at current proposal stage; revisit only when a reproducible false completion defeats simpler legal verification and an independent actor with evidence/authority/feedback can show material incremental benefit. Original-facing or public working-fork Issues/PRs still need separate exact current-conversation approval.
+Original [public repository metadata](https://api.github.com/repos/deepseek-ai/deepseek-harness) explicitly reports `has_pull_requests=false`, `has_issues=false`, `has_discussions=true`. The [PR tab](https://github.com/deepseek-ai/deepseek-harness/pulls) displays restricted creation and 0 open / 0 closed. Public pull REST listing and direct pull details returning 404 are **consistent with the PR feature being disabled**; neither prove a complete historical PR archive. The `/pull/8736` URL redirects to [Discussion #8736 about task notifications](https://github.com/deepseek-ai/deepseek-harness/discussions/8736); it was **not PR #8736** and must not be used as PR evidence. Original first-party [CONTRIBUTING.md](https://github.com/deepseek-ai/deepseek-harness/blob/2e39e70496aa02986ca6a820c5d497e816b69d7e/CONTRIBUTING.md) explicitly declines external PRs and asks for Discussions or plugins.
+
+**Rights boundary:** No original-facing issue, comment, review, PR or Discussion; no public working-fork Issue/PR; no product code change and no Index regrade. A later external interaction requires separate current-conversation consent and actual maintainer/contributor rights. Current file is source-linked coordination only.
