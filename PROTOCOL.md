@@ -1,4 +1,4 @@
-# Upstream contribution protocol — v0.16.0
+# Upstream contribution protocol — v0.17.0
 
 [Home](README.md) · [Fork-local records](docs/FORK_METADATA.md) · [Architecture](docs/ARCHITECTURE.md) · [Historical migration #2](https://github.com/opensiro/upstream/issues/2)
 
@@ -262,7 +262,7 @@ A **chat-only hypothesis cannot alone prove immutable pre-source Index-first chr
 
 Earlier `upstream-old` [v0.8.0](https://github.com/opensiro/upstream-old/blob/main/changes/v0.8.0.md) and [v0.9.0](https://github.com/opensiro/upstream-old/blob/main/changes/v0.9.0.md) already established discriminating multifunction investigation, capability-first research, four source-native fit gates and matched counterfactual controls. [v0.11.0](https://github.com/opensiro/upstream-old/blob/main/changes/v0.11.0.md) established an early working-fork route. Existing [native CI placement](https://github.com/opensiro/upstream-old/blob/main/docs/NATIVE_CI_EXECUTION.md) and [evidence contract](https://github.com/opensiro/upstream-old/blob/main/docs/ASSESSMENT_TO_IMPROVEMENT.md) retain the independent deterministic runner requirement for strictly assessment-derived benefit claims. Reuse actual source-native commands, scripts, fork CI and previously attributed receipts if still applicable to the pinned source: do not copy third-party CI into Upstream or create a generic universal runner as a prerequisite to starting chat research.
 
-Historic individual tests and external publications show **bounded partial paths**, not a certified universal end-to-end autonomous Upgrade runner on current v0.16.0. Do not replace applicable native verification with chat execution and do not claim the old historic evidence was produced under this new version. New implementation/publishing still requires fresh source/fork/authority checks and exact third-party public consent.
+Historic individual tests and external publications show **bounded partial paths**, not a certified universal end-to-end autonomous Upgrade runner on current v0.17.0. Do not replace applicable native verification with chat execution and do not claim the old historic evidence was produced under this new version. New implementation/publishing still requires fresh source/fork/authority checks and exact third-party public consent.
 
 ### Upgrade decision sequence — one improvement, not one PR
 

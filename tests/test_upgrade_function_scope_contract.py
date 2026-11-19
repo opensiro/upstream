@@ -105,7 +105,7 @@ class FunctionScopedUpgradeContractTests(unittest.TestCase):
                 self.assertIn("function-scoped-upgrade--evidence-first-selection-and-closure", text)
                 self.assertIn("S5", text)
         changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
-        self.assertIn("**Function-scoped evidence-first Upgrade (unreleased):**", changelog)
+        self.assertIn("**Function-scoped evidence-first Upgrade (included in v0.17.0):**", changelog)
         self.assertIn("without new JSON enums", changelog)
 
 

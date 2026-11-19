@@ -102,7 +102,7 @@ class ContractTests(unittest.TestCase):
         self.assertIn("Never merge", handoff)
         self.assertIn("public fork-local PR", handoff)
         self.assertIn("browser-use/browser-harness PR #1034", handoff)
-        self.assertEqual((ROOT / "VERSION").read_text(encoding="utf-8").strip(), "0.16.0")
+        self.assertEqual((ROOT / "VERSION").read_text(encoding="utf-8").strip(), "0.17.0")
 
     def test_review_gated_ai_disclosure_keeps_verified_assessment_provenance(self):
         handoff = (ROOT / "docs/UPGRADE_PR_REVIEW.md").read_text(encoding="utf-8")
@@ -216,14 +216,17 @@ class ContractTests(unittest.TestCase):
         self.assertIn("## Unreleased", changelog)
         self.assertIn("without an automatic bump", versioning)
         self.assertIn("owner's agreement", versioning)
-        self.assertIn("A `VERSION` on `main` may be newer", readme)
+        self.assertIn("A `VERSION` on `main` alone does **not** prove", readme)
         self.assertIn("do **not** bump `VERSION`", agents)
         self.assertIn("v0.13.0", candidate)
         self.assertIn("v0.16.0", candidate)
         for number in (6, 7, 8, 9, 10):
             self.assertIn(f"PR #{number}", candidate)
         self.assertIn("11 merged / 24 open / 7 closed without merge", candidate)
-        self.assertIn("NOT A PUBLISHED RELEASE", candidate)
+        self.assertIn("v0.16.0 WAS NOT PUBLISHED", candidate)
+        self.assertIn("SUPERSEDED", candidate)
+        self.assertIn("changes/v0.17.0.md", readme)
+        self.assertEqual((ROOT / "VERSION").read_text().strip(), "0.17.0")
         self.assertIn("Owner agrees", candidate)
 
     def test_upgrade_provisions_missing_fork_meta_under_actual_authority(self):
@@ -265,8 +268,8 @@ class ContractTests(unittest.TestCase):
         self.assertIn("Required `.opensiro/` provisioning", agents)
         self.assertIn("Materialize on demand during an authorized Upgrade", metadata)
         self.assertIn("Verified permission to write fork metadata?", architecture)
-        self.assertIn("Upgrade metadata on demand (unreleased)", changelog)
-        self.assertEqual((ROOT / "VERSION").read_text().strip(), "0.16.0")
+        self.assertIn("Upgrade metadata on demand (included in v0.17.0)", changelog)
+        self.assertEqual((ROOT / "VERSION").read_text().strip(), "0.17.0")
 
     def test_invalid_semver_is_rejected(self):
         with TemporaryDirectory() as tmp:
