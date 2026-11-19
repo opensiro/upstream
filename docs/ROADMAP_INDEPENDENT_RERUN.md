@@ -1,5 +1,7 @@
 # Independent roadmap re-run — one fresh chat per original
 
+**Owner activation (2026-11-19):** All 23 verified Upstream #58 candidate forks were moved/read back as `ACTIVE/ALLOW` on `opensiro/meta`; the prior `PAUSE/DORMANT` grouping is historical, not a current write blocker. For admitted, owner-directed queue cases do not reintroduce an automatic PAUSE/DORMANT bootstrap. A later explicit STOP/PAUSE and the separate exact third-party publication gate still apply. [Current queue](https://github.com/opensiro/upstream/issues/58).
+
 **Purpose:** Independently re-evaluate **one** named original harness under the current merged Upstream protocol. The [cohort issue #58](https://github.com/opensiro/upstream/issues/58) is a **candidate inventory**, not evidence that the original is defective, an old verdict should persist, or public communication is approved.
 
 ## Short copy-paste prompt
