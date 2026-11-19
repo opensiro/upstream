@@ -31,6 +31,35 @@ class ContributionOnTopTests(unittest.TestCase):
         self.assertIn("missing section: Parallel contribution-on-top review",
                       validate(missing_section))
 
+    def test_proposal_gate_accepts_hypothetical_go_without_executed_tests(self):
+        proposal = RECEIPT.replace(
+            "## Function ownership",
+            "- Receipt contract: proposal-gate\n"
+            "- Scenario basis: HYPOTHETICAL\n"
+            "- Proposal-stage decision: GO\n"
+            "- Proposed validation: compare exact same first-party task to native option with rights negatives\n"
+            "- Validation state: NOT_RUN\n"
+            "- Proposal falsifier: native tool already provides equal operator outcome\n\n"
+            "## Parallel contribution-on-top review\n"
+            "- Evaluation object: optional S3 current-control constructor\n"
+            "- Existing-work overlap: deterministic native task router, no independent manager\n"
+            "- Our on-top contribution: opt-in actor chooses lawful admit or hold\n"
+            "- Incremental benefit: plausible real current commitments management, not measured\n"
+            "- Decision scope: one hypothetical task, not the whole harness\n\n"
+            "## Function ownership",
+        )
+        self.assertEqual(validate(proposal), [])
+        for field in ("Scenario basis", "Proposal-stage decision", "Proposed validation",
+                      "Validation state", "Proposal falsifier"):
+            broken = proposal.replace("- " + field + ": ", "- Removed-" + field + ": ")
+            self.assertIn("missing field: " + field, validate(broken))
+        self.assertTrue(any("invalid Scenario basis" in issue for issue in validate(proposal.replace("HYPOTHETICAL", "FICTION"))))
+        self.assertIn("invalid Proposal-stage decision", validate(
+            proposal.replace("Proposal-stage decision: GO", "Proposal-stage decision: DONE")))
+        self.assertTrue(any("invalid Validation state" in issue for issue in validate(
+            proposal.replace("Validation state: NOT_RUN", "Validation state: VALIDATED"))))
+        self.assertEqual(validate(RECEIPT), [])  # existing receipts are grandfathered
+
     def test_legacy_receipt_remains_structurally_valid(self):
         self.assertEqual(validate(RECEIPT), [])
         bad_marker = RECEIPT.replace("## Function ownership",

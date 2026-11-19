@@ -15,6 +15,30 @@ ROADMAP = ROOT / "docs" / "CAPABILITY_ROADMAP.md"
 
 
 class ForkCapabilityRoadmapIssueTemplateTests(unittest.TestCase):
+    def test_human_issue_is_proposal_first_and_separates_proof(self):
+        human = TEMPLATE.read_text(encoding="utf-8")
+        ai = AI_TEMPLATE.read_text(encoding="utf-8")
+        protocol = PROTOCOL.read_text(encoding="utf-8")
+        guide = ROADMAP.read_text(encoding="utf-8")
+        for marker in ("One-sentence proposal:", "Opportunity / [function]",
+                       "What we propose (P0)", "Why it might help",
+                       "Scenario basis", "Hypothesis, not proof",
+                       "Proposal-stage final operator decision (REQUIRED)",
+                       "Validation state:", "falsifier"):
+            self.assertIn(marker.lower(), (human + ai).lower())
+        for document in (human, ai, protocol, guide):
+            self.assertIn("HYPOTHETICAL", document)
+            self.assertIn("NOT_RUN", document)
+            self.assertIn("GO", document)
+            self.assertIn("NO_GO", document)
+        self.assertLess(human.index("## 2. Proposed"),human.index("## 5. Acceptance"))
+        self.assertIn("Missing measurement", protocol) if "Missing measurement" in protocol else self.assertIn(
+            "Missing benefit measurement", protocol)
+        self.assertIn("not required for proposal", protocol)
+        self.assertIn("not a test pass", human)
+        self.assertIn("no mandatory C", human)
+        self.assertIn("separate Index review", human)
+
     def test_human_outline_matches_paperclip_pilot(self):
         text = TEMPLATE.read_text(encoding="utf-8")
         self.assertTrue(text.startswith("# [HARNESS]"))

@@ -61,13 +61,27 @@ def validate(contents: str) -> list[str]:
         if actual and not pattern.fullmatch(actual):
             errors.append("invalid format: "+field)
     on_top = value(contents, "Receipt contract")
-    if on_top == "contribution-on-top":
+    if on_top in ("contribution-on-top", "proposal-gate"):
         if not re.search(r"^## Parallel contribution-on-top review\s*$", contents, re.M):
             errors.append("missing section: Parallel contribution-on-top review")
         for key in ("Evaluation object", "Existing-work overlap",
                     "Our on-top contribution", "Incremental benefit", "Decision scope"):
             if not value(contents, key):
                 errors.append("missing field: " + key)
+        if on_top == "proposal-gate":
+            for key in ("Scenario basis", "Proposal-stage decision",
+                        "Proposed validation", "Validation state", "Proposal falsifier"):
+                if not value(contents, key):
+                    errors.append("missing field: " + key)
+            basis = value(contents, "Scenario basis")
+            if basis and basis not in ("OBSERVED", "HYPOTHETICAL"):
+                errors.append("invalid Scenario basis: expected OBSERVED or HYPOTHETICAL")
+            decision = value(contents, "Proposal-stage decision")
+            if decision and decision not in ("GO", "NO_GO", "BLOCKED"):
+                errors.append("invalid Proposal-stage decision")
+            validation = value(contents, "Validation state")
+            if validation and validation not in ("NOT_RUN", "PARTIAL_WITH_PINNED_EVIDENCE"):
+                errors.append("invalid Validation state: cannot claim proof at proposal stage")
     elif on_top is not None:
         errors.append("unknown Receipt contract: " + on_top)
     idx=value(contents,"Accepted Index assessment")
