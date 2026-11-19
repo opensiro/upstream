@@ -40,6 +40,27 @@ def value(contents: str, key: str) -> str | None:
     return match.group(1).strip() if match else None
 
 
+FUNCTIONS = ("S1", "S2", "S3", "S3*", "S4", "S5")
+STATES = ("A", "A(P)", "C", "C(P)", "P", "—", "?")
+REPORT_STATES = ("DECISION_READY", "NEEDS_EVIDENCE", "NO_USEFUL_CHANGE")
+
+
+def parse_vector(vector: str) -> dict[str, str] | None:
+    """Parse a single pinned Skills ownership vector, not six quality scores."""
+    parts = [x.strip() for x in vector.split("·")] if "·" in vector else vector.split()
+    if len(parts) != 6:
+        return None
+    out = {}
+    for fn, part in zip(FUNCTIONS, parts):
+        key, sep, state = part.partition("=")
+        if not sep or key != fn or state not in STATES:
+            return None
+        if fn in ("S1", "S2", "S3*") and "P" in state:
+            return None
+        out[key] = state
+    return out
+
+
 def validate(contents: str) -> list[str]:
     errors = []
     for section in SECTIONS:
@@ -70,14 +91,21 @@ def validate(contents: str) -> list[str]:
                 errors.append("missing field: " + key)
         if on_top == "proposal-gate":
             for key in ("Repository-wide source map", "Priority rationale",
-                        "Target transition", "Proposed C construction", "C sufficiency falsifier",
-                        "Scenario basis", "Proposal-stage decision",
+                        "Accepted VSM vector", "Target transition", "P1 dependencies",
+                        "P2 optional", "Proposed C construction", "C sufficiency falsifier",
+                        "Scenario basis", "Proposal-stage decision", "Research disposition",
                         "Proposed validation", "Validation state", "Proposal falsifier"):
                 if not value(contents, key):
                     errors.append("missing field: " + key)
             for fn in ("S1", "S2", "S3", "S3*", "S4", "S5"):
                 if not value(contents, fn + " disposition"):
                     errors.append("missing field: " + fn + " disposition")
+            historical = value(contents, "Accepted VSM vector")
+            if historical and not parse_vector(historical):
+                errors.append("invalid Accepted VSM vector: require six ordered Skills states")
+            disposition = value(contents, "Research disposition")
+            if disposition and disposition not in ("DECISION_READY", "NEEDS_EVIDENCE", "NO_USEFUL_CHANGE"):
+                errors.append("invalid Research disposition")
             transition = value(contents, "Target transition")
             if transition == "NO_QUALIFIED_C_TARGET":
                 if value(contents, "Proposal-stage decision") != "NO_GO":
@@ -89,6 +117,10 @@ def validate(contents: str) -> list[str]:
                 )
                 if not match or match.group(1) != match.group(3):
                     errors.append("invalid Target transition: same VSM function must target C")
+                elif historical:
+                    vector = parse_vector(historical)
+                    if vector and vector.get("S" + match.group(1)) != match.group(2):
+                        errors.append("Target transition disagrees with accepted historical VSM vector")
             basis = value(contents, "Scenario basis")
             if basis and basis not in ("OBSERVED", "HYPOTHETICAL"):
                 errors.append("invalid Scenario basis: expected OBSERVED or HYPOTHETICAL")
@@ -119,19 +151,70 @@ def validate(contents: str) -> list[str]:
     return errors
 
 
+def display_value(text: str, label: str) -> str | None:
+    """Read an explicit Human/AI receipt-derived field, not descriptive prose."""
+    m = re.search(r"^\*\*" + re.escape(label) + r":\*\*\s*(.+?)\s*$", text, re.M)
+    return m.group(1).strip().strip("`") if m else None
+
+
+def validate_case_dir(directory: Path) -> list[str]:
+    """Structural consistency: three public-source case files, no GitHub lookups."""
+    needed = {name: directory / name
+              for name in ("roadmap.md", "issue.md", "constructor-sufficiency.md")}
+    errors = ["missing case file: " + name for name, path in needed.items()
+              if not path.is_file()]
+    if errors:
+        return errors
+    receipt = needed["roadmap.md"].read_text(encoding="utf-8")
+    errors.extend(validate(receipt))
+    if value(receipt, "Receipt contract") != "proposal-gate":
+        return errors  # grandfather historical read-only receipts
+    human = needed["issue.md"].read_text(encoding="utf-8")
+    ai = needed["constructor-sufficiency.md"].read_text(encoding="utf-8")
+    for name, body in (("issue.md", human), ("constructor-sufficiency.md", ai)):
+        if "[roadmap.md](roadmap.md)" not in body:
+            errors.append(name + " must link canonical roadmap.md")
+        for label, key in (("Target transition", "Target transition"),
+                           ("Proposal-stage decision", "Proposal-stage decision"),
+                           ("Research disposition", "Research disposition")):
+            observed = display_value(body, label)
+            expected = value(receipt, key)
+            if observed is None:
+                errors.append(name + " missing receipt-derived field: " + label)
+            elif observed != expected:
+                errors.append(name + " " + label + " disagrees with roadmap.md")
+    if "[constructor-sufficiency.md](constructor-sufficiency.md)" not in human:
+        errors.append("issue.md must link constructor-sufficiency.md")
+    if "[issue.md](issue.md)" not in ai:
+        errors.append("constructor-sufficiency.md must link issue.md")
+    vector = parse_vector(value(receipt, "Accepted VSM vector") or "")
+    if vector:
+        for fn in FUNCTIONS:
+            pat = r"(?m)^\|\s*\*\*" + re.escape(fn) + r"\s*·[^|]*\|\s*([^|]+)\|"
+            m = re.search(pat, human)
+            if not m:
+                errors.append("issue.md missing combined six-function row: " + fn)
+            elif m.group(1).strip().strip("`* ") != vector[fn]:
+                errors.append("issue.md historical state differs from roadmap.md: " + fn)
+    if re.search(r"(?m)^\|\s*\*\*S1\s*·", ai):
+        errors.append("AI contract must reference, not duplicate, Human six-function table")
+    return errors
+
+
 def main(argv: list[str]) -> int:
     if len(argv) != 2:
-        print("usage: validate_capability_roadmap.py <receipt.md>",file=sys.stderr)
+        print("usage: validate_capability_roadmap.py <receipt.md|case-dir>",file=sys.stderr)
         return 2
     path=Path(argv[1])
-    if not path.is_file():
-        print("roadmap receipt not found",file=sys.stderr)
+    if not path.is_file() and not path.is_dir():
+        print("roadmap receipt or case directory not found",file=sys.stderr)
         return 2
-    errors=validate(path.read_text(encoding="utf-8"))
+    errors=(validate_case_dir(path) if path.is_dir()
+            else validate(path.read_text(encoding="utf-8")))
     if errors:
         print("\n".join(errors),file=sys.stderr)
         return 1
-    print("Plan-only roadmap receipt structural contract: PASS (not semantic review)")
+    print("Plan-only roadmap receipt/case structural contract: PASS (not semantic review)")
     return 0
 
 

@@ -37,6 +37,7 @@ class ContributionOnTopTests(unittest.TestCase):
             "- Receipt contract: proposal-gate\n"
             "- Repository-wide source map: pinned full example/harness source including runtime, API, docs, policies, tests, CI, examples, Issue and PR surfaces\n"
             "- Priority rationale: selected S3 after all six were screened; parent policy retained at S5\n"
+            "- Accepted VSM vector: S1=A · S2=C · S3=— · S3*=— · S4=— · S5=—\n"
             "- S1 disposition: native operations already A and no mandatory C target\n"
             "- S2 disposition: native coordination already C\n"
             "- S3 disposition: potential S3=C priority; developer-composed manager absent\n"
@@ -44,10 +45,13 @@ class ContributionOnTopTests(unittest.TestCase):
             "- S4 disposition: deliberate future adaptation not yet evidenced; UNKNOWN, do not force C\n"
             "- S5 disposition: parent authority reserved in this synthetic case, no C target\n"
             "- Target transition: S3=— -> S3=C\n"
+            "- P1 dependencies: authorized resource decision integration and native tests\n"
+            "- P2 optional: NONE\n"
             "- Proposed C construction: versioned current resources, manager decision, authorized Task dispatch and feedback\n"
             "- C sufficiency falsifier: manager never chooses or sees subsequent task outcomes\n"
             "- Scenario basis: HYPOTHETICAL\n"
             "- Proposal-stage decision: GO\n"
+            "- Research disposition: NEEDS_EVIDENCE\n"
             "- Proposed validation: compare exact same first-party task to native option with rights negatives\n"
             "- Validation state: NOT_RUN\n"
             "- Proposal falsifier: native tool already provides equal operator outcome\n\n"
@@ -60,7 +64,9 @@ class ContributionOnTopTests(unittest.TestCase):
             "## Function ownership",
         )
         self.assertEqual(validate(proposal), [])
-        for field in ("Target transition", "Proposed C construction", "C sufficiency falsifier",
+        for field in ("Accepted VSM vector", "Target transition", "P1 dependencies",
+                      "P2 optional", "Research disposition",
+                      "Proposed C construction", "C sufficiency falsifier",
                       "Scenario basis", "Proposal-stage decision", "Proposed validation",
                       "Validation state", "Proposal falsifier"):
             broken = proposal.replace("- " + field + ": ", "- Removed-" + field + ": ")
@@ -78,6 +84,15 @@ class ContributionOnTopTests(unittest.TestCase):
             proposal.replace("S3=— -> S3=C", "S3=— -> S4=C"))))
         self.assertTrue(any("invalid Target transition" in issue for issue in validate(
             proposal.replace("S3=— -> S3=C", "S3=— -> S3=A"))))
+        self.assertIn("invalid Accepted VSM vector: require six ordered Skills states",
+                      validate(proposal.replace("S1=A · S2=C · S3=— · S3*=— · S4=— · S5=—",
+                                                "S1=P · S2=C · S3=— · S3*=— · S4=— · S5=—")))
+        self.assertIn("Target transition disagrees with accepted historical VSM vector",
+                      validate(proposal.replace("Target transition: S3=— -> S3=C",
+                                                "Target transition: S3=A -> S3=C")))
+        self.assertIn("invalid Research disposition",
+                      validate(proposal.replace("Research disposition: NEEDS_EVIDENCE",
+                                                "Research disposition: UNKNOWN")))
         self.assertTrue(any("invalid Scenario basis" in issue for issue in validate(proposal.replace("HYPOTHETICAL", "FICTION"))))
         self.assertIn("invalid Proposal-stage decision", validate(
             proposal.replace("Proposal-stage decision: GO", "Proposal-stage decision: DONE")))

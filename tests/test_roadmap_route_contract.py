@@ -105,7 +105,7 @@ class RoadmapRouteContractTests(unittest.TestCase):
         self.assertIn("PAUSE/STOP", self.route)
         self.assertIn("PERSISTENCE_BLOCKED", self.route)
         self.assertIn("separate", self.route.lower())
-        self.assertIn("Proposal-stage final operator decision (REQUIRED)", human)
+        self.assertIn("**Proposal-stage decision:**", human)
         self.assertIn("Terminal decision contract", ai)
         self.assertIn("Roadmap terminal decision closure (included in v0.17.0)", changelog)
 

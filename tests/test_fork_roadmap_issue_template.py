@@ -1,236 +1,145 @@
-"""Guardrails for Paperclip-derived Human/AI roadmap template pair.
+"""Source-neutral guardrails for Human Issue + AI contract + external proposal.
 
-These tests verify generic template structure and safe handoff, not semantic
-truth of any project's Index classification or feature implementation.
+These tests verify decision/source boundaries, not real VSM function or cost proof.
+The historical Paperclip pilot is a stress case, not a mandatory template layout.
 """
 
 from pathlib import Path
+import re
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
-TEMPLATE = ROOT / "templates" / "FORK_CAPABILITY_ROADMAP_ISSUE.md"
-AI_TEMPLATE = ROOT / "templates" / "ROADMAP_AI_CONSTRUCTOR_CONTRACT.md"
+HUMAN = ROOT / "templates" / "FORK_CAPABILITY_ROADMAP_ISSUE.md"
+AI = ROOT / "templates" / "ROADMAP_AI_CONSTRUCTOR_CONTRACT.md"
+EXTERNAL = ROOT / "templates" / "EXTERNAL_ARCHITECTURE_ISSUE.md"
 PROTOCOL = ROOT / "PROTOCOL.md"
-ROADMAP = ROOT / "docs" / "CAPABILITY_ROADMAP.md"
+GUIDE = ROOT / "docs" / "CAPABILITY_ROADMAP.md"
 
 
-class ForkCapabilityRoadmapIssueTemplateTests(unittest.TestCase):
-    def test_human_issue_is_proposal_first_and_separates_proof(self):
-        human = TEMPLATE.read_text(encoding="utf-8")
-        ai = AI_TEMPLATE.read_text(encoding="utf-8")
-        protocol = PROTOCOL.read_text(encoding="utf-8")
-        guide = ROADMAP.read_text(encoding="utf-8")
-        for marker in ("Target transition:", "S3=— -> S3=C",
-                       "Primary evaluation object", "Sufficiency verdict",
-                       "One-sentence proposal:", "Opportunity / [function]",
-                       "What we propose (P0)", "Why it might help",
-                       "Scenario basis", "Hypothesis, not proof",
-                       "Proposal-stage final operator decision (REQUIRED)",
-                       "Validation state:", "falsifier"):
-            self.assertIn(marker.lower(), (human + ai).lower())
-        for document in (human, ai, protocol, guide):
-            self.assertIn("HYPOTHETICAL", document)
-            self.assertIn("NOT_RUN", document)
-            self.assertIn("GO", document)
-            self.assertIn("NO_GO", document)
-        self.assertLess(human.index("## 2. Proposed"),human.index("## 5. Acceptance"))
-        self.assertIn("Missing measurement", protocol) if "Missing measurement" in protocol else self.assertIn(
-            "Missing benefit measurement", protocol)
-        self.assertIn("not required for proposal", protocol)
-        self.assertIn("minimal complete missing set", human.lower())
-        self.assertIn("Proposed C-sufficiency", human)
-        self.assertIn("first-party", human)
-        self.assertIn("not a test pass", human)
-        self.assertIn("no mandatory C", human)
-        self.assertIn("separate Index review", human)
+class RoadmapHumanAIContractTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.human = HUMAN.read_text(encoding="utf-8")
+        cls.ai = AI.read_text(encoding="utf-8")
+        cls.external = EXTERNAL.read_text(encoding="utf-8")
+        cls.protocol = PROTOCOL.read_text(encoding="utf-8")
+        cls.guide = GUIDE.read_text(encoding="utf-8")
 
-    def test_whole_repository_screen_before_p0_and_optional_interests(self):
-        human = TEMPLATE.read_text(encoding="utf-8")
-        ai = AI_TEMPLATE.read_text(encoding="utf-8")
-        protocol = PROTOCOL.read_text(encoding="utf-8")
-        guide = ROADMAP.read_text(encoding="utf-8")
-        self.assertIn("Whole-repository six-function coverage and target priority", human)
-        self.assertLess(human.index("Whole-repository six-function coverage"),
-                        human.index("Primary evaluation object (P0 selected"))
-        for name in ("S1", "S2", "S3", "S3*", "S4", "S5"):
-            self.assertIn("| " + name + " | [actual] | [pinned source]", human)
-        self.assertIn("NOT_STATED", human)
-        self.assertIn("INTENTIONALLY_NOT_PROVIDED", protocol)
-        self.assertIn("whole named original repository", protocol)
-        self.assertIn("all six", guide)
-        self.assertIn("intentional", ai.lower())
-        self.assertIn("parent-governed", ai)
-        self.assertIn("No compulsory policy engine", human)
-        self.assertIn("P0 *only now*", human)
+    def test_human_is_one_compact_decision_surface_not_two_six_row_tables(self):
+        h = self.human
+        self.assertTrue(h.startswith("# [HARNESS]"))
+        self.assertIn("Opensiro", h)
+        self.assertNotIn("OpenSiro", h)
+        self.assertIn("Why Opensiro", h)
+        self.assertIn("ACCEPTED HISTORICAL INDEX", h)
+        self.assertIn("One combined historical-and-current six-function table", h)
+        self.assertEqual(len(re.findall(r"(?m)^[|] [*][*]S1 · Operations", h)), 1)
+        for fn in ("S1", "S2", "S3", "S3*", "S4", "S5"):
+            self.assertEqual(len(re.findall(r"(?m)^[|] [*][*]" + re.escape(fn) + r" · ", h)), 1)
+            self.assertIn(fn + "=[accepted]", h)
+        self.assertLess(h.index("### Central starting point"), h.index("## 2. Selected construction"))
+        self.assertLess(h.index("Priority rationale"), h.index("## 2. Selected construction"))
 
-    def test_human_outline_matches_paperclip_pilot(self):
-        text = TEMPLATE.read_text(encoding="utf-8")
-        self.assertTrue(text.startswith("# [HARNESS]"))
-        self.assertIn("Opensiro", text)
-        self.assertNotIn("OpenSiro", text)
-        self.assertEqual(
-            [line for line in text.splitlines() if line.startswith("## ")],
-            [
-                "## 1. Why Opensiro and central accepted VSM assessment",
-                "## 2. Proposed user capabilities and decision",
-                "## 3. Existing native work vs missing capability",
-                "## 4. Proposed priority and minimum sufficient result",
-                "## 5. Acceptance / stop gates",
-                "## 6. Independent paths",
-                "## 7. Cost hypothesis",
-                "## 8. Decision / handoff",
-            ],
-        )
+    def test_human_preserves_all_six_function_constraints_and_optional_interest(self):
+        h = self.human
+        for marker in ("Repository-wide audit", "system-in-focus", "S3* ·",
+                       "P0 / DEFER / NO_TARGET / UNKNOWN", "Deliberate exclusions",
+                       "Methodology", "NOT_STATED", "owner_control", "PAUSE",
+                       "No public fork Issue", "original external Issue"):
+            self.assertIn(marker.lower(), h.lower())
+        self.assertIn("do not trigger mandatory c work", h.lower())
+        self.assertIn("not quality ranks", h.lower())
 
-    def test_mission_and_central_index_precede_technical_proposal(self):
-        text = TEMPLATE.read_text(encoding="utf-8")
-        mission = text.index("Opensiro tests whether")
-        central = text.index("### Central starting point — accepted Index, not the target")
-        vector = text.index("S1=[accepted]")
-        six_row_table = text.index("| S1 · Operations |")
-        proposal = text.index("## 2. Proposed user capabilities and decision")
-        self.assertLess(mission, central)
-        self.assertLess(central, vector)
-        self.assertLess(vector, six_row_table)
-        self.assertLess(six_row_table, proposal)
-        for row in (
-            "S1 · Operations", "S2 · Coordination", "S3 · Current management",
-            "S3* · Independent review", "S4 · Future adaptation", "S5 · Identity/policy",
-        ):
-            self.assertIn(row, text)
-        for function in ("S1", "S2", "S3", "S3*", "S4", "S5"):
-            self.assertIn(function + "=[accepted]", text)
-        self.assertIn("historical", text.lower())
-        self.assertIn("review_ref", text)
-        self.assertIn("Profile / Skills", text)
-        self.assertIn("not the target", text.lower())
-        self.assertIn("not an automatic", text.lower())
+    def test_human_goal_is_selected_after_census_and_has_true_no_target(self):
+        h = self.human
+        self.assertIn("NO_QUALIFIED_C_TARGET", h)
+        self.assertIn("Selected construction hypothesis", h)
+        self.assertIn("Target transition:", h)
+        self.assertIn("Best native operator alternative", h)
+        self.assertIn("Track A", h)
+        self.assertIn("Track B", h)
+        self.assertIn("matching Issue veto", h)
+        self.assertIn("Proposed C-sufficiency verdict", h)
+        self.assertIn("separate Index review", h)
+        self.assertIn("NOT_MEASURED", h)
+        self.assertIn("GO + NEEDS_EVIDENCE", h)
+        self.assertNotIn("S3=A(P) · S4=—", h)
 
-    def test_human_scoped_goal_and_preflight(self):
-        text = TEMPLATE.read_text(encoding="utf-8")
-        for requirement in (
-            "P0", "P1", "P2", "A(P)", "C(P)", "NEEDS_EVIDENCE",
-            "NO_USEFUL_CHANGE", "Already-confirmed", "no mandatory C",
-            "Investigate `?`", "Sufficiency verdict", "not shipping",
-            "separate Index review", "SHIPPED / OPEN_PR / ISSUE_ONLY",
-            "Cost status: `NOT_MEASURED`", "No public fork Issue",
-            "original maintainer request", "exact current-conversation owner approval",
-            ".opensiro/issues/<case-id>/", "opensiro/meta", "AI disclosure",
-            "Best native operator alternative",
-        ):
-            self.assertIn(requirement.lower(), text.lower())
-        self.assertNotIn("paperclipai/", text)
-        self.assertNotIn("browser-use/", text)
-        self.assertNotIn("S3=A(P) · S4=—", text)
-        self.assertIn("optional", text.lower())
-        self.assertIn("do not", text.lower())
+    def test_human_and_ai_share_receipt_derivation_without_duplicate_vector(self):
+        for doc in (self.human, self.ai):
+            self.assertIn("[roadmap.md](roadmap.md)", doc)
+            for marker in ("**Target transition:**", "**Proposal-stage decision:**",
+                           "**Research disposition:**"):
+                self.assertIn(marker, doc)
+            self.assertIn("GO", doc)
+            self.assertIn("NO_GO", doc)
+            self.assertIn("BLOCKED", doc)
+        self.assertIn("[constructor-sufficiency.md](constructor-sufficiency.md)", self.human)
+        self.assertIn("[issue.md](issue.md)", self.ai)
+        self.assertNotRegex(self.ai, r"(?m)^\\| \\*\\*S1 · ")
+        self.assertIn("roadmap.md owns all historical Index grades", self.ai)
+        self.assertIn("source of truth", self.human)
+        self.assertIn("Canonical decision receipt", self.human)
+        self.assertIn("Canonical decision receipt", self.ai)
 
-    def test_ai_outline_matches_paperclip_pilot_not_old_generic_outline(self):
-        text = AI_TEMPLATE.read_text(encoding="utf-8")
-        self.assertTrue(text.startswith("# [HARNESS]"))
-        self.assertNotIn("OpenSiro", text)
-        self.assertEqual(
-            [line for line in text.splitlines() if line.startswith("## ")],
-            [
-                "## Functional scope: S2 vs S3 vs S4 vs S5",
-                "## 1. Boundary, state, user and developer counterfactual",
-                "## 2. Verified existing baseline versus still-proposed change",
-                "## 3. Proposed minimum [PRIMARY FUNCTION] first-party construction ports",
-                "## 4. Priority and dependency decisions",
-                "## 5. Additional [OPTIONAL FUNCTION] constructor proposal — explicitly requested, or NONE",
-                "## 6. [PRIMARY FUNCTION] example acceptance scenarios — adapt to repository (not executed)",
-                "## 7. Falsification, exclusions and evidence ownership",
-            ],
-        )
-        for phrase in (
-            "Level 1 / Human decision Issue",
-            "ACCEPTED HISTORICAL INDEX",
-            "S1=[accepted]", "S2=[accepted]", "S3=[accepted]",
-            "S3*=[accepted]", "S4=[accepted]", "S5=[accepted]",
-            "S3↔S4", "SHIPPED", "source-native", "owner",
-            "ObservedReturnReceipt", "AC-01 Positive closure",
-            "AC-OPTIONAL-01", "NO_USEFUL_CHANGE", "NOT_MEASURED",
-            "No original external Issue/comment/PR",
-            "not shipped", "not another public Issue",
-        ):
-            self.assertIn(phrase.lower(), text.lower())
+    def test_ai_is_function_neutral_and_does_not_copy_paperclip_interfaces(self):
+        ai = self.ai
+        self.assertEqual([x for x in ai.splitlines() if x.startswith("## ")],
+                         ["## 1. Function-specific construction boundary and methodology checks",
+                          "## 2. Source-pinned baseline and parallel native Track A / on-top Track B",
+                          "## 3. Minimal complete [selected function] first-party C construction",
+                          "## 4. Priorities, optional alternative and stopping rules",
+                          "## 5. Future source-native acceptance — derive tests, do not copy a matrix",
+                          "## 6. Proposal verdict, falsification, evidence ownership and handoff"])
+        for fn in ("S1", "S2", "S3", "S3*", "S4", "S5"):
+            self.assertIn(fn, ai)
+        self.assertIn("Physical interface count is NOT prescribed", ai)
+        self.assertIn("five-port pattern", ai)
+        self.assertIn("no mandatory feature novelty", ai)
+        self.assertNotIn("ObservedReturnReceipt", ai)
+        self.assertNotIn("AC-01 Positive closure", ai)
+        self.assertNotIn("AC-OPTIONAL-01", ai)
 
-    def test_acceptance_rows_are_examples_not_prescribed_tests(self):
-        ai = AI_TEMPLATE.read_text(encoding="utf-8")
-        roadmap = ROADMAP.read_text(encoding="utf-8")
-        section6 = ai.split("## 6. [PRIMARY FUNCTION] example acceptance scenarios")[1].split("## 7.")[0]
-        optional = ai.split("### Example optional acceptance scenarios")[1].split("## 6.")[0]
-        for text in (section6, optional):
-            self.assertIn("NOT MANDATORY TEST CASES", text)
-            self.assertIn("replace", text.lower())
-            self.assertIn("repository", text.lower())
-        for required in (
-            "NOT prescribed tests",
-            "MUST independently replace, remove, rename or add",
-            "Required coverage (principles, not fixed IDs/count)",
-            "No universal nine-case checklist exists",
-            "NEEDS_EVIDENCE",
-            "NONE / NOT RUN",
-            "not acceptance requirements",
-        ):
-            self.assertIn(required, section6)
-        self.assertIn("P2: NONE", optional)
-        self.assertIn("delete this entire table", optional)
-        self.assertIn("Acceptance example rule", roadmap)
-        self.assertIn("illustrative placeholders, not mandatory tests", roadmap)
-        self.assertNotIn("MANDATORY AC-01", ai)
+    def test_ai_acceptance_cases_source_native_not_prescriptive(self):
+        ai = self.ai
+        self.assertIn("Native test commands and entry points", ai)
+        self.assertIn("Positive functional closure", ai)
+        self.assertIn("Negative authority and compatibility", ai)
+        self.assertIn("Matched native alternative", ai)
+        self.assertIn("Case derived from selected function, NOT_RUN", ai)
+        self.assertIn("test count are deliberately not supplied", ai)
+        self.assertIn("NONE / NOT_RUN", ai)
+        self.assertIn("source-applicable cases", ai)
+        self.assertIn("No original external Issue/comment/PR", ai)
 
-    def test_optional_second_function_not_mandatory(self):
-        human = TEMPLATE.read_text(encoding="utf-8")
-        ai = AI_TEMPLATE.read_text(encoding="utf-8")
-        for phrase in (
-            "optional other function", "otherwise delete this paragraph",
-            "separate developer-composability", "independent",
-        ):
-            self.assertIn(phrase.lower(), human.lower())
-        for phrase in (
-            "P2: NONE", "do not invent a second target",
-            "only populate", "omit the port and scenario tables",
-        ):
-            self.assertIn(phrase.lower(), ai.lower())
-        self.assertNotIn("paperclipai/", ai)
-        self.assertNotIn("razzant/", ai)
+    def test_go_and_research_uncertainty_are_separate(self):
+        for doc in (self.ai, self.human, self.protocol, self.guide):
+            self.assertIn("GO + NEEDS_EVIDENCE", doc)
+        self.assertIn("Do not automatically turn NEEDS_EVIDENCE into NO_GO or BLOCKED", self.ai)
+        self.assertIn("not an implementation authorization", self.ai)
+        self.assertIn("NOT_MEASURED", self.ai)
+        self.assertIn("NO_QUALIFIED_C_TARGET", self.ai)
 
-    def test_linked_layers_keep_source_and_permissions(self):
-        human = TEMPLATE.read_text(encoding="utf-8")
-        ai = AI_TEMPLATE.read_text(encoding="utf-8")
-        protocol = PROTOCOL.read_text(encoding="utf-8")
-        roadmap = ROADMAP.read_text(encoding="utf-8")
-        for required in ("ROADMAP_AI_CONSTRUCTOR_CONTRACT.md", "FORK_CAPABILITY_ROADMAP_ISSUE.md"):
-            self.assertIn(required, protocol)
-            self.assertIn(required, roadmap)
-        self.assertIn("ROADMAP_AI_CONSTRUCTOR_CONTRACT.md", human)
-        self.assertIn("human issue.md permalink", ai.lower())
-        self.assertIn("same accepted six-system vector", human.lower())
-        self.assertIn("MUST match the Human Issue", ai)
-        self.assertIn("two layers", protocol.lower())
-        self.assertIn("Paperclip", protocol)
-        self.assertIn("Paperclip", roadmap)
-        self.assertIn("two-level", roadmap.lower())
-        self.assertIn("full central accepted six-function", protocol.lower())
-        self.assertIn("No public fork Issue", human)
-        self.assertIn("No original external", ai)
-        self.assertIn("NOT_MEASURED", human)
-        self.assertIn("NOT_MEASURED", ai)
+    def test_p2_is_optional_not_paperclip_double_constructor(self):
+        self.assertIn("P2:", self.human)
+        self.assertIn("P2:", self.ai)
+        self.assertIn("by default", self.ai)
+        self.assertIn("do not embed a forced second five-port", self.ai)
+        self.assertIn("no mandatory second function", self.human.lower()) if "no mandatory second function" in self.human.lower() else self.assertIn("not a mandated second function", self.human.lower())
 
-    def test_canonical_unversioned_case_names(self):
-        human = TEMPLATE.read_text(encoding='utf-8')
-        ai = AI_TEMPLATE.read_text(encoding='utf-8')
-        roadmap = ROADMAP.read_text(encoding='utf-8')
-        self.assertIn('/constructor-sufficiency.md', human)
-        self.assertIn('human issue.md permalink', ai)
-        self.assertIn('Canonical case filenames', roadmap)
-        self.assertNotIn('/constructor-sufficiency-v2.md', human)
+    def test_canonical_stable_filenames_and_paperclip_is_historical(self):
+        for name in ("issue.md", "constructor-sufficiency.md", "roadmap.md"):
+            self.assertIn(name, self.human)
+            self.assertIn(name, self.ai)
+            self.assertIn(name, self.guide)
+        self.assertNotIn("/constructor-sufficiency-v2.md", self.human)
+        self.assertIn("Paperclip two-level pilot", self.protocol)
+        self.assertIn("Paperclip is a historical stress case", self.guide)
+        self.assertIn("not a mandatory format", self.guide)
+        self.assertIn("case-level structural check", self.protocol)
 
-    def test_external_issue_explains_six_function_assessment_without_grading(self):
-        external = (ROOT / "templates" / "EXTERNAL_ARCHITECTURE_ISSUE.md").read_text()
-        protocol = PROTOCOL.read_text()
-        guide = ROADMAP.read_text()
+    def test_external_issue_shows_complete_readable_vsm_without_product_ranking(self):
+        external = self.external
         self.assertLess(external.index("## Proposal in the project's own terms"),
                         external.index("## How we reached this proposal"))
         for fn in ("S1", "S2", "S3", "S3*", "S4", "S5"):
@@ -239,25 +148,21 @@ class ForkCapabilityRoadmapIssueTemplateTests(unittest.TestCase):
             self.assertIn(state, external)
         for marker in ("Historical assessment:", "Index commit SHA",
                        "assessment blob SHA", "review_ref", "Current original HEAD:",
-                       "Profile", "Skills Methodology", "first-party",
+                       "Skills Methodology", "first-party",
                        "not VSM theory", "not ranks", "DRAFT — NOT PUBLISHED",
-                       "current-conversation approval"):
+                       "current-conversation approval", "AI involvement"):
             self.assertIn(marker.lower(), external.lower())
-        self.assertIn("full accepted historical S1/S2/S3/S3*/S4/S5", protocol)
-        self.assertIn("complete accepted historical six-function vector", guide)
-        self.assertIn("not a request to implement all six", protocol)
-        self.assertIn("original-maintainer", external.lower())
-
-    def test_protocol_routes_to_internal_and_external_templates(self):
-        for path in (PROTOCOL, ROADMAP):
-            text = path.read_text(encoding="utf-8")
-            self.assertIn("FORK_CAPABILITY_ROADMAP_ISSUE.md", text)
-            self.assertIn("EXTERNAL_ARCHITECTURE_ISSUE.md", text)
-        external = (ROOT / "templates" / "EXTERNAL_ARCHITECTURE_ISSUE.md").read_text(
-            encoding="utf-8"
-        )
-        self.assertIn("Opensiro", external)
         self.assertNotIn("OpenSiro", external)
+
+    def test_original_maintainer_publication_is_separately_gated(self):
+        for doc in (self.protocol, self.guide):
+            self.assertIn("FORK_CAPABILITY_ROADMAP_ISSUE.md", doc)
+            self.assertIn("EXTERNAL_ARCHITECTURE_ISSUE.md", doc)
+            self.assertIn("separate", doc)
+            self.assertIn("current-conversation", doc)
+        self.assertIn("not an original-maintainer Issue", self.human)
+        self.assertIn("This is a", self.ai)
+        self.assertIn("DRAFT — NOT PUBLISHED", self.ai)
 
 
 if __name__ == "__main__":
