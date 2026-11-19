@@ -39,6 +39,9 @@ def extract_status(documents):
     # Disposition is the research outcome; Result: PLAN_ONLY may only name the route.
     match = re.search(r"(?m)^- Disposition: (PLAN_ONLY|NEEDS_EVIDENCE|DECISION_READY|NO_USEFUL_CHANGE)\b", receipt)
     if not match:
+        # New proposal-gate cases separate research disposition from delivery status.
+        match = re.search(r"(?m)^- Research disposition: (NEEDS_EVIDENCE|DECISION_READY|NO_USEFUL_CHANGE)\s*$", receipt)
+    if not match:
         match = re.search(r"(?m)^- Result: (PLAN_ONLY|NEEDS_EVIDENCE|DECISION_READY|NO_USEFUL_CHANGE)\s*$", receipt)
     if match:
         return match.group(1), "roadmap.md Result"
@@ -114,7 +117,9 @@ def case_from_directory(client, repo, original, case_id, meta_sha,
     pilot = "pilot" in case_id and "comparison.md" in names
     canonical = all(x in names for x in
                     ("README.md", "issue.md", "constructor-sufficiency.md", "roadmap.md"))
-    kind = "HISTORICAL_TEMPLATE_PILOT" if pilot else "ROADMAP"
+    # A historical pilot directory can evolve to a validated canonical case;
+    # directory spelling and retained comparison.md must not hide real case data.
+    kind = "HISTORICAL_TEMPLATE_PILOT" if pilot and not canonical else "ROADMAP"
     structure = "CANONICAL" if canonical else "HISTORICAL_PILOT" if pilot else "LEGACY_PARTIAL"
     status, status_source = extract_status(documents)
     title = ""

@@ -112,6 +112,25 @@ class RoadmapViewTests(unittest.TestCase):
         self.assertEqual(case["structure"], "HISTORICAL_PILOT")
         self.assertEqual(case["status"], "NEEDS_EVIDENCE")
 
+    def test_historical_pilot_directory_promoted_to_canonical_roadmap(self):
+        client = Fake().fork().case("capability-roadmap-issue-pilots-20261118", {
+            "README.md": "# Updated Paperclip case",
+            "comparison.md": "Historical template comparison retained",
+            "issue-v2.md": "# Historical Issue",
+            "issue.md": HUMAN,
+            "constructor-sufficiency.md": AI,
+            "roadmap.md": RECEIPT.replace(
+                "- Result: NEEDS_EVIDENCE",
+                "- Result: PLAN_ONLY\n- Research disposition: NEEDS_EVIDENCE\n"
+                "- Proposal-stage decision: GO"),
+        })
+        case = roadmap_view(client, requested=[FORK], observed_at=NOW)["cases"][0]
+        self.assertEqual(case["kind"], "ROADMAP")
+        self.assertEqual(case["structure"], "CANONICAL")
+        self.assertEqual(case["status"], "NEEDS_EVIDENCE")
+        self.assertIn("roadmap.md", case["files"])
+        self.assertIn("comparison.md", case["files"])
+
     def test_disposition_takes_priority_over_plan_only_route(self):
         client = Fake().fork().case("audit", {
             "README.md": "# Audit",
