@@ -1,48 +1,126 @@
-# Research proposal: reusable organizational capabilities for [PROJECT]
+# Proposal: [specific native capability] for [PROJECT] — Opensiro VSM architecture review
 
-<!-- DRAFT — NOT PUBLISHED. Replace every bracket with verified source-native evidence.
-     This template grants no permission to open a third-party issue/PR/comment. -->
+<!--
+DRAFT — NOT PUBLISHED.
+This is an ORIGINAL-MAINTAINER-FACING Issue, distinct from the internal fork-local
+Roadmap. Replace all placeholders with original-native, source-pinned evidence.
+Verify original repo contribution/issue rules and deduplicate live Issues/PRs.
+Do not create an external Issue, PR or comment without separate exact
+current-conversation approval of destination, action and complete public text.
+If an existing original Issue covers the same question, prefer contributing there
+after the same consent gate rather than creating a duplicate.
+-->
 
-## Context
+## Proposal in the project's own terms
 
-We are developing **Opensiro**, an open-source effort studying whether reusable organizational specifications and evidence-backed engineering methods make AI agent harnesses easier and less expensive to build, integrate, and maintain.
+We propose an **optional** [specific capability/integration] in [PROJECT] so that
+[developer/operator] can [concrete decision or task] using [existing native mechanism].
 
-Our current reference hypothesis is the **Viable System Model (VSM)**. We are **not** asking this project to adopt VSM, alleging it lacks six subsystems, or claiming proven cost reduction.
+**What exists today:** [first-party code/doc link, supported deployment mode and actual behavior].
+**What may be missing:** [specific decision/feedback constructor or integration, not just a low VSM grade].
+**Closest existing project-native solution:** [existing way to achieve the same outcome; why a different constructor might help].
+**Existing discussion:** [verified original Issue/PR links and status, or NONE FOUND WITH SEARCH SCOPE].
 
-## Evidence from this project
+We would prefer extending existing first-party work instead of introducing a parallel
+framework, and we do not assume the maintainers want this feature.
 
-- **Original repository and pinned revision:** [native commit URL]
-- **Current operator/user workflow:** [source links and observed behavior]
-- **Relevant issue(s) and PR(s):** [verified URLs, status, current PR head/diff and maintainer decisions]
-- **Specific remaining integration question:** [actor → trigger → blocked output/decision]
-- **Closest existing project-native solution:** [the simple alternative and any advantages]
+## How we reached this proposal — Opensiro VSM assessment
 
-An Opensiro assessment is a dated evidence snapshot, not today's guaranteed capability grade, product-quality or safety rating. Unmerged PRs are proposals, not shipped features.
+Opensiro uses a public, reproducible **Viable System Model (VSM) harness assessment**.
+We examine organizational *functions and decision ownership* at a stated system boundary,
+not the presence of six named components. This is a methodology for generating and
+challenging design hypotheses, **not a product-quality, safety or maturity score**.
 
-## Optional incremental approach
+**Historical assessment:** [accepted Opensiro Index assessment permalink] ·
+[Index commit SHA] · [assessment blob SHA] · reviewed [YYYY-MM-DD] ·
+original `review_ref`: [40-character commit] · Profile [version] ·
+Skills Methodology [version].
 
-1. [Small useful function-specific interface or composition path, backed by actual need]
-2. [Matched native acceptance case, negative control and compatibility]
-3. [Optional parent-supervised or autonomous mode only where desired and independently supported]
+**Boundary:** [system-in-focus, recursion, supported first-party runtime/deployment modes].
+**Current original HEAD:** [pinned commit URL, observed date] — checked separately
+from the historical assessment. Where the source has changed, label the historical
+vector as historical; never silently assert it is the current classification.
 
-The first preference is composability, not mandatory autonomy or a required autonomy grade. The maintainers remain responsible for deciding their architecture.
+| Key | Organizational function, in plain language | Historical state | Evidence or limitation |
+| --- | --- | --- | --- |
+| **S1 · Operations** | Units/agents doing the actual work | [accepted value] | [specific assessment/source pointer] |
+| **S2 · Coordination** | Preventing conflicts and interference between operational units | [accepted value] | [specific pointer] |
+| **S3 · Current management** | Managing present resources, priorities and commitments across operations | [accepted value] | [specific pointer] |
+| **S3* · Independent audit** | Independently checking operational reality and returning corrective feedback | [accepted value] | [specific pointer] |
+| **S4 · Future adaptation** | Examining external/future change and bringing adaptation options back into present decisions | [accepted value] | [specific pointer] |
+| **S5 · Identity and policy** | Resolving system identity, ultimate policy and authority questions | [accepted value] | [specific pointer] |
 
-## Three independent ways to participate
+**How to read the states (Opensiro Skills notation, not VSM theory):**
 
-- **Improve this harness:** help integrate related PRs/issues and contribute focused native improvements if a need is validated.
-- **Challenge or improve the open specification:** provide counterexamples or contribute to [VSM Harness Profile](https://github.com/opensiro/vsm-harness-profile) (semantics) or [VSM Harness Skills](https://github.com/opensiro/vsm-harness-skills) (assessment methods).
-- **Explore a domain-specific fork:** use a legally permitted experimental fork to test the idea in a particular domain; there is no requirement for the main project to adopt it.
+- **`A`** — an autonomous agent closes the relevant organizational decision/feedback loop in a supported first-party mode
+- **`C`** — a first-party, function-specific construction path exists; a developer must compose the autonomous actor, authority or closure
+- **`P`** — a supported parent-governed mode closes S3, S4 or S5 without established first-party A/C autonomy
+- **`A(P)` / `C(P)`** — an independently evidenced parent-governed mode exists alongside A or C (S3/S4/S5 only)
+- **`—`** — within the assessed boundary, no material first-party function path was evidenced after a bounded absence review; **not** proof it cannot be built or must be built
+- **`?`** — evidence insufficient to establish either a positive function path or a defensible bounded absence
 
-## How we'll evaluate value
+The states describe **ownership and supported construction modes, not ranks**:
+`A` is not a universally better version of `C`, and a missing local S4 or S5
+does not automatically imply a defect. Parent governance or deliberate non-construction
+may be appropriate to this project's goals. We welcome corrections to our interpretation.
 
-We propose comparing the same native user task with any VSM-informed option, including engineering/integration time, review/test load, maintenance and functionality. **Cost reduction remains a hypothesis until measured**, not a promise.
+## Why this particular construction?
+
+**Whole-repository prioritization:** [briefly explain why this one function was
+selected after reviewing S1/S2/S3/S3*/S4/S5, and relevant maintainer preferences
+only if expressly documented; otherwise NOT_STATED].
+
+**Construction hypothesis:** [accepted historical `Sx=[state] → Sx=C`, one
+function only]. This is a **proposed future constructor**, not a change to the
+accepted assessment or a claim that the feature is already shipped.
+
+**Native building blocks:** [existing code/API, original Issue/PR decisions].
+**Minimal proposed addition:** [what first-party decision/feedback interface,
+authorization, feedback or integration would make the selected function
+developer-composable]. A generic utility or VSM label alone is not sufficient.
+
+**Scope exclusions:** [deliberately out-of-scope functions, optional modes or
+parent-owned authority, with original project evidence if available; otherwise
+NOT VERIFIED]. No expectation to implement all six VSM functions locally.
+
+## Proposed approach and validation
+
+1. [Minimum integration with current code/Issue/PR; name first-party entry point]
+2. [Actor's lawful alternative decisions, actual resulting effect and feedback]
+3. [Targeted positive, unauthorized/missing-owner and compatibility tests;
+   none claimed executed unless linked]
+
+**Hypothesized benefit:** [plausible operator or developer outcome, not invented demand].
+**How to falsify:** [native baseline already suffices; missing function-specific decision
+owner or feedback; violated parent rights; unacceptable complexity].
+**Cost status:** NOT_MEASURED. **Cost reduction remains a hypothesis** until
+the same native task's implementation, integration, review, test and maintenance
+costs are compared.
 
 ## Feedback requested
 
-Would this help the project? Which existing work, architecture constraints, or maintainer priorities should guide the proposal? Would a simpler native solution be preferable?
+- Does this proposal fit the project's actual architecture and priorities?
+- Is a simpler first-party path, or an existing Issue/PR, a better place to work?
+- Is any element of our six-function mapping incorrect or intentionally out of scope?
+- Would you prefer a smaller patch, a design discussion, or no new mechanism?
 
-## Attribution and AI disclosure
+The maintainers determine their architecture and contribution process.
+This is **not** a request to adopt VSM, a mandatory autonomy upgrade, or
+a claim of missing policy/security machinery.
 
-[Opensiro Upstream](https://github.com/opensiro/upstream) · [Profile](https://github.com/opensiro/vsm-harness-profile) · [Skills](https://github.com/opensiro/vsm-harness-skills) · [Index](https://github.com/opensiro/vsm-harness-index)
+## Three independent ways to participate
 
-**AI involvement:** This research proposal and its evidence mapping were prepared with AI assistance. No independent human technical review, proven correctness, maintainer endorsement, verified cost advantage or implementation result is claimed.
+- **Improve this harness:** contribute to the focused native construction or related original Issues/PRs only if the maintainers want it and the project contribution route allows it.
+- **Challenge or improve the open specification:** point out incorrect VSM function mapping, parent ownership or intentional exclusions; methodological feedback belongs to the Opensiro Profile/Skills sources.
+- **Explore a domain-specific fork:** test a different operating boundary in a legally permitted experimental fork without asking the original project to adopt VSM.
+
+## Research attribution and AI disclosure
+
+[Opensiro Upstream](https://github.com/opensiro/upstream) ·
+[VSM Profile (function definitions)](https://github.com/opensiro/vsm-harness-profile/blob/main/PROFILE.md) ·
+[VSM Skills (assessment states)](https://github.com/opensiro/vsm-harness-skills/blob/main/skills/assess-vsm-harness/references/autonomy-states.md) ·
+[VSM Index (accepted assessments)](https://github.com/opensiro/vsm-harness-index)
+
+**AI involvement:** This proposal and evidence map were prepared with AI assistance.
+No independent human validation, original-maintainer endorsement, implemented C
+constructor, accepted new Index grade or measured cost improvement is implied.

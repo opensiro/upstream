@@ -6,6 +6,8 @@
 
 ## Unreleased
 
+- **External roadmap Issue as readable VSM methodology:** Require a concrete native proposal plus the complete six-function accepted historical Index mapping, concise plain-language keys and Skills-owned ownership-state glossary, pinned provenance and explicit non-ranking/voluntary-adoption boundaries. External communication still needs independent consent; no publication implied.
+
 - **Whole-repository, interest-neutral C-priority selection (unreleased):** Survey full original source and all six Profile functions before selecting the single highest-priority C-construction transition; do not default to S3 or silently exclude S5. Preserve source-backed deliberate non-construction and parent-governed policy as potential methodology tests; contributor interest is optional, not invented. Align read-only selector, Human/AI templates, protocol and regression tests. No automatic feature/grade, fork writes or public issue.
 
 - **Target-C Roadmap construction clarification (unreleased):** Restore explicit accepted historical `Sx=[state]` → proposed `Sx=C` as the evaluation object; Track A/B identifies reused and missing links in the minimum complete function-specific C chain, not unrelated generic improvements.

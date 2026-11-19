@@ -227,6 +227,27 @@ class ForkCapabilityRoadmapIssueTemplateTests(unittest.TestCase):
         self.assertIn('Canonical case filenames', roadmap)
         self.assertNotIn('/constructor-sufficiency-v2.md', human)
 
+    def test_external_issue_explains_six_function_assessment_without_grading(self):
+        external = (ROOT / "templates" / "EXTERNAL_ARCHITECTURE_ISSUE.md").read_text()
+        protocol = PROTOCOL.read_text()
+        guide = ROADMAP.read_text()
+        self.assertLess(external.index("## Proposal in the project's own terms"),
+                        external.index("## How we reached this proposal"))
+        for fn in ("S1", "S2", "S3", "S3*", "S4", "S5"):
+            self.assertIn("| **" + fn + " · ", external)
+        for state in ("`A`", "`C`", "`P`", "`A(P)`", "`C(P)`", "`—`", "`?`"):
+            self.assertIn(state, external)
+        for marker in ("Historical assessment:", "Index commit SHA",
+                       "assessment blob SHA", "review_ref", "Current original HEAD:",
+                       "Profile", "Skills Methodology", "first-party",
+                       "not VSM theory", "not ranks", "DRAFT — NOT PUBLISHED",
+                       "current-conversation approval"):
+            self.assertIn(marker.lower(), external.lower())
+        self.assertIn("full accepted historical S1/S2/S3/S3*/S4/S5", protocol)
+        self.assertIn("complete accepted historical six-function vector", guide)
+        self.assertIn("not a request to implement all six", protocol)
+        self.assertIn("original-maintainer", external.lower())
+
     def test_protocol_routes_to_internal_and_external_templates(self):
         for path in (PROTOCOL, ROADMAP):
             text = path.read_text(encoding="utf-8")
