@@ -60,6 +60,15 @@ different harness without source-specific evidence.
 
 **Evidence boundary:** tested and released original-native code is different from an unmerged proposal, roadmap, private plugin, generic event hook or external model-provider function. **Confirm source-native overlap on current original HEAD** before declaring anything truly absent. Preserve original project contribution and public-communication restrictions.
 
+**Parallel contribution-on-top review (A + B, required before P0):**
+
+| Verified native work and pinned Issue/PR state (A) | Existing coverage and missing task | Independently proposed reuse/extension/adjacent option (B) | Minimum new first-party change / authority | Incremental outcome and falsifier |
+| --- | --- | --- | --- | --- |
+| [Source ref, state, supported mode; distinguish SHIPPED/OPEN_PR/ISSUE_ONLY] | [Exact current task, owner, rights and observable result] | [Our on-top candidate or source-justified NOT_APPLICABLE] | [Reused interfaces + actual necessary delta, no invented interface] | [Concrete new behavior vs native baseline, or NOT_EVIDENCED] |
+
+**Evaluation object:** [Named operator task and VSM function]. **Decision scope:** [GO/NO_GO/BLOCKED only for this contribution, not the whole original harness]. A maintainer Issue for a narrower problem cannot alone disprove an independent, distinguishable user need; conversely, on-top work is rejected if the cheapest native solution already closes the **same** task. Preserve original PR ownership and third-party communication gates.
+
+
 **Minimal native alternative:** [cheapest project-native solution, including ordinary manager/CEO/manual workflow]. **Materiality verdict:** [`NEEDS_EVIDENCE` / `NO_USEFUL_CHANGE` / independently supported operator delta]; do not create a controller simply to fill a VSM grade.
 
 ## 3. Proposed minimum [PRIMARY FUNCTION] first-party construction ports

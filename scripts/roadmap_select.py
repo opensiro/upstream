@@ -3,7 +3,9 @@
 
 Index RANKINGS+catalog pin is authoritative for admission and historical VSM context.
 A bounded second pass checks original GitHub activity, SPDX license, issue titles
-and the exact matching fork. Selection never creates issues, forks, or records.
+and the exact matching fork. Selection never creates issues, forks, or records. Its source/issue-title leads
+must trigger parallel current-work versus independent on-top research, not an
+automatic NO_GO from original overlap or a C construction proposal from grades.
 """
 import argparse
 import base64
@@ -252,6 +254,8 @@ def live_screen(client, row, now):
         result["warnings"].append("No topical open issue in latest 100 sampled; absence is not proof of no need.")
     if result["existing_roadmap_cases"]:
         result["warnings"].append("Matching fork already has a roadmap; prefer unstudied cases for new selection.")
+    # This is a research obligation, not an invented candidate or live PR validation.
+    result["parallel_research_required"] = True
     result["score"] = (10 * row["index_fit"]
                        + 6 * min(3, len(result["issue_evidence"]))
                        + (2 if result["license_gate"] == "PERMISSIVE_REVIEW_FORMALITIES" else 0)
@@ -271,7 +275,7 @@ def rank(client, *, focus="all", limit=10, pool=50, probe=20,
               "index_source": "opensiro/vsm-harness-index/RANKINGS.md + data/catalog.psv",
               "accepted_included_rows": len(rows), "candidate_pool_count": len(pool_rows),
               "focus": focus, "live_screening": not no_live,
-              "disclaimer": "Research shortlist only: cannot infer useful C from missing grades or keyword-matched issues.",
+              "disclaimer": "Research shortlist only: after VSM leads, review existing native Issues/PRs and independently formulate on-top alternatives in parallel; neither a grade nor overlap decides GO/NO_GO.",
               "candidates": [], "unknowns": []}
     if no_live:
         for row in pool_rows[:limit]:

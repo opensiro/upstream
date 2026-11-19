@@ -8,6 +8,8 @@
 
 ## Unreleased
 
+- **Parallel contribution-on-top Roadmap gate (unreleased):** Keep accepted Index VSM-first selection, but require two concurrent research tracks before choosing P0: verified native implementation/original Issues/PRs and independently formulated OpenSiro reuse/integration/extension/adjacent proposals. Compare existing coverage, smallest additional first-party delta, material operator outcome and falsifier; an existing issue is not an automatic NO_GO, and missing grade does not justify an actor. Bound GO/NO_GO to the chosen proposal, not the harness. Align selector messaging, Human/AI templates, guide, AGENTS and structurally opt-in receipt validation with legacy receipts accepted. No automatic implementation, third-party publication, grade change or new authority.
+
 - **Roadmap statistics script-first navigation (unreleased):** Route `upstream roadmap stats`, case counts and Russian-language statistics requests to the maintained read-only `scripts/roadmap_view.py --format json` before any manual GitHub API calls. Keep selection (`roadmap_select.py`) and implementation/PR aggregation (`aggregate.py`) separate. Require explicit scope, coverage, provenance, historical limits and PARTIAL/NOT VERIFIED behavior when the executable cannot run or the scan is incomplete. Align README, AGENTS, Protocol and regression tests; no new scheduler, metadata, GitHub Issue/PR or version bump.
 
 ## Unreleased
