@@ -1,6 +1,6 @@
 # Upstream v0.16.0 — consolidated release candidate
 
-**Status: DRAFT FOR OWNER AGREEMENT; NOT A PUBLISHED RELEASE.** Prepared 2026-11-16. One coordinated GitHub Release is proposed, rather than separate releases for the three already merged intermediate protocol revisions.
+**Historical status: SUPERSEDED BY THE OWNER-AGREED v0.17.0 CONSOLIDATED PACKAGE (2026-11-19); v0.16.0 WAS NOT PUBLISHED.** Prepared 2026-11-16. This document preserves the former, never-executed v0.16.0 release proposal and its dated verification claims; the current approved scope is [v0.17.0](../changes/v0.17.0.md). One coordinated GitHub Release is proposed, rather than separate releases for the three already merged intermediate protocol revisions.
 
 | Reference | Verifiable state at preparation |
 | --- | --- |

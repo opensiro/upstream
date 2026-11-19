@@ -32,7 +32,7 @@ class RoadmapRouteContractTests(unittest.TestCase):
             self.assertIn(phrase.lower(), self.route.lower())
         self.assertIn("complete fork-local Issue cycle by default", self.guide)
         self.assertIn("plan-only full cycle to a fork-local GitHub Issue", readme)
-        self.assertIn("Roadmap full cycle to fork-local Issue (unreleased)", changelog)
+        self.assertIn("Roadmap full cycle to fork-local Issue (included in v0.17.0)", changelog)
         self.assertIn("PERSISTENCE_BLOCKED", self.route)
         self.assertIn("PLAN_ONLY", self.route)
         agents=(ROOT/"AGENTS.md").read_text()
@@ -107,7 +107,7 @@ class RoadmapRouteContractTests(unittest.TestCase):
         self.assertIn("separate", self.route.lower())
         self.assertIn("Final operator decision (REQUIRED)", human)
         self.assertIn("Terminal decision contract", ai)
-        self.assertIn("Roadmap terminal decision closure (unreleased)", changelog)
+        self.assertIn("Roadmap terminal decision closure (included in v0.17.0)", changelog)
 
 
     def test_explicit_opensiro_persistence_is_not_a_chat_export(self):

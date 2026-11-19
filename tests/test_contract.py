@@ -102,7 +102,7 @@ class ContractTests(unittest.TestCase):
         self.assertIn("Never merge", handoff)
         self.assertIn("public fork-local PR", handoff)
         self.assertIn("browser-use/browser-harness PR #1034", handoff)
-        self.assertEqual((ROOT / "VERSION").read_text(encoding="utf-8").strip(), "0.16.0")
+        self.assertEqual((ROOT / "VERSION").read_text(encoding="utf-8").strip(), "0.17.0")
 
     def test_review_gated_ai_disclosure_keeps_verified_assessment_provenance(self):
         handoff = (ROOT / "docs/UPGRADE_PR_REVIEW.md").read_text(encoding="utf-8")
@@ -265,8 +265,8 @@ class ContractTests(unittest.TestCase):
         self.assertIn("Required `.opensiro/` provisioning", agents)
         self.assertIn("Materialize on demand during an authorized Upgrade", metadata)
         self.assertIn("Verified permission to write fork metadata?", architecture)
-        self.assertIn("Upgrade metadata on demand (unreleased)", changelog)
-        self.assertEqual((ROOT / "VERSION").read_text().strip(), "0.16.0")
+        self.assertIn("Upgrade metadata on demand (included in v0.17.0)", changelog)
+        self.assertEqual((ROOT / "VERSION").read_text().strip(), "0.17.0")
 
     def test_invalid_semver_is_rejected(self):
         with TemporaryDirectory() as tmp:
