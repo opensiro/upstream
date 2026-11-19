@@ -223,7 +223,10 @@ class ContractTests(unittest.TestCase):
         for number in (6, 7, 8, 9, 10):
             self.assertIn(f"PR #{number}", candidate)
         self.assertIn("11 merged / 24 open / 7 closed without merge", candidate)
-        self.assertIn("NOT A PUBLISHED RELEASE", candidate)
+        self.assertIn("v0.16.0 WAS NOT PUBLISHED", candidate)
+        self.assertIn("SUPERSEDED", candidate)
+        self.assertIn("changes/v0.17.0.md", readme)
+        self.assertEqual((ROOT / "VERSION").read_text().strip(), "0.17.0")
         self.assertIn("Owner agrees", candidate)
 
     def test_upgrade_provisions_missing_fork_meta_under_actual_authority(self):
