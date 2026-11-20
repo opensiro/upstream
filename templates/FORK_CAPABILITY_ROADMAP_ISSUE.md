@@ -5,6 +5,10 @@ HUMAN FORK-LOCAL Issue, not an original-maintainer Issue.
 Fill from the single case-local roadmap.md receipt and current pinned sources.
 No invented need, Index regrade, tests, maintainer consent or publication.
 Technical ports and extended tests belong in constructor-sufficiency.md.
+Before any external PR that relies on this case, validate all four committed
+case files and this filled eight-section Human template with
+python3 scripts/validate_roadmap_publication.py <verified-case-dir>.
+PASS is not publication consent.
 Use stable filenames issue.md / roadmap.md / constructor-sufficiency.md.
 -->
 
