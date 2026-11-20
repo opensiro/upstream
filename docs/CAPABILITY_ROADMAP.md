@@ -54,6 +54,8 @@ This is a qualitative prioritization **not an Index reassessment, six-feature qu
 
 **Case validation:** For new proposal-gate receipts, run `scripts/validate_capability_roadmap.py <case-dir>` to structurally validate the receipt and check Human↔AI↔receipt links and displayed target/verdict/research status; validate source semantics and GitHub rights separately. The existing single-file invocation and legacy receipts remain supported. **`GO + NEEDS_EVIDENCE` is valid** when a source-grounded complete proposed C construction has not yet been tested or measured; only an essential source/authority blocker merits BLOCKED, and a scoped incoherent/duplicate/no-target design merits NO_GO.
 
+**Reporting handoff:** Store the complete independent run and verdict only in its matched fork-local case; a completed Roadmap run does **not** warrant a separate Upstream PR or `.md` report. Use the existing coordination Issue for concise state pointers and, if needed, the [single Roadmap report's Supplementary section](ROADMAP_REPORT.md#supplementary) for historical links. Close unneeded report-only PRs without merging case summaries into Upstream; genuine shared-method changes use normal reviewed PRs. This is reporting hygiene, not a new C-admission criterion or metric.
+
 ## Default target and work priority
 
 ### Proposal-first decision boundary (required)
