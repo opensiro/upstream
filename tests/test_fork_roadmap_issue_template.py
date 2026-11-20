@@ -154,6 +154,19 @@ class RoadmapHumanAIContractTests(unittest.TestCase):
             self.assertIn(marker.lower(), external.lower())
         self.assertNotIn("OpenSiro", external)
 
+    def test_template_conformity_is_required_at_case_write_not_only_publication(self):
+        self.assertIn("## Mandatory Roadmap case-write Human/AI template gate",
+                      self.protocol)
+        self.assertIn("before writing its fork-local", self.protocol)
+        self.assertIn("then validate the exact stored commit", self.protocol)
+        self.assertIn("existing numbered template sections", self.protocol)
+        for doc in (self.protocol, self.guide):
+            self.assertIn("validate_capability_roadmap.py", doc)
+            self.assertIn("validate_roadmap_publication.py", doc)
+            self.assertIn("materially revised", doc)
+        self.assertIn("before writing opensiro/meta", self.human)
+        self.assertIn("again after committed SHA readback", self.ai)
+
     def test_original_maintainer_publication_is_separately_gated(self):
         for doc in (self.protocol, self.guide):
             self.assertIn("FORK_CAPABILITY_ROADMAP_ISSUE.md", doc)

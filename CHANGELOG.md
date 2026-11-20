@@ -6,7 +6,7 @@
 
 ## Unreleased
 
-No subsequent changes recorded at release preparation.
+- **Roadmap case-write template correctness:** Require the existing case receipt and full Human/AI template preflights both before every new/materially revised canonical fork-local Roadmap case write and after exact commit readback, not only before external PRs. Versioned refinements must edit numbered sections in place; the existing template validator now rejects appended unnumbered level-two technical/process sections. Add regression tests for forbidden appendices while allowing nested source evidence. This change introduces no new score, metric, source-of-truth repository, VSM grade or external publication consent. Version/release remains v0.18.2 pending a separately agreed bundle.
 
 ## [0.18.2](changes/v0.18.2.md) — Fail-closed Roadmap publication-template preflight
 

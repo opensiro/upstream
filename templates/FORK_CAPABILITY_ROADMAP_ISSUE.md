@@ -5,9 +5,11 @@ HUMAN FORK-LOCAL Issue, not an original-maintainer Issue.
 Fill from the single case-local roadmap.md receipt and current pinned sources.
 No invented need, Index regrade, tests, maintainer consent or publication.
 Technical ports and extended tests belong in constructor-sufficiency.md.
-Before any external PR that relies on this case, validate all four committed
-case files and this filled eight-section Human template with
-python3 scripts/validate_roadmap_publication.py <verified-case-dir>.
+For every new or materially revised canonical case, populate these eight numbered
+sections IN PLACE; never append a new top-level technical/protocol refinement
+section. Validate the complete four-file case before writing opensiro/meta and
+again after exact commit readback, using BOTH validate_capability_roadmap.py and
+validate_roadmap_publication.py. External PR publication remains a separate gate.
 PASS is not publication consent.
 Use stable filenames issue.md / roadmap.md / constructor-sufficiency.md.
 -->

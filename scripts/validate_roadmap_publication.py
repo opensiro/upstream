@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fail-closed local template/file preflight for Roadmap-derived external publication.
+"""Fail-closed local template/file preflight for Roadmap case writes and external PRs.
 
 This checks *local syntax and document completeness* only. Accepted Index/source,
 fork identity, tests, original Issue/PR states and current owner consent require
@@ -17,6 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 TEMPLATE = ROOT / "templates"
 REQUIRED_FILES = ("README.md", "roadmap.md", "issue.md", "constructor-sufficiency.md")
 NUMBERED = re.compile(r"(?m)^## (\d+)\. (.+?)\s*$")
+LEVEL_TWO = re.compile(r"(?m)^## (.+?)\s*$")
 ROW = re.compile(r"(?m)^\|\s*\*\*(S1|S2|S3\*|S3|S4|S5)\s*·")
 FUNCTIONS = ("S1", "S2", "S3", "S3*", "S4", "S5")
 
@@ -103,7 +104,12 @@ def headings_match(actual: str, template_path: Path, file_name: str) -> list[str
     template = template_path.read_text(encoding="utf-8")
     required = NUMBERED.findall(template)
     found = NUMBERED.findall(actual)
+    actual_level_two = LEVEL_TWO.findall(actual)
     errors: list[str] = []
+    # Prevent appended versioned Human/AI refinements from bypassing the
+    # numbered template checks; nested ### evidence sections remain permitted.
+    if len(actual_level_two) != len(found):
+        errors.append(f"{file_name}: unexpected top-level section outside numbered template")
     if len(found) != len(required):
         errors.append(f"{file_name}: template requires {len(required)} numbered sections, found {len(found)}")
     for i, (number, title) in enumerate(required):
@@ -186,7 +192,7 @@ def check_publication_ready(case_dir: Path) -> list[str]:
 
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("case_dir", type=Path, help="Verified fork opensiro/meta .opensiro/issues/<case-id> directory")
+    p.add_argument("case_dir", type=Path, help="Complete four-file Roadmap case directory (pre-write draft or verified committed fork copy)")
     args = p.parse_args(argv)
     errors = check_publication_ready(args.case_dir)
     if errors:

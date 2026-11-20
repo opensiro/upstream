@@ -80,6 +80,23 @@ class RoadmapPublicationGateTests(unittest.TestCase):
         self.assertTrue(any("8 numbered sections" in x for x in errors))
         self.assertTrue(any("6 numbered sections" in x for x in errors))
 
+    def test_versioned_human_appendix_fails_on_case_write(self):
+        with (self.case / "issue.md").open("a", encoding="utf-8") as f:
+            f.write("\n## v0.18.1 Human acceptance refinement — internal log\n\n")
+        errors = check_publication_ready(self.case)
+        self.assertTrue(any("unexpected top-level section" in e for e in errors), errors)
+
+    def test_versioned_ai_appendix_fails_on_case_write(self):
+        with (self.case / "constructor-sufficiency.md").open("a", encoding="utf-8") as f:
+            f.write("\n## v0.18.1 AI constructor refinement\n\n")
+        errors = check_publication_ready(self.case)
+        self.assertTrue(any("unexpected top-level section" in e for e in errors), errors)
+
+    def test_nested_source_evidence_remains_allowed(self):
+        with (self.case / "constructor-sufficiency.md").open("a", encoding="utf-8") as f:
+            f.write("\n### Specific source evidence\n\nAdded native details inside section six.\n")
+        self.assertEqual(check_publication_ready(self.case), [])
+
     def test_missing_file_fails(self):
         (self.case / "README.md").unlink()
         self.assertIn("missing required roadmap case file: README.md",
