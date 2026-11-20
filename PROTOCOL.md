@@ -1,4 +1,4 @@
-# Upstream contribution protocol — v0.18.1
+# Upstream contribution protocol — v0.18.2
 
 **Independent re-run intake:** [Roadmap cohort #58](https://github.com/opensiro/upstream/issues/58) is a candidate inventory, not an inherited verdict. Use [the fresh-chat prompt](docs/ROADMAP_INDEPENDENT_RERUN.md): current accepted Index/source-first six-function assessment, independent native Track A/B, scoped terminal verdict, then compare historical case. A partial/rate-limited inventory cannot certify total coverage. The owner's 2026-11-19 issue-queue activation supersedes automatic DORMANT/PAUSE bootstrap for authorized roadmap work; any later explicit owner PAUSE/STOP and exact public consent gates remain controlling.
 
@@ -303,7 +303,7 @@ A **chat-only hypothesis cannot alone prove immutable pre-source Index-first chr
 
 Earlier `upstream-old` [v0.8.0](https://github.com/opensiro/upstream-old/blob/main/changes/v0.8.0.md) and [v0.9.0](https://github.com/opensiro/upstream-old/blob/main/changes/v0.9.0.md) already established discriminating multifunction investigation, capability-first research, four source-native fit gates and matched counterfactual controls. [v0.11.0](https://github.com/opensiro/upstream-old/blob/main/changes/v0.11.0.md) established an early working-fork route. Existing [native CI placement](https://github.com/opensiro/upstream-old/blob/main/docs/NATIVE_CI_EXECUTION.md) and [evidence contract](https://github.com/opensiro/upstream-old/blob/main/docs/ASSESSMENT_TO_IMPROVEMENT.md) retain the independent deterministic runner requirement for strictly assessment-derived benefit claims. Reuse actual source-native commands, scripts, fork CI and previously attributed receipts if still applicable to the pinned source: do not copy third-party CI into Upstream or create a generic universal runner as a prerequisite to starting chat research.
 
-Historic individual tests and external publications show **bounded partial paths**, not a certified universal end-to-end autonomous Upgrade runner under the current v0.18.1 protocol. Do not replace applicable native verification with chat execution and do not claim the old historic evidence was produced under this new version. New implementation/publishing still requires fresh source/fork/authority checks and exact third-party public consent.
+Historic individual tests and external publications show **bounded partial paths**, not a certified universal end-to-end autonomous Upgrade runner under the current v0.18.2 protocol. Do not replace applicable native verification with chat execution and do not claim the old historic evidence was produced under this new version. New implementation/publishing still requires fresh source/fork/authority checks and exact third-party public consent.
 
 ### Upgrade decision sequence — one improvement, not one PR
 
