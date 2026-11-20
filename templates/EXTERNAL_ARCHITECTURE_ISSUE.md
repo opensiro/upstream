@@ -21,8 +21,9 @@ We propose an **optional** [specific capability/integration] in [PROJECT] so tha
 **Closest existing project-native solution:** [existing way to achieve the same outcome; why a different constructor might help].
 **Existing discussion:** [verified original Issue/PR links and status, or NONE FOUND WITH SEARCH SCOPE].
 
-We would prefer extending existing first-party work instead of introducing a parallel
-framework, and we do not assume the maintainers want this feature.
+We prefer reusing existing first-party work where it provides required C links.
+Existing code may be temporary or permanent; we do not assume which.
+The maintainers alone decide product fit, adoption, replacement or rejection.
 
 ## How we reached this proposal — Opensiro VSM assessment
 

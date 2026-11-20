@@ -1,12 +1,12 @@
 # Upstream contribution-protocol changelog
 
-**Current protocol candidate:** [v0.18.0](VERSION) · [Versioning](VERSIONING.md) · [Migration](docs/MIGRATION.md).
+**Current integrated protocol:** [v0.18.0](VERSION) · [Versioning](VERSIONING.md) · [Migration](docs/MIGRATION.md).
 
 **Release authority:** [GitHub Releases](https://github.com/opensiro/upstream/releases) and immutable tags determine which protocol snapshots are published. The v0.17.0 owner-agreed bundle consolidates work since the previously published v0.13.0 baseline. Versions v0.14–v0.16 remain historical integrated main snapshots, not separately published releases.
 
 ## Unreleased
 
-_No additional changes beyond the v0.18.0 candidate at preparation._
+_No additional changes beyond the consolidated v0.18.0 package._
 
 ## [0.18.0](changes/v0.18.0.md) — Whole-repository six-function C construction and independent reruns
 
@@ -18,6 +18,7 @@ _No additional changes beyond the v0.18.0 candidate at preparation._
 
 - **Whole-repository, interest-neutral C-priority selection:** Survey full original source and all six Profile functions before selecting the single highest-priority C-construction transition; do not default to S3 or silently exclude S5. Preserve source-backed deliberate non-construction and parent-governed policy as potential methodology tests; contributor interest is optional, not invented. Align read-only selector, Human/AI templates, protocol and regression tests. No automatic feature/grade, fork writes or public issue.
 
+- **Assessment neutrality / maintainer-owned adoption (final v0.18.0 scope):** Judge function-specific C constructibility, not whether maintainers should ship it. Existing fixes, workarounds and competing Issues/PRs provide technical context rather than an assumed permanent design or automatic NO_GO. Only equivalent first-party C closure, incoherence or unsupported lawful boundaries reject construction; adoption remains the original maintainer's decision. Align protocol, guide, Human/AI/external templates, handoff and regression tests.
 - **Target-C Roadmap construction clarification:** Restore explicit accepted historical `Sx=[state]` → proposed `Sx=C` as the evaluation object; Track A/B identifies reused and missing links in the minimum complete function-specific C chain, not unrelated generic improvements.
 - **Proposal-first Roadmap decision contract:** Distinguish source-grounded capability hypothesis, bounded proposal-stage GO/NO_GO/BLOCKED, and later validated/implemented capability. A falsifiable plausible operator scenario may qualify for proposal GO without prior measured utility or tests; preserve native A/B comparison, first-party decision/rights/feedback, Index ownership, and all publication gates. Redesign the Human Issue as a short proposal-first decision surface with AI construction detail separate; add opt-in structural proposal receipt checks without invalidating historical receipts. No automatic version/release or retroactive rerun.
 
