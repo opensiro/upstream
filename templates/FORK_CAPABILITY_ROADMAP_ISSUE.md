@@ -105,7 +105,7 @@ Estimate matched original-native vs proposed constructor tasks, including engine
 
 ## 8. Decision / handoff
 
-**Proposal-stage decision:** [GO / NO_GO / BLOCKED — exact value from roadmap.md]. This field is REQUIRED.
+**Proposal-stage decision:** [GO / NO_GO / BLOCKED — exact value from roadmap.md]. This field is REQUIRED. It assesses architectural C sufficiency, **not whether maintainers should adopt the proposal**.
 
 - `GO`: complete, lawful, source-grounded proposed C constructor; **`GO + NEEDS_EVIDENCE` is valid** for unexecuted future tests or unmeasured benefit.
 - `NO_GO`: scoped source-backed C duplicate, incoherent construction or justified no-target after six-function research; not a blanket no-go for the harness.

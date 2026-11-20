@@ -73,7 +73,7 @@ Replace placeholders and add exactly as many native links/tests as the function 
 
 **Alternative path:** [A simpler original-native mechanism, deliberate non-construction, legitimate parent governance or independent Profile/Skills issue. State when this is preferred to a C proposal].
 
-**Stop:** [Equivalent C already shipped; incoherent function owner; indispensable parent prohibition; unsupported boundary; unresolved critical source fact; original maintainer says no; or no qualified function after six-source screening. Do not turn absent cost measurements into a required NO_GO].
+**Stop:** [Equivalent C already shipped; incoherent function owner; indispensable parent prohibition; unsupported boundary; unresolved critical source fact; no qualified function after six-source screening. A maintainer's product preference is not a constructibility verdict; an explicit integration or publication prohibition remains a separate binding action gate. Do not turn absent cost measurements into a required NO_GO].
 
 ## 5. Future source-native acceptance — derive tests, do not copy a matrix
 
