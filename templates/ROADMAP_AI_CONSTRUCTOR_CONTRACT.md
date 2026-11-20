@@ -7,6 +7,10 @@ Use only current pinned original first-party code, modes and original Issue/PR h
 The canonical case receipt roadmap.md owns all historical Index grades, six-function
 dispositions, priority values, target, proposal/research verdicts and publication status.
 Replace placeholders and add exactly as many native links/tests as the function needs.
+On every new/materially revised canonical case, revise the six numbered sections
+IN PLACE; do not append versioned technical/protocol status sections. Validate
+all four case files with BOTH case and template validators before persistence
+and again after committed SHA readback. External PR publication is separately gated.
 -->
 
 **Canonical storage:** `opensiro-contributions/<fork>@opensiro/meta:.opensiro/issues/<case-id>/constructor-sufficiency.md`.
