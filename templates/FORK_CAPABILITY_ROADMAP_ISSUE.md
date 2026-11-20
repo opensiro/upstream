@@ -66,7 +66,7 @@ Opensiro tests whether reusable VSM-informed organizational descriptions and con
 ## 3. Existing native work versus missing construction
 
 **Track A — native coverage:** [Current shipped code, relevant original Issues and live PR heads/diffs/decisions; mark SHIPPED / OPEN_PR / ISSUE_ONLY / UNVERIFIED].
-**Track B — independent on-top C construction:** [Smallest missing original-native function-specific integration, reuse or extension. An existing Issue/PR is a starting point, not a matching Issue veto.]
+**Track B — independent on-top C construction:** [Smallest missing original-native function-specific integration, reuse or extension. Prefer concrete first-party runtime seams and the original's distinctive constraints over a portable generic supervisor/adapter description. This is a recommendation, not a new decision gate. An existing Issue/PR is a starting point, not a matching Issue veto.]
 
 | C-sufficiency requirement (function-specific, not a fixed port count) | Already present / proposed in original (A) | What still must be constructed (B) |
 | --- | --- | --- |

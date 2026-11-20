@@ -4,7 +4,7 @@ The new [opensiro/upstream](https://github.com/opensiro/upstream) versions its *
 
 **Separate versioned main state from a published Release.** `VERSION` describes the currently integrated protocol snapshot in `main`; it does **not** establish a Git tag, GitHub Release or owner sign-off for publishing one. The authoritative release list is [GitHub Releases](https://github.com/opensiro/upstream/releases). Preserve all historical integration commits and change packages when consolidating releases; never rename or delete intermediate versions as if they had not existed.
 
-**Continuity:** [upstream-old CHANGELOG](https://github.com/opensiro/upstream-old/blob/main/CHANGELOG.md) owns historical **v0.1.0–v0.11.0** packages and their real commits. The new repository **prospectively continued at v0.12.0, published v0.17.0, and proposes v0.18.0 as the next reviewed minor bundle**, with a fresh Git history (not cloned commits or retroactive tags). [Migration notes](docs/MIGRATION.md).
+**Continuity:** [upstream-old CHANGELOG](https://github.com/opensiro/upstream-old/blob/main/CHANGELOG.md) owns historical **v0.1.0–v0.11.0** packages and their real commits. The new repository **prospectively continued at v0.12.0, published v0.17.0 and v0.18.0, and follows with the advisory v0.18.1 patch**, with a fresh Git history (not cloned commits or retroactive tags). [Migration notes](docs/MIGRATION.md).
 
 ## Experimental 0.x rules
 
