@@ -6,7 +6,7 @@
 
 ## Unreleased
 
-_No changes after v0.18.1._
+- **Unreleased Roadmap reporting hygiene (workflow clarification):** Stop creating individual Upstream Markdown reports or internal status-only PRs per independent Roadmap run. Keep case evidence on `opensiro-contributions/<fork>@opensiro/meta`, coordinate status in the existing Issue, optionally consolidate legacy links in the `## Supplementary` section of one `docs/ROADMAP_REPORT.md`, and close historical report-only PRs unmerged. This is a **post-v0.18.1 workflow change**, held under Unreleased until a separately reviewed version decision; no new metrics, construction gate, Index regrade or public permission.
 
 ## [0.18.1](changes/v0.18.1.md) — Native-specific Roadmap design guidance
 
