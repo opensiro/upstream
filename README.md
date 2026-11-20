@@ -24,7 +24,7 @@ If the bootstrap resolves Upstream work here, [`AGENTS.md`](AGENTS.md), [`PROTOC
 
 Upstream is the **operational S1 domain** of [OpenSiro VSM OSS](https://github.com/opensiro/vsm-oss-organization). It coordinates source-backed contributions to external AI harnesses without implementing a second VSM organization.
 
-**Protocol:** [v0.18.1](VERSION) · [How work proceeds](PROTOCOL.md) · [Fork metadata](docs/FORK_METADATA.md) · [Architecture](docs/ARCHITECTURE.md) · [History](CHANGELOG.md) · [Releases](https://github.com/opensiro/upstream/releases)
+**Protocol:** [v0.18.2](VERSION) · [How work proceeds](PROTOCOL.md) · [Fork metadata](docs/FORK_METADATA.md) · [Architecture](docs/ARCHITECTURE.md) · [History](CHANGELOG.md) · [Releases](https://github.com/opensiro/upstream/releases)
 
 ## Command navigation — choose the owning read-only projection first
 
@@ -47,7 +47,7 @@ Upstream is the **operational S1 domain** of [OpenSiro VSM OSS](https://github.c
 
 ## Releases
 
-[GitHub Releases](https://github.com/opensiro/upstream/releases) publish tagged snapshots of the **Upstream contribution protocol**, not releases of third-party harnesses. The current integrated protocol is [v0.18.1](VERSION); see its [patch notes](changes/v0.18.1.md), [v0.18.0 baseline](changes/v0.18.0.md), [changelog](CHANGELOG.md), and [versioning rules](VERSIONING.md). A release does **not** certify completion of historical migration, deployed value, external PR acceptance, or VSM autonomy.
+[GitHub Releases](https://github.com/opensiro/upstream/releases) publish tagged snapshots of the **Upstream contribution protocol**, not releases of third-party harnesses. The current integrated protocol is [v0.18.2](VERSION); see [PATCH notes](changes/v0.18.2.md), the [untagged v0.18.1 integrated guidance](changes/v0.18.1.md), [v0.18.0 baseline](changes/v0.18.0.md), [changelog](CHANGELOG.md), and [versioning rules](VERSIONING.md). A release does **not** certify completion of historical migration, deployed value, external PR acceptance, or VSM autonomy.
 
 **Release cadence:** protocol changes accumulate in the [Unreleased changelog](CHANGELOG.md#unreleased) without per-PR version bumps. An owner-agreed consolidated bundle receives a reviewable version PR and one tag/GitHub Release at a verified integration commit. The [v0.17.0 package](changes/v0.17.0.md) covers the approved protocol changes since the last previously published v0.13.0 baseline, including the new parallel contribution-on-top roadmap gate. A `VERSION` on `main` alone does **not** prove the GitHub Release was published; verify the actual [release and tag](https://github.com/opensiro/upstream/releases/tag/v0.17.0). Historical v0.14–v0.16 intermediate main packages were not separately released.
 

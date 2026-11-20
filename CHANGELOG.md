@@ -1,12 +1,21 @@
 # Upstream contribution-protocol changelog
 
-**Current integrated protocol:** [v0.18.1](VERSION) · [Versioning](VERSIONING.md) · [Migration](docs/MIGRATION.md).
+**Current integrated protocol:** [v0.18.2](VERSION) · [Versioning](VERSIONING.md) · [Migration](docs/MIGRATION.md).
 
 **Release authority:** [GitHub Releases](https://github.com/opensiro/upstream/releases) and immutable tags determine which protocol snapshots are published. The v0.17.0 owner-agreed bundle consolidates work since the previously published v0.13.0 baseline. Versions v0.14–v0.16 remain historical integrated main snapshots, not separately published releases.
 
 ## Unreleased
 
-- **Unreleased Roadmap reporting hygiene (workflow clarification):** Stop creating individual Upstream Markdown reports or internal status-only PRs per independent Roadmap run. Keep case evidence on `opensiro-contributions/<fork>@opensiro/meta`, coordinate status in the existing Issue, optionally consolidate legacy links in the `## Supplementary` section of one `docs/ROADMAP_REPORT.md`, and close historical report-only PRs unmerged. This is a **post-v0.18.1 workflow change**, held under Unreleased until a separately reviewed version decision; no new metrics, construction gate, Index regrade or public permission.
+No subsequent changes recorded at release preparation.
+
+## [0.18.2](changes/v0.18.2.md) — Fail-closed Roadmap publication-template preflight
+
+**PATCH, 2026-11-20.** Consolidates already integrated but untagged v0.18.1 native-specific advisory guidance, Roadmap reporting hygiene, and the [PR #90](https://github.com/opensiro/upstream/pull/90) correction to the existing Human/AI publication-template contract.
+
+- **Required pre-publication structural check:** New validator requires the four committed case files, full eight-/six-section Human/AI templates, the accepted historical six-function vector, filled fields, reciprocal links and receipt consistency for an external PR relying on a Roadmap case. Missing items return PR_BLOCKED_NO_WRITE. Code-only Upgrades with no Roadmap dependency retain their existing contribution/PR-body validation route. This enforces the already required template, not a new Sx=C eligibility or product gate.
+- **Fork-local Roadmap reporting hygiene:** Stop individual Upstream report-only PRs and per-run Markdown; retain detailed case evidence under the verified fork meta branch, small issue coordination pointers, and optional single supplementary report navigation.
+- **Release scope:** v0.18.1 was integrated in main but not independently tagged or asserted released. This bundle follows the last verified published v0.18.0, with no backfilled historical tag.
+- **Boundaries:** Structural checks are not source-semantic validation, native product tests, measured cost, external acceptance, publication permission or Index grading.
 
 ## [0.18.1](changes/v0.18.1.md) — Native-specific Roadmap design guidance
 

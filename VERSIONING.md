@@ -4,7 +4,7 @@ The new [opensiro/upstream](https://github.com/opensiro/upstream) versions its *
 
 **Separate versioned main state from a published Release.** `VERSION` describes the currently integrated protocol snapshot in `main`; it does **not** establish a Git tag, GitHub Release or owner sign-off for publishing one. The authoritative release list is [GitHub Releases](https://github.com/opensiro/upstream/releases). Preserve all historical integration commits and change packages when consolidating releases; never rename or delete intermediate versions as if they had not existed.
 
-**Continuity:** [upstream-old CHANGELOG](https://github.com/opensiro/upstream-old/blob/main/CHANGELOG.md) owns historical **v0.1.0–v0.11.0** packages and their real commits. The new repository **prospectively continued at v0.12.0, published v0.17.0 and v0.18.0, and follows with the advisory v0.18.1 patch**, with a fresh Git history (not cloned commits or retroactive tags). [Migration notes](docs/MIGRATION.md).
+**Continuity:** [upstream-old CHANGELOG](https://github.com/opensiro/upstream-old/blob/main/CHANGELOG.md) owns historical **v0.1.0–v0.11.0** packages and their real commits. The new repository **prospectively continued at v0.12.0, published v0.17.0 and v0.18.0, and subsequently integrated advisory v0.18.1 guidance into main without retroactively asserting a separate published tag**, with a fresh Git history (not cloned commits or retroactive tags). [Migration notes](docs/MIGRATION.md).
 
 ## Experimental 0.x rules
 
@@ -29,6 +29,8 @@ An immutable Git tag `vX.Y.Z` may be created on the validated integration commit
 **Permissions are independent:** changes to SemVer cannot grant S5 delegation, target-code write rights, CLA/DCO assent, external PR approval or maintainer acceptance.
 
 **v0.18.0 minor candidate (2026-11-19):** The owner requested a further patch-or-minor version and delegated the selection of class. The source-first, whole-repository six-function P0 route, source-neutral Human/AI/Receipt contract and independent review cohort change accepted reviewer obligations; therefore **MINOR** is the correct proposed class. This is a **release candidate pending verified final SHA, review and tag/Release publication gate**, not proof a new release was published. Do not count failed quota-limited inventory scans as complete or claim the Paperclip proposed S4 constructor shipped. The existing v0.17.0 tag/Release is unchanged.
+
+**Owner-requested v0.18.2 PATCH consolidation (2026-11-20):** The owner approved finalizing the selected 0.18.1 to 0.18.2 PATCH. It repairs a demonstrated failure to enforce existing Human/AI publication templates (merged PR #90), includes already merged Roadmap reporting hygiene, and preserves the integrated, untagged v0.18.1 advisory clarification. The previous verified tag was v0.18.0. Do not imply a retroactive v0.18.1 release. There is no new C eligibility, score, metric, Index grade or third-party publication permission; the tag and Release are separately verified artifacts.
 
 ## GitHub Releases
 
