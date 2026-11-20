@@ -44,6 +44,21 @@ Read [docs/FORK_METADATA.md](docs/FORK_METADATA.md) for the initial JSON contrac
 4. Check native **need, mechanism, counterfactual and scope**. Unsupported claims remain pending. No mandatory six-function S1–S5 scan or per-session batch.
 5. Before implementation, apply the [material capability-delta gate](#material-capability-delta-gate-before-implementation). An Index link, a new configuration flag, a passing unit test or an absence in a VSM function vector is not independently a useful Upgrade.
 
+## Mandatory pre-publication template/file gate for Roadmap-derived external PRs
+
+**Fail closed before any outward external PR publication (including Draft) or edit.** Identify the originating route, re-read the actual verified working fork at its exact current `opensiro/meta` commit and the selected original/product HEAD, and check the **files actually present at that commit**, not a remembered chat artifact or a local draft. For any PR arising from or citing a fork-local Roadmap case as its VSM architecture evidence, the case MUST contain `README.md`, Human `issue.md`, AI `constructor-sufficiency.md`, and canonical `roadmap.md` under the same stable `.opensiro/issues/<case-id>/`. Human and AI documents MUST conform to the current [Human Issue](templates/FORK_CAPABILITY_ROADMAP_ISSUE.md) and [AI constructor](templates/ROADMAP_AI_CONSTRUCTOR_CONTRACT.md) templates: all numbered sections, populated required fields, central accepted six-function vector and provenance, source-native Track A/B and C path, exact receipt-derived decision/status and reciprocal links. A merely understandable, summarized or independently formatted `issue.md` is **not template-compliant**.
+
+Materialize the verified fork metadata revision and run these source-only checks against **that exact committed case directory** using the current Upstream default-branch validator/templates:
+
+```bash
+python3 scripts/validate_capability_roadmap.py /path/to/verified-fork-meta/.opensiro/issues/<case-id>
+python3 scripts/validate_roadmap_publication.py /path/to/verified-fork-meta/.opensiro/issues/<case-id>
+```
+
+A missing required file, absent or out-of-order template heading, empty/mismatched field, placeholder, incorrect historical vector or nonzero checker exit is **`PR_BLOCKED_NO_WRITE`**: repair the canonical fork-local case, commit, read back and rerun before seeking exact publication approval. Never publish a PR and promise to fix its issue files later. Record the checker version/commit and exact case SHA in the human review handoff. **Both checks are structural only**, not a claim of native tests, source completeness, assessed grade, product usefulness or permission.
+
+For a code-only `upstream upgrade` PR that does **not** rely on a Roadmap case, use its existing mandatory `.opensiro/contributions/<stable-id>.json` schema/provenance and [Upgrade PR validation](docs/UPGRADE_PR_REVIEW.md) (including `scripts/validate_upgrade_pr_links.py`); do **not** invent a Roadmap case merely to pass this gate. If that PR also cites a Roadmap case as a decision source, validate **both** routes. Verify live original Issues/PRs, fork parent, permission/STOP, native tests, original-native PR body and exact current-conversation consent separately. A validator PASS never authorizes an external PR, a public fork-local PR or a public Issue.
+
 ## Roadmap run reporting hygiene — fork-local record, supplementary only
 
 **Do not open an Upstream PR solely to record an individual Roadmap run, rerun, independent verdict or queue reconciliation, and do not add a separate per-run `.md` file to Upstream.** The sole detailed and authoritative case record stays in the verified matched fork at `opensiro-contributions/<fork>@opensiro/meta:.opensiro/issues/<case-id>/` (Human `issue.md`, AI `constructor-sufficiency.md`, canonical `roadmap.md`, attributed events); respect its owner control and independent evidence rules. The already established Upstream coordination Issue (e.g. [#58](https://github.com/opensiro/upstream/issues/58)) may record short reservations, completion pointers and concurrency status, but is not a second case ledger.
