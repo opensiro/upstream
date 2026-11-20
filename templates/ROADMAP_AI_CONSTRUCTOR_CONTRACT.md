@@ -59,6 +59,8 @@ Replace placeholders and add exactly as many native links/tests as the function 
 | [Exact current or missing source-native entry point] | [Pinned path + current behavior / NONE] | [Function-specific exposed path or reuse] | [Who decides, which lawful options and how feedback reaches the function] |
 | [Only a second independently necessary link, if applicable] | [Source] | [Source-native delta] | [Actual downstream operation/denial/receipt] |
 
+**Native-specific design advice (not a new gate):** If the same actor/feedback loop could be copied to an unrelated harness merely by renaming interfaces, sharpen the original's particular decision boundary, existing native components, smallest proposed edit and actual downstream return. Do not invent extra infrastructure or a specificity score.
+
 **Architectural C-sufficiency argument:** [Explore several ways to build a complete function-specific C capability on top of the existing architecture. Do not stop at the obvious approach or current component boundaries. For the strongest option, explain how it works, what must be built and why existing capabilities are insufficient; challenge your assumptions and alternative explanations. Ground the proposed path in pinned original source and retain the existing function, authority and feedback requirements. This is a PROPOSAL, not a shipped witness or an Index grade].
 
 **Explicit non-goals:** [No unsolicited S4 controller, new S5 policy owner, blanket parent authority, unrelated six-function upgrades or standalone framework if native components suffice].

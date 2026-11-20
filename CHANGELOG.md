@@ -1,12 +1,16 @@
 # Upstream contribution-protocol changelog
 
-**Current integrated protocol:** [v0.18.0](VERSION) · [Versioning](VERSIONING.md) · [Migration](docs/MIGRATION.md).
+**Current integrated protocol:** [v0.18.1](VERSION) · [Versioning](VERSIONING.md) · [Migration](docs/MIGRATION.md).
 
 **Release authority:** [GitHub Releases](https://github.com/opensiro/upstream/releases) and immutable tags determine which protocol snapshots are published. The v0.17.0 owner-agreed bundle consolidates work since the previously published v0.13.0 baseline. Versions v0.14–v0.16 remain historical integrated main snapshots, not separately published releases.
 
 ## Unreleased
 
-_No additional changes beyond the consolidated v0.18.0 package._
+_No changes after v0.18.1._
+
+## [0.18.1](changes/v0.18.1.md) — Native-specific Roadmap design guidance
+
+**PATCH, 2026-11-20.** Nonbinding clarification of v0.18.0: recommend that `Sx=C` Roadmap proposals identify the original harness's concrete first-party state, interfaces, authority, effect, feedback and smallest missing integration instead of merely renaming a generic VSM controller. This does **not** create scoring, acceptance gates, new metrics, cost/product-value proof or changes to `GO / NO_GO / BLOCKED`, Index assessment, maintainer authority or external publication. Documentation, Human/AI templates and independent rerun guidance are aligned.
 
 ## [0.18.0](changes/v0.18.0.md) — Whole-repository six-function C construction and independent reruns
 
