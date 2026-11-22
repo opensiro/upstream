@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
-from validate_public_issue_payload import check_payload, render_fork
+from validate_public_issue_payload import check_payload, render_fork, accepted_version
 from test_roadmap_publication_template_gate import fill, PROPOSAL
 
 REF = "8a264aa1c2da59e5c3d17fbbc893ddf80a2850cb"
@@ -79,6 +79,22 @@ class PublicIssuePayloadTests(unittest.TestCase):
         title, body = render_fork(self.case, self.repo, REF)
         errors = self.check(title, body, "original")
         self.assertTrue(any("external template seven section mismatch" in e for e in errors), errors)
+
+    def test_external_methodology_legacy_alias_is_accepted(self):
+        receipt = "- Accepted Skills methodology version: 0.3.1\n"
+        self.assertEqual(accepted_version(receipt, "Accepted Methodology version",
+                                          "Accepted Skills methodology version"), "0.3.1")
+        self.assertEqual(accepted_version(
+            "- Assessment procedure version: 0.3.1\n",
+            "Accepted Methodology version", "Assessment procedure version"), "0.3.1")
+
+    def test_external_methodology_conflicting_versions_fail_closed(self):
+        receipt = ("- Accepted Methodology version: 0.3.1\n"
+                   "- Accepted Skills methodology version: 0.4.0\n")
+        self.assertIsNone(accepted_version(receipt, "Accepted Methodology version",
+                                            "Accepted Skills methodology version"))
+        self.assertIsNone(accepted_version("", "Accepted Methodology version",
+                                            "Accepted Skills methodology version"))
 
     def test_mismatch_to_current_source_head_fails(self):
         title, body = render_fork(self.case, self.repo, REF)

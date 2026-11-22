@@ -32,6 +32,16 @@ ORIGINAL_FIELDS = (
 )
 
 
+def accepted_version(receipt, *aliases):
+    """Read historical version without renaming legacy canonical receipt fields.
+
+    Missing or inconsistent aliases must fail closed; this only normalizes
+    provenance key spelling, never an Index grade or permission.
+    """
+    values = {v for key in aliases if (v := value(receipt, key))}
+    return next(iter(values)) if len(values) == 1 else None
+
+
 def checksum(value):
     return hashlib.sha256(value.encode("utf-8")).hexdigest()
 
@@ -104,11 +114,20 @@ def check_payload(kind, case, repo, ref, title, body, source_head=""):
                               + r"\s*·[^|]*\*\*\s*\|[^|]*\|\s*([^|]*?)\s*\|", body)
             if len(rows) != 1 or rows[0].strip() != vector.get(fn):
                 errors.append("external accepted vector row mismatch: " + fn)
-        for key in ("Accepted Index commit", "Accepted assessment blob SHA", "Accepted review ref",
-                    "Accepted reviewed at", "Accepted Profile version", "Accepted Methodology version"):
+        for key in ("Accepted Index commit", "Accepted assessment blob SHA",
+                    "Accepted review ref", "Accepted reviewed at"):
             v = value(receipt, key)
             if not v or v not in body:
                 errors.append("external missing historical pin: " + key)
+        for canonical, aliases in (
+            ("Accepted Profile version", ("Accepted Profile version", "Profile version")),
+            ("Accepted Methodology version",
+             ("Accepted Methodology version", "Accepted Skills methodology version",
+              "Skills methodology version", "Assessment procedure version")),
+        ):
+            v = accepted_version(receipt, *aliases)
+            if not v or v not in body:
+                errors.append("external missing or conflicting historical pin: " + canonical)
         for grade in ("A", "C", "P", "A(P)", "C(P)", "—", "?"):
             if chr(96) + grade + chr(96) not in body:
                 errors.append("external missing state definition: " + grade)
