@@ -6,6 +6,8 @@
 
 ## Unreleased
 
+- **Original Roadmap external payload case identity (2026-11-22):** The exact public-Issue validator now rejects external drafts whose target GitHub original or source-described Sx transition differs from the single existing canonical `roadmap.md` case, even when accepted Index provenance and six-function grades still match. This fail-closed lineage check is structural; it does not claim content equivalence, maintainer demand, or publication consent.
+
 - **Roadmap single-case publication lineage (2026-11-22):** The existing fork-local `issue.md` is the one Human proposal; `original-issue-draft.md` is its original-native external text representation, not another research case or independently selected feature. A public fork GitHub Issue is optional; disabled fork Issues do not require new cases, enabling settings, or block separately approved original publication. All native form, dedup, provenance and exact consent checks remain.
 
 - Issue Form title default is advisory (2026-11-22): Correct the native-feature checker so a GitHub prefilled title suggestion is not enforced as an immutable prefix. A nonempty title, required fields, human-reported checkbox, freshness and exact owner approval remain separate.
