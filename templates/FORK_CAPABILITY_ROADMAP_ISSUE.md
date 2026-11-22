@@ -1,7 +1,10 @@
 # [HARNESS] — [selected Sx transition or no qualified C target] (Opensiro roadmap)
 
 <!--
-HUMAN FORK-LOCAL Issue, not an original-maintainer Issue.
+HUMAN FORK-LOCAL Issue: the one existing Human proposal in this case,
+not an original-maintainer Issue. Adapt any original-issue-draft.md from
+this issue.md and the same roadmap.md; it is not a new proposal/case.
+Publishing a fork GitHub Issue is optional (has_issues=false is allowed).
 Fill from the single case-local roadmap.md receipt and current pinned sources.
 No invented need, Index regrade, tests, maintainer consent or publication.
 Technical ports and extended tests belong in constructor-sufficiency.md.
