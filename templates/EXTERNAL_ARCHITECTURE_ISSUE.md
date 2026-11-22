@@ -9,7 +9,18 @@ adapt to the original native channel/form without a new Human issue or case.
 The external target original repo and exact Sx target transition must match
 canonical roadmap.md; do not silently reselect a different project/function
 just because the same historical Index provenance is quoted.
-A public fork GitHub Issue is optional, not a prerequisite for original outreach. Replace all placeholders with original-native, source-pinned evidence.
+A public fork GitHub Issue is optional, not a prerequisite for original outreach.
+Before requesting owner approval, present (outside the outward Issue body) the
+original repository's live native issue-form/template permalink at observed SHA
+(or verified Discussion category/rules), required/optional fields, checkboxes,
+human attestation rules, title default and labels, followed by the exact full
+proposed external title/body and a field-by-field match/deviation summary.
+Link to this same-case draft but never replace showing full text with the link.
+If the native form cannot be verified, mandatory fields are missing or text
+changes after consent, stop and request a new full preview and exact approval.
+If no Issue template exists, present proof of absence and blank-Issue permission.
+Do not include this approval checklist in the public Issue itself.
+Replace all placeholders with original-native, source-pinned evidence.
 Validate the exact final original-facing title/body with
 scripts/validate_public_issue_payload.py --kind original before asking consent.
 Verify original repo contribution/issue rules and deduplicate live Issues/PRs.

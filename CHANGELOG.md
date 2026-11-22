@@ -6,6 +6,8 @@
 
 ## Unreleased
 
+- **Owner-visible native Issue template approval preview (2026-11-22):** Before requesting any external Roadmap public Issue/Discussion approval, show the verified original-first-party template/category permalink, all required and optional fields and human-only checkboxes, advisory title/labels, exact full outbound title/body and a field-by-field gap comparison; a saved draft link alone cannot substitute for full text. Recheck and present again after any meaningful change, fail closed on missing native requirements, and preserve separate exact publication consent.
+
 - **Original Roadmap external payload case identity (2026-11-22):** The exact public-Issue validator now rejects external drafts whose target GitHub original or source-described Sx transition differs from the single existing canonical `roadmap.md` case, even when accepted Index provenance and six-function grades still match. This fail-closed lineage check is structural; it does not claim content equivalence, maintainer demand, or publication consent.
 
 - **Roadmap single-case publication lineage (2026-11-22):** The existing fork-local `issue.md` is the one Human proposal; `original-issue-draft.md` is its original-native external text representation, not another research case or independently selected feature. A public fork GitHub Issue is optional; disabled fork Issues do not require new cases, enabling settings, or block separately approved original publication. All native form, dedup, provenance and exact consent checks remain.
