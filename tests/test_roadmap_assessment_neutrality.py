@@ -30,7 +30,7 @@ class NeutralityContractTest(unittest.TestCase):
         self.check("docs/ROADMAP_INDEPENDENT_RERUN.md",
                    "Assess architectural C sufficiency")
     def test_release(self):
-        self.check("VERSION", "0.18.2")
+        self.check("VERSION", "0.18.3")
         self.check("CHANGELOG.md", "Assessment neutrality / maintainer-owned adoption")
         self.check("changes/v0.18.0.md", "Assessment-neutral constructibility")
 

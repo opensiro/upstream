@@ -32,6 +32,8 @@ An immutable Git tag `vX.Y.Z` may be created on the validated integration commit
 
 **Owner-requested v0.18.2 PATCH consolidation (2026-11-20):** The owner approved finalizing the selected 0.18.1 to 0.18.2 PATCH. It repairs a demonstrated failure to enforce existing Human/AI publication templates (merged PR #90), includes already merged Roadmap reporting hygiene, and preserves the integrated, untagged v0.18.1 advisory clarification. The previous verified tag was v0.18.0. Do not imply a retroactive v0.18.1 release. There is no new C eligibility, score, metric, Index grade or third-party publication permission; the tag and Release are separately verified artifacts.
 
+**Owner-requested v0.18.3 PATCH consolidation (2026-11-22):** The owner approved the v0.18.2 to v0.18.3 template-publication repair. It closes the demonstrated mismatch between a template-validated stored Human case and a different free-form public GitHub Issue, bundling the post-v0.18.2 canonical case-write guard (PR #92). This enforces existing rules; it does not introduce new demand, score, VSM eligibility, Index grades or outward-publication authority. Versioning remains reviewable via a PR; a tag/Release is a separate verified action.
+
 ## GitHub Releases
 
 When an **owner-agreed** release is published, it must refer to a validated integration commit on this repository's default branch. Its immutable `vX.Y.Z` tag must match `VERSION`, `CHANGELOG.md`, and the corresponding `changes/vX.Y.Z.md` package at that commit. Release notes must describe the **protocol change** and explicitly disclose unfinished implementation, migration or outcome verification when applicable.

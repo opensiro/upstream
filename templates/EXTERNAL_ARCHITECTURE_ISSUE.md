@@ -4,6 +4,8 @@
 DRAFT — NOT PUBLISHED.
 This is an ORIGINAL-MAINTAINER-FACING Issue, distinct from the internal fork-local
 Roadmap. Replace all placeholders with original-native, source-pinned evidence.
+Validate the exact final original-facing title/body with
+scripts/validate_public_issue_payload.py --kind original before asking consent.
 Verify original repo contribution/issue rules and deduplicate live Issues/PRs.
 Do not create an external Issue, PR or comment without separate exact
 current-conversation approval of destination, action and complete public text.

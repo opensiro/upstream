@@ -1,12 +1,18 @@
 # Upstream contribution-protocol changelog
 
-**Current integrated protocol:** [v0.18.2](VERSION) · [Versioning](VERSIONING.md) · [Migration](docs/MIGRATION.md).
+**Current integrated protocol:** [v0.18.3](VERSION) · [Versioning](VERSIONING.md) · [Migration](docs/MIGRATION.md).
 
 **Release authority:** [GitHub Releases](https://github.com/opensiro/upstream/releases) and immutable tags determine which protocol snapshots are published. The v0.17.0 owner-agreed bundle consolidates work since the previously published v0.13.0 baseline. Versions v0.14–v0.16 remain historical integrated main snapshots, not separately published releases.
 
 ## Unreleased
 
-- **Roadmap case-write template correctness:** Require the existing case receipt and full Human/AI template preflights both before every new/materially revised canonical fork-local Roadmap case write and after exact commit readback, not only before external PRs. Versioned refinements must edit numbered sections in place; the existing template validator now rejects appended unnumbered level-two technical/process sections. Add regression tests for forbidden appendices while allowing nested source evidence. This change introduces no new score, metric, source-of-truth repository, VSM grade or external publication consent. Version/release remains v0.18.2 pending a separately agreed bundle.
+## [0.18.3](changes/v0.18.3.md) — Last-mile exact public Roadmap Issue template checks
+
+**PATCH, 2026-11-22; owner requested.** Repairs two bypasses of already-required Roadmap publication templates without changing VSM constructibility semantics, permission or needing proof of product demand.
+
+- **Public Issue payload gate:** In addition to the canonical case checks, verify the final **title and complete GitHub body** against the correct fork Human or original maintainer architecture template. Fork-public text must be a deterministic rendering of the verified stored Human Issue; external-original text has its own heading, vector, state glossary and provenance checks. The previous free-form OpenCode draft now fails regression; hashes detect body drift.
+- **Canonical case-write gate:** Includes already merged [PR #92](https://github.com/opensiro/upstream/pull/92), applying eight-section Human and six-section AI template preflight on every new/materially revised case write and exact committed readback. Reject appended unnumbered technical refinements.
+- **Preserved boundaries:** Source-pinned accepted Index remains historic, human S3–S5 organization is not inferred, a proposed `GO / NEEDS_EVIDENCE` constructor need not have proven user demand, and original maintainers decide product adoption. No automatic Issue, PR, release, new score, new product-demand condition or external publication consent.
 
 ## [0.18.2](changes/v0.18.2.md) — Fail-closed Roadmap publication-template preflight
 
