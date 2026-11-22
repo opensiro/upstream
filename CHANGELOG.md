@@ -6,6 +6,9 @@
 
 ## Unreleased
 
+- **Original-Issue evidence key compatibility (2026-11-22):** The last-mile external payload validator now reads consistent legacy source-receipt Profile/Skills version field names as aliases, including the existing Cline case's Accepted Skills methodology version; missing or contradictory aliases still fail closed. Does not modify the canonical roadmap, Grade/Index assessment, external publication consent, or current protocol VERSION.
+
+
 ## [0.18.3](changes/v0.18.3.md) — Last-mile exact public Roadmap Issue template checks
 
 **PATCH, 2026-11-22; owner requested.** Repairs two bypasses of already-required Roadmap publication templates without changing VSM constructibility semantics, permission or needing proof of product demand.
