@@ -6,6 +6,8 @@
 
 ## Unreleased
 
+- **Pilot public destination preflight (2026-11-22):** The new read-only `scripts/preflight_publication_destination.py` fails closed on disabled fork Issues, wrong original/fork identity and original Feature Requests redirected to Discussions, with 13 regression cases and live AG2/Cline source checks. A route PASS never supplies consent or independent product evidence.
+
 - **Public Roadmap pilot route (2026-11-22):** Link the owner-reviewed Upstream #93 Phase B evaluation and separate non-effective Organization #345 S5 decision proposal from the existing external-publication gate. Clarify original Issues, fork Issues and maintainer-directed Discussions as separate public action classes without enabling auto-publication.
 
 - **Original-Issue evidence key compatibility (2026-11-22):** The last-mile external payload validator now reads consistent legacy source-receipt Profile/Skills version field names as aliases, including the existing Cline case's Accepted Skills methodology version; missing or contradictory aliases still fail closed. Does not modify the canonical roadmap, Grade/Index assessment, external publication consent, or current protocol VERSION.
