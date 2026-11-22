@@ -4,7 +4,7 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
-from preflight_publication_destination import route_errors, feature_form_requirements, feature_form_payload_errors
+from preflight_publication_destination import route_errors, feature_form_requirements, feature_form_payload_errors, expected_source_head_errors
 
 AG2 = "ag2ai/ag2"
 FORK = "opensiro-contributions/ag2"
@@ -40,6 +40,16 @@ class PublicationDestinationTests(unittest.TestCase):
         complete = ("### Motivation\nObserved user problem\n"
                     "- [x] A human has read this issue and stands behind it.\n")
         self.assertEqual(feature_form_payload_errors(spec,"feat: proposal",complete), [])
+
+    def test_original_head_drift_is_fatal_even_when_form_fits(self):
+        old = "f4627bc5a305450b2cb93967ae631324c9a9ce22"
+        new = "a47ce14d1d187fc17fa8f56d12e5d5e59874f655"
+        self.assertEqual(expected_source_head_errors(old, new), ["ORIGINAL_SOURCE_HEAD_DRIFTED"])
+        self.assertEqual(expected_source_head_errors(new, new), [])
+
+    def test_missing_original_pin_fails_closed(self):
+        self.assertIn("ORIGINAL_SOURCE_HEAD_NOT_PINNED",
+                      expected_source_head_errors("", "a"*40))
 
     def test_unknown_issue_form_stops_preflight(self):
         for text in ("", "body:\n  - type: new_nonstandard_type\n", "name: No form"):

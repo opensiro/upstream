@@ -118,6 +118,17 @@ def feature_form_payload_errors(spec, title, body):
     return errors
 
 
+def expected_source_head_errors(expected, actual):
+    """Require same observed original default-branch SHA for publication attempts."""
+    if not expected or not re.fullmatch(r"[0-9a-f]{40}", expected):
+        return ["ORIGINAL_SOURCE_HEAD_NOT_PINNED"]
+    if not actual or not re.fullmatch(r"[0-9a-f]{40}", actual):
+        return ["ORIGINAL_SOURCE_HEAD_NOT_VERIFIED"]
+    if expected != actual:
+        return ["ORIGINAL_SOURCE_HEAD_DRIFTED"]
+    return []
+
+
 def gh_api(path):
     result = subprocess.run(["gh", "api", path], text=True, capture_output=True, check=False)
     if result.returncode:
@@ -174,6 +185,7 @@ def main():
     parser.add_argument("--purpose", choices=["feature_request"], default="feature_request")
     parser.add_argument("--title-file")
     parser.add_argument("--body-file")
+    parser.add_argument("--source-head", help="original default-branch HEAD used in the draft")
     args = parser.parse_args()
     errors = []
     proof = {"source": "GitHub first-party gh api", "observed_at": datetime.now(timezone.utc)
@@ -213,6 +225,17 @@ def main():
                             Path(args.body_file).read_text()))
                     elif args.title_file or args.body_file:
                         errors.append("TITLE_AND_BODY_REQUIRED_TOGETHER")
+            if args.title_file or args.body_file or args.source_head:
+                current_original = (gh_api("repos/" + args.original) if args.original != args.target
+                                    else repo)
+                original_branch = current_original.get("default_branch")
+                if not original_branch:
+                    errors.append("ORIGINAL_DEFAULT_BRANCH_NOT_VERIFIED")
+                else:
+                    current_head = gh_api("repos/" + args.original + "/branches/" +
+                                          original_branch)["commit"]["sha"]
+                    proof["current_original_head"] = current_head
+                    errors.extend(expected_source_head_errors(args.source_head, current_head))
             proof["repository"] = {"full_name": repo.get("full_name"), "fork": repo.get("fork"),
                                     "parent": repo.get("parent", {}).get("full_name"),
                                     "has_issues": repo.get("has_issues"),
@@ -228,7 +251,9 @@ def main():
                        else "PUBLICATION_BLOCKED_DESTINATION")
     proof["errors"] = errors
     proof["approval"] = "REQUIRES_EXACT_CURRENT_CONVERSATION_OWNER_CONSENT"
-    proof["other_gates"] = ("Original Issue forms need --title-file and --body-file before posting. "
+    proof["other_gates"] = ("When checking an actual publication body supply exact --source-head "
+                            "to fail on original default-branch drift. "
+                            "Original Issue forms need --title-file and --body-file before posting. "
                             "Checked human signoffs are not proof of real human reading. "
                             "Still verify human intent, "
                             "current source, license, duplicate search, body template, "
