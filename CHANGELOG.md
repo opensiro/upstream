@@ -6,6 +6,9 @@
 
 ## Unreleased
 
+- **Native Markdown Feature Request section precedence (2026-11-22):** Keep the provider-required top-level Markdown fields exactly and move all seven Opensiro original-facing sections to nested evidence under its Additional Context. Accept this layout only with a verified first-party legacy Markdown template and both native and source-pinned public-payload preflights; YAML Forms, exact approval and provenance remain unchanged.
+
+
 - **Owner-visible native Issue template approval preview (2026-11-22):** Before requesting any external Roadmap public Issue/Discussion approval, show the verified original-first-party template/category permalink, all required and optional fields and human-only checkboxes, advisory title/labels, exact full outbound title/body and a field-by-field gap comparison; a saved draft link alone cannot substitute for full text. Recheck and present again after any meaningful change, fail closed on missing native requirements, and preserve separate exact publication consent.
 
 - **Original Roadmap external payload case identity (2026-11-22):** The exact public-Issue validator now rejects external drafts whose target GitHub original or source-described Sx transition differs from the single existing canonical `roadmap.md` case, even when accepted Index provenance and six-function grades still match. This fail-closed lineage check is structural; it does not claim content equivalence, maintainer demand, or publication consent.

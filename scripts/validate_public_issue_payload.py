@@ -6,6 +6,8 @@ import json
 import re
 from pathlib import Path
 from validate_capability_roadmap import value
+from preflight_publication_destination import (markdown_feature_template_requirements,
+                                            markdown_feature_payload_errors)
 from validate_roadmap_publication import (
     check_publication_ready, headings_match, required_labels, unfilled_placeholders,
     HUMAN_LABELS, TEMPLATE, ROW, FUNCTIONS,
@@ -122,7 +124,34 @@ def render_fork(case, repo, ref):
     return title_match.group(1).strip(), body + "\n"
 
 
-def check_payload(kind, case, repo, ref, title, body, source_head=""):
+def original_section_layout_errors(body, native_markdown_template=None):
+    """Keep seven OpenSiro evidence sections even when the provider has 5 ## fields.
+
+    No template: existing seven-## contract. Native Markdown template: provider
+    headings are the exactly checked ## sections; all seven OpenSiro evidence
+    sections appear as ### beneath provider 'Additional Context'. This is not
+    an exemption from provider requirements or a permit to publish.
+    """
+    if native_markdown_template is None:
+        return ([] if re.findall(r"(?m)^## (.+?)\s*$", body) == ORIGINAL_SECTIONS
+                else ["external template seven section mismatch"])
+    try:
+        spec = markdown_feature_template_requirements(native_markdown_template)
+    except ValueError as exc:
+        return ["native Markdown feature template not verified: " + str(exc)]
+    errors = []
+    if re.findall(r"(?m)^## (.+?)\s*$", body) != spec["required_sections"]:
+        errors.append("native Markdown top-level feature sections mismatch")
+    errors.extend(markdown_feature_payload_errors(spec, body))
+    if re.findall(r"(?m)^### (.+?)\s*$", body) != ORIGINAL_SECTIONS:
+        errors.append("nested original template seven section mismatch")
+    tail = body.split("## Additional Context\n", 1)
+    if len(tail) != 2 or ("### " + ORIGINAL_SECTIONS[0]) not in tail[1]:
+        errors.append("nested original sections must be under native Additional Context")
+    return list(dict.fromkeys(errors))
+
+
+def check_payload(kind, case, repo, ref, title, body, source_head="", native_markdown_template=None):
     errors = ["canonical case: " + e for e in check_publication_ready(case)]
     if errors:
         return errors
@@ -152,8 +181,7 @@ def check_payload(kind, case, repo, ref, title, body, source_head=""):
     elif kind == "original":
         if not title.startswith("Proposal: ") or "Opensiro VSM architecture review" not in title:
             errors.append("external template title mismatch")
-        if re.findall(r"(?m)^## (.+?)\s*$", body) != ORIGINAL_SECTIONS:
-            errors.append("external template seven section mismatch")
+        errors.extend(original_section_layout_errors(body, native_markdown_template))
         for field in ORIGINAL_FIELDS:
             if not re.search(r"(?m)^\*\*" + re.escape(field) + r":\*\*\s*\S", body):
                 errors.append("external missing populated field: " + field)
@@ -213,6 +241,8 @@ def main():
     p.add_argument("--title-file", type=Path, required=True)
     p.add_argument("--body-file", type=Path, required=True)
     p.add_argument("--source-head", default="")
+    p.add_argument("--native-markdown-template-file", type=Path,
+                   help="verified first-party Markdown Feature Request template for original; used with live route preflight")
     p.add_argument("--render-fork", action="store_true")
     a = p.parse_args()
     if a.render_fork:
@@ -235,7 +265,17 @@ def main():
     except OSError as exc:
         print("PUBLICATION_BLOCKED_TEMPLATE_MISMATCH: " + str(exc))
         return 1
-    errors = check_payload(a.kind, a.case_dir, a.repo, a.case_ref, title, body, a.source_head)
+    native_markdown_template = None
+    if a.native_markdown_template_file:
+        if a.kind != "original":
+            p.error("--native-markdown-template-file is only for original Issues")
+        try:
+            native_markdown_template = a.native_markdown_template_file.read_text(encoding="utf-8")
+        except OSError as exc:
+            print("PUBLICATION_BLOCKED_TEMPLATE_MISMATCH: native Markdown template unreadable: " + str(exc))
+            return 1
+    errors = check_payload(a.kind, a.case_dir, a.repo, a.case_ref, title, body,
+                           a.source_head, native_markdown_template)
     if errors:
         for error in errors:
             print("PUBLICATION_BLOCKED_TEMPLATE_MISMATCH: " + error)
