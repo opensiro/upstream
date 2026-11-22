@@ -158,6 +158,7 @@ def check_payload(kind, case, repo, ref, title, body, source_head=""):
             if not re.search(r"(?m)^\*\*" + re.escape(field) + r":\*\*\s*\S", body):
                 errors.append("external missing populated field: " + field)
         receipt = (case / "roadmap.md").read_text(encoding="utf-8")
+        errors += original_case_lineage_errors(receipt, repo, body)
         vector = dict(part.split("=", 1) for part in value(receipt, "Accepted VSM vector").split(" · "))
         for fn in FUNCTIONS:
             rows = re.findall(r"(?m)^\|\s*\*\*" + re.escape(fn)
@@ -182,6 +183,25 @@ def check_payload(kind, case, repo, ref, title, body, source_head=""):
         if "NOT_MEASURED" not in body:
             errors.append("external cost must be NOT_MEASURED")
     return list(dict.fromkeys(errors))
+
+
+def original_case_lineage_errors(receipt, original_repo, original_body):
+    """Check the external text has the SAME original and Sx target as its case.
+
+    This is a deterministic identity/target guard, not a semantic review or
+    permission to publish. Other gates check historical grades and provenance.
+    """
+    errors = []
+    canonical_original = value(receipt, "Original repository")
+    if not canonical_original or canonical_original.casefold() != original_repo.casefold():
+        errors.append("external original destination differs from canonical case")
+    transition = value(receipt, "Target transition")
+    if not transition:
+        errors.append("canonical case target transition is missing")
+    elif (transition not in original_body and
+          transition.replace(" -> ", " → ") not in original_body):
+        errors.append("external proposal target differs from canonical case")
+    return errors
 
 
 def main():

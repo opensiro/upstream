@@ -8,7 +8,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 from validate_public_issue_payload import (check_payload, render_fork, accepted_version,
-                                           accepted_profile_skills_versions, accepted_index_commit)
+                                           accepted_profile_skills_versions, accepted_index_commit,
+                                           original_case_lineage_errors)
 from test_roadmap_publication_template_gate import fill, PROPOSAL
 
 REF = "8a264aa1c2da59e5c3d17fbbc893ddf80a2850cb"
@@ -75,6 +76,34 @@ class PublicIssuePayloadTests(unittest.TestCase):
     def test_wrong_fork_fails(self):
         with self.assertRaisesRegex(ValueError, "identity"):
             render_fork(self.case, "opensiro-contributions/different", REF)
+
+    def test_external_original_is_bound_to_existing_case_identity(self):
+        receipt = ("- Original repository: VoltAgent/voltagent\n"
+                   "- Target transition: S3=— -> S3=C\n")
+        text = "A proposed change preserving S3=— -> S3=C from the same case."
+        self.assertEqual(original_case_lineage_errors(receipt, "VoltAgent/voltagent", text), [])
+        self.assertEqual(original_case_lineage_errors(receipt, "voltagent/VOLTAgent", text), [])
+
+    def test_external_destination_cannot_change_project_with_same_index_receipt(self):
+        receipt = ("- Original repository: VoltAgent/voltagent\n"
+                   "- Target transition: S3=— -> S3=C\n")
+        errors = original_case_lineage_errors(receipt, "other-org/other-agent",
+                                               "S3=— -> S3=C")
+        self.assertIn("external original destination differs from canonical case", errors)
+
+    def test_external_draft_cannot_silently_reselect_other_function(self):
+        receipt = ("- Original repository: VoltAgent/voltagent\n"
+                   "- Target transition: S3=— -> S3=C\n")
+        errors = original_case_lineage_errors(receipt, "VoltAgent/voltagent",
+                                               "New proposal: S4=— -> S4=C.")
+        self.assertIn("external proposal target differs from canonical case", errors)
+        self.assertEqual(original_case_lineage_errors(
+            receipt, "VoltAgent/voltagent", "Preserve S3=— → S3=C"), [])
+
+    def test_external_without_canonical_identity_is_not_publishable(self):
+        errors = original_case_lineage_errors("", "VoltAgent/voltagent", "S3=— -> S3=C")
+        self.assertIn("external original destination differs from canonical case", errors)
+        self.assertIn("canonical case target transition is missing", errors)
 
     def test_original_requires_separate_template(self):
         title, body = render_fork(self.case, self.repo, REF)

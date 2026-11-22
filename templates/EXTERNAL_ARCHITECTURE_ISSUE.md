@@ -6,6 +6,9 @@ This is an ORIGINAL-MAINTAINER-FACING representation of the existing
 fork-local case, NOT an independent second proposal. Derive and store
 original-issue-draft.md from the existing verified issue.md and roadmap.md;
 adapt to the original native channel/form without a new Human issue or case.
+The external target original repo and exact Sx target transition must match
+canonical roadmap.md; do not silently reselect a different project/function
+just because the same historical Index provenance is quoted.
 A public fork GitHub Issue is optional, not a prerequisite for original outreach. Replace all placeholders with original-native, source-pinned evidence.
 Validate the exact final original-facing title/body with
 scripts/validate_public_issue_payload.py --kind original before asking consent.
