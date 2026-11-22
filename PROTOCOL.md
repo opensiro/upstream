@@ -364,6 +364,8 @@ The [historical effective restriction](https://github.com/opensiro/upstream-old/
 
 Internal OpenSiro research/doc/issues/PRs and independently authorized working branch preparation follow their own grants. Third-party external actions also require legal/CLA/DCO/provider permissions and actual executor rights. Record missing permission as blocked; do not post.
 
+**Roadmap public-discussion pilot — source of progress, not standing authority:** [Upstream #93](https://github.com/opensiro/upstream/issues/93) records individually approved outward actions, exact-payload readbacks and the Phase B review. The [separate Organization S5 proposal #345](https://github.com/opensiro/vsm-oss-organization/issues/345) is **PROPOSED / NOT_EFFECTIVE**; publication counts or a passed validator do not activate it. Distinguish a fork Issue, an original maintainer Issue and a provider-directed GitHub Discussion as **different destinations/action classes**; check the original repository's feature-request channel and obtain exact owner consent for the chosen target/title/complete text before posting. A Discussion is not silently counted as an Issue or as an authorized action class.
+
 ## Migration and metrics
 
 The predecessor protocol through v0.11.0 and frozen original historical sources live in [upstream-old](https://github.com/opensiro/upstream-old). v0.12.0 case-first Upstream issues remain valid historical coordination records; **v0.13.0 moves detailed ownership to fork-local metadata**, and [migration #2](https://github.com/opensiro/upstream/issues/2) covers reviewed per-fork parallel extraction and status progress. Do not rewrite historical evidence or assume a fork exists.
