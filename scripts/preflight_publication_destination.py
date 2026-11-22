@@ -40,16 +40,20 @@ def route_errors(target, original, kind, purpose, repo, templates=None, config=N
         if repo.get("has_issues") is not True:
             errors.append("ISSUES_DISABLED")
         if kind == "original_issue":
-            if templates is None or config is None:
+            if templates is None:
                 errors.append("ISSUE_CHANNEL_EVIDENCE_UNVERIFIED")
             else:
                 template_names = {x.get("name", "").lower() for x in templates
                                   if isinstance(x, dict)}
+                if config is None and not any(
+                    re.fullmatch(r"feature[_-]request\.md", name)
+                    for name in template_names):
+                    errors.append("ISSUE_CHANNEL_EVIDENCE_UNVERIFIED")
                 feature_template = any("feature" in name and "request" in name
                                        for name in template_names)
                 discussion_route = bool(re.search(
                     r"(?is)https?://github\.com/[^/\s\"']+/[^/\s\"']+/discussions/"
-                    r"(?:categories/[^ \n\"']*feature|[^ \n\"']*feature)", config))
+                    r"(?:categories/[^ \n\"']*feature|[^ \n\"']*feature)", config or ""))
                 if discussion_route and not feature_template:
                     errors.append("FEATURE_REQUEST_ROUTED_TO_DISCUSSIONS")
                 if discussion_route and feature_template:
@@ -127,6 +131,33 @@ def expected_source_head_errors(expected, actual):
     if expected != actual:
         return ["ORIGINAL_SOURCE_HEAD_DRIFTED"]
     return []
+
+
+def markdown_feature_template_requirements(text):
+    """Fail closed on unrecognized legacy Markdown Issue Template frontmatter."""
+    if not text or not re.match(r"(?s)^---\n.+?\n---\n", text):
+        raise ValueError("MARKDOWN_FEATURE_FRONTMATTER_MISSING")
+    head = text.split("---", 2)[1]
+    if not re.search(r"(?mi)^name:\s*feature request\s*$", head):
+        raise ValueError("MARKDOWN_FEATURE_TEMPLATE_IDENTITY_UNVERIFIED")
+    headings = re.findall(r"(?m)^## (.+?)\s*$", text)
+    if not headings:
+        raise ValueError("MARKDOWN_FEATURE_SECTIONS_UNVERIFIED")
+    return {"required_sections": headings}
+
+
+def markdown_feature_payload_errors(spec, body):
+    errors = []
+    for label in spec["required_sections"]:
+        match = re.search(r"(?ms)^##\s+" + re.escape(label)
+                          + r"\s*$\n(.*?)(?=^## |\Z)", body)
+        if not match:
+            errors.append("NATIVE_MARKDOWN_FEATURE_SECTION_MISSING: "+label)
+            continue
+        content = re.sub(r"(?s)<!--.*?-->", "", match.group(1)).strip()
+        if not content or content.upper() in ("NOT_ENOUGH_INFO", "TBD", "N/A"):
+            errors.append("NATIVE_MARKDOWN_FEATURE_SECTION_UNFILLED: "+label)
+    return errors
 
 
 def gh_api(path):
@@ -209,21 +240,29 @@ def main():
                                   repo, templates, config, categories)
             if args.kind == "original_issue" and not errors:
                 form_names = [x.get("name") for x in templates or []
-                              if re.fullmatch(r"(?i)feature[_-]request\.ya?ml", x.get("name", ""))]
+                              if re.fullmatch(r"(?i)feature[_-]request\.(?:ya?ml|md)", x.get("name", ""))]
                 if len(form_names) != 1:
                     errors.append("FEATURE_REQUEST_FORM_NOT_UNIQUE")
                 else:
+                    from pathlib import Path
                     path = ".github/ISSUE_TEMPLATE/" + form_names[0]
-                    spec = feature_form_requirements(get_optional_file(args.target, path, ref))
-                    proof["native_feature_form"] = {"path": path, **spec}
-                    proof["human_signoff_requires_real_review"] = any(
-                        re.search(r"(?i)human", v) for v in spec["required_checkboxes"])
-                    if args.title_file and args.body_file:
-                        from pathlib import Path
-                        errors.extend(feature_form_payload_errors(
-                            spec, Path(args.title_file).read_text(),
-                            Path(args.body_file).read_text()))
-                    elif args.title_file or args.body_file:
+                    template = get_optional_file(args.target, path, ref)
+                    if path.lower().endswith(".md"):
+                        spec = markdown_feature_template_requirements(template)
+                        proof["native_markdown_feature_template"] = {"path": path, **spec}
+                        if args.title_file and args.body_file:
+                            errors.extend(markdown_feature_payload_errors(
+                                spec, Path(args.body_file).read_text()))
+                    else:
+                        spec = feature_form_requirements(template)
+                        proof["native_feature_form"] = {"path": path, **spec}
+                        proof["human_signoff_requires_real_review"] = any(
+                            re.search(r"(?i)human", v) for v in spec["required_checkboxes"])
+                        if args.title_file and args.body_file:
+                            errors.extend(feature_form_payload_errors(
+                                spec, Path(args.title_file).read_text(),
+                                Path(args.body_file).read_text()))
+                    if bool(args.title_file) != bool(args.body_file):
                         errors.append("TITLE_AND_BODY_REQUIRED_TOGETHER")
             if args.title_file or args.body_file or args.source_head:
                 current_original = (gh_api("repos/" + args.original) if args.original != args.target
