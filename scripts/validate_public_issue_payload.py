@@ -42,6 +42,30 @@ def accepted_version(receipt, *aliases):
     return next(iter(values)) if len(values) == 1 else None
 
 
+def accepted_index_commit(receipt):
+    """Use a direct Index commit pin or derive it from an immutable Index assessment URL.
+
+    The two representations must agree when both are provided. Never
+    resolve a branch URL, a mutable ref or a conflicting SHA by guessing.
+    """
+    explicit = value(receipt, "Accepted Index commit")
+    index_url = value(receipt, "Accepted Index assessment")
+    pin = None
+    if index_url:
+        match = re.fullmatch(
+            r"https://github\.com/opensiro/vsm-harness-index/blob/"
+            r"([0-9a-f]{40})/assessments/[A-Za-z0-9_./-]+\.md",
+            index_url.strip())
+        if not match:
+            return None
+        pin = match.group(1)
+    if explicit and not re.fullmatch(r"[0-9a-f]{40}", explicit):
+        return None
+    if explicit and pin and explicit != pin:
+        return None
+    return explicit or pin
+
+
 def accepted_profile_skills_versions(receipt):
     """Resolve historical Profile/Skills pins, including a legacy combined receipt.
 
@@ -140,8 +164,10 @@ def check_payload(kind, case, repo, ref, title, body, source_head=""):
                               + r"\s*·[^|]*\*\*\s*\|[^|]*\|\s*([^|]*?)\s*\|", body)
             if len(rows) != 1 or rows[0].strip() != vector.get(fn):
                 errors.append("external accepted vector row mismatch: " + fn)
-        for key in ("Accepted Index commit", "Accepted assessment blob SHA",
-                    "Accepted review ref", "Accepted reviewed at"):
+        index_commit = accepted_index_commit(receipt)
+        if not index_commit or index_commit not in body:
+            errors.append("external missing or conflicting historical pin: Accepted Index commit")
+        for key in ("Accepted assessment blob SHA", "Accepted review ref", "Accepted reviewed at"):
             v = value(receipt, key)
             if not v or v not in body:
                 errors.append("external missing historical pin: " + key)
