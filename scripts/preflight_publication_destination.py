@@ -106,8 +106,10 @@ def feature_form_requirements(text):
 def feature_form_payload_errors(spec, title, body):
     """Syntactic fit only; checked human box is not proof a human reviewed."""
     errors = []
-    if spec.get("title_prefix") and not title.strip().startswith(spec["title_prefix"]):
-        errors.append("NATIVE_FEATURE_TITLE_PREFIX_MISMATCH")
+    if not title.strip():
+        errors.append("NATIVE_FEATURE_TITLE_MISSING")
+    # GitHub Issue Form's title: field is a suggested default, not an
+    # immutable prefix constraint. Preserve it in evidence, not as a veto.
     for label in spec["required_fields"]:
         pattern = r"(?mi)^#{2,6}\s+" + re.escape(label) + r"\s*$\n(?:\s*\n)*([^\n]+)"
         m = re.search(pattern, body)

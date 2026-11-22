@@ -34,12 +34,14 @@ class PublicationDestinationTests(unittest.TestCase):
         self.assertEqual(len(spec["required_checkboxes"]), 1)
         errors = feature_form_payload_errors(
             spec, "Proposal: unsupported", "## OpenSiro VSM roadmap\nSome prose\n")
-        self.assertIn("NATIVE_FEATURE_TITLE_PREFIX_MISMATCH", errors)
+        self.assertNotIn("NATIVE_FEATURE_TITLE_PREFIX_MISMATCH", errors)
         self.assertTrue(any("Motivation" in e for e in errors))
         self.assertTrue(any("human has read" in e for e in errors))
         complete = ("### Motivation\nObserved user problem\n"
                     "- [x] A human has read this issue and stands behind it.\n")
         self.assertEqual(feature_form_payload_errors(spec,"feat: proposal",complete), [])
+        self.assertEqual(feature_form_payload_errors(spec,"Proposal: external architecture",complete), [])
+        self.assertIn("NATIVE_FEATURE_TITLE_MISSING",feature_form_payload_errors(spec,"",complete))
 
     def test_original_head_drift_is_fatal_even_when_form_fits(self):
         old = "f4627bc5a305450b2cb93967ae631324c9a9ce22"
