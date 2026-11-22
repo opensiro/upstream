@@ -7,7 +7,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
-from validate_public_issue_payload import check_payload, render_fork, accepted_version
+from validate_public_issue_payload import (check_payload, render_fork, accepted_version,
+                                           accepted_profile_skills_versions)
 from test_roadmap_publication_template_gate import fill, PROPOSAL
 
 REF = "8a264aa1c2da59e5c3d17fbbc893ddf80a2850cb"
@@ -95,6 +96,25 @@ class PublicIssuePayloadTests(unittest.TestCase):
                                             "Accepted Skills methodology version"))
         self.assertIsNone(accepted_version("", "Accepted Methodology version",
                                             "Accepted Skills methodology version"))
+
+    def test_external_combined_profile_skills_receipt_is_supported(self):
+        receipt = "- Profile / Skills procedure: 0.2.4 / 0.3.8\n"
+        self.assertEqual(accepted_profile_skills_versions(receipt), ("0.2.4", "0.3.8"))
+
+    def test_external_combined_and_separate_consistent_receipts(self):
+        receipt = ("- Profile / Skills procedure: 0.2.4 / 0.3.8\n"
+                   "- Profile version: 0.2.4\n"
+                   "- Assessment procedure version: 0.3.8\n")
+        self.assertEqual(accepted_profile_skills_versions(receipt), ("0.2.4", "0.3.8"))
+
+    def test_external_combined_pin_conflict_fails_closed(self):
+        receipt = ("- Profile / Skills procedure: 0.2.4 / 0.3.8\n"
+                   "- Accepted Profile version: 0.2.5\n")
+        self.assertEqual(accepted_profile_skills_versions(receipt), (None, None))
+        malformed = "- Profile / Skills procedure: maybe / unknown\n"
+        self.assertEqual(accepted_profile_skills_versions(malformed), (None, None))
+        incomplete = "- Profile version: 0.2.4\n"
+        self.assertEqual(accepted_profile_skills_versions(incomplete), (None, None))
 
     def test_mismatch_to_current_source_head_fails(self):
         title, body = render_fork(self.case, self.repo, REF)
