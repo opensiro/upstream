@@ -4,7 +4,7 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
-from preflight_publication_destination import route_errors
+from preflight_publication_destination import route_errors, feature_form_requirements, feature_form_payload_errors
 
 AG2 = "ag2ai/ag2"
 FORK = "opensiro-contributions/ag2"
@@ -20,6 +20,32 @@ def repo(name, **changes):
 
 
 class PublicationDestinationTests(unittest.TestCase):
+    def test_original_form_requires_native_headings_and_human_review(self):
+        form = ("name: Feature request\n"
+                'title: "feat: "\n'
+                "body:\n  - type: textarea\n    attributes:\n      label: Motivation\n"
+                "    validations:\n      required: true\n"
+                "  - type: checkboxes\n    attributes:\n      label: Authorship\n"
+                "      options:\n        - label: A human has read this issue and stands behind it.\n"
+                "          required: true\n")
+        spec = feature_form_requirements(form)
+        self.assertEqual(spec["title_prefix"], "feat:")
+        self.assertIn("Motivation", spec["required_fields"])
+        self.assertEqual(len(spec["required_checkboxes"]), 1)
+        errors = feature_form_payload_errors(
+            spec, "Proposal: unsupported", "## OpenSiro VSM roadmap\nSome prose\n")
+        self.assertIn("NATIVE_FEATURE_TITLE_PREFIX_MISMATCH", errors)
+        self.assertTrue(any("Motivation" in e for e in errors))
+        self.assertTrue(any("human has read" in e for e in errors))
+        complete = ("### Motivation\nObserved user problem\n"
+                    "- [x] A human has read this issue and stands behind it.\n")
+        self.assertEqual(feature_form_payload_errors(spec,"feat: proposal",complete), [])
+
+    def test_unknown_issue_form_stops_preflight(self):
+        for text in ("", "body:\n  - type: new_nonstandard_type\n", "name: No form"):
+            with self.assertRaises(ValueError):
+                feature_form_requirements(text)
+
     def test_disabled_fork_issue_blocks_before_text_draft(self):
         errors = route_errors(FORK, AG2, "fork_issue", "feature_request",
                               repo(FORK, fork=True, parent={"full_name": AG2},

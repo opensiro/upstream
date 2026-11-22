@@ -6,6 +6,8 @@
 
 ## Unreleased
 
+- **Original feature Issue Form preflight (2026-11-22):** The route checker reads first-party required form headings and human authorship checkboxes; validating an exact title/body fails closed when the proposal bypasses required native fields. A checkbox alone is not proof the owner read the issue, and the current exact-owner-approval gate remains independent.
+
 - **Immutable historical Index permalink compatibility (2026-11-22):** Original-Issue payload preflight can derive an exact accepted Index commit from a SHA-pinned Index assessment permalink when the historical case lacks a redundant separate commit field. Conflicting or mutable permalink values remain blocked; no canonical case rewrite or Index grade change.
 
 - **Original-Issue historical combined-version compatibility (2026-11-22):** Exact external payload validation now accepts a verifiable legacy combined `Profile / Skills procedure: X / Y` receipt, as in the valid Gas City case, without rewriting historical source pins. Contradictory or malformed combined/separate versions fail closed. No source freshness, original publication, current Index grade, permission or protocol VERSION is inferred.
