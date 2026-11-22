@@ -67,6 +67,57 @@ def route_errors(target, original, kind, purpose, repo, templates=None, config=N
     return errors
 
 
+def feature_form_requirements(text):
+    """Parse conservative GitHub Issue Form subset; unknown fields fail closed."""
+    if not text or not re.search(r"(?m)^body:\s*$", text):
+        raise ValueError("FEATURE_FORM_BODY_UNVERIFIED")
+    m = re.search(r"(?m)^title:\s*[\"']?([^\\n\"']+)", text)
+    sections = re.split(r"(?m)^  - type: ", text)[1:]
+    if not sections:
+        raise ValueError("FEATURE_FORM_FIELDS_UNVERIFIED")
+    spec = {"title_prefix": m.group(1).strip() if m else "",
+            "required_fields": [], "required_checkboxes": [], "dropdown_choices": {}}
+    for block in sections:
+        kind = block.splitlines()[0].strip()
+        if kind == "markdown":
+            continue
+        if kind not in ("textarea", "input", "dropdown", "checkboxes"):
+            raise ValueError("UNRECOGNIZED_FEATURE_FORM_FIELD: "+kind)
+        label_match = re.search(r"(?m)^      label:\s*(.+?)\s*$", block)
+        if not label_match:
+            raise ValueError("FORM_LABEL_MISSING")
+        label = label_match.group(1).strip().strip("\"'")
+        if kind == "checkboxes":
+            for option in re.split(r"(?m)^        - label:\s*", block)[1:]:
+                if re.search(r"(?m)^          required:\s*true\s*$", option):
+                    spec["required_checkboxes"].append(option.splitlines()[0].strip().strip("\"'"))
+        elif re.search(r"(?m)^      required:\s*true\s*$", block):
+            spec["required_fields"].append(label)
+        if kind == "dropdown":
+            choices = re.findall(r"(?m)^        - (?!label:)(.+?)\s*$", block)
+            spec["dropdown_choices"][label] = [v.strip().strip("\"'") for v in choices]
+    return spec
+
+
+def feature_form_payload_errors(spec, title, body):
+    """Syntactic fit only; checked human box is not proof a human reviewed."""
+    errors = []
+    if spec.get("title_prefix") and not title.strip().startswith(spec["title_prefix"]):
+        errors.append("NATIVE_FEATURE_TITLE_PREFIX_MISMATCH")
+    for label in spec["required_fields"]:
+        pattern = r"(?mi)^#{2,6}\s+" + re.escape(label) + r"\s*$\n(?:\s*\n)*([^\n]+)"
+        m = re.search(pattern, body)
+        if not m or m.group(1).strip().upper() in ("NOT_ENOUGH_INFO", "TBD", "N/A", ""):
+            errors.append("NATIVE_FEATURE_REQUIRED_FIELD_MISSING: "+label)
+        elif label in spec["dropdown_choices"] and m.group(1).strip() not in spec["dropdown_choices"][label]:
+            errors.append("NATIVE_FEATURE_DROPDOWN_INVALID: "+label)
+    for claim in spec["required_checkboxes"]:
+        pat = r"(?m)^\s*[-*]\s+\[[xX]\]\s+" + re.escape(claim) + r"\s*$"
+        if not re.search(pat, body):
+            errors.append("NATIVE_FEATURE_REQUIRED_CHECKBOX_UNVERIFIED: "+claim)
+    return errors
+
+
 def gh_api(path):
     result = subprocess.run(["gh", "api", path], text=True, capture_output=True, check=False)
     if result.returncode:
@@ -121,6 +172,8 @@ def main():
     parser.add_argument("--original", required=True, help="original non-fork owner/repo")
     parser.add_argument("--kind", choices=KINDS, required=True)
     parser.add_argument("--purpose", choices=["feature_request"], default="feature_request")
+    parser.add_argument("--title-file")
+    parser.add_argument("--body-file")
     args = parser.parse_args()
     errors = []
     proof = {"source": "GitHub first-party gh api", "observed_at": datetime.now(timezone.utc)
@@ -142,6 +195,24 @@ def main():
                 categories = get_categories(args.target)
             errors = route_errors(args.target, args.original, args.kind, args.purpose,
                                   repo, templates, config, categories)
+            if args.kind == "original_issue" and not errors:
+                form_names = [x.get("name") for x in templates or []
+                              if re.fullmatch(r"(?i)feature[_-]request\.ya?ml", x.get("name", ""))]
+                if len(form_names) != 1:
+                    errors.append("FEATURE_REQUEST_FORM_NOT_UNIQUE")
+                else:
+                    path = ".github/ISSUE_TEMPLATE/" + form_names[0]
+                    spec = feature_form_requirements(get_optional_file(args.target, path, ref))
+                    proof["native_feature_form"] = {"path": path, **spec}
+                    proof["human_signoff_requires_real_review"] = any(
+                        re.search(r"(?i)human", v) for v in spec["required_checkboxes"])
+                    if args.title_file and args.body_file:
+                        from pathlib import Path
+                        errors.extend(feature_form_payload_errors(
+                            spec, Path(args.title_file).read_text(),
+                            Path(args.body_file).read_text()))
+                    elif args.title_file or args.body_file:
+                        errors.append("TITLE_AND_BODY_REQUIRED_TOGETHER")
             proof["repository"] = {"full_name": repo.get("full_name"), "fork": repo.get("fork"),
                                     "parent": repo.get("parent", {}).get("full_name"),
                                     "has_issues": repo.get("has_issues"),
@@ -157,7 +228,9 @@ def main():
                        else "PUBLICATION_BLOCKED_DESTINATION")
     proof["errors"] = errors
     proof["approval"] = "REQUIRES_EXACT_CURRENT_CONVERSATION_OWNER_CONSENT"
-    proof["other_gates"] = ("This is destination/channel-only: still verify human intent, "
+    proof["other_gates"] = ("Original Issue forms need --title-file and --body-file before posting. "
+                            "Checked human signoffs are not proof of real human reading. "
+                            "Still verify human intent, "
                             "current source, license, duplicate search, body template, "
                             "policy, legal rights, freshness and publisher identity.")
     print(json.dumps(proof, ensure_ascii=False, indent=2))
