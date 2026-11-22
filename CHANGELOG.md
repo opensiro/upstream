@@ -6,6 +6,8 @@
 
 ## Unreleased
 
+- Legacy original Markdown Feature Request template (2026-11-22): Treat a verified first-party feature_request.md with no config.yml as a valid issue route but require its actual headings to be filled by the external proposed body. Reproduced Gas Town negative draft; no authority to post is conferred.
+
 - **Exact original HEAD race recheck (2026-11-22):** A new optional draft/expected-head safety check on destination preflight verifies the actual original default HEAD against an immutable --source-head for any title/body submission attempt; absent, malformed or drifted values fail closed. A Gas City source update during the pilot exposed this missing link after payload validation. Route-only discovery remains read-only.
 
 - **Original feature Issue Form preflight (2026-11-22):** The route checker reads first-party required form headings and human authorship checkboxes; validating an exact title/body fails closed when the proposal bypasses required native fields. A checkbox alone is not proof the owner read the issue, and the current exact-owner-approval gate remains independent.

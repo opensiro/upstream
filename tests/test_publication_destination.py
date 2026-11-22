@@ -4,7 +4,7 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
-from preflight_publication_destination import route_errors, feature_form_requirements, feature_form_payload_errors, expected_source_head_errors
+from preflight_publication_destination import route_errors, feature_form_requirements, feature_form_payload_errors, expected_source_head_errors, markdown_feature_template_requirements, markdown_feature_payload_errors
 
 AG2 = "ag2ai/ag2"
 FORK = "opensiro-contributions/ag2"
@@ -50,6 +50,27 @@ class PublicationDestinationTests(unittest.TestCase):
     def test_missing_original_pin_fails_closed(self):
         self.assertIn("ORIGINAL_SOURCE_HEAD_NOT_PINNED",
                       expected_source_head_errors("", "a"*40))
+
+    def test_legacy_markdown_feature_template_without_config_is_supported(self):
+        self.assertEqual(route_errors(
+            "gastownhall/gastown","gastownhall/gastown","original_issue",
+            "feature_request", repo("gastownhall/gastown"),
+            [{"name":"feature_request.md"}], None), [])
+        template = ("---\nname: Feature Request\nabout: Suggest a feature\n---\n"
+                    "## Problem Statement\n<!-- Describe problem -->\n"
+                    "## Proposed Solution\n<!-- Describe solution -->\n")
+        spec = markdown_feature_template_requirements(template)
+        self.assertEqual(len(spec["required_sections"]),2)
+        errors = markdown_feature_payload_errors(spec,"## Opensiro methodology\nIdeas\n")
+        self.assertEqual(len(errors),2)
+        body = "## Problem Statement\nReal issue\n## Proposed Solution\nConcrete alternative\n"
+        self.assertEqual(markdown_feature_payload_errors(spec,body), [])
+        empty = "## Problem Statement\n<!-- TODO -->\n## Proposed Solution\nConcrete alternative\n"
+        self.assertTrue(any("UNFILLED" in x for x in markdown_feature_payload_errors(spec,empty)))
+
+    def test_unknown_markdown_feature_template_fails_closed(self):
+        with self.assertRaises(ValueError):
+            markdown_feature_template_requirements("## Not native form")
 
     def test_unknown_issue_form_stops_preflight(self):
         for text in ("", "body:\n  - type: new_nonstandard_type\n", "name: No form"):
