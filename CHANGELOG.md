@@ -6,6 +6,8 @@
 
 ## Unreleased
 
+- **Original-Issue historical combined-version compatibility (2026-11-22):** Exact external payload validation now accepts a verifiable legacy combined `Profile / Skills procedure: X / Y` receipt, as in the valid Gas City case, without rewriting historical source pins. Contradictory or malformed combined/separate versions fail closed. No source freshness, original publication, current Index grade, permission or protocol VERSION is inferred.
+
 - **Pilot public destination preflight (2026-11-22):** The new read-only `scripts/preflight_publication_destination.py` fails closed on disabled fork Issues, wrong original/fork identity and original Feature Requests redirected to Discussions, with 13 regression cases and live AG2/Cline source checks. A route PASS never supplies consent or independent product evidence.
 
 - **Public Roadmap pilot route (2026-11-22):** Link the owner-reviewed Upstream #93 Phase B evaluation and separate non-effective Organization #345 S5 decision proposal from the existing external-publication gate. Clarify original Issues, fork Issues and maintainer-directed Discussions as separate public action classes without enabling auto-publication.

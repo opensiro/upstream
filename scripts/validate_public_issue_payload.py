@@ -42,6 +42,32 @@ def accepted_version(receipt, *aliases):
     return next(iter(values)) if len(values) == 1 else None
 
 
+def accepted_profile_skills_versions(receipt):
+    """Resolve historical Profile/Skills pins, including a legacy combined receipt.
+
+    Never resolve a contradictory pair by preferring one spelling.
+    """
+    profiles = {v for key in ("Accepted Profile version", "Profile version")
+                if (v := value(receipt, key))}
+    skills = {v for key in ("Accepted Methodology version",
+                           "Accepted Skills methodology version",
+                           "Skills methodology version",
+                           "Assessment procedure version")
+              if (v := value(receipt, key))}
+    combined = value(receipt, "Profile / Skills procedure")
+    if combined:
+        parsed = re.fullmatch(
+            r"\s*(\d+\.\d+\.\d+(?:[-+][A-Za-z0-9.-]+)?)\s*/\s*"
+            r"(\d+\.\d+\.\d+(?:[-+][A-Za-z0-9.-]+)?)\s*", combined)
+        if not parsed:
+            return None, None
+        profiles.add(parsed.group(1))
+        skills.add(parsed.group(2))
+    if len(profiles) != 1 or len(skills) != 1:
+        return None, None
+    return next(iter(profiles)), next(iter(skills))
+
+
 def checksum(value):
     return hashlib.sha256(value.encode("utf-8")).hexdigest()
 
@@ -119,15 +145,11 @@ def check_payload(kind, case, repo, ref, title, body, source_head=""):
             v = value(receipt, key)
             if not v or v not in body:
                 errors.append("external missing historical pin: " + key)
-        for canonical, aliases in (
-            ("Accepted Profile version", ("Accepted Profile version", "Profile version")),
-            ("Accepted Methodology version",
-             ("Accepted Methodology version", "Accepted Skills methodology version",
-              "Skills methodology version", "Assessment procedure version")),
-        ):
-            v = accepted_version(receipt, *aliases)
-            if not v or v not in body:
-                errors.append("external missing or conflicting historical pin: " + canonical)
+        profile_version, skills_version = accepted_profile_skills_versions(receipt)
+        for key, observed in (("Accepted Profile version", profile_version),
+                              ("Accepted Methodology version", skills_version)):
+            if not observed or observed not in body:
+                errors.append("external missing or conflicting historical pin: " + key)
         for grade in ("A", "C", "P", "A(P)", "C(P)", "—", "?"):
             if chr(96) + grade + chr(96) not in body:
                 errors.append("external missing state definition: " + grade)
