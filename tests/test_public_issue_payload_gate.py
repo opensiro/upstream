@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 from validate_public_issue_payload import (check_payload, render_fork, accepted_version,
-                                           accepted_profile_skills_versions)
+                                           accepted_profile_skills_versions, accepted_index_commit)
 from test_roadmap_publication_template_gate import fill, PROPOSAL
 
 REF = "8a264aa1c2da59e5c3d17fbbc893ddf80a2850cb"
@@ -115,6 +115,25 @@ class PublicIssuePayloadTests(unittest.TestCase):
         self.assertEqual(accepted_profile_skills_versions(malformed), (None, None))
         incomplete = "- Profile version: 0.2.4\n"
         self.assertEqual(accepted_profile_skills_versions(incomplete), (None, None))
+
+    def test_legacy_index_commit_from_pinned_assessment_url(self):
+        sha = "a3fcf7c156ef4d1132680890bc11544681fd30c0"
+        receipt = ("- Accepted Index assessment: "
+                   "https://github.com/opensiro/vsm-harness-index/blob/" + sha +
+                   "/assessments/ga/gascity.md" + "\n")
+        self.assertEqual(accepted_index_commit(receipt), sha)
+
+    def test_conflicting_or_mutable_index_ref_is_rejected(self):
+        sha = "a3fcf7c156ef4d1132680890bc11544681fd30c0"
+        receipt = ("- Accepted Index commit: " + ("0"*40) + "\n"
+                   "- Accepted Index assessment: "
+                   "https://github.com/opensiro/vsm-harness-index/blob/" + sha +
+                   "/assessments/ga/gascity.md" + "\n")
+        self.assertIsNone(accepted_index_commit(receipt))
+        mutable = ("- Accepted Index assessment: "
+                   "https://github.com/opensiro/vsm-harness-index/blob/main/"
+                   "assessments/ga/gascity.md" + "\n")
+        self.assertIsNone(accepted_index_commit(mutable))
 
     def test_mismatch_to_current_source_head_fails(self):
         title, body = render_fork(self.case, self.repo, REF)
