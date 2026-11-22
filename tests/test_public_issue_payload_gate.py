@@ -9,7 +9,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 from validate_public_issue_payload import (check_payload, render_fork, accepted_version,
                                            accepted_profile_skills_versions, accepted_index_commit,
-                                           original_case_lineage_errors)
+                                           original_case_lineage_errors,
+                                           original_section_layout_errors, ORIGINAL_SECTIONS)
 from test_roadmap_publication_template_gate import fill, PROPOSAL
 
 REF = "8a264aa1c2da59e5c3d17fbbc893ddf80a2850cb"
@@ -104,6 +105,37 @@ class PublicIssuePayloadTests(unittest.TestCase):
         errors = original_case_lineage_errors("", "VoltAgent/voltagent", "S3=— -> S3=C")
         self.assertIn("external original destination differs from canonical case", errors)
         self.assertIn("canonical case target transition is missing", errors)
+
+    def test_native_markdown_feature_keeps_five_fields_and_seven_evidence_sections(self):
+        markdown = ("---\nname: Feature Request\nabout: Suggest a feature\n"
+                    "title: ''\nlabels: enhancement\n---\n\n"
+                    "## Problem Statement\n<!-- prompt -->\n"
+                    "## Proposed Solution\n<!-- prompt -->\n"
+                    "## Alternatives Considered\n<!-- prompt -->\n"
+                    "## Use Case\n<!-- prompt -->\n"
+                    "## Additional Context\n<!-- prompt -->\n")
+        content = ("# Proposal: native example\n"
+                   "## Problem Statement\nReal issue observed.\n"
+                   "## Proposed Solution\nA bounded change.\n"
+                   "## Alternatives Considered\nUse the existing interface.\n"
+                   "## Use Case\nAn operator can compare two options.\n"
+                   "## Additional Context\nHistorical context below.\n" +
+                   "".join("### " + section + "\nMeaningful evidence and a decision.\n"
+                           for section in ORIGINAL_SECTIONS))
+        self.assertEqual(original_section_layout_errors(content, markdown), [])
+        self.assertIn("external template seven section mismatch",
+                      original_section_layout_errors(content))
+        self.assertIn("native Markdown top-level feature sections mismatch",
+                      original_section_layout_errors(
+                          content.replace("## Use Case", "## Something Else"), markdown))
+        self.assertIn("nested original template seven section mismatch",
+                      original_section_layout_errors(
+                          content.replace("### Feedback requested", "### Unknown"), markdown))
+        self.assertIn("nested original sections must be under native Additional Context",
+                      original_section_layout_errors(
+                          content.replace("## Additional Context\nHistorical context below.\n", "")
+                          + "\n## Additional Context\nHistorical context below.\n",
+                          markdown))
 
     def test_original_requires_separate_template(self):
         title, body = render_fork(self.case, self.repo, REF)
