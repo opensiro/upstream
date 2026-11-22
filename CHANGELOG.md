@@ -6,6 +6,8 @@
 
 ## Unreleased
 
+- **Roadmap single-case publication lineage (2026-11-22):** The existing fork-local `issue.md` is the one Human proposal; `original-issue-draft.md` is its original-native external text representation, not another research case or independently selected feature. A public fork GitHub Issue is optional; disabled fork Issues do not require new cases, enabling settings, or block separately approved original publication. All native form, dedup, provenance and exact consent checks remain.
+
 - Issue Form title default is advisory (2026-11-22): Correct the native-feature checker so a GitHub prefilled title suggestion is not enforced as an immutable prefix. A nonempty title, required fields, human-reported checkbox, freshness and exact owner approval remain separate.
 
 - Legacy original Markdown Feature Request template (2026-11-22): Treat a verified first-party feature_request.md with no config.yml as a valid issue route but require its actual headings to be filled by the external proposed body. Reproduced Gas Town negative draft; no authority to post is conferred.
