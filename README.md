@@ -24,7 +24,7 @@ If the bootstrap resolves Upstream work here, [`AGENTS.md`](AGENTS.md), [`PROTOC
 
 Upstream is the **operational S1 domain** of [OpenSiro VSM OSS](https://github.com/opensiro/vsm-oss-organization). It coordinates source-backed contributions to external AI harnesses without implementing a second VSM organization.
 
-**Protocol:** [v0.18.2](VERSION) · [How work proceeds](PROTOCOL.md) · [Fork metadata](docs/FORK_METADATA.md) · [Architecture](docs/ARCHITECTURE.md) · [History](CHANGELOG.md) · [Releases](https://github.com/opensiro/upstream/releases)
+**Protocol:** [v0.18.3](VERSION) · [How work proceeds](PROTOCOL.md) · [Fork metadata](docs/FORK_METADATA.md) · [Architecture](docs/ARCHITECTURE.md) · [History](CHANGELOG.md) · [Releases](https://github.com/opensiro/upstream/releases)
 
 ## Command navigation — choose the owning read-only projection first
 
@@ -39,6 +39,8 @@ Upstream is the **operational S1 domain** of [OpenSiro VSM OSS](https://github.c
 
 **Independent Roadmap reruns:** [one-chat source-first prompt](docs/ROADMAP_INDEPENDENT_RERUN.md) · [current 23-harness cohort](https://github.com/opensiro/upstream/issues/58). Evaluate source and Index independently of old case verdicts, then compare; respect fork PAUSE and public publication gates. **Run reports belong on the matched fork, not one PR/Markdown file per run in Upstream.** Optional historical navigation is in the [single Roadmap report — Supplementary](docs/ROADMAP_REPORT.md#supplementary).
 
+**Public GitHub Issue payloads:** Before owner approval, validate the **exact final title/body** with [the last-mile validator](scripts/validate_public_issue_payload.py) (`--kind fork --render-fork` for a verified Human case; `--kind original` for the separate external template), after both canonical case checks. Rerun on POST bytes and read back actual GitHub content. Case-validation PASS does not license a free-form Issue rewrite or public publication. See [PROTOCOL](PROTOCOL.md#exact-public-github-issue-payload-gate--fork-and-original).
+
 **Roadmap three-file handoff:** `roadmap.md` is the canonical case receipt (accepted vector, P0/P1/P2 and separate proposal/research verdicts); Human `issue.md` renders one six-function table and proposal summary, while AI `constructor-sufficiency.md` supplies source-native details without a fixed port or test count. Before **every new or materially revised** `proposal-gate` case write, validate the four-file case with **both** `python3 scripts/validate_capability_roadmap.py <case-dir>` and `python3 scripts/validate_roadmap_publication.py <case-dir>`; rerun against the exact committed fork SHA before reporting completion. Amend the eight-section Human / six-section AI templates **in place**, not as appended versioned technical sections. A credible untested proposal may be `GO + NEEDS_EVIDENCE`; public Issues and implementation remain independently gated.
 
 **Roadmap constructibility neutrality:** GO/NO_GO evaluate function-specific first-party `C` construction, **not a maintainer product decision**. Existing native fixes/Issues are technical evidence, not proof of permanent design intent or an automatic veto. Maintainers decide adoption; only a subsequently implemented and independently assessed mode can change Index grades.
@@ -47,7 +49,7 @@ Upstream is the **operational S1 domain** of [OpenSiro VSM OSS](https://github.c
 
 ## Releases
 
-[GitHub Releases](https://github.com/opensiro/upstream/releases) publish tagged snapshots of the **Upstream contribution protocol**, not releases of third-party harnesses. The current integrated protocol is [v0.18.2](VERSION); see [PATCH notes](changes/v0.18.2.md), the [untagged v0.18.1 integrated guidance](changes/v0.18.1.md), [v0.18.0 baseline](changes/v0.18.0.md), [changelog](CHANGELOG.md), and [versioning rules](VERSIONING.md). A release does **not** certify completion of historical migration, deployed value, external PR acceptance, or VSM autonomy.
+[GitHub Releases](https://github.com/opensiro/upstream/releases) publish tagged snapshots of the **Upstream contribution protocol**, not releases of third-party harnesses. The current integrated protocol is [v0.18.3](VERSION); see [PATCH notes](changes/v0.18.3.md), [prior v0.18.2 package](changes/v0.18.2.md), the [untagged v0.18.1 integrated guidance](changes/v0.18.1.md), [v0.18.0 baseline](changes/v0.18.0.md), [changelog](CHANGELOG.md), and [versioning rules](VERSIONING.md). A release does **not** certify completion of historical migration, deployed value, external PR acceptance, or VSM autonomy.
 
 **Release cadence:** protocol changes accumulate in the [Unreleased changelog](CHANGELOG.md#unreleased) without per-PR version bumps. An owner-agreed consolidated bundle receives a reviewable version PR and one tag/GitHub Release at a verified integration commit. The [v0.17.0 package](changes/v0.17.0.md) covers the approved protocol changes since the last previously published v0.13.0 baseline, including the new parallel contribution-on-top roadmap gate. A `VERSION` on `main` alone does **not** prove the GitHub Release was published; verify the actual [release and tag](https://github.com/opensiro/upstream/releases/tag/v0.17.0). Historical v0.14–v0.16 intermediate main packages were not separately released.
 
