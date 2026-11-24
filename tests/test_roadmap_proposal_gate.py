@@ -67,7 +67,7 @@ def scan(action="original_issue"):
             "preflight": {"original": ORIGINAL, "case_id": CASE,
                           "candidate_title": TITLE, "candidate_kind": action,
                           "status": "NEW_PROPOSAL" if action == "original_issue" else "HISTORY_UNVERIFIED",
-                          "search_errors": [], "possible_overlaps": [],
+                          "search_errors": [], "reasons": [], "possible_overlaps": [],
                           "original_search_results": [], "user_visible_delta": "distinct outcome"}}
 
 
