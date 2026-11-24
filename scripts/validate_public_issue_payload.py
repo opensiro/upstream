@@ -3,9 +3,13 @@
 import argparse
 import hashlib
 import json
+import os
 import re
 from pathlib import Path
 from validate_capability_roadmap import value
+from aggregate import GitHub
+from roadmap_proposal_gate import (BLOCKED, VERIFIED, GATE_ERRORS, digest,
+    review_evidence_sha256, verify_persisted_case)
 from preflight_publication_destination import (markdown_feature_template_requirements,
                                             markdown_feature_payload_errors)
 from validate_roadmap_publication import (
@@ -232,6 +236,49 @@ def original_case_lineage_errors(receipt, original_repo, original_body):
     return errors
 
 
+def verify_issue_approval_case(client, report, kind, case, repo, ref, title, body, source_head):
+    """Bind a live remote readback to the exact previously checked history/payload."""
+    proof = report.get("roadmap_gate", {})
+    context = report.get("review_context", {})
+    pre = report.get("preflight", {})
+    action = kind + "_issue"
+    if (proof.get("status") != VERIFIED
+            or report.get("recheck", {}).get("status") == "CHANGED_OR_UNVERIFIED"
+            or pre.get("candidate_kind") != action
+            or pre.get("candidate_title") != title
+            or pre.get("case_id") != case.name
+            or proof.get("case_ref") != ref
+            or proof.get("source_head") != source_head
+            or context.get("source_head") != source_head
+            or context.get("destination") != "https://github.com/" + repo
+            or not report.get("coverage", {}).get("scan_complete")
+            or pre.get("search_errors")
+            or pre.get("status") in {"ALREADY_PUBLISHED", "REUSE_EXISTING"}
+            or (kind == "original" and pre.get("status") == "HISTORY_UNVERIFIED")):
+        raise ValueError("current exact persisted case/history approval report required")
+    history_sha = review_evidence_sha256(report, source_head, context["destination"],
+                                         context.get("target"))
+    if history_sha != report.get("review_evidence_sha256"):
+        raise ValueError("bounded reconciliation digest does not match history report")
+    snapshot = report.get("candidate_snapshot") or {}
+    if (snapshot.get("original_head") != source_head
+            or snapshot.get("title_sha256") != digest(title.encode("utf-8"))
+            or snapshot.get("body_sha256") != digest(body)):
+        raise ValueError("exact approval-time source/title/body snapshot mismatch")
+    fork = proof.get("working_fork")
+    original = repo if kind == "original" else proof.get("original")
+    if kind == "fork" and fork != repo:
+        raise ValueError("fork approval destination mismatch")
+    if pre.get("original") != original:
+        raise ValueError("history original identity mismatch")
+    actual = verify_persisted_case(client, fork, case.name, ref, original, source_head,
+                                   action, context["destination"], title, body,
+                                   history_sha, local_case=case)
+    if actual != proof:
+        raise ValueError("persisted case proof changed; re-read and re-review")
+    return actual
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--kind", choices=("fork", "original"), required=True)
@@ -244,6 +291,10 @@ def main():
     p.add_argument("--native-markdown-template-file", type=Path,
                    help="verified first-party Markdown Feature Request template for original; used with live route preflight")
     p.add_argument("--render-fork", action="store_true")
+    p.add_argument("--draft-only", action="store_true",
+                   help="local structural preparation only; never an approval preview")
+    p.add_argument("--history-report", type=Path,
+                   help="fresh publication_history.py report for the exact committed candidate")
     a = p.parse_args()
     if a.render_fork:
         if a.kind != "fork":
@@ -261,8 +312,9 @@ def main():
         a.body_file.write_text(body, encoding="utf-8")
     try:
         title = a.title_file.read_text(encoding="utf-8").rstrip("\n")
-        body = a.body_file.read_text(encoding="utf-8")
-    except OSError as exc:
+        body_bytes = a.body_file.read_bytes()
+        body = body_bytes.decode("utf-8")
+    except (OSError, UnicodeDecodeError) as exc:
         print("PUBLICATION_BLOCKED_TEMPLATE_MISMATCH: " + str(exc))
         return 1
     native_markdown_template = None
@@ -280,8 +332,23 @@ def main():
         for error in errors:
             print("PUBLICATION_BLOCKED_TEMPLATE_MISMATCH: " + error)
         return 1
+    if a.draft_only:
+        print("LOCAL_DRAFT_PAYLOAD_PASS_NOT_APPROVAL_READY "
+              + "title_sha256=" + checksum(title) + " body_sha256=" + digest(body_bytes))
+        return 0
+    try:
+        if not a.history_report:
+            raise ValueError("--history-report required; use --draft-only for local preparation")
+        report = json.loads(a.history_report.read_text(encoding="utf-8"))
+        proof = verify_issue_approval_case(
+            GitHub(os.getenv("GH_TOKEN") or os.getenv("GITHUB_TOKEN")), report,
+            a.kind, a.case_dir, a.repo, a.case_ref, title, body_bytes, a.source_head)
+    except GATE_ERRORS as exc:
+        print(BLOCKED + ": " + str(exc))
+        return 1
+    print(VERIFIED + " case_ref=" + proof["case_ref"] + " roadmap=" + proof["roadmap_url"])
     print("PUBLIC_ISSUE_PAYLOAD_PREFLIGHT_PASS_NOT_PUBLICATION_APPROVAL "
-          + "title_sha256=" + checksum(title) + " body_sha256=" + checksum(body))
+          + "title_sha256=" + checksum(title) + " body_sha256=" + digest(body_bytes))
     return 0
 
 

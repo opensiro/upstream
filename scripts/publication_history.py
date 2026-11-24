@@ -19,6 +19,9 @@ from urllib.error import HTTPError, URLError
 from aggregate import APIError, GitHub, api, REPOSITORY
 from roadmap_view import roadmap_view, read_text
 from publication_archive import discover_archive
+from roadmap_proposal_gate import (ACTIONS, BLOCKED, VERIFIED, GATE_ERRORS,
+    original_head, candidate_destination, comment_target, review_evidence_sha256,
+    verify_persisted_case)
 
 URL = re.compile(
     r"^https://github\.com/([A-Za-z0-9_.-]+)/([A-Za-z0-9_.-]+)"
@@ -40,6 +43,7 @@ MAX_ISSUES = 100
 MAX_COMMENTS = 500
 MAX_TEXT = 200_000
 ALLOWED_KINDS = {"original_issue", "fork_issue", "original_discussion", "original_pr", "fork_pr"}
+CANDIDATE_KINDS = ALLOWED_KINDS | {"original_issue_comment"}
 PUBLICATION_STATUSES = {"ALREADY_PUBLISHED", "REUSE_EXISTING", "POSSIBLE_OVERLAP",
                         "NEW_PROPOSAL", "HISTORY_UNVERIFIED"}
 
@@ -536,7 +540,7 @@ def search_original(client, original, title, expanded=False):
 def evaluate(report, original, case_id, title, target_kind="original_issue",
              search_results=None, search_errors=None, user_delta=None):
     """Separate duplicate *action* from same-case second audience and semantic hints."""
-    if not REPOSITORY.fullmatch(original) or target_kind not in ALLOWED_KINDS:
+    if not REPOSITORY.fullmatch(original) or target_kind not in CANDIDATE_KINDS:
         raise ValueError("invalid candidate original repository or kind")
     items = report["publications"]
     same_case = [p for p in items if p["original_repository"].lower() == original.lower()
@@ -662,6 +666,61 @@ def publication_history(client, requested=None, candidate_original=None,
     return report
 
 
+def attach_roadmap_gate(client, report, case_ref, body, destination=None,
+                        source_before=None, source_error=None, live_checks=True):
+    """A discovery scan is useful before persistence, but never approval-ready.
+
+    The review digest intentionally excludes the commit that records the review;
+    the final approval snapshot binds that exact commit and payload separately.
+    """
+    pre = report["preflight"]
+    action = pre["candidate_kind"]
+    if action not in ACTIONS:
+        return
+    report["roadmap_gate"] = {"status": BLOCKED}
+    try:
+        if source_error:
+            raise ValueError(source_error)
+        original = pre["original"]
+        matches = [c for c in report["cases"]
+                   if c["original_repository"].casefold() == original.casefold()
+                   and c["id"] == pre["case_id"]]
+        if len(matches) != 1:
+            raise ValueError("exactly one verified stable fork-local case required")
+        selected = matches[0]
+        fork = selected["working_fork"]
+        head = original_head(client, original)
+        if source_before != head:
+            raise ValueError("original HEAD changed or was not verified before scan")
+        destination = candidate_destination(original, fork, action, destination)
+        target = comment_target(client, original, action, destination)
+        history_sha = review_evidence_sha256(report, head, destination, target)
+        report["review_context"] = {"source_head": head, "destination": destination,
+                                    "target": target}
+        report["review_evidence_sha256"] = history_sha
+        if not live_checks or not report["coverage"]["scan_complete"] or pre["search_errors"]:
+            raise ValueError("live bounded publication/history search incomplete")
+        if report["coverage"].get("archive", {}).get("status") != "CHECKED_BOUNDED":
+            raise ValueError("named archive coverage unverified")
+        if pre["status"] in {"ALREADY_PUBLISHED", "REUSE_EXISTING"} and action != "original_issue_comment":
+            raise ValueError("prior same-channel object must be reused, not republished")
+        if action == "original_issue" and pre["status"] == "HISTORY_UNVERIFIED":
+            raise ValueError("original Issue history is unverified")
+        if not case_ref or selected["meta_head_sha"] != case_ref:
+            raise ValueError("candidate requires current persisted case-ref matching history scan")
+        if body is None:
+            raise ValueError("exact committed outbound body required; discovery only")
+        proof = verify_persisted_case(client, fork, pre["case_id"], case_ref, original,
+                                      head, action, destination, pre["candidate_title"],
+                                      body, history_sha)
+        # The existing target's state/body may change while the case is checked.
+        if comment_target(client, original, action, destination) != target:
+            raise ValueError("original Issue target changed during review")
+        report["roadmap_gate"] = proof
+    except GATE_ERRORS as exc:
+        report["roadmap_gate"] = {"status": BLOCKED, "reason": str(exc)}
+
+
 def candidate_snapshot(client, report, body_bytes):
     """Read-only fingerprint of the candidate, source pin and observed prior evidence."""
     pre = report["preflight"]
@@ -690,7 +749,10 @@ def candidate_snapshot(client, report, body_bytes):
                 "candidate": stable(pre),
                 "scope": stable(report.get("coverage")),
                 "cases": stable(report.get("cases")),
-                "publications": stable(report.get("publications"))}
+                "publications": stable(report.get("publications")),
+                "roadmap_gate": stable(report.get("roadmap_gate")),
+                "review_context": stable(report.get("review_context")),
+                "review_evidence_sha256": report.get("review_evidence_sha256")}
     raw = json.dumps(evidence, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
     return {"original_head": head, "title_sha256": evidence["title_sha256"],
             "body_sha256": evidence["body_sha256"], "evidence_sha256": sha256(raw)}
@@ -715,8 +777,10 @@ def main(argv=None):
     p.add_argument("--candidate-original", help="original OWNER/REPO")
     p.add_argument("--candidate-case", help="stable fork-local case ID")
     p.add_argument("--candidate-title", help="exact proposed title")
-    p.add_argument("--candidate-kind", choices=sorted(ALLOWED_KINDS), default="original_issue")
+    p.add_argument("--candidate-kind", choices=sorted(CANDIDATE_KINDS), default="original_issue")
     p.add_argument("--candidate-delta", help="what changed for the user vs related prior publication")
+    p.add_argument("--case-ref", help="exact current opensiro/meta commit; omitted for discovery only")
+    p.add_argument("--candidate-destination", help="exact original Issue URL for an existing-Issue comment")
     p.add_argument("--no-live", action="store_true", help="offline evidence only: provider state unverified")
     p.add_argument("--no-search", action="store_true", help="do not query first-party Issues: never infer novelty")
     p.add_argument("--no-archive", action="store_true", help="skip archive read; candidate novelty stays unverified")
@@ -727,6 +791,12 @@ def main(argv=None):
     p.add_argument("--format", choices=["json"], default="json")
     a = p.parse_args(argv)
     client = ReadOnlyGitHub(os.getenv("GH_TOKEN") or os.getenv("GITHUB_TOKEN"))
+    source_before = source_error = None
+    if a.candidate_original and a.candidate_kind in ACTIONS:
+        try:
+            source_before = original_head(client, a.candidate_original)
+        except GATE_ERRORS as exc:
+            source_error = "original source before scan unverified: " + str(exc)
     try:
         report = publication_history(client,
             requested=a.repo, candidate_original=a.candidate_original,
@@ -739,18 +809,35 @@ def main(argv=None):
         report["preflight"]["status"] = "HISTORY_UNVERIFIED"
         report["preflight"]["reasons"].append("Archive history check explicitly skipped.")
     if "preflight" in report:
+        body_bytes = None
+        body_error = None
+        if a.candidate_body_file:
+            try:
+                body_bytes = a.candidate_body_file.read_bytes()
+            except OSError as exc:
+                body_error = str(exc)
+        attach_roadmap_gate(client, report, a.case_ref, body_bytes,
+                            destination=a.candidate_destination, source_before=source_before,
+                            source_error=source_error,
+                            live_checks=not (a.no_live or a.no_search or a.no_archive))
         if not a.candidate_body_file:
             if report["preflight"]["status"] == "NEW_PROPOSAL":
                 report["preflight"]["status"] = "HISTORY_UNVERIFIED"
                 report["preflight"]["reasons"].append("Exact candidate body bytes not supplied.")
         else:
             try:
-                report["candidate_snapshot"] = candidate_snapshot(
-                    client, report, a.candidate_body_file.read_bytes())
+                if body_error:
+                    raise ValueError(body_error)
+                report["candidate_snapshot"] = candidate_snapshot(client, report, body_bytes)
+                if (report.get("roadmap_gate", {}).get("status") == VERIFIED
+                        and report["candidate_snapshot"]["original_head"] != report["roadmap_gate"]["source_head"]):
+                    raise ValueError("source changed after persistence gate")
             except (APIError, OSError, ValueError, TypeError, AttributeError) as exc:
                 if report["preflight"]["status"] == "NEW_PROPOSAL":
                     report["preflight"]["status"] = "HISTORY_UNVERIFIED"
                 report["preflight"]["reasons"].append("Candidate snapshot unverified: " + str(exc))
+                if a.candidate_kind in ACTIONS:
+                    report["roadmap_gate"] = {"status": BLOCKED, "reason": str(exc)}
         if a.previous_report:
             try:
                 previous = json.loads(a.previous_report.read_text(encoding="utf-8"))
@@ -759,13 +846,16 @@ def main(argv=None):
             except (OSError, ValueError):
                 previous = {}
             apply_recheck(report, previous)
-    elif a.candidate_body_file or a.previous_report:
-        p.error("body and previous-report require a candidate")
+    elif a.candidate_body_file or a.previous_report or a.case_ref or a.candidate_destination:
+        p.error("body, case-ref, destination and previous-report require a candidate")
     print(json.dumps(report, indent=2, ensure_ascii=False))
     # Strict CLI nonzero prevents a successful-looking scan when provider/metadata unknown;
     # preflight never grants consent. Same-case publication is a hard block.
     status = report.get("preflight", {}).get("status")
-    return 0 if report["coverage"]["scan_complete"] and status in (None, "NEW_PROPOSAL") else 1
+    persisted = (status is None or a.candidate_kind not in ACTIONS
+                 or report.get("roadmap_gate", {}).get("status") == VERIFIED)
+    return 0 if (persisted and report["coverage"]["scan_complete"]
+                 and status in (None, "NEW_PROPOSAL")) else 1
 
 
 if __name__ == "__main__":
