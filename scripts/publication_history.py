@@ -39,7 +39,8 @@ native source original public github agent agents system systems browser tool
 from into their existing first party first-party future current project
 """.split())
 MAX_EVENTS = 999
-MAX_ISSUES = 100
+SEARCH_PAGE_SIZE = 100
+MAX_SEARCH_RESULTS = 1000  # GitHub REST search's maximum retrievable results per query
 MAX_COMMENTS = 500
 MAX_TEXT = 200_000
 ALLOWED_KINDS = {"original_issue", "fork_issue", "original_discussion", "original_pr", "fork_pr"}
@@ -499,25 +500,55 @@ def search_original(client, original, title, expanded=False):
     results = {}
     errors = []
     for q in queries:
-        try:
-            data = client.get("/search/issues?q=" + quote(q) + "&per_page=100")
-            if not isinstance(data, dict) or not isinstance(data.get("items"), list):
-                raise ValueError("malformed native search")
-            if (data.get("incomplete_results") is not False or
-                data.get("total_count") != len(data["items"]) or
-                len(data["items"]) >= MAX_ISSUES):
-                errors.append(f"SEARCH_TRUNCATED: {q}")
-            for item in data["items"]:
-                parsed = parse_url(item.get("html_url"), original, None)
-                if parsed:
+        # The first page is not the search boundary. Keep GitHub's explicit
+        # maximum and fail closed if pagination cannot prove bounded coverage.
+        route = "/search/issues?q=" + quote(q) + "&per_page=" + str(SEARCH_PAGE_SIZE)
+        expected_kind = "original_pr" if " is:pr " in q else "original_issue"
+        seen = set()
+        total = None
+        for page in range(1, MAX_SEARCH_RESULTS // SEARCH_PAGE_SIZE + 1):
+            try:
+                data = client.get(route + (f"&page={page}" if page > 1 else ""))
+                if not isinstance(data, dict) or not isinstance(data.get("items"), list):
+                    raise ValueError("malformed native search")
+                count = data.get("total_count")
+                if type(count) is not int or count < 0:
+                    raise ValueError("invalid native search total_count")
+                if total is None:
+                    total = count
+                complete_page = (data.get("incomplete_results") is False
+                                 and count == total
+                                 and total <= MAX_SEARCH_RESULTS
+                                 and len(data["items"]) == min(SEARCH_PAGE_SIZE,
+                                                              max(0, total - (page - 1) * SEARCH_PAGE_SIZE)))
+                if not complete_page:
+                    errors.append(f"SEARCH_TRUNCATED: {q} / page {page}, total {count}")
+                for item in data["items"]:
+                    if not isinstance(item, dict):
+                        errors.append(f"SEARCH_IDENTITY_UNVERIFIED: {q} / page {page}")
+                        complete_page = False
+                        continue
+                    parsed = parse_url(item.get("html_url"), original, None)
+                    if not parsed or parsed["kind"] != expected_kind:
+                        errors.append(f"SEARCH_IDENTITY_UNVERIFIED: {q} / page {page}")
+                        complete_page = False
+                        continue
+                    identity = parsed["url"].casefold()
+                    if identity in seen:
+                        errors.append(f"SEARCH_PAGINATION_DUPLICATE: {q} / page {page}")
+                        complete_page = False
+                    seen.add(identity)
                     results[parsed["url"]] = {"url": parsed["url"],
                         "kind": parsed["kind"], "title": item.get("title"),
                         "author": (item.get("user") or {}).get("login"),
                         "state": item.get("state"), "updated_at": item.get("updated_at")}
-                else:
-                    errors.append(f"SEARCH_IDENTITY_UNVERIFIED: {q}")
-        except (APIError, ValueError, TypeError) as exc:
-            errors.append(f"SEARCH_UNVERIFIED: {q} / {exc}")
+                if not complete_page or len(seen) == total:
+                    break
+            except (APIError, ValueError, TypeError, AttributeError) as exc:
+                errors.append(f"SEARCH_UNVERIFIED: {q} / page {page} / {exc}")
+                break
+        if total is not None and len(seen) != total:
+            errors.append(f"SEARCH_PAGINATION_INCOMPLETE: {q} / {len(seen)} of {total}")
     if expanded:
         try:
             info = client.get(api(original, ""))
