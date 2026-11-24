@@ -6,6 +6,8 @@
 
 ## Unreleased
 
+- **Bounded native search pagination (PATCH, 2026-11-24):** Read all available GitHub REST Issue/PR search pages up to the provider's 1,000-result ceiling instead of failing every query at 100 rows. The Hermes #5452 search returned 173 PRs; preserve fail-closed handling for count drift, duplicate or wrong-channel rows, incomplete pages, API/rate-limit errors and results beyond the provider cap. No changes to semantic review, persistence or consent.
+
 - **Roadmap persistence before external proposal (PATCH, 2026-11-24):** Repair the Hermes failure mode where valid local Human/AI/payload files were checked against a claimed historical case-ref but the canonical roadmap had not been reconciled and persisted. Require a live verified fork metadata commit, current original HEAD, canonical source/history reconciliation, committed exact outbound bytes and post-readback structural checks before any owner-facing Roadmap-derived Issue/Discussion/comment approval preview. Local draft validation remains explicit and cannot claim approval readiness. Preserve existing native, semantic, history and separate consent gates. No change to authority or Index grades; no blanket migration or numbered release implied.
 
 - **Native Markdown Feature Request section precedence (2026-11-22):** Keep the provider-required top-level Markdown fields exactly and move all seven Opensiro original-facing sections to nested evidence under its Additional Context. Accept this layout only with a verified first-party legacy Markdown template and both native and source-pinned public-payload preflights; YAML Forms, exact approval and provenance remain unchanged.
