@@ -121,6 +121,12 @@ class PublicationHistoryTests(unittest.TestCase):
         client.event({"kind": "PUBLICATION",
                       "decision": "ORIGINAL_GITHUB_ISSUE_PUBLISHED",
                       "case_id": CASE, "evidence_urls": [ISSUE, FORK_ISSUE, DISCUSSION]})
+        client.event({"kind": "PUBLICATION", "decision": "FORK_GITHUB_ISSUE_PUBLISHED",
+                      "case_id": CASE, "evidence_urls": [FORK_ISSUE]},
+                     name="20261123T080001Z--fork-issue-published.json")
+        client.event({"kind": "PUBLICATION", "decision": "ORIGINAL_DISCUSSION_PUBLISHED",
+                      "case_id": CASE, "evidence_urls": [DISCUSSION]},
+                     name="20261123T080002Z--discussion-published.json")
         report = publication_history(client, requested=[FORK], observed_at=NOW)
         self.assertEqual({x["kind"] for x in report["publications"]},
                          {"original_issue", "fork_issue", "original_discussion"})
@@ -153,7 +159,7 @@ class PublicationHistoryTests(unittest.TestCase):
         self.assertTrue(all("README_CLAIM" in p["evidence_types"]
                             for p in result["publications"]))
 
-    def test_opencode_legacy_event_without_case_id_links_both_audiences(self):
+    def test_opencode_event_does_not_attribute_related_fork_url_to_original_event(self):
         client = PublicationFake().verified_issue()
         client.routes[f"/repos/{FORK}/issues/1"] = provider_fixture(title="Fork", body="Fork")
         client.event({"schema_version": 1, "kind": "PUBLICATION",
@@ -161,9 +167,8 @@ class PublicationHistoryTests(unittest.TestCase):
                       "evidence_urls": [ISSUE, FORK_ISSUE,
                                         "https://github.com/opensiro/upstream/issues/93"]})
         report = publication_history(client, requested=[FORK], observed_at=NOW)
-        self.assertEqual(len(report["publications"]), 2)
-        self.assertEqual({p["kind"] for p in report["publications"]},
-                         {"fork_issue", "original_issue"})
+        self.assertEqual(len(report["publications"]), 1)
+        self.assertEqual(report["publications"][0]["url"], ISSUE)
 
     def test_gastown_legacy_external_issue_field(self):
         client = PublicationFake().verified_issue()
@@ -279,7 +284,7 @@ class PublicationHistoryTests(unittest.TestCase):
         client = PublicationFake()
         base = f"repo:{ORIGINAL} is:issue"
         from publication_history import keywords
-        terms = sorted(keywords(TITLE), key=len, reverse=True)[:2]
+        terms = sorted(keywords(TITLE), key=lambda w: (-len(w), w))[:2]
         from urllib.parse import quote
         client.routes["/search/issues?q=" + quote(base + " author:xLagerFeuer") + "&per_page=100"] = {
             "items": [], "total_count": 0, "incomplete_results": False}
