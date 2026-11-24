@@ -9,7 +9,9 @@ Fill from the single case-local roadmap.md receipt and current pinned sources.
 No invented need, Index regrade, tests, maintainer consent or publication.
 Technical ports and extended tests belong in constructor-sufficiency.md.
 For a public fork Issue, render and validate the actual title/body using
-scripts/validate_public_issue_payload.py --kind fork --render-fork; never
+scripts/validate_public_issue_payload.py --kind fork --render-fork --draft-only
+for local preparation; approval mode requires the persisted Roadmap gate and
+the exact current committed --history-report. Never
 independently rewrite the public document after a canonical case PASS.
 For every new or materially revised canonical case, populate these eight numbered
 sections IN PLACE; never append a new top-level technical/protocol refinement

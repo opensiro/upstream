@@ -6,7 +6,7 @@ This is an ORIGINAL-MAINTAINER-FACING representation of the existing
 fork-local case, NOT an independent second proposal. Derive and store
 original-issue-draft.md from the existing verified issue.md and roadmap.md;
 adapt to the original native channel/form without a new Human issue or case.
-The external target original repo and exact Sx target transition must match
+Before any owner-facing publication preview, complete the mandatory persisted\nRoadmap gate in PROTOCOL.md: reconcile material source/history/overlap in\nroadmap.md, sync Human/AI, validate, commit and read back, derive/persist exact\nexternal draft, revalidate from the current committed case. Include the immutable\nroadmap.md permalink, metadata/source SHA, target/verdict and overlap resolution\noutside the outward body. Local --draft-only PASS is never approval-ready;\nvalidate the committed exact candidate with --history-report. Existing original\nIssue covering the same outcome: prefer an approved useful comment.\nThe external target original repo and exact Sx target transition must match
 canonical roadmap.md; do not silently reselect a different project/function
 just because the same historical Index provenance is quoted.
 A public fork GitHub Issue is optional, not a prerequisite for original outreach.
