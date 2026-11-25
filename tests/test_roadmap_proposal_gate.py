@@ -128,6 +128,14 @@ class PersistenceTests(unittest.TestCase):
         self.assertEqual(proof["body_sha256"], digest(BODY))
         self.assertEqual(proof["target_transition"], "S4=— -> S4=C")
 
+    def test_hypothetical_go_needs_evidence_passes_without_empirical_benefit(self):
+        proof = self.verify()
+        self.assertEqual(proof["status"], VERIFIED)
+        self.assertEqual(proof["proposal_decision"], "GO")
+        self.assertEqual(proof["research_disposition"], "NEEDS_EVIDENCE")
+        self.assertEqual(proof["promotion_decision"], "OWNER_RESERVED")
+        self.assertIs(proof["empirical_benefit_required_for_roadmap_proposal"], False)
+
     def test_hermes_regression_local_valid_but_stored_roadmap_stale(self):
         self.assertEqual(check_publication_ready(self.case), [])
         self.client.store(PREFIX + "roadmap.md", PROPOSAL)
