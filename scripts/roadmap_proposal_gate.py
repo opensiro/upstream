@@ -199,6 +199,10 @@ def verify_persisted_case(client, fork, case_id, case_ref, original, source_head
             "research_disposition": value(receipt, "Research disposition"),
             "review_resolution": required["Publication review resolution"],
             "review_rationale": rationale,
+            # A mechanical persistence PASS does not demand empirical benefit or
+            # decide whether the owner should promote the architecture.
+            "promotion_decision": "OWNER_RESERVED",
+            "empirical_benefit_required_for_roadmap_proposal": False,
             "history_sha256": history_sha, "title_sha256": digest(title.encode("utf-8")),
             "body_sha256": digest(body),
             "case_files_sha256": {n: digest(b) for n, b in sorted(files.items())}}
