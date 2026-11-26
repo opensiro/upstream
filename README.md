@@ -26,6 +26,8 @@ Upstream is the **operational S1 domain** of [OpenSiro VSM OSS](https://github.c
 
 **Protocol:** [v0.18.3](VERSION) · [How work proceeds](PROTOCOL.md) · [Fork metadata](docs/FORK_METADATA.md) · [Architecture](docs/ARCHITECTURE.md) · [History](CHANGELOG.md) · [Releases](https://github.com/opensiro/upstream/releases)
 
+**Experimental explicit targets:** `upstream roadmap OWNER/REPO --target P` or `--target A` selects a [local draft-only experimental extension](docs/EXPERIMENTAL_ROADMAP_TARGETS.md). C remains the default; no experimental canonical case write or external publication.
+
 ## Command navigation — choose the owning read-only projection first
 
 | User intent / examples | Route and first tool | What it answers |

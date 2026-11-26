@@ -146,12 +146,13 @@ def unfilled_placeholders(body: str, filename: str) -> list[str]:
     return errors
 
 
-def check_publication_ready(case_dir: Path) -> list[str]:
+def check_case_structure(case_dir: Path, *, experimental_target: str | None = None) -> list[str]:
+    """Shared Human/AI structure. Experimental use is draft-only, never publication readiness."""
     errors = [f"missing required roadmap case file: {n}" for n in REQUIRED_FILES
               if not (case_dir / n).is_file()]
     if errors:
         return errors
-    errors.extend(validate_case_dir(case_dir))
+    errors.extend(validate_case_dir(case_dir, experimental_target=experimental_target))
     human = (case_dir / "issue.md").read_text(encoding="utf-8")
     ai = (case_dir / "constructor-sufficiency.md").read_text(encoding="utf-8")
     readme = (case_dir / "README.md").read_text(encoding="utf-8")
@@ -160,10 +161,28 @@ def check_publication_ready(case_dir: Path) -> list[str]:
         if not body.lstrip().startswith("# "):
             errors.append(f"{name}: document title missing")
         errors.extend(unfilled_placeholders(body, name))
-    errors.extend(headings_match(human, TEMPLATE / "FORK_CAPABILITY_ROADMAP_ISSUE.md", "issue.md"))
-    errors.extend(headings_match(ai, TEMPLATE / "ROADMAP_AI_CONSTRUCTOR_CONTRACT.md", "constructor-sufficiency.md"))
-    errors.extend(required_labels(human, HUMAN_LABELS, "issue.md"))
-    errors.extend(required_labels(ai, AI_LABELS, "constructor-sufficiency.md"))
+    if experimental_target:
+        human_template = "EXPERIMENTAL_ROADMAP_HUMAN.md"
+        ai_template = "EXPERIMENTAL_ROADMAP_AI.md"
+        human_labels = tuple({
+            "Proposed C capability (P0)": "Proposed target capability (P0)",
+            "Track B — independent on-top C construction": "Track B — independent on-top target construction",
+            "Proposed C-sufficiency verdict": "Proposed target-sufficiency verdict",
+        }.get(label, label) for label in HUMAN_LABELS)
+        ai_labels = tuple("Architectural target-sufficiency argument" if label == "Architectural C-sufficiency argument" else label for label in AI_LABELS)
+        for name, body in (("issue.md", human), ("constructor-sufficiency.md", ai), ("README.md", readme)):
+            if "EXPERIMENTAL — DRAFT ONLY" not in body:
+                errors.append(name + ": missing experimental draft-only marker")
+    else:
+        if any("EXPERIMENTAL — DRAFT ONLY" in body for body in (human, ai, readme)):
+            errors.append("experimental draft cannot enter the production C gate")
+        human_template = "FORK_CAPABILITY_ROADMAP_ISSUE.md"
+        ai_template = "ROADMAP_AI_CONSTRUCTOR_CONTRACT.md"
+        human_labels, ai_labels = HUMAN_LABELS, AI_LABELS
+    errors.extend(headings_match(human, TEMPLATE / human_template, "issue.md"))
+    errors.extend(headings_match(ai, TEMPLATE / ai_template, "constructor-sufficiency.md"))
+    errors.extend(required_labels(human, human_labels, "issue.md"))
+    errors.extend(required_labels(ai, ai_labels, "constructor-sufficiency.md"))
     for p in ("**P0:**", "**P1:**", "**P2:**"):
         if not re.search(r"(?m)^\s*-\s*" + re.escape(p) + r"\s*\S", human):
             errors.append(f"issue.md: missing populated priority {p}")
@@ -188,6 +207,11 @@ def check_publication_ready(case_dir: Path) -> list[str]:
         errors.append("README.md: missing canonical Human/AI/receipt links")
     # Do not let a populated template masquerade as external communication permission.
     return list(dict.fromkeys(errors))
+
+
+def check_publication_ready(case_dir: Path) -> list[str]:
+    """Production C gate; experimental A/P cases always fail closed."""
+    return check_case_structure(case_dir)
 
 
 def main(argv: list[str] | None = None) -> int:

@@ -62,6 +62,8 @@ This is a qualitative prioritization **not an Index reassessment, six-feature qu
 
 **Reporting handoff:** Store the complete independent run and verdict only in its matched fork-local case; a completed Roadmap run does **not** warrant a separate Upstream PR or `.md` report. Use the existing coordination Issue for concise state pointers and, if needed, the [single Roadmap report's Supplementary section](ROADMAP_REPORT.md#supplementary) for historical links. Close unneeded report-only PRs without merging case summaries into Upstream; genuine shared-method changes use normal reviewed PRs. This is reporting hygiene, not a new C-admission criterion or metric.
 
+**Experimental opt-in only:** Explicit named `--target P` / `--target A` proposals follow the [experimental target extension](EXPERIMENTAL_ROADMAP_TARGETS.md), with the same source-first research and local draft validation. Everything below remains the production C contract; C is the default.
+
 ## Default target and work priority
 
 ### Proposal-first decision boundary (required)
