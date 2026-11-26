@@ -82,6 +82,35 @@ class PublicationDestinationTests(unittest.TestCase):
         self.assertEqual([e["name"] for e in classified if destination.is_feature_template(e)],
                          ["01-feature.yml","02-feature.yml"])
 
+    def test_filament_native_idea_form_and_required_fields(self):
+        target = "invertibleMatrix/filament"
+        entries = [{"name": "feature_request.yml", "type": "file"},
+                   {"name": "bug_report.yml", "type": "file"},
+                   {"name": "other.yml", "type": "file"}]
+        form = ("name: Idea\n"
+                "description: Something Filament could do, or do better.\n"
+                'labels: ["idea"]\n'
+                "body:\n  - type: textarea\n    id: need\n"
+                "    attributes:\n      label: What you need\n"
+                "    validations:\n      required: true\n"
+                "  - type: textarea\n    id: how\n"
+                "    attributes:\n      label: How it could work\n")
+        with patch.object(destination, "get_optional_file",
+                          side_effect=[form, "name: Bug Report", form]):
+            templates, contents = destination.classify_issue_templates(entries, target, "a"*40)
+        self.assertEqual([x["name"] for x in templates if destination.is_feature_template(x)],
+                         ["feature_request.yml"])
+        self.assertEqual(route_errors(target, target, "original_issue", "feature_request",
+                                      repo(target), templates, "blank_issues_enabled: false"), [])
+        spec = feature_form_requirements(contents["feature_request.yml"])
+        self.assertEqual(spec["required_fields"], ["What you need"])
+        self.assertEqual(feature_form_payload_errors(spec, "Proposal", "### What you need\nA bounded improvement"), [])
+        self.assertIn("NATIVE_FEATURE_REQUIRED_FIELD_MISSING: What you need",
+                      feature_form_payload_errors(spec, "Proposal", "### How it could work\nAn approach"))
+        self.assertIn("FEATURE_REQUEST_CHANNEL_AMBIGUOUS",
+                      route_errors(target, target, "original_issue", "feature_request", repo(target),
+                                   templates, "url: https://github.com/invertibleMatrix/filament/discussions/categories/feature-requests"))
+
     def test_template_fetch_error_not_treated_as_absence(self):
         with patch.object(destination,"get_optional_templates",side_effect=RuntimeError("403 Forbidden")), \
              patch.object(destination,"gh_api") as api:
