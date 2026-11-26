@@ -6,6 +6,8 @@
 
 ## Unreleased
 
+- **Inherited native Issue forms (PATCH, 2026-11-26):** Resolve public owner/.github default templates only when no local directory/config exists, pin the effective source and identify Feature Request forms by declared name (including feature.yml). Preserve local precedence, unknown-channel, native-field, original-head and consent gates.
+
 - **Roadmap owner-facing publication candidate (2026-11-26):** Always report the concrete recommended outward Issue/comment/Discussion (or explicit no outreach), destination, proposed title and inline available body, native channel and readiness separately from internal case links. Blocked drafts remain unapproved local drafts with missing facts and unlock; persistence/history/native/consent gates unchanged.
 
 - **Roadmap hypothesis promotion authority (2026-11-25):** Distinguish a concrete source-informed hypothetical user outcome from demonstrated Upgrade benefit; `GO / NEEDS_EVIDENCE` may proceed to a persisted owner-review proposal without runtime tests or economic proof. AI reports overlap and recommendations; owner reserves promotion. Keep duplicate, history, persistence, native channel and exact consent gates unchanged; expose the boundary in gate output and regression tests.

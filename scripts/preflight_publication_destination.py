@@ -15,6 +15,15 @@ REPO = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
 KINDS = ("fork_issue", "original_issue", "original_discussion")
 
 
+def is_feature_template(entry):
+    if not isinstance(entry, dict):
+        return False
+    if "feature_request" in entry:
+        return entry["feature_request"] is True
+    name = entry.get("name", "").lower()
+    return "feature" in name and "request" in name
+
+
 def route_errors(target, original, kind, purpose, repo, templates=None, config=None, categories=None):
     """Pure fail-closed route predicate. Pass first-party GitHub snapshots, not guesses."""
     errors = []
@@ -43,14 +52,9 @@ def route_errors(target, original, kind, purpose, repo, templates=None, config=N
             if templates is None:
                 errors.append("ISSUE_CHANNEL_EVIDENCE_UNVERIFIED")
             else:
-                template_names = {x.get("name", "").lower() for x in templates
-                                  if isinstance(x, dict)}
-                if config is None and not any(
-                    re.fullmatch(r"feature[_-]request\.md", name)
-                    for name in template_names):
+                feature_template = any(is_feature_template(x) for x in templates)
+                if config is None and not feature_template:
                     errors.append("ISSUE_CHANNEL_EVIDENCE_UNVERIFIED")
-                feature_template = any("feature" in name and "request" in name
-                                       for name in template_names)
                 discussion_route = bool(re.search(
                     r"(?is)https?://github\.com/[^/\s\"']+/[^/\s\"']+/discussions/"
                     r"(?:categories/[^ \n\"']*feature|[^ \n\"']*feature)", config or ""))
@@ -194,6 +198,68 @@ def get_optional_templates(repo, ref):
         raise
 
 
+def pinned_head(repo, branch):
+    if not branch:
+        raise RuntimeError("DEFAULT_BRANCH_UNVERIFIED")
+    sha = gh_api(f"repos/{repo}/branches/{branch}")["commit"]["sha"]
+    if not re.fullmatch(r"[0-9a-f]{40}", sha):
+        raise RuntimeError("DEFAULT_BRANCH_HEAD_UNVERIFIED")
+    return sha
+
+
+def resolve_issue_templates(target, source_head):
+    """Local directory takes precedence; never mix local and inherited forms."""
+    templates = get_optional_templates(target, source_head)
+    config = get_optional_file(target, ".github/ISSUE_TEMPLATE/config.yml", source_head)
+    source, ref = target, source_head
+    if templates is None and config is None:
+        for path in (".github/ISSUE_TEMPLATE.md", "ISSUE_TEMPLATE.md", "docs/ISSUE_TEMPLATE.md"):
+            if get_optional_file(target, path, source_head) is not None:
+                raise RuntimeError("LOCAL_LEGACY_ISSUE_TEMPLATE_REQUIRES_REVIEW")
+        defaults = target.split("/", 1)[0] + "/.github"
+        if defaults != target:
+            try:
+                default_repo = gh_api("repos/" + defaults)
+            except RuntimeError as error:
+                if "404" in str(error) or "Not Found" in str(error):
+                    return templates, config, source, ref
+                raise
+            if (default_repo.get("full_name") != defaults or
+                    default_repo.get("private") is not False or
+                    default_repo.get("disabled") is not False):
+                raise RuntimeError("PUBLIC_DEFAULT_COMMUNITY_REPOSITORY_UNVERIFIED")
+            source, ref = defaults, pinned_head(defaults, default_repo.get("default_branch"))
+            templates = get_optional_templates(source, ref)
+            config = get_optional_file(source, ".github/ISSUE_TEMPLATE/config.yml", ref)
+    return templates, config, source, ref
+
+
+def classify_issue_templates(templates, source, ref):
+    if templates is None:
+        return None, {}
+    classified, contents = [], {}
+    for entry in templates:
+        name = entry.get("name", "")
+        if not re.fullmatch(r"[A-Za-z0-9_.-]+\.(?:ya?ml|md)", name, re.I):
+            continue
+        if name.lower() in ("config.yml", "config.yaml"):
+            continue
+        if entry.get("type") != "file":
+            raise RuntimeError("ISSUE_TEMPLATE_FILE_UNVERIFIED")
+        template = get_optional_file(source, ".github/ISSUE_TEMPLATE/" + name, ref)
+        if template is None:
+            raise RuntimeError("ISSUE_TEMPLATE_CONTENT_UNVERIFIED")
+        if name.lower().endswith(".md"):
+            match = re.match(r"(?s)^---\n(.+?)\n---\n", template)
+            header = match.group(1) if match else ""
+        else:
+            header = template
+        feature = bool(re.search(r"(?mi)^name:[ \t]*[\"']?feature[ \t]+request[\"']?[ \t]*$", header))
+        classified.append({**entry, "feature_request": feature})
+        contents[name] = template
+    return classified, contents
+
+
 def get_categories(repo):
     owner, name = repo.split("/", 1)
     query = ("query($owner:String!,$name:String!){repository(owner:$owner,name:$name)"
@@ -231,24 +297,32 @@ def main():
             repo = gh_api("repos/" + args.target)
             templates = config = categories = None
             if args.kind == "original_issue":
-                ref = repo.get("default_branch")
-                if not ref:
-                    raise RuntimeError("DEFAULT_BRANCH_UNVERIFIED")
-                templates = get_optional_templates(args.target, ref)
-                config = get_optional_file(args.target, ".github/ISSUE_TEMPLATE/config.yml", ref)
+                original_pin = pinned_head(args.target, repo.get("default_branch"))
+                templates, config, template_repo, ref = resolve_issue_templates(
+                    args.target, original_pin)
+                templates, template_contents = classify_issue_templates(templates, template_repo, ref)
+                proof["issue_template_source"] = {
+                    "repository": template_repo, "commit": ref,
+                    "inherited": template_repo != args.target,
+                    "blank_issues_explicitly_enabled": bool(re.search(
+                        r"(?mi)^blank_issues_enabled:[ \t]*true[ \t]*$", config or "")),
+                    "config_url": (f"https://github.com/{template_repo}/blob/{ref}/.github/ISSUE_TEMPLATE/config.yml"
+                                   if config is not None else None)}
             elif args.kind == "original_discussion":
                 categories = get_categories(args.target)
             errors = route_errors(args.target, args.original, args.kind, args.purpose,
                                   repo, templates, config, categories)
             if args.kind == "original_issue" and not errors:
                 form_names = [x.get("name") for x in templates or []
-                              if re.fullmatch(r"(?i)feature[_-]request\.(?:ya?ml|md)", x.get("name", ""))]
+                              if is_feature_template(x)]
                 if len(form_names) != 1:
                     errors.append("FEATURE_REQUEST_FORM_NOT_UNIQUE")
                 else:
                     from pathlib import Path
                     path = ".github/ISSUE_TEMPLATE/" + form_names[0]
-                    template = get_optional_file(args.target, path, ref)
+                    template = template_contents[form_names[0]]
+                    proof["issue_template_source"]["template_url"] = (
+                        f"https://github.com/{template_repo}/blob/{ref}/{path}")
                     if path.lower().endswith(".md"):
                         spec = markdown_feature_template_requirements(template)
                         proof["native_markdown_feature_template"] = {"path": path, **spec}
@@ -277,6 +351,8 @@ def main():
                                           original_branch)["commit"]["sha"]
                     proof["current_original_head"] = current_head
                     errors.extend(expected_source_head_errors(args.source_head, current_head))
+                    if args.kind == "original_issue" and current_head != original_pin:
+                        errors.append("ORIGINAL_SOURCE_HEAD_DRIFTED_DURING_PREFLIGHT")
             proof["repository"] = {"full_name": repo.get("full_name"), "fork": repo.get("fork"),
                                     "parent": repo.get("parent", {}).get("full_name"),
                                     "has_issues": repo.get("has_issues"),

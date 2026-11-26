@@ -1,10 +1,13 @@
 """Fail-closed provider destination/channel route regression tests."""
 import sys
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from preflight_publication_destination import route_errors, feature_form_requirements, feature_form_payload_errors, expected_source_head_errors, markdown_feature_template_requirements, markdown_feature_payload_errors
+
+import preflight_publication_destination as destination
 
 AG2 = "ag2ai/ag2"
 FORK = "opensiro-contributions/ag2"
@@ -20,6 +23,72 @@ def repo(name, **changes):
 
 
 class PublicationDestinationTests(unittest.TestCase):
+    def test_inherited_feature_form_pins_owner_defaults(self):
+        target, defaults = "agent-sh/keel", "agent-sh/.github"
+        head, default_head = "a"*40, "b"*40
+        entries = [{"name": "feature.yml", "type": "file"}]
+        form = ("name: Feature Request\nbody:\n  - type: textarea\n"
+                "    attributes:\n      label: Problem\n"
+                "    validations:\n      required: true\n")
+        def optional_file(repo_name, path, ref):
+            if repo_name == defaults:
+                self.assertEqual(ref, default_head)
+                return form if path.endswith("feature.yml") else "blank_issues_enabled: true"
+            self.assertEqual(ref, head)
+            return None
+        with patch.object(destination, "get_optional_templates",
+                          side_effect=lambda r, h: entries if r == defaults else None), \
+             patch.object(destination, "get_optional_file", side_effect=optional_file), \
+             patch.object(destination, "gh_api", return_value=repo(defaults)), \
+             patch.object(destination, "pinned_head", return_value=default_head):
+            templates, config, source, ref = destination.resolve_issue_templates(target, head)
+            self.assertEqual((source, ref), (defaults, default_head))
+            templates, contents = destination.classify_issue_templates(templates, source, ref)
+            self.assertEqual(route_errors(target,target,"original_issue","feature_request",
+                                          repo(target),templates,config), [])
+            self.assertEqual(feature_form_requirements(contents["feature.yml"])["required_fields"], ["Problem"])
+
+    def test_local_config_or_directory_prevents_inheritance(self):
+        for templates, config in (([], None), (None, "blank_issues_enabled: false")):
+            with patch.object(destination, "get_optional_templates", return_value=templates), \
+                 patch.object(destination, "get_optional_file", return_value=config), \
+                 patch.object(destination, "gh_api") as api:
+                self.assertEqual(destination.resolve_issue_templates(AG2,"a"*40),
+                                 (templates,config,AG2,"a"*40))
+                api.assert_not_called()
+
+    def test_private_owner_defaults_fail_closed(self):
+        with patch.object(destination,"get_optional_templates",return_value=None), \
+             patch.object(destination,"get_optional_file",return_value=None), \
+             patch.object(destination,"gh_api",return_value=repo("ag2ai/.github",private=True)):
+            with self.assertRaisesRegex(RuntimeError,"PUBLIC_DEFAULT_COMMUNITY_REPOSITORY_UNVERIFIED"):
+                destination.resolve_issue_templates(AG2,"a"*40)
+
+    def test_legacy_local_template_blocks_inheritance(self):
+        with patch.object(destination,"get_optional_templates",return_value=None), \
+             patch.object(destination,"get_optional_file",side_effect=[None,"legacy text"]), \
+             patch.object(destination,"gh_api") as api:
+            with self.assertRaisesRegex(RuntimeError,"LOCAL_LEGACY_ISSUE_TEMPLATE_REQUIRES_REVIEW"):
+                destination.resolve_issue_templates(AG2,"a"*40)
+            api.assert_not_called()
+
+    def test_declared_name_not_filename_and_ambiguous_forms(self):
+        entries = [{"name": "feature_request.yml", "type":"file"},
+                   {"name": "01-feature.yml", "type":"file"},
+                   {"name": "02-feature.yml", "type":"file"}]
+        with patch.object(destination,"get_optional_file",
+                          side_effect=["name: Bug Report", "name: Feature Request", "name: Feature request"]):
+            classified, _ = destination.classify_issue_templates(entries,AG2,"a"*40)
+        self.assertEqual([e["name"] for e in classified if destination.is_feature_template(e)],
+                         ["01-feature.yml","02-feature.yml"])
+
+    def test_template_fetch_error_not_treated_as_absence(self):
+        with patch.object(destination,"get_optional_templates",side_effect=RuntimeError("403 Forbidden")), \
+             patch.object(destination,"gh_api") as api:
+            with self.assertRaisesRegex(RuntimeError,"403"):
+                destination.resolve_issue_templates(AG2,"a"*40)
+            api.assert_not_called()
+
     def test_original_form_requires_native_headings_and_human_review(self):
         form = ("name: Feature request\n"
                 'title: "feat: "\n'
