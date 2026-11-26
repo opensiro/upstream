@@ -257,6 +257,11 @@ def classify_issue_templates(templates, source, ref):
         else:
             header = template
         feature = bool(re.search(r"(?mi)^name:[ \t]*[\"']?feature[ \t]+request[\"']?[ \t]*$", header))
+        # Some maintainers call the canonical feature-request form "Idea".
+        # Require both the verified native form name and conventional filename;
+        # an arbitrary Idea form or a misleading filename alone is insufficient.
+        if not feature and re.fullmatch(r"feature[_-]request\.ya?ml", name, re.I):
+            feature = bool(re.search(r"(?mi)^name:[ \t]*[\"']?idea[\"']?[ \t]*$", header))
         classified.append({**entry, "feature_request": feature})
         contents[name] = template
     return classified, contents

@@ -6,6 +6,8 @@
 
 ## Unreleased
 
+- **Native Idea feature-request form (PATCH, 2026-11-26):** Recognize a first-party YAML feature_request/feature-request form explicitly named Idea (Filament); retain declared-name checks, required fields, ambiguous-channel and exact consent gates. A filename alone or an unrelated Idea form does not establish a feature route.
+
 - **Verified template-free native Issue route (PATCH, 2026-11-26):** Recognize a blank Issue only after pinned local/inherited configuration and legacy template checks plus GitHub GraphQL confirmation of an empty effective template list, enabled Issues and matching default HEAD. Preserve unknown/forbidden channel, original payload, history, PAUSE and exact consent gates.
 
 - **Inherited native Issue forms (PATCH, 2026-11-26):** Resolve public owner/.github default templates only when no local directory/config exists, pin the effective source and identify Feature Request forms by declared name (including feature.yml). Preserve local precedence, unknown-channel, native-field, original-head and consent gates.
