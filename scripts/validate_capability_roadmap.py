@@ -61,7 +61,74 @@ def parse_vector(vector: str) -> dict[str, str] | None:
     return out
 
 
-def validate(contents: str) -> list[str]:
+EXPERIMENTAL_CONTRACT = "experimental-proposal-gate"
+EXPERIMENTAL_TARGETS = ("A", "P")
+EXPERIMENTAL_FIELDS = (
+    "Target family", "Current selected function state", "Mode preservation",
+    "Prospective authority", "Cross-function authority compatibility",
+)
+
+
+def experimental_transition_errors(contents: str, target: str) -> list[str]:
+    """Check proposed ownership transition; never attest source truth or authority."""
+    errors = []
+    if value(contents, "Target family") != target:
+        errors.append("experimental Target family must match explicit target")
+    transition = value(contents, "Target transition")
+    decision = value(contents, "Proposal-stage decision")
+    current = value(contents, "Current selected function state")
+    preservation = value(contents, "Mode preservation")
+    if transition == f"NO_QUALIFIED_{target}_TARGET":
+        if decision != "NO_GO" or current != "NONE" or preservation != "NOT_APPLICABLE":
+            errors.append("experimental no-target requires NO_GO, NONE current, NOT_APPLICABLE mode preservation")
+        return errors
+    match = re.fullmatch(
+        r"(S1|S2|S3\*|S3|S4|S5)=(—|\?|A|C|P|A\(P\)|C\(P\))\s*->\s*"
+        r"(S1|S2|S3\*|S3|S4|S5)=(A|P|A\(P\)|C\(P\))",
+        transition or "",
+    )
+    if not match or match[1] != match[3]:
+        return errors + ["invalid experimental Target transition: same function required"]
+    fn, before, _, after = match.groups()
+    vector = parse_vector(value(contents, "Accepted VSM vector") or "")
+    if vector and vector[fn] != before:
+        errors.append("Target transition disagrees with accepted historical VSM vector")
+    if (target == "A" and after not in ("A", "A(P)")) or (
+        target == "P" and after not in ("P", "A(P)", "C(P)")
+    ):
+        errors.append("transition does not match experimental Target family")
+    parent_eligible = fn in ("S3", "S4", "S5")
+    if not parent_eligible and (target == "P" or "P" in after or "P" in (current or "")):
+        errors.append("parent mode is allowed only for S3, S4, S5")
+    if current not in STATES:
+        errors.append("invalid Current selected function state")
+        return errors
+    if current == "?":
+        if decision != "BLOCKED" or preservation != "UNRESOLVED":
+            errors.append("unresolved current state requires BLOCKED and UNRESOLVED mode preservation")
+        return errors
+    # Current source, not historical grades, determines whether a mode is added.
+    # An already-established target may be a scoped NO_GO, not a new GO.
+    existing_a = current in ("A", "A(P)")
+    existing_p = current in ("P", "A(P)", "C(P)")
+    if decision == "GO" and ((target == "A" and existing_a) or (target == "P" and existing_p)):
+        errors.append("GO cannot propose an already established target mode")
+    if preservation not in ("PRESERVE", "REPLACE"):
+        errors.append("resolved mode preservation must be PRESERVE or REPLACE")
+    if preservation == "PRESERVE":
+        expected = ("A(P)" if existing_p else "A") if target == "A" else (
+            "A(P)" if existing_a else "C(P)" if current in ("C", "C(P)") else "P"
+        )
+        if after != expected:
+            errors.append("target transition conflicts with preserved current modes")
+    if preservation == "REPLACE" and after != target:
+        errors.append("REPLACE must target standalone A or P")
+    if not value(contents, "Mode rationale"):
+        errors.append("missing Mode rationale: source-grounded preservation or hypothetical replacement")
+    return errors
+
+
+def validate(contents: str, *, experimental_target: str | None = None) -> list[str]:
     errors = []
     for section in SECTIONS:
         if not re.search(r"^## "+re.escape(section)+r"\s*$", contents, re.M):
@@ -82,17 +149,24 @@ def validate(contents: str) -> list[str]:
         if actual and not pattern.fullmatch(actual):
             errors.append("invalid format: "+field)
     on_top = value(contents, "Receipt contract")
-    if on_top in ("contribution-on-top", "proposal-gate"):
+    if experimental_target is not None:
+        if experimental_target not in EXPERIMENTAL_TARGETS or on_top != EXPERIMENTAL_CONTRACT:
+            return errors + ["explicit experimental A/P target requires experimental-proposal-gate"]
+    elif on_top == EXPERIMENTAL_CONTRACT or value(contents, "Target family") in EXPERIMENTAL_TARGETS:
+        return errors + ["experimental A/P receipt is not a production C Roadmap"]
+    if on_top in ("contribution-on-top", "proposal-gate", EXPERIMENTAL_CONTRACT):
         if not re.search(r"^## Parallel contribution-on-top review\s*$", contents, re.M):
             errors.append("missing section: Parallel contribution-on-top review")
         for key in ("Evaluation object", "Existing-work overlap",
                     "Our on-top contribution", "Incremental benefit", "Decision scope"):
             if not value(contents, key):
                 errors.append("missing field: " + key)
-        if on_top == "proposal-gate":
+        if on_top in ("proposal-gate", EXPERIMENTAL_CONTRACT):
             for key in ("Repository-wide source map", "Priority rationale",
                         "Accepted VSM vector", "Target transition", "P1 dependencies",
-                        "P2 optional", "Proposed C construction", "C sufficiency falsifier",
+                        "P2 optional",
+                        "Proposed target construction" if experimental_target else "Proposed C construction",
+                        "Target sufficiency falsifier" if experimental_target else "C sufficiency falsifier",
                         "Scenario basis", "Proposal-stage decision", "Research disposition",
                         "Proposed validation", "Validation state", "Proposal falsifier"):
                 if not value(contents, key):
@@ -107,7 +181,12 @@ def validate(contents: str) -> list[str]:
             if disposition and disposition not in ("DECISION_READY", "NEEDS_EVIDENCE", "NO_USEFUL_CHANGE"):
                 errors.append("invalid Research disposition")
             transition = value(contents, "Target transition")
-            if transition == "NO_QUALIFIED_C_TARGET":
+            if experimental_target:
+                for key in EXPERIMENTAL_FIELDS:
+                    if not value(contents, key):
+                        errors.append("missing experimental field: " + key)
+                errors.extend(experimental_transition_errors(contents, experimental_target))
+            elif transition == "NO_QUALIFIED_C_TARGET":
                 if value(contents, "Proposal-stage decision") != "NO_GO":
                     errors.append("NO_QUALIFIED_C_TARGET requires NO_GO")
             elif transition:
@@ -157,7 +236,7 @@ def display_value(text: str, label: str) -> str | None:
     return m.group(1).strip().strip("`") if m else None
 
 
-def validate_case_dir(directory: Path) -> list[str]:
+def validate_case_dir(directory: Path, *, experimental_target: str | None = None) -> list[str]:
     """Structural consistency: three public-source case files, no GitHub lookups."""
     needed = {name: directory / name
               for name in ("roadmap.md", "issue.md", "constructor-sufficiency.md")}
@@ -166,17 +245,20 @@ def validate_case_dir(directory: Path) -> list[str]:
     if errors:
         return errors
     receipt = needed["roadmap.md"].read_text(encoding="utf-8")
-    errors.extend(validate(receipt))
-    if value(receipt, "Receipt contract") != "proposal-gate":
+    errors.extend(validate(receipt, experimental_target=experimental_target))
+    expected_contract = EXPERIMENTAL_CONTRACT if experimental_target else "proposal-gate"
+    if value(receipt, "Receipt contract") != expected_contract:
         return errors  # grandfather historical read-only receipts
     human = needed["issue.md"].read_text(encoding="utf-8")
     ai = needed["constructor-sufficiency.md"].read_text(encoding="utf-8")
     for name, body in (("issue.md", human), ("constructor-sufficiency.md", ai)):
         if "[roadmap.md](roadmap.md)" not in body:
             errors.append(name + " must link canonical roadmap.md")
-        for label, key in (("Target transition", "Target transition"),
-                           ("Proposal-stage decision", "Proposal-stage decision"),
-                           ("Research disposition", "Research disposition")):
+        keys = ("Target transition", "Proposal-stage decision", "Research disposition")
+        if experimental_target:
+            keys += EXPERIMENTAL_FIELDS
+        for key in keys:
+            label = key
             observed = display_value(body, label)
             expected = value(receipt, key)
             if observed is None:
