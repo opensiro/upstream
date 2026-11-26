@@ -78,4 +78,3 @@ The opt-in is initially limited to local PLAN_ONLY drafts because canonical pers
 
 Report the complete Human proposal, technical companion and receipt, validation result, recommended outreach (if justified, unapproved local draft only) and explicit `EXPERIMENTAL_DRAFT_ONLY / NOT_PERSISTED / NOT_READY_FOR_EXTERNAL_PROPOSAL`; note the promotion blocker. No automatic public action even with an ordinary C approval. Promotion requires a separately reviewed target-aware integration of canonical case persistence, selectors/reporting, history/lineage and exact public payload gates, plus unchanged per-action owner consent. No external interaction is authorized by this experimental extension.
 
-Related: [Organization #346](https://github.com/opensiro/vsm-oss-organization/issues/346), [#347](https://github.com/opensiro/vsm-oss-organization/issues/347), [#348](https://github.com/opensiro/vsm-oss-organization/issues/348).
