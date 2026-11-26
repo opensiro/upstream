@@ -6,6 +6,8 @@
 
 ## Unreleased
 
+- **Roadmap owner-facing publication candidate (2026-11-26):** Always report the concrete recommended outward Issue/comment/Discussion (or explicit no outreach), destination, proposed title and inline available body, native channel and readiness separately from internal case links. Blocked drafts remain unapproved local drafts with missing facts and unlock; persistence/history/native/consent gates unchanged.
+
 - **Roadmap hypothesis promotion authority (2026-11-25):** Distinguish a concrete source-informed hypothetical user outcome from demonstrated Upgrade benefit; `GO / NEEDS_EVIDENCE` may proceed to a persisted owner-review proposal without runtime tests or economic proof. AI reports overlap and recommendations; owner reserves promotion. Keep duplicate, history, persistence, native channel and exact consent gates unchanged; expose the boundary in gate output and regression tests.
 
 - **Bounded native search pagination (PATCH, 2026-11-24):** Read all available GitHub REST Issue/PR search pages up to the provider's 1,000-result ceiling instead of failing every query at 100 rows. The Hermes #5452 search returned 173 PRs; preserve fail-closed handling for count drift, duplicate or wrong-channel rows, incomplete pages, API/rate-limit errors and results beyond the provider cap. No changes to semantic review, persistence or consent.
