@@ -28,6 +28,11 @@ class NativeTemplateApprovalPreviewContract(unittest.TestCase):
         self.assertIn("full outbound body", self.guide)
         self.assertIn("never replace showing full text with the link", self.external)
 
+    def test_final_handoff_includes_publication_disposition_even_when_blocked(self):
+        for doc in (self.protocol, self.guide):
+            for phrase in ("Mandatory owner-facing publication disposition in every Roadmap final handoff", "exact destination URL", "complete outbound body/comment", "PRELIMINARY DRAFT — NOT APPROVAL READY", "do not silently omit this section", "Do not ask for publication approval until"):
+                self.assertIn(phrase, doc)
+
     def test_change_requires_fresh_approval_and_live_recheck(self):
         self.assertIn("Approval-preview change control", self.protocol)
         self.assertIn("renewed exact current-conversation approval", self.protocol)
