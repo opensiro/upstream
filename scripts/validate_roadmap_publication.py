@@ -146,13 +146,13 @@ def unfilled_placeholders(body: str, filename: str) -> list[str]:
     return errors
 
 
-def check_case_structure(case_dir: Path, *, experimental_target: str | None = None) -> list[str]:
+def check_case_structure(case_dir: Path, *, experimental_target: str | None = None, reference_realization: bool = False) -> list[str]:
     """Shared Human/AI structure. Experimental use is draft-only, never publication readiness."""
     errors = [f"missing required roadmap case file: {n}" for n in REQUIRED_FILES
               if not (case_dir / n).is_file()]
     if errors:
         return errors
-    errors.extend(validate_case_dir(case_dir, experimental_target=experimental_target))
+    errors.extend(validate_case_dir(case_dir, experimental_target=experimental_target, reference_realization=reference_realization))
     human = (case_dir / "issue.md").read_text(encoding="utf-8")
     ai = (case_dir / "constructor-sufficiency.md").read_text(encoding="utf-8")
     readme = (case_dir / "README.md").read_text(encoding="utf-8")
@@ -195,16 +195,18 @@ def check_case_structure(case_dir: Path, *, experimental_target: str | None = No
     for fn in FUNCTIONS:
         if len([x for x in ROW.findall(human) if x == fn]) != 1:
             errors.append(f"issue.md: expected exactly one central six-function row for {fn}")
-    historical = value(receipt, "Accepted VSM vector")
+    historical = value(receipt, "Local VSM vector" if reference_realization else "Accepted VSM vector")
     if historical and historical not in human:
         errors.append("issue.md: central historical accepted Index vector missing or mismatched")
-    for phrase in ("ACCEPTED HISTORICAL INDEX", "ownership categories", "not quality ranks"):
+    for phrase in ("LOCAL REFERENCE ASSESSMENT" if reference_realization else "ACCEPTED HISTORICAL INDEX", "ownership categories", "not quality ranks"):
         if phrase.lower() not in human.lower():
             errors.append(f"issue.md: missing template interpretation: {phrase}")
     if "NOT_MEASURED" not in human or "NOT_MEASURED" not in ai:
         errors.append("issue.md/constructor-sufficiency.md: cost hypothesis must be NOT_MEASURED")
     if "[roadmap.md](roadmap.md)" not in readme or "[issue.md](issue.md)" not in readme or "[constructor-sufficiency.md](constructor-sufficiency.md)" not in readme:
         errors.append("README.md: missing canonical Human/AI/receipt links")
+    if reference_realization and "accepted historical index" in human.lower():
+        errors.append("local reference Human draft must not claim accepted Index provenance")
     # Do not let a populated template masquerade as external communication permission.
     return list(dict.fromkeys(errors))
 

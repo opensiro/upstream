@@ -10,10 +10,11 @@ from validate_roadmap_publication import check_case_structure
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--target", required=True, choices=("A", "P"))
+    parser.add_argument("--target", required=True, choices=("A", "P", "C"))
+    parser.add_argument("--reference-realization", action="store_true", help="exact VSM OSS local baseline only")
     parser.add_argument("case_dir", type=Path)
     args = parser.parse_args(argv)
-    errors = check_case_structure(args.case_dir, experimental_target=args.target)
+    errors = check_case_structure(args.case_dir, experimental_target=args.target, reference_realization=args.reference_realization)
     if errors:
         for error in errors:
             print("EXPERIMENTAL_DRAFT_INVALID: " + error)

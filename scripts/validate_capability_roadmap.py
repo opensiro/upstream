@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import re
 import sys
 from pathlib import Path
@@ -28,6 +29,11 @@ FIELDS = (
     "Accepted reviewed at",
     "System in focus",
 )
+REFERENCE_REPO = "opensiro/vsm-oss-organization"
+REFERENCE_FIELDS = ("Local assessment source", "Local assessment SHA-256",
+                    "Local assessed ref", "Local assessed at", "Profile ref", "Methodology ref")
+INDEX_FIELDS = ("Accepted Index assessment", "Accepted assessment blob SHA",
+                "Accepted review ref", "Accepted reviewed at")
 HEX40 = re.compile(r"[0-9a-f]{40}\Z")
 DATE = re.compile(r"\d{4}-\d{2}-\d{2}\Z")
 REPO = re.compile(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+\Z")
@@ -69,7 +75,7 @@ EXPERIMENTAL_FIELDS = (
 )
 
 
-def experimental_transition_errors(contents: str, target: str) -> list[str]:
+def experimental_transition_errors(contents: str, target: str, *, reference_realization: bool = False) -> list[str]:
     """Check proposed ownership transition; never attest source truth or authority."""
     errors = []
     if value(contents, "Target family") != target:
@@ -84,18 +90,18 @@ def experimental_transition_errors(contents: str, target: str) -> list[str]:
         return errors
     match = re.fullmatch(
         r"(S1|S2|S3\*|S3|S4|S5)=(—|\?|A|C|P|A\(P\)|C\(P\))\s*->\s*"
-        r"(S1|S2|S3\*|S3|S4|S5)=(A|P|A\(P\)|C\(P\))",
+        r"(S1|S2|S3\*|S3|S4|S5)=(A|C|P|A\(P\)|C\(P\))",
         transition or "",
     )
     if not match or match[1] != match[3]:
         return errors + ["invalid experimental Target transition: same function required"]
     fn, before, _, after = match.groups()
-    vector = parse_vector(value(contents, "Accepted VSM vector") or "")
+    vector = parse_vector(value(contents, "Local VSM vector" if reference_realization else "Accepted VSM vector") or "")
     if vector and vector[fn] != before:
         errors.append("Target transition disagrees with accepted historical VSM vector")
     if (target == "A" and after not in ("A", "A(P)")) or (
         target == "P" and after not in ("P", "A(P)", "C(P)")
-    ):
+    ) or (target == "C" and (not reference_realization or fn == "S1" or after not in ("C", "C(P)"))):
         errors.append("transition does not match experimental Target family")
     parent_eligible = fn in ("S3", "S4", "S5")
     if not parent_eligible and (target == "P" or "P" in after or "P" in (current or "")):
@@ -111,29 +117,51 @@ def experimental_transition_errors(contents: str, target: str) -> list[str]:
     # An already-established target may be a scoped NO_GO, not a new GO.
     existing_a = current in ("A", "A(P)")
     existing_p = current in ("P", "A(P)", "C(P)")
-    if decision == "GO" and ((target == "A" and existing_a) or (target == "P" and existing_p)):
+    if decision == "GO" and ((target == "A" and existing_a) or (target == "P" and existing_p) or (target == "C" and (existing_a or current in ("C", "C(P)")))):
         errors.append("GO cannot propose an already established target mode")
     if preservation not in ("PRESERVE", "REPLACE"):
         errors.append("resolved mode preservation must be PRESERVE or REPLACE")
     if preservation == "PRESERVE":
-        expected = ("A(P)" if existing_p else "A") if target == "A" else (
+        expected = ("C(P)" if existing_p else "C") if target == "C" else ("A(P)" if existing_p else "A") if target == "A" else (
             "A(P)" if existing_a else "C(P)" if current in ("C", "C(P)") else "P"
         )
         if after != expected:
             errors.append("target transition conflicts with preserved current modes")
     if preservation == "REPLACE" and after != target:
-        errors.append("REPLACE must target standalone A or P")
+        errors.append("REPLACE must target standalone selected family")
     if not value(contents, "Mode rationale"):
         errors.append("missing Mode rationale: source-grounded preservation or hypothetical replacement")
     return errors
 
 
-def validate(contents: str, *, experimental_target: str | None = None) -> list[str]:
+def validate(contents: str, *, experimental_target: str | None = None, reference_realization: bool = False) -> list[str]:
     errors = []
     for section in SECTIONS:
         if not re.search(r"^## "+re.escape(section)+r"\s*$", contents, re.M):
             errors.append("missing section: "+section)
-    for field in FIELDS:
+    if reference_realization:
+        if experimental_target not in ("C", "P", "A") or value(contents, "Original repository") != REFERENCE_REPO:
+            return errors + ["reference route requires exact VSM OSS identity and explicit C/P/A target"]
+        if any(value(contents, key) is not None for key in (*INDEX_FIELDS, "Accepted VSM vector")):
+            errors.append("reference receipt must not assert accepted Index fields")
+        local_source = value(contents, "Local assessment source") or ""
+        if not re.fullmatch(r"https://github\.com/opensiro/vsm-oss-organization/(?:issues/[1-9][0-9]*|blob/[0-9a-f]{40}/[^\s]+)", local_source):
+            errors.append("local assessment source must be an Organization issue or immutable blob")
+        for key, pattern in (
+            ("Local assessment SHA-256", re.compile(r"[0-9a-f]{64}")),
+            ("Local assessed ref", HEX40), ("Local assessed at", DATE),
+            ("Profile ref", re.compile(r"https://github\.com/opensiro/vsm-harness-profile/blob/[0-9a-f]{40}/[^\s]+")),
+            ("Methodology ref", re.compile(r"https://github\.com/opensiro/vsm-harness-skills/blob/[0-9a-f]{40}/[^\s]+")),
+        ):
+            if not pattern.fullmatch(value(contents, key) or ""):
+                errors.append("invalid or missing local provenance: " + key)
+        fields = tuple(key for key in FIELDS if key not in INDEX_FIELDS) + REFERENCE_FIELDS
+    else:
+        if any(value(contents, key) is not None for key in (*REFERENCE_FIELDS[:4], "Local VSM vector")):
+            errors.append("local reference receipt cannot enter ordinary Roadmap gates")
+        fields = FIELDS
+    vector_key = "Local VSM vector" if reference_realization else "Accepted VSM vector"
+    for field in fields:
         if not value(contents,field):
             errors.append("missing field: "+field)
 
@@ -150,10 +178,10 @@ def validate(contents: str, *, experimental_target: str | None = None) -> list[s
             errors.append("invalid format: "+field)
     on_top = value(contents, "Receipt contract")
     if experimental_target is not None:
-        if experimental_target not in EXPERIMENTAL_TARGETS or on_top != EXPERIMENTAL_CONTRACT:
-            return errors + ["explicit experimental A/P target requires experimental-proposal-gate"]
+        if experimental_target not in (("C", "A", "P") if reference_realization else EXPERIMENTAL_TARGETS) or on_top != EXPERIMENTAL_CONTRACT:
+            return errors + ["explicit experimental target requires experimental-proposal-gate"]
     elif on_top == EXPERIMENTAL_CONTRACT or value(contents, "Target family") in EXPERIMENTAL_TARGETS:
-        return errors + ["experimental A/P receipt is not a production C Roadmap"]
+        return errors + ["experimental receipt is not a production C Roadmap"]
     if on_top in ("contribution-on-top", "proposal-gate", EXPERIMENTAL_CONTRACT):
         if not re.search(r"^## Parallel contribution-on-top review\s*$", contents, re.M):
             errors.append("missing section: Parallel contribution-on-top review")
@@ -163,7 +191,7 @@ def validate(contents: str, *, experimental_target: str | None = None) -> list[s
                 errors.append("missing field: " + key)
         if on_top in ("proposal-gate", EXPERIMENTAL_CONTRACT):
             for key in ("Repository-wide source map", "Priority rationale",
-                        "Accepted VSM vector", "Target transition", "P1 dependencies",
+                        vector_key, "Target transition", "P1 dependencies",
                         "P2 optional",
                         "Proposed target construction" if experimental_target else "Proposed C construction",
                         "Target sufficiency falsifier" if experimental_target else "C sufficiency falsifier",
@@ -174,9 +202,9 @@ def validate(contents: str, *, experimental_target: str | None = None) -> list[s
             for fn in ("S1", "S2", "S3", "S3*", "S4", "S5"):
                 if not value(contents, fn + " disposition"):
                     errors.append("missing field: " + fn + " disposition")
-            historical = value(contents, "Accepted VSM vector")
+            historical = value(contents, vector_key)
             if historical and not parse_vector(historical):
-                errors.append("invalid Accepted VSM vector: require six ordered Skills states")
+                errors.append("invalid " + vector_key + ": require six ordered Skills states")
             disposition = value(contents, "Research disposition")
             if disposition and disposition not in ("DECISION_READY", "NEEDS_EVIDENCE", "NO_USEFUL_CHANGE"):
                 errors.append("invalid Research disposition")
@@ -185,7 +213,7 @@ def validate(contents: str, *, experimental_target: str | None = None) -> list[s
                 for key in EXPERIMENTAL_FIELDS:
                     if not value(contents, key):
                         errors.append("missing experimental field: " + key)
-                errors.extend(experimental_transition_errors(contents, experimental_target))
+                errors.extend(experimental_transition_errors(contents, experimental_target, reference_realization=reference_realization))
             elif transition == "NO_QUALIFIED_C_TARGET":
                 if value(contents, "Proposal-stage decision") != "NO_GO":
                     errors.append("NO_QUALIFIED_C_TARGET requires NO_GO")
@@ -236,7 +264,7 @@ def display_value(text: str, label: str) -> str | None:
     return m.group(1).strip().strip("`") if m else None
 
 
-def validate_case_dir(directory: Path, *, experimental_target: str | None = None) -> list[str]:
+def validate_case_dir(directory: Path, *, experimental_target: str | None = None, reference_realization: bool = False) -> list[str]:
     """Structural consistency: three public-source case files, no GitHub lookups."""
     needed = {name: directory / name
               for name in ("roadmap.md", "issue.md", "constructor-sufficiency.md")}
@@ -245,7 +273,13 @@ def validate_case_dir(directory: Path, *, experimental_target: str | None = None
     if errors:
         return errors
     receipt = needed["roadmap.md"].read_text(encoding="utf-8")
-    errors.extend(validate(receipt, experimental_target=experimental_target))
+    errors.extend(validate(receipt, experimental_target=experimental_target, reference_realization=reference_realization))
+    if reference_realization:
+        evidence = directory / "local-assessment-source.md"
+        if not evidence.is_file():
+            errors.append("missing local-assessment-source.md evidence attachment")
+        elif hashlib.sha256(evidence.read_bytes()).hexdigest() != value(receipt, "Local assessment SHA-256"):
+            errors.append("local assessment evidence digest mismatch")
     expected_contract = EXPERIMENTAL_CONTRACT if experimental_target else "proposal-gate"
     if value(receipt, "Receipt contract") != expected_contract:
         return errors  # grandfather historical read-only receipts
@@ -269,7 +303,7 @@ def validate_case_dir(directory: Path, *, experimental_target: str | None = None
         errors.append("issue.md must link constructor-sufficiency.md")
     if "[issue.md](issue.md)" not in ai:
         errors.append("constructor-sufficiency.md must link issue.md")
-    vector = parse_vector(value(receipt, "Accepted VSM vector") or "")
+    vector = parse_vector(value(receipt, "Local VSM vector" if reference_realization else "Accepted VSM vector") or "")
     if vector:
         for fn in FUNCTIONS:
             pat = r"(?m)^\|\s*\*\*" + re.escape(fn) + r"\s*·[^|]*\|\s*([^|]+)\|"

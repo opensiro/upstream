@@ -4,7 +4,7 @@
 
 ## Mandatory assessment prerequisite
 
-Every named `upstream roadmap OWNER/REPO`, `upstream upgrade` and original-specific contribution requires a **canonical accepted included** general VSM assessment in the [Index](https://github.com/opensiro/vsm-harness-index) first, matching the original repository and `data/catalog.psv` `review_ref`. A proposed assessment, unmerged PR, predecessor-only vector or missing row means **`ASSESSMENT_REQUIRED / BLOCKED`**: complete the Index assessment/admission path first; no new roadmap verdict, upgrade implementation or public issue. Then re-evaluate against the accepted Index main and preserve all separate public consent gates. [Protocol](PROTOCOL.md#mandatory-accepted-assessment-prerequisite--fail-closed).
+Except for the [VSM OSS-only local reference route](docs/EXPERIMENTAL_ROADMAP_TARGETS.md#vsm-oss-only-reference-realization), every named `upstream roadmap OWNER/REPO`, `upstream upgrade` and original-specific contribution requires a **canonical accepted included** general VSM assessment in the [Index](https://github.com/opensiro/vsm-harness-index) first, matching the original repository and `data/catalog.psv` `review_ref`. A proposed assessment, unmerged PR, predecessor-only vector or missing row means **`ASSESSMENT_REQUIRED / BLOCKED`**: complete the Index assessment/admission path first; no new roadmap verdict, upgrade implementation or public issue. Then re-evaluate against the accepted Index main and preserve all separate public consent gates. [Protocol](PROTOCOL.md#mandatory-accepted-assessment-prerequisite--fail-closed).
 
 ## I'm human
 
@@ -26,7 +26,7 @@ Upstream is the **operational S1 domain** of [OpenSiro VSM OSS](https://github.c
 
 **Protocol:** [v0.18.3](VERSION) · [How work proceeds](PROTOCOL.md) · [Fork metadata](docs/FORK_METADATA.md) · [Architecture](docs/ARCHITECTURE.md) · [History](CHANGELOG.md) · [Releases](https://github.com/opensiro/upstream/releases)
 
-**Experimental explicit targets:** `upstream roadmap OWNER/REPO --target P` or `--target A` selects a [local draft-only experimental extension](docs/EXPERIMENTAL_ROADMAP_TARGETS.md). C remains the default; no experimental canonical case write or external publication.
+**Experimental explicit targets:** `upstream roadmap OWNER/REPO --target P` or `--target A` selects a [local draft-only experimental extension](docs/EXPERIMENTAL_ROADMAP_TARGETS.md). C remains the default; no experimental canonical case write or external publication. Only explicitly named `opensiro/vsm-oss-organization` uses the local reference assessment route for C/P/A.
 
 ## Command navigation — choose the owning read-only projection first
 
