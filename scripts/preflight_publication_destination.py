@@ -24,7 +24,7 @@ def is_feature_template(entry):
     return "feature" in name and "request" in name
 
 
-def route_errors(target, original, kind, purpose, repo, templates=None, config=None, categories=None):
+def route_errors(target, original, kind, purpose, repo, templates=None, config=None, categories=None, verified_blank_issue=False):
     """Pure fail-closed route predicate. Pass first-party GitHub snapshots, not guesses."""
     errors = []
     if not REPO.fullmatch(target) or not REPO.fullmatch(original):
@@ -49,7 +49,9 @@ def route_errors(target, original, kind, purpose, repo, templates=None, config=N
         if repo.get("has_issues") is not True:
             errors.append("ISSUES_DISABLED")
         if kind == "original_issue":
-            if templates is None:
+            if verified_blank_issue is True and not templates and config is None:
+                pass  # Verified effective absence, not an unknown response.
+            elif templates is None:
                 errors.append("ISSUE_CHANNEL_EVIDENCE_UNVERIFIED")
             else:
                 feature_template = any(is_feature_template(x) for x in templates)
@@ -260,6 +262,34 @@ def classify_issue_templates(templates, source, ref):
     return classified, contents
 
 
+def verify_blank_issue_route(target, original_pin, templates, config, source, ref):
+    """Require no local/inherited form or config and provider-confirmed effective absence."""
+    if templates or config is not None:
+        return False
+    for repo, pin in sorted({(target, original_pin), (source, ref)}):
+        for path in (".github/ISSUE_TEMPLATE/config.yaml", ".github/ISSUE_TEMPLATE.md",
+                     "ISSUE_TEMPLATE.md", "docs/ISSUE_TEMPLATE.md"):
+            if get_optional_file(repo, path, pin) is not None:
+                return False
+    owner, name = target.split("/", 1)
+    query = ("query($owner:String!,$name:String!){repository(owner:$owner,name:$name)"
+             "{nameWithOwner hasIssuesEnabled issueTemplates{name filename} "
+             "defaultBranchRef{target{oid}}}}")
+    call = subprocess.run(
+        ["gh", "api", "graphql", "-f", f"query={query}",
+         "-f", f"owner={owner}", "-f", f"name={name}"],
+        text=True, capture_output=True, check=False)
+    if call.returncode:
+        raise RuntimeError("EFFECTIVE_ISSUE_TEMPLATES_READ_FAILED")
+    result = json.loads(call.stdout)
+    repo = (result.get("data") or {}).get("repository") or {}
+    if result.get("errors") or repo.get("nameWithOwner") != target:
+        raise RuntimeError("EFFECTIVE_ISSUE_TEMPLATES_UNVERIFIED")
+    return (repo.get("hasIssuesEnabled") is True
+            and repo.get("issueTemplates") == []
+            and ((repo.get("defaultBranchRef") or {}).get("target") or {}).get("oid") == original_pin)
+
+
 def get_categories(repo):
     owner, name = repo.split("/", 1)
     query = ("query($owner:String!,$name:String!){repository(owner:$owner,name:$name)"
@@ -296,10 +326,13 @@ def main():
         else:
             repo = gh_api("repos/" + args.target)
             templates = config = categories = None
+            verified_blank_issue = False
             if args.kind == "original_issue":
                 original_pin = pinned_head(args.target, repo.get("default_branch"))
                 templates, config, template_repo, ref = resolve_issue_templates(
                     args.target, original_pin)
+                verified_blank_issue = verify_blank_issue_route(
+                    args.target, original_pin, templates, config, template_repo, ref)
                 templates, template_contents = classify_issue_templates(templates, template_repo, ref)
                 proof["issue_template_source"] = {
                     "repository": template_repo, "commit": ref,
@@ -311,8 +344,20 @@ def main():
             elif args.kind == "original_discussion":
                 categories = get_categories(args.target)
             errors = route_errors(args.target, args.original, args.kind, args.purpose,
-                                  repo, templates, config, categories)
-            if args.kind == "original_issue" and not errors:
+                                  repo, templates, config, categories, verified_blank_issue)
+            if args.kind == "original_issue" and not errors and verified_blank_issue:
+                proof["native_blank_issue"] = {
+                    "url": f"https://github.com/{args.target}/issues/new",
+                    "effective_templates": [], "required_fields": [],
+                    "required_checkboxes": [], "source_head": original_pin,
+                    "provider_rule": "https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/creating-an-issue"}
+                if bool(args.title_file) != bool(args.body_file):
+                    errors.append("TITLE_AND_BODY_REQUIRED_TOGETHER")
+                elif args.title_file and args.body_file:
+                    from pathlib import Path
+                    if not Path(args.title_file).read_text().strip() or not Path(args.body_file).read_text().strip():
+                        errors.append("BLANK_ISSUE_TITLE_OR_BODY_MISSING")
+            if args.kind == "original_issue" and not errors and not verified_blank_issue:
                 form_names = [x.get("name") for x in templates or []
                               if is_feature_template(x)]
                 if len(form_names) != 1:

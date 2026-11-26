@@ -201,6 +201,45 @@ class PublicationDestinationTests(unittest.TestCase):
                             repo(AG2), templates=None, config=None)
         self.assertIn("ISSUE_CHANNEL_EVIDENCE_UNVERIFIED", errs)
 
+    def test_verified_blank_route_requires_effective_absence(self):
+        self.assertEqual(route_errors(AG2, AG2, "original_issue", "feature_request",
+                                      repo(AG2), verified_blank_issue=True), [])
+        self.assertIn("ISSUES_DISABLED", route_errors(
+            AG2, AG2, "original_issue", "feature_request", repo(AG2, has_issues=False),
+            verified_blank_issue=True))
+        self.assertIn("FEATURE_REQUEST_ROUTED_TO_DISCUSSIONS", route_errors(
+            CLINE, CLINE, "original_issue", "feature_request", repo(CLINE), [],
+            "blank_issues_enabled: false\nurl: https://github.com/cline/cline/discussions/categories/feature-requests",
+            verified_blank_issue=True))
+
+    def test_blank_verification_provider_and_pin(self):
+        from types import SimpleNamespace
+        import json
+        pin = "a"*40
+        good = {"nameWithOwner": AG2, "hasIssuesEnabled": True,
+                "issueTemplates": [], "defaultBranchRef": {"target": {"oid": pin}}}
+        with patch.object(destination, "get_optional_file", return_value=None), \
+             patch.object(destination.subprocess, "run") as run:
+            for changes, expected in (({}, True), ({"issueTemplates": None}, False),
+                                      ({"issueTemplates": [{"name": "Bug"}]}, False),
+                                      ({"hasIssuesEnabled": False}, False),
+                                      ({"defaultBranchRef": {"target": {"oid": "b"*40}}}, False)):
+                run.return_value = SimpleNamespace(returncode=0, stdout=json.dumps(
+                    {"data": {"repository": {**good, **changes}}}))
+                self.assertEqual(destination.verify_blank_issue_route(
+                    AG2, pin, None, None, AG2, pin), expected)
+            run.return_value = SimpleNamespace(returncode=1, stdout="")
+            with self.assertRaisesRegex(RuntimeError, "EFFECTIVE_ISSUE_TEMPLATES_READ_FAILED"):
+                destination.verify_blank_issue_route(AG2, pin, None, None, AG2, pin)
+
+    def test_blank_verification_blocks_any_config_or_legacy_template(self):
+        pin = "a"*40
+        self.assertFalse(destination.verify_blank_issue_route(
+            AG2, pin, None, "blank_issues_enabled: false", AG2, pin))
+        with patch.object(destination, "get_optional_file", return_value="legacy"):
+            self.assertFalse(destination.verify_blank_issue_route(
+                AG2, pin, None, None, AG2, pin))
+
     def test_both_feature_issue_and_discussion_route_is_ambiguous(self):
         errs = route_errors(AG2, AG2, "original_issue", "feature_request",
                             repo(AG2), [{"name": "feature_request.yml"}],
