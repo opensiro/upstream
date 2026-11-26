@@ -6,8 +6,6 @@
 
 ## Unreleased
 
-- **VSM OSS-only local reference Roadmap:** Exact named `opensiro/vsm-oss-organization` C/P/A plans may use attributable source-pinned Organization-local assessment evidence with a verified local digest instead of Index admission. No other source, Upgrade, production case, selection or publication is exempt.
-
 - **Experimental A/P Roadmap targets:** Explicit named opt-in local draft route with target-family/mode-preservation checks and Human/AI templates; C remains the unchanged default. Experimental drafts cannot pass production case/publication gates. See [experimental extension](docs/EXPERIMENTAL_ROADMAP_TARGETS.md).
 
 - **Native Idea feature-request form (PATCH, 2026-11-26):** Recognize a first-party YAML feature_request/feature-request form explicitly named Idea (Filament); retain declared-name checks, required fields, ambiguous-channel and exact consent gates. A filename alone or an unrelated Idea form does not establish a feature route.
